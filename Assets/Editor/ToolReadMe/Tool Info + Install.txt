@@ -1,0 +1,25 @@
+Tile Grid Control Tool (Work in Progress)
+
+Installation: 
+	-Simply add both folders to the unity project assets
+	-To open the tool window, navigate to the unity toolbar and select 'Window -> Custom Grid Tool'
+
+Usage: 
+	-Manipulate the 'Cols' and 'Rows' (int value) to determine grid dimensions
+
+	-Size scalar value (float) will change the local scale of the basic tile in all dimensions, 
+	  as well as adjust tile spacing to match new scale
+		~ (Base tiles have a default size of (1,1,1) and a 2D box collider with dimensions 1x1)
+
+	-Anchor position will determine the position of the grid parent empty. Grids are currently built
+	  starting from the anchor point to the right (+x), and then rows are built downward (-y).
+
+**Work in progress**
+
+Currently the tool is used to simply create a grid. I am hoping to improve the tool to allow adjustments
+to existing grid(s). I am also wanting to add random obstacle generation based on new tool values, such 
+as number of rocks/trees. 
+
+The basic prefabs for the tile grid are located and loaded from the 'Resources' folder. Base tiles currently
+only highlight their area on mouseover and the anchor point is just an empty gameobject.
+
