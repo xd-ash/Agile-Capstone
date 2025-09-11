@@ -6,8 +6,7 @@ namespace CardSystem
     {
         public CardBase[] _cardsInHand = new CardBase[5];//make visible in inspector in some way
         public int _numCards = 0, _maxCards = 5;
-        public CardSO[] _testCardDeck;
-        //public CardSO _testCard;
+        public DeckSO _testDeck;
 
         public CardCreator DetermineCardCreator(CardSO cardSO)
         {
@@ -25,11 +24,13 @@ namespace CardSystem
         }
         public void DrawCard()
         {
-            if (_cardsInHand.Length <= _maxCards)
+            if (_numCards < _maxCards)
             {
-                int newCardIndex = Random.Range(0, _testCardDeck.Length);
-                _cardsInHand[_numCards] = DetermineCardCreator(_testCardDeck[newCardIndex]).CreateCard(transform);
                 _numCards++;
+
+                int newCardIndex = Random.Range(0, _testDeck._deck.Length);
+                _cardsInHand[_numCards - 1] = DetermineCardCreator(_testDeck._deck[newCardIndex]).CreateCard(transform);
+                ArangeCardGOs();
             }
         }
         public void UseCard()
@@ -40,23 +41,23 @@ namespace CardSystem
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                Transform card = transform.Find(_cardsInHand[i].CardName);
+                Transform card = transform.GetChild(i);
                 switch (i)
                 {
                     case 0:
-                        card.position = new Vector3(-6, 0, 0);
+                        card.localPosition = new Vector3(-6, 0, 0);
                         break;
                     case 1:
-                        card.position = new Vector3(-3, 0, 0);
+                        card.localPosition = new Vector3(-3, 0, 0);
                         break;
                     case 2:
-                        card.position = new Vector3(0, 0, 0);
+                        card.localPosition = new Vector3(0, 0, 0);
                         break;
                     case 3:
-                        card.position = new Vector3(3, 0, 0);
+                        card.localPosition = new Vector3(3, 0, 0);
                         break;
                     case 4:
-                        card.position = new Vector3(6, 0, 0);
+                        card.localPosition = new Vector3(6, 0, 0);
                         break;
                 }
             }
