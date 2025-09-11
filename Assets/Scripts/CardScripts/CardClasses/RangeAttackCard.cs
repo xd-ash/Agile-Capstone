@@ -20,7 +20,7 @@ namespace CardSystem
 
         public override void Use()
         {
-            //
+            Shoot(_projectilePrefab);
         }
         public override void Discard()
         {

@@ -10,6 +10,7 @@ namespace CardSystem
         [SerializeField] private string _description;
         [SerializeField] private int _apCost;
         [SerializeField] private bool _isTileTargeted;
+        [SerializeField] private GameObject _cardPrefab;
         // add in fields for any art assets needed?
 
         public enum CardTypes
@@ -46,6 +47,7 @@ namespace CardSystem
         public int APCost { get => _apCost; }
         public bool IsTileTargeted { get => _isTileTargeted; }
         public CardTypes CardType { get => _cardType; }
+        public GameObject CardPrefab { get => _cardPrefab; }
 
         public string GetCardTypeID()
         {
