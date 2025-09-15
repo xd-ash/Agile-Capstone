@@ -27,7 +27,7 @@ namespace CardSystem
                 throw new System.Exception("CardSO is null (CardCreator.IsAttackCard())");
             }
         }
-        public virtual void SetCarDPrefabInfo(GameObject cardGO)
+        public virtual void SetCardPrefabInfo(GameObject cardGO)
         {
             cardGO.name = _cardSO.CardName;
             TextMeshPro[] cardTextFields = cardGO.transform.GetComponentsInChildren<TextMeshPro>();

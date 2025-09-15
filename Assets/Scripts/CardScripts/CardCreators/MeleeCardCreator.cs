@@ -12,7 +12,7 @@ namespace CardSystem
         public override CardBase CreateCard(Transform parent)
         {
             GameObject cardGO = GameObject.Instantiate(_cardSO.CardPrefab, parent);
-            SetCarDPrefabInfo(cardGO);
+            SetCardPrefabInfo(cardGO);
             return IsAttackCard() ? new MeleeAttackCard(_cardSO) : new MeleeEffectCard(_cardSO);
         }
     }
