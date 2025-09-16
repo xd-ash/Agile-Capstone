@@ -9,7 +9,7 @@ public class TestTileMapScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        TileBase tb = tilemap.GetTile(Vector3Int.zero);
+        //TileBase tb = tilemap.GetTile(Vector3Int.zero);
         //tileTEst.transform.position = tb.GetTileData().position;
     }
 
