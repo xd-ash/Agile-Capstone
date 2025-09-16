@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.U2D.IK;
 
 namespace CardSystem
 {
@@ -7,6 +8,7 @@ namespace CardSystem
     {
         //General Data
         [SerializeField] private string _cardName;
+        [TextArea(1,3)]//min & max lines for test area
         [SerializeField] private string _description;
         [SerializeField] private int _apCost;
         [SerializeField] private bool _isTileTargeted;
@@ -25,23 +27,22 @@ namespace CardSystem
         /* Figure out way to hide enum options
          * based on if the enum is in an array/list
          * through editorscript (multiple subtypes but no dupes)
-         * 
         public enum CardSubtypes
         {
+            None,
             DealDamage,
             Utility,
             AreaOfEffect,
             CauseStatus,
             DelayedEffect
-        }
-        */
-        //Potentially remove in favor of enum above
+        }*/
+        //[SerializeField] private CardSubtypes[] _cardSubTypes;
+
         [SerializeField] private bool _isDealDamage,
                                       _isAreaOfEffect,
                                       _isCauseStatus,
                                       _isDelayedEffect,
                                       _isUtility;
-        //
         public string CardName { get => _cardName; }
         public string Description { get => _description; }
         public int APCost { get => _apCost; }
@@ -52,14 +53,39 @@ namespace CardSystem
         public string GetCardTypeID()
         {
             int cardTypeInt = (int)CardType;
-            char damageBool = _isDealDamage ? '1' : '0',
-                 aoeBool = _isAreaOfEffect ? '1' : '0',
-                 statusBool = _isCauseStatus ? '1' : '0',
-                 delayedBool = _isDelayedEffect ? '1' : '0',
-                 utilityBool = _isUtility ? '1' : '0';
+            char damageChar = _isDealDamage ? '1' : '0',
+                 aoeChar = _isAreaOfEffect ? '1' : '0',
+                 statusChar = _isCauseStatus ? '1' : '0',
+                 delayedChar = _isDelayedEffect ? '1' : '0',
+                 utilityChar = _isUtility ? '1' : '0';
+            
+            /* Potential option for using enum
+             * 
+            foreach (CardSubtypes cardSubType in _cardSubTypes)
+            {
+                switch(cardSubType)
+                {
+                    case CardSubtypes.DealDamage:
+                        damageChar = '1';
+                        break;
+                    case CardSubtypes.Utility:
+                        aoeChar = '1';
+                        break;
+                    case CardSubtypes.AreaOfEffect:
+                        aoeChar = '1';
+                        break;
+                    case CardSubtypes.CauseStatus:
+                        statusChar = '1';
+                        break;
+                    case CardSubtypes.DelayedEffect:
+                        delayedChar = '1';
+                        break;
+                }
+            }
+            */
 
-            return $"{cardTypeInt}{damageBool}{aoeBool}" +
-                $"{statusBool}{delayedBool}{utilityBool}";
+            return $"{cardTypeInt}{damageChar}{aoeChar}" +
+                $"{statusChar}{delayedChar}{utilityChar}";
         }
 
         //Range Card Data

@@ -19,22 +19,22 @@ MonoBehaviour:
   _cardPrefab: {fileID: 2085524555361464184, guid: 3ba44d6e7ac60a84bbeab7cb3a55fc51, type: 3}
   _cardType: 2
   _isDealDamage: 1
-  _isAreaOfEffect: 1
-  _isCauseStatus: 1
+  _isAreaOfEffect: 0
+  _isCauseStatus: 0
   _isDelayedEffect: 1
-  _isUtility: 1
+  _isUtility: 0
   _projectilePrefab: {fileID: 2085524555361464184, guid: 3ba44d6e7ac60a84bbeab7cb3a55fc51, type: 3}
   _projectileSpeed: 6
   _isRepeating: 0
   _numRepeats: 1
   _range: 1
   _weaponPrefab: {fileID: 0}
-  _aoeType: 1
+  _aoeType: 3
   _aoeRange: 1
-  _utilityTypes: 0400000003000000
+  _utilityTypes: 02000000
   _hasMultipleUtilities: 0
   _cardReturnValue: 12
-  _apRestoreValue: 13
+  _apRestoreValue: 1
   _healValue: 14
   _buffValue: 15
   _delayDuration: 17
