@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 89566867}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.95
+  m_fontSize: 28.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1725,7 +1725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &949693083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1943,7 +1943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1235589225}
   - component: {fileID: 1235589224}
-  - component: {fileID: 1235589226}
+  - component: {fileID: 1235589227}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1980,7 +1980,7 @@ Transform:
   - {fileID: 885171008}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 58.8, y: 0, z: 45}
---- !u!114 &1235589226
+--- !u!114 &1235589227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1989,11 +1989,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1235589223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4da636ea34cd31f41ba716f1d04db8ea, type: 3}
+  m_Script: {fileID: 11500000, guid: f800e8f57f9cc1c45b2c21be8ebadb85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
-  tileTEst: {fileID: 0}
+  tileMap: {fileID: 885171010}
+  empty: {fileID: 89566867}
 --- !u!1 &1843209346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,7 +2416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2144190403
 Transform:
   m_ObjectHideFlags: 0
