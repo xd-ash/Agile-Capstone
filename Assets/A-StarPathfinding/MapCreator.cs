@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using CustomGridTool;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
 namespace AStarPathfinding
 {
     public class MapLocation
@@ -40,24 +39,35 @@ namespace AStarPathfinding
 
     public class MapCreator : MonoBehaviour
     {
-        //automnate these?
         [SerializeField] private Tilemap _tilemap;
-        [SerializeField] private GridAnchorScript _gridAnchor;
-        //
 
+        [HideInInspector] public Vector2Int tileMousePos;
+
+        [SerializeField] private Vector2Int _mapSize;
+        [SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
         [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
                                                                  new MapLocation(1,0),
                                                                  new MapLocation(0,1),
                                                                  new MapLocation(-1,0),
                                                                  new MapLocation(0,-1) };
+        private GameObject _tilePrefab;
+        private GameObject _emptyMapAnchor;
 
         public byte[,] GetByteMap { get { return _map; } }
+        public Vector2Int GetMapSize { get { return _mapSize; } }
+        public float GetMapScale { get { return _mapScale; } }
         public List<MapLocation> GetDirections { get { return _directions; } }
 
+        private void OnEnable()
+        {
+            _tilePrefab = Resources.Load<GameObject>("TileGridPrefabs/TileBase"); //maybe change to another grabbing method?
+            _emptyMapAnchor = Instantiate(new GameObject(), transform);
+            _emptyMapAnchor.name = "EmptyTileAnchor";
+        }
         private void Start()
         {
-            _map = new byte[_gridAnchor.GridCols, _gridAnchor.GridRows];
+            _map = new byte[_mapSize.x, _mapSize.y];
 
             for (int x = 0; x < _map.GetLength(0); x++)
             {
@@ -66,6 +76,17 @@ namespace AStarPathfinding
                     _map[x, y] = 0;
                 }
             }
+            for (int x = 0; x < _mapSize.x; x++)
+            {
+                for (int y = 0; y < _mapSize.y; y++)
+                {
+                    GameObject tile = GameObject.Instantiate(_tilePrefab, _emptyMapAnchor.transform);
+                    tile.transform.localPosition = new Vector3(x * _mapScale, y * _mapScale, 0);
+                    tile.transform.localScale = tile.transform.localScale * _mapScale;
+                    tile.name = $"{x}-{y}";
+                }
+            }
+
         }
 
         //insert WFC for map gen

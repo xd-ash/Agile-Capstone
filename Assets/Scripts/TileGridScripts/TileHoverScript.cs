@@ -1,25 +1,26 @@
 using UnityEngine;
 
-namespace CustomGridTool
+namespace AStarPathfinding
 {
     public class TileHoverScript : MonoBehaviour
     {
-        public GameObject tileInvis, tileSomeAlpha;
+        [SerializeField] private GameObject tileHighlight;
+        private MapCreator _mapCreator;
 
         private void Start()
         {
-            tileInvis.SetActive(true);
-            tileSomeAlpha.SetActive(false);
+            _mapCreator = GetComponentInParent<MapCreator>();
+
+            tileHighlight.SetActive(false);
         }
         private void OnMouseEnter()
         {
-            tileInvis.SetActive(false);
-            tileSomeAlpha.SetActive(true);
+            _mapCreator.tileMousePos = new Vector2Int((int)transform.localPosition.x, (int)transform.localPosition.y);
+            tileHighlight.SetActive(true);
         }
         private void OnMouseExit()
         {
-            tileInvis.SetActive(true);
-            tileSomeAlpha.SetActive(false);
+            tileHighlight.SetActive(false);
         }
     }
 }
