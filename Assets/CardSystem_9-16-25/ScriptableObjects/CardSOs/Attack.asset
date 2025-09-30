@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a9794dff24cc54eadaa44210dffc1a, type: 3}
-  m_Name: TestCard 3
+  m_Name: Attack
   m_EditorClassIdentifier: 
-  _cardName: TestCard 3
-  _description: rrrrrrrrrrrrrrrrrrrrr
-  _apCost: 11
+  _cardName: Attack
+  _description: Deal 5 Damage to One Enemy
+  _apCost: 2
   _isTileTargeted: 1
   _cardPrefab: {fileID: 2085524555361464184, guid: 3ba44d6e7ac60a84bbeab7cb3a55fc51, type: 3}
   _cardType: 2
@@ -39,6 +39,6 @@ MonoBehaviour:
   _buffValue: 15
   _delayDuration: 17
   _damageTypes: 03000000
-  _damageValue: 12312
+  _damageValue: 5
   _statusTypes: 03000000
-  _statusDuration: 42069
+  _statusDuration: 1

@@ -29,6 +29,7 @@ namespace CardSystem
                 _numCards++;
 
                 int newCardIndex = Random.Range(0, _testDeck._deck.Length);
+                
                 _cardsInHand[_numCards - 1] = DetermineCardCreator(_testDeck._deck[newCardIndex]).CreateCard(transform);
                 ArangeCardGOs();
             }
