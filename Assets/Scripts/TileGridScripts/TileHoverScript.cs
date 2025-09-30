@@ -21,6 +21,7 @@ namespace AStarPathfinding
         private void OnMouseExit()
         {
             tileHighlight.SetActive(false);
+            _mapCreator.tileMousePos = new Vector2Int(-1,-1);
         }
     }
 }

@@ -2098,6 +2098,11 @@ MonoBehaviour:
   tileMousePos: {x: 0, y: 0}
   _mapSize: {x: 9, y: 9}
   _mapScale: 1
+  obstLocationList:
+  - {x: 1, y: 7}
+  - {x: 5, y: 5}
+  - {x: 7, y: 2}
+  _placeholderObstacle: {fileID: 6626558593374184628, guid: 022ed79b73ece944aadf4801403c6972, type: 3}
 --- !u!114 &1235589227
 MonoBehaviour:
   m_ObjectHideFlags: 0

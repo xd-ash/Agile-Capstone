@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,7 +15,6 @@ namespace AStarPathfinding
             x = _x;
             y = _y;
         }
-
         public Vector2 ToVector()
         {
             return new Vector2(x, y);
@@ -42,17 +42,20 @@ namespace AStarPathfinding
         [SerializeField] private Tilemap _tilemap;
 
         [HideInInspector] public Vector2Int tileMousePos;
-
         [SerializeField] private Vector2Int _mapSize;
         [SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
         [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
-                                                                 new MapLocation(1,0),
-                                                                 new MapLocation(0,1),
-                                                                 new MapLocation(-1,0),
-                                                                 new MapLocation(0,-1) };
+                                                                     new MapLocation(1,0),
+                                                                     new MapLocation(0,1),
+                                                                     new MapLocation(-1,0),
+                                                                     new MapLocation(0,-1) };
         private GameObject _tilePrefab;
         private GameObject _emptyMapAnchor;
+
+        [Header("Placeholder Obstacle Spawn")]
+        [SerializeField] private List<Vector2Int> obstLocationList;
+        [SerializeField] private GameObject _placeholderObstacle;
 
         public byte[,] GetByteMap { get { return _map; } }
         public Vector2Int GetMapSize { get { return _mapSize; } }
@@ -65,6 +68,7 @@ namespace AStarPathfinding
             _emptyMapAnchor = Instantiate(new GameObject(), transform);
             _emptyMapAnchor.name = "EmptyTileAnchor";
         }
+
         private void Start()
         {
             _map = new byte[_mapSize.x, _mapSize.y];
@@ -73,21 +77,35 @@ namespace AStarPathfinding
             {
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
-                    _map[x, y] = 0;
+                    if (obstLocationList.Contains(new Vector2Int(x, y))) //Placeholder obstacle spawn
+                    {
+                        _map[x, y] = 1;
+                    }
+                    else
+                    {
+                        _map[x, y] = 0;
+                    }
+                     
+                    SpawnTileContents(_map[x, y], new Vector2Int(x,y));
                 }
             }
-            for (int x = 0; x < _mapSize.x; x++)
-            {
-                for (int y = 0; y < _mapSize.y; y++)
-                {
-                    GameObject tile = GameObject.Instantiate(_tilePrefab, _emptyMapAnchor.transform);
-                    tile.transform.localPosition = new Vector3(x * _mapScale, y * _mapScale, 0);
-                    tile.transform.localScale = tile.transform.localScale * _mapScale;
-                    tile.name = $"{x}-{y}";
-                }
-            }
-
         }
+        private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)
+        {
+            GameObject tile = GameObject.Instantiate(_tilePrefab, _emptyMapAnchor.transform);
+            tile.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
+            tile.transform.localScale = tile.transform.localScale * _mapScale;
+            tile.name = $"{mapPos.x}-{mapPos.y}";
+
+            if (byteIndicator == 1)
+            {
+                GameObject obstacle = GameObject.Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity);
+                obstacle.transform.parent = _emptyMapAnchor.transform;
+                obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
+                Debug.Log("test");
+            }
+        }
+
 
         //insert WFC for map gen
     }

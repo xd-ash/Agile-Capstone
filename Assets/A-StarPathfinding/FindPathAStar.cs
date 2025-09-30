@@ -14,7 +14,6 @@ namespace AStarPathfinding
 
         public PathMarker(MapLocation l, float g, float h, float f, PathMarker p)
         {
-
             location = l;
             G = g;
             H = h;
@@ -33,7 +32,6 @@ namespace AStarPathfinding
 
         public override int GetHashCode()
         {
-
             return 0;
         }
     }
@@ -68,7 +66,8 @@ namespace AStarPathfinding
         public void OnTileClick(InputAction.CallbackContext context)
         {
 
-            if (done && !_isMoving)
+            if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
+                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
             {
                 BeginSearch(_mapCreator.tileMousePos);
                 do
@@ -111,17 +110,17 @@ namespace AStarPathfinding
         {
             if (thisNode == null) return;
             if (thisNode.Equals(goalNode)) //goal has been found
-            { 
+            {
                 done = true;
                 _isMoving = true;
-                return; 
-            } 
+                return;
+            }
 
             foreach (MapLocation dir in _mapCreator.GetDirections)
             {
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= _mapCreator.GetMapSize.x || neighbour.y < 0 || neighbour.y >= _mapCreator.GetMapSize.y) continue; //if neighbor is out of bounds
-                if (_mapCreator.GetByteMap[neighbour.x, neighbour.y] == 1) continue; //if neighbor is wall 
+                if (_mapCreator.GetByteMap[neighbour.x, neighbour.y] == 1) continue; // if pos is obstacle
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;
@@ -142,7 +141,7 @@ namespace AStarPathfinding
             PathMarker pm = open[0];
             closed.Add(pm);
 
-            open.RemoveAt(0); 
+            open.RemoveAt(0);
 
             lastPos = pm;
         }
