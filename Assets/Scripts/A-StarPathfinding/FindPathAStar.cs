@@ -50,6 +50,7 @@ namespace AStarPathfinding
         private List<PathMarker> closed = new List<PathMarker>();
         private List<PathMarker> truePath;
         [SerializeField] private GameObject unit;
+        [SerializeField] private float _unitMoveSpeed;
 
         //Fix with editor script for bool active
         [SerializeField] private bool _placePathDebugMarkers;
@@ -194,7 +195,7 @@ namespace AStarPathfinding
             for (int i = truePath.Count - 1; i >= 0; i--)
             {
                 unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, unit.transform.localPosition.z);
-                yield return new WaitForSecondsRealtime(0.1f);
+                yield return new WaitForSecondsRealtime(_unitMoveSpeed);
             }
             _isMoving = false;
         }
