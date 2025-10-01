@@ -4,9 +4,11 @@ namespace CardSystem
 {
     public class CardManager : MonoBehaviour
     {
-        public CardBase[] _cardsInHand = new CardBase[5];//make visible in inspector in some way
-        public int _numCards = 0, _maxCards = 5;
+        public int _topCardOfDeck = 0;
+        public int _nextCardInHandIndex = 0;
+        public int _maxCards = 5;
         public DeckSO _testDeck;
+        public CardBase[] _cardsInHand = new CardBase[100];//make visible in inspector in some way
 
         public CardCreator DetermineCardCreator(CardSO cardSO)
         {
@@ -24,15 +26,10 @@ namespace CardSystem
         }
         public void DrawCard()
         {
-            if (_numCards < _maxCards)
-            {
-                _numCards++;
-
-                int newCardIndex = Random.Range(0, _testDeck._deck.Length);
-                
-                _cardsInHand[_numCards - 1] = DetermineCardCreator(_testDeck._deck[newCardIndex]).CreateCard(transform);
-                ArangeCardGOs();
-            }
+            _cardsInHand[_nextCardInHandIndex] = DetermineCardCreator(_testDeck._deck[_topCardOfDeck]).CreateCard(transform);
+            _topCardOfDeck++;
+            _nextCardInHandIndex++;
+            ArangeCardGOs();
         }
         public void UseCard()
         {
