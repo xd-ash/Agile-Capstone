@@ -1,0 +1,80 @@
+using System;
+using Interfaces;
+using UnityEngine;
+
+public enum Team {Friendly, Enemy}
+public class Unit : MonoBehaviour, IDamagable
+{
+    [Header("Team and stats")] 
+    public Team team;
+    public int maxHealth;
+    public int health;
+    
+    [Header("Target for Enemy units")]
+    [SerializeField] private Unit _target;
+    
+    [Header("Action Pointds")] 
+    public int maxAP;
+    public int ap;
+    
+    public event Action<Unit> OnApChanged; 
+
+    private void Awake()
+    {
+        health = maxHealth;
+        ap = maxAP;
+        RaiseHealthEvent();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        RaiseHealthEvent();
+        Debug.Log($"[{team}] " + this.name + " took " + damage + " damage, remaining health: "  + health);
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+            Debug.Log($"[{team}] " + this.name + " unit died");
+        }
+    }
+
+    public void DealDamage(int damage = 2)
+    {
+        if (team == Team.Enemy && _target != null)
+        {
+            _target.TakeDamage(damage);
+        }
+    }
+
+    private void RaiseHealthEvent()
+    {
+        if (team == Team.Friendly)
+        {
+            DamageEvents.RaisePlayerDamaged(health,maxHealth);
+        }
+        else
+        {
+            DamageEvents.RaiseEnemyDamaged(health, maxHealth);
+        }
+    }
+    
+    public void RefreshAP()
+    {
+        ap = maxAP;
+        OnApChanged?.Invoke(this);
+    }
+    
+    public bool CanSpend(int cost) => ap >= cost;
+
+    public bool SpendAP(int cost)
+    {
+        if (!CanSpend(cost))
+        {
+            return false;
+        }
+        ap -= cost;
+        OnApChanged?.Invoke(this);
+
+        return true;
+    }
+}
