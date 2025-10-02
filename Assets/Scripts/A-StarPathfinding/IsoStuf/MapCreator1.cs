@@ -2,15 +2,15 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
-namespace AStarPathfinding
+/*
+namespace AStarPathfinding2
 {
     public class MapLocation
     {
-        public int x;
-        public int y;
+        public float x;
+        public float y;
 
-        public MapLocation(int _x, int _y)
+        public MapLocation(float _x, float _y)
         {
             x = _x;
             y = _y;
@@ -46,10 +46,10 @@ namespace AStarPathfinding
         [SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
         [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
-                                                                     new MapLocation(1,0),      //new MapLocation(0.5f, 0.25f)
-                                                                     new MapLocation(0,1),      //new MapLocation(-0.5f, 0.25f)
-                                                                     new MapLocation(-1,0),     //new MapLocation(-0.5f, -0.25f)
-                                                                     new MapLocation(0,-1) };   //new MapLocation(0.5f, -0.25f)
+                                                                     new MapLocation(0.5f,0.25f),
+                                                                     new MapLocation(-0.5f,0.25f),
+                                                                     new MapLocation(-0.5f,-0.25f),
+                                                                     new MapLocation(0.5f,-0.25f) };
         private GameObject _tilePrefab;
         private GameObject _emptyMapAnchor;
 
@@ -86,11 +86,11 @@ namespace AStarPathfinding
                         _map[x, y] = 0;
                     }
                      
-                    SpawnTileContents(_map[x, y], new Vector2Int(x,y));
+                    SpawnTileContents(_map[x, y], new Vector2(x * 0.5f,y * 0.25f));
                 }
             }
         }
-        private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)
+        private void SpawnTileContents(int byteIndicator, Vector2 mapPos)
         {
             GameObject tile = GameObject.Instantiate(_tilePrefab, _emptyMapAnchor.transform);
             tile.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
@@ -109,3 +109,4 @@ namespace AStarPathfinding
         //insert WFC for map gen
     }
 }
+*/

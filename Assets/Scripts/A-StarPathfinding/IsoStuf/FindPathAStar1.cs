@@ -4,7 +4,8 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
 
-namespace AStarPathfinding
+/*
+namespace AStarPathfinding2
 {
     public class PathMarker
     {
@@ -150,7 +151,7 @@ namespace AStarPathfinding
         {
             RemoveAllMarkers();
             truePath = new List<PathMarker>();
-            PathMarker begin = lastPos; //last pos will be goal, then work backwards using parents
+            PathMarker begin = lastPos; //last post will be goal, then work backwards using parents
 
             while (!startNode.Equals(begin) && begin != null)
             {
@@ -200,3 +201,4 @@ namespace AStarPathfinding
         }
     }
 }
+*/
