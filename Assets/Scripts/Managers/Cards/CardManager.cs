@@ -41,6 +41,7 @@ namespace CardSystem
         }
         public void DrawCard()
         {
+            //Debug.Log("test");
             _cardsInHand.Add(DetermineCardCreator(_testDeck._deck[_topCardOfDeck]).CreateCard(transform));           
             _topCardOfDeck++;
             _nextCardInHandIndex++;
