@@ -39,24 +39,32 @@ namespace AStarPathfinding
 
     public class MapCreator : MonoBehaviour
     {
-        [SerializeField] private Tilemap _tilemap;
+        //Singleton setup
+        public static MapCreator instance;
+        private void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Debug.LogError($"{this.gameObject.name} has been destroyed due to singleton conflict");
+                Destroy(this.gameObject);
+            }
+        }
+
+        //[SerializeField] private Tilemap _tilemap;  //Unused currently
 
         [HideInInspector] public Vector2Int tileMousePos;
         [SerializeField] private Vector2Int _mapSize;
         [SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
         [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
-<<<<<<< HEAD
-                                                                     new MapLocation(1,0),
-                                                                     new MapLocation(0,1),
-                                                                     new MapLocation(-1,0),
-                                                                     new MapLocation(0,-1) };
-=======
                                                                      new MapLocation(1,0),      //new MapLocation(0.5f, 0.25f),
                                                                      new MapLocation(0,1),      //new MapLocation(-0.5f, 0.25f),
                                                                      new MapLocation(-1,0),     //new MapLocation(-0.5f, -0.25f),
                                                                      new MapLocation(0,-1) };   //new MapLocation(0.5f, -0.25f)};
->>>>>>> Adam-DevBranch
         private GameObject _tilePrefab;
         private GameObject _emptyMapAnchor;
 
@@ -72,12 +80,9 @@ namespace AStarPathfinding
         private void OnEnable()
         {
             _tilePrefab = Resources.Load<GameObject>("TileGridPrefabs/TileBase"); //maybe change to another grabbing method?
-<<<<<<< HEAD
-            _emptyMapAnchor = Instantiate(new GameObject(), transform);
-=======
             _emptyMapAnchor = Instantiate(new GameObject(), transform.Find("PlayerMoveEmpty"));
             _emptyMapAnchor.transform.localEulerAngles = Vector3.zero;
->>>>>>> Adam-DevBranch
+
             _emptyMapAnchor.name = "EmptyTileAnchor";
         }
 
@@ -111,23 +116,12 @@ namespace AStarPathfinding
 
             if (byteIndicator == 1)
             {
-<<<<<<< HEAD
                 GameObject obstacle = GameObject.Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity);
                 obstacle.transform.parent = _emptyMapAnchor.transform;
                 obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
-                Debug.Log("test");
             }
         }
 
-
-=======
-                GameObject obstacle = Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity);
-                obstacle.transform.parent = _emptyMapAnchor.transform;
-                obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
-            }
-        }
-
->>>>>>> Adam-DevBranch
         //insert WFC for map gen
     }
 }

@@ -5,12 +5,10 @@ namespace AStarPathfinding
     public class TileHoverScript : MonoBehaviour
     {
         [SerializeField] private GameObject tileHighlight;
-        private MapCreator _mapCreator;
+        private MapCreator _mapCreator = MapCreator.instance;
 
         private void Start()
         {
-            _mapCreator = GetComponentInParent<MapCreator>();
-
             tileHighlight.SetActive(false);
         }
         private void OnMouseEnter()

@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
-<<<<<<< HEAD
-=======
-using Unity.VisualScripting;
->>>>>>> Adam-DevBranch
 
 namespace AStarPathfinding
 {
@@ -42,7 +38,7 @@ namespace AStarPathfinding
 
     public class FindPathAStar : MonoBehaviour
     {
-        private MapCreator _mapCreator;
+        private MapCreator _mapCreator = MapCreator.instance;
 
         private PathMarker startNode;
         private PathMarker goalNode;
@@ -53,12 +49,10 @@ namespace AStarPathfinding
         private List<PathMarker> open = new List<PathMarker>();
         private List<PathMarker> closed = new List<PathMarker>();
         private List<PathMarker> truePath;
-        [SerializeField] private GameObject unit;
+        [SerializeField] private Unit _unit; //have some sort of collection of units once enemies/player/NPCs are implemented?
+                                             //cycle through based on turn order
         [SerializeField] private float _unitMoveSpeed;
-<<<<<<< HEAD
-        public Unit _unit;
-=======
->>>>>>> Adam-DevBranch
+
 
         //Fix with editor script for bool active
         [SerializeField] private bool _placePathDebugMarkers;
@@ -67,50 +61,28 @@ namespace AStarPathfinding
         [SerializeField] private GameObject pathP;
         //
 
-        private void OnEnable()
-        {
-            _mapCreator = GetComponent<MapCreator>();
-<<<<<<< HEAD
-            if (unit != null) _unit = unit.GetComponent<Unit>();
-
-=======
->>>>>>> Adam-DevBranch
-        }
-
         public void OnTileClick(InputAction.CallbackContext context)
         {
-<<<<<<< HEAD
-
             if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
                 _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
             {
-                if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
+                //if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
 
-                
-=======
-            if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
-                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
-            {
->>>>>>> Adam-DevBranch
                 BeginSearch(_mapCreator.tileMousePos);
                 do
                 {
                     Search(lastPos);
                 } while (!done);
                 GetPath();
-<<<<<<< HEAD
-                
                 int steps = truePath != null ? truePath.Count : 0;
-                
+                /*
                 if (steps > _unit.ap)
                 {
                     int keep = Mathf.Max(0, _unit.ap);
                     if (keep == 0) { _isMoving = false; return; } // no AP to move
                     truePath = truePath.GetRange(truePath.Count - keep, keep);
                 }
-                
-=======
->>>>>>> Adam-DevBranch
+                */
                 StartCoroutine(MoveCoro());
             }
         }
@@ -120,7 +92,7 @@ namespace AStarPathfinding
             _isMoving = true;
             RemoveAllMarkers();
 
-            Vector3 startLocation = unit.transform.localPosition * _mapCreator.GetMapScale;
+            Vector3 startLocation = _unit.transform.localPosition * _mapCreator.GetMapScale;
 
             Vector2Int unitPos = new Vector2Int((int)startLocation.x, (int)startLocation.y);
             startNode = new PathMarker(new MapLocation(unitPos.x, unitPos.y), 0.0f, 0.0f, 0.0f, null);
@@ -186,11 +158,8 @@ namespace AStarPathfinding
         {
             RemoveAllMarkers();
             truePath = new List<PathMarker>();
-<<<<<<< HEAD
             PathMarker begin = lastPos; //last post will be goal, then work backwards using parents
-=======
-            PathMarker begin = lastPos; //last pos will be goal, then work backwards using parents
->>>>>>> Adam-DevBranch
+
 
             while (!startNode.Equals(begin) && begin != null)
             {
@@ -233,17 +202,14 @@ namespace AStarPathfinding
         {
             for (int i = truePath.Count - 1; i >= 0; i--)
             {
-<<<<<<< HEAD
                 if (!_unit.CanSpend(1))
                 {
                     break;
                 }
-                unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, unit.transform.localPosition.z);
-                _unit.SpendAP(1);
-                TurnManager.instance.UpdateApText();
-=======
-                unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, unit.transform.localPosition.z);
->>>>>>> Adam-DevBranch
+                _unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, _unit.transform.localPosition.z);
+                //_unit.SpendAP(1);
+                //TurnManager.instance.UpdateApText();
+
                 yield return new WaitForSecondsRealtime(_unitMoveSpeed);
             }
             _isMoving = false;
