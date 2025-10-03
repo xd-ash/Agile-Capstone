@@ -18,6 +18,10 @@ namespace CardSystem
         protected string _cardTypeID;
         protected bool _isTileTargeted; //used for both IRangeAbility & IMeleeAbility properties
 
+
+        public Transform _cardTransform;
+       
+
         public string CardName { get => _cardName; }
         public string Description { get => _description; }
         public int APCost { get => _apCost; }
@@ -96,6 +100,8 @@ namespace CardSystem
             _isTileTargeted = so.IsTileTargeted;
 
             _cardTypeID = so.GetCardTypeID();
+
+            _cardTransform = so.CardPrefab.transform;
 
             for (int i = 0; i < _cardTypeID.Length; i++)
             {
