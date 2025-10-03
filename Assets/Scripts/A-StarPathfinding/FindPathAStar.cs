@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
 
 namespace AStarPathfinding
 {
@@ -52,6 +51,7 @@ namespace AStarPathfinding
         private List<PathMarker> truePath;
         [SerializeField] private GameObject unit;
         [SerializeField] private float _unitMoveSpeed;
+        public Unit _unit;
 
         //Fix with editor script for bool active
         [SerializeField] private bool _placePathDebugMarkers;
@@ -63,19 +63,35 @@ namespace AStarPathfinding
         private void OnEnable()
         {
             _mapCreator = GetComponent<MapCreator>();
+            if (unit != null) _unit = unit.GetComponent<Unit>();
+
         }
 
         public void OnTileClick(InputAction.CallbackContext context)
         {
+
             if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
                 _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
             {
+                if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
+
+                
                 BeginSearch(_mapCreator.tileMousePos);
                 do
                 {
                     Search(lastPos);
                 } while (!done);
                 GetPath();
+                
+                int steps = truePath != null ? truePath.Count : 0;
+                
+                if (steps > _unit.ap)
+                {
+                    int keep = Mathf.Max(0, _unit.ap);
+                    if (keep == 0) { _isMoving = false; return; } // no AP to move
+                    truePath = truePath.GetRange(truePath.Count - keep, keep);
+                }
+                
                 StartCoroutine(MoveCoro());
             }
         }
@@ -151,7 +167,7 @@ namespace AStarPathfinding
         {
             RemoveAllMarkers();
             truePath = new List<PathMarker>();
-            PathMarker begin = lastPos; //last pos will be goal, then work backwards using parents
+            PathMarker begin = lastPos; //last post will be goal, then work backwards using parents
 
             while (!startNode.Equals(begin) && begin != null)
             {
@@ -194,7 +210,13 @@ namespace AStarPathfinding
         {
             for (int i = truePath.Count - 1; i >= 0; i--)
             {
+                if (!_unit.CanSpend(1))
+                {
+                    break;
+                }
                 unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, unit.transform.localPosition.z);
+                _unit.SpendAP(1);
+                TurnManager.instance.UpdateApText();
                 yield return new WaitForSecondsRealtime(_unitMoveSpeed);
             }
             _isMoving = false;
