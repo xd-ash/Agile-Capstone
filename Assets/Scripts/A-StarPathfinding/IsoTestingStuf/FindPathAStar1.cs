@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
+using UnityEngine.Tilemaps;
 
-/*
 namespace AStarPathfinding2
 {
     public class PathMarker
@@ -37,9 +38,9 @@ namespace AStarPathfinding2
         }
     }
 
-    public class FindPathAStar : MonoBehaviour
+    public class FindPathAStar1 : MonoBehaviour
     {
-        private MapCreator _mapCreator;
+        private MapCreator1 _mapCreator;
 
         private PathMarker startNode;
         private PathMarker goalNode;
@@ -62,15 +63,21 @@ namespace AStarPathfinding2
 
         private void OnEnable()
         {
-            _mapCreator = GetComponent<MapCreator>();
+            _mapCreator = GetComponent<MapCreator1>();
         }
-
+        private void Update()
+        {
+        }
         public void OnTileClick(InputAction.CallbackContext context)
         {
-            if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
-                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
+            if (done && !_isMoving)
             {
-                BeginSearch(_mapCreator.tileMousePos);
+                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Debug.Log(mouseWorldPos.ToString());
+                Vector2Int clickPos = new Vector2Int((mouseWorldPos.x * 2.5f).ConvertTo<int>(), (mouseWorldPos.y * 3.425f).ConvertTo<int>());
+                Debug.Log(clickPos.ToString());
+
+                BeginSearch(clickPos);
                 do
                 {
                     Search(lastPos);
@@ -120,8 +127,8 @@ namespace AStarPathfinding2
             foreach (MapLocation dir in _mapCreator.GetDirections)
             {
                 MapLocation neighbour = dir + thisNode.location;
-                if (neighbour.x < 0 || neighbour.x >= _mapCreator.GetMapSize.x || neighbour.y < 0 || neighbour.y >= _mapCreator.GetMapSize.y) continue; //if neighbor is out of bounds
-                if (_mapCreator.GetByteMap[neighbour.x, neighbour.y] == 1) continue; // if pos is obstacle
+                if (neighbour.x < _mapCreator.GetMapSize.x * 2.5f || neighbour.x >= _mapCreator.GetMapSize.x * 2.5f || neighbour.y < _mapCreator.GetMapSize.y * 3.425f || neighbour.y >= _mapCreator.GetMapSize.y * 3.425f) continue; //if neighbor is out of bounds
+                if (_mapCreator.GetByteMap[(neighbour.x / 2.5f).ConvertTo<int>(), (neighbour.y / 3.425f).ConvertTo<int>()] == 1) continue; // if pos is obstacle
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;
@@ -139,7 +146,9 @@ namespace AStarPathfinding2
             }
 
             open = open.OrderBy(p => p.F).ThenBy(n => n.H).ToList(); //orders by F val, and then by H val
+
             PathMarker pm = open[0];
+
             closed.Add(pm);
 
             open.RemoveAt(0);
@@ -149,7 +158,7 @@ namespace AStarPathfinding2
 
         public void GetPath()
         {
-            RemoveAllMarkers();
+            //RemoveAllMarkers();
             truePath = new List<PathMarker>();
             PathMarker begin = lastPos; //last post will be goal, then work backwards using parents
 
@@ -201,4 +210,3 @@ namespace AStarPathfinding2
         }
     }
 }
-*/

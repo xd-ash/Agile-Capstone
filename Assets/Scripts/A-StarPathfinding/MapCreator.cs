@@ -46,10 +46,10 @@ namespace AStarPathfinding
         [SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
         [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
-                                                                     new MapLocation(1,0),      //new MapLocation(0.5f, 0.25f)
-                                                                     new MapLocation(0,1),      //new MapLocation(-0.5f, 0.25f)
-                                                                     new MapLocation(-1,0),     //new MapLocation(-0.5f, -0.25f)
-                                                                     new MapLocation(0,-1) };   //new MapLocation(0.5f, -0.25f)
+                                                                     new MapLocation(1,0),      //new MapLocation(0.5f, 0.25f),
+                                                                     new MapLocation(0,1),      //new MapLocation(-0.5f, 0.25f),
+                                                                     new MapLocation(-1,0),     //new MapLocation(-0.5f, -0.25f),
+                                                                     new MapLocation(0,-1) };   //new MapLocation(0.5f, -0.25f)};
         private GameObject _tilePrefab;
         private GameObject _emptyMapAnchor;
 
@@ -65,7 +65,8 @@ namespace AStarPathfinding
         private void OnEnable()
         {
             _tilePrefab = Resources.Load<GameObject>("TileGridPrefabs/TileBase"); //maybe change to another grabbing method?
-            _emptyMapAnchor = Instantiate(new GameObject(), transform);
+            _emptyMapAnchor = Instantiate(new GameObject(), transform.Find("PlayerMoveEmpty"));
+            _emptyMapAnchor.transform.localEulerAngles = Vector3.zero;
             _emptyMapAnchor.name = "EmptyTileAnchor";
         }
 
@@ -104,7 +105,6 @@ namespace AStarPathfinding
                 obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
             }
         }
-
 
         //insert WFC for map gen
     }

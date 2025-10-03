@@ -2,15 +2,14 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-/*
 namespace AStarPathfinding2
 {
     public class MapLocation
     {
-        public float x;
-        public float y;
+        public int x;
+        public int y;
 
-        public MapLocation(float _x, float _y)
+        public MapLocation(int _x, int _y)
         {
             x = _x;
             y = _y;
@@ -37,19 +36,19 @@ namespace AStarPathfinding2
         }
     }
 
-    public class MapCreator : MonoBehaviour
+    public class MapCreator1 : MonoBehaviour
     {
-        [SerializeField] private Tilemap _tilemap;
+        [SerializeField] public Tilemap _tilemap;
 
         [HideInInspector] public Vector2Int tileMousePos;
         [SerializeField] private Vector2Int _mapSize;
         [SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
         [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
-                                                                     new MapLocation(0.5f,0.25f),
-                                                                     new MapLocation(-0.5f,0.25f),
-                                                                     new MapLocation(-0.5f,-0.25f),
-                                                                     new MapLocation(0.5f,-0.25f) };
+                                                                     new MapLocation(2,1),
+                                                                     new MapLocation(-2,1),
+                                                                     new MapLocation(-2,-1),
+                                                                     new MapLocation(2,-1) };
         private GameObject _tilePrefab;
         private GameObject _emptyMapAnchor;
 
@@ -77,6 +76,7 @@ namespace AStarPathfinding2
             {
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
+                    /*
                     if (obstLocationList.Contains(new Vector2Int(x, y))) //Placeholder obstacle spawn
                     {
                         _map[x, y] = 1;
@@ -85,8 +85,11 @@ namespace AStarPathfinding2
                     {
                         _map[x, y] = 0;
                     }
-                     
-                    SpawnTileContents(_map[x, y], new Vector2(x * 0.5f,y * 0.25f));
+                    */
+
+                    _map[x, y] = 0;
+
+                    //SpawnTileContents(_map[x, y], new Vector2(x ,y));
                 }
             }
         }
@@ -109,4 +112,3 @@ namespace AStarPathfinding2
         //insert WFC for map gen
     }
 }
-*/
