@@ -54,12 +54,12 @@ namespace AStarPathfinding
         [SerializeField] private float _unitMoveSpeed;
 
 
-        //Fix with editor script for bool active
+        /*/Fix with editor script for bool active
         [SerializeField] private bool _placePathDebugMarkers;
         [SerializeField] private GameObject start;
         [SerializeField] private GameObject end;
         [SerializeField] private GameObject pathP;
-        //
+        /*/
 
         public void OnTileClick(InputAction.CallbackContext context)
         {
@@ -100,6 +100,7 @@ namespace AStarPathfinding
             endLocation = new Vector2Int((int)(endLocation.x * _mapCreator.GetMapScale), (int)(endLocation.y * _mapCreator.GetMapScale));
             goalNode = new PathMarker(new MapLocation((int)endLocation.x, (int)endLocation.y), 0.0f, 0.0f, 0.0f, null);
 
+            /*
             if (_placePathDebugMarkers)
             {
                 GameObject startMarkerGO = Instantiate(start, Vector3.zero, Quaternion.identity, transform);
@@ -107,7 +108,7 @@ namespace AStarPathfinding
 
                 GameObject endMarkerGO = Instantiate(end, Vector3.zero, Quaternion.identity, transform);
                 endMarkerGO.transform.localPosition = new Vector3(endLocation.x, endLocation.y, 0); // - on ycomp of end location due to how the grid tool creates grid
-            }
+            }*/
 
             open.Clear();
             closed.Clear();
@@ -135,11 +136,12 @@ namespace AStarPathfinding
                 float newH = Vector2.Distance(neighbour.ToVector(), goalNode.location.ToVector());
                 float newF = newG + newH;
 
+                /*
                 if (_placePathDebugMarkers)
                 {
                     GameObject pathBlock = Instantiate(pathP, Vector3.zero, Quaternion.identity, transform);
                     pathBlock.transform.localPosition = new Vector3(neighbour.x * _mapCreator.GetMapScale, neighbour.y * _mapCreator.GetMapScale, 0f);
-                }
+                }*/
 
                 if (!UpdateMarker(neighbour, newG, newH, newF, thisNode))
                     open.Add(new PathMarker(neighbour, newG, newH, newF, thisNode));

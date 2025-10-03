@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace OldCardSystem
+namespace CardSystem
 {
     public class RangeAttackCard : CardBase, IRangeAbility, IDealDamage
     {

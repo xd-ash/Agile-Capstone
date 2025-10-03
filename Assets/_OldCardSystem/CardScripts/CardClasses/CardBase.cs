@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace OldCardSystem
+namespace CardSystem
 {
     public abstract class CardBase : IAreaOfEffect, ICauseStatuses, IDelayedEffect, IUtility
     {
@@ -17,6 +17,10 @@ namespace OldCardSystem
         protected int _apCost;
         protected string _cardTypeID;
         protected bool _isTileTargeted; //used for both IRangeAbility & IMeleeAbility properties
+
+
+        public Transform _cardTransform;
+       
 
         public string CardName { get => _cardName; }
         public string Description { get => _description; }
@@ -96,6 +100,8 @@ namespace OldCardSystem
             _isTileTargeted = so.IsTileTargeted;
 
             _cardTypeID = so.GetCardTypeID();
+
+            _cardTransform = so.CardPrefab.transform;
 
             for (int i = 0; i < _cardTypeID.Length; i++)
             {
