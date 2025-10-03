@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 
@@ -86,6 +87,11 @@ namespace CardSystem
 
             return $"{cardTypeInt}{damageChar}{aoeChar}" +
                 $"{statusChar}{delayedChar}{utilityChar}";
+        }
+
+        internal GameObject GetCardPrefab()
+        {
+            return _cardPrefab;
         }
 
         //Range Card Data

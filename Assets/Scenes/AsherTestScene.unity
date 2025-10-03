@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 143374260}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5897507, y: 0.05378075, z: 12.789343}
+  m_LocalPosition: {x: -0.1, y: -3.98, z: 12.789343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -202,19 +202,19 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -0.49814054
+        z: -0.50990194
       TangentOut:
         x: 0
         y: 0
-        z: 0.49814054
+        z: 0.50990194
       Rotation:
         value:
-          x: 0.4470049
-          y: 0.54789287
-          z: 0.5478929
-          w: 0.44700485
+          x: 0.4482979
+          y: 0.5468354
+          z: 0.5468355
+          w: 0.44829783
     - Position:
-        x: -0.12
+        x: 0
         y: -4
         z: 0
       TangentIn:
@@ -238,17 +238,17 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -0.5216743
+        z: -0.50990194
       TangentOut:
         x: 0
         y: 0
-        z: 0.5216743
+        z: 0.50990194
       Rotation:
         value:
-          x: 0.5458229
-          y: 0.44953015
-          z: 0.44953015
-          w: 0.54582286
+          x: 0.5468354
+          y: 0.44829783
+          z: 0.44829783
+          w: 0.5468354
     m_MetaData:
     - Mode: 0
       Tension: 0.5
@@ -951,9 +951,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7199e76c0be859c4594a119632565a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numCards: 0
+  _topCardOfDeck: 0
+  _nextCardInHandIndex: 0
   _maxCards: 5
+  _currentHandSize: 0
   _testDeck: {fileID: 11400000, guid: e674ad224474a7042b1676c841c1bb4f, type: 2}
+  splineContainer: {fileID: 267065869}
+  spawnPoint: {fileID: 143374261}
 --- !u!1 &2034717681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,9 +1097,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
-  - {fileID: 1905147916}
   - {fileID: 1359567802}
   - {fileID: 847782383}
   - {fileID: 1466346765}
-  - {fileID: 267065870}
   - {fileID: 143374261}
+  - {fileID: 1905147916}
+  - {fileID: 267065870}
