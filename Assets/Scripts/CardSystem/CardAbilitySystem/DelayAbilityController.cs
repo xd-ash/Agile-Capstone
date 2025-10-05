@@ -5,6 +5,7 @@ using XNode;
 
 namespace CardSystem
 {
+    /*
 	public class DelayAbilityController : AbilityController
 	{
         [SerializeField] private float _repeatTimer;
@@ -14,4 +15,5 @@ namespace CardSystem
             InvokeRepeating("UseLoadedAbility", 0f, _repeatTimer);
         }
 	}
+    */
 }

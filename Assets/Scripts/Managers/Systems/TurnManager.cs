@@ -31,6 +31,8 @@ public class TurnManager : MonoBehaviour
     
     private void Start()
     {
+        AbilityEvents.OnAbilityUsed += UpdateApText;
+
         SetTurn(Turn.Player); //Could change by using the dice roll or random.range
     }
     
@@ -38,9 +40,9 @@ public class TurnManager : MonoBehaviour
     {
         if (_apText == null) return;
         if (currTurn == Turn.Player && _player != null)
-            _apText.text = $"AP: {_player.ap}/{_player.maxAP}";
+            _apText.text = $"Player AP:\n{_player.ap}/{_player.maxAP}";
         else if (currTurn == Turn.Enemy && _enemy != null)
-            _apText.text = $"AP: {_enemy.ap}/{_enemy.maxAP}";
+            _apText.text = $"Enemy AP:\n{_enemy.ap}/{_enemy.maxAP}";
     }
 
     private void SetTurn(Turn next)

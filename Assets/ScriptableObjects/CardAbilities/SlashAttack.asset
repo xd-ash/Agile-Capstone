@@ -31,8 +31,7 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
   enter: 0
-  damage: 5
-  damageType: 1
+  damage: 3
 --- !u!114 &-3617469056364690044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +59,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: enter
-        node: {fileID: 2965911939839788012}
+        node: {fileID: 1193024681836974349}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -114,8 +113,8 @@ MonoBehaviour:
   nodes:
   - {fileID: -3617469056364690044}
   - {fileID: -4188033999936095427}
-  - {fileID: 2965911939839788012}
---- !u!114 &2965911939839788012
+  - {fileID: 1193024681836974349}
+--- !u!114 &1193024681836974349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,17 +123,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d94815f6c8454a499cd74a9378e2b35, type: 3}
-  m_Name: Self Target
+  m_Script: {fileID: 11500000, guid: a175d73e3d074594a9c045c78ff5df86, type: 3}
+  m_Name: Other Target
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -328, y: -168}
+  position: {x: -296, y: -184}
   ports:
     keys:
     - enter
     values:
     - _fieldName: enter
-      _node: {fileID: 2965911939839788012}
+      _node: {fileID: 1193024681836974349}
       _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
@@ -150,5 +149,4 @@ MonoBehaviour:
   radius: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
-  affectSelf: 1
+    m_Bits: 64

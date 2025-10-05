@@ -36,56 +36,45 @@ namespace CardSystem
 
         [SerializeField] private Deck _deck;
         [SerializeField] private List<Card> _cardsInHand = new();
-        public Card selectedCard = null;
-        public bool haveSelected = false;
-        [SerializeField] private bool amTargeting = false;
         [SerializeField] private SplineContainer splineContainer;
-        [SerializeField] public Transform spawnPoint;
+        public Card selectedCard = null;
+
+        private void Start()
+        {
+            AbilityEvents.OnAbilityUsed += RemoveCard;
+        }
 
         public void DrawCard()
         {
             if (_currentHandSize >= _maxCards) return;
 
-            Card newCard = new Card(_deck.GetDeck[_topCardOfDeck]);
+            Card newCard = null;
+            if (_topCardOfDeck < _deck.GetDeck.Length)
+                newCard = new Card(_deck.GetDeck[_topCardOfDeck]);
+            if (newCard == null) return;
+
             _cardsInHand.Add(newCard);
             CreateCardPrefab(newCard);
 
             _topCardOfDeck++;
             _nextCardInHandIndex++;
-            _currentHandSize++; 
+            _currentHandSize++;
 
             ArrangeCardGOs();
         }
-
+        public void RemoveCard()
+        {
+            _cardsInHand.Remove(selectedCard);
+            _currentHandSize--;
+            ArrangeCardGOs();
+            Destroy(selectedCard.CardTransform.gameObject); 
+            selectedCard = null;
+        }
         public void CreateCardPrefab(Card card)
         {
             GameObject cardGO = Instantiate(card.GetCardPrefab, transform);
             if(!cardGO.GetComponent<CardSelect>()) cardGO.AddComponent<CardSelect>();
             cardGO.GetComponent<CardSelect>().OnPrefabCreation(card);
-        }
-        public void OnCardClick(InputAction.CallbackContext context)
-        {
-            if (!context.performed) return;
-            if (!TurnManager.IsPlayerTurn) return;
-
-            //add check for enough ap?
-
-            if (haveSelected)
-                StartCoroutine(CardTargetSelect());
-        }
-
-        // after card click, wait until next click to do ability
-        public IEnumerator CardTargetSelect()
-        {
-            //give me some kind of visual
-
-            amTargeting = true;
-            Debug.Log("test abilityclick - " + selectedCard.GetCardName);
-            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-            Debug.Log($"user:{TurnManager.GetCurrentUnit.name}");
-            Debug.Log($"card:{selectedCard.GetCardName}");
-            selectedCard.GetCardAbility.UseAility(TurnManager.GetCurrentUnit);
-            amTargeting = false;
         }
 
         public void ArrangeCardGOs()

@@ -14,6 +14,12 @@ namespace CardSystem
 
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
+            abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
+        }
+        public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
+        {
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+
             abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
             onFinished();
         }
@@ -35,5 +41,6 @@ namespace CardSystem
             if (affectSelf)
                 yield return user.gameObject; //also target user
         }
+
     }
 }

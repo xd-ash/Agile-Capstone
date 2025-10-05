@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace CardSystem
 {
+    /*
     public class AbilityController : MonoBehaviour
     {
         [SerializeField] protected AbilityDefinition _loadedAbility;
@@ -19,4 +20,5 @@ namespace CardSystem
             _loadedAbility?.UseAility(_currentUnit);
         }
     }
+    */
 }

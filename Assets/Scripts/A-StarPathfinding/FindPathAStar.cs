@@ -70,7 +70,7 @@ namespace AStarPathfinding
             if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
                 _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
             {
-                //if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
+                if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
 
                 BeginSearch(_mapCreator.tileMousePos);
                 do
@@ -79,14 +79,13 @@ namespace AStarPathfinding
                 } while (!done);
                 GetPath();
                 int steps = truePath != null ? truePath.Count : 0;
-                /*
                 if (steps > _unit.ap)
                 {
                     int keep = Mathf.Max(0, _unit.ap);
                     if (keep == 0) { _isMoving = false; return; } // no AP to move
                     truePath = truePath.GetRange(truePath.Count - keep, keep);
                 }
-                */
+
                 StartCoroutine(MoveCoro());
             }
         }
@@ -213,8 +212,8 @@ namespace AStarPathfinding
                     break;
                 }
                 _unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, _unit.transform.localPosition.z);
-                //_unit.SpendAP(1);
-                //TurnManager.instance.UpdateApText();
+                _unit.SpendAP(1);
+                TurnManager.instance.UpdateApText();
 
                 yield return new WaitForSecondsRealtime(_unitMoveSpeed);
             }

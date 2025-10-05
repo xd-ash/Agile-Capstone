@@ -15,6 +15,7 @@ namespace CardSystem
         public LayerMask layerMask;
 
         public abstract void StartTargeting(AbilityData abilityData, Action onFinished);
+        public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
         protected abstract IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit);
     }
 }

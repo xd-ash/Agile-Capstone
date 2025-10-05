@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2585b2a169053434aaf8a47d5213d4e6, type: 3}
-  m_Name: TestCard 3
+  m_Name: GunTest1
   m_EditorClassIdentifier: 
-  _cardName: Test Card
-  _description: Misc Test Card
-  _apCost: 1
-  _cardAbility: {fileID: 11400000, guid: f1f55d59307234c42bb9b985451fc650, type: 2}
+  _cardName: Gun Test Card
+  _description: Gun Test Card
+  _apCost: 4
+  _cardAbility: {fileID: 11400000, guid: 44035b917d646b24294798ad45f3a491, type: 2}
   _cardPrefab: {fileID: 2085524555361464184, guid: 3ba44d6e7ac60a84bbeab7cb3a55fc51, type: 3}

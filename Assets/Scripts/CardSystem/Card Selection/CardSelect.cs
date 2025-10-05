@@ -6,19 +6,17 @@ using UnityEngine.InputSystem;
 
 namespace CardSystem
 {
-
     public class CardSelect : MonoBehaviour
     {
         private SpriteRenderer _spriteRenderer;
         private GameObject _cardHighlight;
 
         [SerializeField] private Sprite _cardSprite;
-        [SerializeField] private bool selected = false, hovering = false;
+        [SerializeField] private bool selected = false;//, hovering = false;
         private Card _card;
-        //private Transform cardTransform = null;
 
-        private Vector3 offset;
-        private Vector2 originalLocation;
+        //private Vector3 offset;
+        //private Vector2 originalLocation;
 
         private void OnEnable()
         {
@@ -27,42 +25,42 @@ namespace CardSystem
 
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _spriteRenderer.sprite = _cardSprite;
+
+            AbilityEvents.OnAbilityUsed += ClearSelection;
+        }
+        private void OnDestroy()
+        {
+            AbilityEvents.OnAbilityUsed -= ClearSelection;
         }
         private void OnMouseEnter()
         {
-            hovering = true;
-            CardManager.instance.selectedCard = _card;
-            CardManager.instance.haveSelected = true;
             _cardHighlight.SetActive(true);
+            transform.position += Vector3.up;
         }
         private void OnMouseExit()
         {
             if (!selected)
             {
                 _cardHighlight.SetActive(false);
-                CardManager.instance.haveSelected = false;
-                CardManager.instance.selectedCard = null;
+                transform.position -= Vector3.up;
             }
-            hovering = false;
+        }
+        private void OnMouseDown()
+        {
+            selected = true;
+            //add check for enough ap?
+
+            CardManager.instance.selectedCard = _card; //make me better, this is messy
+
+            AbilityEvents.TargetingStarted();//invoke static event
+            _card.GetCardAbility.UseAility(TurnManager.GetCurrentUnit);
         }
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (hovering)
-                {
-                    selected = true;
-                }
-            }
-
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                selected = false;
-                _cardHighlight.SetActive(false);
-                CardManager.instance.haveSelected = false;
-                CardManager.instance.selectedCard = null;
-                CardManager.instance.StopAllCoroutines();
+                ClearSelection();
             }
 
             /* Drag disabled while setting up ability functionality
@@ -95,10 +93,22 @@ namespace CardSystem
             }
             */
         }
+        public void ClearSelection()
+        {
+            if (selected)
+            {
+                TurnManager.GetCurrentUnit.StopAllCoroutines();
+
+                selected = false;
+                transform.position -= Vector3.up;
+                _cardHighlight.SetActive(false);
+            }
+        }
 
         public void OnPrefabCreation(Card card)
         {
             _card = card;
+            _card.CardTransform = transform;
 
             transform.name = card.GetCardName;
             TextMeshPro[] cardTextFields = transform.GetComponentsInChildren<TextMeshPro>();

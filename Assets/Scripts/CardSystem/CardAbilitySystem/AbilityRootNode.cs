@@ -16,20 +16,19 @@ namespace CardSystem
 		public void UseAbility(Unit user)
 		{
             if (_targetingStrategy == null)
-            {
-				_targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
-            }
+                _targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
 
-			AbilityData abilityData = new AbilityData(user);
-			_targetingStrategy?.StartTargeting(abilityData, () =>
-			{
-				InitAbility(abilityData);
-				//Debug.Log("init ability called");
-			});
+        AbilityData abilityData = new AbilityData(user);
+		_targetingStrategy?.StartTargeting(abilityData, () =>
+		{
+			InitAbility(abilityData);
+			//Debug.Log("init ability called");
+		});
         }
 
 		private void InitAbility(AbilityData abilityData)
 		{
+			//do each filter connected to root node
 			foreach (NodePort port in Outputs)
 			{
 				if (port.Connection == null || port.Connection.node == null || port.Connection.node is FilterStrategy == false)
@@ -37,8 +36,10 @@ namespace CardSystem
 					continue;
 				}
 
-				abilityData.Targets = (port.Connection.node as FilterStrategy).Filter(abilityData.Targets); //filter is set up in filter strategy
+				abilityData.Targets = (port.Connection.node as FilterStrategy).Filter(abilityData.Targets);
 			}
+
+			//Do each effect connected to root node
 			foreach (NodePort port in Outputs)
 			{
 				if (port.Connection == null || port.Connection.node == null || port.Connection.node is EffectStrategy == false)
@@ -53,6 +54,8 @@ namespace CardSystem
 
 		private void OnEffectFinished()
 		{
+			AbilityEvents.AbilityUsed();
+
 			//end turn? other stuff?
 		}
 	}

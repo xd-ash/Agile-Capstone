@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace CardSystem
@@ -16,11 +17,20 @@ namespace CardSystem
     public class DamageEffect : EffectStrategy
     {
         public int damage;
-        public DamageTypes damageType;
+        //public DamageTypes damageType;
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
-            abilityData.GetUnit.TakeDamage(damage);
+            foreach (GameObject target in abilityData.Targets)
+            {
+                if (target != null)
+                {
+                    target.GetComponent<Unit>().TakeDamage(damage);
+                }
+            }
+            if (abilityData.Targets.Count<GameObject>() > 0)
+                abilityData.GetUnit.SpendAP(CardManager.instance.selectedCard.APCost); //maybe fix this? kinda messy
+                                                                                       //move somewhere else? event?
             onFinished();
         }
     }

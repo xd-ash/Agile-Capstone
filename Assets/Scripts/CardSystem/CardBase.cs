@@ -30,7 +30,6 @@ namespace CardSystem
             _cardName = so.GetCardName;
             _description = so.GetDescription;
             _apCost = so.GetAPCost;
-            _cardTransform = so.GetCardPrefab.transform;
             _cardAbility = so.GetCardAbility;
             _cardPrefab = so.GetCardPrefab;
         }
