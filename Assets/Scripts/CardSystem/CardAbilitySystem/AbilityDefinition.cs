@@ -5,7 +5,7 @@ using XNode;
 
 namespace CardSystem
 {
-	[CreateAssetMenu(fileName = "CardAbility", menuName = "Deckbuilding System/Card Definition")]
+	[CreateAssetMenu(fileName = "CardAbility", menuName = "Deckbuilding System/New Card Ability Definition")]
 	public class AbilityDefinition : NodeGraph
 	{
 		private AbilityRootNode _rootNode;
@@ -28,7 +28,7 @@ namespace CardSystem
 			}
 		}
 
-		public void UseAility(UnitStatsScript user)
+		public void UseAility(Unit user)
 		{
 			RootNode?.UseAbility(user);
 		}

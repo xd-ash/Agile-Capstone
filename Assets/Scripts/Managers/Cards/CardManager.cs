@@ -1,63 +1,98 @@
+using AStarPathfinding;
 using DG.Tweening;
+using OldCardSystem;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Splines;
 
 namespace CardSystem
 {
     public class CardManager : MonoBehaviour
     {
-        public int _topCardOfDeck = 0;
-
-        public int _nextCardInHandIndex = 0;
-
-        public int _maxCards = 5;
-
-        public int _currentHandSize = 0;
-
-        public DeckSO _testDeck;
-
-        public List<CardBase> _cardsInHand = new();//make visible in inspector in some way
-
-        [SerializeField] private SplineContainer splineContainer;
-
-        [SerializeField] public Transform spawnPoint;
-
-        public CardCreator DetermineCardCreator(CardSO cardSO)
+        //Singleton setup
+        public static CardManager instance;
+        private void Awake()
         {
-            switch (cardSO.GetCardTypeID()[0])
+            if (instance == null)
             {
-                case '1':
-                    return new MiscCardCreator(cardSO);
-                case '2':
-                    return new RangeCardCreator(cardSO);
-                case '3':
-                    return new MeleeCardCreator(cardSO);
-                default:
-                    throw new System.NotImplementedException();
+                instance = this;
+            }
+            else
+            {
+                Debug.LogError($"{this.gameObject.name} has been destroyed due to singleton conflict");
+                Destroy(this.gameObject);
             }
         }
+
+        public int _topCardOfDeck = 0;
+        public int _nextCardInHandIndex = 0;
+        public int _maxCards = 5;
+        public int _currentHandSize = 0;
+
+        [SerializeField] private Deck _deck;
+        [SerializeField] private List<Card> _cardsInHand = new();
+        public Card selectedCard = null;
+        public bool haveSelected = false;
+        [SerializeField] private bool amTargeting = false;
+        [SerializeField] private SplineContainer splineContainer;
+        [SerializeField] public Transform spawnPoint;
+
         public void DrawCard()
         {
-            //Debug.Log("test");
-            _cardsInHand.Add(DetermineCardCreator(_testDeck._deck[_topCardOfDeck]).CreateCard(transform));           
+            if (_currentHandSize >= _maxCards) return;
+
+            Card newCard = new Card(_deck.GetDeck[_topCardOfDeck]);
+            _cardsInHand.Add(newCard);
+            CreateCardPrefab(newCard);
+
             _topCardOfDeck++;
             _nextCardInHandIndex++;
             _currentHandSize++; 
 
             ArrangeCardGOs();
         }
-        public void UseCard()
+
+        public void CreateCardPrefab(Card card)
         {
-            _cardsInHand[0].Use();
+            GameObject cardGO = Instantiate(card.GetCardPrefab, transform);
+            if(!cardGO.GetComponent<CardSelect>()) cardGO.AddComponent<CardSelect>();
+            cardGO.GetComponent<CardSelect>().OnPrefabCreation(card);
         }
+        public void OnCardClick(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+            if (!TurnManager.IsPlayerTurn) return;
+
+            //add check for enough ap?
+
+            if (haveSelected)
+                StartCoroutine(CardTargetSelect());
+        }
+
+        // after card click, wait until next click to do ability
+        public IEnumerator CardTargetSelect()
+        {
+            //give me some kind of visual
+
+            amTargeting = true;
+            Debug.Log("test abilityclick - " + selectedCard.GetCardName);
+            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+            Debug.Log($"user:{TurnManager.GetCurrentUnit.name}");
+            Debug.Log($"card:{selectedCard.GetCardName}");
+            selectedCard.GetCardAbility.UseAility(TurnManager.GetCurrentUnit);
+            amTargeting = false;
+        }
+
         public void ArrangeCardGOs()
         {
             if (_currentHandSize == 0) return;
             float cardSpacing = 1f / (_maxCards);
-            float firstCardPos = 0.5f - (_currentHandSize - 1) * (cardSpacing / 2);
+            float firstCardPos = 0f; //0.5f - (_currentHandSize - 1) * (cardSpacing / 2);
             Spline spline = splineContainer.Spline;
             for (int i = 0; i < _currentHandSize; i++)
             {
@@ -67,8 +102,8 @@ namespace CardSystem
                 Vector3 up = spline.EvaluateUpVector(t);
                 Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
-                _cardsInHand[i]._cardTransform.DOMove(splinePosition, 0.25f);
-                _cardsInHand[i]._cardTransform.DOLocalRotateQuaternion(rotation, 0.25f);
+                _cardsInHand[i].CardTransform.DOMove(splinePosition, 0.25f);
+                _cardsInHand[i].CardTransform.DOLocalRotateQuaternion(rotation, 0.25f);
             }
         }
     }

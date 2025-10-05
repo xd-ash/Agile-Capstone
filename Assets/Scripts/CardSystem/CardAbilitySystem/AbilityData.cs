@@ -6,13 +6,13 @@ namespace CardSystem
 {
     public class AbilityData
     {
-        private UnitStatsScript _unit; //TEMP script ref, replace with real one
+        private Unit _unit; //TEMP script ref, replace with real one
 
         private IEnumerable<GameObject> _targets;
 
-        public UnitStatsScript GetUnit { get { return _unit; } }
+        public Unit GetUnit { get { return _unit; } }
         public IEnumerable<GameObject> Targets { get { return _targets; } set { _targets = value; } }
-        public AbilityData(UnitStatsScript unit)
+        public AbilityData(Unit unit)
         {
             _unit = unit;
         }

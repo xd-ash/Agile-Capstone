@@ -5,7 +5,7 @@ namespace CardSystem
     public class AbilityController : MonoBehaviour
     {
         [SerializeField] protected AbilityDefinition _loadedAbility;
-        [SerializeField] protected UnitStatsScript _currentUnit;
+        [SerializeField] protected Unit _currentUnit; // swap to ref turnmanager curunity prop?
 
         protected virtual void Start()
         {

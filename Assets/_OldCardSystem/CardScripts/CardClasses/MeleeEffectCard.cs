@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 namespace CardSystem
 {
     public class MeleeEffectCard : CardBase, IMeleeAbility
@@ -26,3 +26,4 @@ namespace CardSystem
         }
     }
 }
+*/

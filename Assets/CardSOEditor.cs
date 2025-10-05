@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-
+/*
 namespace CardSystem
 {
     [CustomEditor(typeof(CardSO))]
@@ -229,3 +229,4 @@ namespace CardSystem
         }
     }
 }
+*/

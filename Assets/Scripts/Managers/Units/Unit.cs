@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour, IDamagable
     [Header("Target for Enemy units")]
     [SerializeField] private Unit _target;
     
-    [Header("Action Pointds")] 
+    [Header("Action Points")] 
     public int maxAP;
     public int ap;
     

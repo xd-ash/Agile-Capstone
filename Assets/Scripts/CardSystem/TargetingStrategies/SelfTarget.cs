@@ -23,7 +23,7 @@ namespace CardSystem
             yield return abilityData.GetUnit.gameObject;
         }
 
-        protected override IEnumerable<GameObject> GetGameObjectsInRadius(UnitStatsScript user)
+        protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit user)
         {
             Collider[] foundObjects = Physics.OverlapSphere(user.transform.position, radius, layerMask);
 

@@ -30,7 +30,7 @@ namespace CardSystem
 
             onFinished();
         }
-        private IEnumerator LineDrawCoro(UnitStatsScript unit)
+        private IEnumerator LineDrawCoro(Unit unit)
         {
             while (drawLineGizmo)
             {
@@ -39,7 +39,7 @@ namespace CardSystem
             }
         }
 
-        private IEnumerable<GameObject> TargetOnMouse(UnitStatsScript unit)
+        private IEnumerable<GameObject> TargetOnMouse(Unit unit)
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity);
 
@@ -47,7 +47,7 @@ namespace CardSystem
                 yield return hit.collider.gameObject;
         }
 
-        protected override IEnumerable<GameObject> GetGameObjectsInRadius(UnitStatsScript unit)
+        protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit)
         {
             Collider[] foundObjects = Physics.OverlapSphere(unit.transform.position, radius, layerMask);
 

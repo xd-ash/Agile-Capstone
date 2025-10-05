@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 namespace CardSystem
 {
     public class RangeCardCreator : CardCreator
@@ -17,4 +17,4 @@ namespace CardSystem
         }
     }
 }
-
+*/

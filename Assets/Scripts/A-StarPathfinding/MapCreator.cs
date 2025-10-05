@@ -68,9 +68,10 @@ namespace AStarPathfinding
         private GameObject _tilePrefab;
         private GameObject _emptyMapAnchor;
 
-        [Header("Placeholder Obstacle Spawn")]
+        [Header("Placeholder Obstacle/Enemy Spawn")]
         [SerializeField] private List<Vector2Int> obstLocationList;
         [SerializeField] private GameObject _placeholderObstacle;
+        [SerializeField] private Transform _enemyPlaceholder;
 
         public byte[,] GetByteMap { get { return _map; } }
         public Vector2Int GetMapSize { get { return _mapSize; } }
@@ -80,9 +81,8 @@ namespace AStarPathfinding
         private void OnEnable()
         {
             _tilePrefab = Resources.Load<GameObject>("TileGridPrefabs/TileBase"); //maybe change to another grabbing method?
-            _emptyMapAnchor = Instantiate(new GameObject(), transform.Find("PlayerMoveEmpty"));
+            _emptyMapAnchor = Instantiate(new GameObject(), transform.Find("UnitMoveEmpty"));
             _emptyMapAnchor.transform.localEulerAngles = Vector3.zero;
-
             _emptyMapAnchor.name = "EmptyTileAnchor";
         }
 
@@ -94,7 +94,11 @@ namespace AStarPathfinding
             {
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
-                    if (obstLocationList.Contains(new Vector2Int(x, y))) //Placeholder obstacle spawn
+                    if (new Vector2Int((int)_enemyPlaceholder.localPosition.x, (int)_enemyPlaceholder.localPosition.y) == new Vector2Int(x, y))
+                    {
+                        _map[x, y] = 2;
+                    }
+                    else if (obstLocationList.Contains(new Vector2Int(x, y))) //Placeholder obstacle spawn
                     {
                         _map[x, y] = 1;
                     }

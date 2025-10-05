@@ -38,7 +38,7 @@ namespace AStarPathfinding
 
     public class FindPathAStar : MonoBehaviour
     {
-        private MapCreator _mapCreator = MapCreator.instance;
+        private MapCreator _mapCreator;
 
         private PathMarker startNode;
         private PathMarker goalNode;
@@ -61,6 +61,10 @@ namespace AStarPathfinding
         [SerializeField] private GameObject pathP;
         /*/
 
+        private void Start()
+        {
+            _mapCreator = MapCreator.instance;
+        }
         public void OnTileClick(InputAction.CallbackContext context)
         {
             if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
@@ -129,7 +133,7 @@ namespace AStarPathfinding
             {
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= _mapCreator.GetMapSize.x || neighbour.y < 0 || neighbour.y >= _mapCreator.GetMapSize.y) continue; //if neighbor is out of bounds
-                if (_mapCreator.GetByteMap[neighbour.x, neighbour.y] == 1) continue; // if pos is obstacle
+                if (_mapCreator.GetByteMap[neighbour.x, neighbour.y] == 1 || _mapCreator.GetByteMap[neighbour.x, neighbour.y] == 2) continue; // if pos is obstacle/enemy
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;

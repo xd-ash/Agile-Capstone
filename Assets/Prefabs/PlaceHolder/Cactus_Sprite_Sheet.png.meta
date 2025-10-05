@@ -88,7 +88,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -126,7 +126,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -211,10 +211,10 @@ TextureImporter:
       name: Cactus_Sprite_Sheet_2
       rect:
         serializedVersion: 2
-        x: 151
+        x: 148
         y: 84
-        width: 16
-        height: 23
+        width: 24
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -583,6 +583,7 @@ TextureImporter:
       Cactus_Sprite_Sheet_15: 3071052721029730925
       Cactus_Sprite_Sheet_16: -1732723043208175861
       Cactus_Sprite_Sheet_17: 1068189301778160368
+      Cactus_Sprite_Sheet_18: 900841791
       Cactus_Sprite_Sheet_2: -5903250292496546685
       Cactus_Sprite_Sheet_3: 8151342854279442273
       Cactus_Sprite_Sheet_4: -993162807773082880

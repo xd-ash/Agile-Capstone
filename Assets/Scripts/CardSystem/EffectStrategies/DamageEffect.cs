@@ -11,6 +11,7 @@ namespace CardSystem
         Fire,
         Emotional
     }
+
     [CreateNodeMenu("Effect/Damage")]
     public class DamageEffect : EffectStrategy
     {
@@ -19,7 +20,7 @@ namespace CardSystem
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
-            abilityData.GetUnit.TakeDamage(damage, damageType);
+            abilityData.GetUnit.TakeDamage(damage);
             onFinished();
         }
     }

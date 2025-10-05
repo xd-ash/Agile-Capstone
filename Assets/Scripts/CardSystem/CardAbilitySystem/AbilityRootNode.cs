@@ -13,7 +13,7 @@ namespace CardSystem
 
 		private TargetingStrategy _targetingStrategy;
 
-		public void UseAbility(UnitStatsScript user)
+		public void UseAbility(Unit user)
 		{
             if (_targetingStrategy == null)
             {

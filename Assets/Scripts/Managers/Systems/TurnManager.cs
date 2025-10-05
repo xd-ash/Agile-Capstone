@@ -12,7 +12,7 @@ public class TurnManager : MonoBehaviour
     [Header("Units")] // might need to switch to a list of friendly/enemy units.
     [SerializeField] private Unit _player;
     [SerializeField] private Unit _enemy;
-    
+
     [Header("UI")]
     [SerializeField] TextMeshProUGUI _turnText;
     [SerializeField] TextMeshProUGUI _apText;
@@ -29,13 +29,10 @@ public class TurnManager : MonoBehaviour
         instance = this;
     }
     
-    
-
     private void Start()
     {
         SetTurn(Turn.Player); //Could change by using the dice roll or random.range
     }
-    
     
     public void UpdateApText()
     {
@@ -46,7 +43,6 @@ public class TurnManager : MonoBehaviour
             _apText.text = $"AP: {_enemy.ap}/{_enemy.maxAP}";
     }
 
-
     private void SetTurn(Turn next)
     {
         currTurn = next;
@@ -55,8 +51,14 @@ public class TurnManager : MonoBehaviour
         {
             _turnText.text = $"{currTurn}'s Turn";
         }
-        if (currTurn == Turn.Player && _player != null) _player.RefreshAP();
-        if (currTurn == Turn.Enemy && _enemy != null) _enemy.RefreshAP();
+        if (currTurn == Turn.Player && _player != null)
+        {
+            _player.RefreshAP();
+        }
+        if (currTurn == Turn.Enemy && _enemy != null)
+        { 
+            _enemy.RefreshAP(); 
+        }
         UpdateApText();
         
         OnTurnChanged?.Invoke(currTurn);
@@ -67,11 +69,11 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator EnemyTurn()
     {
-        while (_enemy != null && _enemy.CanSpend(1))
+        while (_enemy != null && _enemy.CanSpend(5))
         {
-            yield return new WaitForSeconds(5f); 
+            yield return new WaitForSeconds(2f); 
             _enemy.DealDamage(2);
-            _enemy.SpendAP(1);
+            _enemy.SpendAP(5);
             Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_enemy.ap}");
             UpdateApText();
         }
@@ -87,4 +89,7 @@ public class TurnManager : MonoBehaviour
 
     public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
     public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
+    public static Unit GetCurrentUnit => instance != null && instance.currTurn == Turn.Player ? instance._player : instance._enemy; // Adam added 10/5
+                                                                                                                                    //      - Grabbing current unit (for when friendlies added)
+                                                                                                                                    //      - unit used for ability stuff
 }

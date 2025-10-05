@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
 namespace CardSystem
 {
     public abstract class CardCreator
@@ -37,3 +37,4 @@ namespace CardSystem
         }
     }
 }
+*/

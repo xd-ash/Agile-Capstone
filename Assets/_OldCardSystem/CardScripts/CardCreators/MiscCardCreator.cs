@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 namespace CardSystem
 {
     public class MiscCardCreator : CardCreator
@@ -15,3 +15,4 @@ namespace CardSystem
         }
     }
 }
+*/

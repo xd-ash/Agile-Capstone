@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 namespace CardSystem
 {
     public class MeleeCardCreator : CardCreator
@@ -17,3 +17,4 @@ namespace CardSystem
         }
     }
 }
+*/

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Other Target
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -168, y: -168}
+  position: {x: -168, y: -152}
   ports:
     keys:
     - enter
@@ -149,5 +149,5 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
   enter: 0
-  damage: 420
+  damage: 5
   damageType: 4

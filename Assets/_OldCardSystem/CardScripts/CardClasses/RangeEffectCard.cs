@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 namespace CardSystem
 {
     public class RangeEffectCard : CardBase, IRangeAbility
@@ -30,3 +30,4 @@ namespace CardSystem
         }
     }
 }
+*/

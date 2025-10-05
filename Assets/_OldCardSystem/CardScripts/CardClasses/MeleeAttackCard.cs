@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 namespace CardSystem
 {
     public class MeleeAttackCard : CardBase, IMeleeAbility, IDealDamage
@@ -31,3 +31,4 @@ namespace CardSystem
         }
     }
 }
+*/
