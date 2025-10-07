@@ -94,7 +94,7 @@ namespace AStarPathfinding
             {
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
-                    if (new Vector2Int((int)_enemyPlaceholder.localPosition.x, (int)_enemyPlaceholder.localPosition.y) == new Vector2Int(x, y))
+                    if (new Vector2Int((int)_enemyPlaceholder.localPosition.x, (int)_enemyPlaceholder.localPosition.y) == new Vector2Int(x, y)) //Placeholder enemy spawn
                     {
                         _map[x, y] = 2;
                     }

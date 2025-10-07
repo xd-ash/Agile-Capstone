@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2585b2a169053434aaf8a47d5213d4e6, type: 3}
-  m_Name: EmoTest1
+  m_Name: PunchAttack2
   m_EditorClassIdentifier: 
-  _cardName: Emotion Attack Test 1
-  _description: 'Emotional Attack Test '
-  _apCost: 4
+  _cardName: Punch Attack 2
+  _description: Punch Attack 2 Test
+  _apCost: 2
   _cardAbility: {fileID: 11400000, guid: 462b92030bfa859478ef820aecd15cc5, type: 2}
   _cardPrefab: {fileID: 2085524555361464184, guid: 3ba44d6e7ac60a84bbeab7cb3a55fc51, type: 3}

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace AStarPathfinding
 {
@@ -59,12 +60,32 @@ namespace AStarPathfinding
         [SerializeField] private GameObject start;
         [SerializeField] private GameObject end;
         [SerializeField] private GameObject pathP;
+        [SerializeField] private GameObject truePMark;
         /*/
 
         private void Start()
         {
             _mapCreator = MapCreator.instance;
         }
+
+        /*/Movement Showcase Purposes //
+        public IEnumerator MovementPauseCoro()
+        {
+            yield return new WaitForSeconds(0.1f);
+            Search(lastPos);
+            if (done)
+            {
+                Debug.Log("done");
+                yield return new WaitForSeconds(0.5f);
+                GetPath();
+            }
+            else
+            {
+                StartCoroutine(MovementPauseCoro());
+            }
+        }
+        /*/
+
         public void OnTileClick(InputAction.CallbackContext context)
         {
             if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
@@ -75,15 +96,15 @@ namespace AStarPathfinding
                 BeginSearch(_mapCreator.tileMousePos);
                 do
                 {
-                    Search(lastPos);
+                Search(lastPos);
                 } while (!done);
                 GetPath();
                 int steps = truePath != null ? truePath.Count : 0;
                 if (steps > _unit.ap)
                 {
-                    int keep = Mathf.Max(0, _unit.ap);
-                    if (keep == 0) { _isMoving = false; return; } // no AP to move
-                    truePath = truePath.GetRange(truePath.Count - keep, keep);
+                int keep = Mathf.Max(0, _unit.ap);
+                if (keep == 0) { _isMoving = false; return; } // no AP to move
+                truePath = truePath.GetRange(truePath.Count - keep, keep);
                 }
 
                 StartCoroutine(MoveCoro());
@@ -106,12 +127,13 @@ namespace AStarPathfinding
             /*
             if (_placePathDebugMarkers)
             {
-                GameObject startMarkerGO = Instantiate(start, Vector3.zero, Quaternion.identity, transform);
+                GameObject startMarkerGO = Instantiate(start, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
                 startMarkerGO.transform.localPosition = startLocation;
 
-                GameObject endMarkerGO = Instantiate(end, Vector3.zero, Quaternion.identity, transform);
+                GameObject endMarkerGO = Instantiate(end, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
                 endMarkerGO.transform.localPosition = new Vector3(endLocation.x, endLocation.y, 0); // - on ycomp of end location due to how the grid tool creates grid
-            }*/
+            }
+            */
 
             open.Clear();
             closed.Clear();
@@ -142,9 +164,10 @@ namespace AStarPathfinding
                 /*
                 if (_placePathDebugMarkers)
                 {
-                    GameObject pathBlock = Instantiate(pathP, Vector3.zero, Quaternion.identity, transform);
+                    GameObject pathBlock = Instantiate(pathP, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
                     pathBlock.transform.localPosition = new Vector3(neighbour.x * _mapCreator.GetMapScale, neighbour.y * _mapCreator.GetMapScale, 0f);
-                }*/
+                }
+                */
 
                 if (!UpdateMarker(neighbour, newG, newH, newF, thisNode))
                     open.Add(new PathMarker(neighbour, newG, newH, newF, thisNode));
@@ -171,6 +194,16 @@ namespace AStarPathfinding
                 truePath.Add(begin);
                 begin = begin.parent;
             }
+
+            /*
+            if (_placePathDebugMarkers)
+            {
+                foreach (var tp in truePath)
+                {
+                    GameObject truePathGO = Instantiate(truePMark, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
+                    truePathGO.transform.localPosition = new Vector3(tp.location.x * _mapCreator.GetMapScale, tp.location.y * _mapCreator.GetMapScale, 0f);
+                }
+            }*/
         }
 
         public bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2585b2a169053434aaf8a47d5213d4e6, type: 3}
-  m_Name: SlashTest1
+  m_Name: GunAttack2
   m_EditorClassIdentifier: 
-  _cardName: Slash Attack Test 1
-  _description: 'Slash Attack Test '
-  _apCost: 2
-  _cardAbility: {fileID: 11400000, guid: fe5c2a0f02ae3fe4d8a0722f6dbfb8fd, type: 2}
+  _cardName: Gun Attack 2
+  _description: Gun Attack 2 Test
+  _apCost: 3
+  _cardAbility: {fileID: 11400000, guid: 44035b917d646b24294798ad45f3a491, type: 2}
   _cardPrefab: {fileID: 2085524555361464184, guid: 3ba44d6e7ac60a84bbeab7cb3a55fc51, type: 3}
