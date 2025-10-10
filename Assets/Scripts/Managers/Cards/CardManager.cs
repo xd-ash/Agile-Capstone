@@ -1,6 +1,5 @@
 using AStarPathfinding;
 using DG.Tweening;
-using OldCardSystem;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
