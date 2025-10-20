@@ -71,7 +71,7 @@ namespace CardSystem
         }
         public void CreateCardPrefab(Card card)
         {
-            GameObject cardGO = Instantiate(card.GetCardPrefab, transform);
+            GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
             if(!cardGO.GetComponent<CardSelect>()) cardGO.AddComponent<CardSelect>();
             cardGO.GetComponent<CardSelect>().OnPrefabCreation(card);
         }

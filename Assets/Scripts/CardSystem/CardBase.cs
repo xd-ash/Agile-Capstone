@@ -5,33 +5,27 @@ namespace CardSystem
     [System.Serializable]
     public class Card
     {
-        //initial constructor uses CardSO param to grab card data
-        public Card(CardSO so)
+        //initial constructor uses AbilityDefinition param to grab card data
+        public Card(CardAbilityDefinition def)
         {
-            GrabSOData(so);
+            GrabSOData(def);
         }
 
         [SerializeField] private string _cardName;
         private string _description;
-        [SerializeField] private int _apCost;
         [SerializeField] private Transform _cardTransform;
-        [SerializeField] private AbilityDefinition _cardAbility;
-        private GameObject _cardPrefab;
+        [SerializeField] private CardAbilityDefinition _cardAbility;
 
         public string GetCardName { get => _cardName; }
         public string GetDescription { get => _description; }
-        public int APCost { get => _apCost; set { if (value >= 0) _apCost = value; } }
         public Transform CardTransform { get => _cardTransform; set => _cardTransform = value; }
-        public AbilityDefinition GetCardAbility { get => _cardAbility; }
-        public GameObject GetCardPrefab { get => _cardPrefab; }
+        public CardAbilityDefinition GetCardAbility { get => _cardAbility; }
 
-        public virtual void GrabSOData(CardSO so)
+        public virtual void GrabSOData(CardAbilityDefinition def)
         {
-            _cardName = so.GetCardName;
-            _description = so.GetDescription;
-            _apCost = so.GetAPCost;
-            _cardAbility = so.GetCardAbility;
-            _cardPrefab = so.GetCardPrefab;
+            _cardName = def.GetCardName;
+            _description = def.GetDescription;
+            _cardAbility = def;
         }
     }
 }

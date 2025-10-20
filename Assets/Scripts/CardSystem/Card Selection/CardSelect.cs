@@ -113,7 +113,7 @@ namespace CardSystem
             TextMeshPro[] cardTextFields = transform.GetComponentsInChildren<TextMeshPro>();
             cardTextFields[0].text = card.GetCardName;
             cardTextFields[1].text = card.GetDescription;
-            cardTextFields[2].text = card.APCost.ToString();
+            cardTextFields[2].text = card.GetCardAbility.RootNode.GetApCost.ToString();
         }
     }
 }

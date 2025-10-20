@@ -81,9 +81,13 @@ namespace AStarPathfinding
         private void OnEnable()
         {
             _tilePrefab = Resources.Load<GameObject>("TileGridPrefabs/TileBase"); //maybe change to another grabbing method?
-            _emptyMapAnchor = Instantiate(new GameObject(), transform.Find("UnitMoveEmpty"));
+
+            // Messy but should be removed on fixing isometric tilemap movement
+            _emptyMapAnchor = new("EmptyTileAnchor");
+            _emptyMapAnchor.transform.parent = transform.Find("UnitMoveEmpty");
             _emptyMapAnchor.transform.localEulerAngles = Vector3.zero;
-            _emptyMapAnchor.name = "EmptyTileAnchor";
+            _emptyMapAnchor.transform.localPosition = Vector3.zero;
+            _emptyMapAnchor.transform.localScale = Vector3.one;
         }
 
         private void Start()

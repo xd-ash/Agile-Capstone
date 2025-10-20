@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using XNode;
 
 namespace CardSystem
 {
+    // Concrete targeting strategy to cast ability on the unit with an option to affectSelf or not
     [CreateNodeMenu("Targeting/Self")]
     public class SelfTarget : TargetingStrategy
     {
@@ -31,7 +30,7 @@ namespace CardSystem
 
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit user)
         {
-            Collider[] foundObjects = Physics.OverlapSphere(user.transform.position, radius, layerMask);
+            Collider[] foundObjects = Physics.OverlapSphere(user.transform.position, radius);
 
             foreach (Collider collider in foundObjects)
             {
