@@ -8,7 +8,6 @@ namespace CardSystem
     {
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
-            throw new NotImplementedException();
         }
     }
 }
