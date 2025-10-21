@@ -236,7 +236,7 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 1
   _duration: 4
-  _effectValue: 0
+  _effectValue: 2
   input: 0
 --- !u!114 &1766287723113216939
 MonoBehaviour:
@@ -271,4 +271,4 @@ MonoBehaviour:
   input: 0
   isAOE: 0
   radius: 0
-  affectSelf: 0
+  affectSelf: 1

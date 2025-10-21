@@ -96,7 +96,8 @@ namespace CardSystem
         {
             if (selected)
             {
-                TurnManager.GetCurrentUnit.StopAllCoroutines();
+                TurnManager.GetCurrentUnit.StopCoroutine("TargetingCoro");
+                TurnManager.GetCurrentUnit.StopCoroutine("LineDrawCoro");
 
                 selected = false;
                 transform.position -= Vector3.up;

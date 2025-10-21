@@ -1,12 +1,6 @@
-using AStarPathfinding;
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Splines;
 
 namespace CardSystem
@@ -18,14 +12,9 @@ namespace CardSystem
         private void Awake()
         {
             if (instance == null)
-            {
                 instance = this;
-            }
             else
-            {
-                Debug.LogError($"{this.gameObject.name} has been destroyed due to singleton conflict");
                 Destroy(this.gameObject);
-            }
         }
 
         public int _topCardOfDeck = 0;

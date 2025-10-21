@@ -13,8 +13,6 @@ namespace CardSystem
 
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("input"));
 
-            if (node is SelfTarget)
-                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("affectSelf"));
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("isAOE"));
             EditorGUI.indentLevel++;
             if (node.isAOE)

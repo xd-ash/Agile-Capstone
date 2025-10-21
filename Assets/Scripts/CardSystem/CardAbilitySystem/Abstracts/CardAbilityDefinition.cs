@@ -4,7 +4,7 @@ using XNode;
 namespace CardSystem
 {
 	// NodeGraph of new card ability
-	[CreateAssetMenu(fileName = "CardAbility", menuName = "Deckbuilding System/New Card Ability")]
+	[CreateAssetMenu(fileName = "NewCardAbility", menuName = "Deckbuilding System/New Card Ability")]
 	public class CardAbilityDefinition : NodeGraph
 	{
         [SerializeField] private string _cardName;

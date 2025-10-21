@@ -163,13 +163,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 650432248}
     m_Modifications:
+    - target: {fileID: 1466790781284684244, guid: e70a16e0772849541a1929058aba2280, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6557971832698807318, guid: e70a16e0772849541a1929058aba2280, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6557971832698807318, guid: e70a16e0772849541a1929058aba2280, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6557971832698807318, guid: e70a16e0772849541a1929058aba2280, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1554,7 +1558,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.85
+  m_fontSize: 53.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2121,7 +2125,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.95
+  m_fontSize: 22
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2854,7 +2858,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.1
+  m_fontSize: 27.15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2944,7 +2948,6 @@ MonoBehaviour:
   splineContainer: {fileID: 1273628127}
   selectedCard:
     _cardName: 
-    _apCost: 0
     _cardTransform: {fileID: 0}
     _cardAbility: {fileID: 0}
 --- !u!4 &1691110207
@@ -3409,7 +3412,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 25.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

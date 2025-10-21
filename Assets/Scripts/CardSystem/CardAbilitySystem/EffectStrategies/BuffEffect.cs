@@ -15,7 +15,7 @@ namespace CardSystem
                 {
                     //do effect things
                     if (_hasDuration)
-                        DoEffectOverTime(unit, _duration);
+                        unit.StartCoroutine(DoEffectOverTime(unit, _duration));
                 }
             }
 

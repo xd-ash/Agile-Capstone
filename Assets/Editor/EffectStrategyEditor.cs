@@ -7,11 +7,12 @@ namespace CardSystem
     [CustomNodeEditor(typeof(EffectStrategy))]
     public class EffectStrategyEditor : NodeEditor
     {
+        bool isAura = false;
+
         public override void OnBodyGUI()
         {
             serializedObject.Update();
             EffectStrategy node = target as EffectStrategy;
-            bool isAura = false;
             if (node is BuffEffect || node is DebuffEffect)
             {
                 node.HasDuration = true;
