@@ -12,7 +12,7 @@ namespace CardSystem
         public override IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter)
         {
             foreach (var obj in objectsToFilter)
-                if (obj != null && (_layermask & (1 << obj.layer)) != 0) // Bitwise operations, not sure if done correctly
+                if (obj != null && ((_layermask & (1 << obj.layer)) != 0)) // Bitwise operations, not sure if done correctly
                     yield return obj;
         }
     }

@@ -33,8 +33,11 @@ namespace CardSystem
         }
         private void OnMouseEnter()
         {
-            _cardHighlight.SetActive(true);
-            transform.position += Vector3.up;
+            if (!selected)
+            {
+                _cardHighlight.SetActive(true);
+                transform.position += Vector3.up;
+            }
         }
         private void OnMouseExit()
         {
@@ -47,7 +50,6 @@ namespace CardSystem
         private void OnMouseDown()
         {
             selected = true;
-            //add check for enough ap?
 
             CardManager.instance.selectedCard = _card; //make me better, this is messy
 

@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.95
+  m_fontSize: 46.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2125,7 +2125,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
+  m_fontSize: 18.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2720,7 +2720,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.95
+  m_fontSize: 18.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2858,7 +2858,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.15
+  m_fontSize: 23.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3010,7 +3010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1784f1e54ba272429b26712a11bacc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMousePos: {x: 0, y: 0}
+  tileMousePos: {x: -1, y: -1}
   _mapSize: {x: 9, y: 9}
   _mapScale: 1
   obstLocationList:
@@ -3360,7 +3360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.24752648, y: 0.26378334}
   m_AnchorMax: {x: 0.7613157, y: 0.7274335}
-  m_AnchoredPosition: {x: -0.5000019, y: -1.0550003}
+  m_AnchoredPosition: {x: -0.5000038, y: -1.0550003}
   m_SizeDelta: {x: -0.25500107, y: 2.1100006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2029014750
@@ -3412,7 +3412,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.05
+  m_fontSize: 21.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

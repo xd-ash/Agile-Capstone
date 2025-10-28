@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 namespace CardSystem
@@ -62,5 +63,19 @@ namespace CardSystem
             foreach (Collider collider in foundObjects)
                 yield return collider.gameObject;
         }
+
+        /*
+        protected IEnumerable<GameObject> XXX(Unit unit, IEnumerable<GameObject> x)
+        {
+            Collider[] foundObjects = Physics.OverlapSphere(unit.transform.position, radius);
+
+            foreach (GameObject item in x)
+            {
+                yield return item;
+            }
+
+            foreach (Collider collider in foundObjects)
+                yield return collider.gameObject;
+        }*/
     }
 }

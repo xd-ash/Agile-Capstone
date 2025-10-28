@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace AStarPathfinding
 {
@@ -56,7 +54,7 @@ namespace AStarPathfinding
 
         //[SerializeField] private Tilemap _tilemap;  //Unused currently
 
-        [HideInInspector] public Vector2Int tileMousePos;
+        [HideInInspector] public Vector2Int tileMousePos = new(-1,-1);
         [SerializeField] private Vector2Int _mapSize;
         [SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;

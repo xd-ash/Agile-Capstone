@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -32,6 +33,15 @@ namespace CardSystem
             AbilityEvents.OnAbilityUsed += RemoveCard;
         }
 
+        public void RemoveCard()
+        {
+            _cardsInHand.Remove(selectedCard);
+            _currentHandSize--;
+            ArrangeCardGOs();
+            Destroy(selectedCard.CardTransform.gameObject);
+            selectedCard = null;
+        }
+
         public void DrawCard()
         {
             if (_currentHandSize >= _maxCards) return;
@@ -49,14 +59,6 @@ namespace CardSystem
             _currentHandSize++;
 
             ArrangeCardGOs();
-        }
-        public void RemoveCard()
-        {
-            _cardsInHand.Remove(selectedCard);
-            _currentHandSize--;
-            ArrangeCardGOs();
-            Destroy(selectedCard.CardTransform.gameObject); 
-            selectedCard = null;
         }
         public void CreateCardPrefab(Card card)
         {
