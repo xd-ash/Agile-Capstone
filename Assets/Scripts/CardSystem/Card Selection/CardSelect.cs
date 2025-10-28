@@ -33,7 +33,7 @@ namespace CardSystem
         }
         private void OnMouseEnter()
         {
-            if (!selected)
+            if (!selected && !PauseMenu.isPaused)
             {
                 _cardHighlight.SetActive(true);
                 transform.position += Vector3.up;
@@ -41,7 +41,7 @@ namespace CardSystem
         }
         private void OnMouseExit()
         {
-            if (!selected)
+            if (!selected && !PauseMenu.isPaused)
             {
                 _cardHighlight.SetActive(false);
                 transform.position -= Vector3.up;
@@ -49,6 +49,8 @@ namespace CardSystem
         }
         private void OnMouseDown()
         {
+            if (PauseMenu.isPaused) return;
+
             selected = true;
 
             CardManager.instance.selectedCard = _card; //make me better, this is messy
