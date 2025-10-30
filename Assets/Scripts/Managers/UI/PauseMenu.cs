@@ -1,37 +1,45 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 
 public class PauseMenu : MonoBehaviour
 {
-
     public Canvas pauseMenuCanvas;
     public static bool isPaused = false;
 
-    // Update is called once per frame
+    private void Awake()
+    {
+        // Ensure the menu is hidden and the game is unpaused when the scene loads
+        if (pauseMenuCanvas != null)
+            pauseMenuCanvas.enabled = false;
+
+        isPaused = false;
+        Time.timeScale = 1f; // IMPORTANT: reset global timeScale on scene load
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
-            isPaused = !isPaused;
         }
     }
 
     private void TogglePause()
     {
-        if (Time.timeScale == 1)
+        isPaused = !isPaused;
+
+        if (isPaused)
         {
-            Time.timeScale = 0; // Pause the game
-            pauseMenuCanvas.enabled = true; // Show pause menu UI
-            
+            Time.timeScale = 0f; // Pause the game
+            if (pauseMenuCanvas != null)
+                pauseMenuCanvas.enabled = true;
         }
         else
         {
-            Time.timeScale = 1; // Resume the game
-            pauseMenuCanvas.enabled = false; // Hide pause menu UI
+            Time.timeScale = 1f; // Resume the game
+            if (pauseMenuCanvas != null)
+                pauseMenuCanvas.enabled = false;
         }
     }
 }

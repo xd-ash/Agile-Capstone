@@ -88,7 +88,7 @@ namespace AStarPathfinding
         public void OnTileClick(InputAction.CallbackContext context)
         {
             if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
-                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
+                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0 && PauseMenu.isPaused != true)
             {
                 if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
 

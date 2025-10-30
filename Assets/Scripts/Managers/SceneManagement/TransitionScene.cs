@@ -9,5 +9,6 @@ public class TransitionScene : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneToLoad);
 
         //Handle anything else needed between scenes here
+        PauseMenu.isPaused = false;
     }
 }
