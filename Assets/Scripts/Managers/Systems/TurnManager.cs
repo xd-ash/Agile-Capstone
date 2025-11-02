@@ -17,25 +17,28 @@ public class TurnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _turnText;
     [SerializeField] TextMeshProUGUI _apText;
 
+    [Header("Turn settings")]
+    [SerializeField] private int _startingHandSize = 5; // draw this many cards at start of player turn
+
     public event Action<Turn> OnTurnChanged;
 
     private void Awake()
     {
         if (instance != null && instance != this)
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
             return;
         }
         instance = this;
     }
-    
+
     private void Start()
     {
         AbilityEvents.OnAbilityUsed += UpdateApText;
 
         SetTurn(Turn.Player); //Could change by using the dice roll or random.range
     }
-    
+
     public void UpdateApText()
     {
         if (_apText == null) return;
@@ -56,13 +59,19 @@ public class TurnManager : MonoBehaviour
         if (currTurn == Turn.Player && _player != null)
         {
             _player.RefreshAP();
+
+            // Draw player's starting hand when player's turn begins
+            if (CardSystem.CardManager.instance != null)
+            {
+                CardSystem.CardManager.instance.DrawStartingHand(_startingHandSize);
+            }
         }
         if (currTurn == Turn.Enemy && _enemy != null)
-        { 
-            _enemy.RefreshAP(); 
+        {
+            _enemy.RefreshAP();
         }
         UpdateApText();
-        
+
         OnTurnChanged?.Invoke(currTurn);
 
         if (currTurn == Turn.Enemy)
@@ -73,7 +82,7 @@ public class TurnManager : MonoBehaviour
     {
         while (_enemy != null && _enemy.CanSpend(5))
         {
-            yield return new WaitForSeconds(2f); 
+            yield return new WaitForSeconds(2f);
             _enemy.DealDamage(2);
             _enemy.SpendAP(5);
             Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_enemy.ap}");
@@ -85,6 +94,10 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        // discard player's hand at end of player turn
+        if (CardSystem.CardManager.instance != null)
+            CardSystem.CardManager.instance.DiscardAll();
+
         SetTurn(Turn.Enemy);
     }
     public void EndEnemyTurn() => SetTurn(Turn.Player);
