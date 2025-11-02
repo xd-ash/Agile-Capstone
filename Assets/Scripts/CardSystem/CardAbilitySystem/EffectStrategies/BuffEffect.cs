@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace CardSystem
@@ -7,19 +8,33 @@ namespace CardSystem
     [CreateNodeMenu("Helpful Effects/Buff")]
     public class BuffEffect : HelpfulEffect
     {
+        // Uses _effectValue as shield amount when this effect represents a shield.
+        // _hasDuration and _duration control optional timed expiry (seconds).
+
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
-            foreach (GameObject target in abilityData.Targets)
+            foreach (GameObject targetObj in abilityData.Targets)
             {
-                if (target != null && target.TryGetComponent<Unit>(out Unit unit))
+                if (targetObj != null && targetObj.TryGetComponent<Unit>(out Unit unit))
                 {
-                    //do effect things
+                    // Add shield equal to _effectValue
                     if (_hasDuration)
-                        unit.StartCoroutine(DoEffectOverTime(unit, _duration));
+                    {
+                        // Add shield and schedule removal after _duration seconds
+                        unit.AddShield(_effectValue, _duration);
+                    }
+                    else
+                    {
+                        // Permanent until consumed
+                        unit.AddShield(_effectValue);
+                    }
                 }
             }
 
             onFinished();
         }
+
+        // If you prefer a per-second tick effect (legacy support), you can keep/override DoEffectOverTime.
+        // For shield behavior, we use AddShield + optional duration coroutine above.
     }
 }

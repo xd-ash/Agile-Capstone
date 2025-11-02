@@ -35,10 +35,17 @@ namespace CardSystem
 
         public void RemoveCard()
         {
+            // remove selectedCard from hand data
             _cardsInHand.Remove(selectedCard);
             _currentHandSize--;
             ArrangeCardGOs();
-            Destroy(selectedCard.CardTransform.gameObject);
+
+            // destroy world prefab
+            if (selectedCard?.CardTransform != null)
+                Destroy(selectedCard.CardTransform.gameObject);
+
+
+
             selectedCard = null;
         }
 
@@ -63,8 +70,9 @@ namespace CardSystem
         public void CreateCardPrefab(Card card)
         {
             GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
-            if(!cardGO.GetComponent<CardSelect>()) cardGO.AddComponent<CardSelect>();
+            if (!cardGO.GetComponent<CardSelect>()) cardGO.AddComponent<CardSelect>();
             cardGO.GetComponent<CardSelect>().OnPrefabCreation(card);
+
         }
 
         public void ArrangeCardGOs()
@@ -84,6 +92,52 @@ namespace CardSystem
                 _cardsInHand[i].CardTransform.DOMove(splinePosition, 0.25f);
                 _cardsInHand[i].CardTransform.DOLocalRotateQuaternion(rotation, 0.25f);
             }
+        }
+
+        /// <summary>
+        /// Draw multiple cards (respects existing DrawCard logic such as max hand size).
+        /// </summary>
+        public void DrawMultiple(int count)
+        {
+            if (count <= 0) return;
+            for (int i = 0; i < count; i++)
+            {
+                // DrawCard already guards against max hand size and end-of-deck.
+                DrawCard();
+            }
+        }
+
+        /// <summary>
+        /// Return up to <paramref name="count"/> CardAbilityDefinition objects from the top of the deck
+        /// without modifying deck state (non-destructive peek).
+        /// </summary>
+        public CardAbilityDefinition[] PeekTopDefinitions(int count)
+        {
+            if (_deck == null || _deck.GetDeck == null || count <= 0)
+                return Array.Empty<CardAbilityDefinition>();
+
+            int available = Mathf.Max(0, Mathf.Min(count, _deck.GetDeck.Length - _topCardOfDeck));
+            if (available == 0) return Array.Empty<CardAbilityDefinition>();
+
+            CardAbilityDefinition[] result = new CardAbilityDefinition[available];
+            Array.Copy(_deck.GetDeck, _topCardOfDeck, result, 0, available);
+            return result;
+        }
+
+        /// <summary>
+        /// Called by CardUI or CardSelect when player chooses a card via UI or world object.
+        /// Centralizes selection behavior used previously by CardSelect.OnMouseDown.
+        /// </summary>
+        public void SelectCard(Card card)
+        {
+            if (PauseMenu.isPaused) return;
+            if (card == null) return;
+
+            selectedCard = card;
+
+            // Existing workflow used in CardSelect:
+            AbilityEvents.TargetingStarted();
+            card.GetCardAbility.UseAility(TurnManager.GetCurrentUnit);
         }
     }
 }
