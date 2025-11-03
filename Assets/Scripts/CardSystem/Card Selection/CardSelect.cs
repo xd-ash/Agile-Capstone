@@ -278,21 +278,12 @@ namespace CardSystem
                 _highlightRenderer.sortingOrder = baseOrder + 1;
             }
 
-            // Make sure text components are children of the card
-            var texts = GetComponentsInChildren<TMP_Text>(true);
+            // Update all TextMeshPro components sorting order
+            var texts = GetComponentsInChildren<TextMeshPro>();
             foreach (var text in texts)
             {
                 if (text == null) continue;
-                
-                // Ensure the text's parent is properly set up
-                var canvas = text.GetComponent<Canvas>() ?? text.gameObject.AddComponent<Canvas>();
-                canvas.renderMode = RenderMode.WorldSpace;  
-                canvas.overrideSorting = true;
-                canvas.sortingOrder = baseOrder + 2;
-                
-                // Make sure the text's transform is relative to the card
-                text.transform.SetParent(transform, true);
-                text.gameObject.SetActive(true);
+                text.sortingOrder = baseOrder + 2;
             }
         }
 
@@ -367,10 +358,33 @@ namespace CardSystem
             _card.CardTransform = transform;
 
             transform.name = card.GetCardName;
-            TextMeshPro[] cardTextFields = transform.GetComponentsInChildren<TextMeshPro>();
-            cardTextFields[0].text = card.GetCardName;
-            cardTextFields[1].text = card.GetDescription;
-            cardTextFields[2].text = card.GetCardAbility.RootNode.GetApCost.ToString();
+            
+            // Get all TextMeshPro components (non-UI version)
+            TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
+            
+            if (cardTextFields.Length >= 3)
+            {
+                // Update text content
+                cardTextFields[0].text = card.GetCardName;
+                cardTextFields[1].text = card.GetDescription;
+                cardTextFields[2].text = card.GetCardAbility.RootNode.GetApCost.ToString();
+                
+                // Make sure text components are properly attached and sorted
+                foreach (var textField in cardTextFields)
+                {
+                    // Ensure text is child of card and follows its transform
+                    textField.transform.SetParent(transform, true);
+                    
+                    // Set up sorting
+                    textField.sortingOrder = _spriteRenderer != null ? 
+                        _spriteRenderer.sortingOrder + 1 : 1;
+                }
+            }
+            else
+            {
+                Debug.LogError("Card prefab is missing required TextMeshPro components");
+            }
+
             card.CardTransform = transform;
             SetupVisuals();
         }

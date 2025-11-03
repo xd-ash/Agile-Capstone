@@ -34,6 +34,23 @@ namespace CardSystem
         private void Start()
         {
             AbilityEvents.OnAbilityUsed += RemoveCard;
+            ShuffleDeck(); // Add shuffle before any cards are drawn
+        }
+
+        private void ShuffleDeck()
+        {
+            if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length <= 1) return;
+
+            // Fisher-Yates shuffle algorithm
+            CardAbilityDefinition[] cards = _deck.GetDeck;
+            for (int i = cards.Length - 1; i > 0; i--)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, i + 1);
+                // Swap
+                CardAbilityDefinition temp = cards[i];
+                cards[i] = cards[randomIndex];
+                cards[randomIndex] = temp;
+            }
         }
 
         public void RemoveCard()

@@ -1793,7 +1793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &844549305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4304,7 +4304,7 @@ MonoBehaviour:
   _nextCardInHandIndex: 0
   _maxCards: 100
   _currentHandSize: 0
-  _deck: {fileID: 11400000, guid: 4dba97571edce6d4289d82213f7627bf, type: 2}
+  _deck: {fileID: 11400000, guid: b234795bd520a064687ba1c4db35c945, type: 2}
   _cardsInHand: []
   splineContainer: {fileID: 1273628127}
   selectedCard:
