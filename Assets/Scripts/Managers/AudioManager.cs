@@ -1,0 +1,119 @@
+using UnityEngine;
+
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager instance { get; private set; }
+    public TurnManager turnManager;
+    public AudioClip endTurnSfx;
+    public AudioClip drawCardSfx;
+    public AudioClip selectCardSfx;
+    public AudioClip bgmClip;
+
+    [Header("Volumes")]
+    [Range(0f, 1f)] public float sfxVolume = 1.0f;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
+
+    
+    private AudioSource _music;   // looped bgm
+    private AudioSource _sfx;     // one-shots
+
+    // Queued clip to play when AbilityEvents.AbilityUsed() fires
+    private AudioClip _pendingUseClip;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        _music = gameObject.AddComponent<AudioSource>();
+        _music.loop = true;
+        _music.spatialBlend = 0f;
+        _music.playOnAwake = false;
+        _music.volume = musicVolume;
+
+        _sfx = gameObject.AddComponent<AudioSource>();
+        _sfx.loop = false;
+        _sfx.spatialBlend = 0f;
+        _sfx.playOnAwake = false;
+        _sfx.volume = sfxVolume;
+    }
+
+    private void OnEnable()
+    {
+        AbilityEvents.OnAbilityUsed += HandleAbilityUsed;
+    }
+
+    private void OnDisable()
+    {
+        AbilityEvents.OnAbilityUsed -= HandleAbilityUsed;
+
+        if (turnManager != null)
+            turnManager.OnTurnChanged -= HandleTurnChanged;
+    }
+
+    private void Start()
+    {
+        if (turnManager == null)
+        {
+            turnManager = FindObjectOfType<TurnManager>();
+        }
+
+        if (turnManager != null)
+        {
+            turnManager.OnTurnChanged += HandleTurnChanged;
+        }
+
+        if (bgmClip != null)
+        {
+            PlayMusic(bgmClip, true);
+        }
+    }
+
+    private void HandleTurnChanged(TurnManager.Turn newTurn)
+    {
+        PlaySFX(endTurnSfx);
+    }
+
+    private void HandleAbilityUsed()
+    {
+        if (_pendingUseClip != null)
+        {
+            PlaySFX(_pendingUseClip);
+            _pendingUseClip = null; // clear after playing
+        }
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        if (clip == null || _sfx == null) return;
+        _sfx.volume = sfxVolume;
+        _sfx.PlayOneShot(clip);
+    }
+
+    public void PlayDrawCardSfx() => PlaySFX(drawCardSfx);
+    public void PlayCardSelectSfx() => PlaySFX(selectCardSfx);
+
+    public void PlayMusic(AudioClip clip, bool loop = true)
+    {
+        if (clip == null || _music == null) return;
+        if (_music.clip == clip && _music.isPlaying) return;
+        _music.loop = loop;
+        _music.clip = clip;
+        _music.volume = musicVolume;
+        _music.Play();
+    }
+
+    // Called by CardSelect before invoking the ability
+    public void SetPendingUseSfx(AudioClip clip)
+    {
+        _pendingUseClip = clip;
+    }
+
+    public void SetSfxVolume(float v)   { sfxVolume = Mathf.Clamp01(v);   if (_sfx)   _sfx.volume = sfxVolume; }
+    public void SetMusicVolume(float v) { musicVolume = Mathf.Clamp01(v); if (_music) _music.volume = musicVolume; }
+}
