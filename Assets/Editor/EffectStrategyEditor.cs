@@ -21,10 +21,16 @@ namespace CardSystem
 
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("input"));
 
+
             if (node is DebugEffect)
                 NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("message"), new GUIContent($"Debug Message:"));
             else if (node is DeckEffect)
-                GUILayout.Label("* Insert Deck Stuff Here *");
+            {
+                // Make me look better
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_action"));
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_amount"));
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_logResults"));
+            }
             else
                 NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_effectValue"), new GUIContent($"{DetermineStratType(node)} Value:"));
 

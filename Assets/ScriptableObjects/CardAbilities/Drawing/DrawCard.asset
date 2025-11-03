@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: Deck Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -8, y: 56}
+  position: {x: -8, y: 104}
   ports:
     keys:
     - input
@@ -142,6 +142,9 @@ MonoBehaviour:
   _duration: 0
   _effectValue: 0
   input: 0
+  _action: 0
+  _amount: 1
+  _logResults: 1
 --- !u!114 &2840524601188700382
 MonoBehaviour:
   m_ObjectHideFlags: 0
