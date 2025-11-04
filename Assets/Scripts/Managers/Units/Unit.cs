@@ -44,7 +44,7 @@ public class Unit : MonoBehaviour, IDamagable
         else
         {
             _enemyHPBar = GetComponentInChildren<Slider>();
-            _enemyHPBar.gameObject.SetActive(false);
+            //_enemyHPBar.gameObject.SetActive(false);
             ShieldEvents.RaiseEnemyShieldChanged(shield);
         }
     }
