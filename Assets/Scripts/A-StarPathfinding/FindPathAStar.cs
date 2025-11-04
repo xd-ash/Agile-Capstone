@@ -234,7 +234,7 @@ namespace AStarPathfinding
             }
             return false;
         }
-
+        /*
         public IEnumerator MoveCoro()
         {
             for (int i = truePath.Count - 1; i >= 0; i--)
@@ -250,6 +250,50 @@ namespace AStarPathfinding
 
                 yield return new WaitForSecondsRealtime(_unitMoveSpeed);
             }
+            _isMoving = false;
+        }
+        /*/
+        public IEnumerator MoveCoro()
+        {
+            var _dirAnimator = _unit.GetComponent<DirectionAnimator>();
+
+            Vector2Int prev = new Vector2Int(
+            (int)_unit.transform.localPosition.x,
+            (int)_unit.transform.localPosition.y);
+
+            _dirAnimator.SetMoving(true);
+
+            for (int i = truePath.Count - 1; i >= 0; i--)
+            {
+                if (!_unit.CanSpend(1))
+                    break;
+
+                Vector2Int next = new Vector2Int(truePath[i].location.x, truePath[i].location.y);
+                Vector2Int delta = next - prev;
+
+                _dirAnimator.SetDirectionFromDelta(delta);
+
+                Vector3 startPos = _unit.transform.localPosition;
+                Vector3 endPos = new Vector3(next.x, next.y, startPos.z);
+
+                float duration = _unitMoveSpeed;
+                float elapsed = 0f;
+
+                while (elapsed < duration)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    float t = Mathf.Clamp01(elapsed / duration);
+                    _unit.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+                    yield return null;
+                }
+
+                _unit.SpendAP(1);
+                TurnManager.instance.UpdateApText();
+
+                prev = next;
+            }
+
+            _dirAnimator.SetMoving(false);
             _isMoving = false;
         }
     }
