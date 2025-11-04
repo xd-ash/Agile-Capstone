@@ -3,17 +3,17 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
-    public TurnManager turnManager;
+    //public TurnManager turnManager = TurnManager.instance;
     public AudioClip endTurnSfx;
     public AudioClip drawCardSfx;
     public AudioClip selectCardSfx;
     public AudioClip bgmClip;
+    public AudioClip menuButtonClick;
 
     [Header("Volumes")]
     [Range(0f, 1f)] public float sfxVolume = 1.0f;
     [Range(0f, 1f)] public float musicVolume = 0.5f;
 
-    
     private AudioSource _music;   // looped bgm
     private AudioSource _sfx;     // one-shots
 
@@ -45,35 +45,46 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
-        AbilityEvents.OnAbilityUsed += HandleAbilityUsed;
+        TransitionScene.SceneSwap += OnSceneSwap;
+
+        AbilityEvents.OnAbilityUsed += HandleAbilityUsed; //removed the -= of this as audio manager
+                                                          //is never disabled at the moment
     }
 
     private void OnDisable()
     {
-        AbilityEvents.OnAbilityUsed -= HandleAbilityUsed;
-
-        if (turnManager != null)
-            turnManager.OnTurnChanged -= HandleTurnChanged;
+        //moved to scene swap since audio manager is DontDestroyOnLoad currently
     }
 
     private void Start()
     {
-        if (turnManager == null)
-        {
-            turnManager = FindObjectOfType<TurnManager>();
-        }
+        //
+    }
 
-        if (turnManager != null)
+    public void OnSceneSwap(string sceneLoaded)
+    {
+        switch (sceneLoaded)
         {
-            turnManager.OnTurnChanged += HandleTurnChanged;
-        }
+            case "LevelOne":
+                Invoke("LevelLoadInits", .2f);//Bandaid fix for turn manager not being loaded instantly on scene swap
+                break;
+            case "MainMenu":
+                //AbilityEvents.OnAbilityUsed -= HandleAbilityUsed;
 
+                if (TurnManager.instance != null)
+                    TurnManager.instance.OnTurnChanged -= HandleTurnChanged;
+                break;
+        }
+    }
+
+    public void LevelLoadInits()
+    {
+        TurnManager.instance.OnTurnChanged += HandleTurnChanged;
         if (bgmClip != null)
         {
             PlayMusic(bgmClip, true);
         }
     }
-
     private void HandleTurnChanged(TurnManager.Turn newTurn)
     {
         PlaySFX(endTurnSfx);
@@ -97,6 +108,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayDrawCardSfx() => PlaySFX(drawCardSfx);
     public void PlayCardSelectSfx() => PlaySFX(selectCardSfx);
+    public void PlayButtonSFX() => PlaySFX(menuButtonClick);
 
     public void PlayMusic(AudioClip clip, bool loop = true)
     {

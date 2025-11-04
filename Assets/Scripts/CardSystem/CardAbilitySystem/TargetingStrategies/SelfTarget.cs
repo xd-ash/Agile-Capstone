@@ -11,16 +11,23 @@ namespace CardSystem
     {
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
-            abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
+            base.StartTargeting(abilityData, onFinished);
+
+            //abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
+            abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
+            onFinished();
         }
 
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
+            /*
             yield return new WaitForEndOfFrame();
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
             
             abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
             onFinished();
+            */
+            throw new NotImplementedException();
         }
 
         private IEnumerable<GameObject>TargetSelf(AbilityData abilityData)

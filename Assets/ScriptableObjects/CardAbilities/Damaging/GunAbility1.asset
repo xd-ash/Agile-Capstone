@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Layer Filter
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -40, y: -120}
+  position: {x: -168, y: -56}
   ports:
     keys:
     - input
@@ -57,8 +57,6 @@ MonoBehaviour:
     - miscEffects
     - filtering 0
     - harmfulEffects 0
-    - harmfulEffects 1
-    - miscEffects 0
     values:
     - _fieldName: targeting
       _node: {fileID: -773093627592473936}
@@ -132,32 +130,8 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-    - _fieldName: harmfulEffects 1
-      _node: {fileID: -773093627592473936}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: 6071716782617068834}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-    - _fieldName: miscEffects 0
-      _node: {fileID: -773093627592473936}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: 1373266737983062635}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
   _apCost: 3
-  _effectTypes: -1
+  _effectTypes: 4
   targeting: 0
   filtering: 0
   helpfulEffects: 0
@@ -180,79 +154,9 @@ MonoBehaviour:
   - {fileID: 7206340533012667911}
   - {fileID: -5996304546315106641}
   - {fileID: 8984668475923810513}
-  - {fileID: 6071716782617068834}
-  - {fileID: 1373266737983062635}
   _cardName: Pistol
   _description: Deal 4 damage to 1 target
---- !u!114 &1373266737983062635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f792729c8e33524b903c40328f6e587, type: 3}
-  m_Name: Debug Effect
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -216, y: 360}
-  ports:
-    keys:
-    - input
-    values:
-    - _fieldName: input
-      _node: {fileID: 1373266737983062635}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: miscEffects 0
-        node: {fileID: -773093627592473936}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-  _hasDuration: 0
-  _duration: 0
-  _effectValue: 0
-  input: 0
-  message: 
---- !u!114 &6071716782617068834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d81562f2dae35b5449e0f0dcc3b3beae, type: 3}
-  m_Name: Debuff Effect
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 8, y: 280}
-  ports:
-    keys:
-    - input
-    values:
-    - _fieldName: input
-      _node: {fileID: 6071716782617068834}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: harmfulEffects 1
-        node: {fileID: -773093627592473936}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-  _hasDuration: 1
-  _duration: 4
-  _effectValue: 0
-  input: 0
+  abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
 --- !u!114 &7206340533012667911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +170,7 @@ MonoBehaviour:
   m_Name: Other Target
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -40, y: -232}
+  position: {x: -168, y: -184}
   ports:
     keys:
     - input
@@ -299,7 +203,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 8, y: 152}
+  position: {x: -168, y: 104}
   ports:
     keys:
     - input
@@ -316,7 +220,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _hasDuration: 1
+  _hasDuration: 0
   _duration: 2
   _effectValue: 4
   input: 0

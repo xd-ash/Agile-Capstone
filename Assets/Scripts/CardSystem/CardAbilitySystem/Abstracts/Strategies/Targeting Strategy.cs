@@ -13,7 +13,10 @@ namespace CardSystem
         public bool isAOE;
         public float radius;
 
-        public abstract void StartTargeting(AbilityData abilityData, Action onFinished);
+        public virtual void StartTargeting(AbilityData abilityData, Action onFinished)
+        {
+            AudioManager.instance.PlayCardSelectSfx();
+        }
         public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
         protected abstract IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit);
     }

@@ -15,7 +15,11 @@ namespace CardSystem
         //[Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public float duration; // used for old failed duration node
         public bool HasDuration { get { return _hasDuration; } set { _hasDuration = value; } }
 
-        public abstract void StartEffect(AbilityData abilityData, Action onFinished);
+        public virtual void StartEffect(AbilityData abilityData, Action onFinished)
+        {
+            var def = this.graph as CardAbilityDefinition;
+            AudioManager.instance.SetPendingUseSfx(def.abilitySFX);
+        }
 
         // Coroutine to cause an effect over a duration, with interval of 1s for testing
         public virtual IEnumerator DoEffectOverTime(Unit unit, int duration, int effectValue = 0)

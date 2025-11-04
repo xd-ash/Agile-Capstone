@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: Buff Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 77.5, y: 13}
+  position: {x: 104, y: 72}
   ports:
     keys:
     - input
@@ -142,6 +142,7 @@ MonoBehaviour:
   - {fileID: -5550744489948948604}
   _cardName: Guard
   _description: Add 5 Block
+  abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
 --- !u!114 &833357395057102542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +156,7 @@ MonoBehaviour:
   m_Name: Self Target
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 56, y: -168}
+  position: {x: 104, y: -184}
   ports:
     keys:
     - input

@@ -21,6 +21,11 @@ public class Unit : MonoBehaviour, IDamagable
     public int maxAP;
     public int ap;
 
+    [Header("SFX")]
+    public AudioClip stepSfx;
+    public AudioClip damageSfx;
+    public AudioClip shieldHitSfx;
+
     public event Action<Unit> OnApChanged; 
 
     private void Awake()
@@ -51,6 +56,8 @@ public class Unit : MonoBehaviour, IDamagable
 
             if (shield > 0)
             {
+                AudioManager.instance?.PlaySFX(shieldHitSfx);
+
                 int absorbed = Mathf.Min(shield, remainingDamage);
                 shield -= absorbed;
                 remainingDamage -= absorbed;
@@ -66,6 +73,7 @@ public class Unit : MonoBehaviour, IDamagable
             if (remainingDamage > 0)
             {
                 health -= remainingDamage;
+                AudioManager.instance?.PlaySFX(damageSfx);
                 Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
             }
             else

@@ -14,7 +14,7 @@ namespace CardSystem
 
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
-            //Debug.Log(abilityData.GetUnit.name);
+            base.StartTargeting(abilityData, onFinished);
 
             abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
             abilityData.GetUnit.StartCoroutine(LineDrawCoro(abilityData.GetUnit));

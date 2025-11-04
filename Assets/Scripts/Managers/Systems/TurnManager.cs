@@ -94,6 +94,8 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        if (currTurn != Turn.Player) return; // avoid turn end spam
+
         // discard player's hand at end of player turn
         if (CardSystem.CardManager.instance != null)
             CardSystem.CardManager.instance.DiscardAll();

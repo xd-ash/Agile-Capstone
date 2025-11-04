@@ -10,6 +10,8 @@ namespace CardSystem
         [SerializeField] private string _cardName;
         [TextArea(1, 3)]
         [SerializeField] private string _description;
+		public AudioClip abilitySFX;
+
         private AbilityRootNode _rootNode;
 
         public string GetCardName { get { return _cardName; } }

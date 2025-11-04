@@ -18,6 +18,8 @@ namespace CardSystem
     {
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
+            base.StartEffect(abilityData, onFinished);
+
             foreach (GameObject target in abilityData.Targets)
             {
                 if (target != null && target.TryGetComponent<Unit>(out Unit unit))

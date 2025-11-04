@@ -69,6 +69,8 @@ namespace CardSystem
 
         public void DrawCard()
         {
+            AudioManager.instance.PlayDrawCardSfx();
+
             if (_currentHandSize >= _maxCards) return;
 
             Card newCard = null;

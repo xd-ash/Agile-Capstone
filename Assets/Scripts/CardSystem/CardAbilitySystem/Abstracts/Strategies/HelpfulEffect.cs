@@ -8,6 +8,6 @@ namespace CardSystem
     {
         [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public bool input;
 
-        public override abstract void StartEffect(AbilityData abilityData, Action onFinished);
+        //public override abstract void StartEffect(AbilityData abilityData, Action onFinished);
     }
 }

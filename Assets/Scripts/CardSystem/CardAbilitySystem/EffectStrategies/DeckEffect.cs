@@ -22,6 +22,8 @@ namespace CardSystem
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
+            base.StartEffect(abilityData, onFinished);
+
             // Defensive checks
             if (CardManager.instance == null)
             {

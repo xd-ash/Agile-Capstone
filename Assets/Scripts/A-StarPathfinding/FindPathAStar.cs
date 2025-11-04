@@ -245,6 +245,7 @@ namespace AStarPathfinding
                 }
                 _unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, _unit.transform.localPosition.z);
                 _unit.SpendAP(1);
+                AudioManager.instance?.PlaySFX(_unit != null ? _unit.stepSfx : null);
                 TurnManager.instance.UpdateApText();
 
                 yield return new WaitForSecondsRealtime(_unitMoveSpeed);
