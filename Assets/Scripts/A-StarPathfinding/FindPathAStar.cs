@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace AStarPathfinding
 {
@@ -53,6 +52,8 @@ namespace AStarPathfinding
         [SerializeField] private Unit _unit; //have some sort of collection of units once enemies/player/NPCs are implemented?
                                              //cycle through based on turn order
         [SerializeField] private float _unitMoveSpeed;
+        
+        [SerializeField] private DirectionAnimator _dirAnimator;
 
 
         /*/Fix with editor script for bool active
@@ -89,7 +90,7 @@ namespace AStarPathfinding
         public void OnTileClick(InputAction.CallbackContext context)
         {
             if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
-                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
+                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0 && PauseMenu.isPaused != true)
             {
                 if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
 
@@ -237,19 +238,44 @@ namespace AStarPathfinding
         }
 
         public IEnumerator MoveCoro()
-        {
+        { 
+            Vector2Int prev = new Vector2Int(
+            (int)_unit.transform.localPosition.x,
+            (int)_unit.transform.localPosition.y);
+            
+            _dirAnimator.SetMoving(true);
+
             for (int i = truePath.Count - 1; i >= 0; i--)
             {
                 if (!_unit.CanSpend(1))
-                {
                     break;
+
+                Vector2Int next  = new Vector2Int(truePath[i].location.x, truePath[i].location.y);
+                Vector2Int delta = next - prev;
+                
+                _dirAnimator.SetDirectionFromDelta(delta);
+        
+                Vector3 startPos = _unit.transform.localPosition;
+                Vector3 endPos   = new Vector3(next.x, next.y, startPos.z);
+        
+                float duration = _unitMoveSpeed;
+                float elapsed  = 0f;
+        
+                while (elapsed < duration)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    float t = Mathf.Clamp01(elapsed / duration);
+                    _unit.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+                    yield return null;
                 }
-                _unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, _unit.transform.localPosition.z);
+        
                 _unit.SpendAP(1);
                 TurnManager.instance.UpdateApText();
-
-                yield return new WaitForSecondsRealtime(_unitMoveSpeed);
+        
+                prev = next;
             }
+            
+            _dirAnimator.SetMoving(false);
             _isMoving = false;
         }
     }

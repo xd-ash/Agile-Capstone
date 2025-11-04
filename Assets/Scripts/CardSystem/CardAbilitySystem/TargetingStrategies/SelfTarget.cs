@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using XNode;
 
 namespace CardSystem
 {
+    // Concrete targeting strategy to cast ability on the unit with an option to affectSelf or not
     [CreateNodeMenu("Targeting/Self")]
     public class SelfTarget : TargetingStrategy
     {
-        public bool affectSelf;
-
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
             abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
         }
+
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
+            yield return new WaitForEndOfFrame();
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-
+            
             abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
             onFinished();
         }
@@ -31,16 +30,12 @@ namespace CardSystem
 
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit user)
         {
-            Collider[] foundObjects = Physics.OverlapSphere(user.transform.position, radius, layerMask);
+            Collider2D[] foundObjects = Physics2D.OverlapCircleAll(user.transform.position, radius);
 
-            foreach (Collider collider in foundObjects)
+            foreach (Collider2D collider in foundObjects)
             {
                 yield return collider.gameObject;
             }
-
-            if (affectSelf)
-                yield return user.gameObject; //also target user
         }
-
     }
 }

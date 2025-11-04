@@ -1,10 +1,9 @@
 using System;
-using System.Linq;
 using UnityEngine;
 
 namespace CardSystem
 {
-    public enum DamageTypes
+    public enum DamageTypes //not used for much currently
     {
         None,
         Slash,
@@ -13,24 +12,23 @@ namespace CardSystem
         Emotional
     }
 
-    [CreateNodeMenu("Effect/Damage")]
-    public class DamageEffect : EffectStrategy
+    // Concrete harmful effect class to damage a unit instantly or over a duration
+    [CreateNodeMenu("Harmful Effects/Damage")]
+    public class DamageEffect : HarmfulEffect
     {
-        public int damage;
-        //public DamageTypes damageType;
-
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
             foreach (GameObject target in abilityData.Targets)
             {
-                if (target != null)
+                if (target != null && target.TryGetComponent<Unit>(out Unit unit))
                 {
-                    target.GetComponent<Unit>().TakeDamage(damage);
+                    if (_hasDuration)
+                        unit.StartCoroutine(DoEffectOverTime(unit, _duration, _effectValue));
+                    else
+                        unit.ChangeHealth(_effectValue, false);
                 }
             }
-            if (abilityData.Targets.Count<GameObject>() > 0)
-                abilityData.GetUnit.SpendAP(CardManager.instance.selectedCard.APCost); //maybe fix this? kinda messy
-                                                                                       //move somewhere else? event?
+
             onFinished();
         }
     }

@@ -8,6 +8,8 @@ public class UIHealthManager : MonoBehaviour
     [SerializeField] private Slider playerHealthSlider;
     [SerializeField] private Slider enemyHealthSlider;
     [SerializeField] private TextMeshProUGUI playerHealthText;
+    [SerializeField] private TextMeshProUGUI playerShieldText;
+    [SerializeField] private Slider playerShieldSlider; // optional visual bar overlay (set max to player's maxHealth by default)
     [SerializeField] private Unit player;
     [SerializeField] private Unit enemy;
 
@@ -27,18 +29,36 @@ public class UIHealthManager : MonoBehaviour
             enemyHealthSlider.value    = Mathf.Clamp(enemy.health, 0, enemy.maxHealth);
             enemyHealthSlider.gameObject.SetActive(false);
         }
+
+        // Initialize shield UI
+        if (playerShieldSlider != null && player != null)
+        {
+            // default shield bar max is player's max health (adjust in inspector if you use different scale)
+            playerShieldSlider.maxValue = player.maxHealth;
+            playerShieldSlider.gameObject.SetActive(player.GetShield() > 0);
+            playerShieldSlider.value = player.GetShield();
+        }
+
+        if (playerShieldText != null)
+            playerShieldText.gameObject.SetActive(player != null && player.GetShield() > 0);
     }
 
     private void OnEnable()
     {
         DamageEvents.OnPlayerDamaged += UpdatePlayerHealth;
         DamageEvents.OnEnemyDamaged  += UpdateEnemyHealth;
+
+        ShieldEvents.OnPlayerShieldChanged += UpdatePlayerShield;
+        ShieldEvents.OnEnemyShieldChanged  += UpdateEnemyShield;
     }
 
     private void OnDisable()
     {
         DamageEvents.OnPlayerDamaged -= UpdatePlayerHealth;
         DamageEvents.OnEnemyDamaged  -= UpdateEnemyHealth;
+
+        ShieldEvents.OnPlayerShieldChanged -= UpdatePlayerShield;
+        ShieldEvents.OnEnemyShieldChanged  -= UpdateEnemyShield;
     }
 
     private void UpdatePlayerHealth(int current, int max)
@@ -58,5 +78,25 @@ public class UIHealthManager : MonoBehaviour
 
         if (enemyHealthSlider.value != enemyHealthSlider.maxValue && !enemyHealthSlider.gameObject.activeInHierarchy)
             enemyHealthSlider.gameObject.SetActive(true); // Adam added 10-5, enemy bar hidden by default, show once dmg taken
+    }
+
+    private void UpdatePlayerShield(int current)
+    {
+        if (playerShieldSlider != null)
+        {
+            playerShieldSlider.value = Mathf.Clamp(current, 0, (int)playerShieldSlider.maxValue);
+            playerShieldSlider.gameObject.SetActive(current > 0);
+        }
+
+        if (playerShieldText != null)
+        {
+            playerShieldText.text = current > 0 ? $"Shield: {current}" : string.Empty;
+            playerShieldText.gameObject.SetActive(current > 0);
+        }
+    }
+
+    private void UpdateEnemyShield(int current)
+    {
+        // Optionally add enemy shield UI; for now we don't have slider/text for enemy shield.
     }
 }
