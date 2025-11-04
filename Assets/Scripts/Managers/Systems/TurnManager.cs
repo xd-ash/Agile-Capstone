@@ -29,7 +29,7 @@ public class TurnManager : MonoBehaviour
     [Header("Placeholder Enemy Coro stuff")]
     [SerializeField] private AudioClip _enemyDmgSfx;
 
-    public event Action<Turn> OnTurnChanged;
+    public event Action OnTurnChanged;
 
     private void Awake()
     {
@@ -114,7 +114,7 @@ public class TurnManager : MonoBehaviour
 
         UpdateApText();
 
-        OnTurnChanged?.Invoke(currTurn);
+        OnTurnChanged?.Invoke();
 
         if (currTurn == Turn.Enemy)
             _curUnit.StartCoroutine(EnemyTurn());

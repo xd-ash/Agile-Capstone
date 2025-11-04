@@ -57,12 +57,14 @@ namespace CardSystem
             SetupVisuals();
             AbilityEvents.OnAbilityUsed += ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted += OnTargetingStarted; // Use the correct event
+            TurnManager.instance.OnTurnChanged += ClearSelection;
         }
 
         private void OnDestroy()
         {
             AbilityEvents.OnAbilityUsed -= ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted -= OnTargetingStarted; // Use the correct event   
+            TurnManager.instance.OnTurnChanged -= ClearSelection;
         }
 
         // Add handler method

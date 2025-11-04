@@ -143,8 +143,9 @@ MonoBehaviour:
   maxAP: 10
   ap: 0
   stepSfx: {fileID: 8300000, guid: 175248e10ffae4d84ba5392cb7186bf6, type: 3}
-  damageSfx: {fileID: 8300000, guid: 7daa38dfb82ee45eba989cfcc5e29d7f, type: 3}
-  shieldHitSfx: {fileID: 8300000, guid: 8e3c3a3cc7cb9b74d888f8d2a53f1976, type: 3}
+  damageSfx: {fileID: 8300000, guid: abef91ba9c06db94a8004696a5aad8dc, type: 3}
+  shieldHitSfx: {fileID: 8300000, guid: 8ae3191c3504ac44ab354c262aec60a5, type: 3}
+  _enemyHPBar: {fileID: 0}
 --- !u!61 &1466790781284684244
 BoxCollider2D:
   m_ObjectHideFlags: 0

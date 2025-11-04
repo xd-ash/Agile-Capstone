@@ -126,7 +126,7 @@ namespace AStarPathfinding
             {
                 GameObject obstacle = GameObject.Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity);
                 obstacle.transform.parent = _emptyMapAnchor.transform;
-                obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
+                obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, _placeholderObstacle.transform.position.z);
             }
             else if (byteIndicator == 2)
             {

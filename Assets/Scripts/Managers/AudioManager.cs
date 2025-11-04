@@ -85,7 +85,7 @@ public class AudioManager : MonoBehaviour
             PlayMusic(bgmClip, true);
         }
     }
-    private void HandleTurnChanged(TurnManager.Turn newTurn)
+    private void HandleTurnChanged()
     {
         PlaySFX(endTurnSfx);
     }

@@ -52,7 +52,8 @@ namespace CardSystem
 				abilityData.Targets = (port.Connection.node as FilterStrategy).Filter(abilityData.Targets);
 			}
 
-			if (_targetingStrategy is not Targetless && abilityData.Targets.Count<GameObject>() == 0) return;// add to this for clearing selection, starting ability again? w/e we want for failed cast
+			if (_targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.Targets.Count<GameObject>() == 0)) 
+				return;// add to this for clearing selection, starting ability again? w/e we want for failed cast
 
 			//Do each effect connected to root node
 			foreach (NodePort port in Outputs)

@@ -39,4 +39,10 @@ public class TransitionScene : MonoBehaviour
 
         SceneSwap?.Invoke(targetScene);
     }
+
+    // quit button functionality
+    public void QuitApplication()
+    {
+        Application.Quit();
+    }
 }

@@ -17,14 +17,14 @@ namespace CardSystem
             base.StartTargeting(abilityData, onFinished);
 
             abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
-            abilityData.GetUnit.StartCoroutine(LineDrawCoro(abilityData.GetUnit));
+            //abilityData.GetUnit.StartCoroutine(LineDrawCoro(abilityData.GetUnit));
         }
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
-            drawLineGizmo = true;
+            //drawLineGizmo = true;
             yield return new WaitForEndOfFrame();
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));//find better option?
-            drawLineGizmo = false;
+            //drawLineGizmo = false;
 
             abilityData.Targets = TargetOnMouse(abilityData.GetUnit);
             if (isAOE)
