@@ -155,7 +155,7 @@ MonoBehaviour:
   - {fileID: -5996304546315106641}
   - {fileID: 8984668475923810513}
   _cardName: Pistol
-  _description: Deal 4 damage to 1 target
+  _description: Deal 2 damage to 1 target
   abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
 --- !u!114 &7206340533012667911
 MonoBehaviour:
@@ -222,5 +222,5 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 0
   _duration: 2
-  _effectValue: 4
+  _effectValue: 2
   input: 0
