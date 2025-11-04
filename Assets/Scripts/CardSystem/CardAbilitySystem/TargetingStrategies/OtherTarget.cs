@@ -47,11 +47,23 @@ namespace CardSystem
                 Vector2.zero, Mathf.Infinity);
 
             if (hit.collider != null && hit.collider.GetComponent<Unit>())
+            {
                 yield return hit.collider.gameObject;
+            }
             else
             {
                 Debug.Log("No target hit");
-                yield return null; 
+                // Return the card to hand or destroy it
+                if (CardManager.instance != null && CardManager.instance.selectedCard != null)
+                {
+                    var cardSelect = CardManager.instance.selectedCard.CardTransform.GetComponent<CardSelect>();
+                    if (cardSelect != null)
+                    {
+                        cardSelect.ReturnCardToHand();
+                    }
+                }
+                AbilityEvents.TargetingStopped();
+                yield return null;
             }
         }
 

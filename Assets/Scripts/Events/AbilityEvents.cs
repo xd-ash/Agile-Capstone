@@ -7,7 +7,23 @@ public static class AbilityEvents
     public static event Action OnAbilityTargetingStopped;
     public static event Action OnAbilityUsed;
 
-    public static void TargetingStarted() => OnAbilityTargetingStarted?.Invoke();
-    public static void TargetingStopped() => OnAbilityTargetingStopped?.Invoke();
-    public static void AbilityUsed() => OnAbilityUsed?.Invoke();
+    public static bool IsTargeting { get; private set; }
+
+    public static void TargetingStarted()
+    {
+        IsTargeting = true;
+        OnAbilityTargetingStarted?.Invoke();
+    }
+
+    public static void TargetingStopped()
+    {
+        IsTargeting = false;
+        OnAbilityTargetingStopped?.Invoke();
+    }
+
+    public static void AbilityUsed()
+    {
+        IsTargeting = false;
+        OnAbilityUsed?.Invoke();
+    }
 }

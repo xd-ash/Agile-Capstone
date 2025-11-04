@@ -171,4 +171,24 @@ public class Unit : MonoBehaviour, IDamagable
 
         return true;
     }
+
+    public bool CanMove()
+    {
+        // Prevent movement if targeting is active
+        if (AbilityEvents.IsTargeting)
+        {
+            return false;
+        }
+        return true; // Or your existing movement conditions
+    }
+
+    // Add this check to the beginning of your movement implementation method
+    private void HandleMovement()
+    {
+        if (!CanMove())
+        {
+            return;
+        }
+        // Your existing movement code
+    }
 }
