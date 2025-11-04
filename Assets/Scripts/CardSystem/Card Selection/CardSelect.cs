@@ -18,12 +18,12 @@ namespace CardSystem
 
         [Header("Visual Settings")]
         [SerializeField] private float handAreaHeight = 2f; // Height of the hand area
-        [SerializeField] private float activationThreshold = 2.1f; // Just above hand area
+        //[SerializeField] private float activationThreshold = 2.1f; // Just above hand area
         [SerializeField] private int _hoverSortingBoost = 1000;
         
-        [Header("Movement Settings")]
-        [SerializeField] private float smoothSpeed = 10f;
-        [SerializeField] private float destroyThreshold = -3f; // Threshold for destroying cards dropped below hand
+        //[Header("Movement Settings")]
+        //[SerializeField] private float smoothSpeed = 10f;
+        //[SerializeField] private float destroyThreshold = -3f; // Threshold for destroying cards dropped below hand
 
         [Header("Visual Feedback")]
         [SerializeField] private float hoverScaleMultiplier = 1.2f;

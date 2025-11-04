@@ -1,7 +1,9 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 
 public class TurnManager : MonoBehaviour
 {
@@ -10,8 +12,12 @@ public class TurnManager : MonoBehaviour
     public Turn currTurn { get; private set; } = Turn.Player;
 
     [Header("Units")] // might need to switch to a list of friendly/enemy units.
-    [SerializeField] private Unit _player;
-    [SerializeField] private Unit _enemy;
+    //[SerializeField] private Unit _player;
+    //[SerializeField] private Unit _enemy;
+    private Unit _curUnit;
+    private List<Unit> _unitTurnOrder;
+    private Unit _player;
+    private int _turnTracker = -1;
 
     [Header("UI")]
     [SerializeField] TextMeshProUGUI _turnText;
@@ -19,6 +25,9 @@ public class TurnManager : MonoBehaviour
 
     [Header("Turn settings")]
     [SerializeField] private int _startingHandSize = 5; // draw this many cards at start of player turn
+
+    [Header("Placeholder Enemy Coro stuff")]
+    [SerializeField] private AudioClip _enemyDmgSfx;
 
     public event Action<Turn> OnTurnChanged;
 
@@ -30,62 +39,96 @@ public class TurnManager : MonoBehaviour
             return;
         }
         instance = this;
+
     }
 
     private void Start()
     {
         AbilityEvents.OnAbilityUsed += UpdateApText;
 
-        SetTurn(Turn.Player); //Could change by using the dice roll or random.range
+        _unitTurnOrder = GrabUnits();
+        SetTurn(); //Could change by using the dice roll or random.range
+    }
+
+    //There is very likely a better way to sort this 
+    private List<Unit> GrabUnits()
+    {
+        var unsortedList = FindObjectsByType<Unit>(sortMode: FindObjectsSortMode.None).ToList<Unit>();
+        var sortedList = new List<Unit>();
+
+        for (int i = 0; i < unsortedList.Count; i++)
+            //this isnt great for when we have multiple friendlies
+            if (unsortedList[i].team == Team.Friendly)
+            {
+                _player = unsortedList[i];
+                sortedList.Add(unsortedList[i]);
+                unsortedList.Remove(unsortedList[i]);
+                break;
+            }
+        foreach (var unit in unsortedList)
+            sortedList.Add(unit);
+
+        return sortedList;
     }
 
     public void UpdateApText()
     {
         if (_apText == null) return;
-        if (currTurn == Turn.Player && _player != null)
-            _apText.text = $"Player AP:\n{_player.ap}/{_player.maxAP}";
-        else if (currTurn == Turn.Enemy && _enemy != null)
-            _apText.text = $"Enemy AP:\n{_enemy.ap}/{_enemy.maxAP}";
+        if (currTurn == Turn.Player && _curUnit != null)
+            _apText.text = $"Player AP:\n{_curUnit.ap}/{_curUnit.maxAP}";
+        else if (currTurn == Turn.Enemy && _curUnit != null)
+            _apText.text = $"Enemy AP:\n{_curUnit.ap}/{_curUnit.maxAP}";
     }
 
-    private void SetTurn(Turn next)
+    private void SetTurn()
     {
-        currTurn = next;
+        if (_curUnit != null)
+            _curUnit.transform.Find("turnHighligher").gameObject.SetActive(false);
+
+        _turnTracker++;
+        if (_turnTracker >= _unitTurnOrder.Count) _turnTracker = 0; //reset turn tracker for looping turn order
+        if (_unitTurnOrder[_turnTracker] == null)
+        {
+            SetTurn();
+            return;
+        }
+        _curUnit = _unitTurnOrder[_turnTracker];
+        currTurn = _curUnit.team == Team.Friendly ? Turn.Player : Turn.Enemy;
+        _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
+
         Debug.Log($"[TurnManager]" + currTurn + "'s turn");
         if (_turnText != null)
         {
             _turnText.text = $"{currTurn}'s Turn";
         }
-        if (currTurn == Turn.Player && _player != null)
+        if (_curUnit != null)
         {
-            _player.RefreshAP();
+            _curUnit.RefreshAP();
+        }
 
-            // Draw player's starting hand when player's turn begins
-            if (CardSystem.CardManager.instance != null)
-            {
-                CardSystem.CardManager.instance.DrawStartingHand(_startingHandSize);
-            }
-        }
-        if (currTurn == Turn.Enemy && _enemy != null)
+        // Draw player's starting hand when player's turn begins
+        if (_curUnit.team == Team.Friendly && CardSystem.CardManager.instance != null)
         {
-            _enemy.RefreshAP();
+            CardSystem.CardManager.instance.DrawStartingHand(_startingHandSize);
         }
+
         UpdateApText();
 
         OnTurnChanged?.Invoke(currTurn);
 
         if (currTurn == Turn.Enemy)
-            StartCoroutine(EnemyTurn());
+            _curUnit.StartCoroutine(EnemyTurn());
     }
 
     private IEnumerator EnemyTurn()
     {
-        while (_enemy != null && _enemy.CanSpend(5))
+        while (_curUnit != null && _curUnit.CanSpend(5))
         {
-            yield return new WaitForSeconds(2f);
-            _enemy.DealDamage(2);
-            _enemy.SpendAP(5);
-            Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_enemy.ap}");
+            yield return new WaitForSeconds(1f);
+            _curUnit.DealDamage(_player, 1);
+            _curUnit.SpendAP(5);
+            AudioManager.instance.PlaySFX(_enemyDmgSfx);
+            Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_curUnit.ap}");
             UpdateApText();
         }
         Debug.Log("[TurnManager] Enemy ended turn.");
@@ -100,13 +143,13 @@ public class TurnManager : MonoBehaviour
         if (CardSystem.CardManager.instance != null)
             CardSystem.CardManager.instance.DiscardAll();
 
-        SetTurn(Turn.Enemy);
+        SetTurn();
     }
-    public void EndEnemyTurn() => SetTurn(Turn.Player);
+    public void EndEnemyTurn() => SetTurn();
 
     public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
     public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
-    public static Unit GetCurrentUnit => instance != null && instance.currTurn == Turn.Player ? instance._player : instance._enemy; // Adam added 10/5
+    public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null; // Adam added 10/5
                                                                                                                                     //      - Grabbing current unit (for when friendlies added)
                                                                                                                                     //      - unit used for ability stuff
 }

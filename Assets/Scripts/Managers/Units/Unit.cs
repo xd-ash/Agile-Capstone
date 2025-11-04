@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Team {Friendly, Enemy}
 public class Unit : MonoBehaviour, IDamagable
@@ -14,8 +15,8 @@ public class Unit : MonoBehaviour, IDamagable
     [Header("Shield")]
     [SerializeField] private int shield = 0; // current shield amount (absorb damage before health)
 
-    [Header("Target for Enemy units")]
-    [SerializeField] private Unit _target;
+    //[Header("Target for Enemy units")]
+    //[SerializeField] private Unit _target;
 
     [Header("Action Points")] 
     public int maxAP;
@@ -25,6 +26,9 @@ public class Unit : MonoBehaviour, IDamagable
     public AudioClip stepSfx;
     public AudioClip damageSfx;
     public AudioClip shieldHitSfx;
+
+    [Header("Placeholder Stuff")]
+    [SerializeField] private Slider _enemyHPBar;
 
     public event Action<Unit> OnApChanged; 
 
@@ -38,7 +42,11 @@ public class Unit : MonoBehaviour, IDamagable
         if (team == Team.Friendly)
             ShieldEvents.RaisePlayerShieldChanged(shield);
         else
+        {
+            _enemyHPBar = GetComponentInChildren<Slider>();
+            _enemyHPBar.gameObject.SetActive(false);
             ShieldEvents.RaiseEnemyShieldChanged(shield);
+        }
     }
 
     /// <summary>
@@ -98,6 +106,10 @@ public class Unit : MonoBehaviour, IDamagable
             Debug.Log($"[{team}] '{name}' unit died");
         }
 
+        //Placeholder enemy healthbar updating
+        if (team == Team.Enemy)
+            UpdateHealthBar();
+
         RaiseHealthEvent();
     }
 
@@ -148,12 +160,22 @@ public class Unit : MonoBehaviour, IDamagable
     // Optional accessor if needed by UI
     public int GetShield() => shield;
 
-    public void DealDamage(int damage = 2)
+    //placeholder enemy damage dealing
+    public void DealDamage(Unit target, int damage = 2)
     {
-        if (team == Team.Enemy && _target != null)
-            _target.ChangeHealth(damage, false);
+        if (team == Team.Enemy && target != null)
+            target.ChangeHealth(damage, false);
     }
+    //placeholder enemy healthbar stuff
+    public void UpdateHealthBar()
+    {
+        if (_enemyHPBar == null) return;
+        if (_enemyHPBar.maxValue != maxHealth) _enemyHPBar.maxValue = maxHealth;
+        _enemyHPBar.value = Mathf.Clamp(health, 0, maxHealth);
 
+        if (_enemyHPBar.value != _enemyHPBar.maxValue && !_enemyHPBar.gameObject.activeInHierarchy)
+            _enemyHPBar.gameObject.SetActive(true); // Adam added 10-5, enemy bar hidden by default, show once dmg taken
+    }
     private void RaiseHealthEvent()
     {
         if (team == Team.Friendly)

@@ -68,8 +68,9 @@ namespace AStarPathfinding
 
         [Header("Placeholder Obstacle/Enemy Spawn")]
         [SerializeField] private List<Vector2Int> obstLocationList;
+        [SerializeField] private List<Vector2Int> enemyLocationList;
         [SerializeField] private GameObject _placeholderObstacle;
-        [SerializeField] private Transform _enemyPlaceholder;
+        [SerializeField] private GameObject _enemyPlaceholder;
 
         public byte[,] GetByteMap { get { return _map; } }
         public Vector2Int GetMapSize { get { return _mapSize; } }
@@ -96,7 +97,8 @@ namespace AStarPathfinding
             {
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
-                    if (new Vector2Int((int)_enemyPlaceholder.localPosition.x, (int)_enemyPlaceholder.localPosition.y) == new Vector2Int(x, y)) //Placeholder enemy spawn
+                    //if (new Vector2Int((int)_enemyPlaceholder.localPosition.x, (int)_enemyPlaceholder.localPosition.y) == new Vector2Int(x, y)) //Placeholder enemy spawn
+                    if (enemyLocationList.Contains(new Vector2Int(x, y)))
                     {
                         _map[x, y] = 2;
                     }
@@ -125,6 +127,12 @@ namespace AStarPathfinding
                 GameObject obstacle = GameObject.Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity);
                 obstacle.transform.parent = _emptyMapAnchor.transform;
                 obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
+            }
+            else if (byteIndicator == 2)
+            {
+                GameObject enemy = GameObject.Instantiate(_enemyPlaceholder, _enemyPlaceholder.transform.position, Quaternion.identity);
+                enemy.transform.parent = transform.Find("UnitMoveEmpty");
+                enemy.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, _enemyPlaceholder.transform.position.z);
             }
         }
 

@@ -6,7 +6,7 @@ public class UIHealthManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Slider playerHealthSlider;
-    [SerializeField] private Slider enemyHealthSlider;
+    //[SerializeField] private Slider enemyHealthSlider;
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private TextMeshProUGUI playerShieldText;
     [SerializeField] private Slider playerShieldSlider; // optional visual bar overlay (set max to player's maxHealth by default)
@@ -23,12 +23,14 @@ public class UIHealthManager : MonoBehaviour
             playerHealthText.text = $"Player Health: {player.health}/{player.maxHealth}";
         }
 
+        /*
         if (enemyHealthSlider != null && enemy != null)
         {
             enemyHealthSlider.maxValue = enemy.maxHealth;
             enemyHealthSlider.value    = Mathf.Clamp(enemy.health, 0, enemy.maxHealth);
             enemyHealthSlider.gameObject.SetActive(false);
         }
+        */
 
         // Initialize shield UI
         if (playerShieldSlider != null && player != null)
@@ -46,7 +48,7 @@ public class UIHealthManager : MonoBehaviour
     private void OnEnable()
     {
         DamageEvents.OnPlayerDamaged += UpdatePlayerHealth;
-        DamageEvents.OnEnemyDamaged  += UpdateEnemyHealth;
+        //DamageEvents.OnEnemyDamaged  += UpdateEnemyHealth;
 
         ShieldEvents.OnPlayerShieldChanged += UpdatePlayerShield;
         ShieldEvents.OnEnemyShieldChanged  += UpdateEnemyShield;
@@ -55,7 +57,7 @@ public class UIHealthManager : MonoBehaviour
     private void OnDisable()
     {
         DamageEvents.OnPlayerDamaged -= UpdatePlayerHealth;
-        DamageEvents.OnEnemyDamaged  -= UpdateEnemyHealth;
+        //DamageEvents.OnEnemyDamaged  -= UpdateEnemyHealth;
 
         ShieldEvents.OnPlayerShieldChanged -= UpdatePlayerShield;
         ShieldEvents.OnEnemyShieldChanged  -= UpdateEnemyShield;
@@ -70,6 +72,7 @@ public class UIHealthManager : MonoBehaviour
         playerHealthText.text = $"Player Health: {current}/{max}";
     }
 
+    /*
     private void UpdateEnemyHealth(int current, int max)
     {
         if (enemyHealthSlider == null) return;
@@ -79,7 +82,7 @@ public class UIHealthManager : MonoBehaviour
         if (enemyHealthSlider.value != enemyHealthSlider.maxValue && !enemyHealthSlider.gameObject.activeInHierarchy)
             enemyHealthSlider.gameObject.SetActive(true); // Adam added 10-5, enemy bar hidden by default, show once dmg taken
     }
-
+    */
     private void UpdatePlayerShield(int current)
     {
         if (playerShieldSlider != null)
