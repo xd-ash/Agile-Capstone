@@ -127,7 +127,7 @@ public class TurnManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
             _curUnit.DealDamage(_player, 1);
             _curUnit.SpendAP(5);
-            AudioManager.instance.PlaySFX(_enemyDmgSfx);
+            AudioManager.instance?.PlaySFX(_enemyDmgSfx);
             Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_curUnit.ap}");
             UpdateApText();
         }

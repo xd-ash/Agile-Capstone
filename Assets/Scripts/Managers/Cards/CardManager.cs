@@ -69,7 +69,7 @@ namespace CardSystem
 
         public void DrawCard()
         {
-            AudioManager.instance.PlayDrawCardSfx();
+            AudioManager.instance?.PlayDrawCardSfx();
 
             if (_currentHandSize >= _maxCards) return;
 

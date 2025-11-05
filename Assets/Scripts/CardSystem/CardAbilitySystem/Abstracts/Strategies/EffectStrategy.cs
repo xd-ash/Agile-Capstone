@@ -18,7 +18,7 @@ namespace CardSystem
         public virtual void StartEffect(AbilityData abilityData, Action onFinished)
         {
             var def = this.graph as CardAbilityDefinition;
-            AudioManager.instance.SetPendingUseSfx(def.abilitySFX);
+            AudioManager.instance?.SetPendingUseSfx(def.abilitySFX);
         }
 
         // Coroutine to cause an effect over a duration, with interval of 1s for testing

@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        pauseMenuCanvas = TransitionScene.instance.GetComponent<Canvas>();
+        pauseMenuCanvas = TransitionScene.instance?.GetComponent<Canvas>();
 
         ///Adam - moved this to the TransitionScene script when updating MenuCanvas to be DontDestroyOnLoad
             // Ensure the menu is hidden and the game is unpaused when the scene loads

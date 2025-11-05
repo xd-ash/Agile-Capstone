@@ -15,7 +15,7 @@ namespace CardSystem
 
         public virtual void StartTargeting(AbilityData abilityData, Action onFinished)
         {
-            AudioManager.instance.PlayCardSelectSfx();
+            AudioManager.instance?.PlayCardSelectSfx();
         }
         public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
         protected abstract IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit);
