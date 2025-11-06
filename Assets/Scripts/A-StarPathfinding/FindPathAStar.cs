@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static IsoMetricConversions;
 
 namespace AStarPathfinding
 {
@@ -11,6 +12,7 @@ namespace AStarPathfinding
         public MapLocation location;
         public float G, H, F;
         public PathMarker parent;
+        public bool isReachable = false;
 
         public PathMarker(MapLocation l, float g, float h, float f, PathMarker p)
         {
@@ -38,6 +40,16 @@ namespace AStarPathfinding
 
     public class FindPathAStar : MonoBehaviour
     {
+        //Singleton setup
+        public static FindPathAStar instance;
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(this.gameObject);
+        }
+
         private MapCreator _mapCreator;
 
         private PathMarker startNode;
@@ -49,10 +61,10 @@ namespace AStarPathfinding
         private List<PathMarker> open = new List<PathMarker>();
         private List<PathMarker> closed = new List<PathMarker>();
         private List<PathMarker> truePath;
-        [SerializeField] private Unit _unit; //have some sort of collection of units once enemies/player/NPCs are implemented?
-                                             //cycle through based on turn order
-        [SerializeField] private float _unitMoveSpeed;
 
+        [SerializeField] private Unit _unit;//removed me on class update to static (if done)
+
+        [SerializeField] private float _unitMoveSpeed;
 
         /*/Fix with editor script for bool active
         [SerializeField] private bool _placePathDebugMarkers;
@@ -85,43 +97,60 @@ namespace AStarPathfinding
         }
         /*/
 
-        public void OnTileClick(InputAction.CallbackContext context)
+        //Determine and return the path to mouseover tile position. Return null if unit is unable to move,
+        //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
+        public List<PathMarker> OnTileHover(Vector2Int tilePos)
         {
-            if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
-                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0 && PauseMenu.isPaused != true)
-            {
-                if (!TurnManager.IsPlayerTurn) return; // only let the player move on player turn
+            //switch statement for targeting vs move bool?
 
-                BeginSearch(_mapCreator.tileMousePos);
+            if (done && !_isMoving && PauseMenu.isPaused != true)
+            {
+                //adjust this logic for when multiple units need to move
+                if (!TurnManager.IsPlayerTurn) return null; // only let the player move on player turn
+                //
+
+                BeginSearch(tilePos);
                 do
                 {
-                Search(lastPos);
+                    Search(lastPos);
                 } while (!done);
                 GetPath();
+
+                List<PathMarker> tempTrue = truePath;
+
                 int steps = truePath != null ? truePath.Count : 0;
                 if (steps > _unit.ap)
                 {
-                int keep = Mathf.Max(0, _unit.ap);
-                if (keep == 0) { _isMoving = false; return; } // no AP to move
-                truePath = truePath.GetRange(truePath.Count - keep, keep);
+                    int keep = Mathf.Max(0, _unit.ap);
+                    tempTrue = truePath.GetRange(truePath.Count - keep, keep);
                 }
 
-                StartCoroutine(MoveCoro());
+                //Flip bool in pathmarker to indicate which tiles can be moved to and get colored appropriately 
+                foreach (PathMarker pm in tempTrue)
+                    pm.isReachable = true;
+
+                return truePath;
             }
+
+            return null;
+        }
+
+        //Start unit's movement towards determined goal
+        public void OnTileClick()
+        {
+            if (done && !_isMoving && PauseMenu.isPaused != true)
+                StartCoroutine(MoveCoro());
         }
         void BeginSearch(Vector2Int endLocation)
         {
             done = false;
-            _isMoving = true;
+            //_isMoving = true;
             RemoveAllMarkers();
 
-            Vector3 startLocation = _unit.transform.localPosition * _mapCreator.GetMapScale;
-
-            Vector2Int unitPos = new Vector2Int((int)startLocation.x, (int)startLocation.y);
+            Vector2Int unitPos = ConvertToGridFromIsometric(_unit.transform.localPosition); //new Vector2Int((int)startLocation.x, (int)startLocation.y);
             startNode = new PathMarker(new MapLocation(unitPos.x, unitPos.y), 0.0f, 0.0f, 0.0f, null);
 
-            endLocation = new Vector2Int((int)(endLocation.x * _mapCreator.GetMapScale), (int)(endLocation.y * _mapCreator.GetMapScale));
-            goalNode = new PathMarker(new MapLocation((int)endLocation.x, (int)endLocation.y), 0.0f, 0.0f, 0.0f, null);
+            goalNode = new PathMarker(new MapLocation(endLocation.x, endLocation.y), 0.0f, 0.0f, 0.0f, null);
 
             /*
             if (_placePathDebugMarkers)
@@ -145,7 +174,7 @@ namespace AStarPathfinding
             if (thisNode.Equals(goalNode)) //goal has been found
             {
                 done = true;
-                _isMoving = true;
+                //_isMoving = true;
                 return;
             }
 
@@ -186,7 +215,6 @@ namespace AStarPathfinding
             RemoveAllMarkers();
             truePath = new List<PathMarker>();
             PathMarker begin = lastPos; //last post will be goal, then work backwards using parents
-
 
             while (!startNode.Equals(begin) && begin != null)
             {
@@ -234,38 +262,21 @@ namespace AStarPathfinding
             }
             return false;
         }
-        /*
-        public IEnumerator MoveCoro()
-        {
-            for (int i = truePath.Count - 1; i >= 0; i--)
-            {
-                if (!_unit.CanSpend(1))
-                {
-                    break;
-                }
-                _unit.transform.localPosition = new Vector3(truePath[i].location.x, truePath[i].location.y, _unit.transform.localPosition.z);
-                _unit.SpendAP(1);
-                AudioManager.instance?.PlaySFX(_unit != null ? _unit.stepSfx : null);
-                TurnManager.instance.UpdateApText();
 
-                yield return new WaitForSecondsRealtime(_unitMoveSpeed);
-            }
-            _isMoving = false;
-        }
-        /*/
         public IEnumerator MoveCoro()
         {
+            _isMoving = true;
+
             var _dirAnimator = _unit.GetComponent<DirectionAnimator>();
 
-            Vector2Int prev = new Vector2Int(
-            (int)_unit.transform.localPosition.x,
-            (int)_unit.transform.localPosition.y);
+            //Convert unit local position to grid position
+            Vector2Int prev = ConvertToGridFromIsometric(_unit.transform.localPosition);
 
             _dirAnimator.SetMoving(true);
 
             for (int i = truePath.Count - 1; i >= 0; i--)
             {
-                if (!_unit.CanSpend(1))
+                if (!_unit.CanSpend(1) || !truePath[i].isReachable)
                     break;
 
                 Vector2Int next = new Vector2Int(truePath[i].location.x, truePath[i].location.y);
@@ -274,7 +285,11 @@ namespace AStarPathfinding
                 _dirAnimator.SetDirectionFromDelta(delta);
 
                 Vector3 startPos = _unit.transform.localPosition;
-                Vector3 endPos = new Vector3(next.x, next.y, startPos.z);
+
+                //Convert unit grid position to local position 
+                Vector3 endPos = ConvertToIsometricFromGrid(next, startPos.y * .01f);// z pos adjusted with y value to
+                                                                                     // allow for easy layering of sprites
+                                                                                     // (.01f holds no significance, just used to keep value small)
 
                 float duration = _unitMoveSpeed;
                 float elapsed = 0f;
