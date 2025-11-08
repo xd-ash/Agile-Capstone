@@ -310,6 +310,9 @@ namespace AStarPathfinding
 
             _dirAnimator.SetMoving(false);
             _isMoving = false;
+            // right after movement is fully done
+            MovementRangeHighlighter.instance.RebuildForCurrentUnit();
+
         }
     }
 }
