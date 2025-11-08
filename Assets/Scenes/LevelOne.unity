@@ -1538,12 +1538,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-<<<<<<< Updated upstream
-  m_Children: []
-=======
   m_Children:
   - {fileID: 807850593}
->>>>>>> Stashed changes
   m_Father: {fileID: 1895713566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &752325242
@@ -1558,11 +1554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39a42f2fefb7bd439235a65536db21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
-  _mouseTileColor: {r: 1, g: 0.74645036, b: 0, a: 1}
-  _reachablePathColor: {r: 0.3066038, g: 1, b: 0.560056, a: 1}
-  _unreachablePathColor: {r: 1, g: 0.48584908, b: 0.48584908, a: 1}
-=======
   _tilemap: {fileID: 359505341}
   _mouseTileColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _line: {fileID: 807850594}
@@ -1706,7 +1697,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
->>>>>>> Stashed changes
 --- !u!1 &834914776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,11 +1989,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-<<<<<<< Updated upstream
-  m_fontSize: 55.5
-=======
   m_fontSize: 62.95
->>>>>>> Stashed changes
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2677,11 +2663,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-<<<<<<< Updated upstream
-  m_fontSize: 20.75
-=======
   m_fontSize: 23.6
->>>>>>> Stashed changes
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3387,11 +3369,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-<<<<<<< Updated upstream
-  m_fontSize: 22.65
-=======
   m_fontSize: 25.75
->>>>>>> Stashed changes
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3443,8 +3421,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371437711}
   m_CullTransparentMesh: 1
-<<<<<<< Updated upstream
-=======
 --- !u!1 &1395463652
 GameObject:
   m_ObjectHideFlags: 0
@@ -4506,7 +4482,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
->>>>>>> Stashed changes
 --- !u!1 &1595358560
 GameObject:
   m_ObjectHideFlags: 0
@@ -4593,11 +4568,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-<<<<<<< Updated upstream
-  m_fontSize: 27.95
-=======
   m_fontSize: 31.75
->>>>>>> Stashed changes
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4733,11 +4704,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-<<<<<<< Updated upstream
-  m_fontSize: 21
-=======
   m_fontSize: 23.85
->>>>>>> Stashed changes
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5234,11 +5201,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-<<<<<<< Updated upstream
-  m_fontSize: 65.75
-=======
   m_fontSize: 74.7
->>>>>>> Stashed changes
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5323,10 +5286,7 @@ Transform:
   - {fileID: 1691110207}
   - {fileID: 1278766396}
   - {fileID: 752325241}
-<<<<<<< Updated upstream
-=======
   - {fileID: 1395463653}
->>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1931126030
@@ -5928,7 +5888,4 @@ SceneRoots:
   - {fileID: 1102955851}
   - {fileID: 1824462643}
   - {fileID: 1937536020}
-<<<<<<< Updated upstream
-=======
   - {fileID: 1703493225}
->>>>>>> Stashed changes
