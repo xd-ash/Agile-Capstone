@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 24, y: -88}
+  position: {x: -40, y: 136}
   ports:
     keys:
     - input
@@ -32,7 +32,7 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 0
   _duration: 0
-  _effectValue: 10
+  _effectValue: 4
   input: 0
 --- !u!114 &-3844634634637453141
 MonoBehaviour:
@@ -130,7 +130,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 1
+  _apCost: 5
   _effectTypes: 4
   targeting: 0
   filtering: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: Layer Filter
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -24, y: -200}
+  position: {x: -40, y: 24}
   ports:
     keys:
     - input
@@ -189,7 +189,8 @@ MonoBehaviour:
   - {fileID: -76797013698469015}
   - {fileID: 5144402596869855986}
   _cardName: Strong Attack
-  _description: 
+  _description: Deal 5 damage to 1 target
+  abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
 --- !u!114 &5144402596869855986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +204,7 @@ MonoBehaviour:
   m_Name: Other Target
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -248, y: -264}
+  position: {x: -40, y: -104}
   ports:
     keys:
     - input

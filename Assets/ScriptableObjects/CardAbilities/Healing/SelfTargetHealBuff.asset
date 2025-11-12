@@ -167,7 +167,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _hasDuration: 1
+  _hasDuration: 0
   _duration: 4
   _effectValue: 4
   input: 0
@@ -188,40 +188,9 @@ MonoBehaviour:
   - {fileID: 1766287723113216939}
   - {fileID: -7141492294398822347}
   - {fileID: -1670849718794438946}
-  - {fileID: 268343381048251574}
   _cardName: Heal & Buff
   _description: Heal 4 HP
---- !u!114 &268343381048251574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb53b83c3d38b44cad7a4aeebb74423, type: 3}
-  m_Name: Buff Effect
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -72, y: 232}
-  ports:
-    keys:
-    - input
-    values:
-    - _fieldName: input
-      _node: {fileID: 268343381048251574}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-  _hasDuration: 1
-  _duration: 4
-  _effectValue: 2
-  input: 0
+  abilitySFX: {fileID: 8300000, guid: d9b4b2149cd9459458292b65c4a4d216, type: 3}
 --- !u!114 &1766287723113216939
 MonoBehaviour:
   m_ObjectHideFlags: 0

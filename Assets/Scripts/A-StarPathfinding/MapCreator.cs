@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using static IsoMetricConversions;
 
 namespace AStarPathfinding
 {
@@ -34,7 +36,6 @@ namespace AStarPathfinding
             return 0;
         }
     }
-
     public class MapCreator : MonoBehaviour
     {
         //Singleton setup
@@ -42,50 +43,38 @@ namespace AStarPathfinding
         private void Awake()
         {
             if (instance == null)
-            {
                 instance = this;
-            }
             else
-            {
-                Debug.LogError($"{this.gameObject.name} has been destroyed due to singleton conflict");
                 Destroy(this.gameObject);
-            }
         }
 
-        //[SerializeField] private Tilemap _tilemap;  //Unused currently
+        private Tilemap _tilemap;
+        //private Grid _grid;
 
-        [HideInInspector] public Vector2Int tileMousePos = new(-1,-1);
         [SerializeField] private Vector2Int _mapSize;
-        [SerializeField] private float _mapScale = 1;
+        //[SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
         [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
                                                                      new MapLocation(1,0),      //new MapLocation(0.5f, 0.25f),
                                                                      new MapLocation(0,1),      //new MapLocation(-0.5f, 0.25f),
                                                                      new MapLocation(-1,0),     //new MapLocation(-0.5f, -0.25f),
                                                                      new MapLocation(0,-1) };   //new MapLocation(0.5f, -0.25f)};
-        private GameObject _tilePrefab;
-        private GameObject _emptyMapAnchor;
-
         [Header("Placeholder Obstacle/Enemy Spawn")]
         [SerializeField] private List<Vector2Int> obstLocationList;
+        [SerializeField] private List<Vector2Int> enemyLocationList;
         [SerializeField] private GameObject _placeholderObstacle;
-        [SerializeField] private Transform _enemyPlaceholder;
+        [SerializeField] private GameObject _enemyPlaceholder;
 
         public byte[,] GetByteMap { get { return _map; } }
         public Vector2Int GetMapSize { get { return _mapSize; } }
-        public float GetMapScale { get { return _mapScale; } }
+        //public float GetMapScale { get { return _mapScale; } }
         public List<MapLocation> GetDirections { get { return _directions; } }
+        //public Grid GetGrid { get { return _grid; } }
 
         private void OnEnable()
         {
-            _tilePrefab = Resources.Load<GameObject>("TileGridPrefabs/TileBase"); //maybe change to another grabbing method?
-
-            // Messy but should be removed on fixing isometric tilemap movement
-            _emptyMapAnchor = new("EmptyTileAnchor");
-            _emptyMapAnchor.transform.parent = transform.Find("UnitMoveEmpty");
-            _emptyMapAnchor.transform.localEulerAngles = Vector3.zero;
-            _emptyMapAnchor.transform.localPosition = Vector3.zero;
-            _emptyMapAnchor.transform.localScale = Vector3.one;
+            _tilemap = FindAnyObjectByType<Tilemap>();
+            //_grid = transform.GetComponent<Grid>();
         }
 
         private void Start()
@@ -96,35 +85,54 @@ namespace AStarPathfinding
             {
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
-                    if (new Vector2Int((int)_enemyPlaceholder.localPosition.x, (int)_enemyPlaceholder.localPosition.y) == new Vector2Int(x, y)) //Placeholder enemy spawn
-                    {
+                    Vector2Int gridPos = new Vector2Int(x, y);
+
+                    if (enemyLocationList.Contains(new Vector2Int(x, y))) //placeholder enemy spawn
                         _map[x, y] = 2;
-                    }
                     else if (obstLocationList.Contains(new Vector2Int(x, y))) //Placeholder obstacle spawn
-                    {
                         _map[x, y] = 1;
-                    }
                     else
-                    {
                         _map[x, y] = 0;
-                    }
-                     
-                    SpawnTileContents(_map[x, y], new Vector2Int(x,y));
+
+
+                    SpawnTileContents(_map[x, y], gridPos);
+
+                    _tilemap.CompressBounds();
+                    _tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
                 }
             }
         }
         private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)
         {
-            GameObject tile = GameObject.Instantiate(_tilePrefab, _emptyMapAnchor.transform);
-            tile.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
-            tile.transform.localScale = tile.transform.localScale * _mapScale;
-            tile.name = $"{mapPos.x}-{mapPos.y}";
+            Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
+            GameObject objToSpawn = null;
 
             if (byteIndicator == 1)
             {
-                GameObject obstacle = GameObject.Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity);
-                obstacle.transform.parent = _emptyMapAnchor.transform;
-                obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, 0);
+                objToSpawn = _placeholderObstacle;
+                //GameObject obstacle = GameObject.Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity, transform);
+                //obstacle.transform.parent = transform;
+                //obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, _placeholderObstacle.transform.position.z);
+            }
+            else if (byteIndicator == 2)
+            {
+                objToSpawn = _enemyPlaceholder;
+
+                //GameObject enemy = GameObject.Instantiate(_enemyPlaceholder, _enemyPlaceholder.transform.position, Quaternion.identity, transform);
+                //enemy.transform.parent = transform;
+                //enemy.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, _enemyPlaceholder.transform.position.z);
+            }
+
+
+            if (objToSpawn != null)
+            {
+                Vector3 adjustedPos = new Vector3(truePos.x /* * _mapScale*/, truePos.y /* * _mapScale*/, truePos.y * 0.01f); // z pos adjusted with y value to
+                                                                                                                              // allow for easy layering of sprites
+                                                                                                                              // (.01 holds no signifigance, just to make it small)
+                GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity);
+
+                newObj.transform.parent = transform;
+                newObj.transform.localPosition = adjustedPos;
             }
         }
 

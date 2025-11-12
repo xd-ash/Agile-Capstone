@@ -15,9 +15,10 @@ MonoBehaviour:
   nodes:
   - {fileID: 282906417093084810}
   - {fileID: 1231947657844673271}
-  - {fileID: 2840524601188700382}
+  - {fileID: 6139669208157274387}
   _cardName: Draw Card
   _description: Draw 1 Card
+  abilitySFX: {fileID: 0}
 --- !u!114 &282906417093084810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
   m_Name: Ability Root
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -264, y: -120}
+  position: {x: -280, y: -152}
   ports:
     keys:
     - targeting
@@ -47,7 +48,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: 2840524601188700382}
+        node: {fileID: 6139669208157274387}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -121,7 +122,7 @@ MonoBehaviour:
   m_Name: Deck Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -8, y: 104}
+  position: {x: -24, y: 8}
   ports:
     keys:
     - input
@@ -145,7 +146,7 @@ MonoBehaviour:
   _action: 0
   _amount: 1
   _logResults: 1
---- !u!114 &2840524601188700382
+--- !u!114 &6139669208157274387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,17 +155,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5b2b3ff173d174db191a65eea079e3, type: 3}
-  m_Name: Self Target
+  m_Script: {fileID: 11500000, guid: 29191d99d980c0545acc4a535a3edc1a, type: 3}
+  m_Name: Targetless
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -8, y: -136}
+  position: {x: -8, y: -168}
   ports:
     keys:
     - input
     values:
     - _fieldName: input
-      _node: {fileID: 2840524601188700382}
+      _node: {fileID: 6139669208157274387}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:

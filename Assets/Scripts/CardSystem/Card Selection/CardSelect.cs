@@ -18,12 +18,12 @@ namespace CardSystem
 
         [Header("Visual Settings")]
         [SerializeField] private float handAreaHeight = 2f; // Height of the hand area
-        [SerializeField] private float activationThreshold = 2.1f; // Just above hand area
+        //[SerializeField] private float activationThreshold = 2.1f; // Just above hand area
         [SerializeField] private int _hoverSortingBoost = 1000;
         
-        [Header("Movement Settings")]
-        [SerializeField] private float smoothSpeed = 10f;
-        [SerializeField] private float destroyThreshold = -3f; // Threshold for destroying cards dropped below hand
+        //[Header("Movement Settings")]
+        //[SerializeField] private float smoothSpeed = 10f;
+        //[SerializeField] private float destroyThreshold = -3f; // Threshold for destroying cards dropped below hand
 
         [Header("Visual Feedback")]
         [SerializeField] private float hoverScaleMultiplier = 1.2f;
@@ -48,16 +48,29 @@ namespace CardSystem
         private Color originalColor;
         private Vector3 originalScale;
 
+        // Add static field to track if any card is currently being used
+        private static bool isAnyCardActive = false;
+
         private void OnEnable()
         {
             _mainCamera = Camera.main;
             SetupVisuals();
             AbilityEvents.OnAbilityUsed += ClearSelection;
+            AbilityEvents.OnAbilityTargetingStarted += OnTargetingStarted; // Use the correct event
+            TurnManager.instance.OnTurnChanged += ClearSelection;
         }
 
         private void OnDestroy()
         {
             AbilityEvents.OnAbilityUsed -= ClearSelection;
+            AbilityEvents.OnAbilityTargetingStarted -= OnTargetingStarted; // Use the correct event   
+            TurnManager.instance.OnTurnChanged -= ClearSelection;
+        }
+
+        // Add handler method
+        private void OnTargetingStarted()
+        {
+            isAnyCardActive = true;
         }
 
         private void SetupVisuals()
@@ -107,7 +120,8 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
-            if (!selected && !PauseMenu.isPaused && !isDragging)
+            // Add check for active cards
+            if (!selected && !PauseMenu.isPaused && !isDragging && !isAnyCardActive)
             {
                 if (_cardHighlight != null) _cardHighlight.SetActive(true);
                 transform.DOScale(originalScale * hoverScaleMultiplier, scaleDuration);
@@ -127,7 +141,8 @@ namespace CardSystem
 
         private void OnMouseDown()
         {
-            if (PauseMenu.isPaused || selected || CardManager.instance == null) return;
+            // Add check for active cards
+            if (PauseMenu.isPaused || selected || CardManager.instance == null || isAnyCardActive) return;
 
             startPosition = transform.position;
             startIndex = CardManager.instance._cardsInHand.IndexOf(_card);
@@ -146,32 +161,49 @@ namespace CardSystem
             BringToFront();
         }
 
-        private void OnMouseDrag()
+        private bool isAboveHandArea = false; // Add this field
+
+private void OnMouseDrag()
+{
+    if (!isDragging || PauseMenu.isPaused || CardManager.instance == null || isAnyCardActive) return;
+
+    // Direct position setting without any constraints
+    transform.position = GetMouseWorldPosition() + dragOffset;
+
+    // Track when we cross the threshold
+    bool wasAboveHand = isAboveHandArea;
+    isAboveHandArea = transform.position.y > handAreaHeight;
+
+    // Only trigger changes when crossing the threshold
+    if (wasAboveHand != isAboveHandArea)
+    {
+        if (isAboveHandArea)
         {
-            if (!isDragging || PauseMenu.isPaused || CardManager.instance == null) return;
-
-            // Direct position setting without any constraints
-            transform.position = GetMouseWorldPosition() + dragOffset;
-
-            // Visual feedback based on position relative to hand area
-            if (transform.position.y > handAreaHeight)
-            {
-                _spriteRenderer.DOColor(validDropColor, 0.2f);
-                // Don't call UpdateCardPosition here to prevent snapping
-            }
-            else
-            {
-                _spriteRenderer.DOColor(originalColor, 0.2f);
-                UpdateCardOrder(); // Only update order when inside hand area
-            }
+            _spriteRenderer.DOColor(validDropColor, 0.2f).SetUpdate(true);
+            // Temporarily remove from hand management
+            CardManager.instance._cardsInHand.Remove(_card);
+            CardManager.instance.ArrangeCardGOs();
         }
+        else
+        {
+            _spriteRenderer.DOColor(originalColor, 0.2f).SetUpdate(true);
+            // Add back to hand management
+            CardManager.instance._cardsInHand.Insert(startIndex, _card);
+            CardManager.instance.ArrangeCardGOs();
+        }
+    }
+    
+    // Only update order when in hand area
+    if (!isAboveHandArea)
+    {
+        UpdateCardOrder();
+    }
+}
 
         private void OnMouseUp()
         {
             if (!isDragging) return;
             isDragging = false;
-
-            Debug.Log($"Card released at height: {transform.position.y}, Hand area height: {handAreaHeight}");
 
             if (CardManager.instance == null)
             {
@@ -179,36 +211,38 @@ namespace CardSystem
                 return;
             }
 
-            // If card is dropped above hand area, activate it
-            if (transform.position.y > handAreaHeight)
+            // If card is dropped above hand area, try to activate it
+            if (isAboveHandArea)
             {
-                Debug.Log($"Attempting to activate card {_card?.GetCardName}");
-                // Remove card from hand before any visual changes
-                CardManager.instance._cardsInHand.Remove(_card);
-                CardManager.instance.ArrangeCardGOs();
-                
-                // Then try to activate
                 TryActivateCard();
             }
             else
             {
+                // Kill any active tweens
+                transform.DOKill();
+                _spriteRenderer.DOKill();
+
                 // Reset visual feedback
                 transform.DOScale(originalScale, scaleDuration);
                 transform.DORotate(Vector3.zero, scaleDuration);
                 _spriteRenderer.DOColor(originalColor, scaleDuration);
-                
-                // If within hand area, just return to position
                 FinalizeCardPosition();
             }
+
+            isAboveHandArea = false;
         }
 
         private void UpdateCardOrder()
         {
-            int newIndex = CalculateCardIndex();
-            if (newIndex != -1 && newIndex != startIndex)
+            // Only calculate new index if we're in hand area
+            if (transform.position.y <= handAreaHeight)
             {
-                CardManager.instance.PreviewReorder(startIndex, newIndex);
-                startIndex = newIndex;
+                int newIndex = CalculateCardIndex();
+                if (newIndex != -1 && newIndex != startIndex)
+                {
+                    CardManager.instance.PreviewReorder(startIndex, newIndex);
+                    startIndex = newIndex;
+                }
             }
         }
 
@@ -228,6 +262,10 @@ namespace CardSystem
 
         private int CalculateCardIndex()
         {
+            // If we're above hand area, don't calculate new index
+            if (transform.position.y > handAreaHeight)
+                return startIndex; // Return original index to prevent reordering
+            
             var cards = CardManager.instance?._cardsInHand;
             if (cards == null || cards.Count <= 1) return -1;
 
@@ -250,9 +288,9 @@ namespace CardSystem
         private void BringToFront()
         {
             UpdateSortingOrders(_baseSortingOrder + _hoverSortingBoost);
+            // Only update position if explicitly not dragging
             if (CardManager.instance != null && !isDragging)
             {
-                // Only update position if not being dragged
                 CardManager.instance.UpdateCardPosition(_card, true);
             }
         }
@@ -260,9 +298,9 @@ namespace CardSystem
         private void RestoreOrder()
         {
             UpdateSortingOrders(_baseSortingOrder);
+            // Only update position if explicitly not dragging
             if (CardManager.instance != null && !isDragging)
             {
-                // Only update position if not being dragged
                 CardManager.instance.UpdateCardPosition(_card, false);
             }
         }
@@ -302,12 +340,9 @@ namespace CardSystem
 
         private void TryActivateCard()
         {
-            Debug.Log($"TryActivateCard - Starting activation process for {_card?.GetCardName}");
-            
-            if (_card == null || _card.GetCardAbility?.RootNode == null || CardManager.instance == null)
+            if (_card == null || _card.GetCardAbility?.RootNode == null || CardManager.instance == null || isAnyCardActive)
             {
-                Debug.LogError("Card, ability, or root node is null");
-                ResetPosition();
+                ReturnCardToHand();
                 return;
             }
 
@@ -316,27 +351,48 @@ namespace CardSystem
             
             if (currentUnit == null || !currentUnit.CanSpend(cost))
             {
-                Debug.LogWarning($"Cannot activate card: {(currentUnit == null ? "No unit" : "Not enough AP")}");
                 OutOfApPopup.Instance?.Show();
-                ResetPosition();
+                ReturnCardToHand();
                 return;
             }
 
-            // Remove card from hand before activating to prevent spline issues
-            CardManager.instance._cardsInHand.Remove(_card);
-            CardManager.instance.ArrangeCardGOs(); // Rearrange remaining cards
-
+            // Only remove from hand if we can actually use the card
             selected = true;
+            CardManager.instance._cardsInHand.Remove(_card);
             CardManager.instance.selectedCard = _card;
+            CardManager.instance.ArrangeCardGOs();
             
-            Debug.Log($"Activating ability for card: {_card.GetCardName}");
+            // First invoke targeting started to set up restrictions
             AbilityEvents.TargetingStarted();
             _card.GetCardAbility.UseAility(currentUnit);
+        }
+                
+        public void ReturnCardToHand()
+        {
+            // Reset card state
+            selected = false;
+            isDragging = false;
+            isAboveHandArea = false;
+
+            // Kill any active tweens
+            transform.DOKill();
+            _spriteRenderer.DOKill();
+
+            // Destroy the card object
+            if (CardManager.instance != null)
+            {
+                CardManager.instance._cardsInHand.Remove(_card);
+                CardManager.instance._currentHandSize = CardManager.instance._cardsInHand.Count;
+                CardManager.instance.ArrangeCardGOs();
+            }
+            
+            Destroy(gameObject);
         }
 
         private void ClearSelection()
         {
             selected = false;
+            isAnyCardActive = false; // Reset when ability is finished
             if (_cardHighlight != null) _cardHighlight.SetActive(false);
             RestoreOrder();
         }
