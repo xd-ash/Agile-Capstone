@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using System.Linq;
+using CardSystem;
 
 public class TurnManager : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class TurnManager : MonoBehaviour
     [Header("Placeholder Enemy Coro stuff")]
     [SerializeField] private AudioClip _enemyDmgSfx;
 
-    public event Action OnTurnChanged;
+    public event Action OnGameStart;
+    public event Action OnPlayerTurnEnd;
 
     private void Awake()
     {
@@ -47,6 +49,8 @@ public class TurnManager : MonoBehaviour
         AbilityEvents.OnAbilityUsed += UpdateApText;
 
         _unitTurnOrder = GrabUnits();
+
+        OnGameStart?.Invoke();
         SetTurn(); //Could change by using the dice roll or random.range
     }
 
@@ -114,8 +118,6 @@ public class TurnManager : MonoBehaviour
 
         UpdateApText();
 
-        OnTurnChanged?.Invoke();
-
         if (currTurn == Turn.Enemy)
             _curUnit.StartCoroutine(EnemyTurn());
     }
@@ -139,17 +141,18 @@ public class TurnManager : MonoBehaviour
     {
         if (currTurn != Turn.Player) return; // avoid turn end spam
 
+        SetTurn();
+        OnPlayerTurnEnd?.Invoke();
+
         // discard player's hand at end of player turn
         if (CardSystem.CardManager.instance != null)
             CardSystem.CardManager.instance.DiscardAll();
-
-        SetTurn();
     }
     public void EndEnemyTurn() => SetTurn();
 
     public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
     public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
     public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null; // Adam added 10/5
-                                                                                                                                    //      - Grabbing current unit (for when friendlies added)
-                                                                                                                                    //      - unit used for ability stuff
+                                                                                        //      - Grabbing current unit (for when friendlies added)
+                                                                                        //      - unit used for ability stuff
 }

@@ -72,14 +72,14 @@ public class AudioManager : MonoBehaviour
                 //AbilityEvents.OnAbilityUsed -= HandleAbilityUsed;
 
                 if (TurnManager.instance != null)
-                    TurnManager.instance.OnTurnChanged -= HandleTurnChanged;
+                    TurnManager.instance.OnPlayerTurnEnd -= HandleTurnChanged;
                 break;
         }
     }
 
     public void LevelLoadInits()
     {
-        TurnManager.instance.OnTurnChanged += HandleTurnChanged;
+        TurnManager.instance.OnPlayerTurnEnd += HandleTurnChanged;
         if (bgmClip != null)
         {
             PlayMusic(bgmClip, true);

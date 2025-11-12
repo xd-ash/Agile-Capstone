@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour, IDamagable
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
 
-    public event Action<Unit> OnApChanged; 
+    public event Action<Unit> OnApChanged;
 
     private void Awake()
     {
@@ -44,11 +44,26 @@ public class Unit : MonoBehaviour, IDamagable
         else
         {
             _enemyHPBar = GetComponentInChildren<Slider>();
-            //_enemyHPBar.gameObject.SetActive(false);
+            //_enemyHPBar.gameObject.SetActive(false); // commented this out so enemy HP bar show from start
             ShieldEvents.RaiseEnemyShieldChanged(shield);
         }
     }
-
+    private void Start()
+    {
+        //**********************************************************************//
+        if (team != Team.Friendly) return;                                      //
+        CardSystem.CardManager.instance.OnCardAblityCancel += StopAllCoroutines;// I SHOULD BE CHANGED TO A BETTER SYSTEM
+        TurnManager.instance.OnPlayerTurnEnd += StopAllCoroutines;              // I SHOULD BE CHANGED TO A BETTER SYSTEM
+        //**********************************************************************//
+    }
+    private void OnDestroy()
+    {
+        //**********************************************************************//
+        if (team != Team.Friendly) return;                                      //
+        CardSystem.CardManager.instance.OnCardAblityCancel -= StopAllCoroutines;// I SHOULD BE CHANGED TO A BETTER SYSTEM
+        TurnManager.instance.OnPlayerTurnEnd -= StopAllCoroutines;              // I SHOULD BE CHANGED TO A BETTER SYSTEM
+        //**********************************************************************//
+    }
     /// <summary>
     /// ChangeHealth handles both healing (isGain = true) and damage (isGain = false).
     /// When taking damage, shield is consumed first (if >0).
@@ -192,13 +207,15 @@ public class Unit : MonoBehaviour, IDamagable
 
     public bool CanSpend(int cost) => ap >= cost;
 
-    public bool SpendAP(int cost)
+    public bool SpendAP(int cost, bool spendNow = true)
     {
         if (!CanSpend(cost))
             return false;
-        ap -= cost;
-        OnApChanged?.Invoke(this);
-
+        if (spendNow)
+        {
+            ap -= cost;
+            OnApChanged?.Invoke(this);
+        }
         return true;
     }
 

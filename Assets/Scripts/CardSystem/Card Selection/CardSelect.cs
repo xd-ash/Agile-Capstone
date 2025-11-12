@@ -12,7 +12,7 @@ namespace CardSystem
         private GameObject _cardHighlight;
         private SpriteRenderer _highlightRenderer;
         private Card _card;
-        
+
         [SerializeField] private Sprite _cardSprite;
         [SerializeField] private bool selected = false;
 
@@ -20,7 +20,7 @@ namespace CardSystem
         [SerializeField] private float handAreaHeight = 2f; // Height of the hand area
         //[SerializeField] private float activationThreshold = 2.1f; // Just above hand area
         [SerializeField] private int _hoverSortingBoost = 1000;
-        
+
         //[Header("Movement Settings")]
         //[SerializeField] private float smoothSpeed = 10f;
         //[SerializeField] private float destroyThreshold = -3f; // Threshold for destroying cards dropped below hand
@@ -32,17 +32,17 @@ namespace CardSystem
         [SerializeField] private float rotationAmount = 5f;
         [SerializeField] private Color validDropColor = Color.green;
         [SerializeField] private Color invalidDropColor = Color.red;
-        
+
         [Header("Card Text Components")]
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private TMP_Text _descriptionText;
-        
+
         // Drag state
         private bool isDragging = false;
         private Vector3 dragOffset;
         private Vector3 startPosition;
         private int startIndex;
-        
+
         private int _baseSortingOrder;
         private Camera _mainCamera;
         private Color originalColor;
@@ -57,14 +57,14 @@ namespace CardSystem
             SetupVisuals();
             AbilityEvents.OnAbilityUsed += ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted += OnTargetingStarted; // Use the correct event
-            TurnManager.instance.OnTurnChanged += ClearSelection;
+            TurnManager.instance.OnPlayerTurnEnd += ReturnCardToHand;
         }
 
         private void OnDestroy()
         {
             AbilityEvents.OnAbilityUsed -= ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted -= OnTargetingStarted; // Use the correct event   
-            TurnManager.instance.OnTurnChanged -= ClearSelection;
+            TurnManager.instance.OnPlayerTurnEnd -= ReturnCardToHand;
         }
 
         // Add handler method
@@ -150,55 +150,55 @@ namespace CardSystem
 
             isDragging = true;
             dragOffset = transform.position - GetMouseWorldPosition();
-            
+
             // Stop any active animations
             transform.DOKill();
-            
+
             // Visual feedback for picking up
             transform.DOScale(originalScale * dragScaleMultiplier, scaleDuration);
             transform.DORotate(new Vector3(0, 0, Random.Range(-rotationAmount, rotationAmount)), scaleDuration);
-            
+
             BringToFront();
         }
 
         private bool isAboveHandArea = false; // Add this field
 
-private void OnMouseDrag()
-{
-    if (!isDragging || PauseMenu.isPaused || CardManager.instance == null || isAnyCardActive) return;
-
-    // Direct position setting without any constraints
-    transform.position = GetMouseWorldPosition() + dragOffset;
-
-    // Track when we cross the threshold
-    bool wasAboveHand = isAboveHandArea;
-    isAboveHandArea = transform.position.y > handAreaHeight;
-
-    // Only trigger changes when crossing the threshold
-    if (wasAboveHand != isAboveHandArea)
-    {
-        if (isAboveHandArea)
+        private void OnMouseDrag()
         {
-            _spriteRenderer.DOColor(validDropColor, 0.2f).SetUpdate(true);
-            // Temporarily remove from hand management
-            CardManager.instance._cardsInHand.Remove(_card);
-            CardManager.instance.ArrangeCardGOs();
+            if (!isDragging || PauseMenu.isPaused || CardManager.instance == null || isAnyCardActive) return;
+
+            // Direct position setting without any constraints
+            transform.position = GetMouseWorldPosition() + dragOffset;
+
+            // Track when we cross the threshold
+            bool wasAboveHand = isAboveHandArea;
+            isAboveHandArea = transform.position.y > handAreaHeight;
+
+            // Only trigger changes when crossing the threshold
+            if (wasAboveHand != isAboveHandArea)
+            {
+                if (isAboveHandArea)
+                {
+                    _spriteRenderer.DOColor(validDropColor, 0.2f).SetUpdate(true);
+                    // Temporarily remove from hand management
+                    CardManager.instance._cardsInHand.Remove(_card);
+                    CardManager.instance.ArrangeCardGOs();
+                }
+                else
+                {
+                    _spriteRenderer.DOColor(originalColor, 0.2f).SetUpdate(true);
+                    // Add back to hand management
+                    CardManager.instance._cardsInHand.Insert(startIndex, _card);
+                    CardManager.instance.ArrangeCardGOs();
+                }
+            }
+
+            // Only update order when in hand area
+            if (!isAboveHandArea)
+            {
+                UpdateCardOrder();
+            }
         }
-        else
-        {
-            _spriteRenderer.DOColor(originalColor, 0.2f).SetUpdate(true);
-            // Add back to hand management
-            CardManager.instance._cardsInHand.Insert(startIndex, _card);
-            CardManager.instance.ArrangeCardGOs();
-        }
-    }
-    
-    // Only update order when in hand area
-    if (!isAboveHandArea)
-    {
-        UpdateCardOrder();
-    }
-}
 
         private void OnMouseUp()
         {
@@ -265,7 +265,7 @@ private void OnMouseDrag()
             // If we're above hand area, don't calculate new index
             if (transform.position.y > handAreaHeight)
                 return startIndex; // Return original index to prevent reordering
-            
+
             var cards = CardManager.instance?._cardsInHand;
             if (cards == null || cards.Count <= 1) return -1;
 
@@ -325,16 +325,13 @@ private void OnMouseDrag()
             }
         }
 
-        private void ResetPosition()
+        public void ResetPosition()
         {
             if (CardManager.instance != null)
-            {
                 CardManager.instance.UpdateCardPosition(_card, false);
-            }
             else
-            {
                 transform.position = startPosition;
-            }
+
             RestoreOrder();
         }
 
@@ -348,7 +345,7 @@ private void OnMouseDrag()
 
             var currentUnit = TurnManager.GetCurrentUnit;
             int cost = _card.GetCardAbility.RootNode.GetApCost;
-            
+
             if (currentUnit == null || !currentUnit.CanSpend(cost))
             {
                 OutOfApPopup.Instance?.Show();
@@ -358,21 +355,18 @@ private void OnMouseDrag()
 
             // Only remove from hand if we can actually use the card
             selected = true;
-            CardManager.instance._cardsInHand.Remove(_card);
+            //CardManager.instance._cardsInHand.Remove(_card);
             CardManager.instance.selectedCard = _card;
             CardManager.instance.ArrangeCardGOs();
-            
+
             // First invoke targeting started to set up restrictions
             AbilityEvents.TargetingStarted();
             _card.GetCardAbility.UseAility(currentUnit);
         }
-                
+
         public void ReturnCardToHand()
         {
-            // Reset card state
-            selected = false;
-            isDragging = false;
-            isAboveHandArea = false;
+            ClearSelection();
 
             // Kill any active tweens
             transform.DOKill();
@@ -381,18 +375,17 @@ private void OnMouseDrag()
             // Destroy the card object
             if (CardManager.instance != null)
             {
-                CardManager.instance._cardsInHand.Remove(_card);
+                CardManager.instance._cardsInHand.Add(_card);
                 CardManager.instance._currentHandSize = CardManager.instance._cardsInHand.Count;
                 CardManager.instance.ArrangeCardGOs();
             }
-            
-            Destroy(gameObject);
         }
 
         private void ClearSelection()
         {
             selected = false;
             isAnyCardActive = false; // Reset when ability is finished
+            _spriteRenderer.color = Color.white;
             if (_cardHighlight != null) _cardHighlight.SetActive(false);
             RestoreOrder();
         }
@@ -414,25 +407,25 @@ private void OnMouseDrag()
             _card.CardTransform = transform;
 
             transform.name = card.GetCardName;
-            
+
             // Get all TextMeshPro components (non-UI version)
             TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
-            
+
             if (cardTextFields.Length >= 3)
             {
                 // Update text content
                 cardTextFields[0].text = card.GetCardName;
                 cardTextFields[1].text = card.GetDescription;
                 cardTextFields[2].text = card.GetCardAbility.RootNode.GetApCost.ToString();
-                
+
                 // Make sure text components are properly attached and sorted
                 foreach (var textField in cardTextFields)
                 {
                     // Ensure text is child of card and follows its transform
                     textField.transform.SetParent(transform, true);
-                    
+
                     // Set up sorting
-                    textField.sortingOrder = _spriteRenderer != null ? 
+                    textField.sortingOrder = _spriteRenderer != null ?
                         _spriteRenderer.sortingOrder + 1 : 1;
                 }
             }

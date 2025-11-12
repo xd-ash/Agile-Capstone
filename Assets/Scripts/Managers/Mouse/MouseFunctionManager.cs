@@ -1,4 +1,5 @@
 using AStarPathfinding;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -16,24 +17,26 @@ public class MouseFunctionManager : MonoBehaviour
     [SerializeField] private LineRenderer _line;
     [SerializeField] private float _lineZOffset = 0.01f;
 
-    private Vector3Int _tilePos;
-    private TileBase _currTile;
+    [SerializeField] private Vector3Int _tilePos;
+    [SerializeField] private TileBase _currTile;
+    private Vector3Int _lastTilePos = new Vector3Int(-1, -1, -1);
+
+    //Target Select stuff
+    public Action<bool> OnClickTarget;
 
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
         {
             Destroy(gameObject);
             return;
         }
+
         if (_tilemap == null)
-        {
             _tilemap = FindAnyObjectByType<Tilemap>();
-        }
+
         _line.useWorldSpace = true;
         _line.positionCount = 0;
     }
@@ -41,6 +44,8 @@ public class MouseFunctionManager : MonoBehaviour
     private void Update()
     {
         TrackMouse();
+        ManageCurrTileColor();
+
         if (_currTile == null)
         {
             ClearLine();
@@ -54,6 +59,24 @@ public class MouseFunctionManager : MonoBehaviour
         DrawMovementPath();
     }
 
+    private void ManageCurrTileColor()
+    {
+        SetTileColor(_tilePos);
+
+        if (_currTile == null)
+        {
+            ClearTileColor(_lastTilePos);
+            _lastTilePos = new Vector3Int(-1, -1, -1);
+            return;
+        }
+
+        if (_lastTilePos != _tilePos)
+        {
+            //Clear any highlighted tiles once a new tile is selected
+            ClearTileColor(_lastTilePos);
+            _lastTilePos = _tilePos;
+        }
+    }
     private void TrackMouse()
     {
         Vector3 worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -61,6 +84,10 @@ public class MouseFunctionManager : MonoBehaviour
 
         _tilePos = _tilemap.WorldToCell(worldMouse);
         _currTile = _tilemap.GetTile(_tilePos);
+    }
+    private void DoTargetingStuff()
+    {
+        ClearLine();
     }
 
     private void DrawMovementPath()
@@ -120,9 +147,7 @@ public class MouseFunctionManager : MonoBehaviour
         _line.SetPositions(points.ToArray());
 
         if (Input.GetMouseButtonDown(0))
-        {
             FindPathAStar.instance.OnTileClick();
-        }
     }
 
     private Vector3 GridToWorld(Vector2Int cell)
@@ -138,9 +163,12 @@ public class MouseFunctionManager : MonoBehaviour
             _line.positionCount = 0;
     }
 
-    private void DoTargetingStuff()
+    private void SetTileColor(Vector3Int tilePos)
     {
-        _tilemap.SetColor(_tilePos, _mouseTileColor);
-        ClearLine();
+        _tilemap.SetColor(tilePos, _mouseTileColor);
+    }
+    private void ClearTileColor(Vector3Int tilePos)
+    {
+        _tilemap.SetColor(tilePos, Color.white);
     }
 }

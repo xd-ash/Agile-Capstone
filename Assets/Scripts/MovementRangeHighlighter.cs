@@ -34,6 +34,9 @@ public class MovementRangeHighlighter : MonoBehaviour
         {
             _lastTurn = TurnManager.instance.currTurn;
         }
+
+        AbilityEvents.OnAbilityTargetingStarted += ClearHighlights;
+        AbilityEvents.OnAbilityTargetingStopped += RebuildForCurrentUnit;
     }
 
     private void Update()

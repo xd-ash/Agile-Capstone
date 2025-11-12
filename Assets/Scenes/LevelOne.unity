@@ -1555,9 +1555,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tilemap: {fileID: 359505341}
-  _mouseTileColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _mouseTileColor: {r: 0.4009434, g: 0.9703864, b: 1, a: 1}
   _line: {fileID: 807850594}
   _lineZOffset: 0.01
+  _tilePos: {x: 0, y: 0, z: 0}
+  _currTile: {fileID: 0}
 --- !u!1 &807850592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,7 +1991,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.95
+  m_fontSize: 55.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2663,7 +2665,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.6
+  m_fontSize: 20.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3369,7 +3371,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.75
+  m_fontSize: 22.65
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3466,7 +3468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _highlightTilemap: {fileID: 1435304912}
-  _reachableColor: {r: 0.36320752, g: 0.6539803, b: 1, a: 1}
+  _reachableColor: {r: 0, g: 0.45678997, b: 1, a: 1}
 --- !u!1 &1435304909
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,7 +4462,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3882353}
   m_Origin: {x: -2, y: -1, z: 0}
   m_Size: {x: 12, y: 12, z: 1}
   m_TileAnchor: {x: 0, y: 0, z: 0}
@@ -4568,7 +4570,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.75
+  m_fontSize: 27.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4704,7 +4706,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.85
+  m_fontSize: 21
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5201,7 +5203,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 74.7
+  m_fontSize: 65.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

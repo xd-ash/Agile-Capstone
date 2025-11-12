@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static AbilityEvents;
+using CardSystem;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -25,7 +27,17 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePause();
+            if (IsTargeting)
+            {
+                if (CardSystem.CardManager.instance.selectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
+                {
+                    card.ReturnCardToHand();
+                    AbilityEvents.TargetingStopped();
+                    CardManager.instance.OnCardAblityCancel?.Invoke();
+                }
+            }
+            else
+                TogglePause();
         }
     }
 

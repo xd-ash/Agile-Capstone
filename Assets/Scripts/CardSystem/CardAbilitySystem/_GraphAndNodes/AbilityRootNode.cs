@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using XNode;
 
@@ -31,12 +32,12 @@ namespace CardSystem
             if (_targetingStrategy == null)
                 _targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
 
-			if (!user.SpendAP(_apCost)) return;
+			if (!user.SpendAP(_apCost, false)) return; // simply check if ap can be spent
 
 			AbilityData abilityData = new AbilityData(user);
 			_targetingStrategy?.StartTargeting(abilityData, () =>
 			{
-                // Method ref sent through to be called after targeting strategy finishes
+                // Method sent through to be called after targeting strategy finishes
                 InitAbility(abilityData);
 			});
         }
@@ -52,11 +53,22 @@ namespace CardSystem
 				abilityData.Targets = (port.Connection.node as FilterStrategy).Filter(abilityData.Targets);
 			}
 
-			if (_targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.Targets.Count<GameObject>() == 0)) 
-				return;// add to this for clearing selection, starting ability again? w/e we want for failed cast
+            // failed ability cast catcher
+  			if (_targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
+            {
+                // Return the card to hand or destroy it
+                if (CardManager.instance != null && CardManager.instance.selectedCard != null)
+                {
+                    var cardSelect = CardManager.instance.selectedCard.CardTransform.GetComponent<CardSelect>();
+                    if (cardSelect != null)
+                        cardSelect.ReturnCardToHand();
+                }
+                AbilityEvents.TargetingStopped();
+                return;
+            }
 
-			//Do each effect connected to root node
-			foreach (NodePort port in Outputs)
+            //Do each effect connected to root node
+            foreach (NodePort port in Outputs)
 			{
 				if (port.Connection == null || port.Connection.node == null || port.Connection.node is EffectStrategy == false)
 					continue;
@@ -64,6 +76,8 @@ namespace CardSystem
 				EffectStrategy curEffect = port.Connection.node as EffectStrategy;
 				curEffect.StartEffect(abilityData, OnEffectFinished);
 			}
+            abilityData.GetUnit.SpendAP(_apCost);//actually use the ap
+            AbilityEvents.TargetingStopped();
             AbilityEvents.AbilityUsed(); //moved here to avoid early card removal/delete on multi effect cards
         }
 

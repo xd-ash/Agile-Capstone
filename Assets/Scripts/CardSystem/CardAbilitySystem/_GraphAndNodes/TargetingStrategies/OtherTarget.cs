@@ -10,35 +10,26 @@ namespace CardSystem
     [CreateNodeMenu("Targeting/Other")]
     public class OtherTarget : TargetingStrategy
     {
-        private bool drawLineGizmo;
-
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
             base.StartTargeting(abilityData, onFinished);
 
             abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
-            //abilityData.GetUnit.StartCoroutine(LineDrawCoro(abilityData.GetUnit));
         }
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
-            //drawLineGizmo = true;
-            yield return new WaitForEndOfFrame();
-            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));//find better option?
-            //drawLineGizmo = false;
-
-            abilityData.Targets = TargetOnMouse(abilityData.GetUnit);
-            if (isAOE)
-                abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(abilityData.GetUnit));
-
-            onFinished();
-        }
-        private IEnumerator LineDrawCoro(Unit unit)
-        {
-            while (drawLineGizmo)
+            do
             {
-                Debug.DrawLine(unit.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.white);
-                yield return null;
-            }
+                yield return new WaitForEndOfFrame();
+                yield return new WaitUntil(() => Input.GetMouseButtonDown(0));//find better option?
+                
+                abilityData.Targets = TargetOnMouse(abilityData.GetUnit);
+                
+                if (isAOE)
+                    abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(abilityData.GetUnit));
+            }while (abilityData.GetTargetCount == 0);
+            
+            onFinished();
         }
 
         private IEnumerable<GameObject> TargetOnMouse(Unit unit)
@@ -47,24 +38,9 @@ namespace CardSystem
                 Vector2.zero, Mathf.Infinity);
 
             if (hit.collider != null && hit.collider.GetComponent<Unit>())
-            {
                 yield return hit.collider.gameObject;
-            }
             else
-            {
-                Debug.Log("No target hit");
-                // Return the card to hand or destroy it
-                if (CardManager.instance != null && CardManager.instance.selectedCard != null)
-                {
-                    var cardSelect = CardManager.instance.selectedCard.CardTransform.GetComponent<CardSelect>();
-                    if (cardSelect != null)
-                    {
-                        cardSelect.ReturnCardToHand();
-                    }
-                }
-                AbilityEvents.TargetingStopped();
-                yield return null;
-            }
+                yield break;
         }
 
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit)

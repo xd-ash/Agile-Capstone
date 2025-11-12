@@ -31,9 +31,11 @@ namespace CardSystem
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
 
+        public Action OnCardAblityCancel; //placeholder event for properly cancelling unit coroutines on card ability cancel
+
         private void Start()
         {
-            AbilityEvents.OnAbilityUsed += RemoveCard;
+            AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
             ShuffleDeck(); // Add shuffle before any cards are drawn
         }
 
@@ -53,7 +55,7 @@ namespace CardSystem
             }
         }
 
-        public void RemoveCard()
+        public void RemoveSelectedCard()
         {
             // remove selectedCard from hand data
             _cardsInHand.Remove(selectedCard);

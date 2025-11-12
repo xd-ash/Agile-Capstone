@@ -73,13 +73,15 @@ namespace AStarPathfinding
 
         private void OnEnable()
         {
-            _tilemap = FindAnyObjectByType<Tilemap>();
+            _tilemap = transform.Find("TileMap").GetComponent<Tilemap>();
             //_grid = transform.GetComponent<Grid>();
         }
 
         private void Start()
         {
             _map = new byte[_mapSize.x, _mapSize.y];
+
+            _tilemap.CompressBounds();
 
             for (int x = 0; x < _map.GetLength(0); x++)
             {
@@ -97,7 +99,6 @@ namespace AStarPathfinding
 
                     SpawnTileContents(_map[x, y], gridPos);
 
-                    _tilemap.CompressBounds();
                     _tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
                 }
             }
