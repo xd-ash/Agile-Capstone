@@ -31,12 +31,16 @@ namespace CardSystem
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
 
+        public Transform cardActivePos;// temp card position when activated (to avoid cards blocking grid)
+
         public Action OnCardAblityCancel; //placeholder event for properly cancelling unit coroutines on card ability cancel
 
         private void Start()
         {
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
             ShuffleDeck(); // Add shuffle before any cards are drawn
+
+            cardActivePos = transform.Find("CardActivePos");
         }
 
         private void ShuffleDeck()

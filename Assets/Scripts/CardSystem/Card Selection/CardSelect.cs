@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 namespace CardSystem
 {
@@ -214,6 +215,7 @@ namespace CardSystem
             // If card is dropped above hand area, try to activate it
             if (isAboveHandArea)
             {
+                StartCoroutine(MoveCardToActivePos());
                 TryActivateCard();
             }
             else
@@ -230,6 +232,23 @@ namespace CardSystem
             }
 
             isAboveHandArea = false;
+        }
+
+        //temp card lerp to "active position" to fix cards covering playing grid
+        private IEnumerator MoveCardToActivePos()
+        {
+            Transform target = CardManager.instance.cardActivePos;
+            Vector3 initCardPos = transform.localPosition;
+
+            // magic number of 0.2f hard coded in b/c this is a placeholder animation/effect
+            for (float timer = 0; timer < 0.2f; timer += Time.deltaTime)
+            {
+                float lerpRatio = timer / 0.2f;
+                transform.localPosition = Vector3.Lerp(initCardPos, target.transform.localPosition, lerpRatio);
+                yield return null;
+            }
+
+            transform.localPosition = target.localPosition;
         }
 
         private void UpdateCardOrder()
@@ -366,6 +385,7 @@ namespace CardSystem
 
         public void ReturnCardToHand()
         {
+            StopAllCoroutines();
             ClearSelection();
 
             // Kill any active tweens

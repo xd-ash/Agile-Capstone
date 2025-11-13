@@ -151,6 +151,7 @@ public class TurnManager : MonoBehaviour
         if (currTurn != Turn.Player) return; // avoid turn end spam
 
         SetTurn();
+        AbilityEvents.TargetingStopped();
         OnPlayerTurnEnd?.Invoke();
 
         // discard player's hand at end of player turn
