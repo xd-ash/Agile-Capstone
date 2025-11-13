@@ -117,6 +117,19 @@ public class Unit : MonoBehaviour, IDamagable
         else if (health <= 0)
         {
             health = 0;
+
+            //Temp Win/Loss condition stuff
+            //
+            if (team == Team.Friendly)
+                GameOverEvents.OnGameWinOrLoss(false);
+            else
+            {
+                WinLossManager.instance.enemyUnits.Remove(this);
+                if (WinLossManager.instance.enemyUnits.Count == 0)
+                    GameOverEvents.OnGameWinOrLoss(true);
+            }
+            //
+
             Destroy(gameObject); // TODO: replace with proper on-death handling if needed
             Debug.Log($"[{team}] '{name}' unit died");
         }

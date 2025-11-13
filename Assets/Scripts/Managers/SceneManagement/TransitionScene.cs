@@ -23,7 +23,7 @@ public class TransitionScene : MonoBehaviour
         pauseMenu = transform.Find("PauseMenu").gameObject;
     }
 
-    public void StartTransition(string targetScene)
+    public void StartTransition(string targetScene = "MainMenu")
     {
         Debug.Log("Scene transition started.");
         UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
@@ -31,15 +31,16 @@ public class TransitionScene : MonoBehaviour
         //Handle anything else needed between scenes here
         PauseMenu.isPaused = false;
 
-        pauseMenu.SetActive(targetScene == "LevelOne" ? true : false);
+        if (targetScene == "MainMenu")
+            pauseMenu.SetActive(false);
         mainMenu.SetActive(targetScene == "MainMenu" ? true : false);
 
-        if (targetScene == "LevelOne")
-            GetComponent<Canvas>().enabled = false;
+        //if (targetScene == "LevelOne")
+            //GetComponent<Canvas>().enabled = false;
 
         SceneSwap?.Invoke(targetScene);
     }
-
+     
     // quit button functionality
     public void QuitApplication()
     {

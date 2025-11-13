@@ -50,6 +50,15 @@ public class TurnManager : MonoBehaviour
 
         _unitTurnOrder = GrabUnits();
 
+        //Temp setup for win/loss conditions
+        //
+        List<Unit> enemies = new List<Unit>();
+        foreach (Unit unit in _unitTurnOrder)
+            if (unit != null && unit.team == Team.Enemy)
+                enemies.Add(unit);
+        WinLossManager.instance.enemyUnits = enemies;
+        //
+
         OnGameStart?.Invoke();
         SetTurn(); //Could change by using the dice roll or random.range
     }

@@ -6,12 +6,12 @@ using CardSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Canvas pauseMenuCanvas;
+    public GameObject pauseMenuCanvas;
     public static bool isPaused = false;
 
     private void Awake()
     {
-        pauseMenuCanvas = TransitionScene.instance?.GetComponent<Canvas>();
+        pauseMenuCanvas = TransitionScene.instance?.transform.Find("PauseMenu").gameObject;
 
         ///Adam - moved this to the TransitionScene script when updating MenuCanvas to be DontDestroyOnLoad
             // Ensure the menu is hidden and the game is unpaused when the scene loads
@@ -49,13 +49,15 @@ public class PauseMenu : MonoBehaviour
         {
             Time.timeScale = 0f; // Pause the game
             if (pauseMenuCanvas != null)
-                pauseMenuCanvas.enabled = true;
+                pauseMenuCanvas.SetActive(true);
+                //pauseMenuCanvas.enabled = true;
         }
         else
         {
             Time.timeScale = 1f; // Resume the game
             if (pauseMenuCanvas != null)
-                pauseMenuCanvas.enabled = false;
+                pauseMenuCanvas.SetActive(false);
+                //pauseMenuCanvas.enabled = false;
         }
     }
 }
