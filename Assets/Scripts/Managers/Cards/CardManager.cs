@@ -53,6 +53,9 @@ namespace CardSystem
                 cards[i] = cards[randomIndex];
                 cards[randomIndex] = temp;
             }
+
+            // After shuffling, start drawing from the top
+            _topCardOfDeck = 0;
         }
 
         public void RemoveSelectedCard()
@@ -74,7 +77,9 @@ namespace CardSystem
             AudioManager.instance?.PlayDrawCardSfx();
 
             if (_currentHandSize >= _maxCards) return;
+            if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length == 0) return;
 
+          
             Card newCard = null;
             if (_topCardOfDeck < _deck.GetDeck.Length)
                 newCard = new Card(_deck.GetDeck[_topCardOfDeck]); // This creates the card with SO data
@@ -86,6 +91,14 @@ namespace CardSystem
             _topCardOfDeck++;
             _nextCardInHandIndex++;
             _currentHandSize++;
+
+            // If we've exhausted the deck, reshuffle it and reset the top index
+            if (_topCardOfDeck >= _deck.GetDeck.Length)
+            {
+                ShuffleDeck();
+                _topCardOfDeck = 0;
+            }
+
 
             ArrangeCardGOs();
         }
