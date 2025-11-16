@@ -1,4 +1,5 @@
 using AStarPathfinding;
+using CardSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,21 @@ public class MouseFunctionManager : MonoBehaviour
 
     private void Update()
     {
+        // Quick fix for right licking to cancel activated attack card/ability
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (IsTargeting && !PauseMenu.isPaused)
+            {
+                if (CardSystem.CardManager.instance.selectedCard != null &&
+                    CardSystem.CardManager.instance.selectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
+                {
+                    AbilityEvents.TargetingStopped();
+                    card.ReturnCardToHand();
+                    CardManager.instance.OnCardAblityCancel?.Invoke();
+                }
+            }
+        }
+
         TrackMouse();
         ManageCurrTileColor();
 

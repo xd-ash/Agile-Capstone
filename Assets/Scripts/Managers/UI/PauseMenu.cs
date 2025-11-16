@@ -27,23 +27,23 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (IsTargeting)
-            {
-                if (CardSystem.CardManager.instance.selectedCard != null &&
-                    CardSystem.CardManager.instance.selectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
-                {
-                    card.ReturnCardToHand();
-                    AbilityEvents.TargetingStopped();
-                    CardManager.instance.OnCardAblityCancel?.Invoke();
-                }
-            }
-            else
-                TogglePause();
+            TogglePause();
         }
     }
 
     private void TogglePause()
     {
+        if (IsTargeting && !PauseMenu.isPaused)
+        {
+            if (CardSystem.CardManager.instance.selectedCard != null &&
+                CardSystem.CardManager.instance.selectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
+            {
+                AbilityEvents.TargetingStopped();
+                card.ReturnCardToHand();
+                CardManager.instance.OnCardAblityCancel?.Invoke();
+            }
+        }
+
         isPaused = !isPaused;
 
         if (isPaused)

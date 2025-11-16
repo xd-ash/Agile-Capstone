@@ -1,5 +1,7 @@
+using CardSystem;
 using System;
 using UnityEngine;
+using static AbilityEvents;
 
 public class TransitionScene : MonoBehaviour
 {
@@ -23,6 +25,12 @@ public class TransitionScene : MonoBehaviour
         pauseMenu = transform.Find("PauseMenu").gameObject;
     }
 
+    //delete me
+    private void Update()
+    {
+        Debug.Log("istargeting: " + AbilityEvents.IsTargeting);
+    }
+
     public void StartTransition(string targetScene = "MainMenu")
     {
         Debug.Log("Scene transition started.");
@@ -30,6 +38,7 @@ public class TransitionScene : MonoBehaviour
 
         //Handle anything else needed between scenes here
         PauseMenu.isPaused = false;
+        AbilityEvents.TargetingStopped();
 
         if (targetScene == "MainMenu")
             pauseMenu.SetActive(false);
