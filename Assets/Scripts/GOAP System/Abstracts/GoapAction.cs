@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public abstract class GoapAction
 {
     //public string actionName;
@@ -52,7 +53,6 @@ public abstract class GoapAction
                 return false;
         return true;
     }
-
-    public abstract bool PrePerform();
     public abstract bool PostPerform();
+    public abstract bool PrePerform();
 }

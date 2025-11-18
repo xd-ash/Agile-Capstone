@@ -18,7 +18,7 @@ public class Goal
 public abstract class GoapAgent : MonoBehaviour
 {
     [SerializeField] private GoapActions _goapActionsEnum;
-    public List<GoapAction> actions = new List<GoapAction>();
+    [SerializeReference] public List<GoapAction> actions = new();
     public Dictionary<Goal, int> goals = new Dictionary<Goal, int>();
     //public GoapInventory inventory = new GoapInventory();
     public WorldStates beliefs = new WorldStates();
@@ -36,6 +36,7 @@ public abstract class GoapAgent : MonoBehaviour
     }
     public void GrabActionsFromEnum()
     {
+        Debug.Log("test");
         var temp = GOAPEnums.GetAllTypesFromFlags(_goapActionsEnum);
 
         foreach (var action in temp)
@@ -123,13 +124,14 @@ public abstract class GoapAgent : MonoBehaviour
         */
     }
 }
-[CustomEditor(typeof(EnemyGoapAgent)), CanEditMultipleObjects]
-public class GOAPAgentEditor : Editor
+[CustomEditor(typeof(GoapAgent))]
+public class GOAPAgentEditor : Editor 
 {
     public override void OnInspectorGUI()
     {
         serializedObject.UpdateIfRequiredOrScript();
 
+        Debug.Log("asdwe");
         GoapAgent agent = (GoapAgent)target;
         agent.GrabActionsFromEnum();
 
