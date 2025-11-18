@@ -7,22 +7,22 @@ public class GOAPNode
 {
     public GOAPNode parent;
     public float cost;
-    public Dictionary<GoapStates, int> state;
+    public Dictionary<string, int> state;
     public GoapAction action;
 
-    public GOAPNode(GOAPNode parent, float cost, Dictionary<GoapStates, int> allStates, GoapAction action)
+    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, int> allStates, GoapAction action)
     {
         this.parent = parent;
         this.cost = cost;
-        this.state = new Dictionary<GoapStates, int>(allStates);
+        this.state = new Dictionary<string, int>(allStates);
         this.action = action;
     }
-    public GOAPNode(GOAPNode parent, float cost, Dictionary<GoapStates, int> allStates, Dictionary<GoapStates, int> beliefStates, GoapAction action)
+    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, int> allStates, Dictionary<string, int> beliefStates, GoapAction action)
     {
         this.parent = parent;
         this.cost = cost;
-        this.state = new Dictionary<GoapStates, int>(allStates);
-        foreach(KeyValuePair<GoapStates, int> b in beliefStates)
+        this.state = new Dictionary<string, int>(allStates);
+        foreach(KeyValuePair<string, int> b in beliefStates)
             if(!this.state.ContainsKey(b.Key))
                 this.state.Add(b.Key, b.Value);
         this.action = action;
@@ -31,7 +31,7 @@ public class GOAPNode
 
 public class GoapPlanner
 {
-    public Queue<GoapAction> Plan(List<GoapAction> actions, Dictionary<GoapStates,int> goal, WorldStates beliefStates)
+    public Queue<GoapAction> Plan(List<GoapAction> actions, Dictionary<string,int> goal, WorldStates beliefStates)
     {
         List<GoapAction> usableActions = new List<GoapAction>();
         foreach (GoapAction a in actions)
@@ -74,23 +74,23 @@ public class GoapPlanner
         foreach (GoapAction a in result)
             queue.Enqueue(a);
 
-        Debug.Log("The Plan is:");
-        foreach (GoapAction a in queue)
-            Debug.Log($"Q: {a.name}");
+        //Debug.Log("The Plan is:");
+        //foreach (GoapAction a in queue)
+            //Debug.Log($"Q: {a.name}");
 
         return queue;
     }
 
     //recursive method for node graph building
-    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<GoapStates, int> goal)
+    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, int> goal)
     {
         bool foundPath = false;
         foreach (GoapAction action in usableActions)
         {
             if (action.IsAchievableGiven(parent.state))
             {
-                Dictionary<GoapStates, int> currentState = new Dictionary<GoapStates, int>(parent.state);
-                foreach (KeyValuePair<GoapStates, int> eff in action.postConditions)
+                Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
+                foreach (KeyValuePair<string, int> eff in action.postConditions)
                     if (!currentState.ContainsKey(eff.Key))
                         currentState.Add(eff.Key, eff.Value);
                 // No belief param needed as worldstates are concatenated in
@@ -112,9 +112,9 @@ public class GoapPlanner
 
         return foundPath;
     }
-    private bool GoalAchieved(Dictionary<GoapStates, int> goal, Dictionary<GoapStates, int> state)
+    private bool GoalAchieved(Dictionary<string, int> goal, Dictionary<string, int> state)
     {
-        foreach (KeyValuePair<GoapStates, int> g in goal)
+        foreach (KeyValuePair<string, int> g in goal)
             if (!state.ContainsKey(g.Key))
                 return false;
 

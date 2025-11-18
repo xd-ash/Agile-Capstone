@@ -7,27 +7,27 @@ using UnityEngine;
 [System.Serializable]
 public class WorldState
 {
-    public GoapStates key;
-    private int value;
+    public string key;
+    public int value;
 }
 
 public class WorldStates
 {
-    public Dictionary<GoapStates, int> states;
+    public Dictionary<string, int> states;
 
     public WorldStates()
     {
-        states = new Dictionary<GoapStates, int>();
+        states = new Dictionary<string, int>();
     }
-    public bool HasState(GoapStates key)
+    public bool HasState(string key)
     {
         return states.ContainsKey(key);
     }
-    void AddState(GoapStates key, int value)
+    void AddState(string key, int value)
     {
         states.Add(key, value);
     }
-    public void ModifyState(GoapStates key, int value)
+    public void ModifyState(string key, int value)
     {
         if (states.ContainsKey(key))
         {
@@ -38,19 +38,19 @@ public class WorldStates
         else
             states.Add(key, value);
     }
-    public void RemoveState(GoapStates key)
+    public void RemoveState(string key)
     {
         if (states.ContainsKey(key))
             states.Remove(key);
     }
-    public void SetState(GoapStates key, int value)
+    public void SetState(string key, int value)
     {
         if (states.ContainsKey(key))
             states[key] = value;
         else
             states.Add(key, value);
     }
-    public Dictionary<GoapStates, int> GetStates()
+    public Dictionary<string, int> GetStates()
     {
         return states;
     }

@@ -1,21 +1,23 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class Goal
 {
-    public Dictionary<GoapStates, int> sGoals;
+    public Dictionary<string, int> sGoals;
     public bool remove; //removes goal once completed
 
-    public Goal(GoapStates s, int i, bool r)
+    public Goal(string s, int i, bool r)
     {
-        sGoals = new Dictionary<GoapStates, int>();
+        sGoals = new Dictionary<string, int>();
         sGoals.Add(s, i);
         remove = r;
     }
 }
 public abstract class GoapAgent : MonoBehaviour
 {
+    [SerializeField] private GoapActions _goapActionsEnum;
     public List<GoapAction> actions = new List<GoapAction>();
     public Dictionary<Goal, int> goals = new Dictionary<Goal, int>();
     //public GoapInventory inventory = new GoapInventory();
@@ -32,7 +34,21 @@ public abstract class GoapAgent : MonoBehaviour
         foreach (GoapAction a in acts)
             actions.Add(a);
     }
+    public void GrabActionsFromEnum()
+    {
+        var temp = GOAPEnums.GetAllTypesFromFlags(_goapActionsEnum);
 
+        foreach (var action in temp)
+            for (var i = 0; i < actions.Count; i++)
+            {
+                if (action.GetType() == actions[i].GetType())
+                    break;
+                else
+                {
+                    actions.Add(action);
+                }
+            }
+    }
 
     //bool invoked = false;
 
@@ -105,5 +121,20 @@ public abstract class GoapAgent : MonoBehaviour
             }
         }
         */
+    }
+}
+[CustomEditor(typeof(EnemyGoapAgent)), CanEditMultipleObjects]
+public class GOAPAgentEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        serializedObject.UpdateIfRequiredOrScript();
+
+        GoapAgent agent = (GoapAgent)target;
+        agent.GrabActionsFromEnum();
+
+        base.OnInspectorGUI();
+
+        serializedObject.ApplyModifiedProperties();
     }
 }
