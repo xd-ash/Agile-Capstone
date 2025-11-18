@@ -15,6 +15,7 @@ public class Goal
         remove = r;
     }
 }
+
 public abstract class GoapAgent : MonoBehaviour
 {
     [SerializeField] private GoapActions _goapActionsEnum;
@@ -36,19 +37,48 @@ public abstract class GoapAgent : MonoBehaviour
     }
     public void GrabActionsFromEnum()
     {
-        Debug.Log("test");
         var temp = GOAPEnums.GetAllTypesFromFlags(_goapActionsEnum);
 
-        foreach (var action in temp)
-            for (var i = 0; i < actions.Count; i++)
+        List<string> tempToString = new List<string>(),
+                     actionsToString = new List<string>();
+        foreach (var a in temp)
+            tempToString.Add(a.ToString());
+        if (actions.Count > 0)
+            foreach (var a in actions)
+                actionsToString.Add(a.ToString());
+
+        for (int i = 0; i < actionsToString.Count; i++)
+        {
+            if (actionsToString[i] == null)
             {
-                if (action.GetType() == actions[i].GetType())
-                    break;
-                else
-                {
-                    actions.Add(action);
-                }
+                actions.RemoveAt(i);
+                continue;
             }
+
+            if (!tempToString.Contains(actionsToString[i]))
+                actions.RemoveAt(i);
+        }
+
+        if (actions.Count == 0)
+            foreach (var a in temp)
+                actions.Add(a);
+        else
+        {
+            foreach (var a in temp)
+            {
+                bool actionPresent = false;
+
+                foreach (var b in actions)
+                    if (a.ToString() == b.ToString())
+                    {
+                        actionPresent = true;
+                        break;
+                    }
+
+                if (!actionPresent)
+                    actions.Add(a);
+            }
+        }
     }
 
     //bool invoked = false;
@@ -124,14 +154,13 @@ public abstract class GoapAgent : MonoBehaviour
         */
     }
 }
-[CustomEditor(typeof(GoapAgent))]
+[CustomEditor(typeof(GoapAgent), true)]
 public class GOAPAgentEditor : Editor 
 {
     public override void OnInspectorGUI()
     {
         serializedObject.UpdateIfRequiredOrScript();
 
-        Debug.Log("asdwe");
         GoapAgent agent = (GoapAgent)target;
         agent.GrabActionsFromEnum();
 

@@ -1050,10 +1050,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goapActionsEnum: 12
-  actions: []
+  actions:
+  - rid: 184551252218872001
+  - rid: 184551252218872002
+  - rid: -2
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 184551252218872001
+      type: {class: HealAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: HealAction
+        cost: 1
+        running: 0
+        preConditionsFlags: 0
+        postConditionsFlags: 0
+    - rid: 184551252218872002
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: AttackAction
+        cost: 1
+        running: 0
+        preConditionsFlags: 0
+        postConditionsFlags: 0
 --- !u!1 &716445572
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public abstract class GoapAction
 {
-    //public string actionName;
+    [SerializeField, HideInInspector] protected string actionName;
     public float cost = 1f;
     public bool running = false; //is performing action currently
 
@@ -23,6 +23,8 @@ public abstract class GoapAction
 
     public GoapAction()
     {
+        actionName = this.ToString();
+
         preConditions = new Dictionary<string, int>();
         postConditions = new Dictionary<string, int>();
     }
