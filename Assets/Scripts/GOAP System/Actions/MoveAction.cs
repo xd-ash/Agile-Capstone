@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class MoveAction : GoapAction
 {
-    public override bool PostPerform()
+    public override bool PrePerform()
     {
         throw new System.NotImplementedException();
     }
 
-    public override bool PrePerform()
+    public override bool PostPerform(ref WorldStates beliefs)
     {
         throw new System.NotImplementedException();
     }

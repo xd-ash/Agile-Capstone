@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AttackAction : GoapAction
+public class DecideOrientationAction : GoapAction
 {
     public override bool PrePerform()
     {

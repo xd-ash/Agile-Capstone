@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class AttackAction : GoapAction
+/*
+public class *** : GoapAction
 {
     public override bool PrePerform()
     {
@@ -12,3 +13,4 @@ public class AttackAction : GoapAction
         throw new System.NotImplementedException();
     }
 }
+*/

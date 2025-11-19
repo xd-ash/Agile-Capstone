@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.42, z: 0}
-  m_LocalScale: {x: 0.95238084, y: 0.95238096, z: 0.95238096}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6557971832698807318}
@@ -151,9 +151,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6557971832698807318}
   - component: {fileID: 5904661369477725204}
-  - component: {fileID: 1466790781284684244}
+  - component: {fileID: 8664155183730273575}
   - component: {fileID: 7073425138271325837}
-  - component: {fileID: 9185449272786196882}
+  - component: {fileID: 1466790781284684244}
   m_Layer: 7
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -169,16 +169,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8440825415147360739}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.46930593, y: 0.194392, z: -0.32963786, w: 0.7958031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.70000005, y: 0.6999999, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2369745494577755338}
   - {fileID: 3068465533881150669}
   - {fileID: 5003197416176847030}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -38.228, y: 51.973, z: -64.177}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5904661369477725204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +201,42 @@ MonoBehaviour:
   damageSfx: {fileID: 8300000, guid: abef91ba9c06db94a8004696a5aad8dc, type: 3}
   shieldHitSfx: {fileID: 8300000, guid: 8ae3191c3504ac44ab354c262aec60a5, type: 3}
   _enemyHPBar: {fileID: 0}
+--- !u!114 &8664155183730273575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440825415147360739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76141f66d52b2042b78495f56fcb851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitMoveSpeed: 0.2
+--- !u!114 &7073425138271325837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440825415147360739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d34d7e33c52ba34db885b8a54199cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anim: {fileID: 0}
+  _idleStateNames:
+  - Idle_UL
+  - Idle_DL
+  - Idle_UR
+  - Idle_DR
+  _moveStateNames:
+  - Walk_UL
+  - Walk_DL
+  - Walk_UR
+  - Walk_DR
 --- !u!61 &1466790781284684244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -235,7 +271,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.42}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -247,51 +283,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.51111114, y: 0.9111111}
   m_EdgeRadius: 0
---- !u!114 &7073425138271325837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8440825415147360739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d34d7e33c52ba34db885b8a54199cf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
-  _idleStateNames:
-  - Idle_UL
-  - Idle_DL
-  - Idle_UR
-  - Idle_DR
-  _moveStateNames:
-  - Walk_UL
-  - Walk_DL
-  - Walk_UR
-  - Walk_DR
---- !u!95 &9185449272786196882
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8440825415147360739}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c356c3953541df449b01e59007208c44, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &4730709836683485280
 PrefabInstance:
   m_ObjectHideFlags: 0

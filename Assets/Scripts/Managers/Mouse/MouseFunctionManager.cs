@@ -130,7 +130,7 @@ public class MouseFunctionManager : MonoBehaviour
             return;
         }
 
-        List<PathMarker> path = FindPathAStar.instance.OnTileHover((Vector2Int)_tilePos);
+        List<PathMarker> path = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>().OnTileHover((Vector2Int)_tilePos);
         if (path == null || path.Count == 0)
         {
             ClearLine();
@@ -163,7 +163,7 @@ public class MouseFunctionManager : MonoBehaviour
         _line.SetPositions(points.ToArray());
 
         if (Input.GetMouseButtonDown(0))
-            FindPathAStar.instance.OnTileClick();
+            TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>().OnTileClick();
     }
 
     private Vector3 GridToWorld(Vector2Int cell)

@@ -109,27 +109,15 @@ namespace AStarPathfinding
             GameObject objToSpawn = null;
 
             if (byteIndicator == 1)
-            {
                 objToSpawn = _placeholderObstacle;
-                //GameObject obstacle = GameObject.Instantiate(_placeholderObstacle, Vector3.zero, Quaternion.identity, transform);
-                //obstacle.transform.parent = transform;
-                //obstacle.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, _placeholderObstacle.transform.position.z);
-            }
             else if (byteIndicator == 2)
-            {
                 objToSpawn = _enemyPlaceholder;
-
-                //GameObject enemy = GameObject.Instantiate(_enemyPlaceholder, _enemyPlaceholder.transform.position, Quaternion.identity, transform);
-                //enemy.transform.parent = transform;
-                //enemy.transform.localPosition = new Vector3(mapPos.x * _mapScale, mapPos.y * _mapScale, _enemyPlaceholder.transform.position.z);
-            }
-
 
             if (objToSpawn != null)
             {
-                Vector3 adjustedPos = new Vector3(truePos.x /* * _mapScale*/, truePos.y /* * _mapScale*/, truePos.y * 0.01f); // z pos adjusted with y value to
-                                                                                                                              // allow for easy layering of sprites
-                                                                                                                              // (.01 holds no signifigance, just to make it small)
+                // z pos adjusted with y value to allow for easy layering of sprites (.01f holds no signifigance, just to make it small)
+                Vector3 adjustedPos = new Vector3(truePos.x, truePos.y, truePos.y * 0.01f); 
+
                 GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity);
 
                 newObj.transform.parent = transform;

@@ -41,7 +41,7 @@ namespace AStarPathfinding
     public class FindPathAStar : MonoBehaviour
     {
         //Singleton setup
-        public static FindPathAStar instance;
+        /*public static FindPathAStar instance;
         private void Awake()
         {
             if (instance == null)
@@ -49,8 +49,10 @@ namespace AStarPathfinding
             else
                 Destroy(this.gameObject);
         }
+        */
 
         private MapCreator _mapCreator;
+        private Unit _unit;
 
         private PathMarker startNode;
         private PathMarker goalNode;
@@ -62,47 +64,34 @@ namespace AStarPathfinding
         private List<PathMarker> closed = new List<PathMarker>();
         private List<PathMarker> truePath;
 
-        [SerializeField] private Unit _unit;//removed me on class update to static (if done)
-
         [SerializeField] private float _unitMoveSpeed;
 
-        /*/Fix with editor script for bool active
+        //Fix with editor script for bool active
+        [Header("Debug Markers")]
         [SerializeField] private bool _placePathDebugMarkers;
-        [SerializeField] private GameObject start;
-        [SerializeField] private GameObject end;
-        [SerializeField] private GameObject pathP;
-        [SerializeField] private GameObject truePMark;
-        /*/
+        private GameObject start;
+        private GameObject end;
+        private GameObject pathP;
+        private GameObject truePMark;
 
         private void Start()
         {
+            _unit = GetComponent<Unit>();
             _mapCreator = MapCreator.instance;
-        }
 
-        /*/Movement Showcase Purposes //
-        public IEnumerator MovementPauseCoro()
-        {
-            yield return new WaitForSeconds(0.1f);
-            Search(lastPos);
-            if (done)
+            if (_placePathDebugMarkers)
             {
-                Debug.Log("done");
-                yield return new WaitForSeconds(0.5f);
-                GetPath();
-            }
-            else
-            {
-                StartCoroutine(MovementPauseCoro());
+                start = Resources.Load<GameObject>("TempAStarPathMarkers/Start");
+                end = Resources.Load<GameObject>("TempAStarPathMarkers/End");
+                pathP = Resources.Load<GameObject>("TempAStarPathMarkers/PathP");
+                truePMark = Resources.Load<GameObject>("TempAStarPathMarkers/TrueP");
             }
         }
-        /*/
 
         //Determine and return the path to mouseover tile position. Return null if unit is unable to move,
         //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
         public List<PathMarker> OnTileHover(Vector2Int tilePos)
         {
-            //switch statement for targeting vs move bool?
-
             if (done && !_isMoving && PauseMenu.isPaused != true)
             {
                 //adjust this logic for when multiple units need to move
@@ -141,27 +130,39 @@ namespace AStarPathfinding
             if (done && !_isMoving && PauseMenu.isPaused != true)
                 StartCoroutine(MoveCoro());
         }
+
+        public void OnEnemyMove(Vector2Int endPos)
+        {
+            BeginSearch(endPos);
+            do
+            {
+                Search(lastPos);
+            } while (!done);
+            GetPath();
+
+            if (done && !_isMoving && PauseMenu.isPaused != true)
+                StartCoroutine(MoveCoro());
+        }
+
         void BeginSearch(Vector2Int endLocation)
         {
             done = false;
-            //_isMoving = true;
             RemoveAllMarkers();
 
-            Vector2Int unitPos = ConvertToGridFromIsometric(_unit.transform.localPosition); //new Vector2Int((int)startLocation.x, (int)startLocation.y);
+            Vector2Int unitPos = ConvertToGridFromIsometric(_unit.transform.localPosition);
             startNode = new PathMarker(new MapLocation(unitPos.x, unitPos.y), 0.0f, 0.0f, 0.0f, null);
 
             goalNode = new PathMarker(new MapLocation(endLocation.x, endLocation.y), 0.0f, 0.0f, 0.0f, null);
 
-            /*
             if (_placePathDebugMarkers)
             {
-                GameObject startMarkerGO = Instantiate(start, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
+                Debug.Log("Fix debug marker code in A*");
+                /*GameObject startMarkerGO = Instantiate(start, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
                 startMarkerGO.transform.localPosition = startLocation;
 
                 GameObject endMarkerGO = Instantiate(end, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
-                endMarkerGO.transform.localPosition = new Vector3(endLocation.x, endLocation.y, 0); // - on ycomp of end location due to how the grid tool creates grid
+                endMarkerGO.transform.localPosition = new Vector3(endLocation.x, endLocation.y, 0); // - on ycomp of end location due to how the grid tool creates grid*/
             }
-            */
 
             open.Clear();
             closed.Clear();
@@ -174,7 +175,6 @@ namespace AStarPathfinding
             if (thisNode.Equals(goalNode)) //goal has been found
             {
                 done = true;
-                //_isMoving = true;
                 return;
             }
 
@@ -189,13 +189,13 @@ namespace AStarPathfinding
                 float newH = Vector2.Distance(neighbour.ToVector(), goalNode.location.ToVector());
                 float newF = newG + newH;
 
-                /*
+
                 if (_placePathDebugMarkers)
                 {
-                    GameObject pathBlock = Instantiate(pathP, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
-                    pathBlock.transform.localPosition = new Vector3(neighbour.x * _mapCreator.GetMapScale, neighbour.y * _mapCreator.GetMapScale, 0f);
+                    Debug.Log("Fix debug marker code in A*");
+                    //GameObject pathBlock = Instantiate(pathP, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
+                    //pathBlock.transform.localPosition = new Vector3(neighbour.x * _mapCreator.GetMapScale, neighbour.y * _mapCreator.GetMapScale, 0f);
                 }
-                */
 
                 if (!UpdateMarker(neighbour, newG, newH, newF, thisNode))
                     open.Add(new PathMarker(neighbour, newG, newH, newF, thisNode));
@@ -222,15 +222,15 @@ namespace AStarPathfinding
                 begin = begin.parent;
             }
 
-            /*
             if (_placePathDebugMarkers)
             {
-                foreach (var tp in truePath)
+                Debug.Log("Fix debug marker code in A*");
+                /*foreach (var tp in truePath)
                 {
                     GameObject truePathGO = Instantiate(truePMark, Vector3.zero, Quaternion.identity, transform.Find("UnitMoveEmpty"));
                     truePathGO.transform.localPosition = new Vector3(tp.location.x * _mapCreator.GetMapScale, tp.location.y * _mapCreator.GetMapScale, 0f);
-                }
-            }*/
+                }*/
+            }
         }
 
         public bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)
@@ -287,8 +287,7 @@ namespace AStarPathfinding
                 Vector3 startPos = _unit.transform.localPosition;
 
                 //Convert unit grid position to local position 
-                Vector3 endPos = ConvertToIsometricFromGrid(next, startPos.y * .01f);// z pos adjusted with y value to
-                                                                                     // allow for easy layering of sprites
+                Vector3 endPos = ConvertToIsometricFromGrid(next, startPos.y * .01f);// z pos adjusted with y value to allow for easy layering of sprites
                                                                                      // (.01f holds no significance, just used to keep value small)
 
                 float duration = _unitMoveSpeed;
@@ -310,9 +309,27 @@ namespace AStarPathfinding
 
             _dirAnimator.SetMoving(false);
             _isMoving = false;
-            // right after movement is fully done
-            MovementRangeHighlighter.instance.RebuildForCurrentUnit();
 
+            // right after movement is fully done
+            if (_unit.team == Team.Friendly)
+                MovementRangeHighlighter.instance.RebuildForCurrentUnit();
         }
+
+        /*Movement Showcase Purposes
+        public IEnumerator MovementPauseCoro()
+        {
+            yield return new WaitForSeconds(0.1f);
+            Search(lastPos);
+            if (done)
+            {
+                //Debug.Log("done");
+                yield return new WaitForSeconds(0.5f);
+                GetPath();
+            }
+            else
+            {
+                StartCoroutine(MovementPauseCoro());
+            }
+        } */
     }
 }

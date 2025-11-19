@@ -84,7 +84,7 @@ public class Unit : MonoBehaviour, IDamagable
                 int absorbed = Mathf.Min(shield, remainingDamage);
                 shield -= absorbed;
                 remainingDamage -= absorbed;
-                Debug.Log($"[{team}] '{name}' shield absorbed {absorbed} damage (shield remaining: {shield}).");
+                //Debug.Log($"[{team}] '{name}' shield absorbed {absorbed} damage (shield remaining: {shield}).");
 
                 // Notify UI about shield change
                 if (team == Team.Friendly)
@@ -97,18 +97,18 @@ public class Unit : MonoBehaviour, IDamagable
             {
                 health -= remainingDamage;
                 AudioManager.instance?.PlaySFX(damageSfx);
-                Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
+                //Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
             }
             else
             {
-                Debug.Log($"[{team}] '{name}' took no health damage thanks to shield.");
+                //Debug.Log($"[{team}] '{name}' took no health damage thanks to shield.");
             }
         }
         else
         {
             // Healing path
             health += uAmount;
-            Debug.Log($"[{team}] '{name}' healed {uAmount}. Health now {health}/{maxHealth}.");
+            //Debug.Log($"[{team}] '{name}' healed {uAmount}. Health now {health}/{maxHealth}.");
         }
 
         // Clamp and death handling
@@ -131,7 +131,7 @@ public class Unit : MonoBehaviour, IDamagable
             //
 
             Destroy(gameObject); // TODO: replace with proper on-death handling if needed
-            Debug.Log($"[{team}] '{name}' unit died");
+            //Debug.Log($"[{team}] '{name}' unit died");
         }
 
         //Placeholder enemy healthbar updating
@@ -148,7 +148,7 @@ public class Unit : MonoBehaviour, IDamagable
     {
         if (amount <= 0) return;
         shield += amount;
-        Debug.Log($"[{team}] '{name}' gained {amount} shield (total shield: {shield}).");
+        //Debug.Log($"[{team}] '{name}' gained {amount} shield (total shield: {shield}).");
 
         // Raise shield event for UI
         if (team == Team.Friendly)
@@ -170,7 +170,7 @@ public class Unit : MonoBehaviour, IDamagable
         if (amount <= 0) return;
         int removed = Mathf.Min(shield, amount);
         shield -= removed;
-        Debug.Log($"[{team}] '{name}' lost {removed} shield (remaining shield: {shield}).");
+        //Debug.Log($"[{team}] '{name}' lost {removed} shield (remaining shield: {shield}).");
 
         // Raise shield event for UI
         if (team == Team.Friendly)
@@ -240,15 +240,5 @@ public class Unit : MonoBehaviour, IDamagable
             return false;
         }
         return true; // Or your existing movement conditions
-    }
-
-    // Add this check to the beginning of your movement implementation method
-    private void HandleMovement()
-    {
-        if (!CanMove())
-        {
-            return;
-        }
-        // Your existing movement code
     }
 }

@@ -33,6 +33,11 @@ public class TurnManager : MonoBehaviour
     public event Action OnGameStart;
     public event Action OnPlayerTurnEnd;
 
+    public void EndEnemyTurn() => SetTurn();
+    public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
+    public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
+    public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -41,7 +46,6 @@ public class TurnManager : MonoBehaviour
             return;
         }
         instance = this;
-
     }
 
     private void Start()
@@ -109,7 +113,7 @@ public class TurnManager : MonoBehaviour
         currTurn = _curUnit.team == Team.Friendly ? Turn.Player : Turn.Enemy;
         _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
 
-        Debug.Log($"[TurnManager]" + currTurn + "'s turn");
+        //Debug.Log($"[TurnManager]" + currTurn + "'s turn");
         if (_turnText != null)
         {
             _turnText.text = $"{currTurn}'s Turn";
@@ -139,10 +143,10 @@ public class TurnManager : MonoBehaviour
             _curUnit.DealDamage(_player, 1);
             _curUnit.SpendAP(5);
             AudioManager.instance?.PlaySFX(_enemyDmgSfx);
-            Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_curUnit.ap}");
+            //Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_curUnit.ap}");
             UpdateApText();
         }
-        Debug.Log("[TurnManager] Enemy ended turn.");
+        //Debug.Log("[TurnManager] Enemy ended turn.");
         EndEnemyTurn();
     }
 
@@ -158,11 +162,4 @@ public class TurnManager : MonoBehaviour
         if (CardSystem.CardManager.instance != null)
             CardSystem.CardManager.instance.DiscardAll();
     }
-    public void EndEnemyTurn() => SetTurn();
-
-    public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
-    public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
-    public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null; // Adam added 10/5
-                                                                                        //      - Grabbing current unit (for when friendlies added)
-                                                                                        //      - unit used for ability stuff
 }

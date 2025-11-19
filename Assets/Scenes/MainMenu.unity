@@ -1021,7 +1021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &536654369
 Transform:
   m_ObjectHideFlags: 0
@@ -1046,20 +1046,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 536654367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d85fcb9b8b6054baa6df37fd0f50aa, type: 3}
+  m_Script: {fileID: 11500000, guid: c6d0cde7cf413194195d7b661b976dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _goapActionsEnum: 12
-  actions:
-  - rid: 184551252218872001
-  - rid: 184551252218872002
-  - rid: -2
+  _actions:
+  - rid: 184551257927582413
+  - rid: 184551257927582414
+  _goalsEnum: 10
+  _goals:
+  - rid: 184551257927582420
+  - rid: 184551257927582421
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 184551252218872001
+    - rid: 184551257927582413
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: AttackAction
+        cost: 1
+        running: 0
+        preConditionsFlags: 14
+        postConditionsFlags: 48
+    - rid: 184551257927582414
       type: {class: HealAction, ns: , asm: Assembly-CSharp}
       data:
         actionName: HealAction
@@ -1067,14 +1076,18 @@ MonoBehaviour:
         running: 0
         preConditionsFlags: 0
         postConditionsFlags: 0
-    - rid: 184551252218872002
-      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+    - rid: 184551257927582420
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
-        actionName: AttackAction
-        cost: 1
-        running: 0
-        preConditionsFlags: 0
-        postConditionsFlags: 0
+        key: HasAP
+        value: 0
+        removeOnComplete: 0
+    - rid: 184551257927582421
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: InRange
+        value: 0
+        removeOnComplete: 0
 --- !u!1 &716445572
 GameObject:
   m_ObjectHideFlags: 0
