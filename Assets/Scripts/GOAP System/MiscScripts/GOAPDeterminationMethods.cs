@@ -7,4 +7,6 @@ public static class GOAPDeterminationMethods
         int result = unit.ap - actionAPCost;
         return result <= 0 ? 0 : result;
     }
+
+
 }
