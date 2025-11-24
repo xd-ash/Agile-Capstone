@@ -32,7 +32,7 @@ public class TurnManager : MonoBehaviour
 
     public event Action OnGameStart;
     public event Action OnPlayerTurnEnd;
-    public event Action<Unit> OnUnitTurnStart;
+    public event Action<Unit> OnUnitTurnResetStuff;
 
     public void EndEnemyTurn() => SetTurn();
     public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
@@ -117,28 +117,21 @@ public class TurnManager : MonoBehaviour
 
         //Debug.Log($"[TurnManager]" + currTurn + "'s turn");
         if (_turnText != null)
-        {
             _turnText.text = $"{currTurn}'s Turn";
-        }
         if (_curUnit != null)
-        {
             _curUnit.RefreshAP();
-        }
 
         // Draw player's starting hand when player's turn begins
         if (_curUnit.team == Team.Friendly && CardSystem.CardManager.instance != null)
-        {
             CardSystem.CardManager.instance.DrawStartingHand(_startingHandSize);
-        }
 
         UpdateApText();
 
-        OnUnitTurnStart?.Invoke(_curUnit);
-
-        if (currTurn == Turn.Enemy)
-            _curUnit.StartCoroutine(EnemyTurn());
+        //if (currTurn == Turn.Enemy)
+            //_curUnit.StartCoroutine(EnemyTurn());
     }
 
+    /*
     private IEnumerator EnemyTurn()
     {
         while (_curUnit != null && _curUnit.CanSpend(5))
@@ -151,8 +144,10 @@ public class TurnManager : MonoBehaviour
             UpdateApText();
         }
         //Debug.Log("[TurnManager] Enemy ended turn.");
+        OnUnitTurnResetStuff?.Invoke(_curUnit);
         EndEnemyTurn();
     }
+    */
 
     public void EndPlayerTurn()
     {

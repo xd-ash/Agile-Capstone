@@ -12,6 +12,7 @@ public enum GoapActions
     Attack = 4,
     Heal = 8,
     ChooseTarget = 16,
+    EndTurn = 32,
 }
 
 [Flags]
@@ -52,7 +53,9 @@ public struct GOAPEnums
                     break;
                 case 1://not implemented
                     break;
-                case 2://not implemented
+                case 2://EndTurn
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new EndTurnAction() { agent = agent });
                     break;
                 case 3://Choose Target
                     if (binaryEnum[i] == '1')

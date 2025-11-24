@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static IsoMetricConversions;
+using static GOAPDeterminationMethods;
 
 public class ChooseTargetAction : GoapAction
 {
@@ -37,5 +38,6 @@ public class ChooseTargetAction : GoapAction
     public override void PostPerform(ref WorldStates beliefs)
     {
         beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
+        //CheckForAP(agent.unit, ref beliefs);
     }
 }

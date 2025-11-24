@@ -56,8 +56,9 @@ namespace CardSystem
 			}
 
             // failed ability cast catcher
-  			if (_targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
+  			if (abilityData.GetUnit.team == Team.Friendly && _targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
             {
+                Debug.Log($"team: {abilityData.GetUnit.team.ToString()}");
                 // Return the card to hand or destroy it
                 if (CardManager.instance != null && CardManager.instance.selectedCard != null)
                 {

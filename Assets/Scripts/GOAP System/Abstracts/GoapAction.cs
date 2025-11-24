@@ -94,6 +94,17 @@ public abstract class GoapAction
     }
     public bool IsAchievableGiven(Dictionary<string, int> conditions)
     {
+        /*/
+        string debugmessagfe = "";
+        foreach (var s in conditions)
+            debugmessagfe += $"{s.Key}, ";
+        Debug.Log($"Conditions Param: " + debugmessagfe);
+        string debugqweqwmessagfe = "";
+        foreach (var p in preConditions)
+            debugqweqwmessagfe += $"{p.Key}, ";
+        Debug.Log($"preconds: " + debugqweqwmessagfe);
+        /*/
+
         foreach (KeyValuePair<string, int> kvp in preConditions)
             if (!conditions.ContainsKey(kvp.Key))
                 return false;

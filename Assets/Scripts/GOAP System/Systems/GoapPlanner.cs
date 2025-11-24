@@ -46,6 +46,16 @@ public class GoapPlanner
         List<GOAPNode> leaves = new List<GOAPNode>();
         GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
 
+        //
+        string tempStr = "Actions: ";
+        foreach (var a in usableActions)
+            tempStr += a.ToString() + ", ";
+        tempStr += "\nGoals: ";
+        foreach (var g in goal)
+            tempStr += g.Key + ", ";
+        Debug.Log(tempStr);
+        //
+
         bool success = BuildGraph(start, leaves, usableActions, goal);
 
         if (!success)
@@ -77,9 +87,9 @@ public class GoapPlanner
         foreach (GoapAction a in result)
             queue.Enqueue(a);
 
-        Debug.Log("The Plan is:");
-        foreach (GoapAction a in queue)
-            Debug.Log($"Q: {a.ToString()}");
+        //Debug.Log("The Plan is:");
+        //foreach (GoapAction a in queue)
+            //Debug.Log($"Q: {a.ToString()}");
 
         return queue;
     }

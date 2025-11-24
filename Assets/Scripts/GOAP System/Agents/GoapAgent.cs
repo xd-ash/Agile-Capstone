@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using static GOAPEnums;
 using static GOAPDeterminationMethods;
-
 using CardSystem;
 
 [System.Serializable]
@@ -50,12 +49,12 @@ public class GoapAgent : MonoBehaviour
     private void Awake()
     {
         //TEMP
-        TurnManager.instance.OnUnitTurnStart += TempTurnStateResets;
+        //TurnManager.instance.OnUnitTurnResetStuff += TempTurnStateResets;
     }
     private void OnDestroy()
     {
         //TEMP
-        TurnManager.instance.OnUnitTurnStart -= TempTurnStateResets;
+        //TurnManager.instance.OnUnitTurnResetStuff -= TempTurnStateResets;
     }
     private void Start()
     {
@@ -177,30 +176,28 @@ public class GoapAgent : MonoBehaviour
         _currentAction.PostPerform(ref _beliefs);
     }
 
-    public void TempTurnStateResets(Unit unitStartingTurn)
+    public void TempTurnStateResets() 
     {
         if (curtarget == null) return;
-
-        if (unitStartingTurn != null && unit == unitStartingTurn)
+        if (unit != null)
         {
             _beliefs = new();
 
             if (CheckIfInRange(this, curtarget, damageAbility.RootNode.GetRange))
                 _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-            CheckForAP(unit, ref _beliefs);
+            //CheckForAP(unit, ref _beliefs);
         }
     }
-    void LateUpdate()
+    public void CalcAndRunActions()
     {
         if (TurnManager.GetCurrentUnit != unit) return;
-        if (_currentAction != null && _currentAction.running) return;
-
+        //if (_currentAction != null && _currentAction.running) return;
+        //var tempGoals
         if (_planner == null || _actionQueue == null)
         {
             _planner = new GoapPlanner();
-
-            var sortedGoals = from entry in _weightedGoalsDict 
-                              orderby entry.Value descending 
+            var sortedGoals = from entry in _weightedGoalsDict
+                              orderby entry.Value descending
                               select entry;
 
             foreach (KeyValuePair<Goal, int> g in sortedGoals)
@@ -218,7 +215,10 @@ public class GoapAgent : MonoBehaviour
         if (_actionQueue != null && _actionQueue.Count == 0)
         {
             if (_currentGoal.removeOnComplete)
-                _weightedGoalsDict.Remove(_currentGoal);
+                foreach (var kvp in _weightedGoalsDict)
+                    if (kvp.Key.key == _currentGoal.key)
+                        _weightedGoalsDict.Remove(kvp.Key);
+
             _planner = null;
         }
 
@@ -229,17 +229,54 @@ public class GoapAgent : MonoBehaviour
             {
                 _currentAction.running = true;
                 _currentAction.Perform();
+            }
+            else
+            {
+                _actionQueue = null;
+            }
+        }
+    }
+    void LateUpdate()
+    {
+        if (TurnManager.GetCurrentUnit != unit) return;
+        //if (_currentAction != null && _currentAction.running) return;
+        //var tempGoals
+        if (_planner == null || _actionQueue == null)
+        {
+            _planner = new GoapPlanner();
+            var sortedGoals = from entry in _weightedGoalsDict
+                              orderby entry.Value descending
+                              select entry;
 
-                /*Navmesh from tutorial
-                if (currentAction.target == null && currentAction.targetTag != "")
-                    currentAction.target =  GameObject.FindWithTag(currentAction.targetTag);
-
-                if (currentAction.target != null)
+            foreach (KeyValuePair<Goal, int> g in sortedGoals)
+            {
+                //Debug.Log($"Action (post count): {_actions[0].ToString()}({_actions[0].postConditions.Count})");
+                _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
+                if (_actionQueue != null)
                 {
-                    currentAction.running = true;
-                    currentAction.agent.SetDestination(currentAction.target.transform.position); //set destination for navmesh agent
+                    _currentGoal = g.Key;
+                    break;
                 }
-                */
+            }
+        }
+
+        if (_actionQueue != null && _actionQueue.Count == 0)
+        {
+            if (_currentGoal.removeOnComplete)
+                foreach (var kvp in _weightedGoalsDict)
+                    if (kvp.Key.key == _currentGoal.key)
+                        _weightedGoalsDict.Remove(kvp.Key);
+
+            _planner = null;
+        }
+
+        if (_actionQueue != null && _actionQueue.Count > 0)
+        {
+            _currentAction = _actionQueue.Dequeue();
+            if (_currentAction.PrePerform())
+            {
+                _currentAction.running = true;
+                _currentAction.Perform();
             }
             else
             {

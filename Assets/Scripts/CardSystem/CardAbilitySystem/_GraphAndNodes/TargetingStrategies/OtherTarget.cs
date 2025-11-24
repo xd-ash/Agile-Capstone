@@ -12,9 +12,18 @@ namespace CardSystem
     {
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
-            base.StartTargeting(abilityData, onFinished);
-
-            abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
+            switch (abilityData.GetUnit.team)
+            {
+                case Team.Friendly:
+                    base.StartTargeting(abilityData, onFinished);
+                    abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
+                    break;
+                case Team.Enemy:
+                    GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
+                    abilityData.Targets = new List<GameObject>() { agent.curtarget.gameObject };
+                    onFinished();
+                    break;
+            }
         }
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {

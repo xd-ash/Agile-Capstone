@@ -630,11 +630,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAbility: {fileID: 11400000, guid: b50b36088f8e5fd4d8a10ce8411903f8, type: 2}
   healAbility: {fileID: 0}
-  _goapActionsEnum: 22
+  _goapActionsEnum: 54
   _actions:
   - rid: 184551379020808278
   - rid: 184551379020808280
   - rid: 184551379020808281
+  - rid: 7037380749985316943
   _goalsEnum: 576
   _goals:
   - rid: 184551379020808282
@@ -683,6 +684,15 @@ MonoBehaviour:
         key: HasAttacked
         value: 0
         removeOnComplete: 0
+    - rid: 7037380749985316943
+      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: EndTurnAction
+        cost: 1
+        running: 0
+        agent: {fileID: 890448977864822885}
+        preConditionsFlags: 64
+        postConditionsFlags: 0
 --- !u!114 &8789888860053324449
 MonoBehaviour:
   m_ObjectHideFlags: 0
