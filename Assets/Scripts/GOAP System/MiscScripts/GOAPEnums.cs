@@ -8,10 +8,10 @@ public enum GoapActions
 {
     None = 0,
     //All = -1,
-    Move = 2,
+    MoveInRange = 2,
     Attack = 4,
     Heal = 8,
-    DecideActionOrientation = 16,
+    ChooseTarget = 16,
 }
 
 [Flags]
@@ -25,23 +25,25 @@ public enum GoapStates
     IsHealthy = 16,
     OutOfRange = 32,
     OutOfAP = 64,
-    AttackOriented = 128,
-    DefenseOriented = 256,
-
+    AttackPlayer = 128,
+    HealSelf = 256,
+    HasAttacked = 512,
+    HasHealed = 1024,
+    HasTarget = 2048,
 }
 
 public struct GOAPEnums
 {
-    // Create and return a list of all independent DamageTypes of a given enum flag.
-    public static List<GoapAction> GetAllActionsFromFlags(Unit unit, GoapActions actionsEnum)
+    // Create and return a list of all goap actions determined by the given enum flag.
+    public static List<GoapAction> GetAllActionsFromFlags(GoapAgent agent, GoapActions actionsEnum)
     {
         List<GoapAction> actions = new List<GoapAction>();
 
-        // Convert dmgType enum flag to binary.
+        // Convert enum flag to binary.
         string binaryEnum = Convert.ToString((int)actionsEnum, 2).PadLeft(8, '0');
 
         // Loop through each character in the binaryEnum string and add relevant
-        // DamageTypes to the list.
+        // GOAP Actions to the list.
         for (int i = 0; i < binaryEnum.Length; i++)
         {
             switch (i)
@@ -52,21 +54,21 @@ public struct GOAPEnums
                     break;
                 case 2://not implemented
                     break;
-                case 3://Decide Orientation
+                case 3://Choose Target
                     if (binaryEnum[i] == '1')
-                        actions.Add(new DecideOrientationAction() { _unit = unit });
+                        actions.Add(new ChooseTargetAction() { agent = agent });
                     break;
                 case 4://Heal
                     if (binaryEnum[i] == '1')
-                        actions.Add(new HealAction() { _unit = unit });
+                        actions.Add(new HealAction() { agent = agent });
                     break;
                 case 5://Attack
                     if (binaryEnum[i] == '1')
-                        actions.Add(new AttackAction() { _unit = unit });
+                        actions.Add(new AttackAction() { agent = agent });
                     break;
                 case 6://Move
                     if (binaryEnum[i] == '1')
-                        actions.Add(new MoveAction() { _unit = unit });
+                        actions.Add(new MoveInRangeAction() { agent = agent });
                     break;
                 case 7://None
                     break;

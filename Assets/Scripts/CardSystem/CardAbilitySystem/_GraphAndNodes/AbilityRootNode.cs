@@ -11,6 +11,7 @@ namespace CardSystem
     public class AbilityRootNode : AbilityNodeBase
 	{
         [SerializeField] private int _apCost;
+        [SerializeField] private int _range;
         [Flags] public enum EffectTypes{ Helpful = 2, Harmful = 4, Misc = 8 }
         [SerializeField] private EffectTypes _effectTypes;
 
@@ -22,7 +23,8 @@ namespace CardSystem
 
 		private TargetingStrategy _targetingStrategy;
 
-        public int GetApCost { get { return _apCost; } }
+        public int GetApCost => _apCost;
+        public int GetRange => _range;
         public EffectTypes GetEffectTypes { get { return _effectTypes; } }
 
 		// check if user (Unit) is able to use abailty with AP, start targeting

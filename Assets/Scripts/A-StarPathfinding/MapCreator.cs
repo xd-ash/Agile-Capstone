@@ -15,9 +15,9 @@ namespace AStarPathfinding
             x = _x;
             y = _y;
         }
-        public Vector2 ToVector()
+        public Vector2Int ToVector()
         {
-            return new Vector2(x, y);
+            return new Vector2Int(x, y);
         }
 
         public static MapLocation operator +(MapLocation a, MapLocation b)

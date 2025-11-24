@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Layer Filter
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -168, y: -56}
+  position: {x: -168, y: -88}
   ports:
     keys:
     - input
@@ -131,6 +131,7 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 1
   _apCost: 3
+  _range: 3
   _effectTypes: 4
   targeting: 0
   filtering: 0
@@ -170,7 +171,7 @@ MonoBehaviour:
   m_Name: Other Target
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -168, y: -184}
+  position: {x: -168, y: -248}
   ports:
     keys:
     - input
@@ -203,7 +204,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -168, y: 88}
+  position: {x: -168, y: 56}
   ports:
     keys:
     - input

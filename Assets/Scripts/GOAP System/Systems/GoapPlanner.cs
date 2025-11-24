@@ -1,7 +1,8 @@
-using UnityEngine;
-using System.Linq;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class GOAPNode
 {
@@ -35,13 +36,15 @@ public class GoapPlanner
     {
         List<GoapAction> usableActions = new List<GoapAction>();
         foreach (GoapAction a in actions)
-        {
             if (a.IsAchievable())
+            {
+                //Debug.Log($"Action (post count): {a.ToString()} ({a.postConditions.Count})");
+
                 usableActions.Add(a);
-        }
+            }
 
         List<GOAPNode> leaves = new List<GOAPNode>();
-        GOAPNode start = new GOAPNode(null, 0, GoapWorld.Instance.GetWorld().GetStates(), beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
+        GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
 
         bool success = BuildGraph(start, leaves, usableActions, goal);
 
@@ -74,9 +77,9 @@ public class GoapPlanner
         foreach (GoapAction a in result)
             queue.Enqueue(a);
 
-        //Debug.Log("The Plan is:");
-        //foreach (GoapAction a in queue)
-            //Debug.Log($"Q: {a.name}");
+        Debug.Log("The Plan is:");
+        foreach (GoapAction a in queue)
+            Debug.Log($"Q: {a.ToString()}");
 
         return queue;
     }
@@ -90,9 +93,16 @@ public class GoapPlanner
             if (action.IsAchievableGiven(parent.state))
             {
                 Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
+
+                //Debug.Log($"Action (post count): {action.ToString()}({action.postConditions.Count})");
+
                 foreach (KeyValuePair<string, int> eff in action.postConditions)
                     if (!currentState.ContainsKey(eff.Key))
+                    {
+                        //Debug.Log("test curstate contains key");
                         currentState.Add(eff.Key, eff.Value);
+                    }
+
                 // No belief param needed as worldstates are concatenated in
                 GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
                 if(GoalAchieved(goal, currentState))
@@ -102,6 +112,7 @@ public class GoapPlanner
                 }
                 else
                 {
+                    //Debug.Log("starting new recurs");
                     List<GoapAction> subset = ActionSubset(usableActions, action);
                     bool found = BuildGraph(node, leaves, subset, goal);
                     if (found)

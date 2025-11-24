@@ -32,11 +32,13 @@ public class TurnManager : MonoBehaviour
 
     public event Action OnGameStart;
     public event Action OnPlayerTurnEnd;
+    public event Action<Unit> OnUnitTurnStart;
 
     public void EndEnemyTurn() => SetTurn();
     public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
     public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
     public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null;
+    public static List<Unit> GetUnitTurnOrder => instance != null ? instance._unitTurnOrder : null;
 
     private void Awake()
     {
@@ -130,6 +132,8 @@ public class TurnManager : MonoBehaviour
         }
 
         UpdateApText();
+
+        OnUnitTurnStart?.Invoke(_curUnit);
 
         if (currTurn == Turn.Enemy)
             _curUnit.StartCoroutine(EnemyTurn());

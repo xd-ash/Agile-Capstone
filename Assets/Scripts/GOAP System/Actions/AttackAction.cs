@@ -1,14 +1,22 @@
 using UnityEngine;
+using static GOAPDeterminationMethods;
 
 public class AttackAction : GoapAction
 {
     public override bool PrePerform()
     {
-        throw new System.NotImplementedException();
+        return CheckCanDoAction(agent.unit, agent.damageAbility.RootNode.GetApCost);
+    }
+    public override void Perform()
+    {
+        Debug.Log($"Test Attack Perform");
+        //agent.damageAbility.UseAility(agent._unit);
+
+        agent.CompleteAction();
     }
 
-    public override bool PostPerform(ref WorldStates beliefs)
+    public override void PostPerform(ref WorldStates beliefs)
     {
-        throw new System.NotImplementedException();
+        beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
     }
 }

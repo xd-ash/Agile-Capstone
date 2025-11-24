@@ -564,7 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6557971832698807318}
   - component: {fileID: 5904661369477725204}
-  - component: {fileID: 7505452748226239404}
+  - component: {fileID: 890448977864822885}
   - component: {fileID: 8789888860053324449}
   - component: {fileID: 4228538318824984774}
   - component: {fileID: 4023068678327219002}
@@ -616,7 +616,7 @@ MonoBehaviour:
   damageSfx: {fileID: 8300000, guid: c565fb594e92e8748a701e88045343f6, type: 3}
   shieldHitSfx: {fileID: 8300000, guid: 8ae3191c3504ac44ab354c262aec60a5, type: 3}
   _enemyHPBar: {fileID: 0}
---- !u!114 &7505452748226239404
+--- !u!114 &890448977864822885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -628,13 +628,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d0cde7cf413194195d7b661b976dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _goapActionsEnum: 0
-  _actions: []
-  _goalsEnum: 0
-  _goals: []
+  damageAbility: {fileID: 11400000, guid: b50b36088f8e5fd4d8a10ce8411903f8, type: 2}
+  healAbility: {fileID: 0}
+  _goapActionsEnum: 22
+  _actions:
+  - rid: 184551379020808278
+  - rid: 184551379020808280
+  - rid: 184551379020808281
+  _goalsEnum: 576
+  _goals:
+  - rid: 184551379020808282
+  - rid: 184551379020808284
+  unit: {fileID: 5904661369477725204}
+  curtarget: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 184551379020808278
+      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: ChooseTargetAction
+        cost: 0
+        running: 0
+        agent: {fileID: 890448977864822885}
+        preConditionsFlags: 2
+        postConditionsFlags: 2048
+    - rid: 184551379020808280
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: MoveInRangeAction
+        cost: 1
+        running: 0
+        agent: {fileID: 890448977864822885}
+        preConditionsFlags: 2082
+        postConditionsFlags: 8
+    - rid: 184551379020808281
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: AttackAction
+        cost: 2
+        running: 0
+        agent: {fileID: 890448977864822885}
+        preConditionsFlags: 2058
+        postConditionsFlags: 512
+    - rid: 184551379020808282
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: OutOfAP
+        value: 1
+        removeOnComplete: 0
+    - rid: 184551379020808284
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: HasAttacked
+        value: 0
+        removeOnComplete: 0
 --- !u!114 &8789888860053324449
 MonoBehaviour:
   m_ObjectHideFlags: 0

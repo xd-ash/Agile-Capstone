@@ -6,8 +6,11 @@ public class HealAction : GoapAction
     {
         throw new System.NotImplementedException();
     }
-
-    public override bool PostPerform(ref WorldStates beliefs)
+    public override void Perform()
+    {
+        throw new System.NotImplementedException();
+    }
+    public override void PostPerform(ref WorldStates beliefs)
     {
         throw new System.NotImplementedException();
     }

@@ -7,7 +7,10 @@ public class *** : GoapAction
     {
         throw new System.NotImplementedException();
     }
-
+    public override void Perform()
+    {
+        throw new System.NotImplementedException();
+    }
     public override bool PostPerform(ref WorldStates beliefs)
     {
         throw new System.NotImplementedException();

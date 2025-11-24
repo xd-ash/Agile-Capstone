@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using AStarPathfinding;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,8 @@ public class Unit : MonoBehaviour, IDamagable
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
 
+    private FindPathAStar _aStar;
+
     public event Action<Unit> OnApChanged;
 
     private void Awake()
@@ -50,6 +53,8 @@ public class Unit : MonoBehaviour, IDamagable
     }
     private void Start()
     {
+        _aStar = GetComponent<FindPathAStar>();
+
         //**********************************************************************//
         if (team != Team.Friendly) return;                                      //
         CardSystem.CardManager.instance.OnCardAblityCancel += StopAllCoroutines;// I SHOULD BE CHANGED TO A BETTER SYSTEM

@@ -9,7 +9,7 @@ public abstract class GoapAction
     [SerializeField, HideInInspector] protected string actionName;
     public float cost = 1f;
     public bool running = false; //is performing action currently
-    public Unit _unit;
+    [HideInInspector] public GoapAgent agent;
 
     public Dictionary<string, int> preConditions = new();
     public Dictionary<string, int> postConditions = new();
@@ -18,7 +18,7 @@ public abstract class GoapAction
     public GoapStates postConditionsFlags;
 
     //public GInventory inventory;
-    //public WorldStates beliefs;
+    public WorldStates beliefs;
 
     public GoapAction()
     {
@@ -100,5 +100,6 @@ public abstract class GoapAction
         return true;
     }
     public abstract bool PrePerform();
-    public abstract bool PostPerform(ref WorldStates beliefs);
+    public abstract void Perform();
+    public abstract void PostPerform(ref WorldStates beliefs); //potentially don't need bool return type
 }

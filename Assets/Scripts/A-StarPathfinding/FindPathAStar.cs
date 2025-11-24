@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace AStarPathfinding
 
     public class FindPathAStar : MonoBehaviour
     {
-        //Singleton setup
+        //Singleton setup removed
         /*public static FindPathAStar instance;
         private void Awake()
         {
@@ -88,15 +89,14 @@ namespace AStarPathfinding
             }
         }
 
-        //Determine and return the path to mouseover tile position. Return null if unit is unable to move,
+        //Determine and return the path to tile position param. Return null if unit is unable to move,
         //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
-        public List<PathMarker> OnTileHover(Vector2Int tilePos)
+        public List<PathMarker> CalculatePath(Vector2Int tilePos)
         {
             if (done && !_isMoving && PauseMenu.isPaused != true)
             {
-                //adjust this logic for when multiple units need to move
-                if (!TurnManager.IsPlayerTurn) return null; // only let the player move on player turn
-                //
+                //only allow movement on this unit's turn
+                if (TurnManager.GetCurrentUnit != _unit) return null; 
 
                 BeginSearch(tilePos);
                 do
@@ -125,23 +125,10 @@ namespace AStarPathfinding
         }
 
         //Start unit's movement towards determined goal
-        public void OnTileClick()
+        public void OnStartUnitMove(Action onFinished = null)
         {
             if (done && !_isMoving && PauseMenu.isPaused != true)
-                StartCoroutine(MoveCoro());
-        }
-
-        public void OnEnemyMove(Vector2Int endPos)
-        {
-            BeginSearch(endPos);
-            do
-            {
-                Search(lastPos);
-            } while (!done);
-            GetPath();
-
-            if (done && !_isMoving && PauseMenu.isPaused != true)
-                StartCoroutine(MoveCoro());
+                StartCoroutine(MoveCoro(onFinished));
         }
 
         void BeginSearch(Vector2Int endLocation)
@@ -263,7 +250,7 @@ namespace AStarPathfinding
             return false;
         }
 
-        public IEnumerator MoveCoro()
+        public IEnumerator MoveCoro(Action onFinished = null)
         {
             _isMoving = true;
 
@@ -309,6 +296,10 @@ namespace AStarPathfinding
 
             _dirAnimator.SetMoving(false);
             _isMoving = false;
+
+            // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
+            if (onFinished != null)
+                onFinished();
 
             // right after movement is fully done
             if (_unit.team == Team.Friendly)

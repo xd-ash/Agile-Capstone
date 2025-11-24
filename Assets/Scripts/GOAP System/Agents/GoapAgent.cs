@@ -3,6 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
 using static GOAPEnums;
+using static GOAPDeterminationMethods;
+
+using CardSystem;
 
 [System.Serializable]
 public class Goal
@@ -22,6 +25,11 @@ public class Goal
 
 public class GoapAgent : MonoBehaviour
 {
+    [Header("Temp Enemy Abilities")]
+    public CardAbilityDefinition damageAbility; 
+    public CardAbilityDefinition healAbility;
+    [Space(15)]
+
     [SerializeField] private GoapActions _goapActionsEnum;
     [SerializeReference] private List<GoapAction> _actions = new();
     private GoapAction _currentAction;
@@ -34,12 +42,33 @@ public class GoapAgent : MonoBehaviour
 
     private WorldStates _beliefs = new WorldStates(); //make public or getter/setter if actions needed
     private GoapPlanner _planner;
-    private Unit _unit;
+    [HideInInspector] public Unit unit;
+    [HideInInspector] public Unit curtarget;
 
     public List<GoapAction> GetActions => _actions;
 
+    private void Awake()
+    {
+        //TEMP
+        TurnManager.instance.OnUnitTurnStart += TempTurnStateResets;
+    }
+    private void OnDestroy()
+    {
+        //TEMP
+        TurnManager.instance.OnUnitTurnStart -= TempTurnStateResets;
+    }
     private void Start()
     {
+        GrabActionsFromEnum();
+        GrabGoalsFromEnum();
+
+        foreach (var a in _actions)
+            a?.GrabConditionsFromEnums();
+
+
+        _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+        CheckForAP(unit, ref _beliefs);
+
         // Init goal dict creation from list in inspector
         foreach (var g in _goals)
             _weightedGoalsDict.Add(g, g.value);
@@ -49,9 +78,9 @@ public class GoapAgent : MonoBehaviour
     #region OnInspectorMethods
     public void GrabActionsFromEnum()
     {
-        if (_unit == null) _unit = gameObject.GetComponent<Unit>();
+        if (unit == null) unit = gameObject.GetComponent<Unit>();
 
-        var temp = GetAllActionsFromFlags(_unit, _goapActionsEnum);
+        var temp = GetAllActionsFromFlags(this, _goapActionsEnum);
         List<string> tempToString = new List<string>(),
                      actionsToString = new List<string>();
 
@@ -63,7 +92,7 @@ public class GoapAgent : MonoBehaviour
                 if (a != null)
                     actionsToString.Add(a.ToString());
 
-        for (int i = 0; i < actionsToString.Count; i++)
+        for (int i = actionsToString.Count - 1; i >= 0 ; i--)
         {
             if (actionsToString[i] == null)
             {
@@ -142,14 +171,28 @@ public class GoapAgent : MonoBehaviour
     #endregion
     //
 
-    void CompleteAction()
+    public void CompleteAction()
     {
         _currentAction.running = false;
         _currentAction.PostPerform(ref _beliefs);
     }
 
+    public void TempTurnStateResets(Unit unitStartingTurn)
+    {
+        if (curtarget == null) return;
+
+        if (unitStartingTurn != null && unit == unitStartingTurn)
+        {
+            _beliefs = new();
+
+            if (CheckIfInRange(this, curtarget, damageAbility.RootNode.GetRange))
+                _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+            CheckForAP(unit, ref _beliefs);
+        }
+    }
     void LateUpdate()
     {
+        if (TurnManager.GetCurrentUnit != unit) return;
         if (_currentAction != null && _currentAction.running) return;
 
         if (_planner == null || _actionQueue == null)
@@ -162,7 +205,8 @@ public class GoapAgent : MonoBehaviour
 
             foreach (KeyValuePair<Goal, int> g in sortedGoals)
             {
-                _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs); 
+                //Debug.Log($"Action (post count): {_actions[0].ToString()}({_actions[0].postConditions.Count})");
+                _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
                 if (_actionQueue != null)
                 {
                     _currentGoal = g.Key;
@@ -184,6 +228,7 @@ public class GoapAgent : MonoBehaviour
             if (_currentAction.PrePerform())
             {
                 _currentAction.running = true;
+                _currentAction.Perform();
 
                 /*Navmesh from tutorial
                 if (currentAction.target == null && currentAction.targetTag != "")
