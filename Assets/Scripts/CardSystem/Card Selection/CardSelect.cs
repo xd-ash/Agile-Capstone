@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -47,6 +48,14 @@ namespace CardSystem
         private Camera _mainCamera;
         private Color originalColor;
         private Vector3 originalScale;
+
+        // Shop-mode extras (merged ShopCard behaviour)
+        private Vector3 _startLocalPos;
+        private Transform _startParent;
+        private bool _isShopItem = false;
+        private int _shopCost = 0;
+        private Collider2D _shopBuyAreaCollider = null;
+        private string _shopBuyAreaTag = "BuyArea";
 
         private void OnEnable()
         {
@@ -127,6 +136,47 @@ namespace CardSystem
 
         private void OnMouseDown()
         {
+            if (PauseMenu.isPaused || selected) return;
+
+            // Shop-mode: show confirmation popup instead of drag/drop purchase
+            if (_isShopItem)
+            {
+                int price = _shopCost;
+                string cardName = _card?.GetCardName ?? "Card";
+
+                Action confirmAction = () =>
+                {
+                    if (CurrencyManager.instance != null && CurrencyManager.instance.TrySpend(price))
+                    {
+                        // add to player's persistent collection and to runtime deck
+                        PlayerCollection.instance?.Add(_card.GetCardAbility);
+                        CardManager.instance?.AddDefinitionToRuntimeDeck(_card.GetCardAbility);
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        OutOfApPopup.Instance?.Show();
+                    }
+                };
+
+                Action cancelAction = () =>
+                {
+                    // no-op; popup will just close
+                };
+
+                if (ShopConfirmPopup.Instance != null)
+                {
+                    ShopConfirmPopup.Instance.Show(price, $"Buy \"{cardName}\" for {price}?", confirmAction, cancelAction);
+                }
+                else
+                {
+                    // fallback: attempt immediate purchase
+                    confirmAction();
+                }
+
+                return;
+            }
+
             if (PauseMenu.isPaused || selected || CardManager.instance == null) return;
 
             startPosition = transform.position;
@@ -141,17 +191,24 @@ namespace CardSystem
             
             // Visual feedback for picking up
             transform.DOScale(originalScale * dragScaleMultiplier, scaleDuration);
-            transform.DORotate(new Vector3(0, 0, Random.Range(-rotationAmount, rotationAmount)), scaleDuration);
+            transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(-rotationAmount, rotationAmount)), scaleDuration);
             
             BringToFront();
         }
 
         private void OnMouseDrag()
         {
-            if (!isDragging || PauseMenu.isPaused || CardManager.instance == null) return;
+            if (!isDragging || PauseMenu.isPaused) return;
 
-            // Direct position setting without any constraints
             transform.position = GetMouseWorldPosition() + dragOffset;
+
+            if (_isShopItem)
+            {
+                // shop items no longer use drag-to-buy behavior
+                return;
+            }
+
+            if (CardManager.instance == null) return;
 
             // Visual feedback based on position relative to hand area
             if (transform.position.y > handAreaHeight)
@@ -387,6 +444,25 @@ namespace CardSystem
 
             card.CardTransform = transform;
             SetupVisuals();
+        }
+
+        /// <summary>
+        /// Enable shop-mode for this CardSelect (merged ShopCard functionality).
+        /// Call this from the spawner right after OnPrefabCreation when creating shop items.
+        /// </summary>
+        public void EnableShopMode(int cost, Collider2D buyAreaCollider = null, string buyAreaTag = "BuyArea")
+        {
+            _isShopItem = true;
+            _shopCost = Mathf.Max(0, cost);
+            _shopBuyAreaCollider = buyAreaCollider;
+            _shopBuyAreaTag = buyAreaTag;
+
+            // If the prefab has a cost display (third TextMeshPro), update it.
+            TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
+            if (cardTextFields.Length >= 3)
+            {
+                cardTextFields[2].text = _shopCost.ToString();
+            }
         }
     }
 }
