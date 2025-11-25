@@ -1,6 +1,6 @@
 using UnityEditor;
 
-[CustomEditor(typeof(GoapAgent), true)]
+[CustomEditor(typeof(GoapAgent), true), CanEditMultipleObjects]
 public class GOAPAgentEditor : Editor 
 {
     public override void OnInspectorGUI()

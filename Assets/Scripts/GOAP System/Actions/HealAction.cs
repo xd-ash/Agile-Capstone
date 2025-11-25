@@ -1,17 +1,21 @@
 using UnityEngine;
+using static GOAPDeterminationMethods;
 
 public class HealAction : GoapAction
 {
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        throw new System.NotImplementedException();
+        return CheckForAP(agent.unit, ref beliefs, agent.healAbility.RootNode.GetApCost);
     }
     public override void Perform()
     {
-        throw new System.NotImplementedException();
+        agent.healAbility.UseAility(agent.unit);
+
+        agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        throw new System.NotImplementedException();
+        beliefs.ModifyState(GoapStates.HasHealed.ToString(), 1);
+        CheckIfHealthy(agent.unit, ref beliefs);
     }
 }

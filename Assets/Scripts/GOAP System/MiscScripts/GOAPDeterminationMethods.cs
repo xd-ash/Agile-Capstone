@@ -42,4 +42,21 @@ public static class GOAPDeterminationMethods
             return false;
         return true;
     }
+    public static bool CheckIfHealthy(Unit unit, ref WorldStates beliefs)
+    {
+        float healthPercent = unit.health / unit.maxHealth;
+
+        if (healthPercent > 0.75f)
+        {
+            beliefs.ModifyState(GoapStates.IsHealthy.ToString(), 1);
+            beliefs.RemoveState(GoapStates.IsHurt.ToString());
+            return true;
+        }
+        else
+        {
+            beliefs.ModifyState(GoapStates.IsHurt.ToString(), 1);
+            beliefs.RemoveState(GoapStates.IsHealthy.ToString());
+            return false;
+        }
+    }
 }

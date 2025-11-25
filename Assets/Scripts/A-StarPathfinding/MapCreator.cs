@@ -63,7 +63,8 @@ namespace AStarPathfinding
         [SerializeField] private List<Vector2Int> obstLocationList;
         [SerializeField] private List<Vector2Int> enemyLocationList;
         [SerializeField] private GameObject _placeholderObstacle;
-        [SerializeField] private GameObject _enemyPlaceholder;
+        [SerializeField] private GameObject _rangeEnemyPlaceholder;
+        [SerializeField] private GameObject _meleeEnemyPlaceholder;
 
         public byte[,] GetByteMap { get { return _map; } }
         public Vector2Int GetMapSize { get { return _mapSize; } }
@@ -108,15 +109,26 @@ namespace AStarPathfinding
             _map[startPos.x, startPos.y] = 0;
             _map[endPos.x, endPos.y] = unit.team == Team.Friendly ? (byte)3 : (byte)2;
         }
+
+        //temp
+        int tempEnemyCounter = 0;
+
         private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)
         {
             Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
             GameObject objToSpawn = null;
 
+
             if (byteIndicator == 1)
                 objToSpawn = _placeholderObstacle;
             else if (byteIndicator == 2)
-                objToSpawn = _enemyPlaceholder;
+            {
+                if (tempEnemyCounter % 2 == 0)
+                    objToSpawn = _rangeEnemyPlaceholder;
+                else
+                    objToSpawn = _meleeEnemyPlaceholder;
+                tempEnemyCounter++;
+            }
 
             if (objToSpawn != null)
             {

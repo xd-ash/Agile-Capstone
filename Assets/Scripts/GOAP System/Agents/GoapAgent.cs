@@ -50,16 +50,6 @@ public class GoapAgent : MonoBehaviour
 
     private void Awake()
     {
-        //TEMP
-        //TurnManager.instance.OnUnitTurnResetStuff += TempTurnStateResets;
-    }
-    private void OnDestroy()
-    {
-        //TEMP
-        //TurnManager.instance.OnUnitTurnResetStuff -= TempTurnStateResets;
-    }
-    private void Start()
-    {
         GrabActionsFromEnum();
         GrabGoalsFromEnum();
 
@@ -197,6 +187,7 @@ public class GoapAgent : MonoBehaviour
                 _beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
 
             CheckForAP(unit, ref _beliefs);
+            CheckIfHealthy(unit, ref _beliefs);
         }
     }
 
