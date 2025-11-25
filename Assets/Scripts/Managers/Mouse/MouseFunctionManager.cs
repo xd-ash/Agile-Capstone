@@ -14,6 +14,8 @@ public class MouseFunctionManager : MonoBehaviour
 
     [SerializeField] private Color _mouseTileColor = Color.yellow;
 
+    [SerializeField] private APHoverIndicator _apHoverIndicator;
+
     [Header("Path line")]
     [SerializeField] private LineRenderer _line;
     [SerializeField] private float _lineZOffset = 0.01f;
@@ -44,7 +46,7 @@ public class MouseFunctionManager : MonoBehaviour
 
     private void Update()
     {
-        // Quick fix for right licking to cancel activated attack card/ability
+        // Quick fix for right clicking to cancel activated attack card/ability
         if (Input.GetMouseButtonDown(1))
         {
             if (IsTargeting && !PauseMenu.isPaused)
@@ -108,9 +110,7 @@ public class MouseFunctionManager : MonoBehaviour
 
     private void DrawMovementPath()
     {
-        if (PauseMenu.isPaused ||
-            TurnManager.instance == null ||
-            TurnManager.instance.currTurn != TurnManager.Turn.Player)
+        if (PauseMenu.isPaused || TurnManager.instance == null || TurnManager.instance.currTurn != TurnManager.Turn.Player)
         {
             ClearLine();
             return;
@@ -140,6 +140,27 @@ public class MouseFunctionManager : MonoBehaviour
         int steps = path.Count;
         int ap = Mathf.Max(0, unit.ap);
         int keep = ap < steps ? ap : steps;
+
+        // Update the Fallout style AP indicator
+        if (_apHoverIndicator != null)
+        {
+            Vector3 indicatorPos = GridToWorld((Vector2Int)_tilePos);
+            indicatorPos.z += _lineZOffset;
+
+            if (steps <= ap)
+            {
+                // In range – show only the AP number
+                _apHoverIndicator.ShowCost(indicatorPos, steps);
+                _line.gameObject.SetActive(true);
+
+            }
+            else
+            {
+                // Out of range – show AP number plus red X
+                _apHoverIndicator.ShowOutOfRange(indicatorPos, steps);
+                _line.gameObject.SetActive(false);
+            }
+        }
 
         List<Vector3> points = new List<Vector3>();
 
@@ -175,8 +196,8 @@ public class MouseFunctionManager : MonoBehaviour
 
     private void ClearLine()
     {
-        if (_line != null)
-            _line.positionCount = 0;
+        _line.positionCount = 0;
+        _apHoverIndicator.Hide();
     }
 
     private void SetTileColor(Vector3Int tilePos)

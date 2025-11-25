@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace CardSystem
@@ -22,12 +23,20 @@ namespace CardSystem
 
             foreach (GameObject target in abilityData.Targets)
             {
-                if (target != null && target.TryGetComponent<Unit>(out Unit unit))
+                if (target != null && target.TryGetComponent<Unit>(out Unit targetUnit))
                 {
+                    bool hit = CombatMath.RollHit(abilityData.GetUnit, targetUnit, out int hitChance, out float roll);
+
+                    if (!hit)
+                    {
+                        // TODO: floating 'Miss' text here
+                        continue;
+                    }
+
                     if (_hasDuration)
-                        unit.StartCoroutine(DoEffectOverTime(unit, _duration, _effectValue));
+                        targetUnit.StartCoroutine(DoEffectOverTime(targetUnit, _duration, _effectValue));
                     else
-                        unit.ChangeHealth(_effectValue, false);
+                        targetUnit.ChangeHealth(_effectValue, false);
                 }
             }
 

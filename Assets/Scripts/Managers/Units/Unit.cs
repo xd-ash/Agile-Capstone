@@ -1,7 +1,8 @@
-using System;
-using System.Collections;
 using AStarPathfinding;
 using Interfaces;
+using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,7 @@ public class Unit : MonoBehaviour, IDamagable
 
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
+    [SerializeField] private TextMeshProUGUI _hitChanceText;
 
     private FindPathAStar _aStar;
 
@@ -40,6 +42,7 @@ public class Unit : MonoBehaviour, IDamagable
         health = maxHealth;
         ap = maxAP;
         RaiseHealthEvent();
+        HideHitChance();
 
         // Ensure UI gets initial shield state
         if (team == Team.Friendly)
@@ -246,4 +249,26 @@ public class Unit : MonoBehaviour, IDamagable
         }
         return true; // Or your existing movement conditions
     }
+
+    public void ShowHitChance(int hitChance)
+    {
+        if (_hitChanceText == null)
+        {
+            return;
+        }
+
+        _hitChanceText.gameObject.SetActive(true);
+        _hitChanceText.text = $"{hitChance}%";
+    }
+
+    public void HideHitChance()
+    {
+        if (_hitChanceText == null)
+        {
+            return;
+        }
+
+        _hitChanceText.gameObject.SetActive(false);
+    }
+
 }
