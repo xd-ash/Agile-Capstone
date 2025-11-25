@@ -170,6 +170,7 @@ namespace AStarPathfinding
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= _mapCreator.GetMapSize.x || neighbour.y < 0 || neighbour.y >= _mapCreator.GetMapSize.y) continue; //if neighbor is out of bounds
                 if (_mapCreator.GetByteMap[neighbour.x, neighbour.y] == 1 || _mapCreator.GetByteMap[neighbour.x, neighbour.y] == 2) continue; // if pos is obstacle/enemy
+                //if (_mapCreator.GetByteMap[neighbour.x, neighbour.y] != 0) continue;
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;
@@ -258,6 +259,8 @@ namespace AStarPathfinding
 
             //Convert unit local position to grid position
             Vector2Int prev = ConvertToGridFromIsometric(_unit.transform.localPosition);
+            Vector2Int tempStart = prev;
+            Vector2Int tempEnd = Vector2Int.zero;
 
             _dirAnimator.SetMoving(true);
 
@@ -267,6 +270,7 @@ namespace AStarPathfinding
                     break;
 
                 Vector2Int next = new Vector2Int(truePath[i].location.x, truePath[i].location.y);
+                tempEnd = next;
                 Vector2Int delta = next - prev;
 
                 _dirAnimator.SetDirectionFromDelta(delta);
@@ -276,7 +280,6 @@ namespace AStarPathfinding
                 //Convert unit grid position to local position 
                 Vector3 endPos = ConvertToIsometricFromGrid(next, startPos.y * .01f);// z pos adjusted with y value to allow for easy layering of sprites
                                                                                      // (.01f holds no significance, just used to keep value small)
-
                 float duration = _unitMoveSpeed;
                 float elapsed = 0f;
 
@@ -296,6 +299,8 @@ namespace AStarPathfinding
 
             _dirAnimator.SetMoving(false);
             _isMoving = false;
+
+            _mapCreator.UpdateUnitPositionByteMap(tempStart, tempEnd, _unit);
 
             // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
             if (onFinished != null)

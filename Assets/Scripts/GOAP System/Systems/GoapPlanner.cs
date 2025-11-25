@@ -37,11 +37,7 @@ public class GoapPlanner
         List<GoapAction> usableActions = new List<GoapAction>();
         foreach (GoapAction a in actions)
             if (a.IsAchievable())
-            {
-                //Debug.Log($"Action (post count): {a.ToString()} ({a.postConditions.Count})");
-
                 usableActions.Add(a);
-            }
 
         List<GOAPNode> leaves = new List<GOAPNode>();
         GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
@@ -90,12 +86,12 @@ public class GoapPlanner
         foreach (GoapAction a in result)
             queue.Enqueue(a);
 
-        /*
-        string tempStr = "The Plan is: ";
+        /*/
+        string tempStr2 = "The Plan is: ";
         foreach (GoapAction a in queue)
-            tempStr += $"{a.ToString()} > ";
-        Debug.Log(tempStr);
-        */
+            tempStr2 += $"{a.ToString()} > ";
+        Debug.Log(tempStr2);
+        /*/
         return queue;
     }
 

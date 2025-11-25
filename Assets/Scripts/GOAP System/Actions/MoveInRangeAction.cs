@@ -8,7 +8,7 @@ public class MoveInRangeAction : GoapAction
 {
     private FindPathAStar aStar;
 
-    public override bool PrePerform()
+    public override bool PrePerform(ref WorldStates beliefs)
     {
         aStar = agent.GetComponent<FindPathAStar>();
         Unit unit = agent.unit;

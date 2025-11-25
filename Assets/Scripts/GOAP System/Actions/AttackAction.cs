@@ -3,9 +3,10 @@ using static GOAPDeterminationMethods;
 
 public class AttackAction : GoapAction
 {
-    public override bool PrePerform()
+    public override bool PrePerform(ref WorldStates beliefs)
     {
-        return CheckCanDoAction(agent.unit, agent.damageAbility.RootNode.GetApCost);
+        //Debug.Log($"agent: {agent.name}");
+        return CheckForAP(agent.unit, ref beliefs, agent.damageAbility.RootNode.GetApCost);
     }
     public override void Perform()
     {
@@ -17,6 +18,5 @@ public class AttackAction : GoapAction
     public override void PostPerform(ref WorldStates beliefs)
     {
         beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
-        CheckForAP(agent.unit, ref beliefs, agent.damageAbility.RootNode.GetApCost);
     }
 }

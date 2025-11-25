@@ -112,10 +112,6 @@ public class TurnManager : MonoBehaviour
         }
         _curUnit = _unitTurnOrder[_turnTracker];
         currTurn = _curUnit.team == Team.Friendly ? Turn.Player : Turn.Enemy;
-
-        if (currTurn == Turn.Enemy)
-            _curUnit.GetComponent<GoapAgent>().TempTurnStateResets();
-
         _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
 
         //Debug.Log($"[TurnManager]" + currTurn + "'s turn");
@@ -123,6 +119,9 @@ public class TurnManager : MonoBehaviour
             _turnText.text = $"{currTurn}'s Turn";
         if (_curUnit != null)
             _curUnit.RefreshAP();
+
+        if (currTurn == Turn.Enemy)
+            _curUnit.GetComponent<GoapAgent>().ResetStates();
 
         // Draw player's starting hand when player's turn begins
         if (_curUnit.team == Team.Friendly && CardSystem.CardManager.instance != null)

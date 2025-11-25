@@ -9,7 +9,7 @@ public class ChooseTargetAction : GoapAction
 {
     private Dictionary<int, Unit> distancesToUnits;
 
-    public override bool PrePerform()
+    public override bool PrePerform(ref WorldStates beliefs)
     {
         distancesToUnits = new();
         FindPathAStar aStar = agent.GetComponent<FindPathAStar>();

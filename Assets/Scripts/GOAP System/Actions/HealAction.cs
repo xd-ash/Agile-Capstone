@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HealAction : GoapAction
 {
-    public override bool PrePerform()
+    public override bool PrePerform(ref WorldStates beliefs)
     {
         throw new System.NotImplementedException();
     }

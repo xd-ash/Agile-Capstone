@@ -14,17 +14,19 @@ public static class GOAPDeterminationMethods
     {
         return unit.ap >= actionAPCost;
     }
-    public static void CheckForAP(Unit unit, ref WorldStates beliefs, int actionCost = 0)
+    public static bool CheckForAP(Unit unit, ref WorldStates beliefs, int actionCost = 0)
     {
         if (unit.ap == 0 || unit.ap < actionCost)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             beliefs.RemoveState(GoapStates.HasAP.ToString());
+            return false;
         }
         else
         {
             beliefs.ModifyState(GoapStates.HasAP.ToString(), 1);
             beliefs.RemoveState(GoapStates.OutOfAP.ToString());
+            return true;
         }
     }
     public static bool CheckIfInRange(GoapAgent agent, Unit target, int abilityRange)

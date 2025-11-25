@@ -110,7 +110,7 @@ public abstract class GoapAction
                 return false;
         return true;
     }
-    public abstract bool PrePerform();
+    public abstract bool PrePerform(ref WorldStates beliefs);
     public abstract void Perform();
-    public abstract void PostPerform(ref WorldStates beliefs); //potentially don't need bool return type
+    public abstract void PostPerform(ref WorldStates beliefs);
 }
