@@ -671,7 +671,7 @@ MonoBehaviour:
         running: 0
         agent: {fileID: 890448977864822885}
         preConditionsFlags: 2058
-        postConditionsFlags: 512
+        postConditionsFlags: 576
     - rid: 184551379020808282
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
@@ -688,7 +688,7 @@ MonoBehaviour:
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
         actionName: EndTurnAction
-        cost: 1
+        cost: 0
         running: 0
         agent: {fileID: 890448977864822885}
         preConditionsFlags: 64

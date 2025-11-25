@@ -32,8 +32,7 @@ public class TurnManager : MonoBehaviour
 
     public event Action OnGameStart;
     public event Action OnPlayerTurnEnd;
-    public event Action<Unit> OnUnitTurnResetStuff;
-
+    
     public void EndEnemyTurn() => SetTurn();
     public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
     public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
@@ -113,6 +112,10 @@ public class TurnManager : MonoBehaviour
         }
         _curUnit = _unitTurnOrder[_turnTracker];
         currTurn = _curUnit.team == Team.Friendly ? Turn.Player : Turn.Enemy;
+
+        if (currTurn == Turn.Enemy)
+            _curUnit.GetComponent<GoapAgent>().TempTurnStateResets();
+
         _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
 
         //Debug.Log($"[TurnManager]" + currTurn + "'s turn");

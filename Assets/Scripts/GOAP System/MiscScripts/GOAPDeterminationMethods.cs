@@ -14,12 +14,18 @@ public static class GOAPDeterminationMethods
     {
         return unit.ap >= actionAPCost;
     }
-    public static void CheckForAP(Unit unit, ref WorldStates beliefs)
+    public static void CheckForAP(Unit unit, ref WorldStates beliefs, int actionCost = 0)
     {
-        if (unit.ap <= 0)
+        if (unit.ap == 0 || unit.ap < actionCost)
+        {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+            beliefs.RemoveState(GoapStates.HasAP.ToString());
+        }
         else
+        {
             beliefs.ModifyState(GoapStates.HasAP.ToString(), 1);
+            beliefs.RemoveState(GoapStates.OutOfAP.ToString());
+        }
     }
     public static bool CheckIfInRange(GoapAgent agent, Unit target, int abilityRange)
     {
@@ -30,7 +36,7 @@ public static class GOAPDeterminationMethods
         var tempPath = aStar.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 
-        if ((distanceToTar - dmgAbilRange) > agent.unit.ap)
+        if (distanceToTar > dmgAbilRange)
             return false;
         return true;
     }

@@ -178,14 +178,23 @@ public class GoapAgent : MonoBehaviour
 
     public void TempTurnStateResets() 
     {
+        _weightedGoalsDict = new();
+        
+        // goal dict reset and creation from list in inspector
+        foreach (var g in _goals)
+            _weightedGoalsDict.Add(g, g.value);
+
         if (curtarget == null) return;
         if (unit != null)
         {
             _beliefs = new();
 
-            if (CheckIfInRange(this, curtarget, damageAbility.RootNode.GetRange))
+            if (!CheckIfInRange(this, curtarget, damageAbility.RootNode.GetRange))
                 _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-            //CheckForAP(unit, ref _beliefs);
+            else
+                _beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
+
+            CheckForAP(unit, ref _beliefs);
         }
     }
     public void CalcAndRunActions()
@@ -239,8 +248,8 @@ public class GoapAgent : MonoBehaviour
     void LateUpdate()
     {
         if (TurnManager.GetCurrentUnit != unit) return;
-        //if (_currentAction != null && _currentAction.running) return;
-        //var tempGoals
+        if (_currentAction != null && _currentAction.running) return;
+
         if (_planner == null || _actionQueue == null)
         {
             _planner = new GoapPlanner();
@@ -263,9 +272,9 @@ public class GoapAgent : MonoBehaviour
         if (_actionQueue != null && _actionQueue.Count == 0)
         {
             if (_currentGoal.removeOnComplete)
-                foreach (var kvp in _weightedGoalsDict)
-                    if (kvp.Key.key == _currentGoal.key)
-                        _weightedGoalsDict.Remove(kvp.Key);
+                for (int i = _weightedGoalsDict.Count - 1; i >= 0; i--)
+                    if (_weightedGoalsDict.ElementAt(i).Key.key == _currentGoal.key)
+                        _weightedGoalsDict.Remove(_weightedGoalsDict.ElementAt(i).Key);
 
             _planner = null;
         }

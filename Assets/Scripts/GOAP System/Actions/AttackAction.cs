@@ -9,7 +9,6 @@ public class AttackAction : GoapAction
     }
     public override void Perform()
     {
-        Debug.Log($"Attack Perform");
         agent.damageAbility.UseAility(agent.unit);
 
         agent.CompleteAction();
@@ -17,8 +16,7 @@ public class AttackAction : GoapAction
 
     public override void PostPerform(ref WorldStates beliefs)
     {
-        Debug.Log("im swapping state for hasattacked");
         beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
-        //CheckForAP(agent.unit, ref beliefs);
+        CheckForAP(agent.unit, ref beliefs, agent.damageAbility.RootNode.GetApCost);
     }
 }

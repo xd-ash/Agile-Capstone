@@ -1,10 +1,9 @@
 using AStarPathfinding;
-using CardSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 using static IsoMetricConversions;
-using static GOAPDeterminationMethods;
 
-public class MoveInRangeAction : GoapAction
+public class MoveTowardTargetAction : GoapAction
 {
     private FindPathAStar aStar;
 
@@ -17,7 +16,6 @@ public class MoveInRangeAction : GoapAction
         var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
         var tempPath = aStar.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
-        //Debug.Log($"tarPos: {tarPos} | distancetoTar: {distanceToTar}");
 
         if (agent.damageAbility == null)
         {
@@ -29,15 +27,16 @@ public class MoveInRangeAction : GoapAction
         if ((distanceToTar - dmgAbilRange) > unit.ap)
             return false;
 
-        int inRangeTileIndex = dmgAbilRange;
+        int inRangeTileIndex = tempPath.Count - dmgAbilRange;
 
         // calc new path to tile just within ability range
         aStar.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
-
         return true;
     }
     public override void Perform()
     {
+        Debug.Log($"mvoe in range Perform");
+
         aStar.OnStartUnitMove(() =>
         {
             agent.CompleteAction();
@@ -47,7 +46,6 @@ public class MoveInRangeAction : GoapAction
     public override void PostPerform(ref WorldStates beliefs)
     {
         beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
-        beliefs.RemoveState(GoapStates.OutOfRange.ToString());
         //CheckForAP(agent.unit, ref beliefs);
     }
 }
