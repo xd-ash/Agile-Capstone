@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using AStarPathfinding;
 
 namespace CardSystem
 {
@@ -20,18 +21,49 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished);
 
+            Unit attacker = abilityData.GetUnit;
+
             foreach (GameObject target in abilityData.Targets)
             {
-                if (target != null && target.TryGetComponent<Unit>(out Unit unit))
+                if (target == null)
+                    continue;
+
+                if (!target.TryGetComponent<Unit>(out Unit targetUnit))
+                    continue;
+
+                // If somehow we don't have an attacker, fall back to old behavior
+                if (attacker == null)
                 {
-                    if (_hasDuration)
-                        unit.StartCoroutine(DoEffectOverTime(unit, _duration, _effectValue));
-                    else
-                        unit.ChangeHealth(_effectValue, false);
+                    ApplyDamageOverTime(targetUnit);
+                    continue;
                 }
+
+                bool hit = CombatMath.RollHit(attacker, targetUnit, out int hitChance, out float roll);
+
+                Debug.Log($"[Combat] {attacker.name} attacks {targetUnit.name} | " + $"chance: {hitChance}% | roll: {roll:0.0} => {(hit ? "HIT" : "MISS")}");
+
+                if (!hit)
+                {
+                    // TODO: floating 'Miss' text here
+                    continue;
+                }
+
+                ApplyDamageOverTime(targetUnit);
             }
 
             onFinished();
+        }
+
+        private void ApplyDamageOverTime(Unit unit)
+        {
+            if (_hasDuration)
+            {
+                unit.StartCoroutine(DoEffectOverTime(unit, _duration, _effectValue));
+            }
+            else
+            {
+                unit.ChangeHealth(_effectValue, false);
+            }
         }
     }
 }

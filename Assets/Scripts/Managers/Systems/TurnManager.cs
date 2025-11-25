@@ -109,7 +109,7 @@ public class TurnManager : MonoBehaviour
         currTurn = _curUnit.team == Team.Friendly ? Turn.Player : Turn.Enemy;
         _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
 
-        Debug.Log($"[TurnManager]" + currTurn + "'s turn");
+        Debug.Log($"[TurnManager] " + currTurn + "'s turn");
         if (_turnText != null)
         {
             _turnText.text = $"{currTurn}'s Turn";

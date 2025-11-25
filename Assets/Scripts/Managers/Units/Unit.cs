@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Interfaces;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,7 @@ public class Unit : MonoBehaviour, IDamagable
 
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
+    [SerializeField] private TextMeshProUGUI _hitChanceText;
 
     public event Action<Unit> OnApChanged;
 
@@ -37,6 +39,7 @@ public class Unit : MonoBehaviour, IDamagable
         health = maxHealth;
         ap = maxAP;
         RaiseHealthEvent();
+        HideHitChance();
 
         // Ensure UI gets initial shield state
         if (team == Team.Friendly)
@@ -250,5 +253,26 @@ public class Unit : MonoBehaviour, IDamagable
             return;
         }
         // Your existing movement code
+    }
+
+    public void ShowHitChance(int hitChance)
+    {
+        if (_hitChanceText == null)
+        {
+            return;
+        }
+        
+        _hitChanceText.gameObject.SetActive(true);
+        _hitChanceText.text = $"{hitChance}%";
+    }
+    
+    public void HideHitChance()
+    {
+        if (_hitChanceText == null)
+        {
+            return;
+        }
+        
+        _hitChanceText.gameObject.SetActive(false);
     }
 }

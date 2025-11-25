@@ -18,19 +18,61 @@ namespace CardSystem
         }
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
-            do
+            Unit caster = abilityData.GetUnit;
+            Unit hoveredUnit = null;
+
+            while (true)
             {
-                yield return new WaitForEndOfFrame();
-                yield return new WaitUntil(() => Input.GetMouseButtonDown(0));//find better option?
-                
-                abilityData.Targets = TargetOnMouse(abilityData.GetUnit);
-                
-                if (isAOE)
-                    abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(abilityData.GetUnit));
-            }while (abilityData.GetTargetCount == 0);
-            
+                //Hover detection
+                Unit newHover = GetUnitUnderMouse();
+
+                if (newHover != hoveredUnit)
+                {
+                    //Clear old hover
+                    if (hoveredUnit != null)
+                        hoveredUnit.HideHitChance();
+
+                    hoveredUnit = newHover;
+
+                    //Show new hover hit chance
+                    if (hoveredUnit != null && caster != null)
+                    {
+                        int hitChance = CombatMath.GetHitChance(caster, hoveredUnit);
+                        hoveredUnit.ShowHitChance(hitChance);
+                    }
+                }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    abilityData.Targets = TargetOnMouse(caster);
+
+                    if (isAOE)
+                        abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(caster));
+
+                    if (abilityData.GetTargetCount > 0)
+                        break;
+                }
+
+                yield return null;
+            }
+
+            if (hoveredUnit != null)
+                hoveredUnit.HideHitChance();
+
             onFinished();
         }
+
+        private Unit GetUnitUnderMouse()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+
+            if (hit.collider == null)
+                return null;
+
+            return hit.collider.GetComponent<Unit>();
+        }
+
 
         private IEnumerable<GameObject> TargetOnMouse(Unit unit)
         {
