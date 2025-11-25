@@ -352,5 +352,37 @@ namespace CardSystem
             }
             return null;
         }
+
+        /// <summary>
+        /// Returns the full list of CardAbilityDefinition objects that make up the runtime deck
+        /// (base deck + any runtime/purchased definitions).
+        /// </summary>
+        public CardAbilityDefinition[] GetRuntimeDeckDefinitions()
+        {
+            var list = new List<CardAbilityDefinition>();
+
+            if (_deck != null && _deck.GetDeck != null)
+                list.AddRange(_deck.GetDeck);
+
+            if (runtimeAddedDefinitions != null && runtimeAddedDefinitions.Count > 0)
+                list.AddRange(runtimeAddedDefinitions);
+
+            return list.ToArray();
+        }
+
+        /// <summary>
+        /// Debug helper: print the runtime deck to the Unity Console.
+        /// Useful for quick runtime checks (call from UI button, hotkey, inspector button or code).
+        /// </summary>
+        public void LogRuntimeDeck()
+        {
+            var defs = GetRuntimeDeckDefinitions();
+            Debug.Log($"[CardManager] Runtime deck contains {defs.Length} definitions.");
+            for (int i = 0; i < defs.Length; i++)
+            {
+                var d = defs[i];
+                Debug.Log($"[CardManager] #{i}: {(d != null ? d.GetCardName : "<null>")}");
+            }
+        }
     }
 }

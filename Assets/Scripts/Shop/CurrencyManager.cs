@@ -1,0 +1,85 @@
+using System;
+using UnityEngine;
+
+public class CurrencyManager : MonoBehaviour
+{
+    public static CurrencyManager instance { get; private set; }
+
+    [Tooltip("Starting currency for new players")]
+    [SerializeField] private int startingBalance = 100;
+    [Tooltip("Max currency (0 = unlimited)")]
+    [SerializeField] private int maxBalance = 0;
+
+    private const string PREFS_KEY = "PlayerCurrency_Balance";
+    private int _balance;
+
+    public int Balance => _balance;
+
+    // Fired when balance changes; argument is new balance
+    public event Action<int> OnBalanceChanged;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        LoadBalance();
+    }
+
+    private void LoadBalance()
+    {
+      
+            _balance = startingBalance;
+            SaveBalance();
+    }
+
+    private void SaveBalance()
+    {
+        PlayerPrefs.SetInt(PREFS_KEY, _balance);
+        PlayerPrefs.Save();
+    }
+
+    // Try to spend amount. Returns true if successful and deducts amount.
+    public bool TrySpend(int amount)
+    {
+        if (amount <= 0) return true;
+
+        if (_balance >= amount)
+        {
+            _balance -= amount;
+            ClampAndSave();
+            OnBalanceChanged?.Invoke(_balance);
+            return true;
+        }
+        return false;
+    }
+
+    // Add currency (can be used for rewards, refunds, admin)
+    public void Add(int amount)
+    {
+        if (amount <= 0) return;
+        _balance += amount;
+        ClampAndSave();
+        OnBalanceChanged?.Invoke(_balance);
+    }
+
+    // Set absolute balance (useful for debug)
+    public void SetBalance(int value)
+    {
+        _balance = value;
+        ClampAndSave();
+        OnBalanceChanged?.Invoke(_balance);
+    }
+
+    private void ClampAndSave()
+    {
+        if (maxBalance > 0) _balance = Mathf.Min(_balance, maxBalance);
+        if (_balance < 0) _balance = 0;
+        SaveBalance();
+    }
+}

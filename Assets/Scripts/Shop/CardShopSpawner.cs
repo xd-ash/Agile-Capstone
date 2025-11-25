@@ -42,6 +42,22 @@ public class CardShopSpawner : MonoBehaviour
     [Tooltip("Max card tilt (degrees) at the edges")]
     public float maxTilt = 15f;
 
+    // runtime tracking of active spawned shop cards
+    private readonly List<GameObject> activeSpawnedCards = new List<GameObject>();
+
+    // singleton instance for easy access from other components (e.g. CardSelect when a card is bought)
+    public static CardShopSpawner Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning(LOG_PREFIX + " Multiple CardShopSpawner instances found. Keeping the first one.");
+            return;
+        }
+        Instance = this;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -87,21 +103,22 @@ public class CardShopSpawner : MonoBehaviour
         // Track runtime transform on the Card data
         card.CardTransform = cardGO.transform;
 
+        // track in active list for later deletion / refresh / layout
+        activeSpawnedCards.Add(cardGO);
+
         return cardGO;
     }
 
     // Convenience: spawn `count` cards (call this multiple times to populate shop)
     public void SpawnMultiple(int count)
     {
-        var spawned = new List<GameObject>(count);
-
         for (int i = 0; i < count; i++)
         {
-            var go = SpawnRandomCard();
-            if (go != null) spawned.Add(go);
+            SpawnRandomCard();
         }
 
-        ArrangeSpawnedCards(spawned);
+        // arrange all active cards (new + existing)
+        ArrangeSpawnedCards(activeSpawnedCards);
     }
 
     // Arrange spawned cards in a centered fan (local coordinates relative to parent)
@@ -143,6 +160,43 @@ public class CardShopSpawner : MonoBehaviour
 
             go.transform.localPosition = localPos;
             go.transform.localRotation = localRot;
+        }
+    }
+
+    // Called to remove a specific card GameObject from the shop (e.g. after purchase).
+    // If the card belongs to the shop, it is removed from tracking and destroyed. Layout is updated.
+    public void DeleteCard(GameObject cardGO)
+    {
+        if (cardGO == null) return;
+
+        if (activeSpawnedCards.Remove(cardGO))
+        {
+            Destroy(cardGO);
+            ArrangeSpawnedCards(activeSpawnedCards);
+        }
+        else
+        {
+            // Not in tracked list - still destroy if desired
+            Destroy(cardGO);
+        }
+    }
+
+    // Remove all current shop options and spawn `count` new ones (uses initialSpawnCount if count <= 0)
+    public void RefreshShop(int count = -1)
+    {
+        // destroy existing cards
+        for (int i = activeSpawnedCards.Count - 1; i >= 0; i--)
+        {
+            var go = activeSpawnedCards[i];
+            if (go != null) Destroy(go);
+        }
+        activeSpawnedCards.Clear();
+
+        // default to initialSpawnCount if caller didn't pass a count
+        int spawnCount = (count <= 0) ? initialSpawnCount : count;
+        if (spawnCount > 0)
+        {
+            SpawnMultiple(spawnCount);
         }
     }
 

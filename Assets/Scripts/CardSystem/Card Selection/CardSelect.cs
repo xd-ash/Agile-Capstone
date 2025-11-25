@@ -141,17 +141,23 @@ namespace CardSystem
             // Shop-mode: show confirmation popup instead of drag/drop purchase
             if (_isShopItem)
             {
+                Debug.Log($"Attempting to purchase shop item: {_card?.GetCardName} for {_shopCost} currency");
                 int price = _shopCost;
                 string cardName = _card?.GetCardName ?? "Card";
 
                 Action confirmAction = () =>
                 {
+                    Debug.Log($"Confirmed purchase of {cardName} for {price} currency");
                     if (CurrencyManager.instance != null && CurrencyManager.instance.TrySpend(price))
                     {
-                        // add to player's persistent collection and to runtime deck
                         PlayerCollection.instance?.Add(_card.GetCardAbility);
                         CardManager.instance?.AddDefinitionToRuntimeDeck(_card.GetCardAbility);
-                        Destroy(gameObject);
+
+                        GameObject toRemove = _card?.CardTransform != null ? _card.CardTransform.gameObject : gameObject;
+                        if (CardShopSpawner.Instance != null)
+                            CardShopSpawner.Instance.DeleteCard(toRemove);
+                        else
+                            Destroy(toRemove);
                     }
                     else
                     {
