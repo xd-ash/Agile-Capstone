@@ -42,10 +42,7 @@ public class GoapPlanner
         List<GOAPNode> leaves = new List<GOAPNode>();
         GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
 
-        //
-        /*string tempStr = "Actions: ";
-        foreach (var a in usableActions)
-            tempStr += a.ToString() + ", ";*/
+        /*/
         string tempStr = "";
         tempStr += "\nGoals: ";
         foreach (var g in goal)
@@ -54,7 +51,7 @@ public class GoapPlanner
         foreach (var b in beliefStates.GetStates())
             tempStr += b.Key + ", ";
         Debug.Log(tempStr);
-        //
+        /*/
 
         bool success = BuildGraph(start, leaves, usableActions, goal);
 

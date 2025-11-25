@@ -28,6 +28,10 @@ namespace CardSystem
         [SerializeField] private SplineContainer splineContainer;
         public Card selectedCard = null;
 
+        // runtime deck support
+        public List<CardAbilityDefinition> runtimeAddedDefinitions = new List<CardAbilityDefinition>();
+        private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
+
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
 
@@ -38,6 +42,17 @@ namespace CardSystem
         private void Start()
         {
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
+
+            // include any persisted/purchased cards into the runtime-added definitions
+            if (PlayerCollection.instance != null)
+            {
+                foreach (var def in PlayerCollection.instance.ownedCards)
+                {
+                    if (def != null && !runtimeAddedDefinitions.Contains(def))
+                        runtimeAddedDefinitions.Add(def);
+                }
+            }
+
             ShuffleDeck(); // Add shuffle before any cards are drawn
 
             cardActivePos = transform.Find("CardActivePos");
@@ -45,21 +60,36 @@ namespace CardSystem
 
         private void ShuffleDeck()
         {
-            if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length <= 1) return;
+            _runtimeDeckList.Clear();
 
-            // Fisher-Yates shuffle algorithm
-            CardAbilityDefinition[] cards = _deck.GetDeck;
-            for (int i = cards.Length - 1; i > 0; i--)
+            if (_deck != null && _deck.GetDeck != null)
+                _runtimeDeckList.AddRange(_deck.GetDeck);
+
+            if (runtimeAddedDefinitions != null && runtimeAddedDefinitions.Count > 0)
+                _runtimeDeckList.AddRange(runtimeAddedDefinitions);
+
+            if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) return;
+
+            // Fisher-Yates shuffle algorithm on runtime list
+            for (int i = _runtimeDeckList.Count - 1; i > 0; i--)
             {
                 int randomIndex = UnityEngine.Random.Range(0, i + 1);
-                // Swap
-                CardAbilityDefinition temp = cards[i];
-                cards[i] = cards[randomIndex];
-                cards[randomIndex] = temp;
+                var temp = _runtimeDeckList[i];
+                _runtimeDeckList[i] = _runtimeDeckList[randomIndex];
+                _runtimeDeckList[randomIndex] = temp;
             }
 
-            // After shuffling, start drawing from the top
             _topCardOfDeck = 0;
+        }
+
+        public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
+        {
+            if (def == null) return;
+            if (!runtimeAddedDefinitions.Contains(def))
+            {
+                runtimeAddedDefinitions.Add(def);
+                ShuffleDeck();
+            }
         }
 
         public void RemoveSelectedCard()
@@ -81,12 +111,25 @@ namespace CardSystem
             AudioManager.instance?.PlayDrawCardSfx();
 
             if (_currentHandSize >= _maxCards) return;
-            if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length == 0) return;
+            //if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length == 0) return;
 
-          
+            if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
+            {
+                // build fallback minimal runtime list from _deck if necessary
+                if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length == 0) return;
+                _runtimeDeckList = new List<CardAbilityDefinition>(_deck.GetDeck);
+            }
+
+            // If we've exhausted the deck, reshuffle it and reset the top index
+            if (_topCardOfDeck >= _runtimeDeckList.Count)
+            {
+                ShuffleDeck();
+                _topCardOfDeck = 0;
+            }
+
             Card newCard = null;
-            if (_topCardOfDeck < _deck.GetDeck.Length)
-                newCard = new Card(_deck.GetDeck[_topCardOfDeck]); // This creates the card with SO data
+            if (_topCardOfDeck < _runtimeDeckList.Count)
+                newCard = new Card(_runtimeDeckList[_topCardOfDeck]); // This creates the card with SO data
             if (newCard == null) return;
 
             _cardsInHand.Add(newCard);
@@ -160,37 +203,33 @@ namespace CardSystem
             if (count <= 0) return;
             for (int i = 0; i < count; i++)
             {
-                // DrawCard already guards against max hand size and end-of-deck.
                 DrawCard();
             }
         }
 
-        /// <summary>
-        /// Return up to <paramref name="count"/> CardAbilityDefinition objects from the top of the deck
-        /// without modifying deck state (non-destructive peek).
-        /// </summary>
         public CardAbilityDefinition[] PeekTopDefinitions(int count)
         {
-            if (_deck == null || _deck.GetDeck == null || count <= 0)
+            if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (_deck == null || _deck.GetDeck == null))
                 return Array.Empty<CardAbilityDefinition>();
 
-            int available = Mathf.Max(0, Mathf.Min(count, _deck.GetDeck.Length - _topCardOfDeck));
+            var source = (_runtimeDeckList != null && _runtimeDeckList.Count > 0)
+                ? _runtimeDeckList
+                : new List<CardAbilityDefinition>(_deck.GetDeck);
+
+            if (count <= 0) return Array.Empty<CardAbilityDefinition>();
+
+            int available = Math.Max(0, Math.Min(count, source.Count - _topCardOfDeck));
             if (available == 0) return Array.Empty<CardAbilityDefinition>();
 
             CardAbilityDefinition[] result = new CardAbilityDefinition[available];
-            Array.Copy(_deck.GetDeck, _topCardOfDeck, result, 0, available);
+            source.CopyTo(_topCardOfDeck, result, 0, available);
             return result;
         }
 
-        /// <summary>
-        /// Draw a fresh starting hand (discard existing then draw up to count, but never exceed _maxCards).
-        /// </summary>
         public void DrawStartingHand(int count)
         {
-            // Defensive: make sure we don't exceed _maxCards
             if (count <= 0) return;
 
-            // Ensure hand is empty first (prevents duplicates)
             DiscardAll();
 
             int toDraw = Mathf.Min(count, _maxCards);
@@ -198,15 +237,11 @@ namespace CardSystem
                 DrawCard();
         }
 
-        /// <summary>
-        /// Discard all cards currently in hand (destroy their prefabs, clear data).
-        /// </summary>
         public void DiscardAll()
         {
             if (_cardsInHand == null || _cardsInHand.Count == 0)
                 return;
 
-            // Destroy any world prefabs
             foreach (var card in _cardsInHand)
             {
                 if (card?.CardTransform != null)
@@ -215,7 +250,6 @@ namespace CardSystem
                 }
             }
 
-            // Clear hand data
             _cardsInHand.Clear();
             _nextCardInHandIndex = 0;
             _currentHandSize = 0;
@@ -223,10 +257,6 @@ namespace CardSystem
             ArrangeCardGOs();
         }
 
-        /// <summary>
-        /// Called by CardUI or CardSelect when player chooses a card via UI or world object.
-        /// Centralizes selection behavior used previously by CardSelect.OnMouseDown.
-        /// </summary>
         public void SelectCard(Card card)
         {
             if (PauseMenu.isPaused) return;
@@ -234,12 +264,10 @@ namespace CardSystem
 
             selectedCard = card;
 
-            // Existing workflow used in CardSelect:
             AbilityEvents.TargetingStarted();
             card.GetCardAbility.UseAility(TurnManager.GetCurrentUnit);
         }
 
-        // Add these methods to the CardManager class:
         public void ReorderCard(Card card, int newIndex)
         {
             if (card == null || _cardsInHand == null) return;
@@ -268,14 +296,12 @@ namespace CardSystem
 
         private void UpdateTransformWithTween(Transform transform, Vector3 targetPosition, Quaternion targetRotation, bool isHovered)
         {
-            // Kill any existing sequence for this transform
             if (_activeSequences.TryGetValue(transform, out Sequence oldSequence))
             {
                 oldSequence.Kill();
                 _activeSequences.Remove(transform);
             }
 
-            // Create a new sequence
             Sequence sequence = DOTween.Sequence();
             
             float duration = isHovered ? _tweenDuration * 0.4f : _tweenDuration;
@@ -284,7 +310,6 @@ namespace CardSystem
             sequence.Join(transform.DOMove(targetPosition, duration).SetEase(easeType));
             sequence.Join(transform.DORotateQuaternion(targetRotation, duration).SetEase(easeType));
 
-            // Store the new sequence
             _activeSequences[transform] = sequence;
         }
 
@@ -334,7 +359,6 @@ namespace CardSystem
             }
         }
 
-        // Add this helper method to CardManager class
         public Sequence GetActiveTweenSequence(Transform transform)
         {
             if (_activeSequences.TryGetValue(transform, out Sequence sequence))
@@ -342,6 +366,37 @@ namespace CardSystem
                 return sequence;
             }
             return null;
+        }
+        /// <summary>
+        /// Returns the full list of CardAbilityDefinition objects that make up the runtime deck
+        /// (base deck + any runtime/purchased definitions).
+        /// </summary>
+        public CardAbilityDefinition[] GetRuntimeDeckDefinitions()
+        {
+            var list = new List<CardAbilityDefinition>();
+
+            if (_deck != null && _deck.GetDeck != null)
+                list.AddRange(_deck.GetDeck);
+
+            if (runtimeAddedDefinitions != null && runtimeAddedDefinitions.Count > 0)
+                list.AddRange(runtimeAddedDefinitions);
+
+            return list.ToArray();
+        }
+
+        /// <summary>
+        /// Debug helper: print the runtime deck to the Unity Console.
+        /// Useful for quick runtime checks (call from UI button, hotkey, inspector button or code).
+        /// </summary>
+        public void LogRuntimeDeck()
+        {
+            var defs = GetRuntimeDeckDefinitions();
+            Debug.Log($"[CardManager] Runtime deck contains {defs.Length} definitions.");
+            for (int i = 0; i < defs.Length; i++)
+            {
+                var d = defs[i];
+                Debug.Log($"[CardManager] #{i}: {(d != null ? d.GetCardName : "<null>")}");
+            }
         }
     }
 }

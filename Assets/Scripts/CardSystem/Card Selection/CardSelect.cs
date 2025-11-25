@@ -1,9 +1,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using DG.Tweening;
-using Unity.VisualScripting;
+using System;
 
 namespace CardSystem
 {
@@ -52,20 +51,30 @@ namespace CardSystem
         // Add static field to track if any card is currently being used
         private static bool isAnyCardActive = false;
 
+        // Shop-mode extras (merged ShopCard behaviour)
+        private Vector3 _startLocalPos;
+        private Transform _startParent;
+        private bool _isShopItem = false;
+        private int _shopCost = 0;
+        private Collider2D _shopBuyAreaCollider = null;
+        private string _shopBuyAreaTag = "BuyArea";
+
         private void OnEnable()
         {
             _mainCamera = Camera.main;
             SetupVisuals();
             AbilityEvents.OnAbilityUsed += ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted += OnTargetingStarted; // Use the correct event
-            TurnManager.instance.OnPlayerTurnEnd += ReturnCardToHand;
+            if (TurnManager.instance != null )
+                TurnManager.instance.OnPlayerTurnEnd += ReturnCardToHand;
         }
 
         private void OnDestroy()
         {
             AbilityEvents.OnAbilityUsed -= ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted -= OnTargetingStarted; // Use the correct event   
-            TurnManager.instance.OnPlayerTurnEnd -= ReturnCardToHand;
+            if (TurnManager.instance != null)
+                TurnManager.instance.OnPlayerTurnEnd -= ReturnCardToHand;
         }
 
         // Add handler method
@@ -142,6 +151,53 @@ namespace CardSystem
 
         private void OnMouseDown()
         {
+            if (PauseMenu.isPaused || selected) return;
+
+            // Shop-mode: show confirmation popup instead of drag/drop purchase
+            if (_isShopItem)
+            {
+                Debug.Log($"Attempting to purchase shop item: {_card?.GetCardName} for {_shopCost} currency");
+                int price = _shopCost;
+                string cardName = _card?.GetCardName ?? "Card";
+
+                Action confirmAction = () =>
+                {
+                    Debug.Log($"Confirmed purchase of {cardName} for {price} currency");
+                    if (CurrencyManager.instance != null && CurrencyManager.instance.TrySpend(price))
+                    {
+                        PlayerCollection.instance?.Add(_card.GetCardAbility);
+                        CardManager.instance?.AddDefinitionToRuntimeDeck(_card.GetCardAbility);
+
+                        GameObject toRemove = _card?.CardTransform != null ? _card.CardTransform.gameObject : gameObject;
+                        if (CardShopSpawner.Instance != null)
+                            CardShopSpawner.Instance.DeleteCard(toRemove);
+                        else
+                            Destroy(toRemove);
+                    }
+                    else
+                    {
+                        OutOfApPopup.Instance?.Show();
+                    }
+                };
+
+                Action cancelAction = () =>
+                {
+                    // no-op; popup will just close
+                };
+
+                if (ShopConfirmPopup.Instance != null)
+                {
+                    ShopConfirmPopup.Instance.Show(price, $"Buy \"{cardName}\" for {price}?", confirmAction, cancelAction);
+                }
+                else
+                {
+                    // fallback: attempt immediate purchase
+                    confirmAction();
+                }
+
+                return;
+            }
+
             // Add check for active cards
             if (PauseMenu.isPaused || selected || CardManager.instance == null || isAnyCardActive) return;
 
@@ -157,7 +213,7 @@ namespace CardSystem
 
             // Visual feedback for picking up
             transform.DOScale(originalScale * dragScaleMultiplier, scaleDuration);
-            transform.DORotate(new Vector3(0, 0, Random.Range(-rotationAmount, rotationAmount)), scaleDuration);
+            transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(-rotationAmount, rotationAmount)), scaleDuration);
 
             BringToFront();
         }
@@ -166,10 +222,17 @@ namespace CardSystem
 
         private void OnMouseDrag()
         {
-            if (!isDragging || PauseMenu.isPaused || CardManager.instance == null || isAnyCardActive) return;
+            if (!isDragging || PauseMenu.isPaused || isAnyCardActive) return;
 
-            // Direct position setting without any constraints
             transform.position = GetMouseWorldPosition() + dragOffset;
+
+            if (_isShopItem)
+            {
+                // shop items no longer use drag-to-buy behavior
+                return;
+            }
+
+            if (CardManager.instance == null) return;
 
             // Track when we cross the threshold
             bool wasAboveHand = isAboveHandArea;
@@ -456,6 +519,25 @@ namespace CardSystem
 
             card.CardTransform = transform;
             SetupVisuals();
+        }
+
+        /// <summary>
+        /// Enable shop-mode for this CardSelect (merged ShopCard functionality).
+        /// Call this from the spawner right after OnPrefabCreation when creating shop items.
+        /// </summary>
+        public void EnableShopMode(int cost, Collider2D buyAreaCollider = null, string buyAreaTag = "BuyArea")
+        {
+            _isShopItem = true;
+            _shopCost = Mathf.Max(0, cost);
+            _shopBuyAreaCollider = buyAreaCollider;
+            _shopBuyAreaTag = buyAreaTag;
+
+            // If the prefab has a cost display (third TextMeshPro), update it.
+            TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
+            if (cardTextFields.Length >= 3)
+            {
+                cardTextFields[2].text = _shopCost.ToString();
+            }
         }
     }
 }
