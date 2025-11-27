@@ -2,17 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XNode;
 
 namespace CardSystem
 {
+    // Base abstract targeting strategy
     public abstract class TargetingStrategy : AbilityNodeBase
     {
-        [Input(connectionType = ConnectionType.Override)] public bool enter; //only one thing can be plugged in
+        [Input(connectionType = ConnectionType.Override)] public short input;
 
         public bool isAOE;
         public float radius;
-        public LayerMask layerMask;
 
         public virtual void StartTargeting(AbilityData abilityData, Action onFinished)
         {

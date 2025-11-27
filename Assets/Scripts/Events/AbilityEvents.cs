@@ -5,9 +5,9 @@ using UnityEngine;
 public static class AbilityEvents
 {
     public static event Action OnAbilityTargetingStarted;
+    public static event Action OnAbilityTargetingStopped;
     public static event Action OnAbilityUsed;
 
-<<<<<<< Updated upstream
     public static bool IsTargeting { get; private set; }
 
     public static void TargetingStarted()
@@ -27,8 +27,4 @@ public static class AbilityEvents
         IsTargeting = false;
         OnAbilityUsed?.Invoke();
     }
-=======
-    public static void TargetingStarted() => OnAbilityTargetingStarted?.Invoke();
-    public static void AbilityUsed() => OnAbilityUsed?.Invoke();
->>>>>>> Stashed changes
 }

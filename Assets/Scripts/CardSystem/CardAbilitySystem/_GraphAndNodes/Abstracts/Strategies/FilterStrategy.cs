@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using XNode;
 
 namespace CardSystem
 {
+    // Base abstract Filter Strategy
     public abstract class FilterStrategy : AbilityNodeBase
     {
-        [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public int enter;
+        [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public double input; 
 
         public abstract IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter);
     }
