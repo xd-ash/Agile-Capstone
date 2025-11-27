@@ -1,8 +1,12 @@
 using AStarPathfinding;
 using Interfaces;
 using System;
+<<<<<<< Updated upstream
 using System.Collections;
 using TMPro;
+=======
+using Interfaces;
+>>>>>>> Stashed changes
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +17,7 @@ public class Unit : MonoBehaviour, IDamagable
     public Team team;
     public int maxHealth;
     public int health;
+<<<<<<< Updated upstream
 
     [Header("Shield")]
     [SerializeField] private int shield = 0; // current shield amount (absorb damage before health)
@@ -36,12 +41,24 @@ public class Unit : MonoBehaviour, IDamagable
     private FindPathAStar _aStar;
 
     public event Action<Unit> OnApChanged;
+=======
+    
+    [Header("Target for Enemy units")]
+    [SerializeField] private Unit _target;
+    
+    [Header("Action Points")] 
+    public int maxAP;
+    public int ap;
+    
+    public event Action<Unit> OnApChanged; 
+>>>>>>> Stashed changes
 
     private void Awake()
     {
         health = maxHealth;
         ap = maxAP;
         RaiseHealthEvent();
+<<<<<<< Updated upstream
         HideHitChance();
 
         // Ensure UI gets initial shield state
@@ -53,11 +70,14 @@ public class Unit : MonoBehaviour, IDamagable
             //_enemyHPBar.gameObject.SetActive(false); // commented this out so enemy HP bar show from start
             ShieldEvents.RaiseEnemyShieldChanged(shield);
         }
+=======
+>>>>>>> Stashed changes
     }
     private void Start()
     {
         _aStar = GetComponent<FindPathAStar>();
 
+<<<<<<< Updated upstream
         //**********************************************************************//
         if (team != Team.Friendly) return;                                      //
         CardSystem.CardManager.instance.OnCardAblityCancel += StopAllCoroutines;// I SHOULD BE CHANGED TO A BETTER SYSTEM
@@ -165,11 +185,21 @@ public class Unit : MonoBehaviour, IDamagable
             ShieldEvents.RaiseEnemyShieldChanged(shield);
 
         if (duration > 0f)
+=======
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        RaiseHealthEvent();
+        Debug.Log($"[{team}] " + this.name + " took " + damage + " damage, remaining health: "  + health);
+        if (health <= 0)
+>>>>>>> Stashed changes
         {
-            StartCoroutine(RemoveShieldAfter(duration, amount));
+            Destroy(this.gameObject);
+            Debug.Log($"[{team}] " + this.name + " unit died");
         }
     }
 
+<<<<<<< Updated upstream
     /// <summary>
     /// Remove up to `amount` from shield immediately.
     /// </summary>
@@ -201,6 +231,14 @@ public class Unit : MonoBehaviour, IDamagable
     {
         if (team == Team.Enemy && target != null)
             target.ChangeHealth(damage, false);
+=======
+    public void DealDamage(int damage = 2)
+    {
+        if (team == Team.Enemy && _target != null)
+        {
+            _target.TakeDamage(damage);
+        }
+>>>>>>> Stashed changes
     }
     //placeholder enemy healthbar stuff
     public void UpdateHealthBar()
@@ -215,23 +253,29 @@ public class Unit : MonoBehaviour, IDamagable
     private void RaiseHealthEvent()
     {
         if (team == Team.Friendly)
+        {
             DamageEvents.RaisePlayerDamaged(health,maxHealth);
+        }
         else
+        {
             DamageEvents.RaiseEnemyDamaged(health, maxHealth);
+        }
     }
-
+    
     public void RefreshAP()
     {
         ap = maxAP;
         OnApChanged?.Invoke(this);
     }
-
+    
     public bool CanSpend(int cost) => ap >= cost;
 
     public bool SpendAP(int cost, bool spendNow = true)
     {
         if (!CanSpend(cost))
+        {
             return false;
+<<<<<<< Updated upstream
         if (spendNow)
         {
             ap -= cost;
@@ -272,3 +316,12 @@ public class Unit : MonoBehaviour, IDamagable
     }
 
 }
+=======
+        }
+        ap -= cost;
+        OnApChanged?.Invoke(this);
+
+        return true;
+    }
+}
+>>>>>>> Stashed changes

@@ -1,0 +1,62 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using XNode;
+
+namespace CardSystem
+{
+	public class AbilityRootNode : AbilityNodeBase
+	{
+		[Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public bool targeting;
+		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public int filtering;
+		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
+
+		private TargetingStrategy _targetingStrategy;
+
+		public void UseAbility(Unit user)
+		{
+            if (_targetingStrategy == null)
+                _targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
+
+        AbilityData abilityData = new AbilityData(user);
+		_targetingStrategy?.StartTargeting(abilityData, () =>
+		{
+			InitAbility(abilityData);
+			//Debug.Log("init ability called");
+		});
+        }
+
+		private void InitAbility(AbilityData abilityData)
+		{
+			//do each filter connected to root node
+			foreach (NodePort port in Outputs)
+			{
+				if (port.Connection == null || port.Connection.node == null || port.Connection.node is FilterStrategy == false)
+				{
+					continue;
+				}
+
+				abilityData.Targets = (port.Connection.node as FilterStrategy).Filter(abilityData.Targets);
+			}
+
+			//Do each effect connected to root node
+			foreach (NodePort port in Outputs)
+			{
+				if (port.Connection == null || port.Connection.node == null || port.Connection.node is EffectStrategy == false)
+				{
+					continue;
+				}
+
+				EffectStrategy curEffect = port.Connection.node as EffectStrategy;
+				curEffect.StartEffect(abilityData, OnEffectFinished);
+			}
+		}
+
+		private void OnEffectFinished()
+		{
+			AbilityEvents.AbilityUsed();
+
+			//end turn? other stuff?
+		}
+	}
+}

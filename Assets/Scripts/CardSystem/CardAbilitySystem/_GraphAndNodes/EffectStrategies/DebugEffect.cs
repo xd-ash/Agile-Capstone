@@ -3,15 +3,14 @@ using UnityEngine;
 
 namespace CardSystem
 {
-    // Concrete misc effect class to send a debug log message instantly or multiple time over duration
-    [CreateNodeMenu("Misc Effects/Debug Message")]
-    public class DebugEffect : MiscEffect
+    [CreateNodeMenu("Effect/Debug")]
+    public class DebugEffect : EffectStrategy
     {
-        [TextArea]
-        [SerializeField] private string message;
+        public string message;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished)
+        public override void StartEffect(AbilityData ablilityData, Action onFinished)
         {
+<<<<<<< Updated upstream:Assets/Scripts/CardSystem/CardAbilitySystem/_GraphAndNodes/EffectStrategies/DebugEffect.cs
             base.StartEffect(abilityData, onFinished);
 
             foreach (GameObject target in abilityData.Targets)
@@ -24,6 +23,9 @@ namespace CardSystem
                 }
             }
 
+=======
+            Debug.Log(message);
+>>>>>>> Stashed changes:Assets/Scripts/CardSystem/CardAbilitySystem/EffectStrategies/DebugEffect.cs
             onFinished();
         }
     }

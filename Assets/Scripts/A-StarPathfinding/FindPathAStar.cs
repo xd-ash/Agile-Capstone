@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+<<<<<<< Updated upstream
 using static IsoMetricConversions;
+=======
+using static UnityEngine.RuleTile.TilingRuleOutput;
+>>>>>>> Stashed changes
 
 namespace AStarPathfinding
 {
@@ -93,7 +97,12 @@ namespace AStarPathfinding
         //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
         public List<PathMarker> CalculatePath(Vector2Int tilePos)
         {
+<<<<<<< Updated upstream
             if (done && !_isMoving && PauseMenu.isPaused != true)
+=======
+            if (done && !_isMoving && _mapCreator.tileMousePos.x >= 0 && _mapCreator.tileMousePos.y >= 0 &&
+                _mapCreator.GetByteMap[_mapCreator.tileMousePos.x, _mapCreator.tileMousePos.y] == 0)
+>>>>>>> Stashed changes
             {
                 //only allow movement on this unit's turn
                 if (TurnManager.GetCurrentUnit != _unit) return null; 

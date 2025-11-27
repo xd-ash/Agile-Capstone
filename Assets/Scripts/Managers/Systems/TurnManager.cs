@@ -24,6 +24,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _turnText;
     [SerializeField] TextMeshProUGUI _apText;
 
+<<<<<<< Updated upstream
     [Header("Turn settings")]
     [SerializeField] private int _startingHandSize = 5; // draw this many cards at start of player turn
 
@@ -38,17 +39,20 @@ public class TurnManager : MonoBehaviour
     public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
     public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null;
     public static List<Unit> GetUnitTurnOrder => instance != null ? instance._unitTurnOrder : null;
+=======
+    public event Action<Turn> OnTurnChanged;
+>>>>>>> Stashed changes
 
     private void Awake()
     {
         if (instance != null && instance != this)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); 
             return;
         }
         instance = this;
     }
-
+    
     private void Start()
     {
         AbilityEvents.OnAbilityUsed += UpdateApText;
@@ -88,7 +92,7 @@ public class TurnManager : MonoBehaviour
 
         return sortedList;
     }
-
+    
     public void UpdateApText()
     {
         if (_apText == null) return;
@@ -117,8 +121,23 @@ public class TurnManager : MonoBehaviour
         //Debug.Log($"[TurnManager]" + currTurn + "'s turn");
         if (_turnText != null)
             _turnText.text = $"{currTurn}'s Turn";
+<<<<<<< Updated upstream
         if (_curUnit != null)
             _curUnit.RefreshAP();
+=======
+        }
+        if (currTurn == Turn.Player && _player != null)
+        {
+            _player.RefreshAP();
+        }
+        if (currTurn == Turn.Enemy && _enemy != null)
+        { 
+            _enemy.RefreshAP(); 
+        }
+        UpdateApText();
+        
+        OnTurnChanged?.Invoke(currTurn);
+>>>>>>> Stashed changes
 
         if (currTurn == Turn.Enemy)
             _curUnit.GetComponent<GoapAgent>().ResetStates();
@@ -138,11 +157,18 @@ public class TurnManager : MonoBehaviour
     {
         while (_curUnit != null && _curUnit.CanSpend(5))
         {
+<<<<<<< Updated upstream
             yield return new WaitForSeconds(1f);
             _curUnit.DealDamage(_player, 1);
             _curUnit.SpendAP(5);
             AudioManager.instance?.PlaySFX(_enemyDmgSfx);
             //Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_curUnit.ap}");
+=======
+            yield return new WaitForSeconds(2f); 
+            _enemy.DealDamage(2);
+            _enemy.SpendAP(5);
+            Debug.Log($"[TurnManager] Enemy Action. Remaining AP: {_enemy.ap}");
+>>>>>>> Stashed changes
             UpdateApText();
         }
         //Debug.Log("[TurnManager] Enemy ended turn.");
@@ -153,6 +179,7 @@ public class TurnManager : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+<<<<<<< Updated upstream
         if (currTurn != Turn.Player) return; // avoid turn end spam
 
         SetTurn();
@@ -162,5 +189,8 @@ public class TurnManager : MonoBehaviour
         // discard player's hand at end of player turn
         if (CardSystem.CardManager.instance != null)
             CardSystem.CardManager.instance.DiscardAll();
+=======
+        SetTurn(Turn.Enemy);
+>>>>>>> Stashed changes
     }
 }

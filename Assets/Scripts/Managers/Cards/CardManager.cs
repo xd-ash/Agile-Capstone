@@ -1,7 +1,12 @@
+using AStarPathfinding;
 using DG.Tweening;
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Splines;
 
 namespace CardSystem
@@ -13,21 +18,27 @@ namespace CardSystem
         private void Awake()
         {
             if (instance == null)
+            {
                 instance = this;
+            }
             else
+            {
+                Debug.LogError($"{this.gameObject.name} has been destroyed due to singleton conflict");
                 Destroy(this.gameObject);
+            }
         }
 
         public int _topCardOfDeck = 0;
         public int _nextCardInHandIndex = 0;
-        public int _maxCards = 100;
+        public int _maxCards = 5;
         public int _currentHandSize = 0;
 
         [SerializeField] private Deck _deck;
-        [SerializeField] public List<Card> _cardsInHand = new();
+        [SerializeField] private List<Card> _cardsInHand = new();
         [SerializeField] private SplineContainer splineContainer;
         public Card selectedCard = null;
 
+<<<<<<< Updated upstream
         // runtime deck support
         public List<CardAbilityDefinition> runtimeAddedDefinitions = new List<CardAbilityDefinition>();
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
@@ -104,6 +115,11 @@ namespace CardSystem
                 Destroy(selectedCard.CardTransform.gameObject);
 
             selectedCard = null;
+=======
+        private void Start()
+        {
+            AbilityEvents.OnAbilityUsed += RemoveCard;
+>>>>>>> Stashed changes
         }
 
         public void DrawCard()
@@ -128,8 +144,13 @@ namespace CardSystem
             }
 
             Card newCard = null;
+<<<<<<< Updated upstream
             if (_topCardOfDeck < _runtimeDeckList.Count)
                 newCard = new Card(_runtimeDeckList[_topCardOfDeck]); // This creates the card with SO data
+=======
+            if (_topCardOfDeck < _deck.GetDeck.Length)
+                newCard = new Card(_deck.GetDeck[_topCardOfDeck]);
+>>>>>>> Stashed changes
             if (newCard == null) return;
 
             _cardsInHand.Add(newCard);
@@ -149,51 +170,40 @@ namespace CardSystem
 
             ArrangeCardGOs();
         }
-
+        public void RemoveCard()
+        {
+            _cardsInHand.Remove(selectedCard);
+            _currentHandSize--;
+            ArrangeCardGOs();
+            Destroy(selectedCard.CardTransform.gameObject); 
+            selectedCard = null;
+        }
         public void CreateCardPrefab(Card card)
         {
-            GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
-            if (!cardGO.GetComponent<CardSelect>()) cardGO.AddComponent<CardSelect>();
+            GameObject cardGO = Instantiate(card.GetCardPrefab, transform);
+            if(!cardGO.GetComponent<CardSelect>()) cardGO.AddComponent<CardSelect>();
             cardGO.GetComponent<CardSelect>().OnPrefabCreation(card);
-            card.CardTransform = cardGO.transform;
         }
 
         public void ArrangeCardGOs()
         {
             if (_currentHandSize == 0) return;
-            var spline = splineContainer != null ? splineContainer.Spline : null;
-            if (spline == null)
-            {
-                Debug.LogWarning("CardManager: SplineContainer or Spline is not assigned.");
-                return;
-            }
-
-            int count = Mathf.Min(_currentHandSize, _cardsInHand.Count);
-            int slots = Mathf.Max(1, count);
-
-            float cardSpacing = 1f / slots;
-
-            // Center the group along the spline range [0,1]
-            float firstCardPos = 0.5f - (count - 1) * (cardSpacing / 2f);
-            firstCardPos = Mathf.Clamp01(firstCardPos);
-
-            for (int i = 0; i < count; i++)
+            float cardSpacing = 1f / (_maxCards);
+            float firstCardPos = 0f; //0.5f - (_currentHandSize - 1) * (cardSpacing / 2);
+            Spline spline = splineContainer.Spline;
+            for (int i = 0; i < _currentHandSize; i++)
             {
                 float t = firstCardPos + i * cardSpacing;
-                t = Mathf.Clamp01(t);
-
                 Vector3 splinePosition = spline.EvaluatePosition(t);
                 Vector3 forward = spline.EvaluateTangent(t);
                 Vector3 up = spline.EvaluateUpVector(t);
                 Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
-                var tr = _cardsInHand[i]?.CardTransform;
-                if (tr != null)
-                {
-                    UpdateTransformWithTween(tr, splinePosition, rotation, false);
-                }
+                _cardsInHand[i].CardTransform.DOMove(splinePosition, 0.25f);
+                _cardsInHand[i].CardTransform.DOLocalRotateQuaternion(rotation, 0.25f);
             }
         }
+<<<<<<< Updated upstream
 
         /// <summary>
         /// Draw multiple cards (respects existing DrawCard logic such as max hand size).
@@ -398,5 +408,7 @@ namespace CardSystem
                 Debug.Log($"[CardManager] #{i}: {(d != null ? d.GetCardName : "<null>")}");
             }
         }
+=======
+>>>>>>> Stashed changes
     }
 }

@@ -1,8 +1,12 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+<<<<<<< Updated upstream
 using DG.Tweening;
 using System;
+=======
+using UnityEngine.InputSystem;
+>>>>>>> Stashed changes
 
 namespace CardSystem
 {
@@ -10,12 +14,17 @@ namespace CardSystem
     {
         private SpriteRenderer _spriteRenderer;
         private GameObject _cardHighlight;
+<<<<<<< Updated upstream
         private SpriteRenderer _highlightRenderer;
         private Card _card;
+=======
+>>>>>>> Stashed changes
 
         [SerializeField] private Sprite _cardSprite;
-        [SerializeField] private bool selected = false;
+        [SerializeField] private bool selected = false;//, hovering = false;
+        private Card _card;
 
+<<<<<<< Updated upstream
         [Header("Visual Settings")]
         [SerializeField] private float handAreaHeight = 2f; // Height of the hand area
         //[SerializeField] private float activationThreshold = 2.1f; // Just above hand area
@@ -47,6 +56,10 @@ namespace CardSystem
         private Camera _mainCamera;
         private Color originalColor;
         private Vector3 originalScale;
+=======
+        //private Vector3 offset;
+        //private Vector2 originalLocation;
+>>>>>>> Stashed changes
 
         // Add static field to track if any card is currently being used
         private static bool isAnyCardActive = false;
@@ -61,14 +74,17 @@ namespace CardSystem
 
         private void OnEnable()
         {
-            _mainCamera = Camera.main;
-            SetupVisuals();
+            _cardHighlight = transform.Find("CardHighlight").gameObject;
+            _cardHighlight.SetActive(false);
+
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer.sprite = _cardSprite;
+
             AbilityEvents.OnAbilityUsed += ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted += OnTargetingStarted; // Use the correct event
             if (TurnManager.instance != null )
                 TurnManager.instance.OnPlayerTurnEnd += ReturnCardToHand;
         }
-
         private void OnDestroy()
         {
             AbilityEvents.OnAbilityUsed -= ClearSelection;
@@ -82,54 +98,9 @@ namespace CardSystem
         {
             isAnyCardActive = true;
         }
-
-        private void SetupVisuals()
-        {
-            _cardHighlight = transform.Find("CardHighlight")?.gameObject;
-            if (_cardHighlight != null) _cardHighlight.SetActive(false);
-
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            if (_spriteRenderer != null)
-            {
-                _baseSortingOrder = _spriteRenderer.sortingOrder;
-                if (_cardSprite != null) _spriteRenderer.sprite = _cardSprite;
-            }
-
-            _highlightRenderer = _cardHighlight?.GetComponent<SpriteRenderer>();
-            if (_highlightRenderer != null)
-            {
-                _highlightRenderer.sortingLayerID = _spriteRenderer.sortingLayerID;
-                _highlightRenderer.sortingOrder = _baseSortingOrder + 1;
-            }
-        }
-
-        private void UpdateCardText()
-        {
-            if (_card == null) return;
-
-            // Update card name text
-            if (_nameText != null)
-            {
-                _nameText.text = _card.GetCardName;
-                UpdateSortingOrders(_baseSortingOrder); // Ensure proper text layering
-            }
-
-            // Update description text
-            if (_descriptionText != null)
-            {
-                _descriptionText.text = _card.GetDescription;
-                UpdateSortingOrders(_baseSortingOrder); // Ensure proper text layering
-            }
-        }
-
-        private void Start()
-        {
-            originalScale = transform.localScale;
-            originalColor = _spriteRenderer.color;
-        }
-
         private void OnMouseEnter()
         {
+<<<<<<< Updated upstream
             // Add check for active cards
             if (!selected && !PauseMenu.isPaused && !isDragging && !isAnyCardActive)
             {
@@ -137,20 +108,22 @@ namespace CardSystem
                 transform.DOScale(originalScale * hoverScaleMultiplier, scaleDuration);
                 BringToFront();
             }
+=======
+            _cardHighlight.SetActive(true);
+            transform.position += Vector3.up;
+>>>>>>> Stashed changes
         }
-
         private void OnMouseExit()
         {
-            if (!selected && !PauseMenu.isPaused && !isDragging)
+            if (!selected)
             {
-                if (_cardHighlight != null) _cardHighlight.SetActive(false);
-                transform.DOScale(originalScale, scaleDuration);
-                RestoreOrder();
+                _cardHighlight.SetActive(false);
+                transform.position -= Vector3.up;
             }
         }
-
         private void OnMouseDown()
         {
+<<<<<<< Updated upstream
             if (PauseMenu.isPaused || selected) return;
 
             // Shop-mode: show confirmation popup instead of drag/drop purchase
@@ -471,25 +444,73 @@ namespace CardSystem
             _spriteRenderer.color = Color.white;
             if (_cardHighlight != null) _cardHighlight.SetActive(false);
             RestoreOrder();
+=======
+            selected = true;
+            //add check for enough ap?
+
+            CardManager.instance.selectedCard = _card; //make me better, this is messy
+
+            AbilityEvents.TargetingStarted();//invoke static event
+            _card.GetCardAbility.UseAility(TurnManager.GetCurrentUnit);
         }
 
-        /// <summary>
-        /// Initializes the CardSelect component with the given Card data.
-        /// Called when a new card prefab is created.
-        /// </summary>
-        /// <param name="card">The Card instance to associate with this CardSelect component</param>
-        public void OnPrefabCreation(Card card)
+        private void Update()
         {
-            if (card == null)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Debug.LogError("OnPrefabCreation: Card parameter is null");
-                return;
+                ClearSelection();
             }
 
+            /* Drag disabled while setting up ability functionality
+             * 
+            if (Input.GetMouseButtonDown(0))
+            {
+                //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+                if (hovering)
+                {
+                    selected = true;
+                    //card = hit.transform;
+                    //originalLocation = hit.transform.position;
+                    originalLocation = transform.position;
+                    offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                if (selected)
+                {
+                    selected = false;
+                    transform.position = originalLocation;
+                }
+            }
+
+            if (selected)
+            {
+                transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            }
+            */
+        }
+        public void ClearSelection()
+        {
+            if (selected)
+            {
+                TurnManager.GetCurrentUnit.StopAllCoroutines();
+
+                selected = false;
+                transform.position -= Vector3.up;
+                _cardHighlight.SetActive(false);
+            }
+>>>>>>> Stashed changes
+        }
+
+        public void OnPrefabCreation(Card card)
+        {
             _card = card;
             _card.CardTransform = transform;
 
             transform.name = card.GetCardName;
+<<<<<<< Updated upstream
 
             // Get all TextMeshPro components (non-UI version)
             TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
@@ -519,6 +540,12 @@ namespace CardSystem
 
             card.CardTransform = transform;
             SetupVisuals();
+=======
+            TextMeshPro[] cardTextFields = transform.GetComponentsInChildren<TextMeshPro>();
+            cardTextFields[0].text = card.GetCardName;
+            cardTextFields[1].text = card.GetDescription;
+            cardTextFields[2].text = card.APCost.ToString();
+>>>>>>> Stashed changes
         }
 
         /// <summary>

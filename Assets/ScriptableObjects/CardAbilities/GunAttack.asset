@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+<<<<<<< Updated upstream:Assets/ScriptableObjects/CardAbilities/Drawing/DrawCard.asset
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
+  m_Name: DrawCard
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 282906417093084810}
+  - {fileID: 1231947657844673271}
+  - {fileID: 6139669208157274387}
+  _cardName: Draw Card
+  _description: Draw 1 Card
+  abilitySFX: {fileID: 0}
+--- !u!114 &282906417093084810
+=======
+--- !u!114 &-3542380689194043451
+>>>>>>> Stashed changes:Assets/ScriptableObjects/CardAbilities/GunAttack.asset
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e72152fd1d8d54690b69f540af0db1, type: 3}
+  m_Name: Ability Root
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+<<<<<<< Updated upstream:Assets/ScriptableObjects/CardAbilities/Drawing/DrawCard.asset
+  position: {x: -280, y: -152}
+=======
+  position: {x: -518, y: -119.5}
+>>>>>>> Stashed changes:Assets/ScriptableObjects/CardAbilities/GunAttack.asset
+  ports:
+    keys:
+    - targeting
+    - filtering
+    - effects
+    - effects 0
+    values:
+    - _fieldName: targeting
+      _node: {fileID: -3542380689194043451}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+<<<<<<< Updated upstream:Assets/ScriptableObjects/CardAbilities/Drawing/DrawCard.asset
+      - fieldName: input
+        node: {fileID: 6139669208157274387}
+=======
+      - fieldName: enter
+        node: {fileID: 4920087219397759516}
+>>>>>>> Stashed changes:Assets/ScriptableObjects/CardAbilities/GunAttack.asset
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: filtering
+      _node: {fileID: -3542380689194043451}
+      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects
+      _node: {fileID: -3542380689194043451}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects 0
+      _node: {fileID: -3542380689194043451}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: enter
+        node: {fileID: 3765637015316457495}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  targeting: 0
+  filtering: 0
+  effects: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
+  m_Name: GunAttack
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -3542380689194043451}
+  - {fileID: 4920087219397759516}
+  - {fileID: 3765637015316457495}
+--- !u!114 &3765637015316457495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e1ab9944daa8448ae57cbf6838acbb, type: 3}
+  m_Name: Damage Effect
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+<<<<<<< Updated upstream:Assets/ScriptableObjects/CardAbilities/Drawing/DrawCard.asset
+  position: {x: -24, y: 8}
+=======
+  position: {x: -110, y: 123.5}
+>>>>>>> Stashed changes:Assets/ScriptableObjects/CardAbilities/GunAttack.asset
+  ports:
+    keys:
+    - enter
+    values:
+    - _fieldName: enter
+      _node: {fileID: 3765637015316457495}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effects 0
+        node: {fileID: -3542380689194043451}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+<<<<<<< Updated upstream:Assets/ScriptableObjects/CardAbilities/Drawing/DrawCard.asset
+  _hasDuration: 0
+  _duration: 0
+  _effectValue: 0
+  input: 0
+  _action: 0
+  _amount: 1
+  _logResults: 1
+--- !u!114 &6139669208157274387
+=======
+  enter: 0
+  damage: 5
+--- !u!114 &4920087219397759516
+>>>>>>> Stashed changes:Assets/ScriptableObjects/CardAbilities/GunAttack.asset
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+<<<<<<< Updated upstream:Assets/ScriptableObjects/CardAbilities/Drawing/DrawCard.asset
+  m_Script: {fileID: 11500000, guid: 29191d99d980c0545acc4a535a3edc1a, type: 3}
+  m_Name: Targetless
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -8, y: -168}
+=======
+  m_Script: {fileID: 11500000, guid: a175d73e3d074594a9c045c78ff5df86, type: 3}
+  m_Name: Other Target
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -119, y: -175.5}
+>>>>>>> Stashed changes:Assets/ScriptableObjects/CardAbilities/GunAttack.asset
+  ports:
+    keys:
+    - enter
+    values:
+<<<<<<< Updated upstream:Assets/ScriptableObjects/CardAbilities/Drawing/DrawCard.asset
+    - _fieldName: input
+      _node: {fileID: 6139669208157274387}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+=======
+    - _fieldName: enter
+      _node: {fileID: 4920087219397759516}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+>>>>>>> Stashed changes:Assets/ScriptableObjects/CardAbilities/GunAttack.asset
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: targeting
+        node: {fileID: -3542380689194043451}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  enter: 0
+  isAOE: 0
+  radius: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 64

@@ -1,7 +1,11 @@
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+<<<<<<< Updated upstream
 using static IsoMetricConversions;
+=======
+>>>>>>> Stashed changes
 
 namespace AStarPathfinding
 {
@@ -51,6 +55,10 @@ namespace AStarPathfinding
         private Tilemap _tilemap;
         //private Grid _grid;
 
+<<<<<<< Updated upstream
+=======
+        [HideInInspector] public Vector2Int tileMousePos;
+>>>>>>> Stashed changes
         [SerializeField] private Vector2Int _mapSize;
         //[SerializeField] private float _mapScale = 1;
         [SerializeField] private byte[,] _map;
@@ -74,8 +82,15 @@ namespace AStarPathfinding
 
         private void OnEnable()
         {
+<<<<<<< Updated upstream
             _tilemap = transform.Find("TileMap").GetComponent<Tilemap>();
             //_grid = transform.GetComponent<Grid>();
+=======
+            _tilePrefab = Resources.Load<GameObject>("TileGridPrefabs/TileBase"); //maybe change to another grabbing method?
+            _emptyMapAnchor = Instantiate(new GameObject(), transform.Find("UnitMoveEmpty"));
+            _emptyMapAnchor.transform.localEulerAngles = Vector3.zero;
+            _emptyMapAnchor.name = "EmptyTileAnchor";
+>>>>>>> Stashed changes
         }
 
         private void Start()

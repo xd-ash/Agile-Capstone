@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace CardSystem
 {
-    //Concrete filter strategy to filter based on gameobject tag
-    [CreateNodeMenu("Filter/Tag Filter")]
+    [CreateNodeMenu("Filter/Tag")]
     public class TagFilter : FilterStrategy
     {
         public string tagToCompare;
