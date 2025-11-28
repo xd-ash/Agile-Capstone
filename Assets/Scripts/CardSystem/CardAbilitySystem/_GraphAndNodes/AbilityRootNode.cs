@@ -79,12 +79,16 @@ namespace CardSystem
 				EffectStrategy curEffect = port.Connection.node as EffectStrategy;
 				curEffect.StartEffect(abilityData, OnEffectFinished);
 			}
+
             abilityData.GetUnit.SpendAP(_apCost);//actually use the ap
-            AbilityEvents.TargetingStopped();
-            AbilityEvents.AbilityUsed(); //moved here to avoid early card removal/delete on multi effect cards
+            if (abilityData.GetUnit.team == Team.Friendly)
+            {
+                AbilityEvents.TargetingStopped();
+                AbilityEvents.AbilityUsed(); //moved here to avoid early card removal/delete on multi effect cards
+            }
         }
 
-		// Unused method for now, kept just for reminder of tutorial system setup
+        // Unused method for now, kept just for reminder of tutorial system setup
         private void OnEffectFinished()
 		{
 			//end turn? other stuff?
