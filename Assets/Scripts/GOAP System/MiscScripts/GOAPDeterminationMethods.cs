@@ -2,6 +2,7 @@ using AStarPathfinding;
 using Unity.VisualScripting;
 using UnityEngine;
 using static IsoMetricConversions;
+using static CombatMath;
 
 public static class GOAPDeterminationMethods
 {
@@ -14,9 +15,9 @@ public static class GOAPDeterminationMethods
     {
         return unit.ap >= actionAPCost;
     }
-    public static bool CheckForAP(Unit unit, ref WorldStates beliefs, int actionCost = 0)
+    public static bool CheckForAP(Unit unit, ref WorldStates beliefs)
     {
-        if (unit.ap == 0 || unit.ap < actionCost)
+        if (unit.ap == 0)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             beliefs.RemoveState(GoapStates.HasAP.ToString());
@@ -29,7 +30,7 @@ public static class GOAPDeterminationMethods
             return true;
         }
     }
-    public static bool CheckIfInRange(GoapAgent agent, Unit target, int abilityRange)
+    public static bool CheckIfInRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
     {
         var aStar = agent.GetComponent<FindPathAStar>();
         int dmgAbilRange = agent.damageAbility.RootNode.GetRange;
@@ -39,7 +40,14 @@ public static class GOAPDeterminationMethods
         int distanceToTar = tempPath.Count;
 
         if (distanceToTar > dmgAbilRange)
+        {
+            beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+            beliefs.RemoveState(GoapStates.InRange.ToString());
             return false;
+        }
+
+        beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
+        beliefs.RemoveState(GoapStates.OutOfRange.ToString());
         return true;
     }
     public static bool CheckIfHealthy(Unit unit, ref WorldStates beliefs)
@@ -58,5 +66,24 @@ public static class GOAPDeterminationMethods
             beliefs.RemoveState(GoapStates.IsHealthy.ToString());
             return false;
         }
+    }
+    public static bool CheckIfInLOS(GoapAgent agent, ref WorldStates beliefs)
+    {
+        var agentPos = ConvertToGridFromIsometric(agent.transform.localPosition);
+        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
+
+        bool hasLOS = HasLineOfSight(agentPos, tarPos);
+
+        if (hasLOS)
+        {
+            beliefs.ModifyState(GoapStates.HasLOS.ToString(), 1);
+            beliefs.RemoveState(GoapStates.NoLOS.ToString());
+        }
+        else
+        {
+            beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
+            beliefs.RemoveState(GoapStates.HasLOS.ToString());
+        }
+        return hasLOS;
     }
 }

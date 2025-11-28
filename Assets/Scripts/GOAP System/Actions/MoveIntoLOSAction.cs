@@ -2,8 +2,10 @@ using AStarPathfinding;
 using Unity.VisualScripting;
 using UnityEngine;
 using static IsoMetricConversions;
+using static CombatMath;
+using static GOAPDeterminationMethods;
 
-public class MoveTowardTargetAction : GoapAction
+public class MoveIntoLOSAction : GoapAction
 {
     private FindPathAStar aStar;
 
@@ -17,35 +19,32 @@ public class MoveTowardTargetAction : GoapAction
         var tempPath = aStar.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 
-        if (agent.damageAbility == null)
+        for (int i = tempPath.Count - 1; i >= 0; i--)
         {
-            Debug.Log($"dmg abil is null for {agent.gameObject.name}'s goap agent"); //remove me later
-            return false;
+            var tempPos = tempPath[i].location.ToVector();
+            if (HasLineOfSight(tempPos, tarPos))
+            {
+                aStar.CalculatePath(tempPos);
+                return true;
+            }
         }
 
-        //return false if unit cannot get into ability range
-        if ((distanceToTar - dmgAbilRange) > unit.ap)
-            return false;
-
-        int inRangeTileIndex = tempPath.Count - dmgAbilRange;
-
-        // calc new path to tile just within ability range
-        aStar.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
-        return true;
+        aStar.CalculatePath(tarPos); //default to walking to target if los cannot be reached?
+        return false;
     }
     public override void Perform()
     {
-        Debug.Log($"mvoe in range Perform");
-
         aStar.OnStartUnitMove(() =>
         {
             agent.CompleteAction();
         });
     }
-
     public override void PostPerform(ref WorldStates beliefs)
     {
-        beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
-        //CheckForAP(agent.unit, ref beliefs);
+        //check range
+        beliefs.ModifyState(GoapStates.HasLOS.ToString(), 1);
+        beliefs.RemoveState(GoapStates.NoLOS.ToString());
+
+        CheckIfInRange(agent, agent.damageAbility.RootNode.GetRange, ref beliefs);
     }
 }

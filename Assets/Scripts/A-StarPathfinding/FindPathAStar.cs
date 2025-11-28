@@ -253,6 +253,8 @@ namespace AStarPathfinding
 
         public IEnumerator MoveCoro(Action onFinished = null)
         {
+            if (truePath.Count == 0 || truePath == null) yield break;
+
             _isMoving = true;
 
             var _dirAnimator = _unit.GetComponent<DirectionAnimator>();

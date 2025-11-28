@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.4
+  m_fontSize: 52.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2646,7 +2646,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.1
+  m_fontSize: 19.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3550,7 +3550,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.65
+  m_fontSize: 21.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4916,7 +4916,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.35
+  m_fontSize: 26.3
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5052,7 +5052,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.3
+  m_fontSize: 19.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5144,6 +5144,8 @@ MonoBehaviour:
     _cardName: 
     _cardTransform: {fileID: 0}
     _cardAbility: {fileID: 0}
+    _shopCost: 0
+  runtimeAddedDefinitions: []
   _tweenDuration: 0.25
   cardActivePos: {fileID: 0}
 --- !u!4 &1691110207
@@ -5284,11 +5286,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapSize: {x: 9, y: 9}
   obstLocationList:
-  - {x: 3, y: 3}
-  - {x: 4, y: 4}
-  - {x: 5, y: 5}
-  - {x: 0, y: 4}
-  - {x: 1, y: 4}
+  - {x: 3, y: 0}
+  - {x: 3, y: 1}
+  - {x: 3, y: 2}
   enemyLocationList:
   - {x: 7, y: 1}
   _placeholderObstacle: {fileID: 6626558593374184628, guid: 022ed79b73ece944aadf4801403c6972, type: 3}
@@ -5508,7 +5508,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.25
+  m_fontSize: 61.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

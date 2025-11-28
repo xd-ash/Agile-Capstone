@@ -3,7 +3,7 @@ using UnityEngine;
 /*
 public class *** : GoapAction
 {
-    public override bool PrePerform()
+    public override bool PrePerform(ref WorldStates beliefs)
     {
         throw new System.NotImplementedException();
     }

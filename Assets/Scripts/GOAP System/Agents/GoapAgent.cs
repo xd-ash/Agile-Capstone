@@ -56,13 +56,15 @@ public class GoapAgent : MonoBehaviour
         foreach (var a in _actions)
             a?.GrabConditionsFromEnums();
 
-
+        ResetStates();
+        /*
         _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
         CheckForAP(unit, ref _beliefs);
-
+        
         // Init goal dict creation from list in inspector
         foreach (var g in _goals)
             _weightedGoalsDict.Add(g, g.value);
+        */
     }
 
     // INCOMPLETE make more secure with deleting null actions or actions added in inpsector by hitting +
@@ -166,6 +168,8 @@ public class GoapAgent : MonoBehaviour
     {
         _currentAction.running = false;
         _currentAction.PostPerform(ref _beliefs);
+        TurnManager.instance.UpdateApText();
+        CheckForAP(unit, ref _beliefs);
     }
 
     public void ResetStates() 
@@ -176,18 +180,26 @@ public class GoapAgent : MonoBehaviour
         foreach (var g in _goals)
             _weightedGoalsDict.Add(g, g.value);
 
-        if (curtarget == null) return;
         if (unit != null)
         {
             _beliefs = new();
 
-            if (!CheckIfInRange(this, curtarget, damageAbility.RootNode.GetRange))
-                _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-            else
-                _beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
-
             CheckForAP(unit, ref _beliefs);
             CheckIfHealthy(unit, ref _beliefs);
+
+            if (curtarget == null)
+            {
+                _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
+                _beliefs.RemoveState(GoapStates.HasLOS.ToString());
+
+                _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+                _beliefs.RemoveState(GoapStates.InRange.ToString());
+            }
+            else
+            {
+                CheckIfInRange(this, damageAbility.RootNode.GetRange, ref _beliefs);
+                CheckIfInLOS(this, ref _beliefs);
+            }
         }
     }
 

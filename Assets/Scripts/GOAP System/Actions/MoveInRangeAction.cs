@@ -20,10 +20,7 @@ public class MoveInRangeAction : GoapAction
         //Debug.Log($"tarPos: {tarPos} | distancetoTar: {distanceToTar}");
 
         if (agent.damageAbility == null)
-        {
-            Debug.Log($"dmg abil is null for {agent.gameObject.name}'s goap agent"); //remove me later
             return false;
-        }
 
         //return false if unit cannot get into ability range
         if ((distanceToTar - dmgAbilRange) > unit.ap)
@@ -48,6 +45,7 @@ public class MoveInRangeAction : GoapAction
     {
         beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
         beliefs.RemoveState(GoapStates.OutOfRange.ToString());
-        //CheckForAP(agent.unit, ref beliefs);
+
+        CheckIfInLOS(agent, ref beliefs);
     }
 }
