@@ -1,8 +1,10 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
+using UnityEngine.SceneManagement;
 
 namespace CardSystem
 {
@@ -39,6 +41,23 @@ namespace CardSystem
 
         public Action OnCardAblityCancel; //placeholder event for properly cancelling unit coroutines on card ability cancel
 
+        [Header("Auto-starting hand")]
+        [Tooltip("Fallback starting hand size used if TurnManager isn't available at draw time.")]
+        [SerializeField] private int defaultStartingHandSize = 5;
+
+        // internal guard to avoid drawing twice for the same scene load
+        private bool _startingHandDrawn = false;
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
         private void Start()
         {
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
@@ -56,6 +75,44 @@ namespace CardSystem
             ShuffleDeck(); // Add shuffle before any cards are drawn
 
             cardActivePos = transform.Find("CardActivePos");
+
+            // attempt to draw starting hand one frame later (avoids Start ordering race)
+            StartCoroutine(WaitAndDrawStartingHand());
+        }
+
+        private IEnumerator WaitAndDrawStartingHand()
+        {
+            // give other Start() calls a frame to run (TurnManager, etc.)
+            yield return null;
+
+            if (_startingHandDrawn) yield break;
+
+            // If already have cards (e.g. loaded with hand), do nothing
+            if (_cardsInHand != null && _cardsInHand.Count > 0)
+            {
+                _startingHandDrawn = true;
+                yield break;
+            }
+
+            int count = defaultStartingHandSize;
+            // prefer TurnManager configured starting hand size when available
+            try
+            {
+                if (TurnManager.instance != null)
+                    count = TurnManager.instance._startingHandSize;
+            }
+            catch { }
+
+            DrawStartingHand(count);
+            _startingHandDrawn = true;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Reset guard on new scene so a fresh starting hand can be drawn
+            _startingHandDrawn = false;
+            // attempt to draw for the newly loaded scene
+            StartCoroutine(WaitAndDrawStartingHand());
         }
 
         private void ShuffleDeck()
@@ -82,6 +139,7 @@ namespace CardSystem
             _topCardOfDeck = 0;
         }
 
+        // Allow forcing a redraw by passing force = true
         public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
         {
             if (def == null) return;
@@ -207,6 +265,21 @@ namespace CardSystem
             }
         }
 
+        // Modified: optional force parameter, and guard to avoid drawing multiple times per load
+        public void DrawStartingHand(int count, bool force = false)
+        {
+            if (!force && _startingHandDrawn) return;
+            _startingHandDrawn = true;
+
+            if (count <= 0) return;
+
+            DiscardAll();
+
+            int toDraw = Mathf.Min(count, _maxCards);
+            for (int i = 0; i < toDraw; i++)
+                DrawCard();
+        }
+
         public CardAbilityDefinition[] PeekTopDefinitions(int count)
         {
             if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (_deck == null || _deck.GetDeck == null))
@@ -224,17 +297,6 @@ namespace CardSystem
             CardAbilityDefinition[] result = new CardAbilityDefinition[available];
             source.CopyTo(_topCardOfDeck, result, 0, available);
             return result;
-        }
-
-        public void DrawStartingHand(int count)
-        {
-            if (count <= 0) return;
-
-            DiscardAll();
-
-            int toDraw = Mathf.Min(count, _maxCards);
-            for (int i = 0; i < toDraw; i++)
-                DrawCard();
         }
 
         public void DiscardAll()
@@ -313,13 +375,19 @@ namespace CardSystem
             _activeSequences[transform] = sequence;
         }
 
-        private void OnDisable()
+        private void OnDisableInternal()
         {
             foreach (var sequence in _activeSequences.Values)
             {
                 sequence.Kill();
             }
             _activeSequences.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            // ensure we unhook scene events if destroyed
+            SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         public void UpdateCardPosition(Card card, bool isHovered)

@@ -25,7 +25,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI _apText;
 
     [Header("Turn settings")]
-    [SerializeField] private int _startingHandSize = 5; // draw this many cards at start of player turn
+    [SerializeField] public int _startingHandSize = 5; // draw this many cards at start of player turn
 
     [Header("Placeholder Enemy Coro stuff")]
     [SerializeField] private AudioClip _enemyDmgSfx;
