@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneTransitioner : MonoBehaviour
 {
     [Tooltip("If true this GameObject will persist across scene loads.")]
-    [SerializeField] private bool persistAcrossScenes = false;
+    [SerializeField] private bool persistAcrossScenes = true;
 
     [Tooltip("If true, `LoadScene(string)` will call async load by default.")]
     [SerializeField] private bool useAsyncByDefault = false;

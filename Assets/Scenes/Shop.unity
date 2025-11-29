@@ -724,6 +724,7 @@ GameObject:
   - component: {fileID: 367680512}
   - component: {fileID: 367680511}
   - component: {fileID: 367680510}
+  - component: {fileID: 367680513}
   m_Layer: 5
   m_Name: BackToLevel
   m_TagString: Untagged
@@ -795,7 +796,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 635392083}
+      - m_Target: {fileID: 367680513}
         m_TargetAssemblyTypeName: SceneTransitioner, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -845,6 +846,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367680508}
   m_CullTransparentMesh: 1
+--- !u!114 &367680513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367680508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43b740765b562f4b9c06df3c990ee0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persistAcrossScenes: 1
+  useAsyncByDefault: 0
 --- !u!1 &513064777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,6 +1033,7 @@ MonoBehaviour:
   runtimeAddedDefinitions: []
   _tweenDuration: 0.25
   cardActivePos: {fileID: 0}
+  defaultStartingHandSize: 5
 --- !u!114 &635392082
 MonoBehaviour:
   m_ObjectHideFlags: 0
