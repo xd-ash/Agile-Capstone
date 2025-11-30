@@ -2979,6 +2979,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeckViewer
       objectReference: {fileID: 0}
+    - target: {fileID: 3618400111339658451, guid: 2a6f741e77ab8c3428c5af3bb0ed32c0, type: 3}
+      propertyPath: overlayColor.a
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618400111339658451, guid: 2a6f741e77ab8c3428c5af3bb0ed32c0, type: 3}
+      propertyPath: overlayColor.b
+      value: 0.48095408
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618400111339658451, guid: 2a6f741e77ab8c3428c5af3bb0ed32c0, type: 3}
+      propertyPath: overlayColor.g
+      value: 0.48095408
+      objectReference: {fileID: 0}
+    - target: {fileID: 3618400111339658451, guid: 2a6f741e77ab8c3428c5af3bb0ed32c0, type: 3}
+      propertyPath: overlayColor.r
+      value: 0.5283019
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466969882439338611, guid: 2a6f741e77ab8c3428c5af3bb0ed32c0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -16.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 4466969882439338611, guid: 2a6f741e77ab8c3428c5af3bb0ed32c0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.97
+      objectReference: {fileID: 0}
     - target: {fileID: 6524272115366290714, guid: 2a6f741e77ab8c3428c5af3bb0ed32c0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.7505087
@@ -5486,6 +5510,7 @@ MonoBehaviour:
   runtimeAddedDefinitions: []
   _tweenDuration: 0.25
   cardActivePos: {fileID: 0}
+  defaultStartingHandSize: 5
 --- !u!4 &1691110207
 Transform:
   m_ObjectHideFlags: 0
