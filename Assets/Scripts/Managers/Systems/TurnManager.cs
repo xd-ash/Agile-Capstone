@@ -124,8 +124,9 @@ public class TurnManager : MonoBehaviour
             _curUnit.GetComponent<GoapAgent>().ResetStates();
 
         // Draw player's starting hand when player's turn begins
-        if (_curUnit.team == Team.Friendly && CardSystem.CardManager.instance != null)
-            CardSystem.CardManager.instance.DrawStartingHand(_startingHandSize);
+        if (_curUnit.team == Team.Friendly && CardManager.instance != null)
+            Debug.Log("[TurnManager] Drawing starting hand.");
+            CardManager.instance.DrawStartingHand(_startingHandSize);
 
         UpdateApText();
 
