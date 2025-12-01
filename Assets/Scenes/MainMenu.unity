@@ -955,7 +955,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1808137417}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TransitionScene, Assembly-CSharp
         m_MethodName: QuitApplication
         m_Mode: 1
@@ -1049,6 +1049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d0cde7cf413194195d7b661b976dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAbility: {fileID: 0}
+  healAbility: {fileID: 0}
   _goapActionsEnum: 12
   _actions:
   - rid: 184551257927582413
@@ -1057,6 +1059,9 @@ MonoBehaviour:
   _goals:
   - rid: 184551257927582420
   - rid: 184551257927582421
+  _actionDelayTime: 1.5
+  unit: {fileID: 0}
+  curtarget: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -1066,6 +1071,7 @@ MonoBehaviour:
         actionName: AttackAction
         cost: 1
         running: 0
+        agent: {fileID: 0}
         preConditionsFlags: 14
         postConditionsFlags: 48
     - rid: 184551257927582414
@@ -1074,6 +1080,7 @@ MonoBehaviour:
         actionName: HealAction
         cost: 1
         running: 0
+        agent: {fileID: 0}
         preConditionsFlags: 0
         postConditionsFlags: 0
     - rid: 184551257927582420
@@ -1171,7 +1178,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1808137417}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TransitionScene, Assembly-CSharp
         m_MethodName: StartTransition
         m_Mode: 5
@@ -2048,7 +2055,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: LevelOne
+          m_StringArgument: NodeMap
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1104719764}
@@ -2271,7 +2278,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1808137417}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TransitionScene, Assembly-CSharp
         m_MethodName: QuitApplication
         m_Mode: 1
