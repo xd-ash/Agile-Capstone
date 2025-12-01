@@ -272,7 +272,7 @@ namespace CardSystem
         {
             if (!force && _startingHandDrawn) return;
             _startingHandDrawn = true;
-
+            
             if (count <= 0) return;
 
             DiscardAll();
