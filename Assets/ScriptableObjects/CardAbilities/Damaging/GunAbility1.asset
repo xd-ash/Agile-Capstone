@@ -130,8 +130,8 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 3
-  _range: 4
+  _apCost: 4
+  _range: 6
   _effectTypes: 4
   targeting: 0
   filtering: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -168, y: 56}
+  position: {x: -168, y: 72}
   ports:
     keys:
     - input

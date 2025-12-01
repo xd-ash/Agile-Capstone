@@ -66,7 +66,7 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 0
   _duration: 0
-  _effectValue: 5
+  _effectValue: 3
   input: 0
 --- !u!114 &-3092873482817688375
 MonoBehaviour:
@@ -119,7 +119,7 @@ MonoBehaviour:
   - {fileID: -8999123651499345958}
   - {fileID: -3802151944912286412}
   _cardName: Roundhouse Kick
-  _description: Do 5 dmg from melee range
+  _description: Do 3 dmg from melee range
   abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
 --- !u!114 &5223611228947400584
 MonoBehaviour:
@@ -217,7 +217,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 3
+  _apCost: 4
   _range: 1
   _effectTypes: 4
   targeting: 0

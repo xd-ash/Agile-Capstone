@@ -92,8 +92,10 @@ namespace CardSystem
             }
         }
 
-        public void RemoveSelectedCard()
+        public void RemoveSelectedCard(Team unitTeam = Team.Friendly)
         {
+            if (unitTeam == Team.Enemy) return;
+
             // remove selectedCard from hand data
             _cardsInHand.Remove(selectedCard);
             _currentHandSize--;

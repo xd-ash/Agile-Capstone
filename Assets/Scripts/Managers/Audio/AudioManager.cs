@@ -90,7 +90,7 @@ public class AudioManager : MonoBehaviour
         PlaySFX(endTurnSfx);
     }
 
-    private void HandleAbilityUsed()
+    private void HandleAbilityUsed(Team unitTeam = Team.Friendly)
     {
         if (_pendingUseClip != null)
         {

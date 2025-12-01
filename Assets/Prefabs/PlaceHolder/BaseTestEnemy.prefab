@@ -768,7 +768,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAbility: {fileID: 11400000, guid: af0c4c98a1f00384cbfa3972dbd55600, type: 2}
   healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
-  _goapActionsEnum: -1
+  healCharges: 3
+  _goapActionsEnum: 126
   _actions:
   - rid: 184551379020808278
   - rid: 184551379020808280
@@ -776,7 +777,6 @@ MonoBehaviour:
   - rid: 7037380749985316943
   - rid: 814567176430420062
   - rid: 184551473563828296
-  - rid: 184551473563828297
   _goalsEnum: 1600
   _goals:
   - rid: 184551379020808282
@@ -795,7 +795,7 @@ MonoBehaviour:
         cost: 0
         running: 0
         agent: {fileID: 890448977864822885}
-        preConditionsFlags: 2
+        preConditionsFlags: 16386
         postConditionsFlags: 2048
     - rid: 184551379020808280
       type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
@@ -825,7 +825,7 @@ MonoBehaviour:
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: HasAttacked
-        value: 2
+        value: 1
         removeOnComplete: 1
     - rid: 184551473563828296
       type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
@@ -836,15 +836,6 @@ MonoBehaviour:
         agent: {fileID: 890448977864822885}
         preConditionsFlags: 10250
         postConditionsFlags: 4096
-    - rid: 184551473563828297
-      type: {class: OtherMoveAction, ns: , asm: Assembly-CSharp}
-      data:
-        actionName: OtherMoveAction
-        cost: 1
-        running: 0
-        agent: {fileID: 890448977864822885}
-        preConditionsFlags: 4106
-        postConditionsFlags: 64
     - rid: 814567176430420062
       type: {class: HealAction, ns: , asm: Assembly-CSharp}
       data:
@@ -852,13 +843,13 @@ MonoBehaviour:
         cost: 1
         running: 0
         agent: {fileID: 890448977864822885}
-        preConditionsFlags: 6
+        preConditionsFlags: 32774
         postConditionsFlags: 1044
     - rid: 814567176430420063
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: HasHealed
-        value: 1
+        value: 2
         removeOnComplete: 1
     - rid: 7037380749985316943
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}

@@ -8,6 +8,7 @@ public class EndTurnAction : GoapAction
     }
     public override void Perform()
     {
+        agent.ClearPlanner();
         TurnManager.instance.EndEnemyTurn();
         //Debug.Log($"End turn Perform");
         agent.CompleteAction();

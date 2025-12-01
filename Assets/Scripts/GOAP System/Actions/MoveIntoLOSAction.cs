@@ -11,6 +11,8 @@ public class MoveIntoLOSAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
+        if (beliefs.states.ContainsKey(GoapStates.HasLOS.ToString())) return false;
+
         aStar = agent.GetComponent<FindPathAStar>();
         Unit unit = agent.unit;
         int dmgAbilRange = agent.damageAbility.RootNode.GetRange;

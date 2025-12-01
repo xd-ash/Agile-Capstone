@@ -58,7 +58,6 @@ namespace CardSystem
             // failed ability cast catcher
   			if (abilityData.GetUnit.team == Team.Friendly && _targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
             {
-                Debug.Log($"team: {abilityData.GetUnit.team.ToString()}");
                 // Return the card to hand or destroy it
                 if (CardManager.instance != null && CardManager.instance.selectedCard != null)
                 {
@@ -82,16 +81,14 @@ namespace CardSystem
 
             abilityData.GetUnit.SpendAP(_apCost);//actually use the ap
             if (abilityData.GetUnit.team == Team.Friendly)
-            {
                 AbilityEvents.TargetingStopped();
-                AbilityEvents.AbilityUsed(); //moved here to avoid early card removal/delete on multi effect cards
-            }
+            AbilityEvents.AbilityUsed(abilityData.GetUnit.team); //moved here to avoid early card removal/delete on multi effect cards
         }
 
         // Unused method for now, kept just for reminder of tutorial system setup
         private void OnEffectFinished()
 		{
-			//end turn? other stuff?
+			//
 		}
 
         // Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯

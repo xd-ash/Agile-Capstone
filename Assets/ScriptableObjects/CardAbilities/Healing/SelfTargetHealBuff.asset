@@ -170,7 +170,7 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 0
   _duration: 4
-  _effectValue: 4
+  _effectValue: 3
   input: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -190,7 +190,7 @@ MonoBehaviour:
   - {fileID: -7141492294398822347}
   - {fileID: -1670849718794438946}
   _cardName: Heal & Buff
-  _description: Heal 4 HP
+  _description: Heal 3 HP
   abilitySFX: {fileID: 8300000, guid: d9b4b2149cd9459458292b65c4a4d216, type: 3}
 --- !u!114 &1766287723113216939
 MonoBehaviour:

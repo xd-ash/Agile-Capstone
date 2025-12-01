@@ -10,17 +10,16 @@ public class OtherMoveAction : GoapAction
     public override bool PrePerform(ref WorldStates beliefs)
     {
         aStar = agent.GetComponent<FindPathAStar>();
-        /*
+
         if (agent.damageAbility.RootNode.GetRange > 1)
         {
-
+            beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+            return false;
         }
-        else
-        {*/
-            var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
-            var tempPath = aStar.CalculatePath(tarPos);
-            aStar.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
-        //}
+
+        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
+        var tempPath = aStar.CalculatePath(tarPos);
+        aStar.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
 
         return true;
     }
@@ -28,7 +27,7 @@ public class OtherMoveAction : GoapAction
     {
         aStar.OnStartUnitMove(() =>
         {
-            Debug.Log("test");
+            //Debug.Log("test");
             agent.CompleteAction();
         });
     }

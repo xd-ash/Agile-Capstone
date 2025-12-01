@@ -27,6 +27,7 @@ public class GoapAgent : MonoBehaviour
     [Header("Temp Enemy Abilities")]
     public CardAbilityDefinition damageAbility; 
     public CardAbilityDefinition healAbility;
+    public int healCharges = 3;
     [Space(15)]
 
     [SerializeField] private GoapActions _goapActionsEnum;
@@ -169,20 +170,31 @@ public class GoapAgent : MonoBehaviour
         _currentAction.running = false;
         _currentAction.PostPerform(ref _beliefs);
         TurnManager.instance.UpdateApText();
-        CheckForAP(unit, ref _beliefs);
+        if (!_beliefs.states.ContainsKey(GoapStates.HasAttacked.ToString()))
+            CheckForAP(unit, ref _beliefs);
     }
 
     public void ResetStates() 
     {
         _weightedGoalsDict = new();
-        
+
+        string temp = "weighted dict goals: ";
         // goal dict reset and creation from list in inspector
         foreach (var g in _goals)
+        {
             _weightedGoalsDict.Add(g, g.value);
+            temp += g.key + ", ";
+        }
+        //Debug.Log(temp);
 
         if (unit != null)
         {
             _beliefs = new();
+
+            _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
+
+            if (healCharges > 0)
+                _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
 
             CheckForAP(unit, ref _beliefs);
             CheckIfHealthy(unit, ref _beliefs);
@@ -201,6 +213,12 @@ public class GoapAgent : MonoBehaviour
                 CheckIfInLOS(this, ref _beliefs);
             }
         }
+        /*
+        string tempStr = "Beliefs on reset: ";
+        foreach (var b in _beliefs.GetStates())
+            tempStr += b.Key + ", ";
+        Debug.Log(tempStr);
+        */
     }
 
     void LateUpdate()
@@ -214,6 +232,7 @@ public class GoapAgent : MonoBehaviour
             var sortedGoals = from entry in _weightedGoalsDict
                               orderby entry.Value descending
                               select entry;
+            //Debug.Log($"weightGoals count: {_weightedGoalsDict.Count}");
 
             foreach (KeyValuePair<Goal, int> g in sortedGoals)
             {
@@ -229,7 +248,7 @@ public class GoapAgent : MonoBehaviour
 
         if (_actionQueue != null && _actionQueue.Count == 0)
         {
-            if (_currentGoal.removeOnComplete)
+            if (_beliefs.states.ContainsKey(_currentGoal.key) && _currentGoal.removeOnComplete)
                 for (int i = _weightedGoalsDict.Count - 1; i >= 0; i--)
                     if (_weightedGoalsDict.ElementAt(i).Key.key == _currentGoal.key)
                         _weightedGoalsDict.Remove(_weightedGoalsDict.ElementAt(i).Key);
@@ -258,5 +277,10 @@ public class GoapAgent : MonoBehaviour
     private void ActionPerformDelay()
     {
         _currentAction.Perform();
+    }
+    public void ClearPlanner()
+    {
+        _planner = null;
+        _actionQueue = null;
     }
 }

@@ -464,8 +464,10 @@ namespace CardSystem
             }
         }
 
-        private void ClearSelection()
+        private void ClearSelection(Team unitTeam = Team.Friendly)
         {
+            if (unitTeam == Team.Enemy) return;
+
             selected = false;
             isAnyCardActive = false; // Reset when ability is finished
             _spriteRenderer.color = Color.white;

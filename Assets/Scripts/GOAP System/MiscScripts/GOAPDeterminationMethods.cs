@@ -52,9 +52,9 @@ public static class GOAPDeterminationMethods
     }
     public static bool CheckIfHealthy(Unit unit, ref WorldStates beliefs)
     {
-        float healthPercent = unit.health / unit.maxHealth;
-
-        if (healthPercent > 0.75f)
+        float healthPercent = (float)unit.health / (float)unit.maxHealth;
+        
+        if (healthPercent > 0.65f)
         {
             beliefs.ModifyState(GoapStates.IsHealthy.ToString(), 1);
             beliefs.RemoveState(GoapStates.IsHurt.ToString());

@@ -10,6 +10,8 @@ public class MoveInRangeAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
+        if (beliefs.states.ContainsKey(GoapStates.InRange.ToString())) return false;
+
         aStar = agent.GetComponent<FindPathAStar>();
         Unit unit = agent.unit;
         int dmgAbilRange = agent.damageAbility.RootNode.GetRange;
@@ -22,9 +24,9 @@ public class MoveInRangeAction : GoapAction
         if (agent.damageAbility == null)
             return false;
 
-        //return false if unit cannot get into ability range
+        //return true if unit cannot get into ability range and calc path to closest tile
         if ((distanceToTar - dmgAbilRange) > unit.ap)
-            return false;
+            return true;
 
         int inRangeTileIndex = dmgAbilRange;
 

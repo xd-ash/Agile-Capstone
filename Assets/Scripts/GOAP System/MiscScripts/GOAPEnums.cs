@@ -35,6 +35,8 @@ public enum GoapStates
     HasTarget = 2048,
     HasLOS = 4096,
     NoLOS = 8192,
+    NoTarget = 16384,
+    CanHeal = 32768,
 }
 
 public struct GOAPEnums

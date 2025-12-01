@@ -254,7 +254,9 @@ namespace AStarPathfinding
         public IEnumerator MoveCoro(Action onFinished = null)
         {
             if (truePath.Count == 0 || truePath == null) yield break;
-
+            //if (_mapCreator.GetByteMap[truePath[0].location.x, truePath[0].location.y] != 0) //bandaid fix for pathing issues of enemies moving to player
+                //truePath.RemoveAt(0);
+            
             _isMoving = true;
 
             var _dirAnimator = _unit.GetComponent<DirectionAnimator>();

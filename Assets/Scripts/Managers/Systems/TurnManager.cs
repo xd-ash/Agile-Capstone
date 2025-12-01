@@ -89,7 +89,7 @@ public class TurnManager : MonoBehaviour
         return sortedList;
     }
 
-    public void UpdateApText()
+    public void UpdateApText(Team unitTeam = Team.Friendly)
     {
         if (_apText == null) return;
         if (currTurn == Turn.Player && _curUnit != null)
