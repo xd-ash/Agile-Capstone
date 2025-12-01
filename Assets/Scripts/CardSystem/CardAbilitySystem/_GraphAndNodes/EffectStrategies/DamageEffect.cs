@@ -26,6 +26,8 @@ namespace CardSystem
                 {
                     bool hit = CombatMath.RollHit(abilityData.GetUnit, targetUnit, out int hitChance, out float roll);
 
+                    _visualsStrategy.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
+
                     if (!hit)
                     {
                         // TODO: floating 'Miss' text here

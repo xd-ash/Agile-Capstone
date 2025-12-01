@@ -9,7 +9,7 @@ namespace CardSystem
     {
         public string tagToCompare;
 
-        public override IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter)
+        public override IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter, Unit unit)
         {
             foreach (var obj in objectsToFilter)
             {

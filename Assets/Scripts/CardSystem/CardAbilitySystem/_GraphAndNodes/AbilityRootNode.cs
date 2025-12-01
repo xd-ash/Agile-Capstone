@@ -52,7 +52,7 @@ namespace CardSystem
 				if (port.Connection == null || port.Connection.node == null || port.Connection.node is FilterStrategy == false)
 					continue;
 
-				abilityData.Targets = (port.Connection.node as FilterStrategy).Filter(abilityData.Targets);
+				abilityData.Targets = (port.Connection.node as FilterStrategy).Filter(abilityData.Targets, abilityData.GetUnit);
 			}
 
             // failed ability cast catcher

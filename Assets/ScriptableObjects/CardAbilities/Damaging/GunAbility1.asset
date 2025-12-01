@@ -31,9 +31,41 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
   input: 0
-  _layermask:
-    serializedVersion: 2
-    m_Bits: 192
+  _targetLayers: 2
+--- !u!114 &-3038007230889526110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf8779fbcc229c449a445de63c80edc, type: 3}
+  m_Name: Bullet Effect Visual
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 200, y: -8}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: -3038007230889526110}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effectVisuals
+        node: {fileID: 8984668475923810513}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  input: 0
+  _smokeEffect: {fileID: 3117545971288206347, guid: a521cfe55bb3949438fb36b042c57252, type: 3}
+  _bullet: {fileID: 717576382310150537, guid: 3bc94e6fa9f37884799112e5c1a77b77, type: 3}
+  _bulletTravelDur: 0.2
 --- !u!114 &-773093627592473936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +187,7 @@ MonoBehaviour:
   - {fileID: 7206340533012667911}
   - {fileID: -5996304546315106641}
   - {fileID: 8984668475923810513}
+  - {fileID: -3038007230889526110}
   _cardName: Pistol
   _description: Deal 2 damage to 1 target
   abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
@@ -208,6 +241,7 @@ MonoBehaviour:
   ports:
     keys:
     - input
+    - effectVisuals
     values:
     - _fieldName: input
       _node: {fileID: 8984668475923810513}
@@ -221,7 +255,20 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: 8984668475923810513}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -3038007230889526110}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
   _hasDuration: 0
   _duration: 2
   _effectValue: 2
+  effectVisuals: 0
   input: 0

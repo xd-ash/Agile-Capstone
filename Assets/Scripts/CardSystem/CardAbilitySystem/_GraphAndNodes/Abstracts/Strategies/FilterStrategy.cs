@@ -8,6 +8,6 @@ namespace CardSystem
     {
         [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public double input; 
 
-        public abstract IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter);
+        public abstract IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter, Unit unit);
     }
 }

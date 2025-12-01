@@ -12,6 +12,9 @@ namespace CardSystem
         [SerializeField] protected int _duration;
         [SerializeField] protected int _effectValue;
 
+        protected EffectVisualsStrategy _visualsStrategy;
+        [Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public long effectVisuals;
+
         //[Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public float duration; // used for old failed duration node
         public bool HasDuration { get { return _hasDuration; } set { _hasDuration = value; } }
 
@@ -20,6 +23,19 @@ namespace CardSystem
             var def = this.graph as CardAbilityDefinition;
             //Debug.Log($"def effect: {def.abilitySFX.name}");
             AudioManager.instance?.SetPendingUseSfx(def.abilitySFX);
+
+            if (_visualsStrategy == null)
+            {
+                //make this better?
+                try
+                {
+                    _visualsStrategy = GetPort("effectVisuals").Connection.node as EffectVisualsStrategy;
+                }
+                catch
+                {
+                    Debug.Log("null effect visual");
+                }
+            }
         }
 
         // Coroutine to cause an effect over a duration, with interval of 1s for testing

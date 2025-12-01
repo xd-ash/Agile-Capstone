@@ -19,8 +19,12 @@ namespace CardSystem
                 isAura = true;
             }
 
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("input"));
-
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("input"));
+                GUILayout.Space(-10);
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("effectVisuals"));
+            }
 
             if (node is DebugEffect)
                 NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("message"), new GUIContent($"Debug Message:"));

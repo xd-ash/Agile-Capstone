@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 3208580971993401337}
   _cardName: Aoe Test
   _description: adseqws
+  abilitySFX: {fileID: 0}
 --- !u!114 &3208580971993401337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,9 +154,7 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
   input: 0
-  _layermask:
-    serializedVersion: 2
-    m_Bits: 64
+  _layerFilter: 2
 --- !u!114 &7800892932488438323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +275,7 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 1
   _apCost: 3
+  _range: 0
   _effectTypes: 12
   targeting: 0
   filtering: 0
