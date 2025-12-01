@@ -25,15 +25,9 @@ public class TransitionScene : MonoBehaviour
         pauseMenu = transform.Find("PauseMenu").gameObject;
     }
 
-    //delete me
-    private void Update()
-    {
-        Debug.Log("istargeting: " + AbilityEvents.IsTargeting);
-    }
-
     public void StartTransition(string targetScene = "MainMenu")
     {
-        Debug.Log("Scene transition started.");
+        //Debug.Log("Scene transition started.");
         UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
 
         //Handle anything else needed between scenes here

@@ -18,6 +18,7 @@ namespace CardSystem
         public virtual void StartEffect(AbilityData abilityData, Action onFinished)
         {
             var def = this.graph as CardAbilityDefinition;
+            //Debug.Log($"def effect: {def.abilitySFX.name}");
             AudioManager.instance?.SetPendingUseSfx(def.abilitySFX);
         }
 

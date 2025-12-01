@@ -411,13 +411,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAbility: {fileID: 11400000, guid: af0c4c98a1f00384cbfa3972dbd55600, type: 2}
   healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
-  _goapActionsEnum: 62
+  healCharges: 3
+  _goapActionsEnum: 126
   _actions:
   - rid: 184551379020808278
   - rid: 184551379020808280
   - rid: 184551379020808281
   - rid: 7037380749985316943
   - rid: 814567176430420062
+  - rid: 184551473563828295
   _goalsEnum: 1600
   _goals:
   - rid: 184551379020808282
@@ -436,7 +438,7 @@ MonoBehaviour:
         cost: 0
         running: 0
         agent: {fileID: 5945599773227783589}
-        preConditionsFlags: 2
+        preConditionsFlags: 16386
         postConditionsFlags: 2048
     - rid: 184551379020808280
       type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
@@ -446,7 +448,7 @@ MonoBehaviour:
         running: 0
         agent: {fileID: 5945599773227783589}
         preConditionsFlags: 2082
-        postConditionsFlags: 72
+        postConditionsFlags: 8
     - rid: 184551379020808281
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
@@ -454,20 +456,29 @@ MonoBehaviour:
         cost: 2
         running: 0
         agent: {fileID: 5945599773227783589}
-        preConditionsFlags: 2058
-        postConditionsFlags: 576
+        preConditionsFlags: 6154
+        postConditionsFlags: 512
     - rid: 184551379020808282
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: OutOfAP
-        value: 10
+        value: 0
         removeOnComplete: 0
     - rid: 184551379020808284
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: HasAttacked
-        value: 2
-        removeOnComplete: 0
+        value: 1
+        removeOnComplete: 1
+    - rid: 184551473563828295
+      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        actionName: MoveIntoLOSAction
+        cost: 1
+        running: 0
+        agent: {fileID: 5945599773227783589}
+        preConditionsFlags: 10250
+        postConditionsFlags: 4096
     - rid: 814567176430420062
       type: {class: HealAction, ns: , asm: Assembly-CSharp}
       data:
@@ -475,14 +486,14 @@ MonoBehaviour:
         cost: 1
         running: 0
         agent: {fileID: 5945599773227783589}
-        preConditionsFlags: 6
-        postConditionsFlags: 1108
+        preConditionsFlags: 32774
+        postConditionsFlags: 1044
     - rid: 814567176430420063
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: HasHealed
-        value: 1
-        removeOnComplete: 0
+        value: 2
+        removeOnComplete: 1
     - rid: 7037380749985316943
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:

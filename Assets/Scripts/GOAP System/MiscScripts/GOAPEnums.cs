@@ -13,7 +13,8 @@ public enum GoapActions
     Heal = 8,
     ChooseTarget = 16,
     EndTurn = 32,
-    MoveTowardTarget
+    MoveIntoLOS = 64,
+    OtherMove = 128,
 }
 
 [Flags]
@@ -32,6 +33,10 @@ public enum GoapStates
     HasAttacked = 512,
     HasHealed = 1024,
     HasTarget = 2048,
+    HasLOS = 4096,
+    NoLOS = 8192,
+    NoTarget = 16384,
+    CanHeal = 32768,
 }
 
 public struct GOAPEnums
@@ -50,11 +55,13 @@ public struct GOAPEnums
         {
             switch (i)
             {
-                case 0://not implemented
-                    break;
-                case 1://MoveTowardTarget
+                case 0://Other Move
                     if (binaryEnum[i] == '1')
-                        actions.Add(new MoveTowardTargetAction() { agent = agent });
+                        actions.Add(new OtherMoveAction() { agent = agent });
+                    break;
+                case 1://MoveIntoLOS
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new MoveIntoLOSAction() { agent = agent });
                     break;
                 case 2://EndTurn
                     if (binaryEnum[i] == '1')

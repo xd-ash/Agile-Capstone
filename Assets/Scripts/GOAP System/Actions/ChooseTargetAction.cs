@@ -31,6 +31,7 @@ public class ChooseTargetAction : GoapAction
     {
         int min = distancesToUnits.Min(x => x.Key);
         agent.curtarget = distancesToUnits[min];
+
         //Debug.Log($"target: {(agent.curtarget != null ? agent.curtarget.name : "null")}");
 
         agent.CompleteAction();
@@ -38,6 +39,9 @@ public class ChooseTargetAction : GoapAction
     public override void PostPerform(ref WorldStates beliefs)
     {
         beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
-        //CheckForAP(agent.unit, ref beliefs);
+        beliefs.RemoveState(GoapStates.NoTarget.ToString());
+
+        CheckIfInRange(agent, agent.damageAbility.RootNode.GetRange, ref beliefs);
+        CheckIfInLOS(agent, ref beliefs);
     }
 }

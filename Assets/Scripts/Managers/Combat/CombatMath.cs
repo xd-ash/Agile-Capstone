@@ -74,31 +74,24 @@ public static class CombatMath
     public static bool HasLineOfSight(Unit attacker, Unit target)
     {
         if (attacker == null || target == null)
-        {
             return false;
-        }
 
         if (MapCreator.instance == null)
-        {
             return true; //Fail open instead of breaking combat.
-        }
-
-        byte[,] map = MapCreator.instance.GetByteMap;
-        if (map == null)
-        {
-            return true;
-        }
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
 
-        return HasLineOfSight(attackerCell, targetCell, map);
+        return HasLineOfSight(attackerCell, targetCell);
     }
     
     //Line of sight check on the byte map using a bresenham style grid line.
     //Returns true if every tile between start and end is transparent.
-    public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell, byte[,] map)
+    public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell)
     {
+        byte[,] map = MapCreator.instance.GetByteMap;
+        if (map == null) return true;
+
         int startX = startCell.x;
         int startY = startCell.y;
         int endX = endCell.x;
@@ -127,15 +120,11 @@ public static class CombatMath
             if (!isStartCell && !isEndCell)
             {
                 if (!IsTransparent(currentX, currentY, map, mapWidth, mapHeight))
-                {
                     return false;
-                }
             }
 
             if (isEndCell)
-            {
                 break;
-            }
 
             int errorTwice = 2 * error;
 
