@@ -20,7 +20,7 @@ namespace CardSystem
     {
         [Header("Miss popup")]
         [Tooltip("Font size used for the floating 'Misses' text.")]
-        [SerializeField] private int missFontSize = 36;
+        [SerializeField] private int missFontSize = 48;
         [Tooltip("Color of the floating 'Misses' text.")]
         [SerializeField] private Color missColor = Color.white;
         [Tooltip("Duration the 'Misses' text stays visible (seconds).")]
@@ -31,10 +31,10 @@ namespace CardSystem
         [SerializeField] private float missRiseSpeed = 0.5f;
 
         [Header("Miss popup rendering")]
-        [Tooltip("Sorting layer for miss popup Canvas (create in editor if needed).")]
-        [SerializeField] private string missSortingLayer = "UI";
-        [Tooltip("Sorting order for miss popup Canvas (higher renders on top).")]
-        [SerializeField] private int missSortingOrder = 10000;
+        [Tooltip("Character size multiplier for the 3D TextMesh (world scale).")]
+        [SerializeField] private float missCharacterSize = 0.08f;
+        [Tooltip("Optional: if true, popup will face the main camera if present.")]
+        [SerializeField] private bool faceCamera = true;
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
@@ -53,7 +53,7 @@ namespace CardSystem
                     if (!hit)
                     {
                         // floating 'Miss' text here
-                        // Start a coroutine on the target unit to spawn and fade a small world-space UI text above it
+                        // Start a coroutine on the target unit to spawn and fade a small world-space 3D TextMesh above it
                         targetUnit.StartCoroutine(SpawnMissPopup(targetUnit));
                         Debug.Log($"[{abilityData.GetUnit}] Attack Missed, Targetted @ {targetUnit}");
                         continue;
@@ -69,69 +69,60 @@ namespace CardSystem
             onFinished();
         }
 
-        // Coroutine: create a simple world-space Canvas with a Text, fade it and destroy.
+        // Simplified: Uses a 3D TextMesh so we avoid Canvas / Camera / Font nulls.
         private IEnumerator SpawnMissPopup(Unit unit)
         {
             if (unit == null) yield break;
 
-            // root GameObject for popup (create at world root to avoid inheriting unit scale)
-            GameObject root = new GameObject("MissPopup");
-            // place at world position above unit so popup isn't affected by unit's local scale
-            root.transform.SetParent(null, false);
-            root.transform.position = unit.transform.position + Vector3.up * missYOffset;
-            root.transform.rotation = Quaternion.identity;
+            // Create a simple world-space TextMesh object (no Canvas involved)
+            GameObject go = new GameObject("MissPopup");
+            // place at world position above unit (avoid inheriting unit scale)
+            go.transform.SetParent(null, false);
+            go.transform.position = unit.transform.position + Vector3.up * missYOffset;
 
-            // add world-space canvas
-            var canvas = root.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.WorldSpace;
-            // do not assume Camera.main exists; assign if available
-            if (Camera.main != null) canvas.worldCamera = Camera.main;
-            // ensure sorting override so ordering takes effect
-            canvas.overrideSorting = true;
-            canvas.sortingLayerName = missSortingLayer;
-            canvas.sortingOrder = missSortingOrder;
+            // Add TextMesh for simple 3D text
+            var textMesh = go.AddComponent<TextMesh>();
+            textMesh.text = "Misses";
+            textMesh.fontSize = Mathf.Max(1, missFontSize);
+            textMesh.characterSize = Mathf.Max(0.0001f, missCharacterSize);
+            textMesh.color = missColor;
+            textMesh.anchor = TextAnchor.MiddleCenter;
+            textMesh.alignment = TextAlignment.Center;
 
-            var rect = root.AddComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(200f, 60f);
-
-            // create Text (legacy UI Text for simplicity)
-            GameObject textGO = new GameObject("Text");
-            textGO.transform.SetParent(root.transform, false);
-            var textRect = textGO.AddComponent<RectTransform>();
-            textRect.anchoredPosition = Vector2.zero;
-            textRect.sizeDelta = rect.sizeDelta;
-
-            var text = textGO.AddComponent<Text>();
-            text.text = "Misses";
-            // try to get a font; fall back gracefully if null
-            Font f = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            if (f != null) text.font = f;
-            text.fontSize = missFontSize;
-            text.color = missColor;
-            text.alignment = TextAnchor.MiddleCenter;
-            text.raycastTarget = false;
-
-            // scale so world-space canvas appears at reasonable size and make sure scale is 1
-            float scale = 0.01f;
-            rect.localScale = Vector3.one * scale;
+            // Optionally orient toward camera if available
+            if (faceCamera && Camera.main != null)
+            {
+                go.transform.rotation = Quaternion.LookRotation(go.transform.position - Camera.main.transform.position);
+            }
+            else
+            {
+                go.transform.rotation = Quaternion.identity;
+            }
 
             float elapsed = 0f;
-            Color startColor = text.color;
+            Color startColor = textMesh.color;
 
             while (elapsed < missDuration)
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / missDuration);
-                // fade out alpha
+
+                // fade alpha
                 Color c = startColor;
                 c.a = Mathf.Lerp(1f, 0f, t);
-                text.color = c;
-                // rise up slowly in world space
-                root.transform.position += Vector3.up * (missRiseSpeed * Time.deltaTime);
+                textMesh.color = c;
+
+                // rise up
+                go.transform.position += Vector3.up * (missRiseSpeed * Time.deltaTime);
+
+                // keep facing camera if requested (handles camera movement)
+                if (faceCamera && Camera.main != null)
+                    go.transform.rotation = Quaternion.LookRotation(go.transform.position - Camera.main.transform.position);
+
                 yield return null;
             }
 
-            UnityEngine.Object.Destroy(root);
+            UnityEngine.Object.Destroy(go);
         }
     }
 }
