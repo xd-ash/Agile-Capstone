@@ -19,7 +19,7 @@ public static class CombatMath
     private static int BaseHitChance => CB != null ? CB.baseHitChance : _defaultHitChance;
     private static int MinHitChance => CB != null ? CB.minHitChance : _defaultMinHitChance;
     private static int MaxHitChance => CB != null ? CB.maxHitChance : _defaultMaxHitChance;
-    private static int NoPenaltyRange => CB != null ? CB.noPenaltyRange : _defaultNoPenaltyRange;
+    //private static int NoPenaltyRange => CB != null ? CB.noPenaltyRange : _defaultNoPenaltyRange;
     private static int PenaltyPerTile => CB != null ? CB.hitPenaltyPerTile : _defaultPenaltyPerTile;
     private static float AccuracyMultiplier => CB != null ? CB.accuracyMultiplier : _defaultGlobalMultiplier;
     private static int AccuracyFlatBonus => CB != null ? CB.accuracyFlatBonus : _defaultGlobalFlatBonus;
@@ -27,7 +27,7 @@ public static class CombatMath
 
     //Returns the hit chance (0–100) from attacker to target.
     //Returns 0 if line of sight is blocked or if either unit is null.
-    public static int GetHitChance(Unit attacker, Unit target)
+    public static int GetHitChance(Unit attacker, Unit target, int abilityRange)
     {
         if (attacker == null || target == null)
         {
@@ -44,8 +44,14 @@ public static class CombatMath
 
         int distance = Mathf.Abs(attackerCell.x - targetCell.x) + Mathf.Abs(attackerCell.y - targetCell.y); //Manhattan distance
 
-        int extraDistance = Mathf.Max(0, distance - NoPenaltyRange);
-        int distancePenalty = extraDistance * PenaltyPerTile;
+        int extraDistance = Mathf.Max(0, distance - abilityRange);
+        int distancePenalty;
+
+        //added logic here for melee abilties to not be used outside of melee range
+        if (abilityRange > 1)
+            distancePenalty = extraDistance * PenaltyPerTile;
+        else
+            distancePenalty = BaseHitChance;
         int rawHitChance = BaseHitChance - distancePenalty;
         
         float scaled = rawHitChance * AccuracyMultiplier;
@@ -57,9 +63,9 @@ public static class CombatMath
     }
     
     //Rolls a random number against the current hit chance.
-    public static bool RollHit(Unit attacker, Unit target, out int hitChance, out float roll)
+    public static bool RollHit(Unit attacker, Unit target, int abilityRange, out int hitChance, out float roll)
     {
-        hitChance = GetHitChance(attacker, target);
+        hitChance = GetHitChance(attacker, target, abilityRange);
 
         if (hitChance <= 0)
         {

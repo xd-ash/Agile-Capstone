@@ -39,6 +39,20 @@ public class SceneProgressManager : MonoBehaviour
         }
     }
 
+    //Use in Save/Load script
+    public void GrabNodeData(ref bool[] completedNodes, ref bool[] unlockedNodes, ref int curNodeIndex)
+    {
+        completedNodes = nodeCompleted;
+        unlockedNodes = nodeUnlocked;
+        curNodeIndex = currentNodeIndex;
+    }
+    public void LoadNodeData(bool[] completedNodes, bool[] unlockedNodes, int curNodeIndex)
+    {
+        nodeCompleted = completedNodes;
+        nodeUnlocked = unlockedNodes;
+        currentNodeIndex = curNodeIndex;
+    }
+    //
     public bool IsNodeCompleted(int index)
     {
         return index >= 0 && index < nodeCount && nodeCompleted[index];

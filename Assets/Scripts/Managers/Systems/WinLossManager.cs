@@ -50,7 +50,8 @@ public class WinLossManager : MonoBehaviour
         else
         {
             //Fallback to existing transition flow
-            TransitionScene.instance.StartTransition();
+            if (TransitionScene.instance != null)
+                TransitionScene.instance.StartTransition();
         }
     }
 }

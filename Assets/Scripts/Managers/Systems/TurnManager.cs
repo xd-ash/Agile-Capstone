@@ -126,8 +126,10 @@ public class TurnManager : MonoBehaviour
         // Draw player's starting hand when player's turn begins
         if (_curUnit.team == Team.Friendly && CardManager.instance != null)
         {
-            Debug.Log($"[TurnManager] Drawing starting hand.");
+            //Debug.Log($"[TurnManager] Drawing starting hand.");
             CardManager.instance.DrawStartingHand(_startingHandSize, true);
+            if (AudioManager.instance != null) 
+                AudioManager.instance.LevelLoadInits(); //just play bgm
         }
 
         UpdateApText();

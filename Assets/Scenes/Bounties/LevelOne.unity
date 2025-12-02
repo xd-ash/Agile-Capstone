@@ -6735,10 +6735,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHitChance: 100
-  minHitChance: 10
+  minHitChance: 0
   maxHitChance: 95
-  noPenaltyRange: 3
-  hitPenaltyPerTile: 5
+  hitPenaltyPerTile: 10
   accuracyMultiplier: 1
   accuracyFlatBonus: 0
 --- !u!1660057539 &9223372036854775807

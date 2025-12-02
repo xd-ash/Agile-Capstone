@@ -29,6 +29,7 @@ namespace CardSystem
         {
             Unit caster = abilityData.GetUnit;
             Unit hoveredUnit = null;
+            int abilityRange = (graph as CardAbilityDefinition).RootNode.GetRange;
 
             while (true)
             {
@@ -46,7 +47,7 @@ namespace CardSystem
                     //Show new hover hit chance
                     if (hoveredUnit != null && caster != null)
                     {
-                        int hitChance = CombatMath.GetHitChance(caster, hoveredUnit);
+                        int hitChance = CombatMath.GetHitChance(caster, hoveredUnit, abilityRange);
                         hoveredUnit.ShowHitChance(hitChance);
                     }
                 }

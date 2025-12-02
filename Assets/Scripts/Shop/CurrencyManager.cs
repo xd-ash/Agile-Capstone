@@ -31,15 +31,20 @@ public class CurrencyManager : MonoBehaviour
 
     private void LoadBalance()
     {
-      
-            _balance = startingBalance;
-            SaveBalance();
+        _balance = startingBalance;
+        SaveBalance();
     }
 
     private void SaveBalance()
     {
         PlayerPrefs.SetInt(PREFS_KEY, _balance);
         PlayerPrefs.Save();
+    }
+
+    //new save/load stuff
+    public void LoadGameData(int balance)
+    {
+        _balance = balance;
     }
 
     // Try to spend amount. Returns true if successful and deducts amount.

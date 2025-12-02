@@ -9,7 +9,7 @@ public class CombatBalance: MonoBehaviour
     [Range(0, 100)] public int maxHitChance = 95;
 
     [Header("Distance Penalties")]
-    public int noPenaltyRange = 3;
+    //public int noPenaltyRange = 3;
     public int hitPenaltyPerTile = 5;
     
     [Header("Accuracy Modifiers")] 

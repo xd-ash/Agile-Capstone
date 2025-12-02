@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
         switch (sceneLoaded)
         {
             case "LevelOne":
-                Invoke("LevelLoadInits", .2f);//Bandaid fix for turn manager not being loaded instantly on scene swap
+                Invoke("LevelLoadInits", .5f);//Bandaid fix for turn manager not being loaded instantly on scene swap
                 break;
             case "MainMenu":
                 //AbilityEvents.OnAbilityUsed -= HandleAbilityUsed;
@@ -79,7 +79,7 @@ public class AudioManager : MonoBehaviour
 
     public void LevelLoadInits()
     {
-        TurnManager.instance.OnPlayerTurnEnd += HandleTurnChanged;
+        //TurnManager.instance.OnPlayerTurnEnd += HandleTurnChanged;
         if (bgmClip != null)
         {
             PlayMusic(bgmClip, true);

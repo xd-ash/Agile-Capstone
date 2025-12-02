@@ -638,7 +638,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: -7068196083132738587, guid: 7142f587e469aec4e9532f29e41e04a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -687,6 +687,10 @@ MonoBehaviour:
   previewRotation: {x: 0, y: 0, z: 0}
   rotationJitter: 0
   requireLeftMouseButton: 1
+  previewSortingLayerName: Default
+  previewSortingOrder: 5000
+  blurMaterial: {fileID: 0}
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!60 &285137132
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -975,6 +979,7 @@ MonoBehaviour:
   runtimeAddedDefinitions: []
   _tweenDuration: 0.25
   cardActivePos: {fileID: 0}
+  defaultStartingHandSize: 5
 --- !u!114 &635392082
 MonoBehaviour:
   m_ObjectHideFlags: 0
