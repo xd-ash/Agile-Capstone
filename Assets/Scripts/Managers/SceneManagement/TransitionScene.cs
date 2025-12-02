@@ -7,8 +7,6 @@ public class TransitionScene : MonoBehaviour
 {
     public static TransitionScene instance { get; private set; }
     private GameObject mainMenu, pauseMenu;
-    //public string sceneToLoad; Adam removed in favor of adding param to StartTransition method
-                                //(did this b/c I combined pause and main menu canvases. Buttons now set the scene string)
     public static Action<string> SceneSwap;
 
     private void Awake()
@@ -21,30 +19,49 @@ public class TransitionScene : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        mainMenu = transform.Find("MainMenu").gameObject;
-        pauseMenu = transform.Find("PauseMenu").gameObject;
+        var mainMenuTransform = transform.Find("MainMenu");
+        if (mainMenuTransform != null)
+        {
+            mainMenu = mainMenuTransform.gameObject;
+        }
+        else
+        {
+            Debug.LogWarning("TransitionScene: 'MainMenu' child not found under " + name);
+        }
+
+        var pauseMenuTransform = transform.Find("PauseMenu");
+        if (pauseMenuTransform != null)
+        {
+            pauseMenu = pauseMenuTransform.gameObject;
+        }
+        else
+        {
+            Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
+        }
     }
 
     public void StartTransition(string targetScene = "MainMenu")
     {
-        //Debug.Log("Scene transition started.");
+        Debug.Log("Scene transition started.");
         UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
 
-        //Handle anything else needed between scenes here
         PauseMenu.isPaused = false;
         AbilityEvents.TargetingStopped();
 
-        if (targetScene == "MainMenu")
+        //Only touch these if they actually exist
+        if (targetScene == "MainMenu" && pauseMenu != null)
+        {
             pauseMenu.SetActive(false);
-        mainMenu.SetActive(targetScene == "MainMenu" ? true : false);
+        }
 
-        //if (targetScene == "LevelOne")
-            //GetComponent<Canvas>().enabled = false;
+        if (mainMenu != null)
+        {
+            mainMenu.SetActive(targetScene == "MainMenu");
+        }
 
         SceneSwap?.Invoke(targetScene);
     }
-     
-    // quit button functionality
+
     public void QuitApplication()
     {
         Application.Quit();
