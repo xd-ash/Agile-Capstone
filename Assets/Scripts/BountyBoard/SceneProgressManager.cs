@@ -13,6 +13,8 @@ public class SceneProgressManager : MonoBehaviour
     private bool[] nodeUnlocked;
     private int currentNodeIndex = -1;
 
+    public bool nodeMapCompleted = false;
+
     private void Awake()
     {
         //Basic singleton
@@ -38,7 +40,21 @@ public class SceneProgressManager : MonoBehaviour
             }
         }
     }
+    public void ResetNodes()
+    {
+        currentNodeIndex = -1;
 
+        nodeCompleted = new bool[nodeCount];
+        nodeUnlocked = new bool[nodeCount];
+
+        //By default, unlock node 0
+        if (nodeCount > 0)
+        {
+            nodeUnlocked[0] = true;
+        }
+
+        nodeMapCompleted = false;
+    }
     //Use in Save/Load script
     public void GrabNodeData(ref bool[] completedNodes, ref bool[] unlockedNodes, ref int curNodeIndex)
     {
@@ -99,6 +115,9 @@ public class SceneProgressManager : MonoBehaviour
         {
             nodeUnlocked[next] = true;
         }
+
+        if (next == nodeCount)
+            nodeMapCompleted = true;
     }
 
     public void ReturnToMap()

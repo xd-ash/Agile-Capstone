@@ -20,7 +20,8 @@ namespace CardSystem
                     break;
                 case Team.Enemy:
                     GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
-                    abilityData.Targets = new List<GameObject>() { agent.curtarget.gameObject };
+                    if (agent.curtarget != null)
+                        abilityData.Targets = new List<GameObject>() { agent.curtarget.gameObject };
                     onFinished();
                     break;
             }

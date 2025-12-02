@@ -11,6 +11,8 @@ public class WinLossManager : MonoBehaviour
 
     public static WinLossManager instance { get; private set; }
 
+    private bool _didWin;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -30,7 +32,8 @@ public class WinLossManager : MonoBehaviour
 
     public void OnGameDone(bool didWin)
     {
-        GameObject text = didWin ? winText : loseText;
+        _didWin = didWin;
+        GameObject text = _didWin ? winText : loseText;
         if (text != null)
         {
             text.SetActive(true);
@@ -41,15 +44,32 @@ public class WinLossManager : MonoBehaviour
 
     public void TriggerSceneTrans()
     {
-        //If we have our progress manager, use that
-        if (SceneProgressManager.Instance != null)
-        {
-            SceneProgressManager.Instance.CompleteCurrentNode();
-            SceneProgressManager.Instance.ReturnToMap();
-        }
+
+        if (_didWin)
+            //If we have our progress manager, use that
+            if (SceneProgressManager.Instance != null)
+            {
+                SceneProgressManager.Instance.CompleteCurrentNode();
+                if (SceneProgressManager.Instance.nodeMapCompleted)
+                {
+                    SceneProgressManager.Instance.ResetNodes();
+
+                    if (TransitionScene.instance != null)
+                        TransitionScene.instance.StartTransition();
+                }
+                else
+                    SceneProgressManager.Instance.ReturnToMap();
+            }
+            else
+            {
+                //Fallback to existing transition flow
+                if (TransitionScene.instance != null)
+                    TransitionScene.instance.StartTransition();
+            }
         else
         {
-            //Fallback to existing transition flow
+            SceneProgressManager.Instance.ResetNodes();
+
             if (TransitionScene.instance != null)
                 TransitionScene.instance.StartTransition();
         }
