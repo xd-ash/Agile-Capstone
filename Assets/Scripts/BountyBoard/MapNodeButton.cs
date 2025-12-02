@@ -34,9 +34,7 @@ public class MapNodeButton : MonoBehaviour
     private void RefreshVisual()
     {
         if (SceneProgressManager.Instance == null || button == null)
-        {
             return;
-        }
 
         bool completed = SceneProgressManager.Instance.IsNodeCompleted(nodeIndex);
         bool unlocked = SceneProgressManager.Instance.IsNodeUnlocked(nodeIndex);
