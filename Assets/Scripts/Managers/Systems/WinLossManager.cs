@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-/// <summary>
-/// Temp Class for easy Win/Loss condition and cyclical gameplay for build
-/// </summary>
+//Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
 {
     public GameObject winText, loseText;
@@ -12,6 +10,7 @@ public class WinLossManager : MonoBehaviour
     public List<Unit> enemyUnits;
 
     public static WinLossManager instance { get; private set; }
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -23,6 +22,7 @@ public class WinLossManager : MonoBehaviour
 
         GameOverEvents.OnGameOver += OnGameDone;
     }
+
     private void OnDestroy()
     {
         GameOverEvents.OnGameOver -= OnGameDone;
@@ -31,12 +31,26 @@ public class WinLossManager : MonoBehaviour
     public void OnGameDone(bool didWin)
     {
         GameObject text = didWin ? winText : loseText;
-        text.SetActive(true);
+        if (text != null)
+        {
+            text.SetActive(true);
+        }
 
         Invoke(nameof(TriggerSceneTrans), textDuration);
     }
+
     public void TriggerSceneTrans()
     {
-        TransitionScene.instance.StartTransition();
+        //If we have our progress manager, use that
+        if (SceneProgressManager.Instance != null)
+        {
+            SceneProgressManager.Instance.CompleteCurrentNode();
+            SceneProgressManager.Instance.ReturnToMap();
+        }
+        else
+        {
+            //Fallback to existing transition flow
+            TransitionScene.instance.StartTransition();
+        }
     }
 }

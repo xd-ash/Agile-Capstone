@@ -26,8 +26,6 @@ public class CurrencyManager : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
-
         LoadBalance();
     }
 
