@@ -1051,6 +1051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAbility: {fileID: 0}
   healAbility: {fileID: 0}
+  healCharges: 3
   _goapActionsEnum: 12
   _actions:
   - rid: 184551257927582413
@@ -1438,16 +1439,36 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: b9a88d124b8b3c64eaa34a4cf774930f, type: 3}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: sfxVolume
-      value: 0.757
+      value: 0.397
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: musicVolume
-      value: 0.794
+      value: 0.521
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: menuButtonClick
       value: 
       objectReference: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[0].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[0].volume
+      value: 0.537
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[0].sceneName
+      value: Shop
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2852,7 +2873,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

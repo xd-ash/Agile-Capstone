@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -9,6 +11,16 @@ public class AudioManager : MonoBehaviour
     public AudioClip selectCardSfx;
     public AudioClip bgmClip;
     public AudioClip menuButtonClick;
+
+    [System.Serializable]
+    public class SceneMusicEntry
+    {
+        public string sceneName;
+        public AudioClip clip;
+        public bool loop = true;
+        [Range(0f, 1f)] public float volume = 0.5f;
+    }
+    public List<SceneMusicEntry> sceneMusic = new List<SceneMusicEntry>();
 
     [Header("Volumes")]
     [Range(0f, 1f)] public float sfxVolume = 1.0f;
@@ -58,21 +70,32 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        //
+       
     }
 
     public void OnSceneSwap(string sceneLoaded)
     {
+        // Unsubscribe TurnManager listener if we return to main menu
+        if (sceneLoaded == "MainMenu")
+        {
+            if (TurnManager.instance != null)
+                TurnManager.instance.OnPlayerTurnEnd -= HandleTurnChanged;
+        }
+
+        // Look for a matching scene music entry
+        var entry = sceneMusic.FirstOrDefault(e => e.sceneName == sceneLoaded);
+        if (entry != null && entry.clip != null)
+        {
+            // play immediately (no special delay). If some scenes need a delay, add a conditional Invoke.
+            PlayMusic(entry.clip, entry.loop, entry.volume);
+            return;
+        }
+
+        // Fallback behavior for existing LevelOne behavior (keeps original delayed init)
         switch (sceneLoaded)
         {
             case "LevelOne":
-                Invoke("LevelLoadInits", .5f);//Bandaid fix for turn manager not being loaded instantly on scene swap
-                break;
-            case "MainMenu":
-                //AbilityEvents.OnAbilityUsed -= HandleAbilityUsed;
-
-                if (TurnManager.instance != null)
-                    TurnManager.instance.OnPlayerTurnEnd -= HandleTurnChanged;
+                Invoke(nameof(LevelLoadInits), .5f); // Bandaid fix for turn manager not being loaded instantly on scene swap
                 break;
         }
     }
@@ -110,13 +133,14 @@ public class AudioManager : MonoBehaviour
     public void PlayCardSelectSfx() => PlaySFX(selectCardSfx);
     public void PlayButtonSFX() => PlaySFX(menuButtonClick);
 
-    public void PlayMusic(AudioClip clip, bool loop = true)
+    // Added optional volume parameter so each scene entry can control music volume
+    public void PlayMusic(AudioClip clip, bool loop = true, float volume = -1f)
     {
         if (clip == null || _music == null) return;
         if (_music.clip == clip && _music.isPlaying) return;
         _music.loop = loop;
         _music.clip = clip;
-        _music.volume = musicVolume;
+        _music.volume = (volume >= 0f) ? Mathf.Clamp01(volume) : musicVolume;
         _music.Play();
     }
 

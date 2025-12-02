@@ -46,7 +46,7 @@ MonoBehaviour:
   effectVisuals: 0
   input: 0
   _action: 0
-  _amount: 1
+  _amount: 3
   _logResults: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -58,16 +58,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: DrawCard
+  m_Name: Scavenge
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 282906417093084810}
-  - {fileID: 0}
   - {fileID: 6139669208157274387}
   - {fileID: -2584462224668346045}
   _cardName: Draw Card
-  _description: Draw 1 Card
-  abilitySFX: {fileID: 0}
+  _description: Draw 3 cards
+  abilitySFX: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
 --- !u!114 &282906417093084810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +150,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 1
+  _apCost: 2
   _range: 0
   _effectTypes: 8
   targeting: 0

@@ -163,7 +163,7 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 1
   _apCost: 4
-  _range: 6
+  _range: 10
   _effectTypes: 4
   targeting: 0
   filtering: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: GunAbility1
+  m_Name: Pistol
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -773093627592473936}
@@ -189,7 +189,7 @@ MonoBehaviour:
   - {fileID: 8984668475923810513}
   - {fileID: -3038007230889526110}
   _cardName: Pistol
-  _description: Deal 2 damage to 1 target
+  _description: Deal 5 ranged damage
   abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
 --- !u!114 &7206340533012667911
 MonoBehaviour:
@@ -269,6 +269,13 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 0
   _duration: 2
-  _effectValue: 2
+  _effectValue: 4
   effectVisuals: 0
   input: 0
+  missFontSize: 48
+  missColor: {r: 1, g: 1, b: 1, a: 1}
+  missDuration: 1
+  missYOffset: 1.5
+  missRiseSpeed: 0.5
+  missCharacterSize: 0.08
+  faceCamera: 1

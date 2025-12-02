@@ -67,16 +67,26 @@ MonoBehaviour:
       _node: {fileID: -3802151944912286412}
       _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: input
+        node: {fileID: 8242178612725973563}
+        reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
   _hasDuration: 0
   _duration: 0
-  _effectValue: 3
+  _effectValue: 5
   effectVisuals: 0
   input: 0
+  missFontSize: 48
+  missColor: {r: 1, g: 1, b: 1, a: 1}
+  missDuration: 1
+  missYOffset: 1.5
+  missRiseSpeed: 0.5
+  missCharacterSize: 0.08
+  faceCamera: 1
 --- !u!114 &-3092873482817688375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,9 +137,59 @@ MonoBehaviour:
   - {fileID: -3092873482817688375}
   - {fileID: -8999123651499345958}
   - {fileID: -3802151944912286412}
+  - {fileID: 8242178612725973563}
+  - {fileID: 5214614789712125746}
   _cardName: Roundhouse Kick
-  _description: Do 3 dmg from melee range
+  _description: Deal 5 damage close range and draw one card
   abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+--- !u!114 &5214614789712125746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef4750a7d440fd478df461bb8bc2995, type: 3}
+  m_Name: Deck Effect
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -329.5, y: 295.5}
+  ports:
+    keys:
+    - input
+    - effectVisuals
+    values:
+    - _fieldName: input
+      _node: {fileID: 5214614789712125746}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: miscEffects 0
+        node: {fileID: 5223611228947400584}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: 5214614789712125746}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  _hasDuration: 0
+  _duration: 0
+  _effectValue: 0
+  effectVisuals: 0
+  input: 0
+  _action: 0
+  _amount: 1
+  _logResults: 1
 --- !u!114 &5223611228947400584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +213,7 @@ MonoBehaviour:
     - miscEffects
     - filtering 0
     - harmfulEffects 0
+    - miscEffects 0
     values:
     - _fieldName: targeting
       _node: {fileID: 5223611228947400584}
@@ -226,11 +287,55 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
+    - _fieldName: miscEffects 0
+      _node: {fileID: 5223611228947400584}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 5214614789712125746}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
   _apCost: 4
-  _range: 1
-  _effectTypes: 4
+  _range: 2
+  _effectTypes: 12
   targeting: 0
   filtering: 0
   helpfulEffects: 0
   harmfulEffects: 0
   miscEffects: 0
+--- !u!114 &8242178612725973563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d597ebed51e4a7e43bc165947508c94c, type: 3}
+  m_Name: Melee Effect Visual
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -70.69569, y: 130.48418}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: 8242178612725973563}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effectVisuals
+        node: {fileID: -3802151944912286412}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  input: 0
+  _meleeEffect: {fileID: 7456636758858463242, guid: 2df06208f89e0d74e8a0539a22598d53, type: 3}
