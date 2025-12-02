@@ -42,6 +42,10 @@ public class CardShopSpawner : MonoBehaviour
     [Tooltip("Max card tilt (degrees) at the edges")]
     public float maxTilt = 15f;
 
+    [Header("Refresh Settings")]
+    [Tooltip("Cost to refresh the shop (0 = free)")]
+    public int refreshCost = 10;
+
     // runtime tracking of active spawned shop cards
     private readonly List<GameObject> activeSpawnedCards = new List<GameObject>();
 
@@ -186,6 +190,26 @@ public class CardShopSpawner : MonoBehaviour
     // Remove all current shop options and spawn `count` new ones (uses initialSpawnCount if count <= 0)
     public void RefreshShop(int count = -1)
     {
+        // Check refresh cost first (0 or negative means free)
+        if (refreshCost > 0)
+        {
+            if (CurrencyManager.instance == null)
+            {
+                Debug.LogWarning(LOG_PREFIX + " CurrencyManager not found; cannot charge refresh cost.");
+                return;
+            }
+
+            // TrySpend will deduct the amount if player has enough; returns false if insufficient funds
+            bool charged = CurrencyManager.instance.TrySpend(refreshCost);
+            if (!charged)
+            {
+                Debug.Log(LOG_PREFIX + " Not enough currency to refresh shop.");
+                // Optionally show a UI popup here if you have one for insufficient currency:
+                // OutOfApPopup.Instance?.Show(); // or create/replace with an OutOfCurrency popup
+                return;
+            }
+        }
+
         // destroy existing cards
         for (int i = activeSpawnedCards.Count - 1; i >= 0; i--)
         {
