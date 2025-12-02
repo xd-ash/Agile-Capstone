@@ -46,12 +46,10 @@ public static class CombatMath
 
         int extraDistance = Mathf.Max(0, distance - abilityRange);
         int distancePenalty;
-
-        //added logic here for melee abilties to not be used outside of melee range
-        if (abilityRange > 1)
-            distancePenalty = extraDistance * PenaltyPerTile;
-        else
+        if (extraDistance > 0 && abilityRange <= 1)
             distancePenalty = BaseHitChance;
+        else
+            distancePenalty = extraDistance * PenaltyPerTile;
         int rawHitChance = BaseHitChance - distancePenalty;
         
         float scaled = rawHitChance * AccuracyMultiplier;

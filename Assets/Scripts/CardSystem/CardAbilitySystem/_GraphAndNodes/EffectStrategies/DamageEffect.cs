@@ -48,7 +48,7 @@ namespace CardSystem
 
                     bool hit = CombatMath.RollHit(abilityData.GetUnit, targetUnit, abilRange, out int hitChance, out float roll);
 
-                    _visualsStrategy.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
+                    _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
 
                     if (!hit)
                     {
