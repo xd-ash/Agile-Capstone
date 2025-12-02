@@ -747,6 +747,7 @@ MonoBehaviour:
   maxHealth: 15
   health: 0
   shield: 0
+  maxShield: 25
   maxAP: 10
   ap: 0
   stepSfx: {fileID: 8300000, guid: 175248e10ffae4d84ba5392cb7186bf6, type: 3}

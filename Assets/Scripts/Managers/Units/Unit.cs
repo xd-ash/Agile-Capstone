@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour, IDamagable
 
     [Header("Shield")]
     [SerializeField] private int shield = 0; // current shield amount (absorb damage before health)
-
+    [SerializeField] private int maxShield = 25;
     //[Header("Target for Enemy units")]
     //[SerializeField] private Unit _target;
 
@@ -156,6 +156,8 @@ public class Unit : MonoBehaviour, IDamagable
     {
         if (amount <= 0) return;
         shield += amount;
+        if (shield >= maxShield)
+            shield = maxShield;
         //Debug.Log($"[{team}] '{name}' gained {amount} shield (total shield: {shield}).");
 
         // Raise shield event for UI
