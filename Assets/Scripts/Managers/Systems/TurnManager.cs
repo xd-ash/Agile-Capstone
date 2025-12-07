@@ -162,10 +162,11 @@ public class TurnManager : MonoBehaviour
 
         SetTurn();
         AbilityEvents.TargetingStopped();
-        OnPlayerTurnEnd?.Invoke();
 
         // discard player's hand at end of player turn
         if (CardSystem.CardManager.instance != null)
             CardSystem.CardManager.instance.DiscardAll();
+
+        OnPlayerTurnEnd?.Invoke();
     }
 }

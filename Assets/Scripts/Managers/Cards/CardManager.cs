@@ -306,6 +306,8 @@ namespace CardSystem
             if (_cardsInHand == null || _cardsInHand.Count == 0)
                 return;
 
+            Destroy(selectedCard?.CardTransform.gameObject);
+
             foreach (var card in _cardsInHand)
             {
                 if (card?.CardTransform != null)
@@ -317,6 +319,7 @@ namespace CardSystem
             _cardsInHand.Clear();
             _nextCardInHandIndex = 0;
             _currentHandSize = 0;
+            selectedCard = null;
 
             ArrangeCardGOs();
         }

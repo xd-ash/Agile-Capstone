@@ -16,7 +16,7 @@ namespace CardSystem
             {
                 case Team.Friendly:
                     base.StartTargeting(abilityData, onFinished);
-                    abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
+                    abilityData.GetUnit.targetingCoroutine = abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
                     break;
                 case Team.Enemy:
                     GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();

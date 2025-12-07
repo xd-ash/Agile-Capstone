@@ -22,6 +22,8 @@ namespace CardSystem
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
+            if (abilityData.GetUnit.team != Team.Friendly) return;
+
             base.StartEffect(abilityData, onFinished);
 
             // Defensive checks

@@ -36,6 +36,7 @@ public class Unit : MonoBehaviour, IDamagable
     private FindPathAStar _aStar;
 
     public event Action<Unit> OnApChanged;
+    public Coroutine targetingCoroutine;
 
     private void Awake()
     {
@@ -58,19 +59,15 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _aStar = GetComponent<FindPathAStar>();
 
-        //**********************************************************************//
-        if (team != Team.Friendly) return;                                      //
-        CardSystem.CardManager.instance.OnCardAblityCancel += StopAllCoroutines;// I SHOULD BE CHANGED TO A BETTER SYSTEM
-        TurnManager.instance.OnPlayerTurnEnd += StopAllCoroutines;              // I SHOULD BE CHANGED TO A BETTER SYSTEM
-        //**********************************************************************//
+        if (team != Team.Friendly) return; 
+        CardSystem.CardManager.instance.OnCardAblityCancel += () => StopCoroutine(targetingCoroutine);
+        TurnManager.instance.OnPlayerTurnEnd += () => StopCoroutine(targetingCoroutine);
     }
     private void OnDestroy()
     {
-        //**********************************************************************//
-        if (team != Team.Friendly) return;                                      //
-        CardSystem.CardManager.instance.OnCardAblityCancel -= StopAllCoroutines;// I SHOULD BE CHANGED TO A BETTER SYSTEM
-        TurnManager.instance.OnPlayerTurnEnd -= StopAllCoroutines;              // I SHOULD BE CHANGED TO A BETTER SYSTEM
-        //**********************************************************************//
+        if (team != Team.Friendly) return; 
+        CardSystem.CardManager.instance.OnCardAblityCancel -= () => StopCoroutine(targetingCoroutine);
+        TurnManager.instance.OnPlayerTurnEnd -= () => StopCoroutine(targetingCoroutine);
     }
     /// <summary>
     /// ChangeHealth handles both healing (isGain = true) and damage (isGain = false).
