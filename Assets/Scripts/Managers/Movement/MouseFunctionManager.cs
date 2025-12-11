@@ -66,12 +66,7 @@ public class MouseFunctionManager : MonoBehaviour
         {
             return;
         }
-        
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-        {
-            return;
-        }
-        
+
         TrackMouse();
         ManageCurrTileColor();
 
