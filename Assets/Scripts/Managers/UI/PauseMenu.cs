@@ -70,6 +70,7 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
+            CloseSettings();
         }
     }
     private void TogglePause()
