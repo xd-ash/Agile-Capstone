@@ -289,6 +289,14 @@ namespace AStarPathfinding
 
                 while (elapsed < duration)
                 {
+                    
+                    // If the game is paused, just wait here without progressing the move
+                    if (PauseMenu.isPaused)
+                    {
+                        yield return null;
+                        continue;
+                    }
+
                     elapsed += Time.unscaledDeltaTime;
                     float t = Mathf.Clamp01(elapsed / duration);
                     _unit.transform.localPosition = Vector3.Lerp(startPos, endPos, t);

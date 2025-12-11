@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AbilityEvents;
+using UnityEngine.EventSystems;
 
 public class MouseFunctionManager : MonoBehaviour
 {
@@ -60,7 +61,17 @@ public class MouseFunctionManager : MonoBehaviour
                 }
             }
         }
-
+        
+        if (PauseMenu.isPaused)
+        {
+            return;
+        }
+        
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        
         TrackMouse();
         ManageCurrTileColor();
 
@@ -149,14 +160,14 @@ public class MouseFunctionManager : MonoBehaviour
 
             if (steps <= ap)
             {
-                // In range – show only the AP number
+                // In range ï¿½ show only the AP number
                 _apHoverIndicator.ShowCost(indicatorPos, steps);
                 _line.gameObject.SetActive(true);
 
             }
             else
             {
-                // Out of range – show AP number plus red X
+                // Out of range ï¿½ show AP number plus red X
                 _apHoverIndicator.ShowOutOfRange(indicatorPos, steps);
                 _line.gameObject.SetActive(false);
             }

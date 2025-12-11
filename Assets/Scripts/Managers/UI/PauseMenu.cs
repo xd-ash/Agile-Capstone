@@ -11,8 +11,6 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        pauseMenuCanvas = TransitionScene.instance?.transform.Find("PauseMenu").gameObject;
-
         ///Adam - moved this to the TransitionScene script when updating MenuCanvas to be DontDestroyOnLoad
             // Ensure the menu is hidden and the game is unpaused when the scene loads
             //if (pauseMenuCanvas != null)
@@ -23,16 +21,17 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f; // IMPORTANT: reset global timeScale on scene load
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
     }
-
     private void TogglePause()
     {
+        isPaused = !isPaused;
+
         if (IsTargeting && !PauseMenu.isPaused)
         {
             if (CardSystem.CardManager.instance.selectedCard != null &&
@@ -43,9 +42,7 @@ public class PauseMenu : MonoBehaviour
                 CardManager.instance.OnCardAblityCancel?.Invoke();
             }
         }
-
-        isPaused = !isPaused;
-
+        
         if (isPaused)
         {
             Time.timeScale = 0f; // Pause the game

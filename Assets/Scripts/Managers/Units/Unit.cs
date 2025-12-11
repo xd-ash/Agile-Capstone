@@ -241,6 +241,13 @@ public class Unit : MonoBehaviour, IDamagable
 
     public bool CanMove()
     {
+        
+        // Block movement if the game is paused
+        if (PauseMenu.isPaused)
+        {
+            return false;
+        }
+        
         // Prevent movement if targeting is active
         if (AbilityEvents.IsTargeting)
         {

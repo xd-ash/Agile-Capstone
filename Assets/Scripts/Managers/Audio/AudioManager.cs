@@ -5,6 +5,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
+    
+    
     //public TurnManager turnManager = TurnManager.instance;
     public AudioClip endTurnSfx;
     public AudioClip drawCardSfx;
@@ -23,12 +25,19 @@ public class AudioManager : MonoBehaviour
     public List<SceneMusicEntry> sceneMusic = new List<SceneMusicEntry>();
 
     [Header("Volumes")]
+    [Range(0f, 1f)] public float masterVolume = 1.0f;
     [Range(0f, 1f)] public float sfxVolume = 1.0f;
     [Range(0f, 1f)] public float musicVolume = 0.5f;
 
     private AudioSource _music;   // looped bgm
     private AudioSource _sfx;     // one-shots
-
+    
+    private const string _masterVolKey = "MasterVolume";
+    private const string _musicVolKey = "MusicVolume";
+    private const string _sfxVolKey = "SfxVolume";
+    
+    private float _musicBaseVolume = 1f;
+    
     // Queued clip to play when AbilityEvents.AbilityUsed() fires
     private AudioClip _pendingUseClip;
 
@@ -53,6 +62,9 @@ public class AudioManager : MonoBehaviour
         _sfx.spatialBlend = 0f;
         _sfx.playOnAwake = false;
         _sfx.volume = sfxVolume;
+        
+        LoadVolumeSettings();
+        ApplyVolumes();
     }
 
     private void OnEnable()
@@ -62,17 +74,7 @@ public class AudioManager : MonoBehaviour
         AbilityEvents.OnAbilityUsed += HandleAbilityUsed; //removed the -= of this as audio manager
                                                           //is never disabled at the moment
     }
-
-    private void OnDisable()
-    {
-        //moved to scene swap since audio manager is DontDestroyOnLoad currently
-    }
-
-    private void Start()
-    {
-       
-    }
-
+    
     public void OnSceneSwap(string sceneLoaded)
     {
         // Unsubscribe TurnManager listener if we return to main menu
@@ -124,8 +126,11 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
-        if (clip == null || _sfx == null) return;
-        _sfx.volume = sfxVolume;
+        if (clip == null || _sfx == null)
+        {
+            return;
+        }
+        ApplyVolumes();
         _sfx.PlayOneShot(clip);
     }
 
@@ -141,6 +146,7 @@ public class AudioManager : MonoBehaviour
         _music.loop = loop;
         _music.clip = clip;
         _music.volume = (volume >= 0f) ? Mathf.Clamp01(volume) : musicVolume;
+        ApplyVolumes();
         _music.Play();
     }
 
@@ -150,6 +156,47 @@ public class AudioManager : MonoBehaviour
         _pendingUseClip = clip;
     }
 
-    public void SetSfxVolume(float v)   { sfxVolume = Mathf.Clamp01(v);   if (_sfx)   _sfx.volume = sfxVolume; }
-    public void SetMusicVolume(float v) { musicVolume = Mathf.Clamp01(v); if (_music) _music.volume = musicVolume; }
+    public void LoadVolumeSettings()
+    {
+        masterVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
+        sfxVolume = PlayerPrefs.GetFloat(_musicVolKey, 1f);
+        musicVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
+    }
+
+    public void ApplyVolumes()
+    {
+        if (_sfx != null)
+        {
+            _sfx.volume = masterVolume * sfxVolume;
+        }
+
+        if (_music != null)
+        {
+            _music.volume = masterVolume * musicVolume * _musicBaseVolume;
+        }
+    }
+
+    public void SetMasterVolume(float v)
+    {
+        masterVolume = Mathf.Clamp01(v);
+        PlayerPrefs.SetFloat(_masterVolKey, masterVolume);
+        PlayerPrefs.Save();
+        ApplyVolumes();
+    }
+
+    public void SetSfxVolume(float v)
+    {
+        sfxVolume = Mathf.Clamp01(v);
+        PlayerPrefs.SetFloat(_sfxVolKey, sfxVolume);
+        PlayerPrefs.Save();
+        ApplyVolumes();
+    }
+
+    public void SetMusicVolume(float v)
+    {
+        musicVolume = Mathf.Clamp01(v);
+        PlayerPrefs.SetFloat(_musicVolKey, musicVolume);
+        PlayerPrefs.Save();
+        ApplyVolumes();
+    }
 }
