@@ -8,7 +8,8 @@ public class TransitionScene : MonoBehaviour
     public static TransitionScene instance { get; private set; }
     private GameObject mainMenu, pauseMenu;
     public static Action<string> SceneSwap;
-
+    private string _currScene = "MainMenu";
+    public string GetCurrentScene => _currScene;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -44,6 +45,7 @@ public class TransitionScene : MonoBehaviour
     {
         Debug.Log("Scene transition started.");
         UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
+        _currScene = targetScene;
 
         PauseMenu.isPaused = false;
         AbilityEvents.TargetingStopped();

@@ -2318,7 +2318,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.25
+  m_fontSize: 37.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2673,20 +2673,18 @@ PrefabInstance:
       propertyPath: sceneMusic.Array.data[0].sceneName
       value: Shop
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2809550030970102975, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8097705109026969919, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1352470021}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
 --- !u!114 &1104719764 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
   m_PrefabInstance: {fileID: 1104719763}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352470020}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52c3e54e15fdfd44bb45064793a2f70e, type: 3}
@@ -3297,28 +3295,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316338710}
   m_CullTransparentMesh: 1
---- !u!1 &1352470020 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8097705109026969919, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-  m_PrefabInstance: {fileID: 1104719763}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1352470021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352470020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0dadd8a1c60e841bff8028fcd61687, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settingsPanel: {fileID: 0}
-  otherUIElements: {fileID: 0}
-  masterSlider: {fileID: 224025548}
-  sfxSlider: {fileID: 190494064}
-  musicSlider: {fileID: 1676613545}
 --- !u!1 &1364124795
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,7 +3379,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33
+  m_fontSize: 33.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3928,7 +3904,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33
+  m_fontSize: 33.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4614,7 +4590,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: NodeMap
+          m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1696670676
