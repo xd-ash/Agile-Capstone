@@ -306,7 +306,8 @@ namespace CardSystem
             if (_cardsInHand == null || _cardsInHand.Count == 0)
                 return;
 
-            Destroy(selectedCard?.CardTransform.gameObject);
+            if (selectedCard?.CardTransform != null)
+                Destroy(selectedCard.CardTransform.gameObject);
 
             foreach (var card in _cardsInHand)
             {
