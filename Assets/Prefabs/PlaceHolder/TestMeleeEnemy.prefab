@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitMoveSpeed: 0.2
+  _moveCostPerTile: 1
   _placePathDebugMarkers: 0
 --- !u!114 &2725796073088159668
 MonoBehaviour:
@@ -530,17 +531,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d34d7e33c52ba34db885b8a54199cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
-  _idleStateNames:
-  - Idle_UL
-  - Idle_DL
-  - Idle_UR
-  - Idle_DR
-  _moveStateNames:
-  - Walk_UL
-  - Walk_DL
-  - Walk_UR
-  - Walk_DR
+  _idleStateAnims:
+  - {fileID: 7400000, guid: a205bbd22a784874eb1147af21ddd4c4, type: 2}
+  - {fileID: 7400000, guid: de6dd5ae3488d214e92a3a0cc4ea6ec0, type: 2}
+  - {fileID: 7400000, guid: f13b1aac06722e84fa8d7d5fd487f561, type: 2}
+  - {fileID: 7400000, guid: 7ade35261cafb4f44ae3772df5fe0887, type: 2}
+  _moveStateAnims:
+  - {fileID: 7400000, guid: f3e0595872f8c6b4e8a6cf2cf4c8cc8c, type: 2}
+  - {fileID: 7400000, guid: 74f9945a3aa42574282147a93646e37c, type: 2}
+  - {fileID: 7400000, guid: afd01557e35460d4782adc72ba7eac38, type: 2}
+  - {fileID: 7400000, guid: 597f523ba95cf8545bdefa803668f072, type: 2}
 --- !u!61 &355945360564793161
 BoxCollider2D:
   m_ObjectHideFlags: 0

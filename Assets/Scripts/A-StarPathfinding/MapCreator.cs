@@ -15,6 +15,7 @@ namespace AStarPathfinding
             x = _x;
             y = _y;
         }
+
         public Vector2Int ToVector()
         {
             return new Vector2Int(x, y);
@@ -49,39 +50,34 @@ namespace AStarPathfinding
         }
 
         private Tilemap _tilemap;
-        //private Grid _grid;
 
         [SerializeField] private Vector2Int _mapSize;
-        //[SerializeField] private float _mapScale = 1;
-        [SerializeField] private byte[,] _map;
-        [SerializeField] private List<MapLocation> _directions = new List<MapLocation>() {
-                                                                     new MapLocation(1,0),      //new MapLocation(0.5f, 0.25f),
-                                                                     new MapLocation(0,1),      //new MapLocation(-0.5f, 0.25f),
-                                                                     new MapLocation(-1,0),     //new MapLocation(-0.5f, -0.25f),
-                                                                     new MapLocation(0,-1) };   //new MapLocation(0.5f, -0.25f)};
+        private byte[,] _map;
+        private List<MapLocation> _directions = new List<MapLocation>() { new MapLocation(1,0),
+                                                                          new MapLocation(0,1),
+                                                                          new MapLocation(-1,0),
+                                                                          new MapLocation(0,-1) };
         [Header("Placeholder Obstacle/Enemy Spawn")]
         [SerializeField] private List<Vector2Int> obstLocationList;
         [SerializeField] private List<Vector2Int> enemyLocationList;
         [SerializeField] private GameObject _placeholderObstacle;
         [SerializeField] private GameObject _rangeEnemyPlaceholder;
         [SerializeField] private GameObject _meleeEnemyPlaceholder;
+        int tempEnemyCounter = 0;
 
-        public byte[,] GetByteMap { get { return _map; } }
-        public Vector2Int GetMapSize { get { return _mapSize; } }
-        //public float GetMapScale { get { return _mapScale; } }
-        public List<MapLocation> GetDirections { get { return _directions; } }
-        //public Grid GetGrid { get { return _grid; } }
+        // Getters
+        public byte[,] GetByteMap => _map;
+        public Vector2Int GetMapSize => _mapSize;
+        public List<MapLocation> GetDirections => _directions;
 
         private void OnEnable()
         {
-            _tilemap = transform.Find("TileMap").GetComponent<Tilemap>();
-            //_grid = transform.GetComponent<Grid>();
+            _tilemap = transform.Find("MainTileMap").GetComponent<Tilemap>();
         }
 
         private void Start()
         {
             _map = new byte[_mapSize.x, _mapSize.y];
-
             _tilemap.CompressBounds();
 
             for (int x = 0; x < _map.GetLength(0); x++)
@@ -97,7 +93,6 @@ namespace AStarPathfinding
                     else
                         _map[x, y] = 0;
 
-
                     SpawnTileContents(_map[x, y], gridPos);
 
                     _tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
@@ -110,14 +105,10 @@ namespace AStarPathfinding
             _map[endPos.x, endPos.y] = unit.team == Team.Friendly ? (byte)3 : (byte)2;
         }
 
-        //temp
-        int tempEnemyCounter = 0;
-
         private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)
         {
             Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
             GameObject objToSpawn = null;
-
 
             if (byteIndicator == 1)
                 objToSpawn = _placeholderObstacle;
@@ -135,9 +126,7 @@ namespace AStarPathfinding
                 // z pos adjusted with y value to allow for easy layering of sprites (.01f holds no signifigance, just to make it small)
                 Vector3 adjustedPos = new Vector3(truePos.x, truePos.y, truePos.y * 0.01f); 
 
-                GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity);
-
-                newObj.transform.parent = transform;
+                GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
                 newObj.transform.localPosition = adjustedPos;
             }
         }

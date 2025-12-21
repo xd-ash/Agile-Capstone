@@ -4,7 +4,8 @@ using UnityEngine;
 //location on the "Grid" used to represet the play area
 public static class IsoMetricConversions
 {
-    //potentially expand this to account for scaling map?
+    // Distance (X and Y) from one tile center another in one of the cardinal directions (no diagonals)
+    // in the isometric grid. (This must be updated if isometric "tilt" is adjusted)
     private static Vector2 step = new Vector2(0.5f, 0.25f);
 
     public static Vector3 ConvertToIsometricFromGrid(Vector2Int pos, float z = 0f)
