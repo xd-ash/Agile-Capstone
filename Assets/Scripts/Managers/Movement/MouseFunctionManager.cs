@@ -1,32 +1,29 @@
 using AStarPathfinding;
 using CardSystem;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AbilityEvents;
-using UnityEngine.EventSystems;
+using static IsoMetricConversions;
 
 public class MouseFunctionManager : MonoBehaviour
 {
     public static MouseFunctionManager instance;
 
-    [SerializeField] private Tilemap _tilemap;
+    private Tilemap _tilemap;
+    private APHoverIndicator _apHoverIndicator;
 
+    [Header("Tile")]
     [SerializeField] private Color _mouseTileColor = Color.yellow;
+    private Transform _highlightObjectParent;
+    private GameObject _highlightTile;
+    private Vector3Int _tilePos;
+    private TileBase _currTile;
+    //private Vector3Int _lastTilePos = new Vector3Int(-1, -1, -1);
 
-    [SerializeField] private APHoverIndicator _apHoverIndicator;
-
-    [Header("Path line")]
-    [SerializeField] private LineRenderer _line;
+    [Header("Path Line")]
+    private LineRenderer _line;
     [SerializeField] private float _lineZOffset = 0.01f;
-
-    [SerializeField] private Vector3Int _tilePos;
-    [SerializeField] private TileBase _currTile;
-    private Vector3Int _lastTilePos = new Vector3Int(-1, -1, -1);
-
-    //Target Select stuff
-    public Action<bool> OnClickTarget;
 
     private void Awake()
     {
@@ -40,11 +37,37 @@ public class MouseFunctionManager : MonoBehaviour
 
         if (_tilemap == null)
             _tilemap = FindAnyObjectByType<Tilemap>();
+        if (_apHoverIndicator == null)
+            _apHoverIndicator = FindAnyObjectByType<APHoverIndicator>();
+        if (_line == null)
+            _line = GetComponentInChildren<LineRenderer>();
 
         _line.useWorldSpace = true;
         _line.positionCount = 0;
     }
-
+    private void Start()
+    {
+        InitializeTileHighlight();
+    }
+    private void InitializeTileHighlight()
+    {
+        _highlightObjectParent = MapCreator.instance.transform.Find("HighlightObjParent");
+        if (_highlightObjectParent == null)
+        {
+            _highlightObjectParent = new GameObject("HighlightObjParent").transform;
+            _highlightObjectParent.transform.parent = MapCreator.instance.transform;
+            _highlightObjectParent.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            _highlightObjectParent.localScale = Vector3.one;
+        }
+        _highlightTile = Instantiate(Resources.Load<GameObject>("HighlightTile"), _highlightObjectParent);
+        _highlightTile.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        _highlightTile.transform.localScale = Vector3.one;
+        Color tileColor = _highlightTile.GetComponentInChildren<SpriteRenderer>().color;
+        if (tileColor != _mouseTileColor)
+            _highlightTile.GetComponentInChildren<SpriteRenderer>().color = _mouseTileColor;
+        _highlightTile.GetComponentInChildren<SpriteRenderer>().sortingOrder = 2;
+        _highlightTile.SetActive(false);
+    }
     private void Update()
     {
         // Quick fix for right clicking to cancel activated attack card/ability
@@ -67,14 +90,17 @@ public class MouseFunctionManager : MonoBehaviour
             return;
         }
 
-        TrackMouse();
-        ManageCurrTileColor();
+        if (!CheckMouseTileMove()) return;
 
-        if (_currTile == null)
+        _highlightTile.SetActive(true);
+        _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
+        //ManageCurrTile();
+
+        /*if (_currTile == null)
         {
             ClearLine();
             return;
-        }
+        }*/
         if (IsTargeting)
         {
             DoTargetingStuff();
@@ -82,32 +108,53 @@ public class MouseFunctionManager : MonoBehaviour
         }
         DrawMovementPath();
     }
-
-    private void ManageCurrTileColor()
+    /*
+    private void ManageCurrTile()
     {
-        SetTileColor(_tilePos);
+        MoveTileHighlight(_tilePos);
 
         if (_currTile == null)
         {
-            ClearTileColor(_lastTilePos);
-            _lastTilePos = new Vector3Int(-1, -1, -1);
+            _highlightTile.SetActive(false);
             return;
         }
+    }*/
+    /*
+    private void MoveTileHighlight(Vector3Int tilePos)
+    {
+        _highlightTile.SetActive(true);
+        _highlightTile.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
+    }*/
 
-        if (_lastTilePos != _tilePos)
-        {
-            //Clear any highlighted tiles once a new tile is selected
-            ClearTileColor(_lastTilePos);
-            _lastTilePos = _tilePos;
-        }
-    }
-    private void TrackMouse()
+    // return true if mouse crosses tile border
+    private bool CheckMouseTileMove()
     {
         Vector3 worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldMouse.z = 0f;
 
         _tilePos = _tilemap.WorldToCell(worldMouse);
-        _currTile = _tilemap.GetTile(_tilePos);
+        var tempTile = _tilemap.GetTile(_tilePos);
+
+        if (tempTile == null)
+        {
+            //Debug.Log("test null");
+            _highlightTile.SetActive(false);
+            ClearLine();
+            return false;
+        }
+        else if (tempTile != _currTile)
+        {
+            //Debug.Log("test !=");
+
+            _currTile = tempTile;
+            _highlightTile.SetActive(true);
+            _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     private void DoTargetingStuff()
     {
@@ -136,7 +183,8 @@ public class MouseFunctionManager : MonoBehaviour
             return;
         }
 
-        List<PathMarker> path = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>().CalculatePath((Vector2Int)_tilePos);
+        FindPathAStar unitAStar = unit.GetComponent<FindPathAStar>();
+        List<PathMarker> path = unitAStar.CalculatePath((Vector2Int)_tilePos);
         if (path == null || path.Count == 0)
         {
             ClearLine();
@@ -158,7 +206,6 @@ public class MouseFunctionManager : MonoBehaviour
                 // In range � show only the AP number
                 _apHoverIndicator.ShowCost(indicatorPos, steps);
                 _line.gameObject.SetActive(true);
-
             }
             else
             {
@@ -190,7 +237,7 @@ public class MouseFunctionManager : MonoBehaviour
         _line.SetPositions(points.ToArray());
 
         if (Input.GetMouseButtonDown(0))
-            TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>().OnStartUnitMove();
+            unitAStar.OnStartUnitMove();
     }
 
     private Vector3 GridToWorld(Vector2Int cell)
@@ -206,12 +253,12 @@ public class MouseFunctionManager : MonoBehaviour
         _apHoverIndicator.Hide();
     }
 
-    private void SetTileColor(Vector3Int tilePos)
+    /*private void SetTileColor(Vector3Int tilePos)
     {
         _tilemap.SetColor(tilePos, _mouseTileColor);
     }
     private void ClearTileColor(Vector3Int tilePos)
     {
         _tilemap.SetColor(tilePos, Color.white);
-    }
+    }*/
 }

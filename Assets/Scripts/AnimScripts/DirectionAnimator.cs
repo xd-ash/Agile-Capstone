@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DirectionAnimator : MonoBehaviour
 {
-    [SerializeField] private Animator _anim;
+    private Animator _anim;
 
     // 0 = Up Left, 1 = Down Left, 2 = Up Right, 3 = Down Right
     [Header("Idle states (UL, DL, UR, DR)")]
@@ -29,10 +29,7 @@ public class DirectionAnimator : MonoBehaviour
 
         for (int i = 0; i < _moveStateAnims.Length; i++)
             _moveHashes[i] = Animator.StringToHash(_moveStateAnims[i].name);
-    }
 
-    private void Start()
-    {
         // start facing whatever dir we have with idle
         PlayCurrentState();
     }

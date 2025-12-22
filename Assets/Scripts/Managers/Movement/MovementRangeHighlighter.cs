@@ -3,15 +3,17 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using AStarPathfinding;
 using static IsoMetricConversions;
+using static GameObjectPool;
 
 public class MovementRangeHighlighter : MonoBehaviour
 {
     public static MovementRangeHighlighter instance;
 
-    [SerializeField] private Tilemap _highlightTilemap;
     [SerializeField] private Color _reachableColor = new Color(0f, 0.3f, 1f, 0.3f);
+    private Transform _highlightObjectParent;
+    private GameObject _highlightTilePrefab;
 
-    private readonly List<Vector3Int> _lastHighlightedCells = new List<Vector3Int>();
+    private readonly List<GameObject> _lastHighlightedTiles = new List<GameObject>();
     private Unit _currentUnit;
     private TurnManager.Turn _lastTurn = TurnManager.Turn.Player;
 
@@ -27,9 +29,17 @@ public class MovementRangeHighlighter : MonoBehaviour
     {
         TrySetCurrentUnit(TurnManager.GetCurrentUnit);
         if (TurnManager.instance != null)
-        {
             _lastTurn = TurnManager.instance.currTurn;
+
+        _highlightObjectParent = MapCreator.instance.transform.Find("HighlightObjParent");
+        if (_highlightObjectParent == null)
+        {
+            _highlightObjectParent = new GameObject("HighlightObjParent").transform;
+            _highlightObjectParent.transform.parent = MapCreator.instance.transform;
+            _highlightObjectParent.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            _highlightObjectParent.localScale = Vector3.one;
         }
+        _highlightTilePrefab = Resources.Load<GameObject>("HighlightTile");
 
         AbilityEvents.OnAbilityTargetingStarted += ClearHighlights;
         AbilityEvents.OnAbilityTargetingStopped += RebuildForCurrentUnit;
@@ -117,9 +127,9 @@ public class MovementRangeHighlighter : MonoBehaviour
         ApplyHighlights(reachable);
     }
 
-    private HashSet<Vector3Int> ComputeReachableCells(Unit unit)
+    private HashSet<Vector2Int> ComputeReachableCells(Unit unit)
     {
-        var result = new HashSet<Vector3Int>();
+        var result = new HashSet<Vector2Int>();
         
         byte[,] map = MapCreator.instance.GetByteMap;
         int width = map.GetLength(0);
@@ -148,7 +158,7 @@ public class MovementRangeHighlighter : MonoBehaviour
 
             if (dist > 0)
             {
-                result.Add(new Vector3Int(pos.x, pos.y, 0));
+                result.Add(new Vector2Int(pos.x, pos.y));
             }
 
             if (dist == maxSteps)
@@ -183,30 +193,26 @@ public class MovementRangeHighlighter : MonoBehaviour
         return result;
     }
 
-    private void ApplyHighlights(HashSet<Vector3Int> cells)
+    private void ApplyHighlights(HashSet<Vector2Int> cells)
     {
-        if (_highlightTilemap == null)
-        {
-            Debug.LogWarning("[MovementRangeHighlighter] No highlight tilemap assigned.");
-            return;
-        }
-        
         ClearHighlights();
 
         foreach (var cell in cells)
         {
-            _highlightTilemap.SetTileFlags(cell, TileFlags.None);
-            _highlightTilemap.SetColor(cell, _reachableColor);
-            _lastHighlightedCells.Add(cell);
+            Vector3 cellLocalPos = ConvertToIsometricFromGrid(cell);
+            GameObject tile = Spawn(_highlightTilePrefab, cellLocalPos, Quaternion.identity, _highlightObjectParent);
+            Color tileColor = tile.GetComponentInChildren<SpriteRenderer>().color;
+            if (tileColor != _reachableColor)
+                tile.GetComponentInChildren<SpriteRenderer>().color = _reachableColor;
+            _lastHighlightedTiles.Add(tile);
         }
     }
 
     private void ClearHighlights()
     {
-        for (int i = 0; i < _lastHighlightedCells.Count; i++)
-        {
-            _highlightTilemap.SetColor(_lastHighlightedCells[i], Color.white);
-        }
-        _lastHighlightedCells.Clear();
+        for (int i = _lastHighlightedTiles.Count - 1; i >= 0; i--)
+            Remove(_lastHighlightedTiles[i]);
+
+        _lastHighlightedTiles.Clear();
     }
 }

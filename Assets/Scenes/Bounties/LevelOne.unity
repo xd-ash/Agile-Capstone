@@ -1601,13 +1601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39a42f2fefb7bd439235a65536db21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilemap: {fileID: 359505341}
-  _mouseTileColor: {r: 0.4009434, g: 0.9703864, b: 1, a: 1}
-  _apHoverIndicator: {fileID: 2185072124636334215}
-  _line: {fileID: 807850594}
+  _mouseTileColor: {r: 0.4009434, g: 0.9703864, b: 1, a: 0.54509807}
   _lineZOffset: 0.01
-  _tilePos: {x: 0, y: 0, z: 0}
-  _currTile: {fileID: 0}
 --- !u!1 &807850592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3646,8 +3641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf97e861b29af54bace6c3e52774837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _highlightTilemap: {fileID: 1435304912}
-  _reachableColor: {r: 0, g: 0.45678997, b: 1, a: 1}
+  _reachableColor: {r: 0, g: 0.45678997, b: 1, a: 0.6745098}
 --- !u!1 &1430616791
 GameObject:
   m_ObjectHideFlags: 0
