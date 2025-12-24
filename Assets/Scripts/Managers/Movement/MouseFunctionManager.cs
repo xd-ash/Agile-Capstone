@@ -86,45 +86,21 @@ public class MouseFunctionManager : MonoBehaviour
         }
         
         if (PauseMenu.isPaused)
-        {
             return;
-        }
 
         if (!CheckMouseTileMove()) return;
 
         _highlightTile.SetActive(true);
         _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
-        //ManageCurrTile();
 
-        /*if (_currTile == null)
-        {
-            ClearLine();
-            return;
-        }*/
         if (IsTargeting)
         {
             DoTargetingStuff();
             return;
         }
+
         DrawMovementPath();
     }
-    /*
-    private void ManageCurrTile()
-    {
-        MoveTileHighlight(_tilePos);
-
-        if (_currTile == null)
-        {
-            _highlightTile.SetActive(false);
-            return;
-        }
-    }*/
-    /*
-    private void MoveTileHighlight(Vector3Int tilePos)
-    {
-        _highlightTile.SetActive(true);
-        _highlightTile.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
-    }*/
 
     // return true if mouse crosses tile border
     private bool CheckMouseTileMove()
@@ -137,25 +113,16 @@ public class MouseFunctionManager : MonoBehaviour
 
         if (tempTile == null)
         {
-            //Debug.Log("test null");
             _highlightTile.SetActive(false);
+            _currTile = null;
             ClearLine();
             return false;
         }
-        else if (tempTile != _currTile)
-        {
-            //Debug.Log("test !=");
 
-            _currTile = tempTile;
-            _highlightTile.SetActive(true);
-            _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        _currTile = tempTile;
+        return true;
     }
+
     private void DoTargetingStuff()
     {
         ClearLine();
@@ -194,6 +161,7 @@ public class MouseFunctionManager : MonoBehaviour
         int steps = path.Count;
         int ap = Mathf.Max(0, unit.ap);
         int keep = ap < steps ? ap : steps;
+        bool shouldMove = true;
 
         // Update the Fallout style AP indicator
         if (_apHoverIndicator != null)
@@ -211,6 +179,7 @@ public class MouseFunctionManager : MonoBehaviour
             {
                 // Out of range � show AP number plus red X
                 _apHoverIndicator.ShowOutOfRange(indicatorPos, steps);
+                shouldMove = false;
                 _line.gameObject.SetActive(false);
             }
         }
@@ -236,7 +205,7 @@ public class MouseFunctionManager : MonoBehaviour
         _line.positionCount = points.Count;
         _line.SetPositions(points.ToArray());
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && shouldMove)
             unitAStar.OnStartUnitMove();
     }
 
