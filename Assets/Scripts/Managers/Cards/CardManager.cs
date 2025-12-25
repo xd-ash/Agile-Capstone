@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Splines;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 
 namespace CardSystem
 {
@@ -18,24 +18,26 @@ namespace CardSystem
                 instance = this;
             else
                 Destroy(this.gameObject);
+
+            OnSceneLoaded();
         }
 
-        public int _topCardOfDeck = 0;
-        public int _nextCardInHandIndex = 0;
-        public int _maxCards = 100;
-        public int _currentHandSize = 0;
+        private int _topCardOfDeck = 0;
+        private int _nextCardInHandIndex = 0;
+        [SerializeField] private int _maxCards = 100;
+        /**/public int _currentHandSize = 0;
 
         [SerializeField] private Deck _deck;
         [SerializeField] public List<Card> _cardsInHand = new();
-        [SerializeField] private SplineContainer splineContainer;
+        //[SerializeField] private SplineContainer splineContainer;
         public Card selectedCard = null;
 
         // runtime deck support
         public List<CardAbilityDefinition> runtimeAddedDefinitions = new List<CardAbilityDefinition>();
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
 
-        private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
-        [SerializeField] private float _tweenDuration = 0.25f;
+        //private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
+        //[SerializeField] private float _tweenDuration = 0.25f;
 
         public Transform cardActivePos;// temp card position when activated (to avoid cards blocking grid)
 
@@ -48,14 +50,17 @@ namespace CardSystem
         // internal guard to avoid drawing twice for the same scene load
         private bool _startingHandDrawn = false;
 
+
+        public int GetCurrentHandSize => _currentHandSize;
+        public List<Card> GetCardsInHand => _cardsInHand;
         private void OnEnable()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            //SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         private void OnDisable()
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            //SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         private void Start()
@@ -64,50 +69,36 @@ namespace CardSystem
 
             // include any persisted/purchased cards into the runtime-added definitions
             if (PlayerCollection.instance != null)
-            {
                 foreach (var def in PlayerCollection.instance.ownedCards)
-                {
                     if (def != null && !runtimeAddedDefinitions.Contains(def))
                         runtimeAddedDefinitions.Add(def);
-                }
-            }
 
             ShuffleDeck(); // Add shuffle before any cards are drawn
 
             cardActivePos = transform.Find("CardActivePos");
 
             // attempt to draw starting hand one frame later (avoids Start ordering race)
-            StartCoroutine(WaitAndDrawStartingHand());
+            //StartCoroutine(WaitAndDrawStartingHand());
         }
 
         private IEnumerator WaitAndDrawStartingHand()
         {
             // give other Start() calls a frame to run (TurnManager, etc.)
-            yield return null;
+            yield return new WaitForEndOfFrame();
 
-            if (_startingHandDrawn) yield break;
-
-            // If already have cards (e.g. loaded with hand), do nothing
-            if (_cardsInHand != null && _cardsInHand.Count > 0)
+            if (_startingHandDrawn || _cardsInHand != null && _cardsInHand.Count > 0)
             {
-                _startingHandDrawn = true;
+                Debug.LogWarning("Starting Hand Draw Attempt Fail.");
                 yield break;
             }
 
-            int count = defaultStartingHandSize;
             // prefer TurnManager configured starting hand size when available
-            try
-            {
-                if (TurnManager.instance != null)
-                    count = TurnManager.instance._startingHandSize;
-            }
-            catch { }
+            int count = TurnManager.instance == null ? TurnManager.instance._startingHandSize : defaultStartingHandSize;
 
             DrawStartingHand(count);
-            _startingHandDrawn = true;
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnSceneLoaded(/*Scene scene, LoadSceneMode mode*/)
         {
             // Reset guard on new scene so a fresh starting hand can be drawn
             _startingHandDrawn = false;
@@ -157,11 +148,7 @@ namespace CardSystem
             // remove selectedCard from hand data
             _cardsInHand.Remove(selectedCard);
             _currentHandSize--;
-            ArrangeCardGOs();
-
-            // destroy world prefab
-            if (selectedCard?.CardTransform != null)
-                Destroy(selectedCard.CardTransform.gameObject);
+            CardSplineManager.instance.RemoveSelectedCard(selectedCard);
 
             selectedCard = null;
         }
@@ -207,7 +194,7 @@ namespace CardSystem
             }
 
 
-            ArrangeCardGOs();
+            CardSplineManager.instance.ArrangeCardGOs();
         }
 
         public void CreateCardPrefab(Card card)
@@ -217,7 +204,7 @@ namespace CardSystem
             cardGO.GetComponent<CardSelect>().OnPrefabCreation(card);
             card.CardTransform = cardGO.transform;
         }
-
+        /*
         public void ArrangeCardGOs()
         {
             if (_currentHandSize == 0) return;
@@ -254,7 +241,7 @@ namespace CardSystem
                 }
             }
         }
-
+        */
         /// <summary>
         /// Draw multiple cards (respects existing DrawCard logic such as max hand size).
         /// </summary>
@@ -288,8 +275,7 @@ namespace CardSystem
                 return Array.Empty<CardAbilityDefinition>();
 
             var source = (_runtimeDeckList != null && _runtimeDeckList.Count > 0)
-                ? _runtimeDeckList
-                : new List<CardAbilityDefinition>(_deck.GetDeck);
+                ? _runtimeDeckList : new List<CardAbilityDefinition>(_deck.GetDeck);
 
             if (count <= 0) return Array.Empty<CardAbilityDefinition>();
 
@@ -310,19 +296,15 @@ namespace CardSystem
                 Destroy(selectedCard.CardTransform.gameObject);
 
             foreach (var card in _cardsInHand)
-            {
                 if (card?.CardTransform != null)
-                {
                     Destroy(card.CardTransform.gameObject);
-                }
-            }
 
             _cardsInHand.Clear();
             _nextCardInHandIndex = 0;
             _currentHandSize = 0;
             selectedCard = null;
 
-            ArrangeCardGOs();
+            CardSplineManager.instance.ArrangeCardGOs();
         }
 
         public void SelectCard(Card card)
@@ -346,7 +328,7 @@ namespace CardSystem
             _cardsInHand.RemoveAt(currentIndex);
             newIndex = Mathf.Clamp(newIndex, 0, _cardsInHand.Count);
             _cardsInHand.Insert(newIndex, card);
-            ArrangeCardGOs();
+            CardSplineManager.instance.ArrangeCardGOs();
         }
 
         public void PreviewReorder(int fromIndex, int toIndex)
@@ -359,9 +341,9 @@ namespace CardSystem
             _cardsInHand.RemoveAt(fromIndex);
             toIndex = Mathf.Clamp(toIndex, 0, _cardsInHand.Count);
             _cardsInHand.Insert(toIndex, card);
-            ArrangeCardGOs();
+            CardSplineManager.instance.ArrangeCardGOs();
         }
-
+        /*
         private void UpdateTransformWithTween(Transform transform, Vector3 targetPosition, Quaternion targetRotation, bool isHovered)
         {
             if (_activeSequences.TryGetValue(transform, out Sequence oldSequence))
@@ -389,13 +371,13 @@ namespace CardSystem
             }
             _activeSequences.Clear();
         }
-
+        */
         private void OnDestroy()
         {
             // ensure we unhook scene events if destroyed
-            SceneManager.sceneLoaded -= OnSceneLoaded;
+            //SceneManager.sceneLoaded -= OnSceneLoaded;
         }
-
+        /*
         public void UpdateCardPosition(Card card, bool isHovered)
         {
             if (card == null || splineContainer == null) return;
@@ -440,7 +422,7 @@ namespace CardSystem
                 return sequence;
             }
             return null;
-        }
+        }*/
         /// <summary>
         /// Returns the full list of CardAbilityDefinition objects that make up the runtime deck
         /// (base deck + any runtime/purchased definitions).

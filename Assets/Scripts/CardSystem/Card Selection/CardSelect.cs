@@ -18,12 +18,7 @@ namespace CardSystem
 
         [Header("Visual Settings")]
         [SerializeField] private float handAreaHeight = 2f; // Height of the hand area
-        //[SerializeField] private float activationThreshold = 2.1f; // Just above hand area
         [SerializeField] private int _hoverSortingBoost = 1000;
-
-        //[Header("Movement Settings")]
-        //[SerializeField] private float smoothSpeed = 10f;
-        //[SerializeField] private float destroyThreshold = -3f; // Threshold for destroying cards dropped below hand
 
         [Header("Visual Feedback")]
         [SerializeField] private float hoverScaleMultiplier = 1.2f;
@@ -156,13 +151,13 @@ namespace CardSystem
             // Shop-mode: show confirmation popup instead of drag/drop purchase
             if (_isShopItem)
             {
-                Debug.Log($"Attempting to purchase shop item: {_card?.GetCardName} for {_shopCost} currency");
+                //Debug.Log($"Attempting to purchase shop item: {_card?.GetCardName} for {_shopCost} currency");
                 int price = _shopCost;
                 string cardName = _card?.GetCardName ?? "Card";
 
                 Action confirmAction = () =>
                 {
-                    Debug.Log($"Confirmed purchase of {cardName} for {price} currency");
+                    //Debug.Log($"Confirmed purchase of {cardName} for {price} currency");
                     if (CurrencyManager.instance != null && CurrencyManager.instance.TrySpend(price))
                     {
                         PlayerCollection.instance?.Add(_card.GetCardAbility);
@@ -175,9 +170,7 @@ namespace CardSystem
                             Destroy(toRemove);
                     }
                     else
-                    {
                         OutOfApPopup.Instance?.Show();
-                    }
                 };
 
                 Action cancelAction = () =>
@@ -186,14 +179,9 @@ namespace CardSystem
                 };
 
                 if (ShopConfirmPopup.Instance != null)
-                {
                     ShopConfirmPopup.Instance.Show(price, $"Buy \"{cardName}\" for {price}?", confirmAction, cancelAction);
-                }
                 else
-                {
-                    // fallback: attempt immediate purchase
-                    confirmAction();
-                }
+                    confirmAction();// fallback: attempt immediate purchase
 
                 return;
             }
@@ -222,17 +210,11 @@ namespace CardSystem
 
         private void OnMouseDrag()
         {
-            if (!isDragging || PauseMenu.isPaused || isAnyCardActive) return;
+            if (!isDragging || PauseMenu.isPaused || isAnyCardActive ||
+                _isShopItem || CardManager.instance == null) 
+                return;
 
             transform.position = GetMouseWorldPosition() + dragOffset;
-
-            if (_isShopItem)
-            {
-                // shop items no longer use drag-to-buy behavior
-                return;
-            }
-
-            if (CardManager.instance == null) return;
 
             // Track when we cross the threshold
             bool wasAboveHand = isAboveHandArea;
@@ -246,22 +228,20 @@ namespace CardSystem
                     _spriteRenderer.DOColor(validDropColor, 0.2f).SetUpdate(true);
                     // Temporarily remove from hand management
                     CardManager.instance._cardsInHand.Remove(_card);
-                    CardManager.instance.ArrangeCardGOs();
+                    CardSplineManager.instance.ArrangeCardGOs();
                 }
                 else
                 {
                     _spriteRenderer.DOColor(originalColor, 0.2f).SetUpdate(true);
                     // Add back to hand management
                     CardManager.instance._cardsInHand.Insert(startIndex, _card);
-                    CardManager.instance.ArrangeCardGOs();
+                    CardSplineManager.instance.ArrangeCardGOs();
                 }
             }
 
             // Only update order when in hand area
             if (!isAboveHandArea)
-            {
                 UpdateCardOrder();
-            }
         }
 
         private void OnMouseUp()
@@ -332,13 +312,9 @@ namespace CardSystem
         {
             int finalIndex = CalculateCardIndex();
             if (finalIndex != -1 && finalIndex != startIndex)
-            {
                 CardManager.instance.ReorderCard(_card, finalIndex);
-            }
             else
-            {
-                CardManager.instance.UpdateCardPosition(_card, false);
-            }
+                CardSplineManager.instance.UpdateCardPosition(_card, false);
             RestoreOrder();
         }
 
@@ -372,9 +348,7 @@ namespace CardSystem
             UpdateSortingOrders(_baseSortingOrder + _hoverSortingBoost);
             // Only update position if explicitly not dragging
             if (CardManager.instance != null && !isDragging)
-            {
-                CardManager.instance.UpdateCardPosition(_card, true);
-            }
+                CardSplineManager.instance.UpdateCardPosition(_card, true);
         }
 
         private void RestoreOrder()
@@ -382,9 +356,7 @@ namespace CardSystem
             UpdateSortingOrders(_baseSortingOrder);
             // Only update position if explicitly not dragging
             if (CardManager.instance != null && !isDragging)
-            {
-                CardManager.instance.UpdateCardPosition(_card, false);
-            }
+                CardSplineManager.instance.UpdateCardPosition(_card, false);
         }
 
         // Update the UpdateSortingOrders method to handle text movement more reliably
@@ -394,9 +366,7 @@ namespace CardSystem
 
             _spriteRenderer.sortingOrder = baseOrder;
             if (_highlightRenderer != null)
-            {
                 _highlightRenderer.sortingOrder = baseOrder + 1;
-            }
 
             // Update all TextMeshPro components sorting order
             var texts = GetComponentsInChildren<TextMeshPro>();
@@ -410,7 +380,7 @@ namespace CardSystem
         public void ResetPosition()
         {
             if (CardManager.instance != null)
-                CardManager.instance.UpdateCardPosition(_card, false);
+                CardSplineManager.instance.UpdateCardPosition(_card, false);
             else
                 transform.position = startPosition;
 
@@ -439,7 +409,7 @@ namespace CardSystem
             selected = true;
             //CardManager.instance._cardsInHand.Remove(_card);
             CardManager.instance.selectedCard = _card;
-            CardManager.instance.ArrangeCardGOs();
+            CardSplineManager.instance.ArrangeCardGOs();
 
             // First invoke targeting started to set up restrictions
             AbilityEvents.TargetingStarted();
@@ -460,7 +430,7 @@ namespace CardSystem
             {
                 CardManager.instance._cardsInHand.Add(_card);
                 CardManager.instance._currentHandSize = CardManager.instance._cardsInHand.Count;
-                CardManager.instance.ArrangeCardGOs();
+                CardSplineManager.instance.ArrangeCardGOs();
             }
         }
 
@@ -537,9 +507,7 @@ namespace CardSystem
             // If the prefab has a cost display (third TextMeshPro), update it.
             TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
             if (cardTextFields.Length >= 3)
-            {
                 cardTextFields[2].text = _shopCost.ToString();
-            }
         }
     }
 }

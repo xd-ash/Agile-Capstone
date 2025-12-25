@@ -2188,7 +2188,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.55
+  m_fontSize: 31.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2745,7 +2745,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12.9
+  m_fontSize: 11.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3680,7 +3680,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.85
+  m_fontSize: 12.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5045,7 +5045,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17.3
+  m_fontSize: 15.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5181,7 +5181,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13.05
+  m_fontSize: 12.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5243,6 +5243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691110207}
   - component: {fileID: 1691110206}
+  - component: {fileID: 1691110208}
   m_Layer: 0
   m_Name: CardManager
   m_TagString: Untagged
@@ -5262,20 +5263,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63c42569c9ac04bae120522d983e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _topCardOfDeck: 0
-  _nextCardInHandIndex: 0
   _maxCards: 100
   _currentHandSize: 0
   _deck: {fileID: 11400000, guid: b234795bd520a064687ba1c4db35c945, type: 2}
   _cardsInHand: []
-  splineContainer: {fileID: 1273628127}
   selectedCard:
     _cardName: 
     _cardTransform: {fileID: 0}
     _cardAbility: {fileID: 0}
     _shopCost: 0
   runtimeAddedDefinitions: []
-  _tweenDuration: 0.25
   cardActivePos: {fileID: 0}
   defaultStartingHandSize: 5
 --- !u!4 &1691110207
@@ -5294,6 +5291,20 @@ Transform:
   - {fileID: 1430616792}
   m_Father: {fileID: 1895713566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1691110208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691110205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a182957c4beb645986ab946ca22f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splineContainer: {fileID: 1273628127}
+  _tweenDuration: 0.25
 --- !u!1 &1740800764
 GameObject:
   m_ObjectHideFlags: 0
@@ -5644,7 +5655,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.7
+  m_fontSize: 37.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
