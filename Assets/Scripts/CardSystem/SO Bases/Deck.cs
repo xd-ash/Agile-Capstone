@@ -7,7 +7,5 @@ namespace CardSystem {
         [SerializeField] private CardAbilityDefinition[] _deck;
 
         public CardAbilityDefinition[] GetDeck { get => _deck; }
-
-        //sort function?
     }
 }
