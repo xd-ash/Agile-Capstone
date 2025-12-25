@@ -48,8 +48,6 @@ public class APHoverIndicator : MonoBehaviour
         }
 
         if (_xIconRoot != null)
-        {
             _xIconRoot.SetActive(false);
-        }
     }
 }

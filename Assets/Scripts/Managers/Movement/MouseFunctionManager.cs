@@ -14,11 +14,10 @@ public class MouseFunctionManager : MonoBehaviour
 
     [Header("Tile")]
     [SerializeField] private Color _mouseTileColor = Color.yellow;
-    private Transform _highlightObjectParent;
     private GameObject _highlightTile;
     private Vector3Int _tilePos;
     private TileBase _currTile;
-
+    private bool _shouldMove;
     public Vector3Int GetCurrTilePosition => _tilePos;
 
     private void Awake()
@@ -33,15 +32,14 @@ public class MouseFunctionManager : MonoBehaviour
 
         if (_tilemap == null)
             _tilemap = FindAnyObjectByType<Tilemap>();
-        if (_highlightObjectParent == null)
-            _highlightObjectParent = FindAnyObjectByType<Grid>().transform.Find("HighlightObjParent");
 
         InitializeTileHighlight();
     }
 
     private void InitializeTileHighlight()
     {
-        _highlightTile = Instantiate(Resources.Load<GameObject>("HighlightTile"), _highlightObjectParent);
+        var highlightObjectParent = FindAnyObjectByType<Grid>().transform.Find("HighlightObjParent");
+        _highlightTile = Instantiate(Resources.Load<GameObject>("HighlightTile"), highlightObjectParent);
         _highlightTile.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         _highlightTile.transform.localScale = Vector3.one;
         var sr = _highlightTile.GetComponentInChildren<SpriteRenderer>();
@@ -52,7 +50,7 @@ public class MouseFunctionManager : MonoBehaviour
 
     private void Update()
     {
-        // Quick fix for right clicking to cancel activated attack card/ability
+        // Right click to cancel activated attack card/ability
         if (Input.GetMouseButtonDown(1))
             if (IsTargeting && !PauseMenu.isPaused)
                 if (CardSystem.CardManager.instance.selectedCard != null &&
@@ -68,29 +66,35 @@ public class MouseFunctionManager : MonoBehaviour
         _highlightTile.SetActive(true);
         _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
 
-        //Left click 
-        if (IsTargeting || !MovementLine.instance.DrawMovementPath())
+        // If target selection active or tile hover is out of range then clear line, else left mouse click to move to tile
+        if (IsTargeting || !MovementLine.instance.DrawMovementPath(out _shouldMove))
             MovementLine.instance.ClearLine();
+        else
+        {
+            if (Input.GetMouseButtonDown(0) && _shouldMove)
+            {
+                var unitAStar = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>();
+                unitAStar?.OnStartUnitMove();
+            }
+        }
     }
 
-    // return true if mouse crosses tile border
+    // return true if mouse is over valid tile
     private bool TrackMouse()
     {
         Vector3 worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         worldMouse.z = 0f;
 
         _tilePos = _tilemap.WorldToCell(worldMouse);
-        var tempTile = _tilemap.GetTile(_tilePos);
+        _currTile = _tilemap.GetTile(_tilePos);
 
-        if (tempTile == null)
+        if (_currTile == null)
         {
             _highlightTile.SetActive(false);
-            _currTile = null;
             MovementLine.instance.ClearLine();
             return false;
         }
 
-        _currTile = tempTile;
         return true;
     }
 }

@@ -41,8 +41,11 @@ public class MovementRangeHighlighter : MonoBehaviour
         AbilityEvents.OnAbilityTargetingStarted -= ClearHighlights;
         AbilityEvents.OnAbilityTargetingStopped -= RebuildForCurrentUnit;
     }
+
     private void Update()
     {
+        /* revisit this code after turn manager code is revisited */
+
         if (TurnManager.instance.currTurn != _lastTurn)
         {
             _lastTurn = TurnManager.instance.currTurn;
@@ -60,9 +63,7 @@ public class MovementRangeHighlighter : MonoBehaviour
     private void OnTurnChanged(TurnManager.Turn newTurn)
     {
         if (newTurn == TurnManager.Turn.Player)
-        {
             TrySetCurrentUnit(TurnManager.GetCurrentUnit);
-        }
         else
         {
             ClearHighlights();
@@ -136,50 +137,34 @@ public class MovementRangeHighlighter : MonoBehaviour
         queue.Enqueue((start, 0));
         visited.Add(start);
 
-        Vector2Int[] dirs =
-        {
-            Vector2Int.up,
-            Vector2Int.right,
-            Vector2Int.down,
-            Vector2Int.left
-        };
+        Vector2Int[] dirs = { Vector2Int.up,
+                              Vector2Int.right,
+                              Vector2Int.down,
+                              Vector2Int.left };
 
         while (queue.Count > 0)
         {
             var (pos, dist) = queue.Dequeue();
 
             if (dist > 0)
-            {
                 result.Add(new Vector2Int(pos.x, pos.y));
-            }
 
-            if (dist == maxSteps)
-            {
-                continue;
-            }
+            if (dist == maxSteps) continue;
 
             for (int i = 0; i < dirs.Length; i++)
             {
                 Vector2Int next = pos + dirs[i];
 
-                if (next.x < 0 || next.y < 0 || next.x >= width || next.y >= height)
-                {
+                if (next.x < 0 || next.y < 0 || next.x >= width || next.y >= height || visited.Contains(next))
                     continue;
-                }
-
-                if (visited.Contains(next))
-                {
-                    continue;
-                }
 
                 byte cell = map[next.x, next.y];
-                if (cell != 0)
-                {
-                    continue;
-                }
 
-                visited.Add(next);
-                queue.Enqueue((next, dist + 1));
+                if (cell == 0)
+                {
+                    visited.Add(next);
+                    queue.Enqueue((next, dist + 1));
+                }
             }
         }
         return result;
@@ -193,9 +178,7 @@ public class MovementRangeHighlighter : MonoBehaviour
         {
             Vector3 cellLocalPos = ConvertToIsometricFromGrid(cell);
             GameObject tile = Spawn(_highlightTilePrefab, cellLocalPos, Quaternion.identity, _highlightObjectParent);
-            Color tileColor = tile.GetComponentInChildren<SpriteRenderer>().color;
-            if (tileColor != _reachableColor)
-                tile.GetComponentInChildren<SpriteRenderer>().color = _reachableColor;
+            tile.GetComponentInChildren<SpriteRenderer>().color = _reachableColor;
             _lastHighlightedTiles.Add(tile);
         }
     }
