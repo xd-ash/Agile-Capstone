@@ -1,3 +1,4 @@
+using AStarPathfinding;
 using UnityEngine;
 
 //Small static class for holding conversions to and from Isometric (local pos) to the
@@ -21,5 +22,11 @@ public static class IsoMetricConversions
         int x = (int)(((pos.y / step.y) + (pos.x / step.x)) * 0.5f);
         int y = (int)(((pos.y / step.y) - (pos.x / step.x)) * 0.5f);
         return new Vector2Int((int)(pos.x + 2 * pos.y), (int)(2 * pos.y - pos.x));
+    }
+    public static Vector3 GridToWorld(Vector2Int cell)
+    {
+        // same pipeline as the board / units
+        Vector3 localIso = IsoMetricConversions.ConvertToIsometricFromGrid(cell, 0f);
+        return MapCreator.instance.transform.TransformPoint(localIso);
     }
 }

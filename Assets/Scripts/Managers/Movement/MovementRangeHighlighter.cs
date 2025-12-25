@@ -32,13 +32,6 @@ public class MovementRangeHighlighter : MonoBehaviour
             _lastTurn = TurnManager.instance.currTurn;
 
         _highlightObjectParent = MapCreator.instance.transform.Find("HighlightObjParent");
-        if (_highlightObjectParent == null)
-        {
-            _highlightObjectParent = new GameObject("HighlightObjParent").transform;
-            _highlightObjectParent.transform.parent = MapCreator.instance.transform;
-            _highlightObjectParent.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            _highlightObjectParent.localScale = Vector3.one;
-        }
         _highlightTilePrefab = Resources.Load<GameObject>("HighlightTile");
 
         AbilityEvents.OnAbilityTargetingStarted += ClearHighlights;
