@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using AStarPathfinding;
 using static IsoMetricConversions;
 using static GameObjectPool;

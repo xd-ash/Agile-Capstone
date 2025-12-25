@@ -68,6 +68,7 @@ public class MouseFunctionManager : MonoBehaviour
         _highlightTile.SetActive(true);
         _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
 
+        //Left click 
         if (IsTargeting || !MovementLine.instance.DrawMovementPath())
             MovementLine.instance.ClearLine();
     }

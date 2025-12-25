@@ -59,13 +59,13 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _aStar = GetComponent<FindPathAStar>();
 
-        if (team != Team.Friendly) return; 
+        if (team != Team.Friendly || targetingCoroutine == null) return; 
         CardSystem.CardManager.instance.OnCardAblityCancel += () => StopCoroutine(targetingCoroutine);
         TurnManager.instance.OnPlayerTurnEnd += () => StopCoroutine(targetingCoroutine);
     }
     private void OnDestroy()
     {
-        if (team != Team.Friendly) return; 
+        if (team != Team.Friendly || targetingCoroutine == null) return; 
         CardSystem.CardManager.instance.OnCardAblityCancel -= () => StopCoroutine(targetingCoroutine);
         TurnManager.instance.OnPlayerTurnEnd -= () => StopCoroutine(targetingCoroutine);
     }

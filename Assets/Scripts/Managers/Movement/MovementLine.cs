@@ -5,7 +5,7 @@ using static IsoMetricConversions;
 
 public class MovementLine : MonoBehaviour
 {
-    //private APHoverIndicator _apIndicator;
+    private FindPathAStar _unitAStar;
 
     [Header("Path Line")]
     private LineRenderer _line;
@@ -38,8 +38,8 @@ public class MovementLine : MonoBehaviour
             return false;
 
         Unit unit = TurnManager.GetCurrentUnit;
-        FindPathAStar unitAStar = unit.GetComponent<FindPathAStar>();
-        List<PathMarker> path = unitAStar.CalculatePath((Vector2Int)tilePos);
+        _unitAStar = unit.GetComponent<FindPathAStar>();
+        List<PathMarker> path = _unitAStar.CalculatePath((Vector2Int)tilePos);
         if (path == null || path.Count == 0)
             return false;
 
@@ -91,12 +91,16 @@ public class MovementLine : MonoBehaviour
         _line.SetPositions(points.ToArray());
 
         if (Input.GetMouseButtonDown(0) && shouldMove)
-            unitAStar.OnStartUnitMove();
+            _unitAStar.OnStartUnitMove();
         return true;
     }
     public void ClearLine()
     {
         _line.positionCount = 0;
         APHoverIndicator.instance.Hide();
+    }
+    public void CheckCanMove()
+    {
+
     }
 }
