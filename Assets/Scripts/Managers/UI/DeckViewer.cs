@@ -115,7 +115,7 @@ public class DeckViewer : MonoBehaviour
             return;
         }
 
-        var defs = CardManager.instance.GetRuntimeDeckDefinitions();
+        var defs = CardManager.instance.GetRuntimeDeck;
         if (defs == null || defs.Length == 0)
         {
             Debug.Log("[DeckViewer] Deck is empty.");

@@ -16,9 +16,7 @@ namespace CardSystem
                 DontDestroyOnLoad(gameObject);
             }
             else
-            {
                 Destroy(gameObject);
-            }
         }
 
         public void Add(CardAbilityDefinition def)

@@ -354,6 +354,7 @@ namespace CardSystem
         private void RestoreOrder()
         {
             UpdateSortingOrders(_baseSortingOrder);
+
             // Only update position if explicitly not dragging
             if (CardManager.instance != null && !isDragging)
                 CardSplineManager.instance.UpdateCardPosition(_card, false);

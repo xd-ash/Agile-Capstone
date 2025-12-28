@@ -29,17 +29,13 @@ namespace CardSystem
 
         [SerializeField] private Deck _deck;
         [SerializeField] public List<Card> _cardsInHand = new();
-        //[SerializeField] private SplineContainer splineContainer;
         public Card selectedCard = null;
 
         // runtime deck support
         public List<CardAbilityDefinition> runtimeAddedDefinitions = new List<CardAbilityDefinition>();
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
 
-        //private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
-        //[SerializeField] private float _tweenDuration = 0.25f;
-
-        public Transform cardActivePos;// temp card position when activated (to avoid cards blocking grid)
+        public Transform cardActivePos;// temp card position to move card to when activated (avoid cards blocking grid)
 
         public Action OnCardAblityCancel; //placeholder event for properly cancelling unit coroutines on card ability cancel
 
@@ -47,21 +43,11 @@ namespace CardSystem
         [Tooltip("Fallback starting hand size used if TurnManager isn't available at draw time.")]
         [SerializeField] private int defaultStartingHandSize = 5;
 
-        // internal guard to avoid drawing twice for the same scene load
-        private bool _startingHandDrawn = false;
-
+        private bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
         public int GetCurrentHandSize => _currentHandSize;
         public List<Card> GetCardsInHand => _cardsInHand;
-        private void OnEnable()
-        {
-            //SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        private void OnDisable()
-        {
-            //SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
+        public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
 
         private void Start()
         {
@@ -76,9 +62,6 @@ namespace CardSystem
             ShuffleDeck(); // Add shuffle before any cards are drawn
 
             cardActivePos = transform.Find("CardActivePos");
-
-            // attempt to draw starting hand one frame later (avoids Start ordering race)
-            //StartCoroutine(WaitAndDrawStartingHand());
         }
 
         private IEnumerator WaitAndDrawStartingHand()
@@ -193,7 +176,6 @@ namespace CardSystem
                 _topCardOfDeck = 0;
             }
 
-
             CardSplineManager.instance.ArrangeCardGOs();
         }
 
@@ -204,44 +186,7 @@ namespace CardSystem
             cardGO.GetComponent<CardSelect>().OnPrefabCreation(card);
             card.CardTransform = cardGO.transform;
         }
-        /*
-        public void ArrangeCardGOs()
-        {
-            if (_currentHandSize == 0) return;
-            var spline = splineContainer != null ? splineContainer.Spline : null;
-            if (spline == null)
-            {
-                Debug.LogWarning("CardManager: SplineContainer or Spline is not assigned.");
-                return;
-            }
 
-            int count = Mathf.Min(_currentHandSize, _cardsInHand.Count);
-            int slots = Mathf.Max(1, count);
-
-            float cardSpacing = 1f / slots;
-
-            // Center the group along the spline range [0,1]
-            float firstCardPos = 0.5f - (count - 1) * (cardSpacing / 2f);
-            firstCardPos = Mathf.Clamp01(firstCardPos);
-
-            for (int i = 0; i < count; i++)
-            {
-                float t = firstCardPos + i * cardSpacing;
-                t = Mathf.Clamp01(t);
-
-                Vector3 splinePosition = spline.EvaluatePosition(t);
-                Vector3 forward = spline.EvaluateTangent(t);
-                Vector3 up = spline.EvaluateUpVector(t);
-                Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
-
-                var tr = _cardsInHand[i]?.CardTransform;
-                if (tr != null)
-                {
-                    UpdateTransformWithTween(tr, splinePosition, rotation, false);
-                }
-            }
-        }
-        */
         /// <summary>
         /// Draw multiple cards (respects existing DrawCard logic such as max hand size).
         /// </summary>
@@ -343,102 +288,6 @@ namespace CardSystem
             _cardsInHand.Insert(toIndex, card);
             CardSplineManager.instance.ArrangeCardGOs();
         }
-        /*
-        private void UpdateTransformWithTween(Transform transform, Vector3 targetPosition, Quaternion targetRotation, bool isHovered)
-        {
-            if (_activeSequences.TryGetValue(transform, out Sequence oldSequence))
-            {
-                oldSequence.Kill();
-                _activeSequences.Remove(transform);
-            }
-
-            Sequence sequence = DOTween.Sequence();
-            
-            float duration = isHovered ? _tweenDuration * 0.4f : _tweenDuration;
-            Ease easeType = isHovered ? Ease.OutQuad : Ease.InOutQuad;
-
-            sequence.Join(transform.DOMove(targetPosition, duration).SetEase(easeType));
-            sequence.Join(transform.DORotateQuaternion(targetRotation, duration).SetEase(easeType));
-
-            _activeSequences[transform] = sequence;
-        }
-
-        private void OnDisableInternal()
-        {
-            foreach (var sequence in _activeSequences.Values)
-            {
-                sequence.Kill();
-            }
-            _activeSequences.Clear();
-        }
-        */
-        private void OnDestroy()
-        {
-            // ensure we unhook scene events if destroyed
-            //SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-        /*
-        public void UpdateCardPosition(Card card, bool isHovered)
-        {
-            if (card == null || splineContainer == null) return;
-            
-            var spline = splineContainer.Spline;
-            if (spline == null) return;
-
-            int cardIndex = _cardsInHand.IndexOf(card);
-            if (cardIndex == -1) return;
-
-            int count = Mathf.Min(_currentHandSize, _cardsInHand.Count);
-            int slots = Mathf.Max(1, count);
-            float cardSpacing = 1f / slots;
-            
-            float firstCardPos = 0.5f - (count - 1) * (cardSpacing / 2f);
-            firstCardPos = Mathf.Clamp01(firstCardPos);
-            
-            float t = firstCardPos + cardIndex * cardSpacing;
-            t = Mathf.Clamp01(t);
-
-            Vector3 splinePosition = spline.EvaluatePosition(t);
-            Vector3 forward = spline.EvaluateTangent(t);
-            Vector3 up = spline.EvaluateUpVector(t);
-            Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
-
-            if (isHovered)
-            {
-                splinePosition += Vector3.up * 0.5f;
-            }
-
-            var tr = card.CardTransform;
-            if (tr != null)
-            {
-                UpdateTransformWithTween(tr, splinePosition, rotation, isHovered);
-            }
-        }
-
-        public Sequence GetActiveTweenSequence(Transform transform)
-        {
-            if (_activeSequences.TryGetValue(transform, out Sequence sequence))
-            {
-                return sequence;
-            }
-            return null;
-        }*/
-        /// <summary>
-        /// Returns the full list of CardAbilityDefinition objects that make up the runtime deck
-        /// (base deck + any runtime/purchased definitions).
-        /// </summary>
-        public CardAbilityDefinition[] GetRuntimeDeckDefinitions()
-        {
-            var list = new List<CardAbilityDefinition>();
-
-            if (_deck != null && _deck.GetDeck != null)
-                list.AddRange(_deck.GetDeck);
-
-            if (runtimeAddedDefinitions != null && runtimeAddedDefinitions.Count > 0)
-                list.AddRange(runtimeAddedDefinitions);
-
-            return list.ToArray();
-        }
 
         /// <summary>
         /// Debug helper: print the runtime deck to the Unity Console.
@@ -446,7 +295,7 @@ namespace CardSystem
         /// </summary>
         public void LogRuntimeDeck()
         {
-            var defs = GetRuntimeDeckDefinitions();
+            var defs = GetRuntimeDeck;
             Debug.Log($"[CardManager] Runtime deck contains {defs.Length} definitions.");
             for (int i = 0; i < defs.Length; i++)
             {
