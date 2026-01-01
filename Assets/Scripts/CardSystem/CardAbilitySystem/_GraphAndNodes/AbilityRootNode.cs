@@ -10,8 +10,8 @@ namespace CardSystem
     [CreateNodeMenu("Ability Root Node")]
     public class AbilityRootNode : AbilityNodeBase
 	{
-        [SerializeField] private int _apCost;
-        [SerializeField] private int _range;
+        //[SerializeField] private int _apCost;
+        //[SerializeField] private int _range;
         [Flags] public enum EffectTypes{ Helpful = 2, Harmful = 4, Misc = 8 }
         [SerializeField] private EffectTypes _effectTypes;
 
@@ -21,10 +21,9 @@ namespace CardSystem
 		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public int harmfulEffects;
 		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte miscEffects;
 
+        private CardAbilityDefinition _cardDefinition => this.graph as CardAbilityDefinition;
 		private TargetingStrategy _targetingStrategy;
 
-        public int GetApCost => _apCost;
-        public int GetRange => _range;
         public EffectTypes GetEffectTypes { get { return _effectTypes; } }
 
 		// check if user (Unit) is able to use abailty with AP, start targeting
@@ -34,7 +33,7 @@ namespace CardSystem
             if (_targetingStrategy == null)
                 _targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
 
-			if (!user.SpendAP(_apCost, false)) return; // simply check if ap can be spent
+			if (!user.SpendAP(_cardDefinition.GetApCost, false)) return; // simply check if ap can be spent
 
 			AbilityData abilityData = new AbilityData(user);
 			_targetingStrategy?.StartTargeting(abilityData, () =>
@@ -59,9 +58,9 @@ namespace CardSystem
   			if (abilityData.GetUnit.team == Team.Friendly && _targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
             {
                 // Return the card to hand or destroy it
-                if (CardManager.instance != null && CardManager.instance.selectedCard != null)
+                if (CardManager.instance != null && CardManager.instance.SelectedCard != null)
                 {
-                    var cardSelect = CardManager.instance.selectedCard.CardTransform.GetComponent<CardSelect>();
+                    var cardSelect = CardManager.instance.SelectedCard.CardTransform.GetComponent<CardSelect>();
                     if (cardSelect != null)
                         cardSelect.ReturnCardToHand();
                 }
@@ -79,7 +78,7 @@ namespace CardSystem
 				curEffect.StartEffect(abilityData, OnEffectFinished);
 			}
 
-            abilityData.GetUnit.SpendAP(_apCost);//actually use the ap
+            abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
             if (abilityData.GetUnit.team == Team.Friendly)
                 AbilityEvents.TargetingStopped();
             AbilityEvents.AbilityUsed(abilityData.GetUnit.team); //moved here to avoid early card removal/delete on multi effect cards

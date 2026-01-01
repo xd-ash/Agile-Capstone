@@ -22,7 +22,7 @@ namespace CardSystem
         {
             var def = this.graph as CardAbilityDefinition;
             //Debug.Log($"def effect: {def.abilitySFX.name}");
-            AudioManager.instance?.SetPendingUseSfx(def.abilitySFX);
+            AudioManager.instance?.SetPendingUseSfx(def.GetAbilitySFX);
 
             if (_visualsStrategy == null)
             {

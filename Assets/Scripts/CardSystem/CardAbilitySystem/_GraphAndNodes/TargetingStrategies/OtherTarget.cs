@@ -16,7 +16,7 @@ namespace CardSystem
             {
                 case Team.Friendly:
                     base.StartTargeting(abilityData, onFinished);
-                    abilityData.GetUnit.targetingCoroutine = abilityData.GetUnit.StartCoroutine(TargetingCoro(abilityData, onFinished));
+                    abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished));
                     break;
                 case Team.Enemy:
                     GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
@@ -30,7 +30,7 @@ namespace CardSystem
         {
             Unit caster = abilityData.GetUnit;
             Unit hoveredUnit = null;
-            int abilityRange = (graph as CardAbilityDefinition).RootNode.GetRange;
+            int abilityRange = (graph as CardAbilityDefinition).GetRange;
 
             while (true)
             {

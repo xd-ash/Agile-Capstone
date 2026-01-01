@@ -1,10 +1,9 @@
-using AStarPathfinding;
-using Interfaces;
 using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using CardSystem;
 
 public enum Team {Friendly, Enemy}
 public class Unit : MonoBehaviour, IDamagable
@@ -17,8 +16,6 @@ public class Unit : MonoBehaviour, IDamagable
     [Header("Shield")]
     [SerializeField] private int shield = 0; // current shield amount (absorb damage before health)
     [SerializeField] private int maxShield = 25;
-    //[Header("Target for Enemy units")]
-    //[SerializeField] private Unit _target;
 
     [Header("Action Points")] 
     public int maxAP;
@@ -33,10 +30,9 @@ public class Unit : MonoBehaviour, IDamagable
     [SerializeField] private Slider _enemyHPBar;
     [SerializeField] private TextMeshProUGUI _hitChanceText;
 
-    private FindPathAStar _aStar;
+    private Coroutine _targetingCoroutine;
 
     public event Action<Unit> OnApChanged;
-    public Coroutine targetingCoroutine;
 
     private void Awake()
     {
@@ -57,17 +53,15 @@ public class Unit : MonoBehaviour, IDamagable
     }
     private void Start()
     {
-        _aStar = GetComponent<FindPathAStar>();
-
-        if (team != Team.Friendly || targetingCoroutine == null) return; 
-        CardSystem.CardManager.instance.OnCardAblityCancel += () => StopCoroutine(targetingCoroutine);
-        TurnManager.instance.OnPlayerTurnEnd += () => StopCoroutine(targetingCoroutine);
+        if (team != Team.Friendly || _targetingCoroutine == null) return; 
+        CardManager.instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
+        TurnManager.instance.OnPlayerTurnEnd += () => StopCoroutine(_targetingCoroutine);
     }
     private void OnDestroy()
     {
-        if (team != Team.Friendly || targetingCoroutine == null) return; 
-        CardSystem.CardManager.instance.OnCardAblityCancel -= () => StopCoroutine(targetingCoroutine);
-        TurnManager.instance.OnPlayerTurnEnd -= () => StopCoroutine(targetingCoroutine);
+        if (team != Team.Friendly || _targetingCoroutine == null) return; 
+        CardManager.instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
+        TurnManager.instance.OnPlayerTurnEnd -= () => StopCoroutine(_targetingCoroutine);
     }
     /// <summary>
     /// ChangeHealth handles both healing (isGain = true) and damage (isGain = false).
@@ -276,5 +270,8 @@ public class Unit : MonoBehaviour, IDamagable
 
         _hitChanceText.gameObject.SetActive(false);
     }
-
+    public void StartTargetingCoroutine(IEnumerator targetingCoro)
+    {
+        _targetingCoroutine = StartCoroutine(targetingCoro);
+    }
 }

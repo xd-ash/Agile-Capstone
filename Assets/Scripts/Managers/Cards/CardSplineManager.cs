@@ -24,7 +24,7 @@ namespace CardSystem
         public void ArrangeCardGOs()
         {
             int handSize = CardManager.instance.GetCurrentHandSize;
-            var cardsInHand = CardManager.instance.GetCardsInHand;
+            var cardsInHand = CardManager.instance.CardsInHand;
 
             if (handSize == 0) return;
             var spline = splineContainer != null ? splineContainer.Spline : null;
@@ -89,7 +89,7 @@ namespace CardSystem
         public void UpdateCardPosition(Card card, bool isHovered)
         {
             int handSize = CardManager.instance.GetCurrentHandSize;
-            var cardsInHand = CardManager.instance.GetCardsInHand;
+            var cardsInHand = CardManager.instance.CardsInHand;
 
             if (card == null || splineContainer == null) return;
 

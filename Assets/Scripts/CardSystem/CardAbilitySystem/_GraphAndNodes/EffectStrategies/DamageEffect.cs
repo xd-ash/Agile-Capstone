@@ -44,7 +44,7 @@ namespace CardSystem
             {
                 if (target != null && target.TryGetComponent<Unit>(out Unit targetUnit))
                 {
-                    int abilRange = (graph as CardAbilityDefinition).RootNode.GetRange;
+                    int abilRange = (graph as CardAbilityDefinition).GetRange;
 
                     bool hit = CombatMath.RollHit(abilityData.GetUnit, targetUnit, abilRange, out int hitChance, out float roll);
 

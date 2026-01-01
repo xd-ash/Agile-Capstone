@@ -151,8 +151,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 5
-  _range: 1
   _effectTypes: 4
   targeting: 0
   filtering: 0
@@ -211,7 +209,11 @@ MonoBehaviour:
   - {fileID: 6646383339752646348}
   _cardName: Strong Attack
   _description: Deal 7 damage close range
-  abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+  _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+  _apCost: 6
+  _range: 1
+  _shopCost: 25
+  _shopWeight: 25
 --- !u!114 &5144402596869855986
 MonoBehaviour:
   m_ObjectHideFlags: 0

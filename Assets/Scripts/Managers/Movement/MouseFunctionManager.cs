@@ -1,6 +1,5 @@
 using AStarPathfinding;
 using CardSystem;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AbilityEvents;
@@ -53,8 +52,8 @@ public class MouseFunctionManager : MonoBehaviour
         // Right click to cancel activated attack card/ability
         if (Input.GetMouseButtonDown(1))
             if (IsTargeting && !PauseMenu.isPaused)
-                if (CardSystem.CardManager.instance.selectedCard != null &&
-                    CardSystem.CardManager.instance.selectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
+                if (CardManager.instance.SelectedCard != null &&
+                    CardManager.instance.SelectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
                 {
                     AbilityEvents.TargetingStopped();
                     card.ReturnCardToHand();
@@ -82,9 +81,7 @@ public class MouseFunctionManager : MonoBehaviour
     // return true if mouse is over valid tile
     private bool TrackMouse()
     {
-        Vector3 worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        worldMouse.z = 0f;
-
+        Vector3 worldMouse = GetMouseWorldPosition();
         _tilePos = _tilemap.WorldToCell(worldMouse);
         _currTile = _tilemap.GetTile(_tilePos);
 
@@ -96,5 +93,11 @@ public class MouseFunctionManager : MonoBehaviour
         }
 
         return true;
+    }
+    public Vector3 GetMouseWorldPosition()
+    {
+        Vector3 worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        worldMouse.z = 0f;
+        return worldMouse;
     }
 }

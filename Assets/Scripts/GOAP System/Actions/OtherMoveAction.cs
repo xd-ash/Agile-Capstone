@@ -11,7 +11,7 @@ public class OtherMoveAction : GoapAction
     {
         aStar = agent.GetComponent<FindPathAStar>();
 
-        if (agent.damageAbility.RootNode.GetRange > 1)
+        if (agent.damageAbility.GetRange > 1)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             return false;

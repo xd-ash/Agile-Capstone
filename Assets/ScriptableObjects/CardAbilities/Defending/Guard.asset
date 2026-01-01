@@ -83,7 +83,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 1
   _effectTypes: 2
   targeting: 0
   filtering: 0
@@ -107,6 +106,7 @@ MonoBehaviour:
   ports:
     keys:
     - input
+    - effectVisuals
     values:
     - _fieldName: input
       _node: {fileID: -5550744489948948604}
@@ -120,9 +120,19 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: -5550744489948948604}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
   _hasDuration: 1
   _duration: 5000
   _effectValue: 5
+  effectVisuals: 0
   input: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -142,7 +152,11 @@ MonoBehaviour:
   - {fileID: -5550744489948948604}
   _cardName: Guard
   _description: Add 5 Block
-  abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
+  _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
+  _apCost: 2
+  _range: 0
+  _shopCost: 20
+  _shopWeight: 25
 --- !u!114 &833357395057102542
 MonoBehaviour:
   m_ObjectHideFlags: 0

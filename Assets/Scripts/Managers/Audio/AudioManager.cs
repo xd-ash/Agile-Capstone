@@ -6,7 +6,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
     
-    
     //public TurnManager turnManager = TurnManager.instance;
     public AudioClip endTurnSfx;
     public AudioClip drawCardSfx;

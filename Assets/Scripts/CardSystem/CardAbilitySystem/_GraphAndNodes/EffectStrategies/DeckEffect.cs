@@ -38,7 +38,7 @@ namespace CardSystem
             {
                 case DeckAction.Draw:
                     // Draw _amount cards (CardManager.DrawMultiple handles hand size / deck end)
-                    CardManager.instance.DrawMultiple(_amount);
+                    CardManager.instance.DrawCard(_amount);
                     break;
 
                 case DeckAction.PeekTop:

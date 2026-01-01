@@ -141,7 +141,11 @@ MonoBehaviour:
   - {fileID: 5214614789712125746}
   _cardName: Roundhouse Kick
   _description: Deal 5 damage close range and draw one card
-  abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+  _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+  _apCost: 6
+  _range: 1
+  _shopCost: 20
+  _shopWeight: 35
 --- !u!114 &5214614789712125746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,8 +303,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 4
-  _range: 1
   _effectTypes: 12
   targeting: 0
   filtering: 0
