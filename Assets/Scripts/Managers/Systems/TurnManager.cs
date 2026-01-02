@@ -50,8 +50,7 @@ public class TurnManager : MonoBehaviour
 
         _unitTurnOrder = GrabUnits();
 
-        //Temp setup for win/loss conditions
-        //
+        // Temp setup for win/loss conditions
         List<Unit> enemies = new List<Unit>();
         foreach (Unit unit in _unitTurnOrder)
             if (unit != null && unit.team == Team.Enemy)
@@ -60,18 +59,16 @@ public class TurnManager : MonoBehaviour
         //
 
         OnGameStart?.Invoke();
-        SetTurn(); //Could change by using the dice roll or random.range
+        SetTurn();
     }
 
-    //There is very likely a better way to sort this 
     private List<Unit> GrabUnits()
     {
         var unsortedList = FindObjectsByType<Unit>(sortMode: FindObjectsSortMode.None).ToList<Unit>();
         var sortedList = new List<Unit>();
 
         for (int i = 0; i < unsortedList.Count; i++)
-            //this isnt great for when we have multiple friendlies
-            if (unsortedList[i].team == Team.Friendly)
+            if (unsortedList[i].team == Team.Friendly) //this won't be great if/when there are multiple friendlies
             {
                 sortedList.Add(unsortedList[i]);
                 unsortedList.Remove(unsortedList[i]);
@@ -94,8 +91,7 @@ public class TurnManager : MonoBehaviour
 
     private void SetTurn()
     {
-        if (_curUnit != null)
-            _curUnit.transform.Find("turnHighligher").gameObject.SetActive(false);
+        _curUnit?.transform.Find("turnHighligher").gameObject.SetActive(false);
 
         _turnTracker++;
         if (_turnTracker >= _unitTurnOrder.Count) _turnTracker = 0; //reset turn tracker for looping turn order
@@ -110,35 +106,29 @@ public class TurnManager : MonoBehaviour
 
         if (_turnText != null)
             _turnText.text = $"{currTurn}'s Turn";
-        if (_curUnit != null)
-            _curUnit.RefreshAP();
+        _curUnit?.RefreshAP();
 
         if (currTurn == Turn.Enemy)
             _curUnit.GetComponent<GoapAgent>().ResetStates();
 
         // Draw player's starting hand when player's turn begins
-        if (_curUnit.team == Team.Friendly && CardManager.instance != null)
-        {
-            //Debug.Log($"[TurnManager] Drawing starting hand.");
-            CardManager.instance.DrawStartingHand(true);
-            if (AudioManager.instance != null) 
-                AudioManager.instance.LevelLoadInits(); //just play bgm
-        }
+        if (_curUnit.team == Team.Friendly)
+            CardManager.instance?.DrawStartingHand(true);
 
         UpdateApText();
     }
 
+    // Mapped to end turn button in combat scene
     public void EndPlayerTurn()
     {
         if (currTurn != Turn.Player) return; // avoid turn end spam
+        AudioManager.instance?.PlayButtonSFX();
 
         SetTurn();
         AbilityEvents.TargetingStopped();
-
+        
         // discard player's hand at end of player turn
-        if (CardManager.instance != null)
-            CardManager.instance.DiscardAll();
-
+        CardManager.instance?.DiscardAll();
         OnPlayerTurnEnd?.Invoke();
     }
 }

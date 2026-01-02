@@ -16,8 +16,8 @@ namespace CardSystem
         [SerializeField] private bool _selected = false;
 
         [Header("Visual Settings")]
-        [SerializeField] private float _handAreaHeight = 2f; // Height of the hand area
-        private bool _isAboveHandArea = false; // Add this field
+        [SerializeField] private float _handAreaHeight = 2f; // Height of the hand area (add gizmo for editing?)
+        private bool _isAboveHandArea = false;
 
         [Header("Visual Feedback")]
         [SerializeField] private float _hoverScaleMultiplier = 1.2f;
@@ -35,20 +35,20 @@ namespace CardSystem
         private int _startIndex;
 
         // field to track if any card is currently being used
-        private bool _isAnyCardActive = false;
+        [SerializeField] private bool _isAnyCardActive = false;
 
         private void OnEnable()
         {
             SetupVisuals();
-            AbilityEvents.OnAbilityUsed += ClearSelection;
+            AbilityEvents.OnAbilityTargetingStopped += ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted += OnTargetingStarted; // Use the correct event
-            if (TurnManager.instance != null )
+            if (TurnManager.instance != null)
                 TurnManager.instance.OnPlayerTurnEnd += ReturnCardToHand;
         }
 
         private void OnDestroy()
         {
-            AbilityEvents.OnAbilityUsed -= ClearSelection;
+            AbilityEvents.OnAbilityTargetingStopped -= ClearSelection;
             AbilityEvents.OnAbilityTargetingStarted -= OnTargetingStarted; // Use the correct event   
             if (TurnManager.instance != null)
                 TurnManager.instance.OnPlayerTurnEnd -= ReturnCardToHand;
@@ -75,12 +75,9 @@ namespace CardSystem
             _highlightRenderer = _cardHighlight?.GetComponent<SpriteRenderer>();
 
             if (_highlightRenderer != null)
-            {
-                _highlightRenderer.sortingLayerID = _spriteRenderer.sortingLayerID;
                 _highlightRenderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
-            }
 
-            UpdateSortingOrders(); // set initial sorting order of sprites/texts based on card index
+            UpdateSortingOrders();
         }
 
         #region OnMouse Methods
@@ -175,7 +172,8 @@ namespace CardSystem
 
             if (CardManager.instance == null)
             {
-                ResetPosition();
+                //ResetPosition();
+                ReturnCardToHand();
                 return;
             }
 
@@ -195,7 +193,8 @@ namespace CardSystem
                 transform.DOScale(_originalScale, _tweenDuration);
                 transform.DORotate(Vector3.zero, _tweenDuration);
                 _spriteRenderer.DOColor(_originalColor, _tweenDuration);
-                FinalizeCardPosition();
+                //FinalizeCardOrder();
+                UpdateCardOrder(true);
             }
 
             _isAboveHandArea = false;
@@ -280,9 +279,9 @@ namespace CardSystem
             transform.localPosition = target.localPosition;
         }
 
-        private void ClearSelection(Team unitTeam = Team.Friendly)
+        private void ClearSelection()
         {
-            if (unitTeam == Team.Enemy) return;
+            if (TurnManager.instance.currTurn == TurnManager.Turn.Enemy) return;
 
             _selected = false;
             _isAnyCardActive = false; // Reset when ability is finished
@@ -294,12 +293,28 @@ namespace CardSystem
         #region Card Sorting/Ordering
         private void BringToFront()
         {
-            UpdateSortingOrders(CardManager.instance.CardsInHand.Count); 
+            UpdateSortingOrders(CardManager.instance.CardsInHand.Count);
 
             // Only update position if explicitly not dragging
-            if (CardManager.instance != null && !_isDragging)
+            if (!_isDragging)
                 CardSplineManager.instance.UpdateCardPosition(_card, true);
         }
+        private void UpdateCardOrder(bool isFinal = false)
+        {
+            if (!isFinal && transform.position.y > _handAreaHeight) return;
+
+            int newIndex = CalculateCardIndex();
+            if (newIndex != -1 && newIndex != _startIndex)
+            {
+                CardManager.instance.ReorderCard(_card, newIndex);
+                _startIndex = newIndex;
+                if (!isFinal) return;
+            }
+
+            CardSplineManager.instance.UpdateCardPosition(_card, false);
+            RestoreOrder();
+        }
+        /*merged these into update card order above (delete later if no bugs)
         private void UpdateCardOrder()
         {
             // Only calculate new index if card is in hand area
@@ -313,17 +328,29 @@ namespace CardSystem
                 }
             }
         }
+        private void FinalizeCardOrder()
+        {
+            int finalIndex = CalculateCardIndex();
+            if (finalIndex != -1 && finalIndex != _startIndex)
+                CardManager.instance.ReorderCard(_card, finalIndex);
+            else
+                CardSplineManager.instance.UpdateCardPosition(_card, false);
+            RestoreOrder();
+        }*/
         private void RestoreOrder()
         {
             UpdateSortingOrders();
-
+            
             // Only update position if explicitly not dragging
-            if (CardManager.instance != null && !_isDragging)
-                CardSplineManager.instance.UpdateCardPosition(_card, false);
+            if (!_isDragging)
+                CardSplineManager.instance?.UpdateCardPosition(_card, false);
         }
-        // Update the UpdateSortingOrders method to handle text movement more reliably
+
+        // set sorting order of sprites/texts based on card index
         private void UpdateSortingOrders(int sortingBoost = 0)
         {
+            Debug.Log("test");
+
             if (_spriteRenderer == null) return;
             int index = CardManager.instance.CardsInHand.IndexOf(_card);
             bool isShopActive = CardShopManager.Instance != null;
@@ -351,7 +378,8 @@ namespace CardSystem
             if (CardManager.instance != null)
             {
                 CardManager.instance.CardsInHand.Add(_card);
-                CardSplineManager.instance.ArrangeCardGOs();
+                //CardSplineManager.instance.ArrangeCardGOs();
+                RestoreOrder();
             }
         }
 
@@ -364,15 +392,7 @@ namespace CardSystem
 
             RestoreOrder();
         }
-        private void FinalizeCardPosition()
-        {
-            int finalIndex = CalculateCardIndex();
-            if (finalIndex != -1 && finalIndex != _startIndex)
-                CardManager.instance.ReorderCard(_card, finalIndex);
-            else
-                CardSplineManager.instance.UpdateCardPosition(_card, false);
-            RestoreOrder();
-        }
+
         #endregion
 
         #region Misc Methods and Calculations

@@ -90,11 +90,9 @@ namespace CardSystem
         {
             int handSize = CardManager.instance.GetCurrentHandSize;
             var cardsInHand = CardManager.instance.CardsInHand;
+            var spline = splineContainer?.Spline;
 
-            if (card == null || splineContainer == null) return;
-
-            var spline = splineContainer.Spline;
-            if (spline == null) return;
+            if (card == null || spline == null) return;
 
             int cardIndex = cardsInHand.IndexOf(card);
             if (cardIndex == -1) return;

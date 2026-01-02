@@ -3,72 +3,57 @@ using UnityEngine.UI;
 
 public class MapNodeButton : MonoBehaviour
 {
-    public int nodeIndex;
-    public string targetSceneName;
+    // these need proper systems instead of inspector assignment
+    [SerializeField] private int _nodeIndex; 
+    [SerializeField] private string _targetSceneName;
+    //
 
-    [Header("UI References")]
-    public Button button;
-    public Image background;
+    private Button _button;
+    private Image _background;
 
     private void Start()
     {
-        if (button == null)
-        {
-            button = GetComponent<Button>();
-        }
-
-        if (button != null)
-        {
-            button.onClick.AddListener(OnClicked);
-        }
+        if (TryGetComponent(out _button))
+            _button?.onClick.AddListener(OnClicked);
+        else
+            Debug.LogWarning("MapNodeButton on " + gameObject.name + " has no Button component.");
 
         RefreshVisual();
     }
 
     private void OnEnable()
     {
+        _button = GetComponent<Button>();
+        _background = GetComponent<Image>();
+
         //When the map scene reloads, update visuals
         RefreshVisual();
     }
 
     private void RefreshVisual()
     {
-        if (SceneProgressManager.Instance == null || button == null)
-            return;
+        if (SceneProgressManager.Instance == null || _button == null) return;
 
-        bool completed = SceneProgressManager.Instance.IsNodeCompleted(nodeIndex);
-        bool unlocked = SceneProgressManager.Instance.IsNodeUnlocked(nodeIndex);
+        bool completed = SceneProgressManager.Instance.IsNodeCompleted(_nodeIndex);
+        bool unlocked = SceneProgressManager.Instance.IsNodeUnlocked(_nodeIndex);
 
-        button.interactable = unlocked && !completed;
+        _button.interactable = unlocked && !completed;
 
-        if (background != null)
-        {
-            Color c;
+        if (_background == null) return;
 
-            if (completed)
-            {
-                c = Color.gray;
-            }
-            else if (!unlocked)
-            {
-                c = new Color(0.25f, 0.25f, 0.25f); // locked
-            }
-            else
-            {
-                c = Color.white;
-            }
+        Color c;
+        if (completed)
+            c = Color.gray;
+        else if (!unlocked)
+            c = new Color(0.25f, 0.25f, 0.25f); // locked
+        else
+            c = Color.white;
 
-            background.color = c;
-        }
+        _background.color = c;
     }
 
     private void OnClicked()
     {
-        if (SceneProgressManager.Instance == null)
-        {
-            return;
-        }
-
-        SceneProgressManager.Instance.EnterNode(nodeIndex, targetSceneName);
+        SceneProgressManager.Instance?.EnterNode(_nodeIndex, _targetSceneName);
     }
 }

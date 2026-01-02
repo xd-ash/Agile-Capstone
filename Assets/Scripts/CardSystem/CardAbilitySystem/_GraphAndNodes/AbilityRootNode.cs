@@ -79,8 +79,8 @@ namespace CardSystem
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
-            if (abilityData.GetUnit.team == Team.Friendly)
-                AbilityEvents.TargetingStopped();
+            //if (abilityData.GetUnit.team == Team.Friendly)
+                //AbilityEvents.TargetingStopped();
             AbilityEvents.AbilityUsed(abilityData.GetUnit.team); //moved here to avoid early card removal/delete on multi effect cards
         }
 

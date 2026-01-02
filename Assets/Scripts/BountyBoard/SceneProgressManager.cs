@@ -1,19 +1,18 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneProgressManager : MonoBehaviour
 {
     public static SceneProgressManager Instance { get; private set; }
 
-    public string mapSceneName = "NodeMap";
-    public int nodeCount = 5;
+    private string mapSceneName = "NodeMap";
+    private int nodeCount = 4;
 
     //Progress data
     private bool[] nodeCompleted;
     private bool[] nodeUnlocked;
     private int currentNodeIndex = -1;
 
-    public bool nodeMapCompleted = false;
+    public bool NodeMapCompleted { get; private set; } = false;
 
     private void Awake()
     {
@@ -35,9 +34,7 @@ public class SceneProgressManager : MonoBehaviour
 
             //By default, unlock node 0
             if (nodeCount > 0)
-            {
                 nodeUnlocked[0] = true;
-            }
         }
     }
     public void ResetNodes()
@@ -53,7 +50,7 @@ public class SceneProgressManager : MonoBehaviour
             nodeUnlocked[0] = true;
         }
 
-        nodeMapCompleted = false;
+        NodeMapCompleted = false;
     }
     //Use in Save/Load script
     public void GrabNodeData(ref bool[] completedNodes, ref bool[] unlockedNodes, ref int curNodeIndex)
@@ -96,7 +93,7 @@ public class SceneProgressManager : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadScene(sceneName);
+        TransitionScene.instance.StartTransition(sceneName);
     }
 
     //Called when shop or a bounty is finished
@@ -112,12 +109,10 @@ public class SceneProgressManager : MonoBehaviour
 
         int next = currentNodeIndex + 1;
         if (next >= 0 && next < nodeCount)
-        {
             nodeUnlocked[next] = true;
-        }
 
         if (next == nodeCount)
-            nodeMapCompleted = true;
+            NodeMapCompleted = true;
     }
 
     public void ReturnToMap()
@@ -128,6 +123,6 @@ public class SceneProgressManager : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadScene(mapSceneName);
+        TransitionScene.instance.StartTransition(mapSceneName);
     }
 }

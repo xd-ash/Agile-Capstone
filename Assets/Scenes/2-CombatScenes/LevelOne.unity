@@ -3217,7 +3217,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1824462643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5253,6 +5253,7 @@ MonoBehaviour:
   _maxCards: 100
   _startingHandSize: 5
   _deck: {fileID: 11400000, guid: b234795bd520a064687ba1c4db35c945, type: 2}
+  _cardsInHand: []
 --- !u!4 &1691110207
 Transform:
   m_ObjectHideFlags: 0

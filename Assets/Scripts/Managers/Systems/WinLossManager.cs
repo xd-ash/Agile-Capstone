@@ -4,14 +4,13 @@ using System.Collections.Generic;
 //Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
 {
-    public GameObject winText, loseText;
-    public float textDuration = 3f;
+    [SerializeField] private GameObject winText, loseText;
+    [SerializeField] private float textDuration = 3f;
+    private bool _didWin;
 
     public List<Unit> enemyUnits;
 
     public static WinLossManager instance { get; private set; }
-
-    private bool _didWin;
 
     private void Awake()
     {
@@ -34,44 +33,25 @@ public class WinLossManager : MonoBehaviour
     {
         _didWin = didWin;
         GameObject text = _didWin ? winText : loseText;
-        if (text != null)
-        {
-            text.SetActive(true);
-        }
+        text?.SetActive(true);
 
         Invoke(nameof(TriggerSceneTrans), textDuration);
     }
 
     public void TriggerSceneTrans()
     {
-
-        if (_didWin)
-            //If we have our progress manager, use that
-            if (SceneProgressManager.Instance != null)
-            {
-                SceneProgressManager.Instance.CompleteCurrentNode();
-                if (SceneProgressManager.Instance.nodeMapCompleted)
-                {
-                    SceneProgressManager.Instance.ResetNodes();
-
-                    if (TransitionScene.instance != null)
-                        TransitionScene.instance.StartTransition();
-                }
-                else
-                    SceneProgressManager.Instance.ReturnToMap();
-            }
-            else
-            {
-                //Fallback to existing transition flow
-                if (TransitionScene.instance != null)
-                    TransitionScene.instance.StartTransition();
-            }
-        else
+        if (_didWin && SceneProgressManager.Instance != null)
         {
-            SceneProgressManager.Instance.ResetNodes();
+            SceneProgressManager.Instance.CompleteCurrentNode();
+            if (!SceneProgressManager.Instance.NodeMapCompleted)
+            {
+                SceneProgressManager.Instance.ReturnToMap();
+                return;
+            }
 
-            if (TransitionScene.instance != null)
-                TransitionScene.instance.StartTransition();
+            SceneProgressManager.Instance?.ResetNodes();
         }
+
+        TransitionScene.instance?.StartTransition();
     }
 }

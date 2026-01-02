@@ -46,52 +46,6 @@ namespace CardSystem
             CardActivePos = transform.Find("CardActivePos");
         }
 
-        private void ShuffleDeck()
-        {
-            _runtimeDeckList.Clear();
-
-            if (_deck != null && _deck.GetDeck != null)
-                _runtimeDeckList.AddRange(_deck.GetDeck);
-
-            // include any persisted/purchased cards into the runtime deck
-            if (PlayerCardCollection.instance != null)
-                foreach (var def in PlayerCardCollection.instance.OwnedCards)
-                    if (def != null)
-                        _runtimeDeckList.Add(def);
-
-            if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) return;
-
-            // Fisher-Yates shuffle algorithm on runtime list
-            for (int i = _runtimeDeckList.Count - 1; i > 0; i--)
-            {
-                int randomIndex = UnityEngine.Random.Range(0, i + 1);
-                var temp = _runtimeDeckList[i];
-                _runtimeDeckList[i] = _runtimeDeckList[randomIndex];
-                _runtimeDeckList[randomIndex] = temp;
-            }
-
-            _topCardOfDeck = 0;
-        }
-
-        public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
-        {
-            if (def == null) return;
-
-            PlayerCardCollection.instance.Add(def);
-            ShuffleDeck();
-        }
-
-        public void RemoveSelectedCard(Team unitTeam = Team.Friendly)
-        {
-            if (unitTeam == Team.Enemy) return;
-
-            // remove selectedCard from hand data
-            CardsInHand.Remove(SelectedCard);
-            CardSplineManager.instance.RemoveSelectedCard(SelectedCard);
-
-            SelectedCard = null;
-        }
-
         public void DrawCard(int count = 1)
         {
             AudioManager.instance?.PlayDrawCardSfx();
@@ -138,15 +92,6 @@ namespace CardSystem
             }
         }
 
-        public void CreateCardPrefab(Card card)
-        {
-            GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
-            if (!cardGO.TryGetComponent(out CardSelect cs))
-                cs = cardGO.AddComponent<CardSelect>();
-            cs.OnPrefabCreation(card);
-            card.CardTransform = cardGO.transform;
-        }
-
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
         public void DrawStartingHand(bool force = false)
         {
@@ -159,24 +104,6 @@ namespace CardSystem
 
             int toDraw = Mathf.Min(_startingHandSize, _maxCards);
             DrawCard(toDraw);
-        }
-
-        public CardAbilityDefinition[] PeekTopDefinitions(int count)
-        {
-            if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (_deck == null || _deck.GetDeck == null))
-                return Array.Empty<CardAbilityDefinition>();
-
-            var source = (_runtimeDeckList != null && _runtimeDeckList.Count > 0)
-                ? _runtimeDeckList : new List<CardAbilityDefinition>(_deck.GetDeck);
-
-            if (count <= 0) return Array.Empty<CardAbilityDefinition>();
-
-            int available = Math.Max(0, Math.Min(count, source.Count - _topCardOfDeck));
-            if (available == 0) return Array.Empty<CardAbilityDefinition>();
-
-            CardAbilityDefinition[] result = new CardAbilityDefinition[available];
-            source.CopyTo(_topCardOfDeck, result, 0, available);
-            return result;
         }
 
         public void DiscardAll()
@@ -206,6 +133,17 @@ namespace CardSystem
             SelectedCard = card;
         }
 
+        public void RemoveSelectedCard(Team unitTeam = Team.Friendly)
+        {
+            if (unitTeam == Team.Enemy) return;
+
+            // remove selectedCard from hand data
+            CardsInHand.Remove(SelectedCard);
+            CardSplineManager.instance.RemoveSelectedCard(SelectedCard);
+
+            SelectedCard = null;
+        }
+
         public void ReorderCard(Card card, int newIndex)
         {
             if (card == null || CardsInHand == null) return;
@@ -230,6 +168,68 @@ namespace CardSystem
             toIndex = Mathf.Clamp(toIndex, 0, CardsInHand.Count);
             CardsInHand.Insert(toIndex, card);
             CardSplineManager.instance.ArrangeCardGOs();
+        }
+
+        public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
+        {
+            if (def == null) return;
+
+            PlayerCardCollection.instance.Add(def);
+            ShuffleDeck();
+        }
+
+        private void ShuffleDeck()
+        {
+            _runtimeDeckList.Clear();
+
+            if (_deck != null && _deck.GetDeck != null)
+                _runtimeDeckList.AddRange(_deck.GetDeck);
+
+            // include any persisted/purchased cards into the runtime deck
+            if (PlayerCardCollection.instance != null)
+                foreach (var def in PlayerCardCollection.instance.OwnedCards)
+                    if (def != null)
+                        _runtimeDeckList.Add(def);
+
+            if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) return;
+
+            // Fisher-Yates shuffle algorithm on runtime list
+            for (int i = _runtimeDeckList.Count - 1; i > 0; i--)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, i + 1);
+                var temp = _runtimeDeckList[i];
+                _runtimeDeckList[i] = _runtimeDeckList[randomIndex];
+                _runtimeDeckList[randomIndex] = temp;
+            }
+
+            _topCardOfDeck = 0;
+        }
+
+        public CardAbilityDefinition[] PeekTopDefinitions(int count)
+        {
+            if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (_deck == null || _deck.GetDeck == null))
+                return Array.Empty<CardAbilityDefinition>();
+
+            var source = (_runtimeDeckList != null && _runtimeDeckList.Count > 0)
+                ? _runtimeDeckList : new List<CardAbilityDefinition>(_deck.GetDeck);
+
+            if (count <= 0) return Array.Empty<CardAbilityDefinition>();
+
+            int available = Math.Max(0, Math.Min(count, source.Count - _topCardOfDeck));
+            if (available == 0) return Array.Empty<CardAbilityDefinition>();
+
+            CardAbilityDefinition[] result = new CardAbilityDefinition[available];
+            source.CopyTo(_topCardOfDeck, result, 0, available);
+            return result;
+        }
+
+        public void CreateCardPrefab(Card card)
+        {
+            GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
+            if (!cardGO.TryGetComponent(out CardSelect cs))
+                cs = cardGO.AddComponent<CardSelect>();
+            cs.OnPrefabCreation(card);
+            card.CardTransform = cardGO.transform;
         }
 
         /// <summary>

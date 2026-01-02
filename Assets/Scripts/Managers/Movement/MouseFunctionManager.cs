@@ -18,7 +18,7 @@ public class MouseFunctionManager : MonoBehaviour
     private TileBase _currTile;
     private bool _shouldMove;
     public Vector3Int GetCurrTilePosition => _tilePos;
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -53,9 +53,9 @@ public class MouseFunctionManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
             if (IsTargeting && !PauseMenu.isPaused)
                 if (CardManager.instance.SelectedCard != null &&
-                    CardManager.instance.SelectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
+                    CardManager.instance.SelectedCard.CardTransform.TryGetComponent(out CardSelect card))
                 {
-                    AbilityEvents.TargetingStopped();
+                    TargetingStopped();
                     card.ReturnCardToHand();
                     CardManager.instance.OnCardAblityCancel?.Invoke();
                 }
