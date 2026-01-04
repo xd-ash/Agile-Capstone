@@ -11,6 +11,9 @@ namespace CardSystem
 
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
+        [SerializeField] private int _cardSortingOrderBaseValue = 5;
+
+        public int GetCardSortingOrderBaseValue => _cardSortingOrderBaseValue;
 
         public static CardSplineManager instance;
         private void Awake()
@@ -54,8 +57,10 @@ namespace CardSystem
                 Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
                 var tr = cardsInHand[i]?.CardTransform;
+                var cs = tr?.GetComponent<CardSelect>();
                 if (tr != null)
                     UpdateTransformWithTween(tr, splinePosition, rotation, false);
+                cs?.UpdateSortingOrders();
             }
         }
 
@@ -77,14 +82,6 @@ namespace CardSystem
 
             _activeSequences[transform] = sequence;
         }
-
-        /* Potentially unused method brought over from CardManager
-        private void OnDisableInternal()
-        {
-            foreach (var sequence in _activeSequences.Values)
-                sequence.Kill();
-            _activeSequences.Clear();
-        }*/
 
         public void UpdateCardPosition(Card card, bool isHovered)
         {

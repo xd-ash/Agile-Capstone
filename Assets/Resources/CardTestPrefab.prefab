@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 6425793573291799047}
   - component: {fileID: 3490470767365624690}
   - component: {fileID: 5920561039070707959}
+  - component: {fileID: 1089950664970316395}
   m_Layer: 0
   m_Name: CardTestPrefab
   m_TagString: Untagged
@@ -333,19 +334,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5e7c01cb370d74cb6a1281704bb656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cardSprite: {fileID: 21300000, guid: 93fe459144b6eee4c9b944db6cc28ce7, type: 3}
-  selected: 0
-  dragHeightThreshold: 100
-  _hoverSortingBoost: 1000
-  smoothSpeed: 100
-  handAreaHeight: 1
-  destroyThreshold: 1
-  hoverScaleMultiplier: 1.2
-  dragScaleMultiplier: 1.4
-  scaleDuration: 0.2
-  rotationAmount: 5
-  validDropColor: {r: 0, g: 1, b: 0, a: 1}
-  invalidDropColor: {r: 1, g: 0, b: 0, a: 1}
+  _handAreaHeight: 2
+  _hoverScaleMultiplier: 1.2
+  _dragScaleMultiplier: 1.4
+  _tweenDuration: 0.2
+  _rotationAmount: 5
+  _validDropColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &1089950664970316395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085524555361464184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3421404ff3c20438ee0965cdf6acca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3221414636326572947
 GameObject:
   m_ObjectHideFlags: 0

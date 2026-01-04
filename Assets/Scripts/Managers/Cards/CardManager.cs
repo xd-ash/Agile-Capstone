@@ -33,6 +33,7 @@ namespace CardSystem
         public Action OnCardAblityCancel; //placeholder? event for properly cancelling unit coroutines on card ability cancel
 
         public Card SelectedCard { get; private set; } = null;
+        public bool IsCardDragging { get; private set; } = false;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
         public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
@@ -42,10 +43,8 @@ namespace CardSystem
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
 
             ShuffleDeck(); // Add shuffle before any cards are drawn
-
             CardActivePos = transform.Find("CardActivePos");
         }
-
         public void DrawCard(int count = 1)
         {
             AudioManager.instance?.PlayDrawCardSfx();
@@ -53,7 +52,7 @@ namespace CardSystem
             if (count <= 0) return;
             for (int i = 0; i < count; i++)
             {
-                if (CardsInHand.Count >= _maxCards) return;
+                if (_cardsInHand.Count >= _maxCards) return;
                 if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length == 0) return;
 
                 if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
@@ -75,7 +74,7 @@ namespace CardSystem
                     newCard = new Card(_runtimeDeckList[_topCardOfDeck]); // This creates the card with SO data
                 if (newCard == null) return;
 
-                CardsInHand.Add(newCard);
+                _cardsInHand.Add(newCard);
                 CreateCardPrefab(newCard);
 
                 _topCardOfDeck++;
@@ -108,17 +107,17 @@ namespace CardSystem
 
         public void DiscardAll()
         {
-            if (CardsInHand == null || CardsInHand.Count == 0)
+            if (_cardsInHand == null || _cardsInHand.Count == 0)
                 return;
 
             if (SelectedCard?.CardTransform != null)
                 Destroy(SelectedCard.CardTransform.gameObject);
 
-            foreach (var card in CardsInHand)
+            foreach (var card in _cardsInHand)
                 if (card?.CardTransform != null)
                     Destroy(card.CardTransform.gameObject);
 
-            CardsInHand.Clear();
+            _cardsInHand.Clear();
             _nextCardInHandIndex = 0;
             SelectedCard = null;
 
@@ -127,46 +126,59 @@ namespace CardSystem
 
         public void SelectCard(Card card)
         {
-            if (PauseMenu.isPaused) return;
-            if (card == null) return;
-
+            if (PauseMenu.isPaused || card == null) return;
             SelectedCard = card;
         }
-
         public void RemoveSelectedCard(Team unitTeam = Team.Friendly)
         {
             if (unitTeam == Team.Enemy) return;
 
             // remove selectedCard from hand data
-            CardsInHand.Remove(SelectedCard);
+            _cardsInHand.Remove(SelectedCard);
             CardSplineManager.instance.RemoveSelectedCard(SelectedCard);
 
             SelectedCard = null;
         }
-
+        public void SetIsCardDragging(bool isDragging)
+        {
+            IsCardDragging = isDragging;
+        }
+        public void RemoveCard(Card card)
+        {
+            _cardsInHand.Remove(card);
+        }
+        public void InsertCard(Card card)
+        {
+            _cardsInHand.Insert(CalculateCardIndex(card), card);
+        }
+        public void ClearSelection()
+        {
+            _cardsInHand.Add(SelectedCard);
+            ReorderCard(SelectedCard, CalculateCardIndex(SelectedCard));
+            SelectedCard = null;
+        }
         public void ReorderCard(Card card, int newIndex)
         {
-            if (card == null || CardsInHand == null) return;
+            if (card == null || _cardsInHand == null) return;
             
-            int currentIndex = CardsInHand.IndexOf(card);
-            if (currentIndex == -1 || currentIndex == newIndex) return;
-
-            CardsInHand.RemoveAt(currentIndex);
-            newIndex = Mathf.Clamp(newIndex, 0, CardsInHand.Count);
-            CardsInHand.Insert(newIndex, card);
+            int currentIndex = _cardsInHand.IndexOf(card);
+            if (currentIndex == newIndex || currentIndex == -1) return;
+            _cardsInHand.RemoveAt(currentIndex);
+            newIndex = Mathf.Clamp(newIndex, 0, _cardsInHand.Count);
+            _cardsInHand.Insert(newIndex, card);
             CardSplineManager.instance.ArrangeCardGOs();
         }
 
         public void PreviewReorder(int fromIndex, int toIndex)
         {
-            if (CardsInHand == null || fromIndex == toIndex ||
-                fromIndex < 0 || fromIndex >= CardsInHand.Count ||
-                toIndex < 0 || toIndex >= CardsInHand.Count) return;
+            if (_cardsInHand == null || fromIndex == toIndex ||
+                fromIndex < 0 || fromIndex >= _cardsInHand.Count ||
+                toIndex < 0 || toIndex >= _cardsInHand.Count) return;
             
-            var card = CardsInHand[fromIndex];
-            CardsInHand.RemoveAt(fromIndex);
-            toIndex = Mathf.Clamp(toIndex, 0, CardsInHand.Count);
-            CardsInHand.Insert(toIndex, card);
+            var card = _cardsInHand[fromIndex];
+            _cardsInHand.RemoveAt(fromIndex);
+            toIndex = Mathf.Clamp(toIndex, 0, _cardsInHand.Count);
+            _cardsInHand.Insert(toIndex, card);
             CardSplineManager.instance.ArrangeCardGOs();
         }
 
@@ -222,15 +234,30 @@ namespace CardSystem
             source.CopyTo(_topCardOfDeck, result, 0, available);
             return result;
         }
-
         public void CreateCardPrefab(Card card)
         {
             GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
             if (!cardGO.TryGetComponent(out CardSelect cs))
                 cs = cardGO.AddComponent<CardSelect>();
             cs.OnPrefabCreation(card);
-            card.CardTransform = cardGO.transform;
         }
+        public int CalculateCardIndex(Card card)
+        {
+            if (card == null) return 0;
+
+            var tr = card.CardTransform;
+
+            if (_cardsInHand == null || _cardsInHand.Count <= 1) return -1;
+
+            float myX = tr.position.x;
+            for (int i = 0; i < _cardsInHand.Count; i++)
+            {
+                if (_cardsInHand[i] == card || _cardsInHand[i]?.CardTransform == null) continue;
+                if (_cardsInHand[i].CardTransform.position.x > myX) return i;
+            }
+            return _cardsInHand.Count - 1;
+        }
+
 
         /// <summary>
         /// Debug helper: print the runtime deck to the Unity Console.

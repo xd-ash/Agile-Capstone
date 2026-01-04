@@ -94,10 +94,11 @@ public class CardShopManager : MonoBehaviour
         // Ensure the prefab has CardSelect and initialize it
         if (!cardGO.TryGetComponent(out CardSelect cs))
             cs = cardGO.AddComponent<CardSelect>();
-        cs.OnPrefabCreation(card);
+        if (!cardGO.TryGetComponent(out CardFunctionScript cfs))
+            cfs = cardGO.AddComponent<CardFunctionScript>();
 
-        // Enable shop behaviour on the card's CardSelect
-        cs.EnableShopMode();
+        cs.OnPrefabCreation(card);
+        cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
 
         // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);
