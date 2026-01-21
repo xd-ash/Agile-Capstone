@@ -19,7 +19,7 @@ namespace CardSystem
         }
 
         private int _topCardOfDeck = 0;
-        private int _nextCardInHandIndex = 0;
+        //private int _nextCardInHandIndex = 0; //Removed since it was unused, kept in comments in case its needed later
         [SerializeField] private int _maxCards = 100;
         [SerializeField] public int _startingHandSize = 5; // draw this many cards at start of player turn
 
@@ -30,9 +30,9 @@ namespace CardSystem
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         private bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
-        public Transform CardActivePos { get; private set; } // temp? card position to move card to when activated (avoid cards blocking grid)
+        public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
 
-        public Action OnCardAblityCancel; //placeholder? event for properly cancelling unit coroutines on card ability cancel
+        public Action OnCardAblityCancel;
 
         public Card SelectedCard { get; private set; } = null;
         public List<Card> CardsInHand => _cardsInHand;
@@ -81,7 +81,7 @@ namespace CardSystem
                 CreateCardPrefab(newCard);
 
                 _topCardOfDeck++;
-                _nextCardInHandIndex++;
+                //_nextCardInHandIndex++;
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
                 if (_topCardOfDeck >= _deck.GetDeck.Length)
@@ -121,7 +121,7 @@ namespace CardSystem
                     Destroy(card.CardTransform.gameObject);
 
             _cardsInHand.Clear();
-            _nextCardInHandIndex = 0;
+            //_nextCardInHandIndex = 0;
             SelectedCard = null;
 
             CardSplineManager.instance.ArrangeCardGOs();

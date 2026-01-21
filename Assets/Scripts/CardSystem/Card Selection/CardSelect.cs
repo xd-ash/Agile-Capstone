@@ -119,15 +119,11 @@ namespace CardSystem
             // Track when card crosses the threshold
             bool wasAboveHand = _isAboveHandArea;
             _isAboveHandArea = transform.position.y > _handAreaHeight;
+            Color spriteColor = _isAboveHandArea ? _validDropColor : _originalColor;
 
             // Only trigger changes when crossing the threshold
             if (wasAboveHand != _isAboveHandArea)
-            {
-                if (_isAboveHandArea)
-                    _spriteRenderer.DOColor(_validDropColor, _tweenDuration).SetUpdate(true);
-                else
-                    _spriteRenderer.DOColor(_originalColor, _tweenDuration).SetUpdate(true);
-            }
+                _spriteRenderer.DOColor(spriteColor, _tweenDuration).SetUpdate(true);
 
             // Only update order when in hand area
             if (!_isAboveHandArea)
@@ -140,7 +136,8 @@ namespace CardSystem
             Transform target = DeckAndHandManager.instance.CardActivePos;
             Vector3 initCardPos = transform.localPosition;
 
-            for (float timer = 0; timer < _tweenDuration; timer += Time.deltaTime)
+            //Lerp duration uses tween duration
+            for (float timer = 0f; timer < _tweenDuration; timer += Time.deltaTime)
             {
                 float lerpRatio = timer / _tweenDuration;
                 transform.localPosition = Vector3.Lerp(initCardPos, target.transform.localPosition, lerpRatio);
@@ -149,10 +146,14 @@ namespace CardSystem
 
             transform.localPosition = target.localPosition;
         }
+
         private void ToggleHighlightAndScale(bool isHoveredOrSelected)
         {
             _cardHighlight?.SetActive(isHoveredOrSelected);
-            transform.DOScale(_originalScale * (isHoveredOrSelected ? _hoverScaleMultiplier : 1), _tweenDuration);
+
+            float scaleMultiplier = isHoveredOrSelected ? _hoverScaleMultiplier : 1;
+            transform.DOScale(_originalScale * scaleMultiplier, _tweenDuration);
+
             UpdateSortingOrders(isHoveredOrSelected ? DeckAndHandManager.instance.CardsInHand.Count : 0);
 
             // Only update position if explicitly not dragging
@@ -186,18 +187,18 @@ namespace CardSystem
 
             int baseSortingValue = CardSplineManager.instance.GetCardSortingOrderBaseValue;
             bool isShopActive = CardShopManager.Instance != null;
-            int cardIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
-
+            int cardIndex = isShopActive ? 0 : DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
+             
             // Set sorting by taking into account the BaseSortingValue, sorting boost param, and card index (index set to 0 during shop scene)
-            _spriteRenderer.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : cardIndex);
+            _spriteRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
             
             if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : cardIndex);
+                _highlightRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
 
             // Update all TextMeshPro components sorting order
             foreach (var text in GetComponentsInChildren<TextMeshPro>())
                 if (text != null)
-                    text.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : cardIndex);
+                    text.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
         }
 
         // Return card to hand, clear selection, stop coroutines and tweens, then update card orders

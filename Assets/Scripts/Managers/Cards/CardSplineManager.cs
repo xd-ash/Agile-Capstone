@@ -116,13 +116,6 @@ namespace CardSystem
                 UpdateTransformWithTween(tr, splinePosition, rotation, isHovered);
         }
 
-        public Sequence GetActiveTweenSequence(Transform transform)
-        {
-            if (_activeSequences.TryGetValue(transform, out Sequence sequence))
-                return sequence;
-            return null;
-        }
-
         public void RemoveSelectedCard(Card selectedCard)
         {
             if (selectedCard?.CardTransform != null)
@@ -130,5 +123,12 @@ namespace CardSystem
 
             ArrangeCardGOs();
         }
+
+        /*public Sequence GetActiveTweenSequence(Transform transform)
+        {
+            if (_activeSequences.TryGetValue(transform, out Sequence sequence))
+                return sequence;
+            return null;
+        }*/
     }
 }
