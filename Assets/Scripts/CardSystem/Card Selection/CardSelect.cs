@@ -26,7 +26,6 @@ namespace CardSystem
         private Vector3 _originalScale;
 
         // Drag state
-        //private bool _isDragging = false;
         private Vector3 _dragOffset;
         private Vector3 _startPosition;
         private int _startIndex;
@@ -52,22 +51,6 @@ namespace CardSystem
         {
             _originalScale = transform.localScale;
             _originalColor = _spriteRenderer.color;
-        }
-
-        private void SetupVisuals()
-        {
-            _cardHighlight = transform.Find("CardHighlight")?.gameObject;
-            _cardHighlight?.SetActive(false);
-
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _highlightRenderer = _cardHighlight?.GetComponent<SpriteRenderer>();
-
-            if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
-
-            _startIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
-
-            UpdateSortingOrders();
         }
 
         private void OnMouseEnter()
@@ -101,7 +84,6 @@ namespace CardSystem
             transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(-_rotationAmount, _rotationAmount)), _tweenDuration);
 
             ToggleHighlightAndScale(true);
-            //BringToFront();
         }
         private void OnMouseUp()
         {
@@ -117,34 +99,20 @@ namespace CardSystem
             if (_isAboveHandArea)
             {
                 StartCoroutine(MoveCardToActivePos());
-                if(!_cfs.TryActivateCard())
-                    ReturnCardToHand();
+
+                if (_cfs.TryActivateCard()) return;
             }
-            else
-            {
-                ReturnCardToHand();
-                //DeckAndHandManager.instance.InsertCard(_cfs.Card);
 
-                // Kill any active tweens
-                //transform.DOKill();
-                //_spriteRenderer.DOKill();
-
-                // Reset visual feedback
-                //transform.DOScale(_originalScale, _tweenDuration);
-                //transform.DORotate(Vector3.zero, _tweenDuration);
-                //_spriteRenderer.DOColor(_originalColor, _tweenDuration);
-
-                //UpdateCardPrefabOrder(true);
-            }
+            ReturnCardToHand();
         }
         private void OnMouseDrag()
         {
-            if (!_cfs.IsDragging || PauseMenu.isPaused || DeckAndHandManager.instance.SelectedCard != null ||
-                CardShopManager.Instance != null || DeckAndHandManager.instance == null)
+            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.instance == null)
                 return;
 
             // Temporarily remove from hand management
             DeckAndHandManager.instance.RemoveCard(_cfs.Card);
+            DeckAndHandManager.instance.SelectCard(_cfs.Card);
 
             transform.position = MouseFunctionManager.instance.GetMouseWorldPosition() + _dragOffset;
 
@@ -172,10 +140,9 @@ namespace CardSystem
             Transform target = DeckAndHandManager.instance.CardActivePos;
             Vector3 initCardPos = transform.localPosition;
 
-            // magic number of 0.2f hard coded in b/c this is a placeholder animation/effect
-            for (float timer = 0; timer < 0.2f; timer += Time.deltaTime)
+            for (float timer = 0; timer < _tweenDuration; timer += Time.deltaTime)
             {
-                float lerpRatio = timer / 0.2f;
+                float lerpRatio = timer / _tweenDuration;
                 transform.localPosition = Vector3.Lerp(initCardPos, target.transform.localPosition, lerpRatio);
                 yield return null;
             }
@@ -192,14 +159,17 @@ namespace CardSystem
             if (!_cfs.IsDragging)
                 CardSplineManager.instance.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
+
+        //Calculate new index of card, then start card hand reorder and sorting orders of sprites/texts
         private void UpdateCardPrefabOrder(bool isHovered, bool isFinal = false)
         {
-            //if (!isFinal) return;
-
             // If we're above hand area, don't calculate new index
             int newIndex = isFinal ? DeckAndHandManager.instance.CalculateCardIndex(_cfs.Card) : _startIndex;
 
+            //Reorder card in hand & deck manager (currently not working OnDrag due
+            //to the card being removed from hand on drag)  
             DeckAndHandManager.instance.ReorderCard(_cfs.Card, newIndex);
+
             _startIndex = newIndex == -1 ? DeckAndHandManager.instance.CardsInHand.Count - 1 : newIndex;
 
             if (!isFinal) return;
@@ -207,35 +177,33 @@ namespace CardSystem
             CardSplineManager.instance.UpdateCardHoverPosition(_cfs.Card, isHovered);
             UpdateSortingOrders(isHovered ? DeckAndHandManager.instance.CardsInHand.Count : 0);
         }
-        /*
-        private void RestoreOrder()
-        {
-            UpdateSortingOrders();
 
-            // Only update position if explicitly not dragging
-            if (!_cfs.IsDragging)
-                CardSplineManager.instance?.UpdateCardPosition(_cfs.Card, false);
-        }*/
         // set sorting order of sprites/texts based on card index
         public void UpdateSortingOrders(int sortingBoost = 0)
         {
             if (_spriteRenderer == null) return;
             if (_cfs.IsDragging) sortingBoost = DeckAndHandManager.instance.CardsInHand.Count;
+
             int baseSortingValue = CardSplineManager.instance.GetCardSortingOrderBaseValue;
             bool isShopActive = CardShopManager.Instance != null;
+            int cardIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
 
-            _spriteRenderer.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : _startIndex);
+            // Set sorting by taking into account the BaseSortingValue, sorting boost param, and card index (index set to 0 during shop scene)
+            _spriteRenderer.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : cardIndex);
+            
             if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : _startIndex);
+                _highlightRenderer.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : cardIndex);
 
             // Update all TextMeshPro components sorting order
             foreach (var text in GetComponentsInChildren<TextMeshPro>())
                 if (text != null)
-                    text.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : _startIndex);
+                    text.sortingOrder = baseSortingValue + sortingBoost + (isShopActive ? 0 : cardIndex);
         }
+
+        // Return card to hand, clear selection, stop coroutines and tweens, then update card orders
         public void ReturnCardToHand()
         {
-            //if (!_cfs.IsSelected) return;
+            if (DeckAndHandManager.instance.SelectedCard != _cfs.Card) return;
 
             StopAllCoroutines();
             ClearSelection();
@@ -250,6 +218,7 @@ namespace CardSystem
             DeckAndHandManager.instance?.ClearSelection();
             UpdateCardPrefabOrder(false, true);
         }
+
         private void ClearSelection()
         {
             if (TurnManager.instance.currTurn == TurnManager.Turn.Enemy) return;
@@ -258,6 +227,8 @@ namespace CardSystem
             _spriteRenderer.color = Color.white;
             _cardHighlight?.SetActive(false);
         }
+
+        //Set initial text fields and initialize card object
         public void OnPrefabCreation(Card card)
         {
             if (card == null)
@@ -290,12 +261,27 @@ namespace CardSystem
                 }
             }
             else
-            {
                 Debug.LogError("Card prefab is missing required TextMeshPro components");
-            }
 
             card.CardTransform = transform;
             SetupVisuals();
+        }
+
+        // Initial prefeab GameObjects & sprite renderer grabbing, index calcs, and initial sorting order update
+        private void SetupVisuals()
+        {
+            _cardHighlight = transform.Find("CardHighlight")?.gameObject;
+            _cardHighlight?.SetActive(false);
+
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _highlightRenderer = _cardHighlight?.GetComponent<SpriteRenderer>();
+
+            if (_highlightRenderer != null)
+                _highlightRenderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
+
+            _startIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
+
+            UpdateSortingOrders();
         }
     }
 }

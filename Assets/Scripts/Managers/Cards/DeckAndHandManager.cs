@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace CardSystem
 {
+    // Class manages the deck & card hand collections and funtionalities
+    // such as shuffling, adding cards, drawing cards, etc.
     public class DeckAndHandManager : MonoBehaviour
     {
         //Singleton setup
@@ -44,6 +46,8 @@ namespace CardSystem
             ShuffleDeck(); // Add shuffle before any cards are drawn
             CardActivePos = transform.Find("CardActivePos");
         }
+
+        //draws cards based on count param, which is default 1
         public void DrawCard(int count = 1)
         {
             AudioManager.instance?.PlayDrawCardSfx();
@@ -85,9 +89,9 @@ namespace CardSystem
                     ShuffleDeck();
                     _topCardOfDeck = 0;
                 }
-
-                CardSplineManager.instance.ArrangeCardGOs();
             }
+
+            CardSplineManager.instance.ArrangeCardGOs();
         }
 
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
@@ -126,7 +130,8 @@ namespace CardSystem
         public void SelectCard(Card card)
         {
             if (PauseMenu.isPaused || card == null) return;
-            SelectedCard = card;
+            if (SelectedCard != card)
+                SelectedCard = card;
         }
 
         public void RemoveSelectedCard(Team unitTeam = Team.Friendly)
@@ -144,17 +149,20 @@ namespace CardSystem
         {
             _cardsInHand.Remove(card);
         }
+
         public void InsertCard(Card card)
         {
             if (!_cardsInHand.Contains(card))
                 _cardsInHand.Insert(CalculateCardIndex(card), card);
         }
+
         public void ClearSelection()
         {
             InsertCard(SelectedCard);
             ReorderCard(SelectedCard, CalculateCardIndex(SelectedCard));
             SelectedCard = null;
         }
+
         public void ReorderCard(Card card, int newIndex)
         {
             if (card == null || _cardsInHand == null) return;
@@ -166,19 +174,6 @@ namespace CardSystem
             _cardsInHand.Insert(newIndex, card);
             CardSplineManager.instance.ArrangeCardGOs();
         }
-
-        /*public void PreviewReorder(int fromIndex, int toIndex)
-        {
-            if (_cardsInHand == null || fromIndex == toIndex ||
-                fromIndex < 0 || fromIndex >= _cardsInHand.Count ||
-                toIndex < 0 || toIndex >= _cardsInHand.Count) return;
-            
-            var card = _cardsInHand[fromIndex];
-            _cardsInHand.RemoveAt(fromIndex);
-            toIndex = Mathf.Clamp(toIndex, 0, _cardsInHand.Count);
-            _cardsInHand.Insert(toIndex, card);
-            CardSplineManager.instance.ArrangeCardGOs();
-        }*/
 
         public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
         {
@@ -232,6 +227,7 @@ namespace CardSystem
             source.CopyTo(_topCardOfDeck, result, 0, available);
             return result;
         }
+
         public void CreateCardPrefab(Card card)
         {
             GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
@@ -239,6 +235,7 @@ namespace CardSystem
                 cs = cardGO.AddComponent<CardSelect>();
             cs.OnPrefabCreation(card);
         }
+
         public int CalculateCardIndex(Card card)
         {
             if (card == null) return 0;

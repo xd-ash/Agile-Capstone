@@ -1,5 +1,4 @@
 using CardSystem;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using System;
@@ -53,28 +52,11 @@ public class CardFunctionScript : MonoBehaviour
 
         IsDragging = true;
     }
-    private void OnMouseUp()
-    {
-        //IsDragging = false;
-    }
-    public void ClearIsDragging()
-    {
-        IsDragging = false;
-    }
-    public void ClearSelection(float tweenDuration)
-    {
-        IsSelected = false;
-        Invoke(nameof(ClearIsDragging), tweenDuration);
-    }
-    public void OnPrefabCreation(Card card)
-    {
-        Card = card;
-        Card.CardTransform = transform;
-        transform.name = card.GetCardName;
-    }
+
+    // Try activate a card, return true if successful, false if not
     public bool TryActivateCard()
     {
-        if (Card == null || Card.GetCardAbility?.RootNode == null || DeckAndHandManager.instance == null || DeckAndHandManager.instance.SelectedCard != null)
+        if (Card == null || Card.GetCardAbility?.RootNode == null || DeckAndHandManager.instance == null /*|| DeckAndHandManager.instance.SelectedCard != null*/)
             return false;
 
         var currentUnit = TurnManager.GetCurrentUnit;
@@ -86,20 +68,29 @@ public class CardFunctionScript : MonoBehaviour
             return false;
         }
 
-        // Only remove from hand if we can actually use the card
         IsSelected = true;
         DeckAndHandManager.instance.SelectCard(Card);
         CardSplineManager.instance.ArrangeCardGOs();
 
-        // First invoke targeting started to set up restrictions
-        AbilityEvents.TargetingStarted();
         Card.GetCardAbility.UseAility(currentUnit);
         return true;
     }
 
+    public void ClearSelection(float tweenDuration)
+    {
+        IsSelected = false;
+        IsDragging = false;
+    }
+
+    public void OnPrefabCreation(Card card)
+    {
+        Card = card;
+        Card.CardTransform = transform;
+        transform.name = card.GetCardName;
+    }
+
     public void EnableShopMode()
     {
-        //_isShopItem = true;
         int cost = Mathf.Max(0, Card.ShopCost);
 
         // If the prefab has a cost display (third TextMeshPro), update it.

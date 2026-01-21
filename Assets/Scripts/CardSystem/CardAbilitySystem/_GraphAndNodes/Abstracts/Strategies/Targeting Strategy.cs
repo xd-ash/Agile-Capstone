@@ -16,7 +16,10 @@ namespace CardSystem
         public virtual void StartTargeting(AbilityData abilityData, Action onFinished)
         {
             if (abilityData.GetUnit.team != Team.Enemy)
+            {
+                AbilityEvents.TargetingStarted();
                 AudioManager.instance?.PlayCardSelectSfx();
+            }
         }
         public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
         protected abstract IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit);
