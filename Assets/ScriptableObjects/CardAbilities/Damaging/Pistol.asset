@@ -89,6 +89,7 @@ MonoBehaviour:
     - miscEffects
     - filtering 0
     - harmfulEffects 0
+    - miscEffects 0
     values:
     - _fieldName: targeting
       _node: {fileID: -773093627592473936}
@@ -162,9 +163,18 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 4
+    - _fieldName: miscEffects 0
+      _node: {fileID: -773093627592473936}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  _apCost: 5
   _range: 5
-  _effectTypes: 4
+  _effectTypes: 12
   targeting: 0
   filtering: 0
   helpfulEffects: 0

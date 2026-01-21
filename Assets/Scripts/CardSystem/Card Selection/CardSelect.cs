@@ -38,6 +38,9 @@ namespace CardSystem
         private Vector3 startPosition;
         private int startIndex;
 
+        // Expose currently dragged transform for other systems (e.g., CardSplineManager)
+        public static Transform CurrentDraggedTransform { get; private set; }
+
         private int _baseSortingOrder;
         private Camera _mainCamera;
         private Color originalColor;
@@ -194,6 +197,7 @@ namespace CardSystem
             if (startIndex == -1) return;
 
             isDragging = true;
+            CurrentDraggedTransform = transform;
             dragOffset = transform.position - GetMouseWorldPosition();
 
             // Stop any active animations
@@ -248,6 +252,7 @@ namespace CardSystem
         {
             if (!isDragging) return;
             isDragging = false;
+            CurrentDraggedTransform = null;
 
             if (CardManager.instance == null)
             {
@@ -433,6 +438,10 @@ namespace CardSystem
                 CardManager.instance._currentHandSize = CardManager.instance._cardsInHand.Count;
                 CardSplineManager.instance.ArrangeCardGOs();
             }
+
+            // Ensure global drag state is cleared
+            if (CurrentDraggedTransform == transform)
+                CurrentDraggedTransform = null;
         }
 
         private void ClearSelection(Team unitTeam = Team.Friendly)
@@ -444,6 +453,10 @@ namespace CardSystem
             _spriteRenderer.color = Color.white;
             if (_cardHighlight != null) _cardHighlight.SetActive(false);
             RestoreOrder();
+
+            // Ensure global drag state is cleared
+            if (CurrentDraggedTransform == transform)
+                CurrentDraggedTransform = null;
         }
 
         /// <summary>

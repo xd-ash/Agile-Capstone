@@ -54,13 +54,24 @@ namespace CardSystem
                 Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
                 var tr = cardsInHand[i]?.CardTransform;
-                if (tr != null)
-                    UpdateTransformWithTween(tr, splinePosition, rotation, false);
+                if (tr == null) continue;
+
+                // Skip moving/tweening the card currently being dragged
+                if (CardSelect.CurrentDraggedTransform != null &&
+                    tr == CardSelect.CurrentDraggedTransform)
+                    continue;
+
+                UpdateTransformWithTween(tr, splinePosition, rotation, false);
             }
         }
 
         private void UpdateTransformWithTween(Transform transform, Vector3 targetPosition, Quaternion targetRotation, bool isHovered)
         {
+            // Guard: never tween the transform being dragged by the user
+            if (CardSelect.CurrentDraggedTransform != null &&
+                transform == CardSelect.CurrentDraggedTransform)
+                return;
+
             if (_activeSequences.TryGetValue(transform, out Sequence oldSequence))
             {
                 oldSequence.Kill();
@@ -77,14 +88,6 @@ namespace CardSystem
 
             _activeSequences[transform] = sequence;
         }
-
-        /* Potentially unused method brought over from CardManager
-        private void OnDisableInternal()
-        {
-            foreach (var sequence in _activeSequences.Values)
-                sequence.Kill();
-            _activeSequences.Clear();
-        }*/
 
         public void UpdateCardPosition(Card card, bool isHovered)
         {
@@ -118,8 +121,14 @@ namespace CardSystem
                 splinePosition += Vector3.up * 0.5f;
 
             var tr = card.CardTransform;
-            if (tr != null)
-                UpdateTransformWithTween(tr, splinePosition, rotation, isHovered);
+            if (tr == null) return;
+
+            // Skip moving/tweening the card currently being dragged
+            if (CardSelect.CurrentDraggedTransform != null &&
+                tr == CardSelect.CurrentDraggedTransform)
+                return;
+
+            UpdateTransformWithTween(tr, splinePosition, rotation, isHovered);
         }
 
         public Sequence GetActiveTweenSequence(Transform transform)
