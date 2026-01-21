@@ -53,14 +53,14 @@ public class Unit : MonoBehaviour, IDamagable
     }
     private void Start()
     {
-        if (team != Team.Friendly || _targetingCoroutine == null) return; 
-        CardManager.instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
+        if (team != Team.Friendly || _targetingCoroutine == null) return;
+        DeckAndHandManager.instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
         TurnManager.instance.OnPlayerTurnEnd += () => StopCoroutine(_targetingCoroutine);
     }
     private void OnDestroy()
     {
-        if (team != Team.Friendly || _targetingCoroutine == null) return; 
-        CardManager.instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
+        if (team != Team.Friendly || _targetingCoroutine == null) return;
+        DeckAndHandManager.instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
         TurnManager.instance.OnPlayerTurnEnd -= () => StopCoroutine(_targetingCoroutine);
     }
     /// <summary>

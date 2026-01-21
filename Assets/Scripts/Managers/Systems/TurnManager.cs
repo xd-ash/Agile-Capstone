@@ -113,7 +113,7 @@ public class TurnManager : MonoBehaviour
 
         // Draw player's starting hand when player's turn begins
         if (_curUnit.team == Team.Friendly)
-            CardManager.instance?.DrawStartingHand(true);
+            DeckAndHandManager.instance?.DrawStartingHand(true);
 
         UpdateApText();
     }
@@ -126,9 +126,9 @@ public class TurnManager : MonoBehaviour
 
         SetTurn();
         AbilityEvents.TargetingStopped();
-        
+
         // discard player's hand at end of player turn
-        CardManager.instance?.DiscardAll();
+        DeckAndHandManager.instance?.DiscardAll();
         OnPlayerTurnEnd?.Invoke();
     }
 }

@@ -26,7 +26,7 @@ public class CardFunctionScript : MonoBehaviour
             {
                 if (CurrencyManager.instance != null && CurrencyManager.instance.TrySpend(price))
                 {
-                    CardManager.instance?.AddDefinitionToRuntimeDeck(Card.GetCardAbility);
+                    DeckAndHandManager.instance?.AddDefinitionToRuntimeDeck(Card.GetCardAbility);
 
                     if (isShopActive)
                         CardShopManager.Instance?.DeleteCard(gameObject);
@@ -49,23 +49,22 @@ public class CardFunctionScript : MonoBehaviour
                 cancelAction();
         }
 
-        if (CardManager.instance.CardsInHand.IndexOf(Card) == -1) return;
+        if (DeckAndHandManager.instance.CardsInHand.IndexOf(Card) == -1) return;
 
         IsDragging = true;
-        CardManager.instance.SetIsCardDragging(IsDragging);
     }
     private void OnMouseUp()
     {
-        if (IsDragging)
-        {
-            IsDragging = false;
-            CardManager.instance.SetIsCardDragging(IsDragging);
-        }
+        //IsDragging = false;
     }
-
-    public void ClearSelection()
+    public void ClearIsDragging()
+    {
+        IsDragging = false;
+    }
+    public void ClearSelection(float tweenDuration)
     {
         IsSelected = false;
+        Invoke(nameof(ClearIsDragging), tweenDuration);
     }
     public void OnPrefabCreation(Card card)
     {
@@ -75,7 +74,7 @@ public class CardFunctionScript : MonoBehaviour
     }
     public bool TryActivateCard()
     {
-        if (Card == null || Card.GetCardAbility?.RootNode == null || CardManager.instance == null || CardManager.instance.SelectedCard != null)
+        if (Card == null || Card.GetCardAbility?.RootNode == null || DeckAndHandManager.instance == null || DeckAndHandManager.instance.SelectedCard != null)
             return false;
 
         var currentUnit = TurnManager.GetCurrentUnit;
@@ -89,7 +88,7 @@ public class CardFunctionScript : MonoBehaviour
 
         // Only remove from hand if we can actually use the card
         IsSelected = true;
-        CardManager.instance.SelectCard(Card);
+        DeckAndHandManager.instance.SelectCard(Card);
         CardSplineManager.instance.ArrangeCardGOs();
 
         // First invoke targeting started to set up restrictions

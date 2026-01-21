@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace CardSystem
 {
-    public class CardManager : MonoBehaviour
+    public class DeckAndHandManager : MonoBehaviour
     {
         //Singleton setup
-        public static CardManager instance;
+        public static DeckAndHandManager instance;
         private void Awake()
         {
             if (instance == null)
@@ -33,7 +33,6 @@ namespace CardSystem
         public Action OnCardAblityCancel; //placeholder? event for properly cancelling unit coroutines on card ability cancel
 
         public Card SelectedCard { get; private set; } = null;
-        public bool IsCardDragging { get; private set; } = false;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
         public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
@@ -48,7 +47,7 @@ namespace CardSystem
         public void DrawCard(int count = 1)
         {
             AudioManager.instance?.PlayDrawCardSfx();
-
+            
             if (count <= 0) return;
             for (int i = 0; i < count; i++)
             {
@@ -129,6 +128,7 @@ namespace CardSystem
             if (PauseMenu.isPaused || card == null) return;
             SelectedCard = card;
         }
+
         public void RemoveSelectedCard(Team unitTeam = Team.Friendly)
         {
             if (unitTeam == Team.Enemy) return;
@@ -139,21 +139,19 @@ namespace CardSystem
 
             SelectedCard = null;
         }
-        public void SetIsCardDragging(bool isDragging)
-        {
-            IsCardDragging = isDragging;
-        }
+
         public void RemoveCard(Card card)
         {
             _cardsInHand.Remove(card);
         }
         public void InsertCard(Card card)
         {
-            _cardsInHand.Insert(CalculateCardIndex(card), card);
+            if (!_cardsInHand.Contains(card))
+                _cardsInHand.Insert(CalculateCardIndex(card), card);
         }
         public void ClearSelection()
         {
-            _cardsInHand.Add(SelectedCard);
+            InsertCard(SelectedCard);
             ReorderCard(SelectedCard, CalculateCardIndex(SelectedCard));
             SelectedCard = null;
         }
@@ -169,7 +167,7 @@ namespace CardSystem
             CardSplineManager.instance.ArrangeCardGOs();
         }
 
-        public void PreviewReorder(int fromIndex, int toIndex)
+        /*public void PreviewReorder(int fromIndex, int toIndex)
         {
             if (_cardsInHand == null || fromIndex == toIndex ||
                 fromIndex < 0 || fromIndex >= _cardsInHand.Count ||
@@ -180,7 +178,7 @@ namespace CardSystem
             toIndex = Mathf.Clamp(toIndex, 0, _cardsInHand.Count);
             _cardsInHand.Insert(toIndex, card);
             CardSplineManager.instance.ArrangeCardGOs();
-        }
+        }*/
 
         public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
         {

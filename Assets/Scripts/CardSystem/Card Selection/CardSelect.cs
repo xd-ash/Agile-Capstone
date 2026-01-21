@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 namespace CardSystem
 {
@@ -37,7 +36,6 @@ namespace CardSystem
             _cfs = GetComponent<CardFunctionScript>();
 
             SetupVisuals();
-            //AbilityEvents.OnAbilityTargetingStopped += ClearSelection;
             AbilityEvents.OnAbilityTargetingStopped += ReturnCardToHand;
             if (TurnManager.instance != null)
                 TurnManager.instance.OnPlayerTurnEnd += ReturnCardToHand;
@@ -45,7 +43,6 @@ namespace CardSystem
 
         private void OnDestroy()
         {
-            //AbilityEvents.OnAbilityTargetingStopped -= ClearSelection;
             AbilityEvents.OnAbilityTargetingStopped -= ReturnCardToHand;
             if (TurnManager.instance != null)
                 TurnManager.instance.OnPlayerTurnEnd -= ReturnCardToHand;
@@ -68,30 +65,30 @@ namespace CardSystem
             if (_highlightRenderer != null)
                 _highlightRenderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
 
-            _startIndex = CardManager.instance.CardsInHand.IndexOf(_cfs.Card);
+            _startIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
 
             UpdateSortingOrders();
         }
 
         private void OnMouseEnter()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && !CardManager.instance.IsCardDragging && CardManager.instance.SelectedCard == null)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.SelectedCard == null)
                 ToggleHighlightAndScale(true);
         }
         private void OnMouseExit()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && !CardManager.instance.IsCardDragging)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.SelectedCard == null)
                 ToggleHighlightAndScale(false);
         }
         private void OnMouseDown()
         {
             // Check for active cards
-            if (PauseMenu.isPaused || _cfs.IsSelected || CardManager.instance == null || CardManager.instance.SelectedCard != null) return;
+            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.instance == null || DeckAndHandManager.instance.SelectedCard != null) return;
 
             _isAboveHandArea = false;
 
             _startPosition = transform.position;
-            _startIndex = CardManager.instance.CardsInHand.IndexOf(_cfs.Card);
+            _startIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
             if (_startIndex == -1) return;
 
             _dragOffset = transform.position - MouseFunctionManager.instance.GetMouseWorldPosition();
@@ -110,7 +107,7 @@ namespace CardSystem
         {
             if (!_cfs.IsDragging) return;
 
-            if (CardManager.instance == null)
+            if (DeckAndHandManager.instance == null)
             {
                 ReturnCardToHand();
                 return;
@@ -125,22 +122,29 @@ namespace CardSystem
             }
             else
             {
+                ReturnCardToHand();
+                //DeckAndHandManager.instance.InsertCard(_cfs.Card);
+
                 // Kill any active tweens
-                transform.DOKill();
-                _spriteRenderer.DOKill();
+                //transform.DOKill();
+                //_spriteRenderer.DOKill();
 
                 // Reset visual feedback
-                transform.DOScale(_originalScale, _tweenDuration);
-                transform.DORotate(Vector3.zero, _tweenDuration);
-                _spriteRenderer.DOColor(_originalColor, _tweenDuration);
-                UpdateCardOrder(true);
+                //transform.DOScale(_originalScale, _tweenDuration);
+                //transform.DORotate(Vector3.zero, _tweenDuration);
+                //_spriteRenderer.DOColor(_originalColor, _tweenDuration);
+
+                //UpdateCardPrefabOrder(true);
             }
         }
         private void OnMouseDrag()
         {
-            if (!_cfs.IsDragging || PauseMenu.isPaused || CardManager.instance.SelectedCard != null ||
-                CardShopManager.Instance != null || CardManager.instance == null)
+            if (!_cfs.IsDragging || PauseMenu.isPaused || DeckAndHandManager.instance.SelectedCard != null ||
+                CardShopManager.Instance != null || DeckAndHandManager.instance == null)
                 return;
+
+            // Temporarily remove from hand management
+            DeckAndHandManager.instance.RemoveCard(_cfs.Card);
 
             transform.position = MouseFunctionManager.instance.GetMouseWorldPosition() + _dragOffset;
 
@@ -152,28 +156,20 @@ namespace CardSystem
             if (wasAboveHand != _isAboveHandArea)
             {
                 if (_isAboveHandArea)
-                {
                     _spriteRenderer.DOColor(_validDropColor, _tweenDuration).SetUpdate(true);
-                    // Temporarily remove from hand management
-                    CardManager.instance.RemoveCard(_cfs.Card);
-                }
                 else
-                {
                     _spriteRenderer.DOColor(_originalColor, _tweenDuration).SetUpdate(true);
-                    // Add back to hand management
-                    CardManager.instance.InsertCard(_cfs.Card);
-                }
             }
 
             // Only update order when in hand area
             if (!_isAboveHandArea)
-                UpdateCardOrder(true);
+                UpdateCardPrefabOrder(true);
         }
 
         //temp? card lerp to "active position" to fix cards covering playing grid
         private IEnumerator MoveCardToActivePos()
         {
-            Transform target = CardManager.instance.CardActivePos;
+            Transform target = DeckAndHandManager.instance.CardActivePos;
             Vector3 initCardPos = transform.localPosition;
 
             // magic number of 0.2f hard coded in b/c this is a placeholder animation/effect
@@ -190,27 +186,26 @@ namespace CardSystem
         {
             _cardHighlight?.SetActive(isHoveredOrSelected);
             transform.DOScale(_originalScale * (isHoveredOrSelected ? _hoverScaleMultiplier : 1), _tweenDuration);
-            UpdateSortingOrders(isHoveredOrSelected ? CardManager.instance.CardsInHand.Count : 0);
+            UpdateSortingOrders(isHoveredOrSelected ? DeckAndHandManager.instance.CardsInHand.Count : 0);
 
             // Only update position if explicitly not dragging
             if (!_cfs.IsDragging)
-                CardSplineManager.instance.UpdateCardPosition(_cfs.Card, true);
+                CardSplineManager.instance.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
-        private void UpdateCardOrder(bool isHovered, bool isFinal = false)
+        private void UpdateCardPrefabOrder(bool isHovered, bool isFinal = false)
         {
-            if (!isFinal && transform.position.y > _handAreaHeight) return;
+            //if (!isFinal) return;
 
             // If we're above hand area, don't calculate new index
-            int newIndex = transform.position.y > _handAreaHeight ? _startIndex : CardManager.instance.CalculateCardIndex(_cfs.Card);
+            int newIndex = isFinal ? DeckAndHandManager.instance.CalculateCardIndex(_cfs.Card) : _startIndex;
 
-            CardManager.instance.ReorderCard(_cfs.Card, newIndex);
-            _startIndex = newIndex == -1 ? CardManager.instance.CardsInHand.Count - 1 : newIndex;
+            DeckAndHandManager.instance.ReorderCard(_cfs.Card, newIndex);
+            _startIndex = newIndex == -1 ? DeckAndHandManager.instance.CardsInHand.Count - 1 : newIndex;
 
             if (!isFinal) return;
             
-            CardSplineManager.instance.UpdateCardPosition(_cfs.Card, isHovered);
-            UpdateSortingOrders(isHovered ? CardManager.instance.CardsInHand.Count : 0);
-            //RestoreOrder();
+            CardSplineManager.instance.UpdateCardHoverPosition(_cfs.Card, isHovered);
+            UpdateSortingOrders(isHovered ? DeckAndHandManager.instance.CardsInHand.Count : 0);
         }
         /*
         private void RestoreOrder()
@@ -225,7 +220,7 @@ namespace CardSystem
         public void UpdateSortingOrders(int sortingBoost = 0)
         {
             if (_spriteRenderer == null) return;
-            if (_cfs.IsDragging) sortingBoost = CardManager.instance.CardsInHand.Count;
+            if (_cfs.IsDragging) sortingBoost = DeckAndHandManager.instance.CardsInHand.Count;
             int baseSortingValue = CardSplineManager.instance.GetCardSortingOrderBaseValue;
             bool isShopActive = CardShopManager.Instance != null;
 
@@ -240,6 +235,8 @@ namespace CardSystem
         }
         public void ReturnCardToHand()
         {
+            //if (!_cfs.IsSelected) return;
+
             StopAllCoroutines();
             ClearSelection();
 
@@ -248,18 +245,18 @@ namespace CardSystem
             // Kill any active tweens
             transform.DOKill();
             _spriteRenderer.DOKill();
-             
-            CardManager.instance?.ClearSelection();
-            UpdateCardOrder(false, true);
+
+            ToggleHighlightAndScale(false);
+            DeckAndHandManager.instance?.ClearSelection();
+            UpdateCardPrefabOrder(false, true);
         }
         private void ClearSelection()
         {
             if (TurnManager.instance.currTurn == TurnManager.Turn.Enemy) return;
 
-            _cfs.ClearSelection();
+            _cfs.ClearSelection(_tweenDuration);
             _spriteRenderer.color = Color.white;
             _cardHighlight?.SetActive(false);
-            UpdateCardOrder(false, true);
         }
         public void OnPrefabCreation(Card card)
         {

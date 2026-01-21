@@ -26,12 +26,11 @@ namespace CardSystem
 
         public void ArrangeCardGOs()
         {
-            int handSize = CardManager.instance.GetCurrentHandSize;
-            var cardsInHand = CardManager.instance.CardsInHand;
+            int handSize = DeckAndHandManager.instance.GetCurrentHandSize;
+            var cardsInHand = DeckAndHandManager.instance.CardsInHand;
 
             if (handSize == 0) return;
-            var spline = splineContainer != null ? splineContainer.Spline : null;
-            if (spline == null)
+            if (splineContainer.Spline == null)
             {
                 Debug.LogWarning("CardManager: SplineContainer or Spline is not assigned.");
                 return;
@@ -51,9 +50,9 @@ namespace CardSystem
                 float t = firstCardPos + i * cardSpacing;
                 t = Mathf.Clamp01(t);
 
-                Vector3 splinePosition = spline.EvaluatePosition(t);
-                Vector3 forward = spline.EvaluateTangent(t);
-                Vector3 up = spline.EvaluateUpVector(t);
+                Vector3 splinePosition = splineContainer.Spline.EvaluatePosition(t);
+                Vector3 forward = splineContainer.Spline.EvaluateTangent(t);
+                Vector3 up = splineContainer.Spline.EvaluateUpVector(t);
                 Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
                 var tr = cardsInHand[i]?.CardTransform;
@@ -83,10 +82,10 @@ namespace CardSystem
             _activeSequences[transform] = sequence;
         }
 
-        public void UpdateCardPosition(Card card, bool isHovered)
+        public void UpdateCardHoverPosition(Card card, bool isHovered)
         {
-            int handSize = CardManager.instance.GetCurrentHandSize;
-            var cardsInHand = CardManager.instance.CardsInHand;
+            int handSize = DeckAndHandManager.instance.GetCurrentHandSize;
+            var cardsInHand = DeckAndHandManager.instance.CardsInHand;
             var spline = splineContainer?.Spline;
 
             if (card == null || spline == null) return;

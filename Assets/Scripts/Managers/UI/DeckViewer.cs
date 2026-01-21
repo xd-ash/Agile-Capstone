@@ -49,8 +49,8 @@ public class DeckViewer : MonoBehaviour
         // quick runtime debug: press L to log deck to console
         if (Input.GetKeyDown(KeyCode.L))
         {
-            if (CardManager.instance != null)
-                CardManager.instance.LogRuntimeDeck();
+            if (DeckAndHandManager.instance != null)
+                DeckAndHandManager.instance.LogRuntimeDeck();
             else
                 Debug.LogWarning("[DeckViewer] CardManager.instance is null");
         }
@@ -109,13 +109,13 @@ public class DeckViewer : MonoBehaviour
 
     public void ShowPreviews()
     {
-        if (CardManager.instance == null)
+        if (DeckAndHandManager.instance == null)
         {
             Debug.LogWarning("[DeckViewer] No CardManager.instance available.");
             return;
         }
 
-        var defs = CardManager.instance.GetRuntimeDeck;
+        var defs = DeckAndHandManager.instance.GetRuntimeDeck;
         if (defs == null || defs.Length == 0)
         {
             Debug.Log("[DeckViewer] Deck is empty.");

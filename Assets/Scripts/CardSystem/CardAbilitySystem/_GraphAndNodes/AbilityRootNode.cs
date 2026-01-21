@@ -58,11 +58,10 @@ namespace CardSystem
   			if (abilityData.GetUnit.team == Team.Friendly && _targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
             {
                 // Return the card to hand or destroy it
-                if (CardManager.instance != null && CardManager.instance.SelectedCard != null)
+                if (DeckAndHandManager.instance != null && DeckAndHandManager.instance.SelectedCard != null)
                 {
-                    var cardSelect = CardManager.instance.SelectedCard.CardTransform.GetComponent<CardSelect>();
-                    if (cardSelect != null)
-                        cardSelect.ReturnCardToHand();
+                    var cardSelect = DeckAndHandManager.instance.SelectedCard.CardTransform.GetComponent<CardSelect>();
+                    cardSelect?.ReturnCardToHand();
                 }
                 AbilityEvents.TargetingStopped();
                 return;
