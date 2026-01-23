@@ -20,9 +20,9 @@ namespace CardSystem
 
         public string GetCardName => _cardName;
         public string GetDescription => _description;
-        public Transform CardTransform => _cardTransform;
+        public Transform GetCardTransform => _cardTransform;
         public CardAbilityDefinition GetCardAbility => _cardAbility;
-        public int ShopCost => _shopCost;
+        public int GetShopCost => _shopCost;
 
         public virtual void GrabSOData(CardAbilityDefinition def)
         {

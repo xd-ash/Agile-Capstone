@@ -7,7 +7,7 @@ namespace CardSystem
 {
     public class CardSplineManager : MonoBehaviour
     {
-        [SerializeField] private SplineContainer splineContainer;
+        private SplineContainer _splineContainer;
 
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
@@ -22,6 +22,8 @@ namespace CardSystem
                 instance = this;
             else
                 Destroy(this.gameObject);
+
+            _splineContainer = FindFirstObjectByType<SplineContainer>();
         }
 
         public void ArrangeCardGOs()
@@ -30,7 +32,7 @@ namespace CardSystem
             var cardsInHand = DeckAndHandManager.instance.CardsInHand;
 
             if (handSize == 0) return;
-            if (splineContainer.Spline == null)
+            if (_splineContainer.Spline == null)
             {
                 Debug.LogWarning("CardManager: SplineContainer or Spline is not assigned.");
                 return;
@@ -50,12 +52,12 @@ namespace CardSystem
                 float t = firstCardPos + i * cardSpacing;
                 t = Mathf.Clamp01(t);
 
-                Vector3 splinePosition = splineContainer.Spline.EvaluatePosition(t);
-                Vector3 forward = splineContainer.Spline.EvaluateTangent(t);
-                Vector3 up = splineContainer.Spline.EvaluateUpVector(t);
+                Vector3 splinePosition = _splineContainer.Spline.EvaluatePosition(t);
+                Vector3 forward = _splineContainer.Spline.EvaluateTangent(t);
+                Vector3 up = _splineContainer.Spline.EvaluateUpVector(t);
                 Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
-                var tr = cardsInHand[i]?.CardTransform;
+                var tr = cardsInHand[i]?.GetCardTransform;
                 var cs = tr?.GetComponent<CardSelect>();
                 if (tr != null)
                     UpdateTransformWithTween(tr, splinePosition, rotation, false);
@@ -86,7 +88,7 @@ namespace CardSystem
         {
             int handSize = DeckAndHandManager.instance.GetCurrentHandSize;
             var cardsInHand = DeckAndHandManager.instance.CardsInHand;
-            var spline = splineContainer?.Spline;
+            var spline = _splineContainer?.Spline;
 
             if (card == null || spline == null) return;
 
@@ -111,15 +113,15 @@ namespace CardSystem
             if (isHovered)
                 splinePosition += Vector3.up * 0.5f;
 
-            var tr = card.CardTransform;
+            var tr = card.GetCardTransform;
             if (tr != null)
                 UpdateTransformWithTween(tr, splinePosition, rotation, isHovered);
         }
 
         public void RemoveSelectedCard(Card selectedCard)
         {
-            if (selectedCard?.CardTransform != null)
-                Destroy(selectedCard.CardTransform.gameObject);
+            if (selectedCard?.GetCardTransform != null)
+                Destroy(selectedCard.GetCardTransform.gameObject);
 
             ArrangeCardGOs();
         }

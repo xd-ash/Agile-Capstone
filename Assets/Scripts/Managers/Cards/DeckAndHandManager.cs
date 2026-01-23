@@ -25,19 +25,19 @@ namespace CardSystem
 
         [SerializeField] private Deck _deck;
         [SerializeField] private List<Card> _cardsInHand = new();
+        private Card _selectedCard = null;
 
         // runtime deck support
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         private bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
         public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
-
-        public Action OnCardAblityCancel;
-
-        public Card SelectedCard { get; private set; } = null;
+        public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
         public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
+
+        public Action OnCardAblityCancel;
 
         private void Start()
         {
@@ -112,16 +112,16 @@ namespace CardSystem
             if (_cardsInHand == null || _cardsInHand.Count == 0)
                 return;
 
-            if (SelectedCard?.CardTransform != null)
-                Destroy(SelectedCard.CardTransform.gameObject);
+            if (_selectedCard?.GetCardTransform != null)
+                Destroy(_selectedCard.GetCardTransform.gameObject);
 
             foreach (var card in _cardsInHand)
-                if (card?.CardTransform != null)
-                    Destroy(card.CardTransform.gameObject);
+                if (card?.GetCardTransform != null)
+                    Destroy(card.GetCardTransform.gameObject);
 
             _cardsInHand.Clear();
             //_nextCardInHandIndex = 0;
-            SelectedCard = null;
+            _selectedCard = null;
 
             CardSplineManager.instance.ArrangeCardGOs();
         }
@@ -129,8 +129,8 @@ namespace CardSystem
         public void SelectCard(Card card)
         {
             if (PauseMenu.isPaused || card == null) return;
-            if (SelectedCard != card)
-                SelectedCard = card;
+            if (_selectedCard != card)
+                _selectedCard = card;
         }
 
         public void RemoveSelectedCard(Team unitTeam = Team.Friendly)
@@ -138,10 +138,10 @@ namespace CardSystem
             if (unitTeam == Team.Enemy) return;
 
             // remove selectedCard from hand data
-            _cardsInHand.Remove(SelectedCard);
-            CardSplineManager.instance.RemoveSelectedCard(SelectedCard);
+            _cardsInHand.Remove(_selectedCard);
+            CardSplineManager.instance.RemoveSelectedCard(_selectedCard);
 
-            SelectedCard = null;
+            _selectedCard = null;
         }
 
         public void RemoveCard(Card card)
@@ -157,9 +157,9 @@ namespace CardSystem
 
         public void ClearSelection()
         {
-            InsertCard(SelectedCard);
-            ReorderCard(SelectedCard, CalculateCardIndex(SelectedCard));
-            SelectedCard = null;
+            InsertCard(_selectedCard);
+            ReorderCard(_selectedCard, CalculateCardIndex(_selectedCard));
+            _selectedCard = null;
         }
 
         public void ReorderCard(Card card, int newIndex)
@@ -191,7 +191,7 @@ namespace CardSystem
 
             // include any persisted/purchased cards into the runtime deck
             if (PlayerCardCollection.instance != null)
-                foreach (var def in PlayerCardCollection.instance.OwnedCards)
+                foreach (var def in PlayerCardCollection.instance.GetOwnedCards)
                     if (def != null)
                         _runtimeDeckList.Add(def);
 
@@ -246,15 +246,15 @@ namespace CardSystem
         {
             if (card == null) return 0;
 
-            var tr = card.CardTransform;
+            var tr = card.GetCardTransform;
 
             if (_cardsInHand == null || _cardsInHand.Count <= 1) return -1;
 
             float myX = tr.position.x;
             for (int i = 0; i < _cardsInHand.Count; i++)
             {
-                if (_cardsInHand[i] == card || _cardsInHand[i]?.CardTransform == null) continue;
-                if (_cardsInHand[i].CardTransform.position.x > myX) return i;
+                if (_cardsInHand[i] == card || _cardsInHand[i]?.GetCardTransform == null) continue;
+                if (_cardsInHand[i].GetCardTransform.position.x > myX) return i;
             }
             return _cardsInHand.Count - 1;
         }

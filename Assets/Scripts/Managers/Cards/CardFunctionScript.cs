@@ -18,7 +18,7 @@ public class CardFunctionScript : MonoBehaviour
         // Shop-mode: show confirmation popup instead of drag/drop purchase
         if (isShopActive)
         {
-            int price = Card.ShopCost;
+            int price = Card.GetShopCost;
             string cardName = Card?.GetCardName ?? "Card";
 
             Action confirmAction = () =>
@@ -90,7 +90,7 @@ public class CardFunctionScript : MonoBehaviour
 
     public void EnableShopMode()
     {
-        int cost = Mathf.Max(0, Card.ShopCost);
+        int cost = Mathf.Max(0, Card.GetShopCost);
 
         // If the prefab has a cost display (third TextMeshPro), update it.
         TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
