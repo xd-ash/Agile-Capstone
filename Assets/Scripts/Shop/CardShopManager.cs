@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using CardSystem;
 
-public class CardShopSpawner : MonoBehaviour
+public class CardShopManager : MonoBehaviour
 {
     private const string LOG_PREFIX = "[CardShopSpawner]";
 
-    [System.Serializable]
+    /*[System.Serializable]
     public struct ShopEntry
     {
         public CardSystem.CardAbilityDefinition definition;
@@ -14,10 +14,11 @@ public class CardShopSpawner : MonoBehaviour
         public float weight;
         [Tooltip("Cost to buy this card in the shop")]
         public int cost;
-    }
+    }*/
 
     [Header("Pool (assign in inspector)")]
-    public List<ShopEntry> pool = new List<ShopEntry>();
+    //public List<ShopEntry> pool = new List<ShopEntry>();
+    public Deck pool;
 
     [Header("Auto Spawn Settings")]
     [Tooltip("If true, the spawner will populate the shop on scene start")]
@@ -29,10 +30,10 @@ public class CardShopSpawner : MonoBehaviour
     public Transform spawnParent; // parent for spawned card GOs (optional)
     public Vector3 localOffset = Vector3.zero;
 
-    [Header("Shop Settings")]
-    [Tooltip("Optional collider for the buy/drop area. If null, the object tagged 'BuyArea' will be used.")]
-    public Collider2D buyAreaCollider;
-    public string buyAreaTag = "BuyArea";
+    //[Header("Shop Settings")]
+    //[Tooltip("Optional collider for the buy/drop area. If null, the object tagged 'BuyArea' will be used.")]
+    //public Collider2D buyAreaCollider;
+    //public string buyAreaTag = "BuyArea";
 
     [Header("Layout (fan settings)")]
     [Tooltip("Total horizontal span of the fan in local units")]
@@ -50,7 +51,7 @@ public class CardShopSpawner : MonoBehaviour
     private readonly List<GameObject> activeSpawnedCards = new List<GameObject>();
 
     // singleton instance for easy access from other components (e.g. CardSelect when a card is bought)
-    public static CardShopSpawner Instance { get; private set; }
+    public static CardShopManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -66,62 +67,48 @@ public class CardShopSpawner : MonoBehaviour
     void Start()
     {
         if (spawnOnStart && initialSpawnCount > 0)
-        {
             SpawnMultiple(initialSpawnCount);
-        }
     }
 
     // Spawns a single card chosen from `pool` using weighted random selection.
-    public GameObject SpawnRandomCard()
+    public void SpawnRandomCard()
     {
         var entry = PickRandomEntry();
-        if (entry.definition == null)
-        {
-            return null;
-        }
+        if (entry == null) return;
 
         // Create runtime Card data
-        Card card = new Card(entry.definition);
+        Card card = new Card(entry);
         // store shop cost on the runtime card so UI/logic can access it
-        card.ShopCost = entry.cost;
+        card.ShopCost = entry.GetShopCost;
 
         // Use same prefab path as CardManager
         GameObject prefab = Resources.Load<GameObject>("CardTestPrefab");
-        if (prefab == null)
-        {
-            return null;
-        }
+        if (prefab == null) return;
 
         Transform parent = spawnParent != null ? spawnParent : transform;
-        if (parent == null) return null;
+        if (parent == null) return;
 
         GameObject cardGO = Instantiate(prefab, parent);
         cardGO.transform.localPosition = localOffset;
 
         // Ensure the prefab has CardSelect and initialize it
-        var cs = cardGO.GetComponent<CardSelect>();
-        if (cs == null) cs = cardGO.AddComponent<CardSelect>();
+        if (!cardGO.TryGetComponent(out CardSelect cs))
+            cs = cardGO.AddComponent<CardSelect>();
+        if (!cardGO.TryGetComponent(out CardFunctionScript cfs))
+            cfs = cardGO.AddComponent<CardFunctionScript>();
+
         cs.OnPrefabCreation(card);
-
-        // Enable shop behaviour (cost + buy-area) on the card's CardSelect
-        cs.EnableShopMode(entry.cost, buyAreaCollider, buyAreaTag);
-
-        // Track runtime transform on the Card data
-        card.CardTransform = cardGO.transform;
+        cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
 
         // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);
-
-        return cardGO;
     }
 
     // Convenience: spawn `count` cards (call this multiple times to populate shop)
     public void SpawnMultiple(int count)
     {
         for (int i = 0; i < count; i++)
-        {
             SpawnRandomCard();
-        }
 
         // arrange all active cards (new + existing)
         ArrangeSpawnedCards(activeSpawnedCards);
@@ -227,24 +214,25 @@ public class CardShopSpawner : MonoBehaviour
     }
 
     // Weighted random pick from `pool` returning the full ShopEntry
-    private ShopEntry PickRandomEntry()
+    private CardAbilityDefinition PickRandomEntry()
     {
-        ShopEntry defaultEntry = default;
-        if (pool == null || pool.Count == 0) return defaultEntry;
+        //ShopEntry defaultEntry = default;
+        if (pool == null || pool.GetDeck.Length == 0) return null;
+        var poolDeck = pool.GetDeck;
 
         float total = 0f;
-        foreach (var e in pool) total += Mathf.Max(0f, e.weight);
+        foreach (var e in poolDeck) total += Mathf.Max(0f, e.GetShopWeight);
 
-        if (total <= 0f) return pool[0];
+        if (total <= 0f) return poolDeck[0];
 
         float r = UnityEngine.Random.Range(0f, total);
         float acc = 0f;
-        foreach (var e in pool)
+        foreach (var e in poolDeck)
         {
-            acc += Mathf.Max(0f, e.weight);
+            acc += Mathf.Max(0f, e.GetShopWeight);
             if (r <= acc) return e;
         }
 
-        return pool[pool.Count - 1];
+        return poolDeck[poolDeck.Length - 1];
     }
 }

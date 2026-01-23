@@ -227,8 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e0a0513cb1d40178151feb89109c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSceneName: NodeMap
-  nodeCount: 4
 --- !u!4 &734601360
 Transform:
   m_ObjectHideFlags: 0
@@ -295,10 +293,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7990357a8e02d451cac1d599feeb6e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeIndex: 0
-  targetSceneName: BountyBoard1
-  button: {fileID: 736430967}
-  background: {fileID: 736430968}
+  _nodeIndex: 0
+  _targetSceneName: BountyBoard1
+  _button: {fileID: 0}
+  _background: {fileID: 0}
 --- !u!114 &736430967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,9 +475,9 @@ RectTransform:
   m_Children:
   - {fileID: 1943667695}
   - {fileID: 736430965}
+  - {fileID: 1229623172}
   - {fileID: 2076797654}
   - {fileID: 1937429355}
-  - {fileID: 1229623172}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -538,10 +536,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7990357a8e02d451cac1d599feeb6e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeIndex: 1
-  targetSceneName: Shop
-  button: {fileID: 1229623174}
-  background: {fileID: 1229623175}
+  _nodeIndex: 1
+  _targetSceneName: Shop
+  _button: {fileID: 0}
+  _background: {fileID: 0}
 --- !u!114 &1229623174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,10 +892,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7990357a8e02d451cac1d599feeb6e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeIndex: 3
-  targetSceneName: LevelOne
-  button: {fileID: 1937429357}
-  background: {fileID: 1937429358}
+  _nodeIndex: 3
+  _targetSceneName: LevelOne
+  _button: {fileID: 0}
+  _background: {fileID: 0}
 --- !u!1 &1943667694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,10 +1022,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7990357a8e02d451cac1d599feeb6e80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeIndex: 2
-  targetSceneName: BountyBoard2
-  button: {fileID: 2076797656}
-  background: {fileID: 2076797657}
+  _nodeIndex: 2
+  _targetSceneName: BountyBoard2
+  _button: {fileID: 0}
+  _background: {fileID: 0}
 --- !u!114 &2076797656
 MonoBehaviour:
   m_ObjectHideFlags: 0

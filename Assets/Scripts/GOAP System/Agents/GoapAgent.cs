@@ -209,7 +209,7 @@ public class GoapAgent : MonoBehaviour
             }
             else
             {
-                CheckIfInRange(this, damageAbility.RootNode.GetRange, ref _beliefs);
+                CheckIfInRange(this, damageAbility.GetRange, ref _beliefs);
                 CheckIfInLOS(this, ref _beliefs);
             }
         }

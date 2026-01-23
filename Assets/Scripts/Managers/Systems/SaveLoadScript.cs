@@ -89,7 +89,7 @@ public class GameData
         }
     }
 
-    // deck and card info
+    /*/ deck and card info
     [System.Serializable]
     public class DeckDataToken
     {
@@ -106,5 +106,5 @@ public class GameData
         {
 
         }
-    }
+    }*/
 }

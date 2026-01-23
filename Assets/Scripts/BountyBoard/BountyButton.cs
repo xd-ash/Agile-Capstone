@@ -11,19 +11,10 @@ public class BountyButtonSimple : MonoBehaviour
 
     private void Awake()
     {
-        if (_button == null)
-        {
-            _button = GetComponent<Button>();
-        }
-
-        if (_button != null)
-        {
-            _button.onClick.AddListener(OnClicked);
-        }
+        if (TryGetComponent(out _button))
+            _button?.onClick.AddListener(OnClicked);
         else
-        {
             Debug.LogWarning("BountyButton on " + gameObject.name + " has no Button component.");
-        }
     }
 
     private void OnClicked()
@@ -34,6 +25,6 @@ public class BountyButtonSimple : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadScene(combatSceneName);
+        TransitionScene.instance.StartTransition(combatSceneName);
     }
 }

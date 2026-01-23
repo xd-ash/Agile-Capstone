@@ -17,8 +17,8 @@ namespace CardSystem
         [SerializeField] private CardAbilityDefinition _cardAbility;
         [SerializeField] private int _shopCost;
 
-        public string GetCardName { get => _cardName; }
-        public string GetDescription { get => _description; }
+        public string GetCardName => _cardName;
+        public string GetDescription => _description;
         public Transform CardTransform { get => _cardTransform; set => _cardTransform = value; }
         public CardAbilityDefinition GetCardAbility { get => _cardAbility; }
         public int ShopCost { get => _shopCost; set => _shopCost = value; }

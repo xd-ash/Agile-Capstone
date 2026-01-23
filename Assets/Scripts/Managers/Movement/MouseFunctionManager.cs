@@ -1,6 +1,5 @@
 using AStarPathfinding;
 using CardSystem;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static AbilityEvents;
@@ -19,7 +18,7 @@ public class MouseFunctionManager : MonoBehaviour
     private TileBase _currTile;
     private bool _shouldMove;
     public Vector3Int GetCurrTilePosition => _tilePos;
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -53,12 +52,12 @@ public class MouseFunctionManager : MonoBehaviour
         // Right click to cancel activated attack card/ability
         if (Input.GetMouseButtonDown(1))
             if (IsTargeting && !PauseMenu.isPaused)
-                if (CardSystem.CardManager.instance.selectedCard != null &&
-                    CardSystem.CardManager.instance.selectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
+                if (DeckAndHandManager.instance.SelectedCard != null &&
+                    DeckAndHandManager.instance.SelectedCard.CardTransform.TryGetComponent(out CardSelect card))
                 {
-                    AbilityEvents.TargetingStopped();
-                    card.ReturnCardToHand();
-                    CardManager.instance.OnCardAblityCancel?.Invoke();
+                    TargetingStopped();
+                    //card.ReturnCardToHand();
+                    DeckAndHandManager.instance.OnCardAblityCancel?.Invoke();
                 }
 
         if (PauseMenu.isPaused || !TrackMouse()) return;
@@ -82,9 +81,7 @@ public class MouseFunctionManager : MonoBehaviour
     // return true if mouse is over valid tile
     private bool TrackMouse()
     {
-        Vector3 worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        worldMouse.z = 0f;
-
+        Vector3 worldMouse = GetMouseWorldPosition();
         _tilePos = _tilemap.WorldToCell(worldMouse);
         _currTile = _tilemap.GetTile(_tilePos);
 
@@ -96,5 +93,11 @@ public class MouseFunctionManager : MonoBehaviour
         }
 
         return true;
+    }
+    public Vector3 GetMouseWorldPosition()
+    {
+        Vector3 worldMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        worldMouse.z = 0f;
+        return worldMouse;
     }
 }

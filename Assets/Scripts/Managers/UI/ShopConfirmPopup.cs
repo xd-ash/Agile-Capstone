@@ -44,16 +44,13 @@ public class ShopConfirmPopup : MonoBehaviour
     /// <param name="message">Message (e.g. card name)</param>
     /// <param name="onConfirm">Action executed when the player confirms</param>
     /// <param name="onCancel">Action executed when the player cancels</param>
-    public void Show(int price, string message, Action onConfirm = null, Action onCancel = null)
+    public void Show(int price, string cardName, Action onConfirm = null, Action onCancel = null)
     {
         _onConfirm = onConfirm;
         _onCancel = onCancel;
 
-        if (titleText != null)
-            titleText.text = "Confirm Purchase";
-
         if (messageText != null)
-            messageText.text = message;
+            messageText.text = $"Buy \"{cardName}\" for {price}?";
 
         if (priceText != null)
             priceText.text = price.ToString();

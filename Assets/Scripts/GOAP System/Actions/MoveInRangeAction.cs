@@ -14,7 +14,7 @@ public class MoveInRangeAction : GoapAction
 
         aStar = agent.GetComponent<FindPathAStar>();
         Unit unit = agent.unit;
-        int dmgAbilRange = agent.damageAbility.RootNode.GetRange;
+        int dmgAbilRange = agent.damageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
         var tempPath = aStar.CalculatePath(tarPos);

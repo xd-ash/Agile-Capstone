@@ -61,7 +61,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!114 &5392494371457351225
 MonoBehaviour:
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
-  maxHealth: 15
+  maxHealth: 1
   health: 0
   shield: 0
   maxShield: 25

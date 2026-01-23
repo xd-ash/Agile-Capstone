@@ -6,7 +6,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
     
-    
     //public TurnManager turnManager = TurnManager.instance;
     public AudioClip endTurnSfx;
     public AudioClip drawCardSfx;
@@ -70,19 +69,14 @@ public class AudioManager : MonoBehaviour
     private void OnEnable()
     {
         TransitionScene.SceneSwap += OnSceneSwap;
-
-        AbilityEvents.OnAbilityUsed += HandleAbilityUsed; //removed the -= of this as audio manager
-                                                          //is never disabled at the moment
+        AbilityEvents.OnAbilityUsed += HandleAbilityUsed; //removed the -= of this as audio manager (is never disabled at the moment)
     }
     
     public void OnSceneSwap(string sceneLoaded)
     {
         // Unsubscribe TurnManager listener if we return to main menu
-        if (sceneLoaded == "MainMenu")
-        {
-            if (TurnManager.instance != null)
-                TurnManager.instance.OnPlayerTurnEnd -= HandleTurnChanged;
-        }
+        if (sceneLoaded == "MainMenu" && TurnManager.instance != null)
+            TurnManager.instance.OnPlayerTurnEnd -= HandleTurnChanged;
 
         // Look for a matching scene music entry
         var entry = sceneMusic.FirstOrDefault(e => e.sceneName == sceneLoaded);
@@ -92,23 +86,22 @@ public class AudioManager : MonoBehaviour
             PlayMusic(entry.clip, entry.loop, entry.volume);
             return;
         }
+        else
+            StopMusic();
 
-        // Fallback behavior for existing LevelOne behavior (keeps original delayed init)
+        // Fallback behavior for existing LevelOne behavior
         switch (sceneLoaded)
         {
             case "LevelOne":
-                Invoke(nameof(LevelLoadInits), .5f); // Bandaid fix for turn manager not being loaded instantly on scene swap
+                //LevelLoadInits();
                 break;
         }
     }
 
     public void LevelLoadInits()
     {
-        //TurnManager.instance.OnPlayerTurnEnd += HandleTurnChanged;
         if (bgmClip != null)
-        {
             PlayMusic(bgmClip, true);
-        }
     }
     private void HandleTurnChanged()
     {
@@ -126,10 +119,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
-        if (clip == null || _sfx == null)
-        {
-            return;
-        }
+        if (clip == null || _sfx == null) return;
+
         ApplyVolumes();
         _sfx.PlayOneShot(clip);
     }
@@ -150,6 +141,13 @@ public class AudioManager : MonoBehaviour
         _music.Play();
     }
 
+    public void StopMusic()
+    {
+        // Add some kind of fade here?
+        // Add logic for transitioning to new music?
+        _music?.Stop();
+    }
+
     // Called by CardSelect before invoking the ability
     public void SetPendingUseSfx(AudioClip clip)
     {
@@ -166,14 +164,10 @@ public class AudioManager : MonoBehaviour
     public void ApplyVolumes()
     {
         if (_sfx != null)
-        {
             _sfx.volume = masterVolume * sfxVolume;
-        }
 
         if (_music != null)
-        {
             _music.volume = masterVolume * musicVolume * _musicBaseVolume;
-        }
     }
 
     public void SetMasterVolume(float v)

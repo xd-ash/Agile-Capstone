@@ -11,6 +11,9 @@ namespace CardSystem
 
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
+        [SerializeField] private int _cardSortingOrderBaseValue = 5;
+
+        public int GetCardSortingOrderBaseValue => _cardSortingOrderBaseValue;
 
         public static CardSplineManager instance;
         private void Awake()
@@ -23,12 +26,11 @@ namespace CardSystem
 
         public void ArrangeCardGOs()
         {
-            int handSize = CardManager.instance.GetCurrentHandSize;
-            var cardsInHand = CardManager.instance.GetCardsInHand;
+            int handSize = DeckAndHandManager.instance.GetCurrentHandSize;
+            var cardsInHand = DeckAndHandManager.instance.CardsInHand;
 
             if (handSize == 0) return;
-            var spline = splineContainer != null ? splineContainer.Spline : null;
-            if (spline == null)
+            if (splineContainer.Spline == null)
             {
                 Debug.LogWarning("CardManager: SplineContainer or Spline is not assigned.");
                 return;
@@ -48,14 +50,16 @@ namespace CardSystem
                 float t = firstCardPos + i * cardSpacing;
                 t = Mathf.Clamp01(t);
 
-                Vector3 splinePosition = spline.EvaluatePosition(t);
-                Vector3 forward = spline.EvaluateTangent(t);
-                Vector3 up = spline.EvaluateUpVector(t);
+                Vector3 splinePosition = splineContainer.Spline.EvaluatePosition(t);
+                Vector3 forward = splineContainer.Spline.EvaluateTangent(t);
+                Vector3 up = splineContainer.Spline.EvaluateUpVector(t);
                 Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
                 var tr = cardsInHand[i]?.CardTransform;
+                var cs = tr?.GetComponent<CardSelect>();
                 if (tr != null)
                     UpdateTransformWithTween(tr, splinePosition, rotation, false);
+                cs?.UpdateSortingOrders();
             }
         }
 
@@ -78,23 +82,13 @@ namespace CardSystem
             _activeSequences[transform] = sequence;
         }
 
-        /* Potentially unused method brought over from CardManager
-        private void OnDisableInternal()
+        public void UpdateCardHoverPosition(Card card, bool isHovered)
         {
-            foreach (var sequence in _activeSequences.Values)
-                sequence.Kill();
-            _activeSequences.Clear();
-        }*/
+            int handSize = DeckAndHandManager.instance.GetCurrentHandSize;
+            var cardsInHand = DeckAndHandManager.instance.CardsInHand;
+            var spline = splineContainer?.Spline;
 
-        public void UpdateCardPosition(Card card, bool isHovered)
-        {
-            int handSize = CardManager.instance.GetCurrentHandSize;
-            var cardsInHand = CardManager.instance.GetCardsInHand;
-
-            if (card == null || splineContainer == null) return;
-
-            var spline = splineContainer.Spline;
-            if (spline == null) return;
+            if (card == null || spline == null) return;
 
             int cardIndex = cardsInHand.IndexOf(card);
             if (cardIndex == -1) return;
@@ -122,13 +116,6 @@ namespace CardSystem
                 UpdateTransformWithTween(tr, splinePosition, rotation, isHovered);
         }
 
-        public Sequence GetActiveTweenSequence(Transform transform)
-        {
-            if (_activeSequences.TryGetValue(transform, out Sequence sequence))
-                return sequence;
-            return null;
-        }
-
         public void RemoveSelectedCard(Card selectedCard)
         {
             if (selectedCard?.CardTransform != null)
@@ -136,5 +123,12 @@ namespace CardSystem
 
             ArrangeCardGOs();
         }
+
+        /*public Sequence GetActiveTweenSequence(Transform transform)
+        {
+            if (_activeSequences.TryGetValue(transform, out Sequence sequence))
+                return sequence;
+            return null;
+        }*/
     }
 }

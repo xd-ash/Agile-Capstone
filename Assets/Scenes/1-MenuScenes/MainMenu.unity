@@ -2564,7 +2564,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: sceneMusic.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: sceneMusic.Array.data[0].clip
@@ -2575,12 +2575,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b9a88d124b8b3c64eaa34a4cf774930f, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: sceneMusic.Array.data[0].volume
-      value: 0.537
+      value: 0.475
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[1].volume
+      value: 0.475
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: sceneMusic.Array.data[0].sceneName
       value: Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: sceneMusic.Array.data[1].sceneName
+      value: LevelOne
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2809550030970102975, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
@@ -4540,6 +4556,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696670673}
   m_CullTransparentMesh: 1
+--- !u!1 &1713322201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713322203}
+  - component: {fileID: 1713322202}
+  m_Layer: 0
+  m_Name: SaveDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1713322202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713322201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c285656051702bc46844d9b1ad64d874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1713322203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713322201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 542.10333, y: 306.41144, z: 1.270347}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1728191525
 GameObject:
   m_ObjectHideFlags: 0
@@ -5416,3 +5476,4 @@ SceneRoots:
   - {fileID: 1808137416}
   - {fileID: 2061576945}
   - {fileID: 1104719763}
+  - {fileID: 1713322203}

@@ -15,7 +15,7 @@ public class MoveIntoLOSAction : GoapAction
 
         aStar = agent.GetComponent<FindPathAStar>();
         Unit unit = agent.unit;
-        int dmgAbilRange = agent.damageAbility.RootNode.GetRange;
+        int dmgAbilRange = agent.damageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
         var tempPath = aStar.CalculatePath(tarPos);
@@ -47,6 +47,6 @@ public class MoveIntoLOSAction : GoapAction
         beliefs.ModifyState(GoapStates.HasLOS.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoLOS.ToString());
 
-        CheckIfInRange(agent, agent.damageAbility.RootNode.GetRange, ref beliefs);
+        CheckIfInRange(agent, agent.damageAbility.GetRange, ref beliefs);
     }
 }
