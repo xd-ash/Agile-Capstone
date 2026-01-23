@@ -6,9 +6,10 @@ namespace CardSystem
     public class Card
     {
         //initial constructor uses AbilityDefinition param to grab card data
-        public Card(CardAbilityDefinition def)
+        public Card(CardAbilityDefinition def, Transform cardTransform)
         {
             GrabSOData(def);
+            _cardTransform = cardTransform;
         }
 
         [SerializeField] private string _cardName;
@@ -19,15 +20,16 @@ namespace CardSystem
 
         public string GetCardName => _cardName;
         public string GetDescription => _description;
-        public Transform CardTransform { get => _cardTransform; set => _cardTransform = value; }
-        public CardAbilityDefinition GetCardAbility { get => _cardAbility; }
-        public int ShopCost { get => _shopCost; set => _shopCost = value; }
+        public Transform CardTransform => _cardTransform;
+        public CardAbilityDefinition GetCardAbility => _cardAbility;
+        public int ShopCost => _shopCost;
 
         public virtual void GrabSOData(CardAbilityDefinition def)
         {
             _cardName = def.GetCardName;
             _description = def.GetDescription;
             _cardAbility = def;
+            _shopCost = def.GetShopCost;
         }
     }
 }

@@ -163,7 +163,7 @@ public class DeckViewer : MonoBehaviour
             go.transform.localEulerAngles = previewRotation + new Vector3(0f, 0f, jitter);
 
             // initialize card visuals via existing API
-            Card card = new Card(def);
+            Card card = new Card(def, go.transform);
             var cs = go.GetComponent<CardSelect>();
             if (cs != null)
             {
