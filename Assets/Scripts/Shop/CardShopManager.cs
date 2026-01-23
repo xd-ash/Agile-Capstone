@@ -76,11 +76,6 @@ public class CardShopManager : MonoBehaviour
         var entry = PickRandomEntry();
         if (entry == null) return;
 
-        // Create runtime Card data
-        Card card = new Card(entry);
-        // store shop cost on the runtime card so UI/logic can access it
-        card.ShopCost = entry.GetShopCost;
-
         // Use same prefab path as CardManager
         GameObject prefab = Resources.Load<GameObject>("CardTestPrefab");
         if (prefab == null) return;
@@ -90,6 +85,9 @@ public class CardShopManager : MonoBehaviour
 
         GameObject cardGO = Instantiate(prefab, parent);
         cardGO.transform.localPosition = localOffset;
+
+        // Create runtime Card data
+        Card card = new Card(entry, cardGO.transform);
 
         // Ensure the prefab has CardSelect and initialize it
         if (!cardGO.TryGetComponent(out CardSelect cs))

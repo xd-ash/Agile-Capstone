@@ -264,7 +264,6 @@ namespace CardSystem
             else
                 Debug.LogError("Card prefab is missing required TextMeshPro components");
 
-            card.CardTransform = transform;
             SetupVisuals();
         }
 

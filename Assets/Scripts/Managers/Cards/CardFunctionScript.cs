@@ -85,7 +85,6 @@ public class CardFunctionScript : MonoBehaviour
     public void OnPrefabCreation(Card card)
     {
         Card = card;
-        Card.CardTransform = transform;
         transform.name = card.GetCardName;
     }
 

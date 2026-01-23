@@ -72,13 +72,12 @@ namespace CardSystem
                     _topCardOfDeck = 0;
                 }
 
-                Card newCard = null;
+                /*Card newCard = null;
                 if (_topCardOfDeck < _runtimeDeckList.Count)
                     newCard = new Card(_runtimeDeckList[_topCardOfDeck]); // This creates the card with SO data
                 if (newCard == null) return;
-
-                _cardsInHand.Add(newCard);
-                CreateCardPrefab(newCard);
+                */
+                _cardsInHand.Add(CreateCardAndPrefab());
 
                 _topCardOfDeck++;
                 //_nextCardInHandIndex++;
@@ -228,12 +227,19 @@ namespace CardSystem
             return result;
         }
 
-        public void CreateCardPrefab(Card card)
+        public Card CreateCardAndPrefab(/*Card card*/)
         {
             GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
+
+            Card newCard = null;
+            if (_topCardOfDeck < _runtimeDeckList.Count)
+                newCard = new Card(_runtimeDeckList[_topCardOfDeck], cardGO.transform); // This creates the card with SO data
+
             if (!cardGO.TryGetComponent(out CardSelect cs))
                 cs = cardGO.AddComponent<CardSelect>();
-            cs.OnPrefabCreation(card);
+            cs.OnPrefabCreation(newCard);
+
+            return newCard;
         }
 
         public int CalculateCardIndex(Card card)
