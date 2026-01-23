@@ -5,7 +5,6 @@ namespace CardSystem {
     public class Deck : ScriptableObject
     {
         [SerializeField] private CardAbilityDefinition[] _deck;
-
-        public CardAbilityDefinition[] GetDeck { get => _deck; }
+        public CardAbilityDefinition[] GetDeck => _deck;
     }
 }

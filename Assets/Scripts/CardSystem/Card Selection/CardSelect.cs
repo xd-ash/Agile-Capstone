@@ -55,18 +55,18 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.SelectedCard == null)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.GetSelectedCard == null)
                 ToggleHighlightAndScale(true);
         }
         private void OnMouseExit()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.SelectedCard == null)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.GetSelectedCard == null)
                 ToggleHighlightAndScale(false);
         }
         private void OnMouseDown()
         {
             // Check for active cards
-            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.instance == null || DeckAndHandManager.instance.SelectedCard != null) return;
+            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.instance == null || DeckAndHandManager.instance.GetSelectedCard != null) return;
 
             _isAboveHandArea = false;
 
@@ -204,7 +204,7 @@ namespace CardSystem
         // Return card to hand, clear selection, stop coroutines and tweens, then update card orders
         public void ReturnCardToHand()
         {
-            if (DeckAndHandManager.instance.SelectedCard != _cfs.Card) return;
+            if (DeckAndHandManager.instance.GetSelectedCard != _cfs.Card) return;
 
             StopAllCoroutines();
             ClearSelection();

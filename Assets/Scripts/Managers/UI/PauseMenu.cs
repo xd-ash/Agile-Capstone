@@ -64,8 +64,8 @@ public class PauseMenu : MonoBehaviour
         
         if (IsTargeting && !isPaused)
         {
-            if (DeckAndHandManager.instance.SelectedCard != null &&
-                DeckAndHandManager.instance.SelectedCard.CardTransform.TryGetComponent(out CardSelect card))
+            if (DeckAndHandManager.instance.GetSelectedCard != null &&
+                DeckAndHandManager.instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
             {
                 TargetingStopped();
                 //card.ReturnCardToHand();

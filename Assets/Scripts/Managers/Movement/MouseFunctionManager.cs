@@ -52,8 +52,8 @@ public class MouseFunctionManager : MonoBehaviour
         // Right click to cancel activated attack card/ability
         if (Input.GetMouseButtonDown(1))
             if (IsTargeting && !PauseMenu.isPaused)
-                if (DeckAndHandManager.instance.SelectedCard != null &&
-                    DeckAndHandManager.instance.SelectedCard.CardTransform.TryGetComponent(out CardSelect card))
+                if (DeckAndHandManager.instance.GetSelectedCard != null &&
+                    DeckAndHandManager.instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
                 {
                     TargetingStopped();
                     //card.ReturnCardToHand();

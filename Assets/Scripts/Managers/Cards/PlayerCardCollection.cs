@@ -5,11 +5,11 @@ namespace CardSystem
 {
     public class PlayerCardCollection : MonoBehaviour
     {
-        public static PlayerCardCollection instance;
-
         // store all persistent player cards
-        public List<CardAbilityDefinition> OwnedCards { get; private set; } = new();
+        [SerializeField] private List<CardAbilityDefinition> _ownedCards = new();
+        public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
 
+        public static PlayerCardCollection instance;
         private void Awake()
         {
             if (instance == null)
@@ -24,7 +24,7 @@ namespace CardSystem
         public void Add(CardAbilityDefinition def)
         {
             if (def != null)
-                OwnedCards.Add(def);
+                _ownedCards.Add(def);
         }
     }
 }
