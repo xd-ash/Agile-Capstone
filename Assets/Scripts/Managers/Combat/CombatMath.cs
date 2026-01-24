@@ -29,15 +29,8 @@ public static class CombatMath
     //Returns 0 if line of sight is blocked or if either unit is null.
     public static int GetHitChance(Unit attacker, Unit target, int abilityRange)
     {
-        if (attacker == null || target == null)
-        {
+        if (attacker == null || target == null || !HasLineOfSight(attacker, target))
             return 0;
-        }
-
-        if (!HasLineOfSight(attacker, target))
-        {
-            return 0;
-        }
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);

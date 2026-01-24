@@ -12,7 +12,7 @@ namespace CardSystem
     {
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
-            switch (abilityData.GetUnit.team)
+            switch (abilityData.GetUnit.GetTeam)
             {
                 case Team.Friendly:
                     base.StartTargeting(abilityData, onFinished);

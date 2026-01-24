@@ -9,22 +9,22 @@ public enum Team {Friendly, Enemy}
 public class Unit : MonoBehaviour, IDamagable
 {
     [Header("Team and stats")] 
-    public Team team;
-    public int maxHealth;
-    public int health;
+    [SerializeField] private Team _team;
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private int _health;
 
     [Header("Shield")]
-    [SerializeField] private int shield = 0; // current shield amount (absorb damage before health)
-    [SerializeField] private int maxShield = 25;
+    [SerializeField] private int _maxShield = 25;
+    [SerializeField] private int _shield = 0; // current shield amount (absorb damage before health)
 
-    [Header("Action Points")] 
-    public int maxAP;
-    public int ap;
+    [Header("Action Points")]
+    [SerializeField] private int _maxAP;
+    [SerializeField] private int _ap;
 
-    [Header("SFX")]
-    public AudioClip stepSfx;
-    public AudioClip damageSfx;
-    public AudioClip shieldHitSfx;
+    //[Header("SFX")]
+    //public AudioClip stepSfx;
+    [SerializeField] private AudioClip _damageSfx;
+    [SerializeField] private AudioClip _shieldHitSfx;
 
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
@@ -32,34 +32,40 @@ public class Unit : MonoBehaviour, IDamagable
 
     private Coroutine _targetingCoroutine;
 
+    public Team GetTeam => _team;
+    public int GetMaxHealth => _maxHealth;
+    public int GetHealth => _health;
+    public int GetMaxAP => _maxAP;
+    public int GetAP => _ap;
+
     public event Action<Unit> OnApChanged;
 
     private void Awake()
     {
-        health = maxHealth;
-        ap = maxAP;
+        _health = _maxHealth;
+        _ap = _maxAP;
         RaiseHealthEvent();
         HideHitChance();
 
         // Ensure UI gets initial shield state
-        if (team == Team.Friendly)
-            ShieldEvents.RaisePlayerShieldChanged(shield);
+        if (_team == Team.Friendly)
+            ShieldEvents.RaisePlayerShieldChanged(_shield);
         else
         {
             _enemyHPBar = GetComponentInChildren<Slider>();
             //_enemyHPBar.gameObject.SetActive(false); // commented this out so enemy HP bar show from start
-            ShieldEvents.RaiseEnemyShieldChanged(shield);
+            ShieldEvents.RaiseEnemyShieldChanged(_shield);
         }
     }
     private void Start()
     {
-        if (team != Team.Friendly || _targetingCoroutine == null) return;
+        if (_team != Team.Friendly || _targetingCoroutine == null) return;
         DeckAndHandManager.instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
         TurnManager.instance.OnPlayerTurnEnd += () => StopCoroutine(_targetingCoroutine);
     }
     private void OnDestroy()
     {
-        if (team != Team.Friendly || _targetingCoroutine == null) return;
+        if (_team != Team.Friendly || _targetingCoroutine == null) return;
         DeckAndHandManager.instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
         TurnManager.instance.OnPlayerTurnEnd -= () => StopCoroutine(_targetingCoroutine);
     }
@@ -76,26 +82,26 @@ public class Unit : MonoBehaviour, IDamagable
             // Apply damage: shield absorbs first
             int remainingDamage = uAmount;
 
-            if (shield > 0)
+            if (_shield > 0)
             {
-                AudioManager.instance?.PlaySFX(shieldHitSfx);
+                AudioManager.instance?.PlaySFX(_shieldHitSfx);
 
-                int absorbed = Mathf.Min(shield, remainingDamage);
-                shield -= absorbed;
+                int absorbed = Mathf.Min(_shield, remainingDamage);
+                _shield -= absorbed;
                 remainingDamage -= absorbed;
                 //Debug.Log($"[{team}] '{name}' shield absorbed {absorbed} damage (shield remaining: {shield}).");
 
                 // Notify UI about shield change
-                if (team == Team.Friendly)
-                    ShieldEvents.RaisePlayerShieldChanged(shield);
+                if (_team == Team.Friendly)
+                    ShieldEvents.RaisePlayerShieldChanged(_shield);
                 else
-                    ShieldEvents.RaiseEnemyShieldChanged(shield);
+                    ShieldEvents.RaiseEnemyShieldChanged(_shield);
             }
 
             if (remainingDamage > 0)
             {
-                health -= remainingDamage;
-                AudioManager.instance?.PlaySFX(damageSfx);
+                _health -= remainingDamage;
+                AudioManager.instance?.PlaySFX(_damageSfx);
                 //Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
             }
             else
@@ -106,25 +112,25 @@ public class Unit : MonoBehaviour, IDamagable
         else
         {
             // Healing path
-            health += uAmount;
+            _health += uAmount;
             //Debug.Log($"[{team}] '{name}' healed {uAmount}. Health now {health}/{maxHealth}.");
         }
 
         // Clamp and death handling
-        if (health >= maxHealth)
-            health = maxHealth;
-        else if (health <= 0)
+        if (_health >= _maxHealth)
+            _health = _maxHealth;
+        else if (_health <= 0)
         {
-            health = 0;
+            _health = 0;
 
             //Temp Win/Loss condition stuff
             //
-            if (team == Team.Friendly)
+            if (_team == Team.Friendly)
                 GameOverEvents.OnGameWinOrLoss(false);
             else
             {
-                WinLossManager.instance.enemyUnits.Remove(this);
-                if (WinLossManager.instance.enemyUnits.Count == 0)
+                WinLossManager.instance.GetEnemyUnits.Remove(this);
+                if (WinLossManager.instance.GetEnemyUnits.Count == 0)
                     GameOverEvents.OnGameWinOrLoss(true);
             }
             //
@@ -134,7 +140,7 @@ public class Unit : MonoBehaviour, IDamagable
         }
 
         //Placeholder enemy healthbar updating
-        if (team == Team.Enemy)
+        if (_team == Team.Enemy)
             UpdateHealthBar();
 
         RaiseHealthEvent();
@@ -146,16 +152,16 @@ public class Unit : MonoBehaviour, IDamagable
     public void AddShield(int amount, float duration = 0f)
     {
         if (amount <= 0) return;
-        shield += amount;
-        if (shield >= maxShield)
-            shield = maxShield;
+        _shield += amount;
+        if (_shield >= _maxShield)
+            _shield = _maxShield;
         //Debug.Log($"[{team}] '{name}' gained {amount} shield (total shield: {shield}).");
 
         // Raise shield event for UI
-        if (team == Team.Friendly)
-            ShieldEvents.RaisePlayerShieldChanged(shield);
+        if (_team == Team.Friendly)
+            ShieldEvents.RaisePlayerShieldChanged(_shield);
         else
-            ShieldEvents.RaiseEnemyShieldChanged(shield);
+            ShieldEvents.RaiseEnemyShieldChanged(_shield);
 
         if (duration > 0f)
         {
@@ -169,15 +175,15 @@ public class Unit : MonoBehaviour, IDamagable
     public void RemoveShield(int amount)
     {
         if (amount <= 0) return;
-        int removed = Mathf.Min(shield, amount);
-        shield -= removed;
+        int removed = Mathf.Min(_shield, amount);
+        _shield -= removed;
         //Debug.Log($"[{team}] '{name}' lost {removed} shield (remaining shield: {shield}).");
 
         // Raise shield event for UI
-        if (team == Team.Friendly)
-            ShieldEvents.RaisePlayerShieldChanged(shield);
+        if (_team == Team.Friendly)
+            ShieldEvents.RaisePlayerShieldChanged(_shield);
         else
-            ShieldEvents.RaiseEnemyShieldChanged(shield);
+            ShieldEvents.RaiseEnemyShieldChanged(_shield);
     }
 
     private IEnumerator RemoveShieldAfter(float seconds, int amount)
@@ -187,39 +193,39 @@ public class Unit : MonoBehaviour, IDamagable
     }
 
     // Optional accessor if needed by UI
-    public int GetShield() => shield;
+    public int GetShield() => _shield;
 
     //placeholder enemy damage dealing
     public void DealDamage(Unit target, int damage = 2)
     {
-        if (team == Team.Enemy && target != null)
+        if (_team == Team.Enemy && target != null)
             target.ChangeHealth(damage, false);
     }
     //placeholder enemy healthbar stuff
     public void UpdateHealthBar()
     {
         if (_enemyHPBar == null) return;
-        if (_enemyHPBar.maxValue != maxHealth) _enemyHPBar.maxValue = maxHealth;
-        _enemyHPBar.value = Mathf.Clamp(health, 0, maxHealth);
+        if (_enemyHPBar.maxValue != _maxHealth) _enemyHPBar.maxValue = _maxHealth;
+        _enemyHPBar.value = Mathf.Clamp(_health, 0, _maxHealth);
 
         if (_enemyHPBar.value != _enemyHPBar.maxValue && !_enemyHPBar.gameObject.activeInHierarchy)
             _enemyHPBar.gameObject.SetActive(true); // Adam added 10-5, enemy bar hidden by default, show once dmg taken
     }
     private void RaiseHealthEvent()
     {
-        if (team == Team.Friendly)
-            DamageEvents.RaisePlayerDamaged(health,maxHealth);
+        if (_team == Team.Friendly)
+            DamageEvents.RaisePlayerDamaged(_health, _maxHealth);
         else
-            DamageEvents.RaiseEnemyDamaged(health, maxHealth);
+            DamageEvents.RaiseEnemyDamaged(_health, _maxHealth);
     }
 
     public void RefreshAP()
     {
-        ap = maxAP;
+        _ap = _maxAP;
         OnApChanged?.Invoke(this);
     }
 
-    public bool CanSpend(int cost) => ap >= cost;
+    public bool CanSpend(int cost) => _ap >= cost;
 
     public bool SpendAP(int cost, bool spendNow = true)
     {
@@ -227,7 +233,7 @@ public class Unit : MonoBehaviour, IDamagable
             return false;
         if (spendNow)
         {
-            ap -= cost;
+            _ap -= cost;
             OnApChanged?.Invoke(this);
         }
         return true;

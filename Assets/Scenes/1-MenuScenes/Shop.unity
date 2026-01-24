@@ -214,6 +214,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -538,17 +539,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22ef77cff7341f459954e5abdd08fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pool: {fileID: 11400000, guid: fee969b131b14494198abd6abb7ce5be, type: 2}
-  spawnOnStart: 1
-  initialSpawnCount: 5
-  spawnParent: {fileID: 1373974064}
-  localOffset: {x: 0, y: 0, z: 0}
-  buyAreaCollider: {fileID: 0}
-  buyAreaTag: BuyArea
-  fanWidth: 15
-  arcHeight: 0
-  maxTilt: 0
-  refreshCost: 10
+  _pool: {fileID: 11400000, guid: fee969b131b14494198abd6abb7ce5be, type: 2}
+  _spawnOnStart: 1
+  _initialSpawnCount: 5
+  _spawnParent: {fileID: 1373974064}
+  _localOffset: {x: 0, y: 0, z: 0}
+  _fanWidth: 15
+  _arcHeight: 0
+  _maxTilt: 0
+  _refreshCost: 10
 --- !u!4 &238584680
 Transform:
   m_ObjectHideFlags: 0
@@ -604,6 +603,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -625,6 +626,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
@@ -667,19 +669,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cc0afd6b320114b9a7a53451f40783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnParent: {fileID: 332963580}
-  cardPrefabPath: CardTestPrefab
-  columns: 6
-  spacing: {x: 2, y: 3}
-  maxPreviews: 0
-  previewScale: {x: 0.75, y: 0.75, z: 0.75}
-  previewRotation: {x: 0, y: 0, z: 0}
-  rotationJitter: 0
-  requireLeftMouseButton: 1
-  previewSortingLayerName: Default
-  previewSortingOrder: 5000
-  blurMaterial: {fileID: 0}
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  _spawnParent: {fileID: 332963580}
+  _cardPrefabPath: CardTestPrefab
+  _columns: 6
+  _spacing: {x: 2, y: 2}
+  _maxPreviews: 0
+  _previewScale: {x: 0.75, y: 0.75, z: 0.75}
+  _previewRotation: {x: 0, y: 0, z: 0}
+  _rotationJitter: 0
+  _requireLeftMouseButton: 1
+  _previewSortingLayerName: Default
+  _previewSortingOrder: 5000
+  _blurMaterial: {fileID: 0}
+  _overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!60 &285137132
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -902,12 +904,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac70f8787bbf41479277f9e1b1bb4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 513064781}
-  titleText: {fileID: 33698011}
-  messageText: {fileID: 1113889025}
-  priceText: {fileID: 1118127717}
-  confirmButton: {fileID: 155560491}
-  cancelButton: {fileID: 2137004480}
+  _canvasGroup: {fileID: 513064781}
+  _titleText: {fileID: 33698011}
+  _messageText: {fileID: 1113889025}
+  _priceText: {fileID: 1118127717}
+  _confirmButton: {fileID: 155560491}
+  _cancelButton: {fileID: 2137004480}
 --- !u!1 &622945340
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,10 +972,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adee2c2609bccfe4185c122b27a51601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 622945342}
-  messageText: {fileID: 1883544436}
-  displayTime: 1
-  fadeDuration: 0.25
+  _canvasGroup: {fileID: 622945342}
+  _messageText: {fileID: 1883544436}
+  _displayTime: 1
+  _fadeDuration: 0.25
 --- !u!1 &635392079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,17 +1022,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxCards: 100
-  _currentHandSize: 0
+  _startingHandSize: 5
   _deck: {fileID: 11400000, guid: b234795bd520a064687ba1c4db35c945, type: 2}
   _cardsInHand: []
-  selectedCard:
-    _cardName: 
-    _cardTransform: {fileID: 0}
-    _cardAbility: {fileID: 0}
-    _shopCost: 0
-  runtimeAddedDefinitions: []
-  cardActivePos: {fileID: 0}
-  defaultStartingHandSize: 5
 --- !u!114 &635392082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,8 +1037,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c59f85709318cc48b47696ac5407acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingBalance: 100
-  maxBalance: 0
+  _startingBalance: 100
+  _maxBalance: 0
 --- !u!1 &1046733940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,9 +1089,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdcb4c9ea4708904193c709bd5b8edfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  label: {fileID: 1046733943}
-  prefix: 'Currency: '
-  suffix: 
+  _label: {fileID: 1046733943}
+  _prefix: 'Currency: '
+  _suffix: 
 --- !u!114 &1046733943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,6 +1150,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1292,6 +1287,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1428,6 +1424,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1564,6 +1561,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1731,6 +1729,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1915,6 +1914,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1936,6 +1937,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
@@ -2060,6 +2062,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2196,6 +2199,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2478,6 +2482,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2727,7 +2732,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -2735,6 +2739,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &2137004478
 GameObject:
   m_ObjectHideFlags: 0

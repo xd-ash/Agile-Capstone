@@ -10,7 +10,6 @@ public class MovementLine : MonoBehaviour
     [SerializeField] private float _lineZOffset = 0.01f;
 
     public static MovementLine instance;
-
     private void Awake()
     {
         if (instance == null)
@@ -44,7 +43,7 @@ public class MovementLine : MonoBehaviour
             return false;
 
         int steps = path.Count;
-        int ap = Mathf.Max(0, unit.ap);
+        int ap = Mathf.Max(0, unit.GetAP);
         int keep = ap < steps ? ap : steps;
 
         // Update the Fallout style AP indicator

@@ -102,7 +102,7 @@ namespace AStarPathfinding
         public void UpdateUnitPositionByteMap(Vector2Int startPos, Vector2Int endPos, Unit unit)
         {
             _map[startPos.x, startPos.y] = 0;
-            _map[endPos.x, endPos.y] = unit.team == Team.Friendly ? (byte)3 : (byte)2;
+            _map[endPos.x, endPos.y] = unit.GetTeam == Team.Friendly ? (byte)3 : (byte)2;
         }
 
         private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)

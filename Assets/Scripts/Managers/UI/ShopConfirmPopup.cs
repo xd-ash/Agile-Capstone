@@ -7,12 +7,12 @@ public class ShopConfirmPopup : MonoBehaviour
 {
     public static ShopConfirmPopup Instance { get; private set; }
 
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI messageText;
-    [SerializeField] private TextMeshProUGUI priceText;
-    [SerializeField] private Button confirmButton;
-    [SerializeField] private Button cancelButton;
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private TextMeshProUGUI _titleText;
+    [SerializeField] private TextMeshProUGUI _messageText;
+    [SerializeField] private TextMeshProUGUI _priceText;
+    [SerializeField] private Button _confirmButton;
+    [SerializeField] private Button _cancelButton;
 
     private Action _onConfirm;
     private Action _onCancel;
@@ -22,19 +22,19 @@ public class ShopConfirmPopup : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        if (canvasGroup == null)
-            canvasGroup = GetComponentInChildren<CanvasGroup>();
+        if (_canvasGroup == null)
+            _canvasGroup = GetComponentInChildren<CanvasGroup>();
 
-        if (canvasGroup != null)
+        if (_canvasGroup != null)
         {
-            canvasGroup.alpha = 0f;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.gameObject.SetActive(false);
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+            _canvasGroup.gameObject.SetActive(false);
         }
 
-        if (confirmButton != null) confirmButton.onClick.AddListener(OnConfirmPressed);
-        if (cancelButton != null) cancelButton.onClick.AddListener(OnCancelPressed);
+        if (_confirmButton != null) _confirmButton.onClick.AddListener(OnConfirmPressed);
+        if (_cancelButton != null) _cancelButton.onClick.AddListener(OnCancelPressed);
     }
 
     /// <summary>
@@ -49,18 +49,18 @@ public class ShopConfirmPopup : MonoBehaviour
         _onConfirm = onConfirm;
         _onCancel = onCancel;
 
-        if (messageText != null)
-            messageText.text = $"Buy \"{cardName}\" for {price}?";
+        if (_messageText != null)
+            _messageText.text = $"Buy \"{cardName}\" for {price}?";
 
-        if (priceText != null)
-            priceText.text = price.ToString();
+        if (_priceText != null)
+            _priceText.text = price.ToString();
 
         if (!gameObject.activeInHierarchy) gameObject.SetActive(true);
-        if (canvasGroup != null)
+        if (_canvasGroup != null)
         {
-            canvasGroup.alpha = 1f;
-            canvasGroup.interactable = true;
-            canvasGroup.blocksRaycasts = true;
+            _canvasGroup.alpha = 1f;
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
         }
     }
 
@@ -78,11 +78,11 @@ public class ShopConfirmPopup : MonoBehaviour
 
     public void Hide()
     {
-        if (canvasGroup == null) return;
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
-        canvasGroup.gameObject.SetActive(false);
+        if (_canvasGroup == null) return;
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = false;
+        _canvasGroup.blocksRaycasts = false;
+        _canvasGroup.gameObject.SetActive(false);
         _onConfirm = null;
         _onCancel = null;
     }

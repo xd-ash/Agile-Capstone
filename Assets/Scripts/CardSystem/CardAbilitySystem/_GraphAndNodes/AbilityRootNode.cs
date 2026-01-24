@@ -53,7 +53,7 @@ namespace CardSystem
 			}
 
             // failed ability cast catcher
-  			if (abilityData.GetUnit.team == Team.Friendly && _targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
+  			if (abilityData.GetUnit.GetTeam == Team.Friendly && _targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
             {
                 // Return the card to hand or destroy it
                 if (DeckAndHandManager.instance != null && DeckAndHandManager.instance.GetSelectedCard != null)
@@ -76,7 +76,7 @@ namespace CardSystem
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
-            AbilityEvents.AbilityUsed(abilityData.GetUnit.team); //moved here to avoid early card removal/delete on multi effect cards
+            AbilityEvents.AbilityUsed(abilityData.GetUnit.GetTeam); //moved here to avoid early card removal/delete on multi effect cards
         }
 
         // Unused method for now, kept just for reminder of tutorial system setup

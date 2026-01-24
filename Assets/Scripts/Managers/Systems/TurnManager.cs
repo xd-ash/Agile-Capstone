@@ -50,14 +50,6 @@ public class TurnManager : MonoBehaviour
 
         _unitTurnOrder = GrabUnits();
 
-        // Temp setup for win/loss conditions
-        List<Unit> enemies = new List<Unit>();
-        foreach (Unit unit in _unitTurnOrder)
-            if (unit != null && unit.team == Team.Enemy)
-                enemies.Add(unit);
-        WinLossManager.instance.enemyUnits = enemies;
-        //
-
         OnGameStart?.Invoke();
         SetTurn();
     }
@@ -68,7 +60,7 @@ public class TurnManager : MonoBehaviour
         var sortedList = new List<Unit>();
 
         for (int i = 0; i < unsortedList.Count; i++)
-            if (unsortedList[i].team == Team.Friendly) //this won't be great if/when there are multiple friendlies
+            if (unsortedList[i].GetTeam == Team.Friendly) //this won't be great if/when there are multiple friendlies
             {
                 sortedList.Add(unsortedList[i]);
                 unsortedList.Remove(unsortedList[i]);
@@ -84,9 +76,9 @@ public class TurnManager : MonoBehaviour
     {
         if (_apText == null) return;
         if (currTurn == Turn.Player && _curUnit != null)
-            _apText.text = $"Player AP:\n{_curUnit.ap}/{_curUnit.maxAP}";
+            _apText.text = $"Player AP:\n{_curUnit.GetAP}/{_curUnit.GetMaxAP}";
         else if (currTurn == Turn.Enemy && _curUnit != null)
-            _apText.text = $"Enemy AP:\n{_curUnit.ap}/{_curUnit.maxAP}";
+            _apText.text = $"Enemy AP:\n{_curUnit.GetAP}/{_curUnit.GetMaxAP}";
     }
 
     private void SetTurn()
@@ -101,7 +93,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
         _curUnit = _unitTurnOrder[_turnTracker];
-        currTurn = _curUnit.team == Team.Friendly ? Turn.Player : Turn.Enemy;
+        currTurn = _curUnit.GetTeam == Team.Friendly ? Turn.Player : Turn.Enemy;
         _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
 
         if (_turnText != null)
@@ -112,7 +104,7 @@ public class TurnManager : MonoBehaviour
             _curUnit.GetComponent<GoapAgent>().ResetStates();
 
         // Draw player's starting hand when player's turn begins
-        if (_curUnit.team == Team.Friendly)
+        if (_curUnit.GetTeam == Team.Friendly)
             DeckAndHandManager.instance?.DrawStartingHand(true);
 
         UpdateApText();

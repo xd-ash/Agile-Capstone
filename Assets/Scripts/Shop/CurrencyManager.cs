@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
-    public static CurrencyManager instance { get; private set; }
-
     [Tooltip("Starting currency for new players")]
-    [SerializeField] private int startingBalance = 100;
+    [SerializeField] private int _startingBalance = 100;
     [Tooltip("Max currency (0 = unlimited)")]
-    [SerializeField] private int maxBalance = 0;
+    [SerializeField] private int _maxBalance = 0;
 
     private const string PREFS_KEY = "PlayerCurrency_Balance";
     private int _balance;
@@ -18,6 +16,7 @@ public class CurrencyManager : MonoBehaviour
     // Fired when balance changes; argument is new balance
     public event Action<int> OnBalanceChanged;
 
+    public static CurrencyManager instance { get; private set; }
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -31,7 +30,7 @@ public class CurrencyManager : MonoBehaviour
 
     private void LoadBalance()
     {
-        _balance = startingBalance;
+        _balance = _startingBalance;
         SaveBalance();
     }
 
@@ -81,7 +80,7 @@ public class CurrencyManager : MonoBehaviour
 
     private void ClampAndSave()
     {
-        if (maxBalance > 0) _balance = Mathf.Min(_balance, maxBalance);
+        if (_maxBalance > 0) _balance = Mathf.Min(_balance, _maxBalance);
         if (_balance < 0) _balance = 0;
         SaveBalance();
     }
