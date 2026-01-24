@@ -34,7 +34,7 @@ namespace CardSystem
 			get
 			{
 				if(_rootNode == null)
-					foreach(AbilityNodeBase node in nodes)// nodes is built in collection of nodes
+					foreach(AbilityNodeBase node in nodes)// nodes is a built-in collection of nodes
 						if (node is AbilityRootNode)
 							_rootNode = node as AbilityRootNode;
 				return _rootNode;

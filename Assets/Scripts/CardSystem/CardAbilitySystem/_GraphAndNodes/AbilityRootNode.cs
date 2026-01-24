@@ -10,9 +10,7 @@ namespace CardSystem
     [CreateNodeMenu("Ability Root Node")]
     public class AbilityRootNode : AbilityNodeBase
 	{
-        //[SerializeField] private int _apCost;
-        //[SerializeField] private int _range;
-        [Flags] public enum EffectTypes{ Helpful = 2, Harmful = 4, Misc = 8 }
+        [Flags] public enum EffectTypes { Helpful = 2, Harmful = 4, Misc = 8 }
         [SerializeField] private EffectTypes _effectTypes;
 
         [Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public short targeting;
@@ -24,7 +22,7 @@ namespace CardSystem
         private CardAbilityDefinition _cardDefinition => this.graph as CardAbilityDefinition;
 		private TargetingStrategy _targetingStrategy;
 
-        public EffectTypes GetEffectTypes { get { return _effectTypes; } }
+        public EffectTypes GetEffectTypes => _effectTypes;
 
 		// check if user (Unit) is able to use abailty with AP, start targeting
 		// based on connected targeting strategy port
@@ -78,8 +76,6 @@ namespace CardSystem
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
-            //if (abilityData.GetUnit.team == Team.Friendly)
-                //AbilityEvents.TargetingStopped();
             AbilityEvents.AbilityUsed(abilityData.GetUnit.team); //moved here to avoid early card removal/delete on multi effect cards
         }
 

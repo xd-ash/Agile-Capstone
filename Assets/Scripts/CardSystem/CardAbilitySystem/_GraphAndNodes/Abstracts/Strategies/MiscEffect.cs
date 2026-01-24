@@ -6,7 +6,5 @@ namespace CardSystem
     public abstract class MiscEffect : EffectStrategy
     {
         [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte input;
-
-        //public override abstract void StartEffect(AbilityData abilityData, Action onFinished);
     }
 }
