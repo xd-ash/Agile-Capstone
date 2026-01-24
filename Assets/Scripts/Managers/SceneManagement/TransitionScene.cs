@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class TransitionScene : MonoBehaviour
 {
-    public static TransitionScene instance { get; private set; }
 
     private GameObject mainMenu, pauseMenu;
     private string _currScene = "MainMenu";
@@ -12,6 +11,7 @@ public class TransitionScene : MonoBehaviour
 
     public string GetCurrentScene => _currScene;
 
+    public static TransitionScene instance { get; private set; }
     private void Awake()
     {
         if (instance != null && instance != this)

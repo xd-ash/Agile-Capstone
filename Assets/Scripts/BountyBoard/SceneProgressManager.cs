@@ -4,15 +4,16 @@ public class SceneProgressManager : MonoBehaviour
 {
     public static SceneProgressManager Instance { get; private set; }
 
-    private string mapSceneName = "NodeMap";
-    private int nodeCount = 4;
+    private string _mapSceneName = "NodeMap";
+    private int _nodeCount = 4;
 
     //Progress data
-    private bool[] nodeCompleted;
-    private bool[] nodeUnlocked;
-    private int currentNodeIndex = -1;
+    private bool[] _nodeCompleted;
+    private bool[] _nodeUnlocked;
+    private int _currentNodeIndex = -1;
+    private bool _nodeMapCompleted = false;
 
-    public bool NodeMapCompleted { get; private set; } = false;
+    public bool GetNodeMapCompleted => _nodeMapCompleted;
 
     private void Awake()
     {
@@ -27,53 +28,51 @@ public class SceneProgressManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         //Initialize arrays once
-        if (nodeCompleted == null || nodeCompleted.Length != nodeCount)
+        if (_nodeCompleted == null || _nodeCompleted.Length != _nodeCount)
         {
-            nodeCompleted = new bool[nodeCount];
-            nodeUnlocked = new bool[nodeCount];
+            _nodeCompleted = new bool[_nodeCount];
+            _nodeUnlocked = new bool[_nodeCount];
 
             //By default, unlock node 0
-            if (nodeCount > 0)
-                nodeUnlocked[0] = true;
+            if (_nodeCount > 0)
+                _nodeUnlocked[0] = true;
         }
     }
     public void ResetNodes()
     {
-        currentNodeIndex = -1;
+        _currentNodeIndex = -1;
 
-        nodeCompleted = new bool[nodeCount];
-        nodeUnlocked = new bool[nodeCount];
+        _nodeCompleted = new bool[_nodeCount];
+        _nodeUnlocked = new bool[_nodeCount];
 
         //By default, unlock node 0
-        if (nodeCount > 0)
-        {
-            nodeUnlocked[0] = true;
-        }
+        if (_nodeCount > 0)
+            _nodeUnlocked[0] = true;
 
-        NodeMapCompleted = false;
+        _nodeMapCompleted = false;
     }
     //Use in Save/Load script
     public void GrabNodeData(ref bool[] completedNodes, ref bool[] unlockedNodes, ref int curNodeIndex)
     {
-        completedNodes = nodeCompleted;
-        unlockedNodes = nodeUnlocked;
-        curNodeIndex = currentNodeIndex;
+        completedNodes = _nodeCompleted;
+        unlockedNodes = _nodeUnlocked;
+        curNodeIndex = _currentNodeIndex;
     }
     public void LoadNodeData(bool[] completedNodes, bool[] unlockedNodes, int curNodeIndex)
     {
-        nodeCompleted = completedNodes;
-        nodeUnlocked = unlockedNodes;
-        currentNodeIndex = curNodeIndex;
+        _nodeCompleted = completedNodes;
+        _nodeUnlocked = unlockedNodes;
+        _currentNodeIndex = curNodeIndex;
     }
     //
     public bool IsNodeCompleted(int index)
     {
-        return index >= 0 && index < nodeCount && nodeCompleted[index];
+        return index >= 0 && index < _nodeCount && _nodeCompleted[index];
     }
 
     public bool IsNodeUnlocked(int index)
     {
-        return index >= 0 && index < nodeCount && nodeUnlocked[index];
+        return index >= 0 && index < _nodeCount && _nodeUnlocked[index];
     }
 
     //Called by a map node button when you click it
@@ -85,7 +84,7 @@ public class SceneProgressManager : MonoBehaviour
             return;
         }
 
-        currentNodeIndex = index;
+        _currentNodeIndex = index;
 
         if (string.IsNullOrEmpty(sceneName))
         {
@@ -99,30 +98,30 @@ public class SceneProgressManager : MonoBehaviour
     //Called when shop or a bounty is finished
     public void CompleteCurrentNode()
     {
-        if (currentNodeIndex < 0 || currentNodeIndex >= nodeCount)
+        if (_currentNodeIndex < 0 || _currentNodeIndex >= _nodeCount)
         {
-            Debug.LogWarning("CompleteCurrentNode called with invalid currentNodeIndex " + currentNodeIndex);
+            Debug.LogWarning("CompleteCurrentNode called with invalid currentNodeIndex " + _currentNodeIndex);
             return;
         }
 
-        nodeCompleted[currentNodeIndex] = true;
+        _nodeCompleted[_currentNodeIndex] = true;
 
-        int next = currentNodeIndex + 1;
-        if (next >= 0 && next < nodeCount)
-            nodeUnlocked[next] = true;
+        int next = _currentNodeIndex + 1;
+        if (next >= 0 && next < _nodeCount)
+            _nodeUnlocked[next] = true;
 
-        if (next == nodeCount)
-            NodeMapCompleted = true;
+        if (next == _nodeCount)
+            _nodeMapCompleted = true;
     }
 
     public void ReturnToMap()
     {
-        if (string.IsNullOrEmpty(mapSceneName))
+        if (string.IsNullOrEmpty(_mapSceneName))
         {
             Debug.LogError("SceneProgressManager: mapSceneName is empty.");
             return;
         }
 
-        TransitionScene.instance.StartTransition(mapSceneName);
+        TransitionScene.instance.StartTransition(_mapSceneName);
     }
 }

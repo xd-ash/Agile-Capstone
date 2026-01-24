@@ -6,10 +6,10 @@ public class OutOfApPopup : MonoBehaviour
 {
     public static OutOfApPopup Instance { get; private set; }
 
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private TextMeshProUGUI messageText;
-    [SerializeField] private float displayTime = 1f;
-    [SerializeField] private float fadeDuration = 0.25f;
+    [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private TextMeshProUGUI _messageText;
+    [SerializeField] private float _displayTime = 1f;
+    [SerializeField] private float _fadeDuration = 0.25f;
 
     private Coroutine _showCoro;
 
@@ -19,16 +19,16 @@ public class OutOfApPopup : MonoBehaviour
         else Destroy(gameObject);
 
         // find CanvasGroup if not assigned
-        if (canvasGroup == null)
-            canvasGroup = GetComponentInChildren<CanvasGroup>();
+        if (_canvasGroup == null)
+            _canvasGroup = GetComponentInChildren<CanvasGroup>();
 
         // keep the GameObject active (so coroutines can run). hide visuals via canvasGroup
-        if (canvasGroup != null)
+        if (_canvasGroup != null)
         {
-            canvasGroup.alpha = 0f;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.gameObject.SetActive(false); // visual root can be inactive; Show() will activate it
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+            _canvasGroup.gameObject.SetActive(false); // visual root can be inactive; Show() will activate it
         }
     }
 
@@ -39,8 +39,8 @@ public class OutOfApPopup : MonoBehaviour
     public void Show(string message = null)
     {
         // Only overwrite inspector text when a non-empty message is provided.
-        if (!string.IsNullOrEmpty(message) && messageText != null)
-            messageText.text = message;
+        if (!string.IsNullOrEmpty(message) && _messageText != null)
+            _messageText.text = message;
 
         // Ensure this component and its GameObject are active so StartCoroutine runs immediately
         if (!gameObject.activeInHierarchy)
@@ -49,10 +49,10 @@ public class OutOfApPopup : MonoBehaviour
             enabled = true;
 
         // ensure we have a canvasGroup to operate on
-        if (canvasGroup == null)
-            canvasGroup = GetComponentInChildren<CanvasGroup>();
+        if (_canvasGroup == null)
+            _canvasGroup = GetComponentInChildren<CanvasGroup>();
 
-        if (canvasGroup == null)
+        if (_canvasGroup == null)
         {
             Debug.LogWarning("[OutOfApPopup] No CanvasGroup assigned/found. Cannot show popup.");
             return;
@@ -65,34 +65,34 @@ public class OutOfApPopup : MonoBehaviour
 
     private IEnumerator ShowCoroutine()
     {
-        if (canvasGroup == null)
+        if (_canvasGroup == null)
         {
             yield break;
         }
 
         // Make sure the visual root is active and visible
-        canvasGroup.gameObject.SetActive(true);
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
+        _canvasGroup.gameObject.SetActive(true);
+        _canvasGroup.interactable = true;
+        _canvasGroup.blocksRaycasts = true;
+        _canvasGroup.alpha = 1f;
 
         // Wait visible time
-        yield return new WaitForSeconds(displayTime);
+        yield return new WaitForSeconds(_displayTime);
 
         // Fade out
         float t = 0f;
-        float start = canvasGroup.alpha;
-        while (t < fadeDuration)
+        float start = _canvasGroup.alpha;
+        while (t < _fadeDuration)
         {
             t += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Lerp(start, 0f, t / fadeDuration);
+            _canvasGroup.alpha = Mathf.Lerp(start, 0f, t / _fadeDuration);
             yield return null;
         }
 
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
-        canvasGroup.gameObject.SetActive(false);
+        _canvasGroup.alpha = 0f;
+        _canvasGroup.interactable = false;
+        _canvasGroup.blocksRaycasts = false;
+        _canvasGroup.gameObject.SetActive(false);
 
         _showCoro = null;
     }

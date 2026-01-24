@@ -7,18 +7,17 @@ using static IsoMetricConversions;
 
 public class MouseFunctionManager : MonoBehaviour
 {
-    public static MouseFunctionManager instance;
-
     private Tilemap _tilemap;
 
-    [Header("Tile")]
     [SerializeField] private Color _mouseTileColor = Color.yellow;
     private GameObject _highlightTile;
     private Vector3Int _tilePos;
     private TileBase _currTile;
     private bool _shouldMove;
+
     public Vector3Int GetCurrTilePosition => _tilePos;
-    
+
+    public static MouseFunctionManager instance;
     private void Awake()
     {
         if (instance == null)

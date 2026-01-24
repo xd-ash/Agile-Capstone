@@ -5,22 +5,22 @@ using UnityEngine.UI;
 public class UIHealthManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Slider playerHealthSlider;
+    [SerializeField] private Slider _playerHealthSlider;
     //[SerializeField] private Slider enemyHealthSlider;
-    [SerializeField] private TextMeshProUGUI playerHealthText;
-    [SerializeField] private TextMeshProUGUI playerShieldText;
-    [SerializeField] private Slider playerShieldSlider; // optional visual bar overlay (set max to player's maxHealth by default)
-    [SerializeField] private Unit player;
-    [SerializeField] private Unit enemy;
+    [SerializeField] private TextMeshProUGUI _playerHealthText;
+    [SerializeField] private TextMeshProUGUI _playerShieldText;
+    [SerializeField] private Slider _playerShieldSlider; // optional visual bar overlay (set max to player's maxHealth by default)
+    [SerializeField] private Unit _player;
+    [SerializeField] private Unit _enemy;
 
     private void Awake()
     {
-        if (playerHealthSlider != null && player != null)
+        if (_playerHealthSlider != null && _player != null)
         {
-            playerHealthSlider.maxValue = player.maxHealth;
-            playerHealthSlider.value    = Mathf.Clamp(player.health, 0, player.maxHealth);
+            _playerHealthSlider.maxValue = _player.GetMaxHealth;
+            _playerHealthSlider.value    = Mathf.Clamp(_player.GetHealth, 0, _player.GetMaxHealth);
 
-            playerHealthText.text = $"Player Health: {player.health}/{player.maxHealth}";
+            _playerHealthText.text = $"Player Health: {_player.GetHealth}/{_player.GetMaxHealth}";
         }
 
         /*
@@ -33,16 +33,16 @@ public class UIHealthManager : MonoBehaviour
         */
 
         // Initialize shield UI
-        if (playerShieldSlider != null && player != null)
+        if (_playerShieldSlider != null && _player != null)
         {
             // default shield bar max is player's max health (adjust in inspector if you use different scale)
-            playerShieldSlider.maxValue = player.maxHealth;
-            playerShieldSlider.gameObject.SetActive(player.GetShield() > 0);
-            playerShieldSlider.value = player.GetShield();
+            _playerShieldSlider.maxValue = _player.GetMaxHealth;
+            _playerShieldSlider.gameObject.SetActive(_player.GetShield() > 0);
+            _playerShieldSlider.value = _player.GetShield();
         }
 
-        if (playerShieldText != null)
-            playerShieldText.gameObject.SetActive(player != null && player.GetShield() > 0);
+        if (_playerShieldText != null)
+            _playerShieldText.gameObject.SetActive(_player != null && _player.GetShield() > 0);
     }
 
     private void OnEnable()
@@ -65,11 +65,11 @@ public class UIHealthManager : MonoBehaviour
 
     private void UpdatePlayerHealth(int current, int max)
     {
-        if (playerHealthSlider == null) return;
-        if (playerHealthSlider.maxValue != max) playerHealthSlider.maxValue = max;
-        playerHealthSlider.value = Mathf.Clamp(current, 0, max);
+        if (_playerHealthSlider == null) return;
+        if (_playerHealthSlider.maxValue != max) _playerHealthSlider.maxValue = max;
+        _playerHealthSlider.value = Mathf.Clamp(current, 0, max);
 
-        playerHealthText.text = $"Player Health: {current}/{max}";
+        _playerHealthText.text = $"Player Health: {current}/{max}";
     }
 
     /*
@@ -85,16 +85,16 @@ public class UIHealthManager : MonoBehaviour
     */
     private void UpdatePlayerShield(int current)
     {
-        if (playerShieldSlider != null)
+        if (_playerShieldSlider != null)
         {
-            playerShieldSlider.value = Mathf.Clamp(current, 0, (int)playerShieldSlider.maxValue);
-            playerShieldSlider.gameObject.SetActive(current > 0);
+            _playerShieldSlider.value = Mathf.Clamp(current, 0, (int)_playerShieldSlider.maxValue);
+            _playerShieldSlider.gameObject.SetActive(current > 0);
         }
 
-        if (playerShieldText != null)
+        if (_playerShieldText != null)
         {
-            playerShieldText.text = current > 0 ? $"Shield: {current}" : string.Empty;
-            playerShieldText.gameObject.SetActive(current > 0);
+            _playerShieldText.text = current > 0 ? $"Shield: {current}" : string.Empty;
+            _playerShieldText.gameObject.SetActive(current > 0);
         }
     }
 

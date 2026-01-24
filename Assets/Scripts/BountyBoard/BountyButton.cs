@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class BountyButtonSimple : MonoBehaviour
 {
     [Tooltip("Name of the combat scene to load for this bounty")]
-    public string combatSceneName;
+    [SerializeField] private string _combatSceneName = "LevelOne";
     
     private Button _button;
 
@@ -19,12 +18,12 @@ public class BountyButtonSimple : MonoBehaviour
 
     private void OnClicked()
     {
-        if (string.IsNullOrEmpty(combatSceneName))
+        if (string.IsNullOrEmpty(_combatSceneName))
         {
             Debug.LogError("BountyButton: combatSceneName is empty on " + gameObject.name);
             return;
         }
 
-        TransitionScene.instance.StartTransition(combatSceneName);
+        TransitionScene.instance.StartTransition(_combatSceneName);
     }
 }

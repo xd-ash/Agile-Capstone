@@ -1,26 +1,25 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainMenuBackgroundAnimScript : MonoBehaviour
 {
-    public GameObject b1,
+    /*public GameObject b1,
                       b1_s,
                       b1_c,
                       b2,
                       b3,
                       b4,
-                      b5;
-    public GameObject menu;
+                      b5;*/
+    [SerializeField] private GameObject _menu;
 
-    public float baseLerpDur = 2f;
-    public float b1_multiplier, 
+    [SerializeField] private float _baseLerpDur = 2f;
+    /*public float b1_multiplier, 
                  b1_s_multiplier, 
                  b1_c_multiplier, 
                  b2_multiplier, 
                  b3_multiplier, 
                  b4_multiplier, 
-                 b5_multiplier;
+                 b5_multiplier;*/
     private int doneCounter = 0;
 
     private void Start()
@@ -30,15 +29,13 @@ public class MainMenuBackgroundAnimScript : MonoBehaviour
     private void StartBackgroundAnim()
     {
         for (int i = 0; i < transform.childCount; i++)
-        {
             StartCoroutine(ImageLerpCoro(transform.GetChild(i)));
-        }
     }
     private IEnumerator ImageLerpCoro(Transform image) 
     {
         Vector3 initPos = image.localPosition;
-        float m = GetMultiplier(image.name);
-        float newDur = baseLerpDur * m;
+        //float m = GetMultiplier(image.name);
+        float newDur = _baseLerpDur; //* m;
 
         for (float timer = 0; timer < newDur; timer += Time.deltaTime)
         {
@@ -53,9 +50,9 @@ public class MainMenuBackgroundAnimScript : MonoBehaviour
     {
         doneCounter++;
         if (doneCounter >= transform.childCount)
-            menu.gameObject.SetActive(true);
+            _menu.gameObject.SetActive(true);
     }
-    private float GetMultiplier(string name)
+    /*private float GetMultiplier(string name)
     {
         switch (name)
         {
@@ -76,5 +73,5 @@ public class MainMenuBackgroundAnimScript : MonoBehaviour
             default:
                 return 0;
         }
-    }
+    }*/
 }

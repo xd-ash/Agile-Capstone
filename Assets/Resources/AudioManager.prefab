@@ -44,12 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c3e54e15fdfd44bb45064793a2f70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endTurnSfx: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
-  drawCardSfx: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
-  selectCardSfx: {fileID: 8300000, guid: 4b183abc6c86a458f9fe3f7a8e9ab7b0, type: 3}
-  bgmClip: {fileID: 8300000, guid: b03d0a93d43e448138c4ae82fbd59b0e, type: 3}
-  menuButtonClick: {fileID: 0}
-  sceneMusic: []
-  masterVolume: 1
-  sfxVolume: 1
-  musicVolume: 0.1
+  _endTurnSfx: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
+  _drawCardSfx: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
+  _selectCardSfx: {fileID: 8300000, guid: 4b183abc6c86a458f9fe3f7a8e9ab7b0, type: 3}
+  _bgmClip: {fileID: 8300000, guid: b9a88d124b8b3c64eaa34a4cf774930f, type: 3}
+  _menuButtonClick: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
+  _sceneMusic:
+  - sceneName: Shop
+    clip: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+    loop: 1
+    volume: 0.475
+  - sceneName: LevelOne
+    clip: {fileID: 8300000, guid: b9a88d124b8b3c64eaa34a4cf774930f, type: 3}
+    loop: 1
+    volume: 0.475
+  _masterVolume: 1
+  _sfxVolume: 0.397
+  _musicVolume: 0.521

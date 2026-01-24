@@ -25,7 +25,7 @@ public class MoveInRangeAction : GoapAction
             return false;
 
         //return true if unit cannot get into ability range and calc path to closest tile
-        if ((distanceToTar - dmgAbilRange) > unit.ap)
+        if ((distanceToTar - dmgAbilRange) > unit.GetAP)
             return true;
 
         int inRangeTileIndex = dmgAbilRange;

@@ -8,10 +8,10 @@ public class WinLossManager : MonoBehaviour
     [SerializeField] private float textDuration = 3f;
     private bool _didWin;
 
-    public List<Unit> enemyUnits;
+    [SerializeField] private List<Unit> _enemyUnits;
+    public List<Unit> GetEnemyUnits => _enemyUnits;
 
     public static WinLossManager instance { get; private set; }
-
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -21,12 +21,24 @@ public class WinLossManager : MonoBehaviour
         }
         instance = this;
 
+        TurnManager.instance.OnGameStart += GrabEnemyUnits;
+
         GameOverEvents.OnGameOver += OnGameDone;
     }
 
     private void OnDestroy()
     {
+        TurnManager.instance.OnGameStart -= GrabEnemyUnits;
         GameOverEvents.OnGameOver -= OnGameDone;
+    }
+
+    public void GrabEnemyUnits()
+    {
+        List<Unit> enemies = new();
+        foreach (Unit unit in TurnManager.GetUnitTurnOrder)
+            if (unit != null && unit.GetTeam == Team.Enemy)
+                enemies.Add(unit);
+        _enemyUnits = enemies;
     }
 
     public void OnGameDone(bool didWin)
@@ -43,7 +55,7 @@ public class WinLossManager : MonoBehaviour
         if (_didWin && SceneProgressManager.Instance != null)
         {
             SceneProgressManager.Instance.CompleteCurrentNode();
-            if (!SceneProgressManager.Instance.NodeMapCompleted)
+            if (!SceneProgressManager.Instance.GetNodeMapCompleted)
             {
                 SceneProgressManager.Instance.ReturnToMap();
                 return;

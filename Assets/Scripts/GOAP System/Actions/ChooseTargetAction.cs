@@ -1,7 +1,6 @@
 using AStarPathfinding;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
 
@@ -16,7 +15,7 @@ public class ChooseTargetAction : GoapAction
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
-            if (u == null || u.team == agent.unit.team) continue;
+            if (u == null || u.GetTeam == agent.unit.GetTeam) continue;
             //Debug.Log($"Unit: {u.name} - Pos {u.transform.localPosition}");
 
             var tarPos = ConvertToGridFromIsometric(u.transform.localPosition); 

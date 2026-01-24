@@ -4,13 +4,13 @@ using TMPro;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class CurrencyDisplay : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI label;
-    [SerializeField] private string prefix = "";
-    [SerializeField] private string suffix = "";
+    [SerializeField] private TextMeshProUGUI _label;
+    [SerializeField] private string _prefix = "";
+    [SerializeField] private string _suffix = "";
 
     private void Awake()
     {
-        if (label == null) label = GetComponent<TextMeshProUGUI>();
+        if (_label == null) _label = GetComponent<TextMeshProUGUI>();
     }
 
     private void OnEnable()
@@ -30,7 +30,7 @@ public class CurrencyDisplay : MonoBehaviour
 
     private void UpdateDisplay(int newBalance)
     {
-        if (label == null) return;
-        label.text = $"{prefix}{newBalance}{suffix}";
+        if (_label == null) return;
+        _label.text = $"{_prefix}{newBalance}{_suffix}";
     }
 }

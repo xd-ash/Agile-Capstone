@@ -8,7 +8,6 @@ public class APHoverIndicator : MonoBehaviour
     [SerializeField] private GameObject _xIconRoot;
 
     public static APHoverIndicator instance;
-
     private void Awake()
     {
         if (instance == null)

@@ -5,15 +5,15 @@ using CardSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenuPanel;
+    [SerializeField] private GameObject _pauseMenuPanel;
     public static bool isPaused = false;
 
-    [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject _settingsPanel;
     
     [Header("Sliders")]
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider sfxSlider;
-    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider _masterSlider;
+    [SerializeField] private Slider _sfxSlider;
+    [SerializeField] private Slider _musicSlider;
 
     private void Awake()
     {
@@ -25,22 +25,22 @@ public class PauseMenu : MonoBehaviour
     {
         if (AudioManager.instance != null)
         {
-            if (masterSlider != null)
-                masterSlider.value = AudioManager.instance.masterVolume;
+            if (_masterSlider != null)
+                _masterSlider.value = AudioManager.instance.GetMasterVolume;
 
-            if (sfxSlider != null)
-                sfxSlider.value = AudioManager.instance.sfxVolume;
+            if (_sfxSlider != null)
+                _sfxSlider.value = AudioManager.instance.GetSFXVolume;
 
-            if (musicSlider != null)
-                musicSlider.value = AudioManager.instance.musicVolume;
+            if (_musicSlider != null)
+                _musicSlider.value = AudioManager.instance.GetMusicVolume;
         }
 
         // Hook up listeners
-        masterSlider?.onValueChanged.AddListener(OnMasterChanged);
+        _masterSlider?.onValueChanged.AddListener(OnMasterChanged);
 
-        sfxSlider?.onValueChanged.AddListener(OnSfxChanged);
+        _sfxSlider?.onValueChanged.AddListener(OnSfxChanged);
 
-        musicSlider?.onValueChanged.AddListener(OnMusicChanged);
+        _musicSlider?.onValueChanged.AddListener(OnMusicChanged);
     }
 
     private void Update()
@@ -51,7 +51,7 @@ public class PauseMenu : MonoBehaviour
             // No real pause menu on main menu, so just exit out of settings when Esc is pressed
             if (TransitionScene.instance.GetCurrentScene == "MainMenu")
             {
-                settingsPanel.SetActive(false);
+                _settingsPanel.SetActive(false);
                 return;
             }
 
@@ -78,36 +78,36 @@ public class PauseMenu : MonoBehaviour
         else
             Time.timeScale = 1f; // Resume the game
 
-        pauseMenuPanel?.SetActive(isPaused);
-        settingsPanel?.SetActive(false); // close settings menu 
+        _pauseMenuPanel?.SetActive(isPaused);
+        _settingsPanel?.SetActive(false); // close settings menu 
     }
 
     private void OnDestroy()
     {
-        if (masterSlider != null)
-            masterSlider.onValueChanged.RemoveListener(OnMasterChanged);
+        if (_masterSlider != null)
+            _masterSlider.onValueChanged.RemoveListener(OnMasterChanged);
 
-        if (sfxSlider != null)
-            sfxSlider.onValueChanged.RemoveListener(OnSfxChanged);
+        if (_sfxSlider != null)
+            _sfxSlider.onValueChanged.RemoveListener(OnSfxChanged);
 
-        if (musicSlider != null)
-            musicSlider.onValueChanged.RemoveListener(OnMusicChanged);
+        if (_musicSlider != null)
+            _musicSlider.onValueChanged.RemoveListener(OnMusicChanged);
     }
     
     public void OpenSettings()
     {
-        if (settingsPanel != null)
-            settingsPanel.SetActive(true);
-        pauseMenuPanel.SetActive(false);
+        if (_settingsPanel != null)
+            _settingsPanel.SetActive(true);
+        _pauseMenuPanel.SetActive(false);
     }
     
     public void CloseSettings()
     {
-        if (settingsPanel != null)
-            settingsPanel.SetActive(false);
+        if (_settingsPanel != null)
+            _settingsPanel.SetActive(false);
 
         if (TransitionScene.instance.GetCurrentScene != "MainMenu")
-            pauseMenuPanel.SetActive(true);
+            _pauseMenuPanel.SetActive(true);
     }
 
 

@@ -22,7 +22,7 @@ namespace CardSystem
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
-            if (abilityData.GetUnit.team != Team.Friendly) return;
+            if (abilityData.GetUnit.GetTeam != Team.Friendly) return;
 
             base.StartEffect(abilityData, onFinished);
 

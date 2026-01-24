@@ -10,13 +10,13 @@ public class EnemySelectTextScript : MonoBehaviour
     {
         _text = transform.Find("Text").gameObject;
 
-        AbilityEvents.OnAbilityTargetingStarted += OnTargetUpdate;
-        AbilityEvents.OnAbilityTargetingStopped += OnTargetUpdate;
+        OnAbilityTargetingStarted += OnTargetUpdate;
+        OnAbilityTargetingStopped += OnTargetUpdate;
     }
     private void OnDestroy()
     {
-        AbilityEvents.OnAbilityTargetingStarted -= OnTargetUpdate;
-        AbilityEvents.OnAbilityTargetingStopped -= OnTargetUpdate;
+        OnAbilityTargetingStarted -= OnTargetUpdate;
+        OnAbilityTargetingStopped -= OnTargetUpdate;
     }
     public void OnTargetUpdate()
     {

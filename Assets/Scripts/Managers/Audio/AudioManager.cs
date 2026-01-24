@@ -7,11 +7,11 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance { get; private set; }
     
     //public TurnManager turnManager = TurnManager.instance;
-    public AudioClip endTurnSfx;
-    public AudioClip drawCardSfx;
-    public AudioClip selectCardSfx;
-    public AudioClip bgmClip;
-    public AudioClip menuButtonClick;
+    [SerializeField] private AudioClip _endTurnSfx;
+    [SerializeField] private AudioClip _drawCardSfx;
+    [SerializeField] private AudioClip _selectCardSfx;
+    [SerializeField] private AudioClip _bgmClip;
+    [SerializeField] private AudioClip _menuButtonClick;
 
     [System.Serializable]
     public class SceneMusicEntry
@@ -21,12 +21,16 @@ public class AudioManager : MonoBehaviour
         public bool loop = true;
         [Range(0f, 1f)] public float volume = 0.5f;
     }
-    public List<SceneMusicEntry> sceneMusic = new List<SceneMusicEntry>();
+    [SerializeField] private List<SceneMusicEntry> _sceneMusic = new List<SceneMusicEntry>();
 
     [Header("Volumes")]
-    [Range(0f, 1f)] public float masterVolume = 1.0f;
-    [Range(0f, 1f)] public float sfxVolume = 1.0f;
-    [Range(0f, 1f)] public float musicVolume = 0.5f;
+    [Range(0f, 1f), SerializeField] private float _masterVolume = 1.0f;
+    [Range(0f, 1f), SerializeField] private float _sfxVolume = 1.0f;
+    [Range(0f, 1f), SerializeField] private float _musicVolume = 0.5f;
+
+    public float GetMasterVolume => _masterVolume;
+    public float GetSFXVolume => _sfxVolume;
+    public float GetMusicVolume => _musicVolume;
 
     private AudioSource _music;   // looped bgm
     private AudioSource _sfx;     // one-shots
@@ -54,13 +58,13 @@ public class AudioManager : MonoBehaviour
         _music.loop = true;
         _music.spatialBlend = 0f;
         _music.playOnAwake = false;
-        _music.volume = musicVolume;
+        _music.volume = _musicVolume;
 
         _sfx = gameObject.AddComponent<AudioSource>();
         _sfx.loop = false;
         _sfx.spatialBlend = 0f;
         _sfx.playOnAwake = false;
-        _sfx.volume = sfxVolume;
+        _sfx.volume = _sfxVolume;
         
         LoadVolumeSettings();
         ApplyVolumes();
@@ -79,7 +83,7 @@ public class AudioManager : MonoBehaviour
             TurnManager.instance.OnPlayerTurnEnd -= HandleTurnChanged;
 
         // Look for a matching scene music entry
-        var entry = sceneMusic.FirstOrDefault(e => e.sceneName == sceneLoaded);
+        var entry = _sceneMusic.FirstOrDefault(e => e.sceneName == sceneLoaded);
         if (entry != null && entry.clip != null)
         {
             // play immediately (no special delay). If some scenes need a delay, add a conditional Invoke.
@@ -100,12 +104,12 @@ public class AudioManager : MonoBehaviour
 
     public void LevelLoadInits()
     {
-        if (bgmClip != null)
-            PlayMusic(bgmClip, true);
+        if (_bgmClip != null)
+            PlayMusic(_bgmClip, true);
     }
     private void HandleTurnChanged()
     {
-        PlaySFX(endTurnSfx);
+        PlaySFX(_endTurnSfx);
     }
 
     private void HandleAbilityUsed(Team unitTeam = Team.Friendly)
@@ -125,9 +129,9 @@ public class AudioManager : MonoBehaviour
         _sfx.PlayOneShot(clip);
     }
 
-    public void PlayDrawCardSfx() => PlaySFX(drawCardSfx);
-    public void PlayCardSelectSfx() => PlaySFX(selectCardSfx);
-    public void PlayButtonSFX() => PlaySFX(menuButtonClick);
+    public void PlayDrawCardSfx() => PlaySFX(_drawCardSfx);
+    public void PlayCardSelectSfx() => PlaySFX(_selectCardSfx);
+    public void PlayButtonSFX() => PlaySFX(_menuButtonClick);
 
     // Added optional volume parameter so each scene entry can control music volume
     public void PlayMusic(AudioClip clip, bool loop = true, float volume = -1f)
@@ -136,7 +140,7 @@ public class AudioManager : MonoBehaviour
         if (_music.clip == clip && _music.isPlaying) return;
         _music.loop = loop;
         _music.clip = clip;
-        _music.volume = (volume >= 0f) ? Mathf.Clamp01(volume) : musicVolume;
+        _music.volume = (volume >= 0f) ? Mathf.Clamp01(volume) : _musicVolume;
         ApplyVolumes();
         _music.Play();
     }
@@ -156,40 +160,40 @@ public class AudioManager : MonoBehaviour
 
     public void LoadVolumeSettings()
     {
-        masterVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
-        sfxVolume = PlayerPrefs.GetFloat(_musicVolKey, 1f);
-        musicVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
+        _masterVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
+        _sfxVolume = PlayerPrefs.GetFloat(_musicVolKey, 1f);
+        _musicVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
     }
 
     public void ApplyVolumes()
     {
         if (_sfx != null)
-            _sfx.volume = masterVolume * sfxVolume;
+            _sfx.volume = _masterVolume * _sfxVolume;
 
         if (_music != null)
-            _music.volume = masterVolume * musicVolume * _musicBaseVolume;
+            _music.volume = _masterVolume * _musicVolume * _musicBaseVolume;
     }
 
     public void SetMasterVolume(float v)
     {
-        masterVolume = Mathf.Clamp01(v);
-        PlayerPrefs.SetFloat(_masterVolKey, masterVolume);
+        _masterVolume = Mathf.Clamp01(v);
+        PlayerPrefs.SetFloat(_masterVolKey, _masterVolume);
         PlayerPrefs.Save();
         ApplyVolumes();
     }
 
     public void SetSfxVolume(float v)
     {
-        sfxVolume = Mathf.Clamp01(v);
-        PlayerPrefs.SetFloat(_sfxVolKey, sfxVolume);
+        _sfxVolume = Mathf.Clamp01(v);
+        PlayerPrefs.SetFloat(_sfxVolKey, _sfxVolume);
         PlayerPrefs.Save();
         ApplyVolumes();
     }
 
     public void SetMusicVolume(float v)
     {
-        musicVolume = Mathf.Clamp01(v);
-        PlayerPrefs.SetFloat(_musicVolKey, musicVolume);
+        _musicVolume = Mathf.Clamp01(v);
+        PlayerPrefs.SetFloat(_musicVolKey, _musicVolume);
         PlayerPrefs.Save();
         ApplyVolumes();
     }
