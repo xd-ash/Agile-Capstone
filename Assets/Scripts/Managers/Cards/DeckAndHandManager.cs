@@ -31,6 +31,7 @@ namespace CardSystem
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         private bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
+        public Deck GetDeck => _deck;
         public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
