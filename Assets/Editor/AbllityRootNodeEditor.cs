@@ -14,8 +14,6 @@ namespace CardSystem
             AbilityRootNode node = target as AbilityRootNode;
 
             GUILayout.Label($"{(target.graph as CardAbilityDefinition).GetCardName}: ", EditorStyles.boldLabel);
-            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_apCost"));
-            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_range"));
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_effectTypes"));
             GUILayout.Space(10);
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("targeting"));
