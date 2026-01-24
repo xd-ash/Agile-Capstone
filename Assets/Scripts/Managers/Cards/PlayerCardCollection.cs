@@ -26,5 +26,9 @@ namespace CardSystem
             if (def != null)
                 _ownedCards.Add(def);
         }
+        public void LoadGameData(List<CardAbilityDefinition> ownedCards)
+        {
+            _ownedCards = ownedCards;
+        }
     }
 }

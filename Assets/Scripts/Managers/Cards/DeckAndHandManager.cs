@@ -275,5 +275,10 @@ namespace CardSystem
                 Debug.Log($"[CardManager] #{i}: {(d != null ? d.GetCardName : "<null>")}");
             }
         }
+
+        public void LoadGameData(Deck savedDeck)
+        {
+            _deck = savedDeck;
+        }
     }
 }
