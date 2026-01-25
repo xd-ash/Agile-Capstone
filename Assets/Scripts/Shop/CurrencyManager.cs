@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CurrencyManager : MonoBehaviour
+public class CurrencyManager : ManagerBase
 {
     [Tooltip("Starting currency for new players")]
     [SerializeField] private int _startingBalance = 100;
@@ -25,6 +25,7 @@ public class CurrencyManager : MonoBehaviour
             return;
         }
         instance = this;
+
         LoadBalance();
     }
 

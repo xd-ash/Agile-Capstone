@@ -1,11 +1,40 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 public class ManagersManager : MonoBehaviour
 {
-    [SerializeField] private Dictionary<GameObject, Dictionary<string, bool>> _managersDict = new();
+    [SerializeField] private List<ManagerBase> _managers = new();
+    public List<ManagerBase> GetManagers => _managers;
+
+    public static ManagersManager instance;
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void GrabManagers()
+    {
+        for (int i = _managers.Count - 1; i >= 0; i--)
+            if (_managers[i] == null)
+                _managers.RemoveAt(i);
+        foreach (ManagerBase manager in GetComponentsInChildren<ManagerBase>())
+            if(!_managers.Contains(manager))
+                _managers.Add(manager);
+    }
+    public void UpdateManagerSceneBools()
+    {
+        foreach (ManagerBase manager in _managers)
+            manager.ManagerSceneBoolOnGUI();
+    }
+
+    /*[SerializeField] private Dictionary<GameObject, Dictionary<string, bool>> _managersDict = new();
     public Dictionary<GameObject, Dictionary<string, bool>> GetManagerSceneBoolDict => _managersDict;
 
     public void GrabManagers()
@@ -54,13 +83,13 @@ public class ManagersManager : MonoBehaviour
         if (!_managersDict.ContainsKey(gameObject)) return;
         _managersDict[gameObject][sceneName] = sceneBool;
     }
-    /*private void UpdateManagerElementLists()
+    private void UpdateManagerElementLists()
     {
         List<string> sceneNames = GrabAllSceneNames();
 
         foreach (var manager in _managers)
             manager?.UpdateSceneBoolDict(sceneNames);
-    }*/
+    }
     private void UpdateSceneDicts(List<string> newSceneNames)
     {
         foreach (var sceneDict in _managersDict.Values)
@@ -77,8 +106,7 @@ public class ManagersManager : MonoBehaviour
     {
         foreach (var kvp in _managersDict)
             kvp.Key.SetActive(kvp.Value[targetScene]);
-    }
-
+    }*/
     /*[SerializeField] private List<ManagerElement> _managers;
     public List<ManagerElement> GetManagers => _managers;
 
@@ -140,8 +168,8 @@ public class ManagersManager : MonoBehaviour
             manager.SetGOActiveOrInactive(targetScene);
     }*/
 }
-[System.Serializable] 
-public class ManagerElement
+//[System.Serializable] 
+/*public class ManagerElement
 {
     public GameObject managerGO;
     public Dictionary<string, bool> sceneBools;
@@ -181,7 +209,7 @@ public class ManagerElement
         managerGO.SetActive(GetSceneBool(currSceneName));
     }
 }
-
+*/
 [CustomEditor(typeof(ManagersManager))]
 public class ManagersManagerEditor : Editor
 {
@@ -192,6 +220,22 @@ public class ManagersManagerEditor : Editor
         ManagersManager mm = (ManagersManager)target;
         mm.GrabManagers();
 
+        mm.UpdateManagerSceneBools();
+
+        foreach (ManagerBase manager in mm.GetManagers)
+        {
+            GUILayout.Label($"{manager.name}:", EditorStyles.boldLabel);
+            EditorGUI.indentLevel++;
+            for (int i = 0; i < manager.SceneNames.Count; i++)
+            {
+                string sceneName = manager.SceneNames[i];
+                manager.SetSceneBool(sceneName, EditorGUILayout.Toggle(sceneName, manager.SceneBools[i]));
+            }
+            EditorGUI.indentLevel--;
+        }
+        /*ManagersManager mm = (ManagersManager)target;
+        mm.GrabManagers();
+
         foreach (var kvp1 in mm.GetManagerSceneBoolDict)
         {
             GUILayout.Label($"{kvp1.Key.name}:", EditorStyles.boldLabel);
@@ -199,7 +243,7 @@ public class ManagersManagerEditor : Editor
             foreach (var kvp2 in kvp1.Value)
                 mm.SetSceneBool(kvp1.Key, kvp2.Key, EditorGUILayout.Toggle(kvp2.Key, kvp2.Value));
             EditorGUI.indentLevel--;
-        }
+        }*/
         /*
         var managers = mm.GetManagers;
         foreach (var manager in managers)
