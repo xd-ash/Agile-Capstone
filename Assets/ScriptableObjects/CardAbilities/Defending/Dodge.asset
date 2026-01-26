@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: Buff Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 104, y: 72}
+  position: {x: 120, y: -8}
   ports:
     keys:
     - input
@@ -144,7 +144,7 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 1
   _duration: 5000
-  _effectValue: 5
+  _effectValue: 3
   effectVisuals: 0
   input: 0
 --- !u!114 &-2470422592221940434
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: Deck Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 98.5, y: 205.5}
+  position: {x: 120, y: 184}
   ports:
     keys:
     - input
@@ -205,14 +205,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: TuckDuckNRoll
+  m_Name: Dodge
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -5552358826238473670}
   - {fileID: 833357395057102542}
   - {fileID: -5550744489948948604}
   - {fileID: -2470422592221940434}
-  _cardName: Tuck Duck n' Roll
+  _cardName: Dodge
   _description: Add 3 Block and draw 1 card
   _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
   _apCost: 3

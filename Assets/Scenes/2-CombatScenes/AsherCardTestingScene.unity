@@ -212,6 +212,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e70a16e0772849541a1929058aba2280, type: 3}
+--- !u!114 &114876976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5904661369477725204, guid: e70a16e0772849541a1929058aba2280, type: 3}
+  m_PrefabInstance: {fileID: 114876975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2afb597f7551f4c81009e6bbed1c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &114876977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6557971832698807318, guid: e70a16e0772849541a1929058aba2280, type: 3}
@@ -2325,9 +2336,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1039275725}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8e0f68d080c17c45be6c13213fb96c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d912f8fffa9173448238f63858b9d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerHealthSlider: {fileID: 2044137681}
+  _playerHealthText: {fileID: 1109730920}
+  _playerShieldText: {fileID: 1679287172}
+  _playerShieldSlider: {fileID: 0}
+  _player: {fileID: 0}
+  _enemy: {fileID: 0}
 --- !u!4 &1039275727
 Transform:
   m_ObjectHideFlags: 0
@@ -2472,6 +2489,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65b46a2b-c374-48fe-a968-b9a06f4f8eed
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -5220,6 +5241,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595358560}
   m_CullTransparentMesh: 1
+--- !u!114 &1629745955 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5904661369477725204, guid: 5818f706d7a942648a7488476b0067ec, type: 3}
+  m_PrefabInstance: {fileID: 1729551837}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2afb597f7551f4c81009e6bbed1c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1679287170
 GameObject:
   m_ObjectHideFlags: 0
@@ -5773,12 +5805,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d912f8fffa9173448238f63858b9d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerHealthSlider: {fileID: 0}
-  _playerHealthText: {fileID: 0}
-  _playerShieldText: {fileID: 0}
-  _playerShieldSlider: {fileID: 0}
-  _player: {fileID: 0}
-  _enemy: {fileID: 0}
+  _playerHealthSlider: {fileID: 2044137681}
+  _playerHealthText: {fileID: 1109730920}
+  _playerShieldText: {fileID: 1679287172}
+  _playerShieldSlider: {fileID: 1740800766}
+  _player: {fileID: 114876976}
+  _enemy: {fileID: 1629745955}
 --- !u!4 &1865530329
 Transform:
   m_ObjectHideFlags: 0
