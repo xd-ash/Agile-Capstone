@@ -11,11 +11,14 @@ namespace CardSystem
         {
             Draw,       // Draw N cards into the player's hand
             PeekTop,    // Look at (return) the top N card definitions without drawing
-            RevealTop   // Reveal the top N cards (non-destructive; can be used to show UI)
+            RevealTop,   // Reveal the top N cards (non-destructive; can be used to show UI)
+            AddToDeck,   //  Add specified cards to the deck
         }
 
-        [SerializeField] private DeckAction _action = DeckAction.Draw;
+        [SerializeField] private DeckAction _action;
+
         [SerializeField] private int _amount = 1;
+        [SerializeField] private CardAbilityDefinition _cardToAdd;
 
         // Optional: whether to log results to console (useful for initial testing)
         [SerializeField] private bool _logResults = true;
@@ -63,6 +66,20 @@ namespace CardSystem
                             Debug.Log($"[DeckEffect] RevealTop [{i}] : {revealDefs[i].GetCardName}");
                     }
                     // If you want to spawn temporary reveal prefabs or UI, do it here or call into a UI manager.
+                    break;
+
+                case DeckAction.AddToDeck:
+                    if (_cardToAdd != null)
+                    {
+                        DeckAndHandManager.instance?.AddDefinitionToRuntimeDeck(_cardToAdd);
+
+                        // Optional: draw 1 immediately to verify presence during testing
+                        if (_logResults)
+                        {
+                            Debug.Log($"[DeckEffect] Requested add: {_cardToAdd.GetCardName}");
+                            DeckAndHandManager.instance.LogRuntimeDeck("[DeckEffect] Post-add runtime deck:");
+                        }
+                    }
                     break;
             }
 

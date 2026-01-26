@@ -53,6 +53,30 @@ public class DeckViewer : MonoBehaviour
             else
                 Debug.LogWarning("[DeckViewer] CardManager.instance is null");
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            // Log discard pile contents to the console
+            if (DeckAndHandManager.instance != null)
+            {
+                var discard = DeckAndHandManager.instance.GetDiscardPile;
+                if (discard != null && discard.Length > 0)
+                {
+                    Debug.Log("[DeckViewer] Discard pile:");
+                    for (int i = 0; i < discard.Length; i++)
+                    {
+                        Debug.Log($"  [{i}] {discard[i]?.ToString() ?? "null"}");
+                    }
+                }
+                else
+                {
+                    Debug.Log("[DeckViewer] Discard pile is empty.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("[DeckViewer] CardManager.instance is null");
+            }
+        }
     }
 
     // Simple world-click handler. Requires a Collider on this GameObject.

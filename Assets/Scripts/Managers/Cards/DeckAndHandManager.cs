@@ -31,12 +31,16 @@ namespace CardSystem
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         private bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
+        // Discard pile for used cards (runtime only)
+        [SerializeField] private List<CardAbilityDefinition> _discardPile = new List<CardAbilityDefinition>();
+
         public Deck GetDeck => _deck;
         public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
         public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
+        public CardAbilityDefinition[] GetDiscardPile => _discardPile.ToArray();
 
         public Action OnCardAblityCancel;
 
@@ -57,38 +61,18 @@ namespace CardSystem
             for (int i = 0; i < count; i++)
             {
                 if (_cardsInHand.Count >= _maxCards) return;
-                if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length == 0) return;
 
-                if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
-                {
-                    // build fallback minimal runtime list from _deck if necessary
-                    if (_deck == null || _deck.GetDeck == null || _deck.GetDeck.Length == 0) return;
-                    _runtimeDeckList = new List<CardAbilityDefinition>(_deck.GetDeck);
-                }
-
-                // If we've exhausted the deck, reshuffle it and reset the top index
+                // Refill deck from discard if empty
                 if (_topCardOfDeck >= _runtimeDeckList.Count)
                 {
-                    ShuffleDeck();
-                    _topCardOfDeck = 0;
+                    RefillDeckFromDiscard();
+                    if (_runtimeDeckList.Count == 0) // nothing to draw
+                        return;
                 }
 
-                /*Card newCard = null;
-                if (_topCardOfDeck < _runtimeDeckList.Count)
-                    newCard = new Card(_runtimeDeckList[_topCardOfDeck]); // This creates the card with SO data
-                if (newCard == null) return;
-                */
                 _cardsInHand.Add(CreateCardAndPrefab());
 
                 _topCardOfDeck++;
-                //_nextCardInHandIndex++;
-
-                // If we've exhausted the deck, reshuffle it and reset the top index
-                if (_topCardOfDeck >= _deck.GetDeck.Length)
-                {
-                    ShuffleDeck();
-                    _topCardOfDeck = 0;
-                }
             }
 
             CardSplineManager.instance.ArrangeCardGOs();
@@ -138,6 +122,12 @@ namespace CardSystem
 
             // remove selectedCard from hand data
             _cardsInHand.Remove(_selectedCard);
+
+            // Move used card's definition to discard pile
+            var def = _selectedCard?.GetCardAbility;
+            if (def != null)
+                _discardPile.Add(def);
+
             CardSplineManager.instance.RemoveSelectedCard(_selectedCard);
 
             _selectedCard = null;
@@ -173,30 +163,31 @@ namespace CardSystem
             CardSplineManager.instance.ArrangeCardGOs();
         }
 
+        // Runtime-only add; keeps dynamic deck
         public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
         {
             if (def == null) return;
 
-            PlayerCardCollection.instance.Add(def);
-            ShuffleDeck();
+            if (_runtimeDeckList == null)
+                _runtimeDeckList = new List<CardAbilityDefinition>();
+
+            _runtimeDeckList.Add(def);
+            ShuffleRuntimeDeckInPlace();
         }
 
-        private void ShuffleDeck()
+        // Optional: runtime-only removal helper if your effect needs cleanup
+        public void RemoveDefinitionFromRuntimeDeck(CardAbilityDefinition def)
         {
-            _runtimeDeckList.Clear();
+            if (def == null || _runtimeDeckList == null) return;
+            _runtimeDeckList.Remove(def);
+            ShuffleRuntimeDeckInPlace();
+        }
 
-            if (_deck != null && _deck.GetDeck != null)
-                _runtimeDeckList.AddRange(_deck.GetDeck);
+        // Shuffle the current runtime list in place so runtime additions are kept.
+        private void ShuffleRuntimeDeckInPlace()
+        {
+            if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) { _topCardOfDeck = 0; return; }
 
-            // include any persisted/purchased cards into the runtime deck
-            if (PlayerCardCollection.instance != null)
-                foreach (var def in PlayerCardCollection.instance.GetOwnedCards)
-                    if (def != null)
-                        _runtimeDeckList.Add(def);
-
-            if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) return;
-
-            // Fisher-Yates shuffle algorithm on runtime list
             for (int i = _runtimeDeckList.Count - 1; i > 0; i--)
             {
                 int randomIndex = UnityEngine.Random.Range(0, i + 1);
@@ -206,6 +197,32 @@ namespace CardSystem
             }
 
             _topCardOfDeck = 0;
+        }
+
+        // Build the initial runtime deck baseline from static deck + persisted collection
+        private void ShuffleDeck()
+        {
+            _runtimeDeckList.Clear();
+
+            if (_deck != null && _deck.GetDeck != null)
+                _runtimeDeckList.AddRange(_deck.GetDeck);
+
+            if (PlayerCardCollection.instance != null)
+                foreach (var def in PlayerCardCollection.instance.GetOwnedCards)
+                    if (def != null)
+                        _runtimeDeckList.Add(def);
+
+            ShuffleRuntimeDeckInPlace();
+        }
+
+        // Move discard into deck and shuffle, when deck runs out
+        private void RefillDeckFromDiscard()
+        {
+            if (_discardPile == null || _discardPile.Count == 0) return;
+
+            _runtimeDeckList.AddRange(_discardPile);
+            _discardPile.Clear();
+            ShuffleRuntimeDeckInPlace();
         }
 
         public CardAbilityDefinition[] PeekTopDefinitions(int count)
@@ -273,5 +290,26 @@ namespace CardSystem
                 Debug.Log($"[CardManager] #{i}: {(d != null ? d.GetCardName : "<null>")}");
             }
         }
+
+        public bool HasDefinitionInRuntimeDeck(CardAbilityDefinition def)
+        {
+            if (def == null || _runtimeDeckList == null) return false;
+            return _runtimeDeckList.Contains(def);
+        }
+
+        public int GetRuntimeDeckCount()
+        {
+            return _runtimeDeckList?.Count ?? 0;
+        }
+
+        public void LogRuntimeDeck(string header = "[DeckManager] Runtime deck state:")
+        {
+            var defs = GetRuntimeDeck;
+            Debug.Log($"{header} count={defs.Length}, topIndex={_topCardOfDeck}");
+            for (int i = 0; i < defs.Length; i++)
+                Debug.Log($"[DeckManager] #{i}: {(defs[i] != null ? defs[i].GetCardName : "<null>")}");
+        }
+
+        public int GetDiscardCount() => _discardPile?.Count ?? 0;
     }
 }
