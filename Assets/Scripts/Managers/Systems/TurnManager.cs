@@ -119,8 +119,8 @@ public class TurnManager : MonoBehaviour
         SetTurn();
         AbilityEvents.TargetingStopped();
 
-        // discard player's hand at end of player turn
-        DeckAndHandManager.instance?.DiscardAll();
+        // option to discard player's hand at end of player turn
+        // DeckAndHandManager.instance?.DiscardAll();
         OnPlayerTurnEnd?.Invoke();
     }
 }

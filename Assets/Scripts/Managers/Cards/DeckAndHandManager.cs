@@ -95,17 +95,15 @@ namespace CardSystem
         }
 
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
-        public void DrawStartingHand(bool force = false)
+        public void DrawStartingHand(bool force = true)
         {
-            if (!force && _startingHandDrawn) return;
-            _startingHandDrawn = true;
-            
             if (_startingHandSize <= 0) return;
-
-            DiscardAll();
+            if (force && _startingHandDrawn) return;
 
             int toDraw = Mathf.Min(_startingHandSize, _maxCards);
             DrawCard(toDraw);
+
+            _startingHandDrawn = true;
         }
 
         public void DiscardAll()

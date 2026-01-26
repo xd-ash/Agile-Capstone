@@ -1696,10 +1696,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adee2c2609bccfe4185c122b27a51601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 713631043}
-  messageText: {fileID: 1883185257}
-  displayTime: 1
-  fadeDuration: 0.25
+  _canvasGroup: {fileID: 0}
+  _messageText: {fileID: 0}
+  _displayTime: 1
+  _fadeDuration: 0.25
 --- !u!225 &713631043
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5403,17 +5403,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxCards: 100
-  _currentHandSize: 0
+  _startingHandSize: 5
   _deck: {fileID: 11400000, guid: 4dba97571edce6d4289d82213f7627bf, type: 2}
   _cardsInHand: []
-  selectedCard:
-    _cardName: 
-    _cardTransform: {fileID: 0}
-    _cardAbility: {fileID: 0}
-    _shopCost: 0
-  runtimeAddedDefinitions: []
-  cardActivePos: {fileID: 0}
-  defaultStartingHandSize: 5
 --- !u!4 &1691110207
 Transform:
   m_ObjectHideFlags: 0
@@ -5442,8 +5434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a182957c4beb645986ab946ca22f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  splineContainer: {fileID: 1273628127}
   _tweenDuration: 0.25
+  _cardSortingOrderBaseValue: 5
 --- !u!1001 &1729551837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5783,7 +5775,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turnText: {fileID: 1020119968}
   _apText: {fileID: 1371437713}
-  _startingHandSize: 5
   _enemyDmgSfx: {fileID: 0}
 --- !u!114 &1865530328
 MonoBehaviour:
@@ -5797,12 +5788,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d912f8fffa9173448238f63858b9d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealthSlider: {fileID: 2044137681}
-  playerHealthText: {fileID: 1109730920}
-  playerShieldText: {fileID: 1679287172}
-  playerShieldSlider: {fileID: 1740800766}
-  player: {fileID: 114876976}
-  enemy: {fileID: 0}
+  _playerHealthSlider: {fileID: 0}
+  _playerHealthText: {fileID: 0}
+  _playerShieldText: {fileID: 0}
+  _playerShieldSlider: {fileID: 0}
+  _player: {fileID: 0}
+  _enemy: {fileID: 0}
 --- !u!4 &1865530329
 Transform:
   m_ObjectHideFlags: 0
@@ -5833,7 +5824,7 @@ MonoBehaviour:
   winText: {fileID: 1319645121}
   loseText: {fileID: 241520123}
   textDuration: 3
-  enemyUnits: []
+  _enemyUnits: []
 --- !u!114 &1865530332
 MonoBehaviour:
   m_ObjectHideFlags: 0
