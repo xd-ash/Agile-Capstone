@@ -212,17 +212,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e70a16e0772849541a1929058aba2280, type: 3}
---- !u!114 &114876976 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5904661369477725204, guid: e70a16e0772849541a1929058aba2280, type: 3}
-  m_PrefabInstance: {fileID: 114876975}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f2afb597f7551f4c81009e6bbed1c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &114876977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6557971832698807318, guid: e70a16e0772849541a1929058aba2280, type: 3}
@@ -2339,10 +2328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e0f68d080c17c45be6c13213fb96c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 0
-  _playerUnit: {fileID: 114876976}
 --- !u!4 &1039275727
 Transform:
   m_ObjectHideFlags: 0
@@ -5404,7 +5389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxCards: 100
   _startingHandSize: 5
-  _deck: {fileID: 11400000, guid: 4dba97571edce6d4289d82213f7627bf, type: 2}
+  _deck: {fileID: 11400000, guid: dd74bc1c5bca99343832fecb55217b23, type: 2}
   _cardsInHand: []
 --- !u!4 &1691110207
 Transform:
@@ -7049,9 +7034,9 @@ MonoBehaviour:
   baseHitChance: 100
   minHitChance: 0
   maxHitChance: 100
-  hitPenaltyPerTile: 10
+  hitPenaltyPerTile: 1
   accuracyMultiplier: 1
-  accuracyFlatBonus: 10
+  accuracyFlatBonus: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
