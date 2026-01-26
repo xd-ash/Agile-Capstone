@@ -67,7 +67,11 @@ MonoBehaviour:
   - {fileID: -2584462224668346045}
   _cardName: Draw Card
   _description: Draw 1 Card
-  abilitySFX: {fileID: 0}
+  _abilitySFX: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
+  _apCost: 1
+  _range: 0
+  _shopCost: 15
+  _shopWeight: 65
 --- !u!114 &282906417093084810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,8 +155,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 1
-  _range: 0
   _effectTypes: 8
   targeting: 0
   filtering: 0

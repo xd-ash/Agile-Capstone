@@ -2,7 +2,6 @@ using System;
 
 public static class DamageEvents
 {
-    // (current, max)
     public static event Action<int, int> OnPlayerDamaged;
     public static event Action<int, int> OnEnemyDamaged;
     

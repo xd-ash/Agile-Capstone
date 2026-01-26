@@ -8,16 +8,16 @@ public static class GOAPDeterminationMethods
 {
     public static int FindAPAfterAction(Unit unit, int actionAPCost)
     {
-        int result = unit.ap - actionAPCost;
+        int result = unit.GetAP - actionAPCost;
         return result <= 0 ? 0 : result;
     }
     public static bool CheckCanDoAction(Unit unit, int actionAPCost)
     {
-        return unit.ap >= actionAPCost;
+        return unit.GetAP >= actionAPCost;
     }
     public static bool CheckForAP(Unit unit, ref WorldStates beliefs)
     {
-        if (unit.ap == 0)
+        if (unit.GetAP == 0)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             beliefs.RemoveState(GoapStates.HasAP.ToString());
@@ -33,7 +33,7 @@ public static class GOAPDeterminationMethods
     public static bool CheckIfInRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
     {
         var aStar = agent.GetComponent<FindPathAStar>();
-        int dmgAbilRange = agent.damageAbility.RootNode.GetRange;
+        int dmgAbilRange = agent.damageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
         var tempPath = aStar.CalculatePath(tarPos);
@@ -52,7 +52,7 @@ public static class GOAPDeterminationMethods
     }
     public static bool CheckIfHealthy(Unit unit, ref WorldStates beliefs)
     {
-        float healthPercent = (float)unit.health / (float)unit.maxHealth;
+        float healthPercent = (float)unit.GetHealth / (float)unit.GetMaxHealth;
         
         if (healthPercent > 0.65f)
         {

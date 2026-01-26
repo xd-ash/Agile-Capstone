@@ -84,8 +84,7 @@ public class GameData
         }
         public void LoadData()
         {
-            if (CurrencyManager.instance != null)
-                CurrencyManager.instance.LoadGameData(_balance);
+            CurrencyManager.instance?.LoadGameData(_balance);
         }
     }
 
@@ -93,14 +92,17 @@ public class GameData
     [System.Serializable]
     public class DeckDataToken
     {
-        private string[] _runtimeAddedCardNames;
+        private string[] _ownedCardNames;
+        private string _deckName;
 
         public DeckDataToken()
         {
-            var runtimeDefs = CardManager.instance.runtimeAddedDefinitions;
-            _runtimeAddedCardNames = new string[runtimeDefs.Count];
+            var runtimeDefs = PlayerCardCollection.instance.GetOwnedCards;
+            _ownedCardNames = new string[runtimeDefs.Count];
             for (int i = 0; i < runtimeDefs.Count; i++)
-                _runtimeAddedCardNames[i] = runtimeDefs[i].name;
+                _ownedCardNames[i] = runtimeDefs[i].name;
+
+            _deckName = DeckAndHandManager.instance.GetDeck.name;
         }
         public void LoadData()
         {

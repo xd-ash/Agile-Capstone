@@ -3,11 +3,13 @@ using UnityEngine;
 
 namespace CardSystem
 {
-    public class PlayerCollection : MonoBehaviour
+    public class PlayerCardCollection : MonoBehaviour
     {
-        public static PlayerCollection instance;
-        public List<CardAbilityDefinition> ownedCards = new List<CardAbilityDefinition>();
+        // store all persistent player cards
+        [SerializeField] private List<CardAbilityDefinition> _ownedCards = new();
+        public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
 
+        public static PlayerCardCollection instance;
         private void Awake()
         {
             if (instance == null)
@@ -21,8 +23,8 @@ namespace CardSystem
 
         public void Add(CardAbilityDefinition def)
         {
-            if (def == null) return;
-            if (!ownedCards.Contains(def)) ownedCards.Add(def);
+            if (def != null)
+                _ownedCards.Add(def);
         }
     }
 }

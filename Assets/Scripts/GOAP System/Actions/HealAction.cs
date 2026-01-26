@@ -11,7 +11,7 @@ public class HealAction : GoapAction
             return false;
         }
 
-        return CheckCanDoAction(agent.unit, agent.healAbility.RootNode.GetApCost);
+        return CheckCanDoAction(agent.unit, agent.healAbility.GetApCost);
     }
     public override void Perform()
     {

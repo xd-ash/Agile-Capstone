@@ -1,29 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using static AbilityEvents;
 using CardSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuPanel;
+    [SerializeField] private GameObject _pauseMenuPanel;
     public static bool isPaused = false;
 
-    [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject _settingsPanel;
     
     [Header("Sliders")]
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider sfxSlider;
-    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider _masterSlider;
+    [SerializeField] private Slider _sfxSlider;
+    [SerializeField] private Slider _musicSlider;
 
     private void Awake()
     {
-        ///Adam - moved this to the TransitionScene script when updating MenuCanvas to be DontDestroyOnLoad
-            // Ensure the menu is hidden and the game is unpaused when the scene loads
-            //if (pauseMenuCanvas != null)
-                //pauseMenuCanvas.enabled = false;
-        ///
-
         isPaused = false;
         Time.timeScale = 1f; // IMPORTANT: reset global timeScale on scene load
     }
@@ -32,141 +25,104 @@ public class PauseMenu : MonoBehaviour
     {
         if (AudioManager.instance != null)
         {
-            if (masterSlider != null)
-            {
-                masterSlider.value = AudioManager.instance.masterVolume;
-            }
+            if (_masterSlider != null)
+                _masterSlider.value = AudioManager.instance.GetMasterVolume;
 
-            if (sfxSlider != null)
-            {
-                sfxSlider.value = AudioManager.instance.sfxVolume;
-            }
+            if (_sfxSlider != null)
+                _sfxSlider.value = AudioManager.instance.GetSFXVolume;
 
-            if (musicSlider != null)
-            {
-                musicSlider.value = AudioManager.instance.musicVolume;
-            }
+            if (_musicSlider != null)
+                _musicSlider.value = AudioManager.instance.GetMusicVolume;
         }
 
         // Hook up listeners
-        if (masterSlider != null)
-        {
-            masterSlider.onValueChanged.AddListener(OnMasterChanged);
-        }
+        _masterSlider?.onValueChanged.AddListener(OnMasterChanged);
 
-        if (sfxSlider != null)
-        {
-            sfxSlider.onValueChanged.AddListener(OnSfxChanged);
-        }
+        _sfxSlider?.onValueChanged.AddListener(OnSfxChanged);
 
-        if (musicSlider != null)
-        {
-            musicSlider.onValueChanged.AddListener(OnMusicChanged);
-        }
+        _musicSlider?.onValueChanged.AddListener(OnMusicChanged);
     }
 
     private void Update()
     {
+        // Esc will toggle pause & back out of any settings menu instantly to unpause
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            // No real pause menu on main menu, so just exit out of settings when Esc is pressed
             if (TransitionScene.instance.GetCurrentScene == "MainMenu")
             {
-                settingsPanel.SetActive(false);
+                _settingsPanel.SetActive(false);
                 return;
             }
 
             TogglePause();
-            CloseSettings();
         }
     }
     private void TogglePause()
     {
         isPaused = !isPaused;
-
-        if (IsTargeting && !PauseMenu.isPaused)
+        
+        if (IsTargeting && !isPaused)
         {
-            if (CardSystem.CardManager.instance.selectedCard != null &&
-                CardSystem.CardManager.instance.selectedCard.CardTransform.TryGetComponent<CardSelect>(out CardSelect card))
+            if (DeckAndHandManager.instance.GetSelectedCard != null &&
+                DeckAndHandManager.instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
             {
-                AbilityEvents.TargetingStopped();
-                card.ReturnCardToHand();
-                CardManager.instance.OnCardAblityCancel?.Invoke();
+                TargetingStopped();
+                //card.ReturnCardToHand();
+                DeckAndHandManager.instance.OnCardAblityCancel?.Invoke();
             }
         }
         
         if (isPaused)
-        {
             Time.timeScale = 0f; // Pause the game
-            if (pauseMenuPanel != null)
-                pauseMenuPanel.SetActive(true);
-                //pauseMenuCanvas.enabled = true;
-        }
         else
-        {
             Time.timeScale = 1f; // Resume the game
-            if (pauseMenuPanel != null)
-                pauseMenuPanel.SetActive(false);
-                //pauseMenuCanvas.enabled = false;
-        }
+
+        _pauseMenuPanel?.SetActive(isPaused);
+        _settingsPanel?.SetActive(false); // close settings menu 
     }
-    
+
     private void OnDestroy()
     {
-        if (masterSlider != null)
-        {
-            masterSlider.onValueChanged.RemoveListener(OnMasterChanged);
-        }
+        if (_masterSlider != null)
+            _masterSlider.onValueChanged.RemoveListener(OnMasterChanged);
 
-        if (sfxSlider != null)
-        {
-            sfxSlider.onValueChanged.RemoveListener(OnSfxChanged);
-        }
+        if (_sfxSlider != null)
+            _sfxSlider.onValueChanged.RemoveListener(OnSfxChanged);
 
-        if (musicSlider != null)
-        {
-            musicSlider.onValueChanged.RemoveListener(OnMusicChanged);
-        }
+        if (_musicSlider != null)
+            _musicSlider.onValueChanged.RemoveListener(OnMusicChanged);
     }
     
     public void OpenSettings()
     {
-        if (settingsPanel != null)
-        {
-            settingsPanel.SetActive(true);
-        }
-        pauseMenuPanel.SetActive(false);
+        if (_settingsPanel != null)
+            _settingsPanel.SetActive(true);
+        _pauseMenuPanel.SetActive(false);
     }
     
     public void CloseSettings()
     {
-        if (settingsPanel != null)
-        {
-            settingsPanel.SetActive(false);
-        }
+        if (_settingsPanel != null)
+            _settingsPanel.SetActive(false);
+
+        if (TransitionScene.instance.GetCurrentScene != "MainMenu")
+            _pauseMenuPanel.SetActive(true);
     }
-    
+
 
     private void OnMasterChanged(float value)
     {
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.SetMasterVolume(value);
-        }
+        AudioManager.instance?.SetMasterVolume(value);
     }
 
     private void OnSfxChanged(float value)
     {
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.SetSfxVolume(value);
-        }
+        AudioManager.instance?.SetSfxVolume(value);
     }
 
     private void OnMusicChanged(float value)
     {
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.SetMusicVolume(value);
-        }
+        AudioManager.instance?.SetMusicVolume(value);
     }
 }

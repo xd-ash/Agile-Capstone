@@ -4,15 +4,14 @@ using System.Collections.Generic;
 //Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
 {
-    public GameObject winText, loseText;
-    public float textDuration = 3f;
-
-    public List<Unit> enemyUnits;
-
-    public static WinLossManager instance { get; private set; }
-
+    [SerializeField] private GameObject winText, loseText;
+    [SerializeField] private float textDuration = 3f;
     private bool _didWin;
 
+    [SerializeField] private List<Unit> _enemyUnits;
+    public List<Unit> GetEnemyUnits => _enemyUnits;
+
+    public static WinLossManager instance { get; private set; }
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -22,56 +21,49 @@ public class WinLossManager : MonoBehaviour
         }
         instance = this;
 
+        TurnManager.instance.OnGameStart += GrabEnemyUnits;
+
         GameOverEvents.OnGameOver += OnGameDone;
     }
 
     private void OnDestroy()
     {
+        TurnManager.instance.OnGameStart -= GrabEnemyUnits;
         GameOverEvents.OnGameOver -= OnGameDone;
+    }
+
+    public void GrabEnemyUnits()
+    {
+        List<Unit> enemies = new();
+        foreach (Unit unit in TurnManager.GetUnitTurnOrder)
+            if (unit != null && unit.GetTeam == Team.Enemy)
+                enemies.Add(unit);
+        _enemyUnits = enemies;
     }
 
     public void OnGameDone(bool didWin)
     {
         _didWin = didWin;
         GameObject text = _didWin ? winText : loseText;
-        if (text != null)
-        {
-            text.SetActive(true);
-        }
+        text?.SetActive(true);
 
         Invoke(nameof(TriggerSceneTrans), textDuration);
     }
 
     public void TriggerSceneTrans()
     {
-
-        if (_didWin)
-            //If we have our progress manager, use that
-            if (SceneProgressManager.Instance != null)
-            {
-                SceneProgressManager.Instance.CompleteCurrentNode();
-                if (SceneProgressManager.Instance.nodeMapCompleted)
-                {
-                    SceneProgressManager.Instance.ResetNodes();
-
-                    if (TransitionScene.instance != null)
-                        TransitionScene.instance.StartTransition();
-                }
-                else
-                    SceneProgressManager.Instance.ReturnToMap();
-            }
-            else
-            {
-                //Fallback to existing transition flow
-                if (TransitionScene.instance != null)
-                    TransitionScene.instance.StartTransition();
-            }
-        else
+        if (_didWin && SceneProgressManager.Instance != null)
         {
-            SceneProgressManager.Instance.ResetNodes();
+            SceneProgressManager.Instance.CompleteCurrentNode();
+            if (!SceneProgressManager.Instance.GetNodeMapCompleted)
+            {
+                SceneProgressManager.Instance.ReturnToMap();
+                return;
+            }
 
-            if (TransitionScene.instance != null)
-                TransitionScene.instance.StartTransition();
+            SceneProgressManager.Instance?.ResetNodes();
         }
+
+        TransitionScene.instance?.StartTransition();
     }
 }

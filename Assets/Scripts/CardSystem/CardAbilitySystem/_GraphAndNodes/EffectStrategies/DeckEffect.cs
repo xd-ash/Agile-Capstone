@@ -22,12 +22,12 @@ namespace CardSystem
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
-            if (abilityData.GetUnit.team != Team.Friendly) return;
+            if (abilityData.GetUnit.GetTeam != Team.Friendly) return;
 
             base.StartEffect(abilityData, onFinished);
 
             // Defensive checks
-            if (CardManager.instance == null)
+            if (DeckAndHandManager.instance == null)
             {
                 Debug.LogWarning("[DeckEffect] CardManager.instance is null - cannot interact with deck.");
                 onFinished?.Invoke();
@@ -38,12 +38,12 @@ namespace CardSystem
             {
                 case DeckAction.Draw:
                     // Draw _amount cards (CardManager.DrawMultiple handles hand size / deck end)
-                    CardManager.instance.DrawMultiple(_amount);
+                    DeckAndHandManager.instance.DrawCard(_amount);
                     break;
 
                 case DeckAction.PeekTop:
                     // Get top definitions without changing deck state
-                    var topDefs = CardManager.instance.PeekTopDefinitions(_amount);
+                    var topDefs = DeckAndHandManager.instance.PeekTopDefinitions(_amount);
                     if (_logResults)
                     {
                         for (int i = 0; i < topDefs.Length; i++)
@@ -55,7 +55,7 @@ namespace CardSystem
                     break;
 
                 case DeckAction.RevealTop:
-                    var revealDefs = CardManager.instance.PeekTopDefinitions(_amount);
+                    var revealDefs = DeckAndHandManager.instance.PeekTopDefinitions(_amount);
                     // Reveal semantics are UI/game-specific. Here we just log and leave hooks.
                     if (_logResults)
                     {

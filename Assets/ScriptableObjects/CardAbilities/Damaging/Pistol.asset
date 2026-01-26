@@ -89,7 +89,6 @@ MonoBehaviour:
     - miscEffects
     - filtering 0
     - harmfulEffects 0
-    - miscEffects 0
     values:
     - _fieldName: targeting
       _node: {fileID: -773093627592473936}
@@ -163,18 +162,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-    - _fieldName: miscEffects 0
-      _node: {fileID: -773093627592473936}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-  _apCost: 5
-  _range: 5
-  _effectTypes: 12
+  _effectTypes: 4
   targeting: 0
   filtering: 0
   helpfulEffects: 0
@@ -200,7 +188,11 @@ MonoBehaviour:
   - {fileID: -3038007230889526110}
   _cardName: Pistol
   _description: Deal 5 ranged damage
-  abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
+  _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
+  _apCost: 4
+  _range: 5
+  _shopCost: 15
+  _shopWeight: 55
 --- !u!114 &7206340533012667911
 MonoBehaviour:
   m_ObjectHideFlags: 0

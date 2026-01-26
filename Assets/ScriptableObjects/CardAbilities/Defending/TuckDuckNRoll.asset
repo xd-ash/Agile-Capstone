@@ -96,8 +96,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 1
-  _range: 0
   _effectTypes: 10
   targeting: 0
   filtering: 0
@@ -216,7 +214,11 @@ MonoBehaviour:
   - {fileID: -2470422592221940434}
   _cardName: Tuck Duck n' Roll
   _description: Add 3 Block and draw 1 card
-  abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
+  _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
+  _apCost: 3
+  _range: 0
+  _shopCost: 35
+  _shopWeight: 20
 --- !u!114 &833357395057102542
 MonoBehaviour:
   m_ObjectHideFlags: 0

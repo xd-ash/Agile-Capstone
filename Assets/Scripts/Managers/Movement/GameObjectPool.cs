@@ -73,7 +73,6 @@ public static class GameObjectPool
 
     private class PoolElement : MonoBehaviour
     {
-        private Pool _myPool;
         public Pool MyPool { get; set; }
     }
 }

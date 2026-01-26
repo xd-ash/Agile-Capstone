@@ -6,8 +6,6 @@ using static GameObjectPool;
 
 public class MovementRangeHighlighter : MonoBehaviour
 {
-    public static MovementRangeHighlighter instance;
-
     [SerializeField] private Color _reachableColor = new Color(0f, 0.3f, 1f, 0.3f);
     private Transform _highlightObjectParent;
     private GameObject _highlightTilePrefab;
@@ -16,6 +14,7 @@ public class MovementRangeHighlighter : MonoBehaviour
     private Unit _currentUnit;
     private TurnManager.Turn _lastTurn = TurnManager.Turn.Player;
 
+    public static MovementRangeHighlighter instance;
     private void Awake()
     {
         if (instance == null)
@@ -74,7 +73,7 @@ public class MovementRangeHighlighter : MonoBehaviour
 
     private void TrySetCurrentUnit(Unit unit)
     {
-        if (unit == null || unit.team != Team.Friendly)
+        if (unit == null || unit.GetTeam != Team.Friendly)
         {
             ClearHighlights();
             UnsubscribeFromUnit();
@@ -129,7 +128,7 @@ public class MovementRangeHighlighter : MonoBehaviour
         int height = map.GetLength(1);
 
         Vector2Int start = ConvertToGridFromIsometric(unit.transform.localPosition);
-        int maxSteps = Mathf.Max(0, unit.ap);
+        int maxSteps = Mathf.Max(0, unit.GetAP);
 
         Queue<(Vector2Int pos, int dist)> queue = new Queue<(Vector2Int, int)>();
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using CardSystem;
 using UnityEngine.EventSystems;
@@ -8,38 +7,38 @@ using UnityEngine.Rendering;
 public class DeckViewer : MonoBehaviour
 {
     [Tooltip("Where preview cards will be parented. If null, previews are parented to this object.")]
-    public Transform spawnParent;
+    [SerializeField] private Transform _spawnParent;
 
     [Tooltip("Resource path to the card prefab (same used by CardManager).")]
-    public string cardPrefabPath = "CardTestPrefab";
+    [SerializeField] private string _cardPrefabPath = "CardTestPrefab";
 
     [Tooltip("Grid layout settings for spawned previews")]
-    public int columns = 6;
-    public Vector2 spacing = new Vector2(1.4f, 2.0f);
+    [SerializeField] private int _columns = 6;
+    [SerializeField] private Vector2 _spacing = new Vector2(1.4f, 2.0f);
 
     [Tooltip("Limit to avoid huge instantiations in large decks (0 = no limit)")]
-    public int maxPreviews = 0;
+    [SerializeField] private int _maxPreviews = 0;
 
     [Header("Preview appearance")]
     [Tooltip("Local scale applied to each preview (editable)")]
-    public Vector3 previewScale = Vector3.one * 0.5f;
+    [SerializeField] private Vector3 _previewScale = Vector3.one * 0.5f;
     [Tooltip("Base local rotation applied to each preview (degrees)")]
-    public Vector3 previewRotation = Vector3.zero;
+    [SerializeField] private Vector3 _previewRotation = Vector3.zero;
     [Tooltip("Optional per-card Z jitter applied to rotation (degrees)")]
-    public float rotationJitter = 0f;
+    [SerializeField] private float _rotationJitter = 0f;
 
     // Optional: require left mouse button for spawn (prevents other mouse events)
-    public bool requireLeftMouseButton = true;
+    [SerializeField] private bool _requireLeftMouseButton = true;
 
     [Header("Preview layering and background")]
     [Tooltip("Sorting layer name applied to spawned previews")]
-    public string previewSortingLayerName = "Default";
+    [SerializeField] private string _previewSortingLayerName = "Default";
     [Tooltip("Sorting order applied to spawned previews (higher = drawn on top)")]
-    public int previewSortingOrder = 5000;
+    [SerializeField] private int _previewSortingOrder = 5000;
     [Tooltip("Optional UI blur material. If null a semi-transparent overlay will be used.")]
-    public Material blurMaterial;
+    [SerializeField] private Material _blurMaterial;
     [Tooltip("Tint used for fallback overlay when no blur material is provided.")]
-    public Color overlayColor = new Color(0f, 0f, 0f, 0.5f);
+    [SerializeField] private Color _overlayColor = new Color(0f, 0f, 0f, 0.5f);
 
     private GameObject _previewContainer;
     private GameObject _overlay;
@@ -49,8 +48,8 @@ public class DeckViewer : MonoBehaviour
         // quick runtime debug: press L to log deck to console
         if (Input.GetKeyDown(KeyCode.L))
         {
-            if (CardManager.instance != null)
-                CardManager.instance.LogRuntimeDeck();
+            if (DeckAndHandManager.instance != null)
+                DeckAndHandManager.instance.LogRuntimeDeck();
             else
                 Debug.LogWarning("[DeckViewer] CardManager.instance is null");
         }
@@ -60,7 +59,7 @@ public class DeckViewer : MonoBehaviour
     private void OnMouseDown()
     {
         // optional left-button check
-        if (requireLeftMouseButton && !Input.GetMouseButtonDown(0)) return;
+        if (_requireLeftMouseButton && !Input.GetMouseButtonDown(0)) return;
 
         // ignore clicks over UI
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
@@ -109,23 +108,23 @@ public class DeckViewer : MonoBehaviour
 
     public void ShowPreviews()
     {
-        if (CardManager.instance == null)
+        if (DeckAndHandManager.instance == null)
         {
             Debug.LogWarning("[DeckViewer] No CardManager.instance available.");
             return;
         }
 
-        var defs = CardManager.instance.GetRuntimeDeck;
+        var defs = DeckAndHandManager.instance.GetRuntimeDeck;
         if (defs == null || defs.Length == 0)
         {
             Debug.Log("[DeckViewer] Deck is empty.");
             return;
         }
 
-        GameObject prefab = Resources.Load<GameObject>(cardPrefabPath);
+        GameObject prefab = Resources.Load<GameObject>(_cardPrefabPath);
         if (prefab == null)
         {
-            Debug.LogError($"[DeckViewer] Could not load prefab at Resources/{cardPrefabPath}");
+            Debug.LogError($"[DeckViewer] Could not load prefab at Resources/{_cardPrefabPath}");
             return;
         }
 
@@ -134,17 +133,17 @@ public class DeckViewer : MonoBehaviour
 
         _previewContainer = new GameObject("DeckPreviewContainer");
         // parent the container under spawnParent if provided, otherwise under this object
-        Transform containerParent = spawnParent != null ? spawnParent : transform;
+        Transform containerParent = _spawnParent != null ? _spawnParent : transform;
         _previewContainer.transform.SetParent(containerParent, false);
         _previewContainer.transform.localPosition = Vector3.zero;
 
         // Add SortingGroup to ensure previews render above other renderers
         var sortingGroup = _previewContainer.AddComponent<SortingGroup>();
-        sortingGroup.sortingLayerName = previewSortingLayerName;
-        sortingGroup.sortingOrder = previewSortingOrder;
+        sortingGroup.sortingLayerName = _previewSortingLayerName;
+        sortingGroup.sortingOrder = _previewSortingOrder;
 
         int shown = 0;
-        int limit = maxPreviews > 0 ? Mathf.Min(maxPreviews, defs.Length) : defs.Length;
+        int limit = _maxPreviews > 0 ? Mathf.Min(_maxPreviews, defs.Length) : defs.Length;
         for (int i = 0; i < limit; i++)
         {
             var def = defs[i];
@@ -152,18 +151,18 @@ public class DeckViewer : MonoBehaviour
 
             GameObject go = Instantiate(prefab, _previewContainer.transform);
             // position in grid
-            int col = shown % columns;
-            int row = shown / columns;
-            Vector3 local = new Vector3(col * spacing.x, -row * spacing.y, 0f);
+            int col = shown % _columns;
+            int row = shown / _columns;
+            Vector3 local = new Vector3(col * _spacing.x, -row * _spacing.y, 0f);
             go.transform.localPosition = local;
 
             // apply preview scale and rotation
-            go.transform.localScale = previewScale;
-            float jitter = rotationJitter != 0f ? (Random.Range(-rotationJitter, rotationJitter)) : 0f;
-            go.transform.localEulerAngles = previewRotation + new Vector3(0f, 0f, jitter);
+            go.transform.localScale = _previewScale;
+            float jitter = _rotationJitter != 0f ? (Random.Range(-_rotationJitter, _rotationJitter)) : 0f;
+            go.transform.localEulerAngles = _previewRotation + new Vector3(0f, 0f, jitter);
 
             // initialize card visuals via existing API
-            Card card = new Card(def);
+            Card card = new Card(def, go.transform);
             var cs = go.GetComponent<CardSelect>();
             if (cs != null)
             {
@@ -179,7 +178,7 @@ public class DeckViewer : MonoBehaviour
                 col3D.enabled = false;
 
             // Make sure all renderers/canvases on this preview are set to draw on top
-            ForceSortingOnChildren(go, previewSortingLayerName, previewSortingOrder);
+            ForceSortingOnChildren(go, _previewSortingLayerName, _previewSortingOrder);
 
             shown++;
         }
@@ -237,7 +236,7 @@ public class DeckViewer : MonoBehaviour
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         // set overlay sorting to just below previewSortingOrder
         canvas.overrideSorting = true;
-        canvas.sortingOrder = Mathf.Max(0, previewSortingOrder - 1);
+        canvas.sortingOrder = Mathf.Max(0, _previewSortingOrder - 1);
 
         _overlay.AddComponent<CanvasScaler>();
         _overlay.AddComponent<GraphicRaycaster>();
@@ -252,15 +251,15 @@ public class DeckViewer : MonoBehaviour
         img.rectTransform.offsetMax = Vector2.zero;
 
         // Apply blur material if provided, otherwise fallback to tinted panel
-        if (blurMaterial != null)
+        if (_blurMaterial != null)
         {
-            img.material = blurMaterial;
+            img.material = _blurMaterial;
             // keep a semi-transparent tint as well if desired
-            img.color = overlayColor;
+            img.color = _overlayColor;
         }
         else
         {
-            img.color = overlayColor;
+            img.color = _overlayColor;
         }
 
         // Ensure overlay blocks pointer events so background UI doesn't get clicks while deck is open

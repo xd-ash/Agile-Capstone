@@ -151,8 +151,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _apCost: 10
-  _range: 100
   _effectTypes: 4
   targeting: 0
   filtering: 0
@@ -211,7 +209,11 @@ MonoBehaviour:
   - {fileID: 6646383339752646348}
   _cardName: Dynamite
   _description: Deal 10 Damage to one target
-  abilitySFX: {fileID: 8300000, guid: 888327f7c92c74348a9306e124015494, type: 3}
+  _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+  _apCost: 6
+  _range: 3
+  _shopCost: 35
+  _shopWeight: 15
 --- !u!114 &5144402596869855986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +227,7 @@ MonoBehaviour:
   m_Name: Other Target
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -40, y: -104}
+  position: {x: -40, y: -136}
   ports:
     keys:
     - input

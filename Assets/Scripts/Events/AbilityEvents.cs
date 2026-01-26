@@ -1,6 +1,4 @@
-using CardSystem;
 using System;
-using UnityEngine;
 
 public static class AbilityEvents
 {
@@ -26,5 +24,7 @@ public static class AbilityEvents
     {
         IsTargeting = false;
         OnAbilityUsed?.Invoke(unitTeam);
+        if (unitTeam == Team.Friendly)
+            TargetingStopped();
     }
 }

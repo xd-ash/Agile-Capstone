@@ -394,6 +394,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -567,22 +568,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8203f295fa1d3f944b7784670022ab47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  b1: {fileID: 2052585232}
-  b1_s: {fileID: 268702850}
-  b1_c: {fileID: 1543893186}
-  b2: {fileID: 1239705798}
-  b3: {fileID: 377460954}
-  b4: {fileID: 492450530}
-  b5: {fileID: 1637780829}
-  menu: {fileID: 1728191525}
-  baseLerpDur: 2
-  b1_multiplier: 0
-  b1_s_multiplier: 1
-  b1_c_multiplier: 1
-  b2_multiplier: 1
-  b3_multiplier: 1
-  b4_multiplier: 1
-  b5_multiplier: 1
+  _menu: {fileID: 1728191525}
+  _baseLerpDur: 2
 --- !u!114 &278856392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1129,6 +1116,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1891,6 +1879,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2102,6 +2091,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2238,6 +2228,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2374,6 +2365,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2498,10 +2490,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2809550030970102975, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: m_Volume
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3337454517766005372, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2546,44 +2534,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: bgmClip
-      value: 
-      objectReference: {fileID: 8300000, guid: b9a88d124b8b3c64eaa34a4cf774930f, type: 3}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: sfxVolume
-      value: 0.397
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: musicVolume
-      value: 0.521
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: menuButtonClick
-      value: 
-      objectReference: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: sceneMusic.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: sceneMusic.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: sceneMusic.Array.data[0].loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: sceneMusic.Array.data[0].volume
-      value: 0.537
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: sceneMusic.Array.data[0].sceneName
-      value: Shop
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2809550030970102975, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2694,6 +2645,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2902,6 +2854,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3299,6 +3252,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3824,6 +3778,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4540,6 +4495,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696670673}
   m_CullTransparentMesh: 1
+--- !u!1 &1713322201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713322203}
+  - component: {fileID: 1713322202}
+  m_Layer: 0
+  m_Name: SaveDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1713322202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713322201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c285656051702bc46844d9b1ad64d874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ownedCards: []
+--- !u!4 &1713322203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713322201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 542.10333, y: 306.41144, z: 1.270347}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1728191525
 GameObject:
   m_ObjectHideFlags: 0
@@ -4557,7 +4557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1728191526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4828,11 +4828,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f96a7e101817644bc34d9a0c1f2f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenuPanel: {fileID: 1852278133}
-  settingsPanel: {fileID: 451304324}
-  masterSlider: {fileID: 224025548}
-  sfxSlider: {fileID: 190494064}
-  musicSlider: {fileID: 1676613545}
+  _pauseMenuPanel: {fileID: 1852278133}
+  _settingsPanel: {fileID: 451304324}
+  _masterSlider: {fileID: 224025548}
+  _sfxSlider: {fileID: 190494064}
+  _musicSlider: {fileID: 1676613545}
 --- !u!1 &1827919825
 GameObject:
   m_ObjectHideFlags: 0
@@ -5039,6 +5039,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -5363,7 +5364,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -5371,6 +5371,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &2130555381
 GameObject:
   m_ObjectHideFlags: 0
@@ -5416,3 +5417,4 @@ SceneRoots:
   - {fileID: 1808137416}
   - {fileID: 2061576945}
   - {fileID: 1104719763}
+  - {fileID: 1713322203}

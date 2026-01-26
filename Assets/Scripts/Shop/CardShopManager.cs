@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using CardSystem;
 
-public class CardShopSpawner : MonoBehaviour
+public class CardShopManager : MonoBehaviour
 {
     private const string LOG_PREFIX = "[CardShopSpawner]";
 
-    [System.Serializable]
+    /*[System.Serializable]
     public struct ShopEntry
     {
         public CardSystem.CardAbilityDefinition definition;
@@ -14,43 +14,44 @@ public class CardShopSpawner : MonoBehaviour
         public float weight;
         [Tooltip("Cost to buy this card in the shop")]
         public int cost;
-    }
+    }*/
 
     [Header("Pool (assign in inspector)")]
-    public List<ShopEntry> pool = new List<ShopEntry>();
+    //public List<ShopEntry> pool = new List<ShopEntry>();
+    [SerializeField] private Deck _pool;
 
     [Header("Auto Spawn Settings")]
     [Tooltip("If true, the spawner will populate the shop on scene start")]
-    public bool spawnOnStart = true;
+    [SerializeField] private bool _spawnOnStart = true;
     [Tooltip("How many cards to spawn when the scene starts")]
-    public int initialSpawnCount = 3;
+    [SerializeField] private int _initialSpawnCount = 5;
 
     [Header("Spawn")]
-    public Transform spawnParent; // parent for spawned card GOs (optional)
-    public Vector3 localOffset = Vector3.zero;
+    [SerializeField] private Transform _spawnParent; // parent for spawned card GOs (optional)
+    [SerializeField] private Vector3 _localOffset = Vector3.zero;
 
-    [Header("Shop Settings")]
-    [Tooltip("Optional collider for the buy/drop area. If null, the object tagged 'BuyArea' will be used.")]
-    public Collider2D buyAreaCollider;
-    public string buyAreaTag = "BuyArea";
+    //[Header("Shop Settings")]
+    //[Tooltip("Optional collider for the buy/drop area. If null, the object tagged 'BuyArea' will be used.")]
+    //public Collider2D buyAreaCollider;
+    //public string buyAreaTag = "BuyArea";
 
     [Header("Layout (fan settings)")]
     [Tooltip("Total horizontal span of the fan in local units")]
-    public float fanWidth = 3f;
+    [SerializeField] private float _fanWidth = 15f;
     [Tooltip("Vertical height of the fan (peak at center)")]
-    public float arcHeight = 0.6f;
+    [SerializeField] private float _arcHeight = 0f;
     [Tooltip("Max card tilt (degrees) at the edges")]
-    public float maxTilt = 15f;
+    [SerializeField] private float _maxTilt = 0f;
 
     [Header("Refresh Settings")]
     [Tooltip("Cost to refresh the shop (0 = free)")]
-    public int refreshCost = 10;
+    [SerializeField] private int _refreshCost = 10;
 
     // runtime tracking of active spawned shop cards
     private readonly List<GameObject> activeSpawnedCards = new List<GameObject>();
 
     // singleton instance for easy access from other components (e.g. CardSelect when a card is bought)
-    public static CardShopSpawner Instance { get; private set; }
+    public static CardShopManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -65,63 +66,47 @@ public class CardShopSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (spawnOnStart && initialSpawnCount > 0)
-        {
-            SpawnMultiple(initialSpawnCount);
-        }
+        if (_spawnOnStart && _initialSpawnCount > 0)
+            SpawnMultiple(_initialSpawnCount);
     }
 
     // Spawns a single card chosen from `pool` using weighted random selection.
-    public GameObject SpawnRandomCard()
+    public void SpawnRandomCard()
     {
         var entry = PickRandomEntry();
-        if (entry.definition == null)
-        {
-            return null;
-        }
-
-        // Create runtime Card data
-        Card card = new Card(entry.definition);
-        // store shop cost on the runtime card so UI/logic can access it
-        card.ShopCost = entry.cost;
+        if (entry == null) return;
 
         // Use same prefab path as CardManager
         GameObject prefab = Resources.Load<GameObject>("CardTestPrefab");
-        if (prefab == null)
-        {
-            return null;
-        }
+        if (prefab == null) return;
 
-        Transform parent = spawnParent != null ? spawnParent : transform;
-        if (parent == null) return null;
+        Transform parent = _spawnParent != null ? _spawnParent : transform;
+        if (parent == null) return;
 
         GameObject cardGO = Instantiate(prefab, parent);
-        cardGO.transform.localPosition = localOffset;
+        cardGO.transform.localPosition = _localOffset;
+
+        // Create runtime Card data
+        Card card = new Card(entry, cardGO.transform);
 
         // Ensure the prefab has CardSelect and initialize it
-        var cs = cardGO.GetComponent<CardSelect>();
-        if (cs == null) cs = cardGO.AddComponent<CardSelect>();
+        if (!cardGO.TryGetComponent(out CardSelect cs))
+            cs = cardGO.AddComponent<CardSelect>();
+        if (!cardGO.TryGetComponent(out CardFunctionScript cfs))
+            cfs = cardGO.AddComponent<CardFunctionScript>();
+
         cs.OnPrefabCreation(card);
-
-        // Enable shop behaviour (cost + buy-area) on the card's CardSelect
-        cs.EnableShopMode(entry.cost, buyAreaCollider, buyAreaTag);
-
-        // Track runtime transform on the Card data
-        card.CardTransform = cardGO.transform;
+        cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
 
         // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);
-
-        return cardGO;
     }
 
     // Convenience: spawn `count` cards (call this multiple times to populate shop)
     public void SpawnMultiple(int count)
     {
         for (int i = 0; i < count; i++)
-        {
             SpawnRandomCard();
-        }
 
         // arrange all active cards (new + existing)
         ArrangeSpawnedCards(activeSpawnedCards);
@@ -141,13 +126,13 @@ public class CardShopSpawner : MonoBehaviour
             var single = spawnedCards[0];
             if (single != null)
             {
-                single.transform.localPosition = localOffset;
+                single.transform.localPosition = _localOffset;
                 single.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             }
             return;
         }
 
-        float span = Mathf.Max(0.001f, fanWidth);
+        float span = Mathf.Max(0.001f, _fanWidth);
         for (int i = 0; i < count; i++)
         {
             var go = spawnedCards[i];
@@ -157,11 +142,11 @@ public class CardShopSpawner : MonoBehaviour
             // x: evenly spaced across span centered at 0
             float x = -span * 0.5f + t * span;
             // y: parabola peak at center -> gives a nice "hand" arc
-            float y = -4f * arcHeight * Mathf.Pow(t - 0.5f, 2f) + arcHeight;
+            float y = -4f * _arcHeight * Mathf.Pow(t - 0.5f, 2f) + _arcHeight;
             // rotation z: tilt across the fan
-            float tilt = Mathf.Lerp(-maxTilt, maxTilt, t);
+            float tilt = Mathf.Lerp(-_maxTilt, _maxTilt, t);
 
-            Vector3 localPos = new Vector3(localOffset.x + x, localOffset.y + y, localOffset.z);
+            Vector3 localPos = new Vector3(_localOffset.x + x, _localOffset.y + y, _localOffset.z);
             Quaternion localRot = Quaternion.Euler(0f, 0f, tilt);
 
             go.transform.localPosition = localPos;
@@ -191,7 +176,7 @@ public class CardShopSpawner : MonoBehaviour
     public void RefreshShop(int count = -1)
     {
         // Check refresh cost first (0 or negative means free)
-        if (refreshCost > 0)
+        if (_refreshCost > 0)
         {
             if (CurrencyManager.instance == null)
             {
@@ -200,7 +185,7 @@ public class CardShopSpawner : MonoBehaviour
             }
 
             // TrySpend will deduct the amount if player has enough; returns false if insufficient funds
-            bool charged = CurrencyManager.instance.TrySpend(refreshCost);
+            bool charged = CurrencyManager.instance.TrySpend(_refreshCost);
             if (!charged)
             {
                 Debug.Log(LOG_PREFIX + " Not enough currency to refresh shop.");
@@ -219,7 +204,7 @@ public class CardShopSpawner : MonoBehaviour
         activeSpawnedCards.Clear();
 
         // default to initialSpawnCount if caller didn't pass a count
-        int spawnCount = (count <= 0) ? initialSpawnCount : count;
+        int spawnCount = (count <= 0) ? _initialSpawnCount : count;
         if (spawnCount > 0)
         {
             SpawnMultiple(spawnCount);
@@ -227,24 +212,25 @@ public class CardShopSpawner : MonoBehaviour
     }
 
     // Weighted random pick from `pool` returning the full ShopEntry
-    private ShopEntry PickRandomEntry()
+    private CardAbilityDefinition PickRandomEntry()
     {
-        ShopEntry defaultEntry = default;
-        if (pool == null || pool.Count == 0) return defaultEntry;
+        //ShopEntry defaultEntry = default;
+        if (_pool == null || _pool.GetDeck.Length == 0) return null;
+        var poolDeck = _pool.GetDeck;
 
         float total = 0f;
-        foreach (var e in pool) total += Mathf.Max(0f, e.weight);
+        foreach (var e in poolDeck) total += Mathf.Max(0f, e.GetShopWeight);
 
-        if (total <= 0f) return pool[0];
+        if (total <= 0f) return poolDeck[0];
 
         float r = UnityEngine.Random.Range(0f, total);
         float acc = 0f;
-        foreach (var e in pool)
+        foreach (var e in poolDeck)
         {
-            acc += Mathf.Max(0f, e.weight);
+            acc += Mathf.Max(0f, e.GetShopWeight);
             if (r <= acc) return e;
         }
 
-        return pool[pool.Count - 1];
+        return poolDeck[poolDeck.Length - 1];
     }
 }

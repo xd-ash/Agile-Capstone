@@ -95,9 +95,9 @@ namespace AStarPathfinding
                 //Flip bool in pathmarker to indicate which tiles are within movement range
                 List<PathMarker> tempTrue = _truePath;
                 int steps = _truePath != null ? _truePath.Count : 0;
-                if (steps > _unit.ap)
+                if (steps > _unit.GetAP)
                 {
-                    int keep = Mathf.Max(0, _unit.ap);
+                    int keep = Mathf.Max(0, _unit.GetAP);
                     tempTrue = _truePath.GetRange(_truePath.Count - keep, keep);
                 }
                 foreach (PathMarker pm in tempTrue)
@@ -303,7 +303,7 @@ namespace AStarPathfinding
                 onFinished();
 
             // rebuild highlights for player right after movement is fully done
-            if (_unit.team == Team.Friendly)
+            if (_unit.GetTeam == Team.Friendly)
                 MovementRangeHighlighter.instance.RebuildForCurrentUnit();
         }
     }

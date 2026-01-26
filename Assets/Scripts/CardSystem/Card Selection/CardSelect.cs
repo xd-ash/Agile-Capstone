@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 namespace CardSystem
 {
@@ -11,287 +10,136 @@ namespace CardSystem
         private SpriteRenderer _spriteRenderer;
         private GameObject _cardHighlight;
         private SpriteRenderer _highlightRenderer;
-        private Card _card;
-
-        [SerializeField] private Sprite _cardSprite;
-        [SerializeField] private bool selected = false;
+        private CardFunctionScript _cfs;
 
         [Header("Visual Settings")]
-        [SerializeField] private float handAreaHeight = 2f; // Height of the hand area
-        [SerializeField] private int _hoverSortingBoost = 1000;
+        [SerializeField] private float _handAreaHeight = 2f; // Height of the hand area (add gizmo for editing?)
+        private bool _isAboveHandArea = false;
 
         [Header("Visual Feedback")]
-        [SerializeField] private float hoverScaleMultiplier = 1.2f;
-        [SerializeField] private float dragScaleMultiplier = 1.4f;
-        [SerializeField] private float scaleDuration = 0.2f;
-        [SerializeField] private float rotationAmount = 5f;
-        [SerializeField] private Color validDropColor = Color.green;
-        [SerializeField] private Color invalidDropColor = Color.red;
-
-        [Header("Card Text Components")]
-        [SerializeField] private TMP_Text _nameText;
-        [SerializeField] private TMP_Text _descriptionText;
+        [SerializeField] private float _hoverScaleMultiplier = 1.2f;
+        [SerializeField] private float _dragScaleMultiplier = 1.4f;
+        [SerializeField] private float _tweenDuration = 0.2f;
+        [SerializeField] private float _rotationAmount = 5f;
+        [SerializeField] private Color _validDropColor = Color.green;
+        private Color _originalColor;
+        private Vector3 _originalScale;
 
         // Drag state
-        private bool isDragging = false;
-        private Vector3 dragOffset;
-        private Vector3 startPosition;
-        private int startIndex;
-
-        // Expose currently dragged transform for other systems (e.g., CardSplineManager)
-        public static Transform CurrentDraggedTransform { get; private set; }
-
-        private int _baseSortingOrder;
-        private Camera _mainCamera;
-        private Color originalColor;
-        private Vector3 originalScale;
-
-        // Add static field to track if any card is currently being used
-        private static bool isAnyCardActive = false;
-
-        // Shop-mode extras (merged ShopCard behaviour)
-        private Vector3 _startLocalPos;
-        private Transform _startParent;
-        private bool _isShopItem = false;
-        private int _shopCost = 0;
-        private Collider2D _shopBuyAreaCollider = null;
-        private string _shopBuyAreaTag = "BuyArea";
+        private Vector3 _dragOffset;
+        private Vector3 _startPosition;
+        private int _startIndex;
 
         private void OnEnable()
         {
-            _mainCamera = Camera.main;
+            _cfs = GetComponent<CardFunctionScript>();
+
             SetupVisuals();
-            AbilityEvents.OnAbilityUsed += ClearSelection;
-            AbilityEvents.OnAbilityTargetingStarted += OnTargetingStarted; // Use the correct event
-            if (TurnManager.instance != null )
+            AbilityEvents.OnAbilityTargetingStopped += ReturnCardToHand;
+            if (TurnManager.instance != null)
                 TurnManager.instance.OnPlayerTurnEnd += ReturnCardToHand;
         }
 
         private void OnDestroy()
         {
-            AbilityEvents.OnAbilityUsed -= ClearSelection;
-            AbilityEvents.OnAbilityTargetingStarted -= OnTargetingStarted; // Use the correct event   
+            AbilityEvents.OnAbilityTargetingStopped -= ReturnCardToHand;
             if (TurnManager.instance != null)
                 TurnManager.instance.OnPlayerTurnEnd -= ReturnCardToHand;
         }
 
-        // Add handler method
-        private void OnTargetingStarted()
-        {
-            isAnyCardActive = true;
-        }
-
-        private void SetupVisuals()
-        {
-            _cardHighlight = transform.Find("CardHighlight")?.gameObject;
-            if (_cardHighlight != null) _cardHighlight.SetActive(false);
-
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            if (_spriteRenderer != null)
-            {
-                _baseSortingOrder = _spriteRenderer.sortingOrder;
-                if (_cardSprite != null) _spriteRenderer.sprite = _cardSprite;
-            }
-
-            _highlightRenderer = _cardHighlight?.GetComponent<SpriteRenderer>();
-            if (_highlightRenderer != null)
-            {
-                _highlightRenderer.sortingLayerID = _spriteRenderer.sortingLayerID;
-                _highlightRenderer.sortingOrder = _baseSortingOrder + 1;
-            }
-        }
-
-        private void UpdateCardText()
-        {
-            if (_card == null) return;
-
-            // Update card name text
-            if (_nameText != null)
-            {
-                _nameText.text = _card.GetCardName;
-                UpdateSortingOrders(_baseSortingOrder); // Ensure proper text layering
-            }
-
-            // Update description text
-            if (_descriptionText != null)
-            {
-                _descriptionText.text = _card.GetDescription;
-                UpdateSortingOrders(_baseSortingOrder); // Ensure proper text layering
-            }
-        }
-
         private void Start()
         {
-            originalScale = transform.localScale;
-            originalColor = _spriteRenderer.color;
+            _originalScale = transform.localScale;
+            _originalColor = _spriteRenderer.color;
         }
 
         private void OnMouseEnter()
         {
-            // Add check for active cards
-            if (!selected && !PauseMenu.isPaused && !isDragging && !isAnyCardActive)
-            {
-                if (_cardHighlight != null) _cardHighlight.SetActive(true);
-                transform.DOScale(originalScale * hoverScaleMultiplier, scaleDuration);
-                BringToFront();
-            }
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.GetSelectedCard == null)
+                ToggleHighlightAndScale(true);
         }
-
         private void OnMouseExit()
         {
-            if (!selected && !PauseMenu.isPaused && !isDragging)
-            {
-                if (_cardHighlight != null) _cardHighlight.SetActive(false);
-                transform.DOScale(originalScale, scaleDuration);
-                RestoreOrder();
-            }
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.instance.GetSelectedCard == null)
+                ToggleHighlightAndScale(false);
         }
-
         private void OnMouseDown()
         {
-            if (PauseMenu.isPaused || selected) return;
+            // Check for active cards
+            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.instance == null || DeckAndHandManager.instance.GetSelectedCard != null) return;
 
-            // Shop-mode: show confirmation popup instead of drag/drop purchase
-            if (_isShopItem)
-            {
-                //Debug.Log($"Attempting to purchase shop item: {_card?.GetCardName} for {_shopCost} currency");
-                int price = _shopCost;
-                string cardName = _card?.GetCardName ?? "Card";
+            _isAboveHandArea = false;
 
-                Action confirmAction = () =>
-                {
-                    //Debug.Log($"Confirmed purchase of {cardName} for {price} currency");
-                    if (CurrencyManager.instance != null && CurrencyManager.instance.TrySpend(price))
-                    {
-                        PlayerCollection.instance?.Add(_card.GetCardAbility);
-                        CardManager.instance?.AddDefinitionToRuntimeDeck(_card.GetCardAbility);
+            _startPosition = transform.position;
+            _startIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
+            if (_startIndex == -1) return;
 
-                        GameObject toRemove = _card?.CardTransform != null ? _card.CardTransform.gameObject : gameObject;
-                        if (CardShopSpawner.Instance != null)
-                            CardShopSpawner.Instance.DeleteCard(toRemove);
-                        else
-                            Destroy(toRemove);
-                    }
-                    else
-                        OutOfApPopup.Instance?.Show();
-                };
-
-                Action cancelAction = () =>
-                {
-                    // no-op; popup will just close
-                };
-
-                if (ShopConfirmPopup.Instance != null)
-                    ShopConfirmPopup.Instance.Show(price, $"Buy \"{cardName}\" for {price}?", confirmAction, cancelAction);
-                else
-                    confirmAction();// fallback: attempt immediate purchase
-
-                return;
-            }
-
-            // Add check for active cards
-            if (PauseMenu.isPaused || selected || CardManager.instance == null || isAnyCardActive) return;
-
-            startPosition = transform.position;
-            startIndex = CardManager.instance._cardsInHand.IndexOf(_card);
-            if (startIndex == -1) return;
-
-            isDragging = true;
-            CurrentDraggedTransform = transform;
-            dragOffset = transform.position - GetMouseWorldPosition();
+            _dragOffset = transform.position - MouseFunctionManager.instance.GetMouseWorldPosition();
 
             // Stop any active animations
             transform.DOKill();
 
             // Visual feedback for picking up
-            transform.DOScale(originalScale * dragScaleMultiplier, scaleDuration);
-            transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(-rotationAmount, rotationAmount)), scaleDuration);
+            transform.DOScale(_originalScale * _dragScaleMultiplier, _tweenDuration);
+            transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(-_rotationAmount, _rotationAmount)), _tweenDuration);
 
-            BringToFront();
+            ToggleHighlightAndScale(true);
         }
-
-        private bool isAboveHandArea = false; // Add this field
-
-        private void OnMouseDrag()
-        {
-            if (!isDragging || PauseMenu.isPaused || isAnyCardActive ||
-                _isShopItem || CardManager.instance == null) 
-                return;
-
-            transform.position = GetMouseWorldPosition() + dragOffset;
-
-            // Track when we cross the threshold
-            bool wasAboveHand = isAboveHandArea;
-            isAboveHandArea = transform.position.y > handAreaHeight;
-
-            // Only trigger changes when crossing the threshold
-            if (wasAboveHand != isAboveHandArea)
-            {
-                if (isAboveHandArea)
-                {
-                    _spriteRenderer.DOColor(validDropColor, 0.2f).SetUpdate(true);
-                    // Temporarily remove from hand management
-                    CardManager.instance._cardsInHand.Remove(_card);
-                    CardSplineManager.instance.ArrangeCardGOs();
-                }
-                else
-                {
-                    _spriteRenderer.DOColor(originalColor, 0.2f).SetUpdate(true);
-                    // Add back to hand management
-                    CardManager.instance._cardsInHand.Insert(startIndex, _card);
-                    CardSplineManager.instance.ArrangeCardGOs();
-                }
-            }
-
-            // Only update order when in hand area
-            if (!isAboveHandArea)
-                UpdateCardOrder();
-        }
-
         private void OnMouseUp()
         {
-            if (!isDragging) return;
-            isDragging = false;
-            CurrentDraggedTransform = null;
+            if (!_cfs.IsDragging) return;
 
-            if (CardManager.instance == null)
+            if (DeckAndHandManager.instance == null)
             {
-                ResetPosition();
+                ReturnCardToHand();
                 return;
             }
 
             // If card is dropped above hand area, try to activate it
-            if (isAboveHandArea)
+            if (_isAboveHandArea)
             {
                 StartCoroutine(MoveCardToActivePos());
-                TryActivateCard();
-            }
-            else
-            {
-                // Kill any active tweens
-                transform.DOKill();
-                _spriteRenderer.DOKill();
 
-                // Reset visual feedback
-                transform.DOScale(originalScale, scaleDuration);
-                transform.DORotate(Vector3.zero, scaleDuration);
-                _spriteRenderer.DOColor(originalColor, scaleDuration);
-                FinalizeCardPosition();
+                if (_cfs.TryActivateCard()) return;
             }
 
-            isAboveHandArea = false;
+            ReturnCardToHand();
+        }
+        private void OnMouseDrag()
+        {
+            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.instance == null)
+                return;
+
+            // Temporarily remove from hand management
+            DeckAndHandManager.instance.RemoveCard(_cfs.Card);
+            DeckAndHandManager.instance.SelectCard(_cfs.Card);
+
+            transform.position = MouseFunctionManager.instance.GetMouseWorldPosition() + _dragOffset;
+
+            // Track when card crosses the threshold
+            bool wasAboveHand = _isAboveHandArea;
+            _isAboveHandArea = transform.position.y > _handAreaHeight;
+            Color spriteColor = _isAboveHandArea ? _validDropColor : _originalColor;
+
+            // Only trigger changes when crossing the threshold
+            if (wasAboveHand != _isAboveHandArea)
+                _spriteRenderer.DOColor(spriteColor, _tweenDuration).SetUpdate(true);
+
+            // Only update order when in hand area
+            if (!_isAboveHandArea)
+                UpdateCardPrefabOrder(true);
         }
 
-        //temp card lerp to "active position" to fix cards covering playing grid
+        //temp? card lerp to "active position" to fix cards covering playing grid
         private IEnumerator MoveCardToActivePos()
         {
-            Transform target = CardManager.instance.cardActivePos;
+            Transform target = DeckAndHandManager.instance.CardActivePos;
             Vector3 initCardPos = transform.localPosition;
 
-            // magic number of 0.2f hard coded in b/c this is a placeholder animation/effect
-            for (float timer = 0; timer < 0.2f; timer += Time.deltaTime)
+            //Lerp duration uses tween duration
+            for (float timer = 0f; timer < _tweenDuration; timer += Time.deltaTime)
             {
-                float lerpRatio = timer / 0.2f;
+                float lerpRatio = timer / _tweenDuration;
                 transform.localPosition = Vector3.Lerp(initCardPos, target.transform.localPosition, lerpRatio);
                 yield return null;
             }
@@ -299,171 +147,89 @@ namespace CardSystem
             transform.localPosition = target.localPosition;
         }
 
-        private void UpdateCardOrder()
+        private void ToggleHighlightAndScale(bool isHoveredOrSelected)
         {
-            // Only calculate new index if we're in hand area
-            if (transform.position.y <= handAreaHeight)
-            {
-                int newIndex = CalculateCardIndex();
-                if (newIndex != -1 && newIndex != startIndex)
-                {
-                    CardManager.instance.PreviewReorder(startIndex, newIndex);
-                    startIndex = newIndex;
-                }
-            }
+            _cardHighlight?.SetActive(isHoveredOrSelected);
+
+            float scaleMultiplier = isHoveredOrSelected ? _hoverScaleMultiplier : 1;
+            transform.DOScale(_originalScale * scaleMultiplier, _tweenDuration);
+
+            UpdateSortingOrders(isHoveredOrSelected ? DeckAndHandManager.instance.CardsInHand.Count : 0);
+
+            // Only update position if explicitly not dragging
+            if (!_cfs.IsDragging)
+                CardSplineManager.instance.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
 
-        private void FinalizeCardPosition()
-        {
-            int finalIndex = CalculateCardIndex();
-            if (finalIndex != -1 && finalIndex != startIndex)
-                CardManager.instance.ReorderCard(_card, finalIndex);
-            else
-                CardSplineManager.instance.UpdateCardPosition(_card, false);
-            RestoreOrder();
-        }
-
-        private int CalculateCardIndex()
+        //Calculate new index of card, then start card hand reorder and sorting orders of sprites/texts
+        private void UpdateCardPrefabOrder(bool isHovered, bool isFinal = false)
         {
             // If we're above hand area, don't calculate new index
-            if (transform.position.y > handAreaHeight)
-                return startIndex; // Return original index to prevent reordering
+            int newIndex = isFinal ? DeckAndHandManager.instance.CalculateCardIndex(_cfs.Card) : _startIndex;
 
-            var cards = CardManager.instance?._cardsInHand;
-            if (cards == null || cards.Count <= 1) return -1;
+            //Reorder card in hand & deck manager (currently not working OnDrag due
+            //to the card being removed from hand on drag)  
+            DeckAndHandManager.instance.ReorderCard(_cfs.Card, newIndex);
 
-            float myX = transform.position.x;
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (cards[i] == _card || cards[i]?.CardTransform == null) continue;
-                if (cards[i].CardTransform.position.x > myX) return i;
-            }
-            return cards.Count - 1;
+            _startIndex = newIndex == -1 ? DeckAndHandManager.instance.CardsInHand.Count - 1 : newIndex;
+
+            if (!isFinal) return;
+            
+            CardSplineManager.instance.UpdateCardHoverPosition(_cfs.Card, isHovered);
+            UpdateSortingOrders(isHovered ? DeckAndHandManager.instance.CardsInHand.Count : 0);
         }
 
-        private Vector3 GetMouseWorldPosition()
-        {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = -_mainCamera.transform.position.z;
-            return _mainCamera.ScreenToWorldPoint(mousePos);
-        }
-
-        private void BringToFront()
-        {
-            UpdateSortingOrders(_baseSortingOrder + _hoverSortingBoost);
-            // Only update position if explicitly not dragging
-            if (CardManager.instance != null && !isDragging)
-                CardSplineManager.instance.UpdateCardPosition(_card, true);
-        }
-
-        private void RestoreOrder()
-        {
-            UpdateSortingOrders(_baseSortingOrder);
-
-            // Only update position if explicitly not dragging
-            if (CardManager.instance != null && !isDragging)
-                CardSplineManager.instance.UpdateCardPosition(_card, false);
-        }
-
-        // Update the UpdateSortingOrders method to handle text movement more reliably
-        private void UpdateSortingOrders(int baseOrder)
+        // set sorting order of sprites/texts based on card index
+        public void UpdateSortingOrders(int sortingBoost = 0)
         {
             if (_spriteRenderer == null) return;
+            if (_cfs.IsDragging) sortingBoost = DeckAndHandManager.instance.CardsInHand.Count;
 
-            _spriteRenderer.sortingOrder = baseOrder;
+            int baseSortingValue = CardSplineManager.instance.GetCardSortingOrderBaseValue;
+            bool isShopActive = CardShopManager.Instance != null;
+            int cardIndex = isShopActive ? 0 : DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
+             
+            // Set sorting by taking into account the BaseSortingValue, sorting boost param, and card index (index set to 0 during shop scene)
+            _spriteRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
+            
             if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = baseOrder + 1;
+                _highlightRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
 
             // Update all TextMeshPro components sorting order
-            var texts = GetComponentsInChildren<TextMeshPro>();
-            foreach (var text in texts)
-            {
-                if (text == null) continue;
-                text.sortingOrder = baseOrder + 2;
-            }
+            foreach (var text in GetComponentsInChildren<TextMeshPro>())
+                if (text != null)
+                    text.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
         }
 
-        public void ResetPosition()
-        {
-            if (CardManager.instance != null)
-                CardSplineManager.instance.UpdateCardPosition(_card, false);
-            else
-                transform.position = startPosition;
-
-            RestoreOrder();
-        }
-
-        private void TryActivateCard()
-        {
-            if (_card == null || _card.GetCardAbility?.RootNode == null || CardManager.instance == null || isAnyCardActive)
-            {
-                ReturnCardToHand();
-                return;
-            }
-
-            var currentUnit = TurnManager.GetCurrentUnit;
-            int cost = _card.GetCardAbility.RootNode.GetApCost;
-
-            if (currentUnit == null || !currentUnit.CanSpend(cost))
-            {
-                OutOfApPopup.Instance?.Show();
-                ReturnCardToHand();
-                return;
-            }
-
-            // Only remove from hand if we can actually use the card
-            selected = true;
-            //CardManager.instance._cardsInHand.Remove(_card);
-            CardManager.instance.selectedCard = _card;
-            CardSplineManager.instance.ArrangeCardGOs();
-
-            // First invoke targeting started to set up restrictions
-            AbilityEvents.TargetingStarted();
-            _card.GetCardAbility.UseAility(currentUnit);
-        }
-
+        // Return card to hand, clear selection, stop coroutines and tweens, then update card orders
         public void ReturnCardToHand()
         {
+            if (DeckAndHandManager.instance.GetSelectedCard != _cfs.Card) return;
+
             StopAllCoroutines();
             ClearSelection();
+
+            _isAboveHandArea = false;
 
             // Kill any active tweens
             transform.DOKill();
             _spriteRenderer.DOKill();
 
-            // Destroy the card object
-            if (CardManager.instance != null)
-            {
-                CardManager.instance._cardsInHand.Add(_card);
-                CardManager.instance._currentHandSize = CardManager.instance._cardsInHand.Count;
-                CardSplineManager.instance.ArrangeCardGOs();
-            }
-
-            // Ensure global drag state is cleared
-            if (CurrentDraggedTransform == transform)
-                CurrentDraggedTransform = null;
+            ToggleHighlightAndScale(false);
+            DeckAndHandManager.instance?.ClearSelection();
+            UpdateCardPrefabOrder(false, true);
         }
 
-        private void ClearSelection(Team unitTeam = Team.Friendly)
+        private void ClearSelection()
         {
-            if (unitTeam == Team.Enemy) return;
+            if (TurnManager.instance.currTurn == TurnManager.Turn.Enemy) return;
 
-            selected = false;
-            isAnyCardActive = false; // Reset when ability is finished
+            _cfs.ClearSelection(_tweenDuration);
             _spriteRenderer.color = Color.white;
-            if (_cardHighlight != null) _cardHighlight.SetActive(false);
-            RestoreOrder();
-
-            // Ensure global drag state is cleared
-            if (CurrentDraggedTransform == transform)
-                CurrentDraggedTransform = null;
+            _cardHighlight?.SetActive(false);
         }
 
-        /// <summary>
-        /// Initializes the CardSelect component with the given Card data.
-        /// Called when a new card prefab is created.
-        /// </summary>
-        /// <param name="card">The Card instance to associate with this CardSelect component</param>
+        //Set initial text fields and initialize card object
         public void OnPrefabCreation(Card card)
         {
             if (card == null)
@@ -472,10 +238,7 @@ namespace CardSystem
                 return;
             }
 
-            _card = card;
-            _card.CardTransform = transform;
-
-            transform.name = card.GetCardName;
+            _cfs.OnPrefabCreation(card);
 
             // Get all TextMeshPro components (non-UI version)
             TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
@@ -485,7 +248,7 @@ namespace CardSystem
                 // Update text content
                 cardTextFields[0].text = card.GetCardName;
                 cardTextFields[1].text = card.GetDescription;
-                cardTextFields[2].text = card.GetCardAbility.RootNode.GetApCost.ToString();
+                cardTextFields[2].text = card.GetCardAbility.GetApCost.ToString();
 
                 // Make sure text components are properly attached and sorted
                 foreach (var textField in cardTextFields)
@@ -499,29 +262,26 @@ namespace CardSystem
                 }
             }
             else
-            {
                 Debug.LogError("Card prefab is missing required TextMeshPro components");
-            }
 
-            card.CardTransform = transform;
             SetupVisuals();
         }
 
-        /// <summary>
-        /// Enable shop-mode for this CardSelect (merged ShopCard functionality).
-        /// Call this from the spawner right after OnPrefabCreation when creating shop items.
-        /// </summary>
-        public void EnableShopMode(int cost, Collider2D buyAreaCollider = null, string buyAreaTag = "BuyArea")
+        // Initial prefeab GameObjects & sprite renderer grabbing, index calcs, and initial sorting order update
+        private void SetupVisuals()
         {
-            _isShopItem = true;
-            _shopCost = Mathf.Max(0, cost);
-            _shopBuyAreaCollider = buyAreaCollider;
-            _shopBuyAreaTag = buyAreaTag;
+            _cardHighlight = transform.Find("CardHighlight")?.gameObject;
+            _cardHighlight?.SetActive(false);
 
-            // If the prefab has a cost display (third TextMeshPro), update it.
-            TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
-            if (cardTextFields.Length >= 3)
-                cardTextFields[2].text = _shopCost.ToString();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _highlightRenderer = _cardHighlight?.GetComponent<SpriteRenderer>();
+
+            if (_highlightRenderer != null)
+                _highlightRenderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
+
+            _startIndex = DeckAndHandManager.instance.CardsInHand.IndexOf(_cfs.Card);
+
+            UpdateSortingOrders();
         }
     }
 }

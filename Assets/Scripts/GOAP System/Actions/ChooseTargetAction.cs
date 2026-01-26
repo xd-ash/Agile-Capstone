@@ -1,7 +1,6 @@
 using AStarPathfinding;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
 
@@ -16,7 +15,7 @@ public class ChooseTargetAction : GoapAction
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
-            if (u == null || u.team == agent.unit.team) continue;
+            if (u == null || u.GetTeam == agent.unit.GetTeam) continue;
             //Debug.Log($"Unit: {u.name} - Pos {u.transform.localPosition}");
 
             var tarPos = ConvertToGridFromIsometric(u.transform.localPosition); 
@@ -41,7 +40,7 @@ public class ChooseTargetAction : GoapAction
         beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoTarget.ToString());
 
-        CheckIfInRange(agent, agent.damageAbility.RootNode.GetRange, ref beliefs);
+        CheckIfInRange(agent, agent.damageAbility.GetRange, ref beliefs);
         CheckIfInLOS(agent, ref beliefs);
     }
 }
