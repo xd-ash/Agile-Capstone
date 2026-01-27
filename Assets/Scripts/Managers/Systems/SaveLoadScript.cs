@@ -13,8 +13,7 @@ public static class SaveLoadScript
     private static void SaveData()
     {
         string json = JsonUtility.ToJson(new GameData());
-        StreamWriter sw = new StreamWriter(Application.persistentDataPath +
-            "DC_GameSave.json");
+        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "DC_GameSave.json");
         sw.Write(json);
         sw.Close();
         Debug.Log("Game Saved");
@@ -23,8 +22,7 @@ public static class SaveLoadScript
     private static void LoadData()
     {
         string json = string.Empty;
-        StreamReader sr = new StreamReader(Application.persistentDataPath +
-            "DC_GameSave.json");
+        StreamReader sr = new StreamReader(Application.persistentDataPath + "DC_GameSave.json");
         json = sr.ReadToEnd();
 
         GameData _gameData = JsonUtility.FromJson<GameData>(json);

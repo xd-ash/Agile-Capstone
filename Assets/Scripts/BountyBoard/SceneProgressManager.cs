@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class SceneProgressManager : MonoBehaviour
 {
-    public static SceneProgressManager Instance { get; private set; }
-
     private string _mapSceneName = "NodeMap";
     private int _nodeCount = 4;
 
@@ -15,6 +13,7 @@ public class SceneProgressManager : MonoBehaviour
 
     public bool GetNodeMapCompleted => _nodeMapCompleted;
 
+    public static SceneProgressManager Instance { get; private set; }
     private void Awake()
     {
         //Basic singleton

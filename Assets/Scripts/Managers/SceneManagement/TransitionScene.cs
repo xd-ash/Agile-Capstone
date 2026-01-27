@@ -36,8 +36,6 @@ public class TransitionScene : MonoBehaviour
 
     public void StartTransition(string targetScene = "MainMenu")
     {
-        ManagersManager.instance.SetManagersActiveOrInactive(targetScene);
-
         UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
         _currScene = targetScene;
 
