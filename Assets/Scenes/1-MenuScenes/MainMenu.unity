@@ -3201,18 +3201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c59f85709318cc48b47696ac5407acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyManager
-  _sceneBools: 00000000000000000000
-  _sceneNames:
-  - BountyBoard1
-  - BountyBoard2
-  - MainMenu
-  - NodeMap
-  - Shop
-  - BossLevel
-  - LevelOne
-  - LevelThree
-  - LevelTwo
-  - TestLevel-IgnoreMe
   _startingBalance: 100
   _maxBalance: 0
 --- !u!1 &1364124795

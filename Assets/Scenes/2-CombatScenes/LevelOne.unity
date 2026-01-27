@@ -5500,9 +5500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865530329}
   - component: {fileID: 1865530327}
-  - component: {fileID: 1865530328}
   - component: {fileID: 1865530331}
-  - component: {fileID: 1865530332}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5522,27 +5520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53b6e4dbdc1c45a2ad9098abab7af36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turnText: {fileID: 1020119968}
-  _apText: {fileID: 1371437713}
-  _enemyDmgSfx: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
---- !u!114 &1865530328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865530326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d912f8fffa9173448238f63858b9d8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerHealthSlider: {fileID: 2044137681}
-  _playerHealthText: {fileID: 1109730920}
-  _playerShieldText: {fileID: 1679287172}
-  _playerShieldSlider: {fileID: 1740800766}
-  _player: {fileID: 114876976}
-  _enemy: {fileID: 0}
 --- !u!4 &1865530329
 Transform:
   m_ObjectHideFlags: 0
@@ -5570,24 +5547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a04cc66b6e5e3f418383d6c4db60633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winText: {fileID: 1319645121}
-  loseText: {fileID: 241520123}
   textDuration: 3
   _enemyUnits: []
---- !u!114 &1865530332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865530326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b43b740765b562f4b9c06df3c990ee0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  persistAcrossScenes: 0
-  useAsyncByDefault: 0
 --- !u!1 &1883185255
 GameObject:
   m_ObjectHideFlags: 0
@@ -5759,7 +5720,6 @@ Transform:
   - {fileID: 1278766396}
   - {fileID: 752325241}
   - {fileID: 1395463653}
-  - {fileID: 1743241325334387046}
   - {fileID: 2372962220993994082}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5865,8 +5825,9 @@ GameObject:
   - component: {fileID: 1937536019}
   - component: {fileID: 1937536018}
   - component: {fileID: 1937536017}
+  - component: {fileID: 1937536021}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5965,6 +5926,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1937536021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937536016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d912f8fffa9173448238f63858b9d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerHealthSlider: {fileID: 2044137681}
+  _playerHealthText: {fileID: 1109730920}
+  _playerShieldText: {fileID: 1679287172}
+  _playerShieldSlider: {fileID: 1740800766}
+  _player: {fileID: 114876976}
+  _enemy: {fileID: 0}
+  _turnText: {fileID: 1020119968}
+  _apText: {fileID: 1371437713}
+  winText: {fileID: 1319645121}
+  loseText: {fileID: 241520123}
 --- !u!1 &2029014748
 GameObject:
   m_ObjectHideFlags: 0
@@ -6380,11 +6363,11 @@ RectTransform:
   m_Children:
   - {fileID: 8459081889678519858}
   - {fileID: 4753023036796121384}
-  m_Father: {fileID: 1895713566}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1.1149149, y: 0.67652327}
+  m_AnchoredPosition: {x: 1.1149292, y: 0.6765442}
   m_SizeDelta: {x: 1213.5, y: 683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1827182885485472750
@@ -6744,7 +6727,7 @@ MonoBehaviour:
   m_horizontalMapping: 0
   m_verticalMapping: 0
   m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
+  m_geometrySortingOrder: 1
   m_IsTextObjectScaleStatic: 0
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
@@ -6809,5 +6792,6 @@ SceneRoots:
   - {fileID: 1198740543}
   - {fileID: 1039275727}
   - {fileID: 1102955851}
+  - {fileID: 1743241325334387046}
   - {fileID: 1824462643}
   - {fileID: 1937536020}

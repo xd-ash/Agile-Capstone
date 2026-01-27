@@ -169,7 +169,8 @@ public class GoapAgent : MonoBehaviour
     {
         _currentAction.running = false;
         _currentAction.PostPerform(ref _beliefs);
-        TurnManager.instance.UpdateApText();
+        //TurnManager.instance.UpdateApText();
+        GameUIManager.instance.UpdateApText();
         if (!_beliefs.states.ContainsKey(GoapStates.HasAttacked.ToString()))
             CheckForAP(unit, ref _beliefs);
     }

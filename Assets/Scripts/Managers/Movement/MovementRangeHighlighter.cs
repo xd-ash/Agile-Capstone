@@ -27,7 +27,7 @@ public class MovementRangeHighlighter : MonoBehaviour
     {
         TrySetCurrentUnit(TurnManager.GetCurrentUnit);
         if (TurnManager.instance != null)
-            _lastTurn = TurnManager.instance.currTurn;
+            _lastTurn = TurnManager.instance.CurrTurn;
 
         _highlightObjectParent = MapCreator.instance.transform.Find("HighlightObjParent");
         _highlightTilePrefab = Resources.Load<GameObject>("HighlightTile");
@@ -45,9 +45,9 @@ public class MovementRangeHighlighter : MonoBehaviour
     {
         /* revisit this code after turn manager code is revisited */
 
-        if (TurnManager.instance.currTurn != _lastTurn)
+        if (TurnManager.instance.CurrTurn != _lastTurn)
         {
-            _lastTurn = TurnManager.instance.currTurn;
+            _lastTurn = TurnManager.instance.CurrTurn;
             OnTurnChanged(_lastTurn);
         }
 
@@ -108,7 +108,7 @@ public class MovementRangeHighlighter : MonoBehaviour
     {
         if (_currentUnit == null ||
             TurnManager.instance == null ||
-            TurnManager.instance.currTurn != TurnManager.Turn.Player ||
+            TurnManager.instance.CurrTurn != TurnManager.Turn.Player ||
             AbilityEvents.IsTargeting ||
             PauseMenu.isPaused)
         {

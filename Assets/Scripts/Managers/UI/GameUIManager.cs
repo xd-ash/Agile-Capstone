@@ -2,19 +2,36 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIHealthManager : MonoBehaviour
+public class GameUIManager : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Health")]
     [SerializeField] private Slider _playerHealthSlider;
-    //[SerializeField] private Slider enemyHealthSlider;
     [SerializeField] private TextMeshProUGUI _playerHealthText;
     [SerializeField] private TextMeshProUGUI _playerShieldText;
     [SerializeField] private Slider _playerShieldSlider; // optional visual bar overlay (set max to player's maxHealth by default)
+
+    [Header("Unit")]
     [SerializeField] private Unit _player;
     [SerializeField] private Unit _enemy;
 
+    [Header("Turn")]
+    [SerializeField] private TextMeshProUGUI _turnText;
+    [SerializeField] private TextMeshProUGUI _apText;
+
+    [Header("Win/Loss")]
+    [SerializeField] private GameObject winText;
+    [SerializeField] private GameObject loseText;
+
+    public static GameUIManager instance;
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
         if (_playerHealthSlider != null && _player != null)
         {
             _playerHealthSlider.maxValue = _player.GetMaxHealth;
@@ -22,15 +39,6 @@ public class UIHealthManager : MonoBehaviour
 
             _playerHealthText.text = $"Player Health: {_player.GetHealth}/{_player.GetMaxHealth}";
         }
-
-        /*
-        if (enemyHealthSlider != null && enemy != null)
-        {
-            enemyHealthSlider.maxValue = enemy.maxHealth;
-            enemyHealthSlider.value    = Mathf.Clamp(enemy.health, 0, enemy.maxHealth);
-            enemyHealthSlider.gameObject.SetActive(false);
-        }
-        */
 
         // Initialize shield UI
         if (_playerShieldSlider != null && _player != null)
@@ -45,19 +53,38 @@ public class UIHealthManager : MonoBehaviour
             _playerShieldText.gameObject.SetActive(_player != null && _player.GetShield() > 0);
     }
 
+    public void UpdateApText(Team unitTeam = Team.Friendly)
+    {
+        Unit curUnit = TurnManager.GetCurrentUnit;
+        if (_apText == null) return;
+        if (TurnManager.IsPlayerTurn && curUnit != null)
+            _apText.text = $"Player AP:\n{curUnit.GetAP}/{curUnit.GetMaxAP}";
+        else if (TurnManager.IsEnemyTurn && curUnit != null)
+            _apText.text = $"Enemy AP:\n{curUnit.GetAP}/{curUnit.GetMaxAP}";
+    }
+    public void UpdateTurnText(TurnManager.Turn curTurn)
+    {
+        if (_turnText != null)
+            _turnText.text = $"{curTurn}'s Turn";
+    }
+    public void ToggleWinLossText(bool didWin)
+    {
+        GameObject text = didWin ? winText : loseText;
+        text?.SetActive(true);
+    }
     private void OnEnable()
     {
         DamageEvents.OnPlayerDamaged += UpdatePlayerHealth;
-        //DamageEvents.OnEnemyDamaged  += UpdateEnemyHealth;
 
         ShieldEvents.OnPlayerShieldChanged += UpdatePlayerShield;
         ShieldEvents.OnEnemyShieldChanged  += UpdateEnemyShield;
+
+        AbilityEvents.OnAbilityUsed += UpdateApText;
     }
 
     private void OnDisable()
     {
         DamageEvents.OnPlayerDamaged -= UpdatePlayerHealth;
-        //DamageEvents.OnEnemyDamaged  -= UpdateEnemyHealth;
 
         ShieldEvents.OnPlayerShieldChanged -= UpdatePlayerShield;
         ShieldEvents.OnEnemyShieldChanged  -= UpdateEnemyShield;
@@ -72,17 +99,6 @@ public class UIHealthManager : MonoBehaviour
         _playerHealthText.text = $"Player Health: {current}/{max}";
     }
 
-    /*
-    private void UpdateEnemyHealth(int current, int max)
-    {
-        if (enemyHealthSlider == null) return;
-        if (enemyHealthSlider.maxValue != max) enemyHealthSlider.maxValue = max;
-        enemyHealthSlider.value = Mathf.Clamp(current, 0, max);
-
-        if (enemyHealthSlider.value != enemyHealthSlider.maxValue && !enemyHealthSlider.gameObject.activeInHierarchy)
-            enemyHealthSlider.gameObject.SetActive(true); // Adam added 10-5, enemy bar hidden by default, show once dmg taken
-    }
-    */
     private void UpdatePlayerShield(int current)
     {
         if (_playerShieldSlider != null)

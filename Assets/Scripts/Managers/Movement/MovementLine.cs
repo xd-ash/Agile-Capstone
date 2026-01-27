@@ -32,7 +32,7 @@ public class MovementLine : MonoBehaviour
 
         var tilePos = MouseFunctionManager.instance.GetCurrTilePosition;
 
-        if (PauseMenu.isPaused || TurnManager.instance == null || TurnManager.instance.currTurn != TurnManager.Turn.Player ||
+        if (PauseMenu.isPaused || TurnManager.instance == null || TurnManager.instance.CurrTurn != TurnManager.Turn.Player ||
             MapCreator.instance.GetByteMap[tilePos.x, tilePos.y] != 0 || TurnManager.GetCurrentUnit == null)
             return false;
 

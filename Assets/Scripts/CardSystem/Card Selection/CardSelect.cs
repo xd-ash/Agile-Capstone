@@ -222,7 +222,7 @@ namespace CardSystem
 
         private void ClearSelection()
         {
-            if (TurnManager.instance.currTurn == TurnManager.Turn.Enemy) return;
+            if (TurnManager.instance.CurrTurn == TurnManager.Turn.Enemy) return;
 
             _cfs.ClearSelection(_tweenDuration);
             _spriteRenderer.color = Color.white;

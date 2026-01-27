@@ -33,6 +33,11 @@ public class ManagersManager : MonoBehaviour
         foreach (ManagerBase manager in _managers)
             manager.ManagerSceneBoolOnGUI();
     }
+    public void SetManagersActiveOrInactive(string sceneName)
+    {
+        foreach (ManagerBase manager in _managers)
+            manager.SetManagerActiveOrInactive(sceneName);
+    }
 
     /*[SerializeField] private Dictionary<GameObject, Dictionary<string, bool>> _managersDict = new();
     public Dictionary<GameObject, Dictionary<string, bool>> GetManagerSceneBoolDict => _managersDict;
@@ -215,7 +220,7 @@ public class ManagersManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        serializedObject.UpdateIfRequiredOrScript();
+        //serializedObject.UpdateIfRequiredOrScript();
 
         ManagersManager mm = (ManagersManager)target;
         mm.GrabManagers();
@@ -229,7 +234,8 @@ public class ManagersManagerEditor : Editor
             for (int i = 0; i < manager.SceneNames.Count; i++)
             {
                 string sceneName = manager.SceneNames[i];
-                manager.SetSceneBool(sceneName, EditorGUILayout.Toggle(sceneName, manager.SceneBools[i]));
+                if (manager.SetSceneBool(sceneName, EditorGUILayout.Toggle(sceneName, manager.SceneBools[i])))
+                    EditorUtility.SetDirty(target);
             }
             EditorGUI.indentLevel--;
         }
@@ -259,6 +265,6 @@ public class ManagersManagerEditor : Editor
         }
         */
 
-        serializedObject.ApplyModifiedProperties();
+        //serializedObject.ApplyModifiedProperties();
     }
 }

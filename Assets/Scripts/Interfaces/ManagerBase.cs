@@ -5,8 +5,10 @@ using UnityEngine;
 public abstract class ManagerBase : MonoBehaviour
 {
     // Parallel lists representing each scene in the project and if the manager should be active within the scene
-    public List<bool> SceneBools { get; protected set; }
-    public List<string> SceneNames { get; protected set; }
+    [SerializeField] protected List<bool> _sceneBools;
+    [SerializeField] protected List<string> _sceneNames;
+    public List<bool> SceneBools => _sceneBools;
+    public List<string> SceneNames => _sceneNames;
 
     public virtual void ManagerSceneBoolOnGUI()
     {
@@ -29,28 +31,40 @@ public abstract class ManagerBase : MonoBehaviour
     }
     protected virtual void UpdateSceneLists(List<string> newSceneNames)
     {
-        if (SceneBools == null) SceneBools = new();
-        if (SceneNames == null) SceneNames = new();
+        if (_sceneBools == null) { Debug.Log("test"); _sceneBools = new(); }
+        if (_sceneNames == null) { Debug.Log("test"); _sceneNames = new(); }
 
         foreach (var newSceneName in newSceneNames)
             if (!SceneNames.Contains(newSceneName))
             {
-                SceneBools.Add(false);
-                SceneNames.Add(newSceneName);
+                _sceneBools.Add(false);
+                _sceneNames.Add(newSceneName);
             }
         foreach (var sceneName in SceneNames)
             if (!newSceneNames.Contains(sceneName))
             {
-                SceneBools.RemoveAt(SceneNames.IndexOf(sceneName));
-                SceneNames.Remove(sceneName);
+                _sceneBools.RemoveAt(SceneNames.IndexOf(sceneName));
+                _sceneNames.Remove(sceneName);
             }
     }
     public virtual bool SetSceneBool(string sceneName, bool sceneBool)
     {
-        if (!SceneNames.Contains(sceneName)) return false;
+        if (!_sceneNames.Contains(sceneName)) return false;
+
+        int index = _sceneNames.IndexOf(sceneName);
+        if (_sceneBools[index] == sceneBool) return false;
+        _sceneBools[index] = sceneBool;
+        return true;
+    }
+    public virtual void SetManagerActiveOrInactive(string sceneName)
+    {
+        if (!_sceneNames.Contains(sceneName))
+        {
+            Debug.LogError($"Setting manager GO active/insactive failed. Scene name not in list");
+            return;
+        }
 
         int index = SceneNames.IndexOf(sceneName);
-        SceneBools[index] = sceneBool;
-        return true;
+        this.gameObject.SetActive(_sceneBools[index]);
     }
 }

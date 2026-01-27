@@ -4,7 +4,7 @@ using System.Collections.Generic;
 //Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
 {
-    [SerializeField] private GameObject winText, loseText;
+    //[SerializeField] private GameObject winText, loseText;
     [SerializeField] private float textDuration = 3f;
     private bool _didWin;
 
@@ -43,10 +43,11 @@ public class WinLossManager : MonoBehaviour
 
     public void OnGameDone(bool didWin)
     {
-        _didWin = didWin;
+        /*_didWin = didWin;
         GameObject text = _didWin ? winText : loseText;
-        text?.SetActive(true);
-
+        text?.SetActive(true);*/
+        _didWin = didWin;
+        GameUIManager.instance.ToggleWinLossText(_didWin);
         Invoke(nameof(TriggerSceneTrans), textDuration);
     }
 
