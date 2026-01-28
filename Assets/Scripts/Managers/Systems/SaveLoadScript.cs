@@ -10,12 +10,16 @@ public static class SaveLoadScript
     public static Action SaveGame => () => SaveData();
     public static Action LoadGame => () => LoadData();
 
+    public static Action DataSaved;
+    public static Action DataLoaded;
+
     private static void SaveData()
     {
         string json = JsonUtility.ToJson(new GameData());
         StreamWriter sw = new StreamWriter(Application.persistentDataPath + "DC_GameSave.json");
         sw.Write(json);
         sw.Close();
+        DataSaved?.Invoke();
         Debug.Log("Game Saved");
     }
 
@@ -26,7 +30,8 @@ public static class SaveLoadScript
         json = sr.ReadToEnd();
 
         GameData _gameData = JsonUtility.FromJson<GameData>(json);
-        _gameData.LoadGameData();
+        //_gameData.LoadGameData();
+        PlayerDataManager.Instance?.OnGameLoad(_gameData);
         sr.Close();
         Debug.Log("Game Loaded");
     }
@@ -35,42 +40,55 @@ public static class SaveLoadScript
 [System.Serializable]
 public class GameData
 {
-    private MapNodeDataToken mapNodeData;
-    private CurrencyManagerDataToken currencyData;
-    private DeckDataToken deckData;
+    private MapNodeDataToken _mapNodeData;
+    private CurrencyManagerDataToken _currencyData;
+    private CardDataToken _cardData;
+
+    public MapNodeDataToken GetMapNodeData => _mapNodeData;
+    public CurrencyManagerDataToken GetCurrencyData => _currencyData;
+    public CardDataToken GetCardData => _cardData;
 
     public GameData()
     {
-        mapNodeData = new();
-        currencyData = new();
-        deckData = new();
+        var pdm = PlayerDataManager.Instance;
+
+        _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex);
+        _currencyData = new(pdm.GetBalance);
+        _cardData = new(pdm.GetOwnedCards, pdm.GetDeck);
     }
 
-    public void LoadGameData()
+    /*public void LoadGameData()
     {
-        mapNodeData.LoadData();
-        currencyData.LoadData();
-        deckData.LoadData();
-    }
+        _mapNodeData.LoadData();
+        _currencyData.LoadData();
+        _cardData.LoadData();
+    }*/
 
     // node map vars
     [System.Serializable]
     public class MapNodeDataToken
     {
-        private bool[] _nodeCompleted;
-        private bool[] _nodeUnlocked;
+        private bool[] _nodesCompleted;
+        private bool[] _nodesUnlocked;
         private int _currentNodeIndex;
 
-        public MapNodeDataToken()
+        public bool[] GetNodesCompleted => _nodesCompleted;
+        public bool[] GetNodesUnlocked => _nodesUnlocked;
+        public int GetCurrentNodeIndex => _currentNodeIndex;
+
+        public MapNodeDataToken(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex)
         {
-            SceneProgressManager.Instance.GrabNodeData( ref _nodeCompleted, 
-                ref _nodeUnlocked, ref _currentNodeIndex);
+            //SceneProgressManager.Instance.GrabNodeData( ref _nodeCompleted, 
+            //ref _nodeUnlocked, ref _currentNodeIndex);
+            _nodesCompleted = nodesCompleted;
+            _nodesUnlocked = nodesUnlocked;
+            _currentNodeIndex = currentNodeIndex;
         }
-        public void LoadData()
+        /*public void LoadData()
         {
-            SceneProgressManager.Instance.LoadNodeData(_nodeCompleted, 
-                _nodeUnlocked, _currentNodeIndex);
-        }
+            //SceneProgressManager.Instance.LoadNodeData(_nodeCompleted, 
+            //_nodeUnlocked, _currentNodeIndex);
+        }*/
     }
 
     // currency
@@ -78,66 +96,50 @@ public class GameData
     public class CurrencyManagerDataToken
     {
         private int _balance;
+        public int GetBalance => _balance;
 
-        public CurrencyManagerDataToken()
+        public CurrencyManagerDataToken(int balance)
         {
-            if (CurrencyManager.instance != null)
-                _balance = CurrencyManager.instance.Balance;
+            //if (CurrencyManager.instance != null)
+            //_balance = CurrencyManager.instance.Balance;
+            _balance = balance;
         }
-        public void LoadData()
+        /*public void LoadData()
         {
-            CurrencyManager.instance?.LoadGameData(_balance);
-        }
+            //CurrencyManager.instance?.LoadGameData(_balance);
+            PlayerDataManager.Instance?.UpdateCurrencyData(_balance);
+        }*/
     }
 
     // deck and card info
     [System.Serializable]
-    public class DeckDataToken
+    public class CardDataToken
     {
         private string[] _ownedCardNames;
         private string _deckName;
 
-        public DeckDataToken()
+        public string[] GetOwnedCardNames => _ownedCardNames;
+        public string GetDeckName => _deckName;
+
+        public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck deck)
         {
-            var ownedCards = PlayerCardCollection.instance.GetOwnedCards;
             _ownedCardNames = new string[ownedCards.Count];
             for (int i = 0; i < ownedCards.Count; i++)
                 _ownedCardNames[i] = ownedCards[i].name;
 
-            _deckName = DeckAndHandManager.instance.GetDeck.name;
+            _deckName = deck.name;
         }
-        public void LoadData()
+        /*public void LoadData()
         {
             List<CardAbilityDefinition> ownedCards = new();
             foreach (var name in _ownedCardNames)
                 ownedCards.Add(GetCardDefinitionFromName(name));
-            PlayerCardCollection.instance.LoadGameData(ownedCards);
+            //PlayerCardCollection.instance.LoadGameData(ownedCards);
+            //DeckAndHandManager.instance.LoadGameData(GetDeckFromName(_deckName));
 
-            DeckAndHandManager.instance.LoadGameData(GetDeckFromName(_deckName));
-        }
+            PlayerDataManager.Instance?.UpdateCardData(ownedCards, GetDeckFromName(_deckName));
+        }*/
 
         //Make these generic at some point & combine
-        private CardAbilityDefinition GetCardDefinitionFromName(string cardName)
-        {
-            string[] cardGUID = AssetDatabase.FindAssets(cardName, new[] { "Assets/ScriptableObjects/CardAbilities" });
-            if (cardGUID.Length != 1)
-            {
-                Debug.LogError($"{cardGUID.Length} Card GUID matches for cardName on data load. ({cardName})");
-                return null;
-            }
-            string cardPath = AssetDatabase.GUIDToAssetPath(cardGUID[0]);
-            return AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(cardPath);
-        }
-        private Deck GetDeckFromName(string deckName)
-        {
-            string[] deckGUID = AssetDatabase.FindAssets(deckName, new[] { "Assets/ScriptableObjects/CardAbilities" });
-            if (deckGUID.Length != 1)
-            {
-                Debug.LogError($"{deckGUID.Length} Card GUID matches for cardName on data load. ({deckName})");
-                return null;
-            }
-            string deckPath = AssetDatabase.GUIDToAssetPath(deckGUID[0]);
-            return AssetDatabase.LoadAssetAtPath<Deck>(deckPath);
-        }
     }
 }
