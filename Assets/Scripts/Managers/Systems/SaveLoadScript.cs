@@ -2,7 +2,6 @@ using CardSystem;
 using System;
 using System.IO;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public static class SaveLoadScript
@@ -30,10 +29,8 @@ public static class SaveLoadScript
         json = sr.ReadToEnd();
 
         GameData _gameData = JsonUtility.FromJson<GameData>(json);
-        //_gameData.LoadGameData();
         PlayerDataManager.Instance?.OnGameLoad(_gameData);
         sr.Close();
-        Debug.Log("Game Loaded");
     }
 }
 
@@ -57,13 +54,6 @@ public class GameData
         _cardData = new(pdm.GetOwnedCards, pdm.GetDeck);
     }
 
-    /*public void LoadGameData()
-    {
-        _mapNodeData.LoadData();
-        _currencyData.LoadData();
-        _cardData.LoadData();
-    }*/
-
     // node map vars
     [System.Serializable]
     public class MapNodeDataToken
@@ -78,17 +68,10 @@ public class GameData
 
         public MapNodeDataToken(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex)
         {
-            //SceneProgressManager.Instance.GrabNodeData( ref _nodeCompleted, 
-            //ref _nodeUnlocked, ref _currentNodeIndex);
             _nodesCompleted = nodesCompleted;
             _nodesUnlocked = nodesUnlocked;
             _currentNodeIndex = currentNodeIndex;
         }
-        /*public void LoadData()
-        {
-            //SceneProgressManager.Instance.LoadNodeData(_nodeCompleted, 
-            //_nodeUnlocked, _currentNodeIndex);
-        }*/
     }
 
     // currency
@@ -100,15 +83,8 @@ public class GameData
 
         public CurrencyManagerDataToken(int balance)
         {
-            //if (CurrencyManager.instance != null)
-            //_balance = CurrencyManager.instance.Balance;
             _balance = balance;
         }
-        /*public void LoadData()
-        {
-            //CurrencyManager.instance?.LoadGameData(_balance);
-            PlayerDataManager.Instance?.UpdateCurrencyData(_balance);
-        }*/
     }
 
     // deck and card info
@@ -129,17 +105,5 @@ public class GameData
 
             _deckName = deck.name;
         }
-        /*public void LoadData()
-        {
-            List<CardAbilityDefinition> ownedCards = new();
-            foreach (var name in _ownedCardNames)
-                ownedCards.Add(GetCardDefinitionFromName(name));
-            //PlayerCardCollection.instance.LoadGameData(ownedCards);
-            //DeckAndHandManager.instance.LoadGameData(GetDeckFromName(_deckName));
-
-            PlayerDataManager.Instance?.UpdateCardData(ownedCards, GetDeckFromName(_deckName));
-        }*/
-
-        //Make these generic at some point & combine
     }
 }

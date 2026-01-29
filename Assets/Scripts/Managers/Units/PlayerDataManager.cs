@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PlayerDataManager : MonoBehaviour
 {
-    private int _balance;
+    private int _balance = 0;
 
     private bool[] _nodeCompleted;
     private bool[] _nodeUnlocked;
     private int _currentNodeIndex;
 
     private List<CardAbilityDefinition> _ownedCards;
-    private Deck _deck;
+    [SerializeField] private Deck _deck;
 
     public int GetBalance => _balance;
     public bool[] GetNodeCompleted => _nodeCompleted;
@@ -37,18 +37,36 @@ public class PlayerDataManager : MonoBehaviour
     {
         _balance = currentBalance;
     }
-    public void UpdateNodeData(bool[] nodesCompleted, bool[] nodesUnlocked, int currenNodeIndex)
+    public void UpdateNodeData(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex)
     {
         _nodeCompleted = nodesCompleted;
         _nodeUnlocked = nodesUnlocked;
-        _currentNodeIndex = currenNodeIndex;
+        _currentNodeIndex = currentNodeIndex;
+    }
+    public void UpdateNodeData(bool[] nodesCompleted, bool[] nodesUnlocked)
+    {
+        _nodeCompleted = nodesCompleted;
+        _nodeUnlocked = nodesUnlocked;
+    }
+    public void UpdateNodeData(int currentNodeIndex)
+    {
+        _currentNodeIndex = currentNodeIndex;
     }
     public void UpdateCardData(List<CardAbilityDefinition> ownedCards, Deck deck)
     {
         _ownedCards = ownedCards;
         _deck = deck;
     }
+    public void UpdateCardData(CardAbilityDefinition def, bool isAddition = true)
+    {
+        if (def == null) return;
 
+        if (isAddition)
+            _ownedCards.Add(def);
+        else
+            if (_ownedCards.Contains(def))
+                _ownedCards.Remove(def);
+    }
     public void OnGameLoad(GameData data)
     {
         var currencyData = data.GetCurrencyData;
@@ -65,6 +83,7 @@ public class PlayerDataManager : MonoBehaviour
         UpdateCardData(ownedCards, deck);
 
         SaveLoadScript.DataLoaded?.Invoke();
+        Debug.Log("Game Loaded");
     }
     private CardAbilityDefinition GetCardDefinitionFromName(string cardName)
     {

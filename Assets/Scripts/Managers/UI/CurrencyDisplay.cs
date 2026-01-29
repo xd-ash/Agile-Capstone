@@ -18,7 +18,7 @@ public class CurrencyDisplay : MonoBehaviour
         if (CurrencyManager.instance != null)
         {
             CurrencyManager.instance.OnBalanceChanged += UpdateDisplay;
-            UpdateDisplay(CurrencyManager.instance.Balance);
+            UpdateDisplay(PlayerDataManager.Instance.GetBalance);
         }
     }
 

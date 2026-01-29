@@ -13,12 +13,9 @@ public class SaveLoadController : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    private void Update()
+    public void OnContineGame(string sceneName)
     {
-        if (Input.GetKeyDown(KeyCode.F5))
-            SaveLoadScript.SaveGame?.Invoke();
-
-        if (Input.GetKeyDown(KeyCode.F8))
-            SaveLoadScript.LoadGame?.Invoke();
+        SaveLoadScript.LoadGame?.Invoke();
+        TransitionScene.instance.StartTransition();
     }
 }
