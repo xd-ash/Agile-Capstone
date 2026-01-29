@@ -104,7 +104,7 @@ public class SceneProgressManager : MonoBehaviour
             Debug.LogError("SceneProgressManager: mapSceneName is empty.");
             return;
         }
-
+        SaveLoadScript.SaveGame?.Invoke();
         TransitionScene.instance.StartTransition(_mapSceneName);
     }
 }

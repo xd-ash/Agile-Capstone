@@ -11,7 +11,7 @@ public class PlayerDataManager : MonoBehaviour
     private bool[] _nodeUnlocked;
     private int _currentNodeIndex;
 
-    private List<CardAbilityDefinition> _ownedCards;
+    private List<CardAbilityDefinition> _ownedCards = new();
     [SerializeField] private Deck _deck;
 
     public int GetBalance => _balance;
@@ -98,10 +98,10 @@ public class PlayerDataManager : MonoBehaviour
     }
     private Deck GetDeckFromName(string deckName)
     {
-        string[] deckGUID = AssetDatabase.FindAssets(deckName, new[] { "Assets/ScriptableObjects/CardAbilities" });
+        string[] deckGUID = AssetDatabase.FindAssets(deckName, new[] { "Assets/ScriptableObjects/DeckSOs" });
         if (deckGUID.Length != 1)
         {
-            Debug.LogError($"{deckGUID.Length} Card GUID matches for cardName on data load. ({deckName})");
+            Debug.LogError($"{deckGUID.Length} Deck GUID matches for decckNAme on data load. ({deckName})");
             return null;
         }
         string deckPath = AssetDatabase.GUIDToAssetPath(deckGUID[0]);

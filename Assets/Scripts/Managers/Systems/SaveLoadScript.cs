@@ -12,20 +12,24 @@ public static class SaveLoadScript
     public static Action DataSaved;
     public static Action DataLoaded;
 
-    private static void SaveData()
+    private static string _filePath = Application.persistentDataPath + "DC_GameSave.json";
+    public static string GetFilePath => _filePath;
+    public static bool CheckForSaveGame => File.Exists(_filePath);
+
+    private static void SaveData(bool pretty = false)
     {
-        string json = JsonUtility.ToJson(new GameData());
-        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "DC_GameSave.json");
+        string json = JsonUtility.ToJson(new GameData(), pretty);
+        StreamWriter sw = new StreamWriter(_filePath);
         sw.Write(json);
         sw.Close();
         DataSaved?.Invoke();
-        Debug.Log("Game Saved");
+        Debug.Log("Game Saved:"+ _filePath);
     }
 
     private static void LoadData()
     {
         string json = string.Empty;
-        StreamReader sr = new StreamReader(Application.persistentDataPath + "DC_GameSave.json");
+        StreamReader sr = new StreamReader(_filePath);
         json = sr.ReadToEnd();
 
         GameData _gameData = JsonUtility.FromJson<GameData>(json);
@@ -37,9 +41,9 @@ public static class SaveLoadScript
 [System.Serializable]
 public class GameData
 {
-    private MapNodeDataToken _mapNodeData;
-    private CurrencyManagerDataToken _currencyData;
-    private CardDataToken _cardData;
+    [SerializeField] private MapNodeDataToken _mapNodeData;
+    [SerializeField] private CurrencyManagerDataToken _currencyData;
+    [SerializeField] private CardDataToken _cardData;
 
     public MapNodeDataToken GetMapNodeData => _mapNodeData;
     public CurrencyManagerDataToken GetCurrencyData => _currencyData;
@@ -58,9 +62,9 @@ public class GameData
     [System.Serializable]
     public class MapNodeDataToken
     {
-        private bool[] _nodesCompleted;
-        private bool[] _nodesUnlocked;
-        private int _currentNodeIndex;
+        [SerializeField] private bool[] _nodesCompleted;
+        [SerializeField] private bool[] _nodesUnlocked;
+        [SerializeField] private int _currentNodeIndex;
 
         public bool[] GetNodesCompleted => _nodesCompleted;
         public bool[] GetNodesUnlocked => _nodesUnlocked;
@@ -78,7 +82,7 @@ public class GameData
     [System.Serializable]
     public class CurrencyManagerDataToken
     {
-        private int _balance;
+        [SerializeField] private int _balance;
         public int GetBalance => _balance;
 
         public CurrencyManagerDataToken(int balance)
@@ -91,17 +95,22 @@ public class GameData
     [System.Serializable]
     public class CardDataToken
     {
-        private string[] _ownedCardNames;
-        private string _deckName;
+        [SerializeField] private string[] _ownedCardNames;
+        [SerializeField] private string _deckName;
 
         public string[] GetOwnedCardNames => _ownedCardNames;
         public string GetDeckName => _deckName;
 
         public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck deck)
         {
-            _ownedCardNames = new string[ownedCards.Count];
-            for (int i = 0; i < ownedCards.Count; i++)
-                _ownedCardNames[i] = ownedCards[i].name;
+            if (ownedCards != null)
+            {
+                _ownedCardNames = new string[ownedCards.Count];
+                for (int i = 0; i < ownedCards.Count; i++)
+                    _ownedCardNames[i] = ownedCards[i].name;
+            }
+            else
+                _ownedCardNames = new string[0];
 
             _deckName = deck.name;
         }
