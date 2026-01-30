@@ -43,9 +43,6 @@ public class WinLossManager : MonoBehaviour
 
     public void OnGameDone(bool didWin)
     {
-        /*_didWin = didWin;
-        GameObject text = _didWin ? winText : loseText;
-        text?.SetActive(true);*/
         _didWin = didWin;
         GameUIManager.instance.ToggleWinLossText(_didWin);
         Invoke(nameof(TriggerSceneTrans), textDuration);
@@ -61,10 +58,10 @@ public class WinLossManager : MonoBehaviour
                 SceneProgressManager.Instance.ReturnToMap();
                 return;
             }
-
-            SceneProgressManager.Instance?.ResetNodes();
         }
 
+        SceneProgressManager.Instance?.ResetNodes();
+        SaveLoadScript.CreateNewGame?.Invoke();
         TransitionScene.instance?.StartTransition();
     }
 }

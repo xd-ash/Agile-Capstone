@@ -22,6 +22,11 @@ namespace CardSystem
         public override IEnumerable<GameObject> Filter(IEnumerable<GameObject> objectsToFilter, Unit unit)
         {
             GrabLayerMask(unit.GetTeam);
+            if (objectsToFilter == null)
+            {
+                yield return null;
+                yield break;
+            }
 
             foreach (var obj in objectsToFilter)
                 if (obj != null && ((_layermask & (1 << obj.layer)) != 0)) // Bitwise operations, not sure if done correctly
