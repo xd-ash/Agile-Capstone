@@ -1,15 +1,15 @@
 using CardSystem;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
+// Data manager for player data that will be saved in game data
 public class PlayerDataManager : MonoBehaviour
 {
     private int _balance = 0;
 
     private bool[] _nodeCompleted;
     private bool[] _nodeUnlocked;
-    private int _currentNodeIndex;
+    [SerializeField]private int _currentNodeIndex;
 
     private List<CardAbilityDefinition> _ownedCards = new();
     [SerializeField] private Deck _deck;
@@ -32,7 +32,12 @@ public class PlayerDataManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        if (SaveLoadScript.CheckForSaveGame)
+            SaveLoadScript.LoadGame?.Invoke();
     }
+
+    // Data update methods for setting values
     public void UpdateCurrencyData(int currentBalance)
     {
         _balance = currentBalance;
@@ -67,44 +72,45 @@ public class PlayerDataManager : MonoBehaviour
             if (_ownedCards.Contains(def))
                 _ownedCards.Remove(def);
     }
+
+    // On game load, update variable values using incoming data param and
+    // reinitialize node data for proper node enabling on node map
     public void OnGameLoad(GameData data)
     {
         var currencyData = data.GetCurrencyData;
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
 
+        Deck deck = GetDeckFromName(cardData.GetDeckName);
         List<CardAbilityDefinition> ownedCards = new();
         foreach (var name in cardData.GetOwnedCardNames)
             ownedCards.Add(GetCardDefinitionFromName(name));
-        Deck deck = GetDeckFromName(cardData.GetDeckName);
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetNodesCompleted, nodeData.GetNodesUnlocked, nodeData.GetCurrentNodeIndex);
         UpdateCardData(ownedCards, deck);
 
-        SaveLoadScript.DataLoaded?.Invoke();
-        Debug.Log("Game Loaded");
+        SceneProgressManager.Instance?.InitNodeData();
+        //Debug.Log("Game Loaded");
     }
+
+    // Grab card using card name
+    // this may need adjusting as it only searches cards in the current deck
+    // so if player owns cards that arent in the base deck (bought in shop),
+    // then the card won't be found
     private CardAbilityDefinition GetCardDefinitionFromName(string cardName)
     {
-        string[] cardGUID = AssetDatabase.FindAssets(cardName, new[] { "Assets/ScriptableObjects/CardAbilities" });
-        if (cardGUID.Length != 1)
-        {
-            Debug.LogError($"{cardGUID.Length} Card GUID matches for cardName on data load. ({cardName})");
-            return null;
-        }
-        string cardPath = AssetDatabase.GUIDToAssetPath(cardGUID[0]);
-        return AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(cardPath);
+        foreach (var card in _deck.GetDeck)
+            if (card.name == cardName)
+                return card;
+
+        Debug.LogError($"No matching card SO found in deck for \"{cardName}\"");
+        return null;
     }
+
+    // GrabDeck from resources folder
     private Deck GetDeckFromName(string deckName)
     {
-        string[] deckGUID = AssetDatabase.FindAssets(deckName, new[] { "Assets/ScriptableObjects/DeckSOs" });
-        if (deckGUID.Length != 1)
-        {
-            Debug.LogError($"{deckGUID.Length} Deck GUID matches for decckNAme on data load. ({deckName})");
-            return null;
-        }
-        string deckPath = AssetDatabase.GUIDToAssetPath(deckGUID[0]);
-        return AssetDatabase.LoadAssetAtPath<Deck>(deckPath);
+        return Resources.Load<Deck>("ScriptableObjects/DeckSOs/" + deckName);
     }
 }

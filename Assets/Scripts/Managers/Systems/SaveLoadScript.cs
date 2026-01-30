@@ -6,34 +6,57 @@ using UnityEngine;
 
 public static class SaveLoadScript
 {
-    public static Action SaveGame => () => SaveData();
-    public static Action LoadGame => () => LoadData();
+    public static Action SaveGame => () => SaveGameData();
+    public static Action CreateNewGame => () => SaveGameData(true);
+    public static Action LoadGame => () => LoadGameData();
 
-    public static Action DataSaved;
-    public static Action DataLoaded;
+    public static Action SaveSettings => () => SaveSettingsData();
+    public static Action LoadSettings => () => LoadSettingsData();
 
-    private static string _filePath = Application.persistentDataPath + "DC_GameSave.json";
-    public static string GetFilePath => _filePath;
-    public static bool CheckForSaveGame => File.Exists(_filePath);
+    private static string _gameDataFilePath = Application.persistentDataPath + "-GameSave.json";
+    private static string _settingsDataFilePath = Application.persistentDataPath + "-SettingsData.json";
+    public static string GetFilePath => _gameDataFilePath;
+    public static bool CheckForSaveGame => File.Exists(_gameDataFilePath);
 
-    private static void SaveData(bool pretty = false)
+    // Save/laod for general game data
+    private static void SaveGameData(bool isNewGame = false)
     {
-        string json = JsonUtility.ToJson(new GameData(), pretty);
-        StreamWriter sw = new StreamWriter(_filePath);
+        string json = JsonUtility.ToJson(new GameData(isNewGame), true); // turn off prettyPrint once encryption is implemented?
+        StreamWriter sw = new StreamWriter(_gameDataFilePath);
         sw.Write(json);
         sw.Close();
-        DataSaved?.Invoke();
-        Debug.Log("Game Saved:"+ _filePath);
+        //Debug.Log("Game Saved");
     }
-
-    private static void LoadData()
+    private static void LoadGameData()
     {
         string json = string.Empty;
-        StreamReader sr = new StreamReader(_filePath);
+        StreamReader sr = new StreamReader(_gameDataFilePath);
         json = sr.ReadToEnd();
 
         GameData _gameData = JsonUtility.FromJson<GameData>(json);
         PlayerDataManager.Instance?.OnGameLoad(_gameData);
+        sr.Close();
+    }
+
+    // Save/load for settings such as audio
+    private static void SaveSettingsData()
+    {
+        string json = JsonUtility.ToJson(new SettingsData(), true);
+        StreamWriter sw = new StreamWriter(_settingsDataFilePath);
+        sw.Write(json);
+        sw.Close();
+    }
+    private static void LoadSettingsData()
+    {
+        // Create new settings file if no file exists
+        if (!File.Exists(_settingsDataFilePath)) SaveSettingsData();
+
+        string json = string.Empty;
+        StreamReader sr = new StreamReader(_settingsDataFilePath);
+        json = sr.ReadToEnd();
+
+        SettingsData settingsData = JsonUtility.FromJson<SettingsData>(json);
+        AudioManager.instance.LoadVolumeSettings(settingsData.GetAudioSettings);
         sr.Close();
     }
 }
@@ -49,13 +72,22 @@ public class GameData
     public CurrencyManagerDataToken GetCurrencyData => _currencyData;
     public CardDataToken GetCardData => _cardData;
 
-    public GameData()
+    public GameData(bool newGameData = false)
     {
         var pdm = PlayerDataManager.Instance;
 
-        _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex);
-        _currencyData = new(pdm.GetBalance);
-        _cardData = new(pdm.GetOwnedCards, pdm.GetDeck);
+        if (newGameData)
+        {
+            _mapNodeData = new(null, null, 0);
+            _currencyData = new(0);
+            _cardData = new(null, pdm.GetDeck);
+        }
+        else
+        {
+            _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex);
+            _currencyData = new(pdm.GetBalance);
+            _cardData = new(pdm.GetOwnedCards, pdm.GetDeck);
+        }
     }
 
     // node map vars
@@ -113,6 +145,33 @@ public class GameData
                 _ownedCardNames = new string[0];
 
             _deckName = deck.name;
+        }
+    }
+}
+
+[System.Serializable]
+public class SettingsData
+{
+    [SerializeField] private AudioSettingsToken _audioSettings;
+
+    public AudioSettingsToken GetAudioSettings => _audioSettings;
+
+    [System.Serializable]
+    public class AudioSettingsToken
+    {
+        [SerializeField] private float _masterVolume;
+        [SerializeField] private float _sfxVolume;
+        [SerializeField] private float _musicVolume;
+
+        public float GetMasterVolume => _masterVolume;
+        public float GetSFXVolume => _sfxVolume;
+        public float GetMusicVolume => _musicVolume;
+
+        public AudioSettingsToken()
+        {
+            _masterVolume = Mathf.Min(AudioManager.instance.GetMasterVolume, 1);
+            _sfxVolume = Mathf.Min(AudioManager.instance.GetSFXVolume, 1);
+            _musicVolume = Mathf.Min(AudioManager.instance.GetMusicVolume, 1);
         }
     }
 }

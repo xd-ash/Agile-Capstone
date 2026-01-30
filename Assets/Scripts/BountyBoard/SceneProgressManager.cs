@@ -19,7 +19,9 @@ public class SceneProgressManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
+    }
+    public void InitNodeData()
+    {
         var pdm = PlayerDataManager.Instance;
         //Initialize arrays once
         if (pdm.GetNodeCompleted == null || pdm.GetNodeCompleted.Length != _nodeCount)
@@ -27,7 +29,7 @@ public class SceneProgressManager : MonoBehaviour
             var nodesUnlocked = new bool[_nodeCount];
             nodesUnlocked[0] = _nodeCount > 0;//By default, unlock node 0
 
-            pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, -1);
+            pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, 0);
         }
     }
     public void ResetNodes()
@@ -37,19 +39,19 @@ public class SceneProgressManager : MonoBehaviour
         var nodesUnlocked = new bool[_nodeCount];
         nodesUnlocked[0] = _nodeCount > 0;//By default, unlock node 0
 
-        pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, -1);
+        pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, 0);
 
         _nodeMapCompleted = false;
     }
 
     public bool IsNodeCompleted(int index)
     {
-        return index >= 0 && index < _nodeCount && PlayerDataManager.Instance.GetNodeCompleted[index];
+        return index >= 0 && index < _nodeCount && index < PlayerDataManager.Instance.GetNodeCompleted.Length && PlayerDataManager.Instance.GetNodeCompleted[index];
     }
 
     public bool IsNodeUnlocked(int index)
     {
-        return index >= 0 && index < _nodeCount && PlayerDataManager.Instance.GetNodeUnlocked[index];
+        return index >= 0 && index < _nodeCount && index < PlayerDataManager.Instance.GetNodeUnlocked.Length && PlayerDataManager.Instance.GetNodeUnlocked[index];
     }
 
     //Called by a map node button when you click it
@@ -61,7 +63,7 @@ public class SceneProgressManager : MonoBehaviour
             return;
         }
 
-        PlayerDataManager.Instance.UpdateNodeData(index);
+        //PlayerDataManager.Instance.UpdateNodeData(index);
 
         if (string.IsNullOrEmpty(sceneName))
         {
@@ -104,7 +106,11 @@ public class SceneProgressManager : MonoBehaviour
             Debug.LogError("SceneProgressManager: mapSceneName is empty.");
             return;
         }
+
+        int index = PlayerDataManager.Instance.GetCurrentNodeIndex + 1;
+        PlayerDataManager.Instance.UpdateNodeData(index);
         SaveLoadScript.SaveGame?.Invoke();
+        
         TransitionScene.instance.StartTransition(_mapSceneName);
     }
 }
