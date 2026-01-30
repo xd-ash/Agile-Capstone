@@ -40,8 +40,8 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-        //AbilityEvents.OnAbilityUsed += UpdateApText;
-
+        //if (PlayerDataManager.Instance == null)
+           // Instantiate(Resources.Load<GameObject>("SaveDataManager"));
         _unitTurnOrder = GrabUnits();
 
         OnGameStart?.Invoke();

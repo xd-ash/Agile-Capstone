@@ -165,7 +165,7 @@ namespace AStarPathfinding
             {
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= size.x || neighbour.y < 0 || neighbour.y >= size.y) continue; //if neighbor is out of bounds
-                if (bMap[neighbour.x, neighbour.y] == 1 || bMap[neighbour.x, neighbour.y] == 2) continue; // if pos is obstacle/enemy
+                if (bMap[neighbour.x, neighbour.y] == 2 || bMap[neighbour.x, neighbour.y] == 3) continue; // if pos is obstacle/enemy
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;

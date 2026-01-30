@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static IsoMetricConversions;
+using WFC;
 
 namespace AStarPathfinding
 {
@@ -63,7 +64,13 @@ namespace AStarPathfinding
         [SerializeField] private GameObject _placeholderObstacle;
         [SerializeField] private GameObject _rangeEnemyPlaceholder;
         [SerializeField] private GameObject _meleeEnemyPlaceholder;
-        int tempEnemyCounter = 0;
+        [SerializeField] private GameObject _playerPlaceholder;
+        [SerializeField] private int _maxEnemiesToSpawn = 2;
+        [SerializeField] private int _maxPlayersToSpawn = 1;
+        int _tempEnemyCounter = 0;
+        int _tempPlayerCounter = 0;
+
+        [SerializeField] private EnvironmentTileSet _moduleSet;
 
         // Getters
         public byte[,] GetByteMap => _map;
@@ -78,20 +85,44 @@ namespace AStarPathfinding
         private void Start()
         {
             _map = new byte[_mapSize.x, _mapSize.y];
+
+            int moduleWidth = _moduleSet.GetTrueModuleWidth;
+            var environmentMap = WaveFunctionCollapse.WFCGenerate(_moduleSet.Modules, new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth));
             _tilemap.CompressBounds();
+
+            _tempEnemyCounter = 0;
+            _tempPlayerCounter = 0;
 
             for (int x = 0; x < _map.GetLength(0); x++)
             {
                 for (int y = 0; y < _map.GetLength(1); y++)
                 {
                     Vector2Int gridPos = new Vector2Int(x, y);
+                    var environmentElement = environmentMap[x / moduleWidth, y / moduleWidth];
+                    var module = environmentElement.GetSelectedModule as EnvironmentTileModule;
+                    var tile = module.GetTrueTiles[module.GetTrueTileIndex(x % moduleWidth, y % moduleWidth)];
 
-                    if (enemyLocationList.Contains(new Vector2Int(x, y))) //placeholder enemy spawn
-                        _map[x, y] = 2;
-                    else if (obstLocationList.Contains(new Vector2Int(x, y))) //Placeholder obstacle spawn
-                        _map[x, y] = 1;
+                    if (tile != null)
+                        switch (tile.name)
+                        {
+                            case "ER_Tile":
+                                _map[x, y] = 4;
+                                break;
+                            case "EM_Tile":
+                                _map[x, y] = 3;
+                                break;
+                            case "O_Tile":
+                                _map[x, y] = 2;
+                                break;
+                            case "P_Tile":
+                                _map[x, y] = 1;
+                                break;
+                        }
                     else
                         _map[x, y] = 0;
+
+                    //if (tile != null)
+                        //Debug.Log($"{tile.name} - {_map[x,y]} @ ({x},{y})");
 
                     SpawnTileContents(_map[x, y], gridPos);
 
@@ -102,23 +133,46 @@ namespace AStarPathfinding
         public void UpdateUnitPositionByteMap(Vector2Int startPos, Vector2Int endPos, Unit unit)
         {
             _map[startPos.x, startPos.y] = 0;
-            _map[endPos.x, endPos.y] = unit.GetTeam == Team.Friendly ? (byte)3 : (byte)2;
+            _map[endPos.x, endPos.y] = unit.GetTeam == Team.Friendly ? (byte)1 : (byte)3;
         }
 
         private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)
         {
             Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
             GameObject objToSpawn = null;
-
-            if (byteIndicator == 1)
+            if (byteIndicator == 2)
                 objToSpawn = _placeholderObstacle;
-            else if (byteIndicator == 2)
+            else if (byteIndicator == 4)
             {
-                if (tempEnemyCounter % 2 == 0)
+                if (_tempEnemyCounter < _maxEnemiesToSpawn)
+                {
                     objToSpawn = _rangeEnemyPlaceholder;
-                else
+                    _tempEnemyCounter++;
+                    _map[mapPos.x, mapPos.y] = 3; // after specific enemy spawned, swap byte back to general enemy value
+                }
+                else// if max enemies spawned reset byte to 0
+                    _map[mapPos.x, mapPos.y] = 0;
+            }
+            else if (byteIndicator == 3)
+            {
+                if (_tempEnemyCounter < _maxEnemiesToSpawn)
+                {
                     objToSpawn = _meleeEnemyPlaceholder;
-                tempEnemyCounter++;
+                    _tempEnemyCounter++;
+                    _map[mapPos.x, mapPos.y] = 3;// after specific enemy spawned, swap byte back to general enemy value
+                }
+                else// if max enemies spawned reset byte to 0
+                    _map[mapPos.x, mapPos.y] = 0;
+            }
+            else if (byteIndicator == 1)
+            {
+                if (_tempPlayerCounter < _maxPlayersToSpawn)
+                {
+                    objToSpawn = _playerPlaceholder;
+                    _tempPlayerCounter++;
+                }
+                else // if max players spawned reset byte to 0
+                    _map[mapPos.x, mapPos.y] = 0;
             }
 
             if (objToSpawn != null)
@@ -130,7 +184,5 @@ namespace AStarPathfinding
                 newObj.transform.localPosition = adjustedPos;
             }
         }
-
-        //insert WFC for map gen
     }
 }
