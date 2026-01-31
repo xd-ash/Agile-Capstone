@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using TMPro;
 using System.Linq;
 using CardSystem;
 
@@ -9,28 +8,23 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager instance { get; private set; }
     public enum Turn { Player, Enemy }
-    public Turn currTurn { get; private set; } = Turn.Player;
+    public Turn CurrTurn { get; private set; } = Turn.Player;
 
     [Header("Units")] 
     private Unit _curUnit;
     private List<Unit> _unitTurnOrder;
     private int _turnTracker = -1;
 
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI _turnText;
-    [SerializeField] private TextMeshProUGUI _apText;
-
-    [Header("Turn settings")]
-
-    [Header("Placeholder Enemy Coro stuff")]
-    [SerializeField] private AudioClip _enemyDmgSfx;
+    //[Header("UI")]
+    //[SerializeField] private TextMeshProUGUI _turnText;
+    //[SerializeField] private TextMeshProUGUI _apText;
 
     public event Action OnGameStart;
     public event Action OnPlayerTurnEnd;
     
     public void EndEnemyTurn() => SetTurn();
-    public static bool IsPlayerTurn => instance != null && instance.currTurn == Turn.Player;
-    public static bool IsEnemyTurn => instance != null && instance.currTurn == Turn.Enemy;
+    public static bool IsPlayerTurn => instance != null && instance.CurrTurn == Turn.Player;
+    public static bool IsEnemyTurn => instance != null && instance.CurrTurn == Turn.Enemy;
     public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null;
     public static List<Unit> GetUnitTurnOrder => instance != null ? instance._unitTurnOrder : null;
 
@@ -46,7 +40,7 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-        AbilityEvents.OnAbilityUsed += UpdateApText;
+        //AbilityEvents.OnAbilityUsed += UpdateApText;
 
         _unitTurnOrder = GrabUnits();
 
@@ -72,14 +66,14 @@ public class TurnManager : MonoBehaviour
         return sortedList;
     }
 
-    public void UpdateApText(Team unitTeam = Team.Friendly)
+    /*public void UpdateApText(Team unitTeam = Team.Friendly)
     {
         if (_apText == null) return;
         if (currTurn == Turn.Player && _curUnit != null)
             _apText.text = $"Player AP:\n{_curUnit.GetAP}/{_curUnit.GetMaxAP}";
         else if (currTurn == Turn.Enemy && _curUnit != null)
             _apText.text = $"Enemy AP:\n{_curUnit.GetAP}/{_curUnit.GetMaxAP}";
-    }
+    }*/
 
     private void SetTurn()
     {
@@ -93,27 +87,28 @@ public class TurnManager : MonoBehaviour
             return;
         }
         _curUnit = _unitTurnOrder[_turnTracker];
-        currTurn = _curUnit.GetTeam == Team.Friendly ? Turn.Player : Turn.Enemy;
+        CurrTurn = _curUnit.GetTeam == Team.Friendly ? Turn.Player : Turn.Enemy;
         _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
 
-        if (_turnText != null)
-            _turnText.text = $"{currTurn}'s Turn";
+        //if (_turnText != null)
+        //_turnText.text = $"{currTurn}'s Turn";
+        GameUIManager.instance.UpdateTurnText(CurrTurn);
         _curUnit?.RefreshAP();
 
-        if (currTurn == Turn.Enemy)
+        if (CurrTurn == Turn.Enemy)
             _curUnit.GetComponent<GoapAgent>().ResetStates();
 
         // Draw player's starting hand when player's turn begins
         if (_curUnit.GetTeam == Team.Friendly)
             DeckAndHandManager.instance?.DrawStartingHand(true);
 
-        UpdateApText();
+        GameUIManager.instance.UpdateApText();
     }
 
     // Mapped to end turn button in combat scene
     public void EndPlayerTurn()
     {
-        if (currTurn != Turn.Player) return; // avoid turn end spam
+        if (CurrTurn != Turn.Player) return; // avoid turn end spam
         AudioManager.instance?.PlayButtonSFX();
 
         SetTurn();

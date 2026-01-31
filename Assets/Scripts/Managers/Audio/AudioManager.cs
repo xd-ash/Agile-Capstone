@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static SettingsData;
 
 public class AudioManager : MonoBehaviour
 {
@@ -35,10 +36,6 @@ public class AudioManager : MonoBehaviour
     private AudioSource _music;   // looped bgm
     private AudioSource _sfx;     // one-shots
     
-    private const string _masterVolKey = "MasterVolume";
-    private const string _musicVolKey = "MusicVolume";
-    private const string _sfxVolKey = "SfxVolume";
-    
     private float _musicBaseVolume = 1f;
     
     // Queued clip to play when AbilityEvents.AbilityUsed() fires
@@ -65,8 +62,8 @@ public class AudioManager : MonoBehaviour
         _sfx.spatialBlend = 0f;
         _sfx.playOnAwake = false;
         _sfx.volume = _sfxVolume;
-        
-        LoadVolumeSettings();
+
+        SaveLoadScript.LoadSettings?.Invoke();
         ApplyVolumes();
     }
 
@@ -158,11 +155,11 @@ public class AudioManager : MonoBehaviour
         _pendingUseClip = clip;
     }
 
-    public void LoadVolumeSettings()
+    public void LoadVolumeSettings(AudioSettingsToken audioSettings)
     {
-        _masterVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
-        _sfxVolume = PlayerPrefs.GetFloat(_musicVolKey, 1f);
-        _musicVolume = PlayerPrefs.GetFloat(_masterVolKey, 1f);
+        _masterVolume = audioSettings.GetMasterVolume;
+        _sfxVolume = audioSettings.GetSFXVolume;
+        _musicVolume = audioSettings.GetMusicVolume;
     }
 
     public void ApplyVolumes()
@@ -172,29 +169,25 @@ public class AudioManager : MonoBehaviour
 
         if (_music != null)
             _music.volume = _masterVolume * _musicVolume * _musicBaseVolume;
+
+        SaveLoadScript.SaveSettings?.Invoke();
     }
 
     public void SetMasterVolume(float v)
     {
         _masterVolume = Mathf.Clamp01(v);
-        PlayerPrefs.SetFloat(_masterVolKey, _masterVolume);
-        PlayerPrefs.Save();
         ApplyVolumes();
     }
 
     public void SetSfxVolume(float v)
     {
         _sfxVolume = Mathf.Clamp01(v);
-        PlayerPrefs.SetFloat(_sfxVolKey, _sfxVolume);
-        PlayerPrefs.Save();
         ApplyVolumes();
     }
 
     public void SetMusicVolume(float v)
     {
         _musicVolume = Mathf.Clamp01(v);
-        PlayerPrefs.SetFloat(_musicVolKey, _musicVolume);
-        PlayerPrefs.Save();
         ApplyVolumes();
     }
 }

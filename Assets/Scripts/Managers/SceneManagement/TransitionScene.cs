@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class TransitionScene : MonoBehaviour
 {
-
     private GameObject mainMenu, pauseMenu;
     private string _currScene = "MainMenu";
 

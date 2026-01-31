@@ -1,31 +1,62 @@
 using CardSystem;
 using System;
 using System.IO;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class SaveLoadScript
 {
-    public static Action SaveGame => () => SaveData();
-    public static Action LoadGame => () => LoadData();
+    public static Action SaveGame => () => SaveGameData();
+    public static Action CreateNewGame => () => SaveGameData(true);
+    public static Action LoadGame => () => LoadGameData();
 
-    private static void SaveData()
+    public static Action SaveSettings => () => SaveSettingsData();
+    public static Action LoadSettings => () => LoadSettingsData();
+
+    private static string _gameDataFilePath = Application.persistentDataPath + "-GameSave.json";
+    private static string _settingsDataFilePath = Application.persistentDataPath + "-SettingsData.json";
+    public static string GetFilePath => _gameDataFilePath;
+    public static bool CheckForSaveGame => File.Exists(_gameDataFilePath);
+
+    // Save/laod for general game data
+    private static void SaveGameData(bool isNewGame = false)
     {
-        string json = JsonUtility.ToJson(new GameData());
-        StreamWriter sw = new StreamWriter(Application.persistentDataPath +
-            "DC_GameSave.json");
+        string json = JsonUtility.ToJson(new GameData(isNewGame), true); // turn off prettyPrint once encryption is implemented?
+        StreamWriter sw = new StreamWriter(_gameDataFilePath);
         sw.Write(json);
         sw.Close();
+        //Debug.Log("Game Saved");
     }
-
-    private static void LoadData()
+    private static void LoadGameData()
     {
         string json = string.Empty;
-        StreamReader sr = new StreamReader(Application.persistentDataPath +
-            "DC_GameSave.json");
+        StreamReader sr = new StreamReader(_gameDataFilePath);
         json = sr.ReadToEnd();
 
         GameData _gameData = JsonUtility.FromJson<GameData>(json);
-        _gameData.LoadGameData();
+        PlayerDataManager.Instance?.OnGameLoad(_gameData);
+        sr.Close();
+    }
+
+    // Save/load for settings such as audio
+    private static void SaveSettingsData()
+    {
+        string json = JsonUtility.ToJson(new SettingsData(), true);
+        StreamWriter sw = new StreamWriter(_settingsDataFilePath);
+        sw.Write(json);
+        sw.Close();
+    }
+    private static void LoadSettingsData()
+    {
+        // Create new settings file if no file exists
+        if (!File.Exists(_settingsDataFilePath)) SaveSettingsData();
+
+        string json = string.Empty;
+        StreamReader sr = new StreamReader(_settingsDataFilePath);
+        json = sr.ReadToEnd();
+
+        SettingsData settingsData = JsonUtility.FromJson<SettingsData>(json);
+        AudioManager.instance.LoadVolumeSettings(settingsData.GetAudioSettings);
         sr.Close();
     }
 }
@@ -33,41 +64,49 @@ public static class SaveLoadScript
 [System.Serializable]
 public class GameData
 {
-    public MapNodeDataToken mapNodeData;
-    public CurrencyManagerDataToken currencyData;
-    //public DeckDataToken deckData;
+    [SerializeField] private MapNodeDataToken _mapNodeData;
+    [SerializeField] private CurrencyManagerDataToken _currencyData;
+    [SerializeField] private CardDataToken _cardData;
 
-    public GameData()
-    {
-        mapNodeData = new();
-        currencyData = new();
-        //deckData = new();
-    }
+    public MapNodeDataToken GetMapNodeData => _mapNodeData;
+    public CurrencyManagerDataToken GetCurrencyData => _currencyData;
+    public CardDataToken GetCardData => _cardData;
 
-    public void LoadGameData()
+    public GameData(bool newGameData = false)
     {
-        mapNodeData.LoadData();
-        currencyData.LoadData();
-        //deckData.LoadData();
+        var pdm = PlayerDataManager.Instance;
+
+        if (newGameData)
+        {
+            _mapNodeData = new(null, null, 0);
+            _currencyData = new(0);
+            _cardData = new(null, pdm.GetDeck);
+        }
+        else
+        {
+            _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex);
+            _currencyData = new(pdm.GetBalance);
+            _cardData = new(pdm.GetOwnedCards, pdm.GetDeck);
+        }
     }
 
     // node map vars
     [System.Serializable]
     public class MapNodeDataToken
     {
-        private bool[] _nodeCompleted;
-        private bool[] _nodeUnlocked;
-        private int _currentNodeIndex;
+        [SerializeField] private bool[] _nodesCompleted;
+        [SerializeField] private bool[] _nodesUnlocked;
+        [SerializeField] private int _currentNodeIndex;
 
-        public MapNodeDataToken()
+        public bool[] GetNodesCompleted => _nodesCompleted;
+        public bool[] GetNodesUnlocked => _nodesUnlocked;
+        public int GetCurrentNodeIndex => _currentNodeIndex;
+
+        public MapNodeDataToken(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex)
         {
-            SceneProgressManager.Instance.GrabNodeData( ref _nodeCompleted, 
-                ref _nodeUnlocked, ref _currentNodeIndex);
-        }
-        public void LoadData()
-        {
-            SceneProgressManager.Instance.LoadNodeData(_nodeCompleted, 
-                _nodeUnlocked, _currentNodeIndex);
+            _nodesCompleted = nodesCompleted;
+            _nodesUnlocked = nodesUnlocked;
+            _currentNodeIndex = currentNodeIndex;
         }
     }
 
@@ -75,38 +114,64 @@ public class GameData
     [System.Serializable]
     public class CurrencyManagerDataToken
     {
-        private int _balance;
+        [SerializeField] private int _balance;
+        public int GetBalance => _balance;
 
-        public CurrencyManagerDataToken()
+        public CurrencyManagerDataToken(int balance)
         {
-            if (CurrencyManager.instance != null)
-                _balance = CurrencyManager.instance.Balance;
-        }
-        public void LoadData()
-        {
-            CurrencyManager.instance?.LoadGameData(_balance);
+            _balance = balance;
         }
     }
 
     // deck and card info
     [System.Serializable]
-    public class DeckDataToken
+    public class CardDataToken
     {
-        private string[] _ownedCardNames;
-        private string _deckName;
+        [SerializeField] private string[] _ownedCardNames;
+        [SerializeField] private string _deckName;
 
-        public DeckDataToken()
+        public string[] GetOwnedCardNames => _ownedCardNames;
+        public string GetDeckName => _deckName;
+
+        public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck deck)
         {
-            var runtimeDefs = PlayerCardCollection.instance.GetOwnedCards;
-            _ownedCardNames = new string[runtimeDefs.Count];
-            for (int i = 0; i < runtimeDefs.Count; i++)
-                _ownedCardNames[i] = runtimeDefs[i].name;
+            if (ownedCards != null)
+            {
+                _ownedCardNames = new string[ownedCards.Count];
+                for (int i = 0; i < ownedCards.Count; i++)
+                    _ownedCardNames[i] = ownedCards[i].name;
+            }
+            else
+                _ownedCardNames = new string[0];
 
-            _deckName = DeckAndHandManager.instance.GetDeck.name;
+            _deckName = deck.name;
         }
-        public void LoadData()
-        {
+    }
+}
 
+[System.Serializable]
+public class SettingsData
+{
+    [SerializeField] private AudioSettingsToken _audioSettings;
+
+    public AudioSettingsToken GetAudioSettings => _audioSettings;
+
+    [System.Serializable]
+    public class AudioSettingsToken
+    {
+        [SerializeField] private float _masterVolume;
+        [SerializeField] private float _sfxVolume;
+        [SerializeField] private float _musicVolume;
+
+        public float GetMasterVolume => _masterVolume;
+        public float GetSFXVolume => _sfxVolume;
+        public float GetMusicVolume => _musicVolume;
+
+        public AudioSettingsToken()
+        {
+            _masterVolume = Mathf.Min(AudioManager.instance.GetMasterVolume, 1);
+            _sfxVolume = Mathf.Min(AudioManager.instance.GetSFXVolume, 1);
+            _musicVolume = Mathf.Min(AudioManager.instance.GetMusicVolume, 1);
         }
     }
 }

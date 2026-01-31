@@ -288,7 +288,8 @@ namespace AStarPathfinding
                 }
 
                 _unit.SpendAP(_moveCostPerTile);
-                TurnManager.instance.UpdateApText();
+                //TurnManager.instance.UpdateApText();
+                GameUIManager.instance.UpdateApText();
 
                 prev = next;
             }

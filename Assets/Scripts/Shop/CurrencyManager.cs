@@ -8,11 +8,6 @@ public class CurrencyManager : MonoBehaviour
     [Tooltip("Max currency (0 = unlimited)")]
     [SerializeField] private int _maxBalance = 0;
 
-    private const string PREFS_KEY = "PlayerCurrency_Balance";
-    private int _balance;
-
-    public int Balance => _balance;
-
     // Fired when balance changes; argument is new balance
     public event Action<int> OnBalanceChanged;
 
@@ -25,63 +20,52 @@ public class CurrencyManager : MonoBehaviour
             return;
         }
         instance = this;
-        LoadBalance();
-    }
 
-    private void LoadBalance()
-    {
-        _balance = _startingBalance;
-        SaveBalance();
-    }
-
-    private void SaveBalance()
-    {
-        PlayerPrefs.SetInt(PREFS_KEY, _balance);
-        PlayerPrefs.Save();
-    }
-
-    //new save/load stuff
-    public void LoadGameData(int balance)
-    {
-        _balance = balance;
+        PlayerDataManager.Instance.UpdateCurrencyData(_startingBalance);//potentially needs changed if multiple shops
     }
 
     // Try to spend amount. Returns true if successful and deducts amount.
     public bool TrySpend(int amount)
     {
         if (amount <= 0) return true;
+        int balance = PlayerDataManager.Instance.GetBalance;
 
-        if (_balance >= amount)
+        if (balance >= amount)
         {
-            _balance -= amount;
-            ClampAndSave();
-            OnBalanceChanged?.Invoke(_balance);
+            balance -= amount;
+            balance = ClampAndReturn(balance);
+            UpdateCurrency(balance);
             return true;
         }
         return false;
     }
-
     // Add currency (can be used for rewards, refunds, admin)
     public void Add(int amount)
     {
         if (amount <= 0) return;
-        _balance += amount;
-        ClampAndSave();
-        OnBalanceChanged?.Invoke(_balance);
+        int balance = PlayerDataManager.Instance.GetBalance;
+
+        balance += amount;
+        balance = ClampAndReturn(balance);
+        UpdateCurrency(balance);
     }
 
     // Set absolute balance (useful for debug)
     public void SetBalance(int value)
     {
-        _balance = value;
-        ClampAndSave();
-        OnBalanceChanged?.Invoke(_balance);
+        int balance = ClampAndReturn(value);
+        UpdateCurrency(balance);
     }
-
-    private void ClampAndSave()
+    // Update player data & ui
+    public void UpdateCurrency(int balance)
     {
-        if (_maxBalance > 0) _balance = Mathf.Min(_balance, _maxBalance);
-        if (_balance < 0) _balance = 0;
-        SaveBalance();
+        PlayerDataManager.Instance.UpdateCurrencyData(balance);
+        OnBalanceChanged?.Invoke(balance);
+    }
+    private int ClampAndReturn(int balance)
+    {
+        if (_maxBalance > 0) balance = Mathf.Min(balance, _maxBalance);
+        if (balance < 0) balance = 0;
+        return balance;
     }
 }

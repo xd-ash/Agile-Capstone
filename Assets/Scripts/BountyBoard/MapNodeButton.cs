@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class MapNodeButton : MonoBehaviour
 {
     // these need proper systems instead of inspector assignment
-    [SerializeField] private int _nodeIndex; 
+    [SerializeField] private int _nodeIndex;
     [SerializeField] private string _targetSceneName;
     //
 

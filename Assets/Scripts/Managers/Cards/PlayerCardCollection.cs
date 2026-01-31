@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CardSystem
 {
-    public class PlayerCardCollection : MonoBehaviour
+    /*public class PlayerCardCollection : MonoBehaviour
     {
         // store all persistent player cards
         [SerializeField] private List<CardAbilityDefinition> _ownedCards = new();
@@ -21,10 +21,5 @@ namespace CardSystem
                 Destroy(gameObject);
         }
 
-        public void Add(CardAbilityDefinition def)
-        {
-            if (def != null)
-                _ownedCards.Add(def);
-        }
-    }
+    }*/
 }

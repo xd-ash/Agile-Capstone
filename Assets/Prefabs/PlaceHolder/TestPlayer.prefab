@@ -201,8 +201,8 @@ MonoBehaviour:
   _shield: 0
   _maxAP: 10
   _ap: 0
-  _damageSfx: {fileID: 8300000, guid: abef91ba9c06db94a8004696a5aad8dc, type: 3}
-  _shieldHitSfx: {fileID: 8300000, guid: 8ae3191c3504ac44ab354c262aec60a5, type: 3}
+  _damageSfx: {fileID: 0}
+  _shieldHitSfx: {fileID: 0}
   _enemyHPBar: {fileID: 0}
   _hitChanceText: {fileID: 0}
 --- !u!114 &8664155183730273575
