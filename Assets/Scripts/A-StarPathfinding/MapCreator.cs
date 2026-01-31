@@ -4,8 +4,6 @@ using UnityEngine.Tilemaps;
 using static IsoMetricConversions;
 using WFC;
 
-namespace AStarPathfinding
-{
     public class MapLocation
     {
         public int x;
@@ -70,6 +68,9 @@ namespace AStarPathfinding
         int _tempEnemyCounter = 0;
         int _tempPlayerCounter = 0;
 
+        public bool CheckCanSpawnPlayer => _tempPlayerCounter < _maxPlayersToSpawn;
+        public bool CheckCanSpawnEnemy => _tempEnemyCounter < _maxEnemiesToSpawn;
+
         [SerializeField] private EnvironmentTileSet _moduleSet;
 
         // Getters
@@ -87,7 +88,9 @@ namespace AStarPathfinding
             _map = new byte[_mapSize.x, _mapSize.y];
 
             int moduleWidth = _moduleSet.GetTrueModuleWidth;
-            var environmentMap = WaveFunctionCollapse.WFCGenerate(_moduleSet.Modules, new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth));
+
+            //Add check loop for correct enemy/player spawn
+            var environmentMap = TileWaveFunctionCollapse.WFCGenerate(_moduleSet.Modules, new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth));
             _tilemap.CompressBounds();
 
             _tempEnemyCounter = 0;
@@ -185,4 +188,3 @@ namespace AStarPathfinding
             }
         }
     }
-}

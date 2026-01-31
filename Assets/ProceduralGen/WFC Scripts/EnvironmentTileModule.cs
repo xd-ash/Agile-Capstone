@@ -18,6 +18,7 @@ namespace WFC
 
         [SerializeField] private TileBase[] _trueTiles;
         [SerializeField] private TileBase[] _nKey, _eKey, _sKey, _wKey;
+        [SerializeField] private TileType _tileType;
 
         public IModule[] North { get => _northNeighbours; set => _northNeighbours = value as EnvironmentTileModule[]; }
         public IModule[] East { get => _eastNeighbours; set => _eastNeighbours = value as EnvironmentTileModule[]; }
@@ -28,8 +29,9 @@ namespace WFC
         public TileBase[] SouthKey { get => _sKey; set => _sKey = value; }
         public TileBase[] WestKey { get => _wKey; set => _wKey = value; }
         public TileBase[] GetTrueTiles { get { return _trueTiles; } }
+        public TileType GetTileType => _tileType;
 
-        public void SetBasesAndKeys(TileBase[] tileArray)
+        public void InitModuleValues(TileBase[] tileArray, TileType tileType)
         {
             int width = moduleWidth - 1;
             List<TileBase> n = new(), e = new(), s = new(), w = new();
@@ -66,6 +68,8 @@ namespace WFC
             _sKey = s.ToArray();
             _wKey = w.ToArray();
             _trueTiles = trueTileList.ToArray();
+
+            _tileType = tileType;
         }
         private int GetIndex(int x, int y)
         {

@@ -6,14 +6,24 @@ using UnityEngine.Tilemaps;
 #if UNITY_EDITOR
 namespace WFC
 {
+    public enum TileType
+    {
+        OnlyObstacles = 0,
+        SingleEnemy = 2,
+        SinglePlayer = 4
+    }
+
     [RequireComponent(typeof(Tilemap))]
     public class ItemTileModuleGenerator : MonoBehaviour
     {
-        [SerializeField] private EnvironmentTileSet _tileSet;
+        private EnvironmentTileSet _tileSet;
         private List<EnvironmentTileModule> _tileModules;
 
         [SerializeField] private int _moduleWidth = 6;
         [SerializeField] private int _keyDepth = 1;
+
+        [Space(10), SerializeField] private TileType _tileType;
+
         //private int _maxNullTilesInModule;// number of tiles within a module, that are null & have no tilebase (catches tilemap sections with no modules)
         //private int _numEmptyTiles = 0;// number of tile modules with no items present
 
@@ -43,7 +53,7 @@ namespace WFC
                         }
                     }
 
-                    string assetPath = $"Assets/ProceduralGen/WFC SOs/Modules/TileModules/Tile({x},{y}).asset";
+                    string assetPath = $"Assets/ProceduralGen/WFC SOs/Modules/TileModules/{_tileType}Tile({x},{y}).asset";
                     EnvironmentTileModule asset = AssetDatabase.LoadAssetAtPath<EnvironmentTileModule>(assetPath);
 
                     if (asset != null)
@@ -57,15 +67,15 @@ namespace WFC
 
                     asset.keyDepth = _keyDepth;
                     asset.moduleWidth = _moduleWidth;
-                    asset.SetBasesAndKeys(tiles.ToArray());
+                    asset.InitModuleValues(tiles.ToArray(), _tileType);
                     EditorUtility.SetDirty(asset);
 
                     _tileModules.Add(asset);
                 }
             }
 
-            _tileSet.Modules = _tileModules.ToArray();
-            _tileSet.SetNeighbours();
+            //_tileSet.Modules = _tileModules.ToArray();
+            //_tileSet.SetNeighbours();
         }
 
         /* private bool CheckNullAndEmptyModules(List<TileBase> tiles)

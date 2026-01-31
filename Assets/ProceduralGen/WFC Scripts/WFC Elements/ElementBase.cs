@@ -27,7 +27,7 @@ namespace WFC
                     _options.RemoveAt(i);
             }
         }
-        public virtual void RemoveOptionsFromPosition()
+        public virtual void RemoveOptionsOnCollapse()
         {
             throw new System.NotImplementedException();
         }
