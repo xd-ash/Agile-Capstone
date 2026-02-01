@@ -3,16 +3,16 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public enum TileType
+{
+    OnlyObstacles,
+    SingleEnemy,
+    SinglePlayer
+}
+
 #if UNITY_EDITOR
 namespace WFC
 {
-    public enum TileType
-    {
-        OnlyObstacles = 0,
-        SingleEnemy = 2,
-        SinglePlayer = 4
-    }
-
     [RequireComponent(typeof(Tilemap))]
     public class ItemTileModuleGenerator : MonoBehaviour
     {
