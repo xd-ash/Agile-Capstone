@@ -15,17 +15,17 @@ public class CurrencyDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        if (CurrencyManager.instance != null)
+        if (CurrencyManager.Instance != null)
         {
-            CurrencyManager.instance.OnBalanceChanged += UpdateDisplay;
+            CurrencyManager.Instance.OnBalanceChanged += UpdateDisplay;
             UpdateDisplay(PlayerDataManager.Instance.GetBalance);
         }
     }
 
     private void OnDisable()
     {
-        if (CurrencyManager.instance != null)
-            CurrencyManager.instance.OnBalanceChanged -= UpdateDisplay;
+        if (CurrencyManager.Instance != null)
+            CurrencyManager.Instance.OnBalanceChanged -= UpdateDisplay;
     }
 
     private void UpdateDisplay(int newBalance)

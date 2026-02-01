@@ -15,11 +15,11 @@ namespace CardSystem
 
         public int GetCardSortingOrderBaseValue => _cardSortingOrderBaseValue;
 
-        public static CardSplineManager instance;
+        public static CardSplineManager Instance { get; private set; }
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(this.gameObject);
 
@@ -28,8 +28,8 @@ namespace CardSystem
 
         public void ArrangeCardGOs()
         {
-            int handSize = DeckAndHandManager.instance.GetCurrentHandSize;
-            var cardsInHand = DeckAndHandManager.instance.CardsInHand;
+            int handSize = DeckAndHandManager.Instance.GetCurrentHandSize;
+            var cardsInHand = DeckAndHandManager.Instance.CardsInHand;
 
             if (handSize == 0) return;
             if (_splineContainer.Spline == null)
@@ -86,8 +86,8 @@ namespace CardSystem
 
         public void UpdateCardHoverPosition(Card card, bool isHovered)
         {
-            int handSize = DeckAndHandManager.instance.GetCurrentHandSize;
-            var cardsInHand = DeckAndHandManager.instance.CardsInHand;
+            int handSize = DeckAndHandManager.Instance.GetCurrentHandSize;
+            var cardsInHand = DeckAndHandManager.Instance.CardsInHand;
             var spline = _splineContainer?.Spline;
 
             if (card == null || spline == null) return;

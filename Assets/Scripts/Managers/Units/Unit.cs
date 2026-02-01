@@ -60,14 +60,14 @@ public class Unit : MonoBehaviour, IDamagable
     private void Start()
     {
         if (_team != Team.Friendly || _targetingCoroutine == null) return;
-        DeckAndHandManager.instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
-        TurnManager.instance.OnPlayerTurnEnd += () => StopCoroutine(_targetingCoroutine);
+        DeckAndHandManager.Instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
+        TurnManager.Instance.OnPlayerTurnEnd += () => StopCoroutine(_targetingCoroutine);
     }
     private void OnDestroy()
     {
         if (_team != Team.Friendly || _targetingCoroutine == null) return;
-        DeckAndHandManager.instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
-        TurnManager.instance.OnPlayerTurnEnd -= () => StopCoroutine(_targetingCoroutine);
+        DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
+        TurnManager.Instance.OnPlayerTurnEnd -= () => StopCoroutine(_targetingCoroutine);
     }
     /// <summary>
     /// ChangeHealth handles both healing (isGain = true) and damage (isGain = false).
@@ -84,7 +84,7 @@ public class Unit : MonoBehaviour, IDamagable
 
             if (_shield > 0)
             {
-                AudioManager.instance?.PlaySFX(_shieldHitSfx);
+                AudioManager.Instance?.PlaySFX(_shieldHitSfx);
 
                 int absorbed = Mathf.Min(_shield, remainingDamage);
                 _shield -= absorbed;
@@ -101,7 +101,7 @@ public class Unit : MonoBehaviour, IDamagable
             if (remainingDamage > 0)
             {
                 _health -= remainingDamage;
-                AudioManager.instance?.PlaySFX(_damageSfx);
+                AudioManager.Instance?.PlaySFX(_damageSfx);
                 //Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
             }
             else
@@ -129,8 +129,8 @@ public class Unit : MonoBehaviour, IDamagable
                 GameOverEvents.OnGameWinOrLoss(false);
             else
             {
-                WinLossManager.instance.GetEnemyUnits.Remove(this);
-                if (WinLossManager.instance.GetEnemyUnits.Count == 0)
+                WinLossManager.Instance.GetEnemyUnits.Remove(this);
+                if (WinLossManager.Instance.GetEnemyUnits.Count == 0)
                     GameOverEvents.OnGameWinOrLoss(true);
             }
             //

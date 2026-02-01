@@ -125,11 +125,11 @@ namespace AStarPathfinding
             // Create or grab debug marker parent
             if (_placePathDebugMarkers)
             {
-                _debugMarkerParent = MapCreator.instance.transform.Find("DebugMarkerParent");
+                _debugMarkerParent = MapCreator.Instance.transform.Find("DebugMarkerParent");
                 if (_debugMarkerParent == null)
                 {
                     _debugMarkerParent = new GameObject("DebugMarkerParent").transform;
-                    _debugMarkerParent.parent = MapCreator.instance.transform;
+                    _debugMarkerParent.parent = MapCreator.Instance.transform;
                     _debugMarkerParent.localPosition = Vector3.zero;
                     _debugMarkerParent.localScale = Vector3.one;
                 }
@@ -158,10 +158,10 @@ namespace AStarPathfinding
                 return;
             }
 
-            Vector2 size = MapCreator.instance.GetMapSize;
-            byte[,] bMap = MapCreator.instance.GetByteMap;
+            Vector2 size = MapCreator.Instance.GetMapSize;
+            byte[,] bMap = MapCreator.Instance.GetByteMap;
 
-            foreach (MapLocation dir in MapCreator.instance.GetDirections)
+            foreach (MapLocation dir in MapCreator.Instance.GetDirections)
             {
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= size.x || neighbour.y < 0 || neighbour.y >= size.y) continue; //if neighbor is out of bounds
@@ -288,7 +288,7 @@ namespace AStarPathfinding
                 }
 
                 _unit.SpendAP(_moveCostPerTile);
-                //TurnManager.instance.UpdateApText();
+                //TurnManager.Instance.UpdateApText();
                 GameUIManager.instance.UpdateApText();
 
                 prev = next;
@@ -297,7 +297,7 @@ namespace AStarPathfinding
             _dirAnimator?.SetMoving(false);
             _isMoving = false;
 
-            MapCreator.instance.UpdateUnitPositionByteMap(tempStart, tempEnd, _unit);
+            MapCreator.Instance.UpdateUnitPositionByteMap(tempStart, tempEnd, _unit);
 
             // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
             if (onFinished != null)
@@ -305,7 +305,7 @@ namespace AStarPathfinding
 
             // rebuild highlights for player right after movement is fully done
             if (_unit.GetTeam == Team.Friendly)
-                MovementRangeHighlighter.instance.RebuildForCurrentUnit();
+                MovementRangeHighlighter.Instance.RebuildForCurrentUnit();
         }
     }
 }

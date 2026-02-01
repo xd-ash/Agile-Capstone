@@ -18,7 +18,7 @@ namespace CardSystem
             if (abilityData.GetUnit.GetTeam != Team.Enemy)
             {
                 AbilityEvents.TargetingStarted();
-                AudioManager.instance?.PlayCardSelectSfx();
+                AudioManager.Instance?.PlayCardSelectSfx();
             }
         }
         public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);

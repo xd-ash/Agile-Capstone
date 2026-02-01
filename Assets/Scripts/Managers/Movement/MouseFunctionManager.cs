@@ -17,11 +17,11 @@ public class MouseFunctionManager : MonoBehaviour
 
     public Vector3Int GetCurrTilePosition => _tilePos;
 
-    public static MouseFunctionManager instance;
+    public static MouseFunctionManager Instance { get; private set; }
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
         {
             Destroy(gameObject);
@@ -51,12 +51,12 @@ public class MouseFunctionManager : MonoBehaviour
         // Right click to cancel activated attack card/ability
         if (Input.GetMouseButtonDown(1))
             if (IsTargeting && !PauseMenu.isPaused)
-                if (DeckAndHandManager.instance.GetSelectedCard != null &&
-                    DeckAndHandManager.instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
+                if (DeckAndHandManager.Instance.GetSelectedCard != null &&
+                    DeckAndHandManager.Instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
                 {
                     TargetingStopped();
                     //card.ReturnCardToHand();
-                    DeckAndHandManager.instance.OnCardAblityCancel?.Invoke();
+                    DeckAndHandManager.Instance.OnCardAblityCancel?.Invoke();
                 }
 
         if (PauseMenu.isPaused || !TrackMouse()) return;
@@ -65,8 +65,8 @@ public class MouseFunctionManager : MonoBehaviour
         _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
 
         // If target selection active or tile hover is out of range then clear line, else left mouse click to move to tile
-        if (IsTargeting || !MovementLine.instance.DrawMovementPath(out _shouldMove))
-            MovementLine.instance.ClearLine();
+        if (IsTargeting || !MovementLine.Instance.DrawMovementPath(out _shouldMove))
+            MovementLine.Instance.ClearLine();
         else
         {
             if (Input.GetMouseButtonDown(0) && _shouldMove)
@@ -87,7 +87,7 @@ public class MouseFunctionManager : MonoBehaviour
         if (_currTile == null)
         {
             _highlightTile.SetActive(false);
-            MovementLine.instance.ClearLine();
+            MovementLine.Instance.ClearLine();
             return false;
         }
 

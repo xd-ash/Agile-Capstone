@@ -11,15 +11,15 @@ public class CurrencyManager : MonoBehaviour
     // Fired when balance changes; argument is new balance
     public event Action<int> OnBalanceChanged;
 
-    public static CurrencyManager instance { get; private set; }
+    public static CurrencyManager Instance { get; private set; }
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
 
         PlayerDataManager.Instance.UpdateCurrencyData(_startingBalance);//potentially needs changed if multiple shops
     }

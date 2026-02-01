@@ -71,7 +71,7 @@ public class SceneProgressManager : MonoBehaviour
             return;
         }
 
-        TransitionScene.instance.StartTransition(sceneName);
+        TransitionScene.Instance.StartTransition(sceneName);
     }
 
     //Called when shop or a bounty is finished
@@ -111,6 +111,6 @@ public class SceneProgressManager : MonoBehaviour
         PlayerDataManager.Instance.UpdateNodeData(index);
         SaveLoadScript.SaveGame?.Invoke();
         
-        TransitionScene.instance.StartTransition(_mapSceneName);
+        TransitionScene.Instance.StartTransition(_mapSceneName);
     }
 }

@@ -9,11 +9,11 @@ public class MovementLine : MonoBehaviour
     private LineRenderer _line;
     [SerializeField] private float _lineZOffset = 0.01f;
 
-    public static MovementLine instance;
+    public static MovementLine Instance { get; private set; }
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
         {
             Destroy(gameObject);
@@ -30,10 +30,10 @@ public class MovementLine : MonoBehaviour
     {
         shouldMove = false;
 
-        var tilePos = MouseFunctionManager.instance.GetCurrTilePosition;
+        var tilePos = MouseFunctionManager.Instance.GetCurrTilePosition;
 
-        if (PauseMenu.isPaused || TurnManager.instance == null || TurnManager.instance.CurrTurn != TurnManager.Turn.Player ||
-            MapCreator.instance.GetByteMap[tilePos.x, tilePos.y] != 0 || TurnManager.GetCurrentUnit == null)
+        if (PauseMenu.isPaused || TurnManager.Instance == null || TurnManager.Instance.CurrTurn != TurnManager.Turn.Player ||
+            MapCreator.Instance.GetByteMap[tilePos.x, tilePos.y] != 0 || TurnManager.GetCurrentUnit == null)
             return false;
 
         Unit unit = TurnManager.GetCurrentUnit;
@@ -53,14 +53,14 @@ public class MovementLine : MonoBehaviour
         if (steps <= ap)
         {
             // In range � show only the AP number
-            APHoverIndicator.instance?.ShowCost(indicatorPos, steps);
+            APHoverIndicator.Instance?.ShowCost(indicatorPos, steps);
             _line.gameObject.SetActive(true);
             shouldMove = true;
         }
         else
         {
             // Out of range � show AP number plus red X
-            APHoverIndicator.instance?.ShowOutOfRange(indicatorPos, steps);
+            APHoverIndicator.Instance?.ShowOutOfRange(indicatorPos, steps);
             _line.gameObject.SetActive(false);
         }
 
@@ -90,11 +90,11 @@ public class MovementLine : MonoBehaviour
     public void ClearLine()
     {
         _line.positionCount = 0;
-        APHoverIndicator.instance?.Hide();
+        APHoverIndicator.Instance?.Hide();
     }
     public static Vector3 GridToWorld(Vector2Int cell)
     {
         Vector3 localIso = ConvertToIsometricFromGrid(cell, 0f);
-        return MapCreator.instance.transform.TransformPoint(localIso);
+        return MapCreator.Instance.transform.TransformPoint(localIso);
     }
 }

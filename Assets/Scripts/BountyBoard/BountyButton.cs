@@ -23,7 +23,7 @@ public class BountyButtonSimple : MonoBehaviour
             Debug.LogError("BountyButton: combatSceneName is empty on " + gameObject.name);
             return;
         }
-
-        TransitionScene.instance.StartTransition(_combatSceneName);
+        AudioManager.Instance.PlayButtonSFX();
+        TransitionScene.Instance.StartTransition(_combatSceneName);
     }
 }

@@ -11,7 +11,7 @@ public class ReturnToMapButton : MonoBehaviour
         }
         else
         {
-            TransitionScene.instance.StartTransition();
+            TransitionScene.Instance.StartTransition();
         }
     }
 }

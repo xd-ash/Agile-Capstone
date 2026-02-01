@@ -14,11 +14,11 @@ public class MovementRangeHighlighter : MonoBehaviour
     private Unit _currentUnit;
     private TurnManager.Turn _lastTurn = TurnManager.Turn.Player;
 
-    public static MovementRangeHighlighter instance;
+    public static MovementRangeHighlighter Instance { get; private set; }
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(gameObject);
     }
@@ -26,10 +26,10 @@ public class MovementRangeHighlighter : MonoBehaviour
     private void Start()
     {
         TrySetCurrentUnit(TurnManager.GetCurrentUnit);
-        if (TurnManager.instance != null)
-            _lastTurn = TurnManager.instance.CurrTurn;
+        if (TurnManager.Instance != null)
+            _lastTurn = TurnManager.Instance.CurrTurn;
 
-        _highlightObjectParent = MapCreator.instance.transform.Find("HighlightObjParent");
+        _highlightObjectParent = MapCreator.Instance.transform.Find("HighlightObjParent");
         _highlightTilePrefab = Resources.Load<GameObject>("HighlightTile");
 
         AbilityEvents.OnAbilityTargetingStarted += ClearHighlights;
@@ -45,9 +45,9 @@ public class MovementRangeHighlighter : MonoBehaviour
     {
         /* revisit this code after turn manager code is revisited */
 
-        if (TurnManager.instance.CurrTurn != _lastTurn)
+        if (TurnManager.Instance.CurrTurn != _lastTurn)
         {
-            _lastTurn = TurnManager.instance.CurrTurn;
+            _lastTurn = TurnManager.Instance.CurrTurn;
             OnTurnChanged(_lastTurn);
         }
 
@@ -107,8 +107,8 @@ public class MovementRangeHighlighter : MonoBehaviour
     public void RebuildForCurrentUnit()
     {
         if (_currentUnit == null ||
-            TurnManager.instance == null ||
-            TurnManager.instance.CurrTurn != TurnManager.Turn.Player ||
+            TurnManager.Instance == null ||
+            TurnManager.Instance.CurrTurn != TurnManager.Turn.Player ||
             AbilityEvents.IsTargeting ||
             PauseMenu.isPaused)
         {
@@ -123,7 +123,7 @@ public class MovementRangeHighlighter : MonoBehaviour
     {
         var result = new HashSet<Vector2Int>();
         
-        byte[,] map = MapCreator.instance.GetByteMap;
+        byte[,] map = MapCreator.Instance.GetByteMap;
         int width = map.GetLength(0);
         int height = map.GetLength(1);
 

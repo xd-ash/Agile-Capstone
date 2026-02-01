@@ -16,6 +16,6 @@ public class SaveLoadController : MonoBehaviour
     public void OnContineGame(string sceneName)
     {
         SaveLoadScript.LoadGame?.Invoke();
-        TransitionScene.instance.StartTransition();
+        TransitionScene.Instance.StartTransition();
     }
 }

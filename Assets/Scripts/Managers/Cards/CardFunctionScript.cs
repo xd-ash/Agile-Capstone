@@ -23,9 +23,9 @@ public class CardFunctionScript : MonoBehaviour
 
             Action confirmAction = () =>
             {
-                if (CurrencyManager.instance != null && CurrencyManager.instance.TrySpend(price))
+                if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpend(price))
                 {
-                    DeckAndHandManager.instance?.AddDefinitionToRuntimeDeck(Card.GetCardAbility);
+                    DeckAndHandManager.Instance?.AddDefinitionToRuntimeDeck(Card.GetCardAbility);
 
                     if (isShopActive)
                         CardShopManager.Instance?.DeleteCard(gameObject);
@@ -48,7 +48,7 @@ public class CardFunctionScript : MonoBehaviour
                 cancelAction();
         }
 
-        if (DeckAndHandManager.instance.CardsInHand.IndexOf(Card) == -1) return;
+        if (DeckAndHandManager.Instance.CardsInHand.IndexOf(Card) == -1) return;
 
         IsDragging = true;
     }
@@ -56,7 +56,7 @@ public class CardFunctionScript : MonoBehaviour
     // Try activate a card, return true if successful, false if not
     public bool TryActivateCard()
     {
-        if (Card == null || Card.GetCardAbility?.RootNode == null || DeckAndHandManager.instance == null /*|| DeckAndHandManager.instance.SelectedCard != null*/)
+        if (Card == null || Card.GetCardAbility?.RootNode == null || DeckAndHandManager.Instance == null /*|| DeckAndHandManager.Instance.SelectedCard != null*/)
             return false;
 
         var currentUnit = TurnManager.GetCurrentUnit;
@@ -69,8 +69,8 @@ public class CardFunctionScript : MonoBehaviour
         }
 
         IsSelected = true;
-        DeckAndHandManager.instance.SelectCard(Card);
-        CardSplineManager.instance.ArrangeCardGOs();
+        DeckAndHandManager.Instance.SelectCard(Card);
+        CardSplineManager.Instance.ArrangeCardGOs();
 
         Card.GetCardAbility.UseAility(currentUnit);
         return true;

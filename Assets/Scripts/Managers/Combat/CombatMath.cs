@@ -73,7 +73,7 @@ public static class CombatMath
         if (attacker == null || target == null)
             return false;
 
-        if (MapCreator.instance == null)
+        if (MapCreator.Instance == null)
             return true; //Fail open instead of breaking combat.
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
@@ -86,7 +86,7 @@ public static class CombatMath
     //Returns true if every tile between start and end is transparent.
     public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell)
     {
-        byte[,] map = MapCreator.instance.GetByteMap;
+        byte[,] map = MapCreator.Instance.GetByteMap;
         if (map == null) return true;
 
         int startX = startCell.x;

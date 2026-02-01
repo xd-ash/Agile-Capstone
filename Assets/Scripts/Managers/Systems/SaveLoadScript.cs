@@ -56,7 +56,7 @@ public static class SaveLoadScript
         json = sr.ReadToEnd();
 
         SettingsData settingsData = JsonUtility.FromJson<SettingsData>(json);
-        AudioManager.instance.LoadVolumeSettings(settingsData.GetAudioSettings);
+        AudioManager.Instance.LoadVolumeSettings(settingsData.GetAudioSettings);
         sr.Close();
     }
 }
@@ -169,9 +169,9 @@ public class SettingsData
 
         public AudioSettingsToken()
         {
-            _masterVolume = Mathf.Min(AudioManager.instance.GetMasterVolume, 1);
-            _sfxVolume = Mathf.Min(AudioManager.instance.GetSFXVolume, 1);
-            _musicVolume = Mathf.Min(AudioManager.instance.GetMusicVolume, 1);
+            _masterVolume = Mathf.Min(AudioManager.Instance.GetMasterVolume, 1);
+            _sfxVolume = Mathf.Min(AudioManager.Instance.GetSFXVolume, 1);
+            _musicVolume = Mathf.Min(AudioManager.Instance.GetMusicVolume, 1);
         }
     }
 }

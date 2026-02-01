@@ -54,6 +54,7 @@ public class MapNodeButton : MonoBehaviour
 
     private void OnClicked()
     {
+        AudioManager.Instance.PlayButtonSFX();
         SceneProgressManager.Instance?.EnterNode(_nodeIndex, _targetSceneName);
     }
 }

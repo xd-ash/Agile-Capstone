@@ -7,11 +7,11 @@ public class APHoverIndicator : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _apText;
     [SerializeField] private GameObject _xIconRoot;
 
-    public static APHoverIndicator instance;
+    public static APHoverIndicator Instance { get; private set; }
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
         {
             Destroy(gameObject);

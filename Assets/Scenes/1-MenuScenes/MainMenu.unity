@@ -2567,7 +2567,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartGameButtonScript
   _targetScene: NodeMap
   _isNewGame: 0
-  _confirmPopup: {fileID: 0}
 --- !u!1 &1013440455
 GameObject:
   m_ObjectHideFlags: 0
@@ -3243,6 +3242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: _audioLibrary
+      value: 
+      objectReference: {fileID: 11400000, guid: 8310fb82a58e12c4ab4c204c3088e89a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4125,7 +4128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartGameButtonScript
   _targetScene: NodeMap
   _isNewGame: 1
-  _confirmPopup: {fileID: 0}
 --- !u!114 &1471483900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4717,7 +4719,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartGameButtonScript
   _targetScene: NodeMap
   _isNewGame: 1
-  _confirmPopup: {fileID: 0}
 --- !u!1 &1609867317
 GameObject:
   m_ObjectHideFlags: 0
@@ -5654,6 +5655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799d68143f2143e459390f7794f4e3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataManager
+  _currentNodeIndex: 0
   _deck: {fileID: 11400000, guid: b234795bd520a064687ba1c4db35c945, type: 2}
 --- !u!114 &1713322205
 MonoBehaviour:

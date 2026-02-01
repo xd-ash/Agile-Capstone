@@ -5,14 +5,15 @@ using static SettingsData;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance { get; private set; }
-    
-    //public TurnManager turnManager = TurnManager.instance;
-    [SerializeField] private AudioClip _endTurnSfx;
-    [SerializeField] private AudioClip _drawCardSfx;
-    [SerializeField] private AudioClip _selectCardSfx;
-    [SerializeField] private AudioClip _bgmClip;
-    [SerializeField] private AudioClip _menuButtonClick;
+    private AudioSource _musicSource;   // looped bgm
+    private AudioSource _sfxSource;     // one-shots
+
+    [SerializeField] private AudioLibrary _audioLibrary;
+
+    [Header("Volumes")]
+    [Range(0f, 1f), SerializeField] private float _masterVolume = 1.0f;
+    [Range(0f, 1f), SerializeField] private float _sfxVolume = 1.0f;
+    [Range(0f, 1f), SerializeField] private float _musicVolume = 0.5f;
 
     [System.Serializable]
     public class SceneMusicEntry
@@ -24,48 +25,48 @@ public class AudioManager : MonoBehaviour
     }
     [SerializeField] private List<SceneMusicEntry> _sceneMusic = new List<SceneMusicEntry>();
 
-    [Header("Volumes")]
-    [Range(0f, 1f), SerializeField] private float _masterVolume = 1.0f;
-    [Range(0f, 1f), SerializeField] private float _sfxVolume = 1.0f;
-    [Range(0f, 1f), SerializeField] private float _musicVolume = 0.5f;
-
     public float GetMasterVolume => _masterVolume;
     public float GetSFXVolume => _sfxVolume;
     public float GetMusicVolume => _musicVolume;
-
-    private AudioSource _music;   // looped bgm
-    private AudioSource _sfx;     // one-shots
-    
-    private float _musicBaseVolume = 1f;
     
     // Queued clip to play when AbilityEvents.AbilityUsed() fires
     private AudioClip _pendingUseClip;
 
+    public static AudioManager Instance { get; private set; }
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        _music = gameObject.AddComponent<AudioSource>();
-        _music.loop = true;
-        _music.spatialBlend = 0f;
-        _music.playOnAwake = false;
-        _music.volume = _musicVolume;
+        InitAudioSource(ref _musicSource, _musicVolume);
+        InitAudioSource(ref _sfxSource, _sfxVolume);
 
-        _sfx = gameObject.AddComponent<AudioSource>();
-        _sfx.loop = false;
-        _sfx.spatialBlend = 0f;
-        _sfx.playOnAwake = false;
-        _sfx.volume = _sfxVolume;
+        /*_musicSource = gameObject.AddComponent<AudioSource>();
+        _musicSource.loop = true;
+        _musicSource.spatialBlend = 0f;
+        _musicSource.playOnAwake = false;
+        _musicSource.volume = _musicVolume;
+
+        _sfxSource = gameObject.AddComponent<AudioSource>();
+        _sfxSource.loop = false;
+        _sfxSource.spatialBlend = 0f;
+        _sfxSource.playOnAwake = false;
+        _sfxSource.volume = _sfxVolume;*/
 
         SaveLoadScript.LoadSettings?.Invoke();
         ApplyVolumes();
     }
+
+    // Quick play methods
+    public void PlayDrawCardSfx() => PlaySFX(_audioLibrary.GetDrawCardSFX);
+    public void PlayCardSelectSfx() => PlaySFX(_audioLibrary.GetSelectCardSFX);
+    public void PlayButtonSFX() => PlaySFX(_audioLibrary.GetGetMenuButtonSFX);
+    public void PlayEndTurnSFX() => PlaySFX(_audioLibrary.GetEndTurnSFX);
 
     private void OnEnable()
     {
@@ -76,8 +77,8 @@ public class AudioManager : MonoBehaviour
     public void OnSceneSwap(string sceneLoaded)
     {
         // Unsubscribe TurnManager listener if we return to main menu
-        if (sceneLoaded == "MainMenu" && TurnManager.instance != null)
-            TurnManager.instance.OnPlayerTurnEnd -= HandleTurnChanged;
+        if (sceneLoaded == "MainMenu" && TurnManager.Instance != null)
+            TurnManager.Instance.OnPlayerTurnEnd -= PlayEndTurnSFX;
 
         // Look for a matching scene music entry
         var entry = _sceneMusic.FirstOrDefault(e => e.sceneName == sceneLoaded);
@@ -101,52 +102,40 @@ public class AudioManager : MonoBehaviour
 
     public void LevelLoadInits()
     {
-        if (_bgmClip != null)
-            PlayMusic(_bgmClip, true);
-    }
-    private void HandleTurnChanged()
-    {
-        PlaySFX(_endTurnSfx);
+        if (_audioLibrary.GetBGM != null)
+            PlayMusic(_audioLibrary.GetBGM, true);
     }
 
     private void HandleAbilityUsed(Team unitTeam = Team.Friendly)
     {
-        if (_pendingUseClip != null)
-        {
-            PlaySFX(_pendingUseClip);
-            _pendingUseClip = null; // clear after playing
-        }
+        if (_pendingUseClip == null) return;
+        PlaySFX(_pendingUseClip);
+        _pendingUseClip = null; // clear after playing
     }
 
     public void PlaySFX(AudioClip clip)
     {
-        if (clip == null || _sfx == null) return;
-
-        ApplyVolumes();
-        _sfx.PlayOneShot(clip);
+        if (clip == null || _sfxSource == null) return;
+        _sfxSource.PlayOneShot(clip);
     }
-
-    public void PlayDrawCardSfx() => PlaySFX(_drawCardSfx);
-    public void PlayCardSelectSfx() => PlaySFX(_selectCardSfx);
-    public void PlayButtonSFX() => PlaySFX(_menuButtonClick);
 
     // Added optional volume parameter so each scene entry can control music volume
     public void PlayMusic(AudioClip clip, bool loop = true, float volume = -1f)
     {
-        if (clip == null || _music == null) return;
-        if (_music.clip == clip && _music.isPlaying) return;
-        _music.loop = loop;
-        _music.clip = clip;
-        _music.volume = (volume >= 0f) ? Mathf.Clamp01(volume) : _musicVolume;
+        if (clip == null || _musicSource == null) return;
+        if (_musicSource.clip == clip && _musicSource.isPlaying) return;
+        _musicSource.loop = loop;
+        _musicSource.clip = clip;
+        _musicSource.volume = (volume >= 0f) ? Mathf.Clamp01(volume) : _musicVolume;
         ApplyVolumes();
-        _music.Play();
+        _musicSource.Play();
     }
 
     public void StopMusic()
     {
         // Add some kind of fade here?
         // Add logic for transitioning to new music?
-        _music?.Stop();
+        _musicSource?.Stop();
     }
 
     // Called by CardSelect before invoking the ability
@@ -160,17 +149,6 @@ public class AudioManager : MonoBehaviour
         _masterVolume = audioSettings.GetMasterVolume;
         _sfxVolume = audioSettings.GetSFXVolume;
         _musicVolume = audioSettings.GetMusicVolume;
-    }
-
-    public void ApplyVolumes()
-    {
-        if (_sfx != null)
-            _sfx.volume = _masterVolume * _sfxVolume;
-
-        if (_music != null)
-            _music.volume = _masterVolume * _musicVolume * _musicBaseVolume;
-
-        SaveLoadScript.SaveSettings?.Invoke();
     }
 
     public void SetMasterVolume(float v)
@@ -189,5 +167,23 @@ public class AudioManager : MonoBehaviour
     {
         _musicVolume = Mathf.Clamp01(v);
         ApplyVolumes();
+    }
+    public void ApplyVolumes()
+    {
+        if (_sfxSource != null)
+            _sfxSource.volume = _masterVolume * _sfxVolume;
+
+        if (_musicSource != null)
+            _musicSource.volume = _masterVolume * _musicVolume;
+
+        SaveLoadScript.SaveSettings?.Invoke();
+    }
+    private void InitAudioSource(ref AudioSource audioSource, float volume)
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.loop = false;
+        audioSource.spatialBlend = 0f;
+        audioSource.playOnAwake = false;
+        audioSource.volume = volume;
     }
 }

@@ -40,11 +40,11 @@ namespace AStarPathfinding
     public class MapCreator : MonoBehaviour
     {
         //Singleton setup
-        public static MapCreator instance;
+        public static MapCreator Instance { get; private set; }
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(this.gameObject);
         }

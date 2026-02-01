@@ -9,11 +9,11 @@ namespace CardSystem
     public class DeckAndHandManager : MonoBehaviour
     {
         //Singleton setup
-        public static DeckAndHandManager instance;
+        public static DeckAndHandManager Instance { get; private set; }
         private void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(this.gameObject);
         }
@@ -51,7 +51,7 @@ namespace CardSystem
         //draws cards based on count param, which is default 1
         public void DrawCard(int count = 1)
         {
-            AudioManager.instance?.PlayDrawCardSfx();
+            AudioManager.Instance?.PlayDrawCardSfx();
             var deck = PlayerDataManager.Instance.GetDeck;
 
             if (count <= 0) return;
@@ -92,7 +92,7 @@ namespace CardSystem
                 }
             }
 
-            CardSplineManager.instance.ArrangeCardGOs();
+            CardSplineManager.Instance.ArrangeCardGOs();
         }
 
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
@@ -125,7 +125,7 @@ namespace CardSystem
             //_nextCardInHandIndex = 0;
             _selectedCard = null;
 
-            CardSplineManager.instance.ArrangeCardGOs();
+            CardSplineManager.Instance.ArrangeCardGOs();
         }
 
         public void SelectCard(Card card)
@@ -141,7 +141,7 @@ namespace CardSystem
 
             // remove selectedCard from hand data
             _cardsInHand.Remove(_selectedCard);
-            CardSplineManager.instance.RemoveSelectedCard(_selectedCard);
+            CardSplineManager.Instance.RemoveSelectedCard(_selectedCard);
 
             _selectedCard = null;
         }
@@ -173,7 +173,7 @@ namespace CardSystem
             _cardsInHand.RemoveAt(currentIndex);
             newIndex = Mathf.Clamp(newIndex, 0, _cardsInHand.Count);
             _cardsInHand.Insert(newIndex, card);
-            CardSplineManager.instance.ArrangeCardGOs();
+            CardSplineManager.Instance.ArrangeCardGOs();
         }
 
         public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)

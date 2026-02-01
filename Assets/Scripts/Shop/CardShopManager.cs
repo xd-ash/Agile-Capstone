@@ -52,7 +52,6 @@ public class CardShopManager : MonoBehaviour
 
     // singleton instance for easy access from other components (e.g. CardSelect when a card is bought)
     public static CardShopManager Instance { get; private set; }
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -178,14 +177,14 @@ public class CardShopManager : MonoBehaviour
         // Check refresh cost first (0 or negative means free)
         if (_refreshCost > 0)
         {
-            if (CurrencyManager.instance == null)
+            if (CurrencyManager.Instance == null)
             {
                 Debug.LogWarning(LOG_PREFIX + " CurrencyManager not found; cannot charge refresh cost.");
                 return;
             }
 
             // TrySpend will deduct the amount if player has enough; returns false if insufficient funds
-            bool charged = CurrencyManager.instance.TrySpend(_refreshCost);
+            bool charged = CurrencyManager.Instance.TrySpend(_refreshCost);
             if (!charged)
             {
                 Debug.Log(LOG_PREFIX + " Not enough currency to refresh shop.");

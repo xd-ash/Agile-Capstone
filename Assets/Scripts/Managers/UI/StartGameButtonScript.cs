@@ -39,6 +39,6 @@ public class StartGameButtonScript : MonoBehaviour
         if (_isNewGame)
             SaveLoadScript.CreateNewGame?.Invoke();
         SaveLoadScript.LoadGame?.Invoke();
-        TransitionScene.instance.StartTransition(_targetScene);
+        TransitionScene.Instance.StartTransition(_targetScene);
     }
 }

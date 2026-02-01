@@ -23,16 +23,16 @@ public class PauseMenu : MonoBehaviour
     
     private void Start()
     {
-        if (AudioManager.instance != null)
+        if (AudioManager.Instance != null)
         {
             if (_masterSlider != null)
-                _masterSlider.value = AudioManager.instance.GetMasterVolume;
+                _masterSlider.value = AudioManager.Instance.GetMasterVolume;
 
             if (_sfxSlider != null)
-                _sfxSlider.value = AudioManager.instance.GetSFXVolume;
+                _sfxSlider.value = AudioManager.Instance.GetSFXVolume;
 
             if (_musicSlider != null)
-                _musicSlider.value = AudioManager.instance.GetMusicVolume;
+                _musicSlider.value = AudioManager.Instance.GetMusicVolume;
         }
 
         // Hook up listeners
@@ -49,7 +49,7 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             // No real pause menu on main menu, so just exit out of settings when Esc is pressed
-            if (TransitionScene.instance.GetCurrentScene == "MainMenu")
+            if (TransitionScene.Instance.GetCurrentScene == "MainMenu")
             {
                 _settingsPanel.SetActive(false);
                 return;
@@ -64,12 +64,12 @@ public class PauseMenu : MonoBehaviour
         
         if (IsTargeting && !isPaused)
         {
-            if (DeckAndHandManager.instance.GetSelectedCard != null &&
-                DeckAndHandManager.instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
+            if (DeckAndHandManager.Instance.GetSelectedCard != null &&
+                DeckAndHandManager.Instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
             {
                 TargetingStopped();
                 //card.ReturnCardToHand();
-                DeckAndHandManager.instance.OnCardAblityCancel?.Invoke();
+                DeckAndHandManager.Instance.OnCardAblityCancel?.Invoke();
             }
         }
         
@@ -106,23 +106,23 @@ public class PauseMenu : MonoBehaviour
         if (_settingsPanel != null)
             _settingsPanel.SetActive(false);
 
-        if (TransitionScene.instance.GetCurrentScene != "MainMenu")
+        if (TransitionScene.Instance.GetCurrentScene != "MainMenu")
             _pauseMenuPanel.SetActive(true);
     }
 
 
     private void OnMasterChanged(float value)
     {
-        AudioManager.instance?.SetMasterVolume(value);
+        AudioManager.Instance?.SetMasterVolume(value);
     }
 
     private void OnSfxChanged(float value)
     {
-        AudioManager.instance?.SetSfxVolume(value);
+        AudioManager.Instance?.SetSfxVolume(value);
     }
 
     private void OnMusicChanged(float value)
     {
-        AudioManager.instance?.SetMusicVolume(value);
+        AudioManager.Instance?.SetMusicVolume(value);
     }
 }

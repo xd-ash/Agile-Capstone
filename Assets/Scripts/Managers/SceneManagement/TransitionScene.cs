@@ -10,15 +10,15 @@ public class TransitionScene : MonoBehaviour
 
     public string GetCurrentScene => _currScene;
 
-    public static TransitionScene instance { get; private set; }
+    public static TransitionScene Instance { get; private set; }
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject);
 
         var mainMenuTransform = transform.Find("MainMenu");

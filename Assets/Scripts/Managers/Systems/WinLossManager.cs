@@ -11,24 +11,24 @@ public class WinLossManager : MonoBehaviour
     [SerializeField] private List<Unit> _enemyUnits;
     public List<Unit> GetEnemyUnits => _enemyUnits;
 
-    public static WinLossManager instance { get; private set; }
+    public static WinLossManager Instance { get; private set; }
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
 
-        TurnManager.instance.OnGameStart += GrabEnemyUnits;
+        TurnManager.Instance.OnGameStart += GrabEnemyUnits;
 
         GameOverEvents.OnGameOver += OnGameDone;
     }
 
     private void OnDestroy()
     {
-        TurnManager.instance.OnGameStart -= GrabEnemyUnits;
+        TurnManager.Instance.OnGameStart -= GrabEnemyUnits;
         GameOverEvents.OnGameOver -= OnGameDone;
     }
 
@@ -62,6 +62,6 @@ public class WinLossManager : MonoBehaviour
 
         SceneProgressManager.Instance?.ResetNodes();
         SaveLoadScript.CreateNewGame?.Invoke();
-        TransitionScene.instance?.StartTransition();
+        TransitionScene.Instance?.StartTransition();
     }
 }
