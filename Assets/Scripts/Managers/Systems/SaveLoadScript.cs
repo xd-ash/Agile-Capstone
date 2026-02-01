@@ -1,7 +1,7 @@
 using CardSystem;
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public static class SaveLoadScript
@@ -78,13 +78,13 @@ public class GameData
 
         if (newGameData)
         {
-            _mapNodeData = new(null, null, 0);
+            _mapNodeData = new(null, null, 0, -1);
             _currencyData = new(0);
             _cardData = new(null, pdm.GetDeck);
         }
         else
         {
-            _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex);
+            _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex, pdm.GetSeed);
             _currencyData = new(pdm.GetBalance);
             _cardData = new(pdm.GetOwnedCards, pdm.GetDeck);
         }
@@ -97,16 +97,19 @@ public class GameData
         [SerializeField] private bool[] _nodesCompleted;
         [SerializeField] private bool[] _nodesUnlocked;
         [SerializeField] private int _currentNodeIndex;
+        [SerializeField] private int _randomSeed;
 
         public bool[] GetNodesCompleted => _nodesCompleted;
         public bool[] GetNodesUnlocked => _nodesUnlocked;
         public int GetCurrentNodeIndex => _currentNodeIndex;
+        public int GetSeed => _randomSeed;
 
-        public MapNodeDataToken(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex)
+        public MapNodeDataToken(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex, int seed)
         {
             _nodesCompleted = nodesCompleted;
             _nodesUnlocked = nodesUnlocked;
             _currentNodeIndex = currentNodeIndex;
+            _randomSeed = seed;
         }
     }
 

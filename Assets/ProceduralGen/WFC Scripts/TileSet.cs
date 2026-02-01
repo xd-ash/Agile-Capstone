@@ -29,7 +29,7 @@ namespace WFC
                 {
                     TileModule moduleToCompare = _tileModules[i];
 
-                    if (curModule == moduleToCompare) continue;//same modules cannot be neighbors
+                    //if (curModule == moduleToCompare) continue;//same modules cannot be neighbors
                     
                     if (CheckKey(curModule.NorthKey, moduleToCompare.SouthKey))
                         n.Add(moduleToCompare);

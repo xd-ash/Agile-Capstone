@@ -29,7 +29,7 @@ public class SceneProgressManager : MonoBehaviour
             var nodesUnlocked = new bool[_nodeCount];
             nodesUnlocked[0] = _nodeCount > 0;//By default, unlock node 0
 
-            pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, 0);
+            pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, 0, -1);
         }
     }
     public void ResetNodes()
@@ -39,7 +39,7 @@ public class SceneProgressManager : MonoBehaviour
         var nodesUnlocked = new bool[_nodeCount];
         nodesUnlocked[0] = _nodeCount > 0;//By default, unlock node 0
 
-        pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, 0);
+        pdm.UpdateNodeData(new bool[_nodeCount], nodesUnlocked, 0, -1);
 
         _nodeMapCompleted = false;
     }
@@ -96,7 +96,7 @@ public class SceneProgressManager : MonoBehaviour
 
         _nodeMapCompleted = next == _nodeCount;
 
-        pdm.UpdateNodeData(tempNodeCompleted, tempNodeUnlocked);
+        pdm.UpdateNodeData(tempNodeCompleted, tempNodeUnlocked, pdm.GetCurrentNodeIndex, -1);
     }
 
     public void ReturnToMap()

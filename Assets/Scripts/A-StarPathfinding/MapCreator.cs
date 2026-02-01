@@ -166,7 +166,10 @@ public class MapCreator : MonoBehaviour
         }
 
         CheckNeighbours(startLoc, ref validLocs);
-        return totalNonObstacleTiles == validLocs.Count;
+        bool result = totalNonObstacleTiles == validLocs.Count;
+        if (!result)
+            PlayerDataManager.Instance.GetRandomSeed();
+        return result;
     }
     //recursive method to check neighboring tiles and add locations to list of valid locations
     private void CheckNeighbours(Vector2Int tilePos, ref List<Vector2Int> validLocs)
@@ -198,6 +201,10 @@ public class MapCreator : MonoBehaviour
     {
         _map[startPos.x, startPos.y] = 0;
         _map[endPos.x, endPos.y] = unit.GetTeam == Team.Friendly ? (byte)1 : (byte)3;
+    }
+    public void UpdateUnitPositionByteMap(Vector2Int deathPos, Unit unit)
+    {
+        _map[deathPos.x, deathPos.y] = 0;
     }
 
     private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)

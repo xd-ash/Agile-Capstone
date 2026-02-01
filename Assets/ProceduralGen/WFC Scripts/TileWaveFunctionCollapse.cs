@@ -13,7 +13,7 @@ namespace WFC
 
         public static TileElement[,] WFCGenerate(TileModule[] moduleSet, Vector2Int gridSize)
         {
-            //Random.InitState(NetworkManager.instance.dungeonSeed);
+            Random.InitState(PlayerDataManager.Instance.GetSeed);
 
             TileElement[,] grid = new TileElement[gridSize.x, gridSize.y];
             List<Vector2Int> unreachedPositions = new List<Vector2Int>();

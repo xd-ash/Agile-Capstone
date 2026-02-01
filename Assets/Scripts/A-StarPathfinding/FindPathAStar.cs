@@ -55,14 +55,16 @@ namespace AStarPathfinding
         [SerializeField] private float _unitMoveSpeed;
         [SerializeField] private int _moveCostPerTile = 1;
 
-        //Fix with editor script for bool active
+        //Fix with editor script for bool active or dropdown
         [Header("Debug Markers")]
-        [SerializeField] private bool _placePathDebugMarkers = false; // deserialized b/c the marker placement code isn't fixed yet
+        [SerializeField] private bool _placePathDebugMarkers = false;
         private Transform _debugMarkerParent;
         private GameObject _start;
         private GameObject _end;
         private GameObject _pathP;
         private GameObject _truePMark;
+
+        public bool GetIsMoving => _isMoving;
 
         private void Start()
         {

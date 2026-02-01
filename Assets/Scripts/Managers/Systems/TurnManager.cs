@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CardSystem;
+using AStarPathfinding;
 
 public class TurnManager : MonoBehaviour
 {
@@ -109,6 +110,8 @@ public class TurnManager : MonoBehaviour
     public void EndPlayerTurn()
     {
         if (CurrTurn != Turn.Player) return; // avoid turn end spam
+        if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; //avoid turn end before movement is complete
+
         AudioManager.instance?.PlayButtonSFX();
 
         SetTurn();
