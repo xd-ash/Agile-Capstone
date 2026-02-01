@@ -90,11 +90,15 @@ public class MapCreator : MonoBehaviour
             TileElement[,] environmentMap = null;
             totalNonObstacleTiles = 0;
 
+            int wfcFailCounter = -1;
             do
             {
                 environmentMap = TileWaveFunctionCollapse.WFCGenerate(_moduleSet.Modules,
                     new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth));
-            } while (environmentMap == null || TileWaveFunctionCollapse.CheckCanSpawnPlayer || TileWaveFunctionCollapse.CheckCanSpawnEnemy);
+                wfcFailCounter++;
+                if (wfcFailCounter >= 100)
+                    Debug.Log("Excessive map generation fails from player/enemy spawning");
+            } while ((environmentMap == null || TileWaveFunctionCollapse.CheckCanSpawnPlayer || TileWaveFunctionCollapse.CheckCanSpawnEnemy) && wfcFailCounter < 100);
 
             for (int x = 0; x < _map.GetLength(0); x++)
             {

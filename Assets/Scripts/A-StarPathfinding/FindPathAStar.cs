@@ -85,7 +85,7 @@ namespace AStarPathfinding
             if (_isDone && !_isMoving && PauseMenu.isPaused != true)
             {
                 //only allow movement on this unit's turn
-                if (TurnManager.GetCurrentUnit != _unit) return null; 
+                if (TurnManager.GetCurrentUnit != _unit) return null;
 
                 BeginSearch(tilePos);
                 do

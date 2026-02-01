@@ -15,7 +15,6 @@ public static class SaveLoadScript
 
     private static string _gameDataFilePath = Application.persistentDataPath + "-GameSave.json";
     private static string _settingsDataFilePath = Application.persistentDataPath + "-SettingsData.json";
-    public static string GetFilePath => _gameDataFilePath;
     public static bool CheckForSaveGame => File.Exists(_gameDataFilePath);
 
     // Save/laod for general game data
