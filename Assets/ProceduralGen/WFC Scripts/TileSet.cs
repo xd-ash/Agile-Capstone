@@ -5,29 +5,29 @@ using UnityEngine.Tilemaps;
 namespace WFC
 {
     [CreateAssetMenu(menuName = "WFC/Module Sets/New Item Tile Set")]
-    public class EnvironmentTileSet : ScriptableObject, IModuleSet
+    public class TileSet : ScriptableObject
     {
-        [SerializeField] private EnvironmentTileModule[] _environmentTileModules;
+        [SerializeField] private TileModule[] _tileModules;
         [SerializeField] private int _moduleWidth;
         [SerializeField] private int _keyDepth;
 
-        public IModule[] Modules { get => _environmentTileModules; set => _environmentTileModules = value as EnvironmentTileModule[]; }
-        public int GetTrueModuleWidth { get { return _moduleWidth - 2 * _keyDepth; } }
-        public int GetModuleKeyDepth { get { return _keyDepth; } }
+        public TileModule[] Modules => _tileModules;
+        public int GetTrueModuleWidth => _moduleWidth - 2 * _keyDepth;
+        public int GetModuleKeyDepth => _keyDepth;
 
         public void SetNeighbours()
         {
-            _moduleWidth = _environmentTileModules[0].moduleWidth;
-            _keyDepth = _environmentTileModules[0].keyDepth;
+            _moduleWidth = _tileModules[0].moduleWidth;
+            _keyDepth = _tileModules[0].keyDepth;
 
-            for (int j = 0; j < _environmentTileModules.Length; j++)
+            for (int j = 0; j < _tileModules.Length; j++)
             {
-                EnvironmentTileModule curModule = _environmentTileModules[j];
-                List<EnvironmentTileModule> n = new(), e = new(), s = new(), w = new();
+                TileModule curModule = _tileModules[j];
+                List<TileModule> n = new(), e = new(), s = new(), w = new();
 
-                for (int i = 0; i < _environmentTileModules.Length; i++)
+                for (int i = 0; i < _tileModules.Length; i++)
                 {
-                    EnvironmentTileModule moduleToCompare = _environmentTileModules[i];
+                    TileModule moduleToCompare = _tileModules[i];
 
                     if (curModule == moduleToCompare) continue;//same modules cannot be neighbors
                     
@@ -41,10 +41,11 @@ namespace WFC
                         w.Add(moduleToCompare);
                 }
 
-                curModule.North = n.ToArray();
+                /*curModule.North = n.ToArray();
                 curModule.East = e.ToArray();
                 curModule.South = s.ToArray();
-                curModule.West = w.ToArray();
+                curModule.West = w.ToArray();*/
+                curModule.SetNeighborArrays(n.ToArray(), e.ToArray(), s.ToArray(), w.ToArray());
             }
         }
         public bool CheckKey(TileBase[] key1, TileBase[] key2)

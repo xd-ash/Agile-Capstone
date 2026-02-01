@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73da3ba1a1b07684f92fa49097689f1c, type: 3}
   m_Name: TestIItemSet
   m_EditorClassIdentifier: 
-  _environmentTileModules:
+  _tileModules:
   - {fileID: 11400000, guid: 3343863fd1a95444383d9db4ef54f5cf, type: 2}
   - {fileID: 11400000, guid: c39e2753cfae17548b75101ed426778b, type: 2}
   - {fileID: 11400000, guid: 04f2d120a3d2d724b9e6b4112980665e, type: 2}

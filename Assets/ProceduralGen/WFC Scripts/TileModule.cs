@@ -5,30 +5,30 @@ using UnityEngine.Tilemaps;
 namespace WFC
 {
     //[CreateAssetMenu(fileName = "NewItemTileModule", menuName = "WFC/Modules/New Item Tile Module")]
-    public class EnvironmentTileModule : ScriptableObject, IModule
+    public class TileModule : ScriptableObject
     {
         //public Vector2Int keyDepthByModuleWidth;
         public int keyDepth;
         public int moduleWidth;
 
-        [SerializeField] private EnvironmentTileModule[] _northNeighbours;
-        [SerializeField] private EnvironmentTileModule[] _eastNeighbours;
-        [SerializeField] private EnvironmentTileModule[] _southNeighbours;
-        [SerializeField] private EnvironmentTileModule[] _westNeighbours;
+        [SerializeField] private TileModule[] _northNeighbours;
+        [SerializeField] private TileModule[] _eastNeighbours;
+        [SerializeField] private TileModule[] _southNeighbours;
+        [SerializeField] private TileModule[] _westNeighbours;
 
         [SerializeField] private TileBase[] _trueTiles;
         [SerializeField] private TileBase[] _nKey, _eKey, _sKey, _wKey;
         [SerializeField] private TileType _tileType;
 
-        public IModule[] North { get => _northNeighbours; set => _northNeighbours = value as EnvironmentTileModule[]; }
-        public IModule[] East { get => _eastNeighbours; set => _eastNeighbours = value as EnvironmentTileModule[]; }
-        public IModule[] South { get => _southNeighbours; set => _southNeighbours = value as EnvironmentTileModule[]; }
-        public IModule[] West { get => _westNeighbours; set => _westNeighbours = value as EnvironmentTileModule[]; }
-        public TileBase[] NorthKey { get => _nKey; set => _nKey = value; }
-        public TileBase[] EastKey { get => _eKey; set => _eKey = value; }
-        public TileBase[] SouthKey { get => _sKey; set => _sKey = value; }
-        public TileBase[] WestKey { get => _wKey; set => _wKey = value; }
-        public TileBase[] GetTrueTiles { get { return _trueTiles; } }
+        public TileModule[] North => _northNeighbours;
+        public TileModule[] East => _eastNeighbours;
+        public TileModule[] South => _southNeighbours;
+        public TileModule[] West => _westNeighbours;
+        public TileBase[] NorthKey => _nKey;
+        public TileBase[] EastKey => _eKey;
+        public TileBase[] SouthKey => _sKey;
+        public TileBase[] WestKey => _wKey;
+        public TileBase[] GetTrueTiles => _trueTiles;
         public TileType GetTileType => _tileType;
 
         public void InitModuleValues(TileBase[] tileArray, TileType tileType)
@@ -70,6 +70,13 @@ namespace WFC
             _trueTiles = trueTileList.ToArray();
 
             _tileType = tileType;
+        }
+        public void SetNeighborArrays(TileModule[] north, TileModule[] east, TileModule[] south, TileModule[] west)
+        {
+            _northNeighbours = north;
+            _eastNeighbours = east;
+            _southNeighbours = south;
+            _westNeighbours = west;
         }
         private int GetIndex(int x, int y)
         {

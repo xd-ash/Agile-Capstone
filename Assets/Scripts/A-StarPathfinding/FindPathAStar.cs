@@ -179,6 +179,12 @@ namespace AStarPathfinding
                     _open.Add(new PathMarker(neighbour, newG, newH, newF, thisNode));
             }
 
+            // fully break out of search and about pathfinding
+            if (_open.Count == 0)
+            {
+                _isDone = true;
+                return;
+            }
             _open = _open.OrderBy(p => p.F).ThenBy(n => n.H).ToList(); //orders by F val, and then by H val
             PathMarker pm = _open[0];
             _closed.Add(pm);
@@ -193,7 +199,7 @@ namespace AStarPathfinding
             _truePath = new List<PathMarker>();
             PathMarker begin = _lastPos; //last pos will be goal, then work backwards using parents
 
-            while (!_startNode.Equals(begin) && begin != null)
+            while (begin != null && !_startNode.Equals(begin))
             {
                 if (_placePathDebugMarkers)
                     CreateDebugMarker(_truePMark, new Vector2Int(begin.location.x, begin.location.y));

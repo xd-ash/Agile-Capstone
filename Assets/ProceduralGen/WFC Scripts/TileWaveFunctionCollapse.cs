@@ -6,22 +6,27 @@ namespace WFC
     //Attempt at static WFC class that can be used for different modules/modulesets
     public static class TileWaveFunctionCollapse
     {
-        public static ElementBase[,] WFCGenerate(IModule[] moduleSet, Vector2Int gridSize/*, int maxPlayers, int maxEnemies*/)
+        private static int _playerCount;
+        private static int _enemyCount;
+        public static bool CheckCanSpawnPlayer => _playerCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
+        public static bool CheckCanSpawnEnemy => _enemyCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+
+        public static TileElement[,] WFCGenerate(TileModule[] moduleSet, Vector2Int gridSize)
         {
             //Random.InitState(NetworkManager.instance.dungeonSeed);
 
-            EnvironmentTileElement[,] grid = new EnvironmentTileElement[gridSize.x, gridSize.y];
+            TileElement[,] grid = new TileElement[gridSize.x, gridSize.y];
             List<Vector2Int> unreachedPositions = new List<Vector2Int>();
 
-            int tempPlayerCount = 0;
-            int tempEnemyCount = 0;
+            _playerCount = 0;
+            _enemyCount = 0;
 
             for (int y = 0; y < gridSize.y; y++)
             {
                 for (int x = 0; x < gridSize.x; x++)
                 {
                     Vector2Int position = new Vector2Int(x, y);
-                    grid[x, y] = new EnvironmentTileElement(moduleSet, position);
+                    grid[x, y] = new TileElement(moduleSet, position);
 
                     unreachedPositions.Add(position);
                 }
@@ -33,8 +38,8 @@ namespace WFC
 
             while (unreachedPositions.Count > 0)
             {
-                EnvironmentTileElement curElement;
-                List<EnvironmentTileElement> lowEntropyElements = new List<EnvironmentTileElement>();
+                TileElement curElement;
+                List<TileElement> lowEntropyElements = new List<TileElement>();
                 int lowestEntropy = int.MaxValue;
 
                 for (int i = 0; i < unreachedPositions.Count; i++)
@@ -54,33 +59,31 @@ namespace WFC
 
                 CollapseElement(curElement, grid);
                 unreachedPositions.Remove(curElement.GetPosition);
-
-                /*switch ((curElement.GetSelectedModule as EnvironmentTileModule).GetTileType)
-                {
-                    case TileType.SingleEnemy:
-                        temp
-                        break;
-                    case TileType.SinglePlayer:
-                        break;
-                }*/
             }
 
             return grid;
         }
 
-        private static void CollapseElement(EnvironmentTileElement curElement, EnvironmentTileElement[,] grid)
+        private static void CollapseElement(TileElement curElement, TileElement[,] grid)
         {
             curElement.Collapse();
 
+            switch (curElement.GetSelectedModule.GetTileType)
+            {
+                case TileType.SingleEnemy:
+                    _enemyCount++;
+                    break;
+                case TileType.SinglePlayer:
+                    _playerCount++;
+                    break;
+            }
 
             for (int y = -1; y <= 1; y++)
             {
                 for (int x = -1; x <= 1; x++)
                 {
                     if ((x == 0 && y == 0) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) // setting up for neighbors, but not diags (1,1)
-                    {
                         continue;
-                    }
 
                     int curX = curElement.GetPosition.x + x;
                     int curY = curElement.GetPosition.y + y;
@@ -88,16 +91,16 @@ namespace WFC
                     if (curX < 0 || curY < 0 || curX > grid.GetLength(0) - 1 || curY > grid.GetLength(1) - 1)
                         continue;
 
-                    EnvironmentTileElement curNeighbour = grid[curX, curY];
+                    TileElement curNeighbour = grid[curX, curY];
 
                     if (x > 0)
-                        curNeighbour.RemoveOptions(curElement.GetSelectedModule.East);
+                        curNeighbour.RemoveOptionsByNeighbor(curElement.GetSelectedModule.East);
                     else if (x < 0)
-                        curNeighbour.RemoveOptions(curElement.GetSelectedModule.West);
+                        curNeighbour.RemoveOptionsByNeighbor(curElement.GetSelectedModule.West);
                     else if (y > 0)
-                        curNeighbour.RemoveOptions(curElement.GetSelectedModule.North);
+                        curNeighbour.RemoveOptionsByNeighbor(curElement.GetSelectedModule.North);
                     else if (y < 0)
-                        curNeighbour.RemoveOptions(curElement.GetSelectedModule.South);
+                        curNeighbour.RemoveOptionsByNeighbor(curElement.GetSelectedModule.South);
                 }
             }
         }

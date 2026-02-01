@@ -16,8 +16,8 @@ namespace WFC
     [RequireComponent(typeof(Tilemap))]
     public class ItemTileModuleGenerator : MonoBehaviour
     {
-        private EnvironmentTileSet _tileSet;
-        private List<EnvironmentTileModule> _tileModules;
+        //private TileSet _tileSet;
+        private List<TileModule> _tileModules;
 
         [SerializeField] private int _moduleWidth = 6;
         [SerializeField] private int _keyDepth = 1;
@@ -29,7 +29,7 @@ namespace WFC
 
         public void GenerateTileModules()
         {
-            _tileModules = new List<EnvironmentTileModule>();
+            _tileModules = new List<TileModule>();
             //_maxNullTilesInModule = _moduleWidth * _moduleWidth - (_moduleWidth - 2 * _keyDepth) * 4;
 
             Tilemap tilemap = GetComponent<Tilemap>();
@@ -54,12 +54,12 @@ namespace WFC
                     }
 
                     string assetPath = $"Assets/ProceduralGen/WFC SOs/Modules/TileModules/{_tileType}Tile({x},{y}).asset";
-                    EnvironmentTileModule asset = AssetDatabase.LoadAssetAtPath<EnvironmentTileModule>(assetPath);
+                    TileModule asset = AssetDatabase.LoadAssetAtPath<TileModule>(assetPath);
 
                     if (asset != null)
                         ClearEnvironmentTileModule(asset);
 
-                    asset = ScriptableObject.CreateInstance<EnvironmentTileModule>();
+                    asset = ScriptableObject.CreateInstance<TileModule>();
                     AssetDatabase.CreateAsset(asset, assetPath);
                     AssetDatabase.SaveAssets();
 
@@ -102,7 +102,7 @@ namespace WFC
             return true;
         }*/
 
-        public void ClearEnvironmentTileModule(EnvironmentTileModule asset)
+        public void ClearEnvironmentTileModule(TileModule asset)
         {
             EditorUtility.ClearDirty(asset);
             DestroyImmediate(asset, true);

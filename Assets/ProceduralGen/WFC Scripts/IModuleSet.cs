@@ -1,7 +1,7 @@
 namespace WFC
 {
-    public interface IModuleSet
+    /*public interface IModuleSet
     {
         public IModule[] Modules { get; set; }
-    }
+    }*/
 }

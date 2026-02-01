@@ -3,14 +3,14 @@ using UnityEditor;
 
 namespace WFC
 {
-    [CustomEditor(typeof(EnvironmentTileSet))]
+    [CustomEditor(typeof(TileSet))]
     public class ItemTileSetEditor : Editor
     {
-        private EnvironmentTileSet _environmentTileSet;
+        private TileSet _environmentTileSet;
 
         private void OnEnable()
         {
-            _environmentTileSet = target as EnvironmentTileSet;
+            _environmentTileSet = target as TileSet;
         }
 
         public override void OnInspectorGUI()

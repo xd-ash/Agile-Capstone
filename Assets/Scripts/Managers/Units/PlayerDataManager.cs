@@ -5,6 +5,8 @@ using UnityEngine;
 // Data manager for player data that will be saved in game data
 public class PlayerDataManager : MonoBehaviour
 {
+    private CombatMapData _currMapNodeData;
+
     private int _balance = 0;
 
     private bool[] _nodeCompleted;
@@ -14,6 +16,7 @@ public class PlayerDataManager : MonoBehaviour
     private List<CardAbilityDefinition> _ownedCards = new();
     [SerializeField] private Deck _deck;
 
+    public CombatMapData GetCurrMapNodeData => _currMapNodeData;
     public int GetBalance => _balance;
     public bool[] GetNodeCompleted => _nodeCompleted;
     public bool[] GetNodeUnlocked => _nodeUnlocked;
@@ -72,7 +75,10 @@ public class PlayerDataManager : MonoBehaviour
             if (_ownedCards.Contains(def))
                 _ownedCards.Remove(def);
     }
-
+    public void SetCurrMapNodeData(CombatMapData currMapNodeData)
+    {
+        _currMapNodeData = currMapNodeData;
+    }
     // On game load, update variable values using incoming data param and
     // reinitialize node data for proper node enabling on node map
     public void OnGameLoad(GameData data)
