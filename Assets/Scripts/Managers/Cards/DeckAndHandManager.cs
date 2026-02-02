@@ -16,6 +16,10 @@ namespace CardSystem
                 instance = this;
             else
                 Destroy(this.gameObject);
+
+            ShuffleDeck();
+
+
         }
 
         private int _topCardOfDeck = 0;
@@ -44,12 +48,35 @@ namespace CardSystem
 
         public Action OnCardAblityCancel;
 
+
+
         private void Start()
         {
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
-
+            DeckAndHandManager.instance.DebugRuntimeDeck();
             ShuffleDeck(); // Add shuffle before any cards are drawn
             CardActivePos = transform.Find("CardActivePos");
+
+            var runtimeDeck = GetRuntimeDeck;
+            Debug.Log("DeckAndHandManager runtime deck count: " + runtimeDeck.Length);
+            foreach (var def in runtimeDeck)
+                Debug.Log(def != null ? def.GetCardName : "NULL card!");
+
+        }
+
+
+        public void DebugRuntimeDeck()
+        {
+            var runtime = GetRuntimeDeck;
+            Debug.Log("Runtime deck length = " + runtime.Length);
+
+            for (int i = 0; i < runtime.Length; i++)
+            {
+                if (runtime[i] == null)
+                    Debug.LogError("Runtime deck element " + i + " is NULL!");
+                else
+                    Debug.Log("Runtime deck element " + i + " = " + runtime[i].GetCardName);
+            }
         }
 
         //draws cards based on count param, which is default 1
