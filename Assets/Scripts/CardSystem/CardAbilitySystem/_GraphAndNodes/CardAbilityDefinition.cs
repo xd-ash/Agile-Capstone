@@ -18,6 +18,15 @@ namespace CardSystem
         [SerializeField] private int _range;
         [SerializeField] private int _shopCost;
         [SerializeField] private int _shopWeight;
+        
+        [Header("Combat Balance")]
+        [SerializeField, Range(0, 100)] private int _baseHitChance = 80;
+        [SerializeField, Range(0, 100)] private int _minHitChance = 10;
+        [SerializeField, Range(0, 100)] private int _maxHitChance = 95;
+        
+        [SerializeField] private int _hitPenaltyPerTile = 5;
+        [SerializeField] private float _accuracyMultiplier = 1f;
+        [SerializeField] private int _accuracyFlatBonus = 0;
 
         private AbilityRootNode _rootNode;
 
@@ -28,7 +37,14 @@ namespace CardSystem
         public int GetShopCost => _shopCost;
         public int GetShopWeight => _shopWeight;
         public AudioClip GetAbilitySFX => _abilitySFX;
-
+        
+        public int GetBaseHitChance => _baseHitChance;
+        public int GetMinHitChance => _minHitChance;
+        public int GetMaxHitChance => _maxHitChance;
+        public int GetHitPenaltyPerTile => _hitPenaltyPerTile;
+        public float GetAccuracyMultiplier => _accuracyMultiplier;
+        public int GetAccuracyFlatBonus => _accuracyFlatBonus;
+        
         public AbilityRootNode RootNode
 		{
 			get
