@@ -6,6 +6,8 @@ using UnityEngine;
 // Data manager for player data that will be saved in game data
 public class PlayerDataManager : MonoBehaviour
 {
+    private CardAndDeckLibrary _cardAndDeckLibrary;
+
     [SerializeField] private int _randomSeed = -1;
     private CombatMapData _currMapNodeData;
 
@@ -17,7 +19,7 @@ public class PlayerDataManager : MonoBehaviour
 
     private List<CardAbilityDefinition> _ownedCards = new();
     [SerializeField] private Deck _deck;
-
+    
     public int GetSeed => _randomSeed == -1 ? GetRandomSeed() : _randomSeed;
     public CombatMapData GetCurrMapNodeData => _currMapNodeData;
     public int GetBalance => _balance;
@@ -38,10 +40,15 @@ public class PlayerDataManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
+
+        if (_cardAndDeckLibrary == null)
+            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();
     }
+
+    // create random int seed for map generation & shop card pulling
     public int GetRandomSeed()
     {
         int temp = _randomSeed;
@@ -50,7 +57,7 @@ public class PlayerDataManager : MonoBehaviour
             _randomSeed = UnityEngine.Random.Range(0, int.MaxValue - DateTime.Now.Millisecond) + DateTime.Now.Millisecond;
         } while (temp == _randomSeed);
 
-        Debug.Log("random Seed Generated");
+        //Debug.Log("random Seed Generated");
         return _randomSeed;
     }
     // Data update methods for setting values
@@ -115,22 +122,24 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // Grab card using card name
-    // this may need adjusting as it only searches cards in the current deck
-    // so if player owns cards that arent in the base deck (bought in shop),
-    // then the card won't be found
     private CardAbilityDefinition GetCardDefinitionFromName(string cardName)
     {
-        foreach (var card in _deck.GetDeck)
+        foreach (var card in _cardAndDeckLibrary.GetCardsInProject)
             if (card.name == cardName)
                 return card;
 
-        Debug.LogError($"No matching card SO found in deck for \"{cardName}\"");
+        Debug.LogError($"No matching card definition found in library for \"{cardName}\"");
         return null;
     }
 
     // GrabDeck from resources folder
     private Deck GetDeckFromName(string deckName)
     {
-        return Resources.Load<Deck>("ScriptableObjects/DeckSOs/" + deckName);
+        foreach (var deck in _cardAndDeckLibrary.GetDecksInProject)
+            if (deck.name == deckName)
+                return deck;
+
+        Debug.LogError($"No matching deck SO found in library for \"{deckName}\"");
+        return null;
     }
 }
