@@ -41,11 +41,7 @@ namespace WFC
                         w.Add(moduleToCompare);
                 }
 
-                /*curModule.North = n.ToArray();
-                curModule.East = e.ToArray();
-                curModule.South = s.ToArray();
-                curModule.West = w.ToArray();*/
-                curModule.SetNeighborArrays(n.ToArray(), e.ToArray(), s.ToArray(), w.ToArray());
+                curModule.SetNeighbourArrays(n.ToArray(), e.ToArray(), s.ToArray(), w.ToArray());
             }
         }
         public bool CheckKey(TileBase[] key1, TileBase[] key2)

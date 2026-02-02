@@ -1,5 +1,4 @@
 using CardSystem;
-using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(CardAndDeckLibrary))]
@@ -9,8 +8,6 @@ public class CardDeckLibraryEditor : Editor
 
     private void OnEnable()
     {
-        if (_library == null) _library = (CardAndDeckLibrary)target;
-
         //ClearOtherLibraries();
 
         GrabAssets();
@@ -37,6 +34,7 @@ public class CardDeckLibraryEditor : Editor
             foreach (var guid in cardGUIDS)
                 _library.AddCardToLibrary(AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(AssetDatabase.GUIDToAssetPath(guid)));
     }
+
     /*private void ClearOtherLibraries()
     {
         if (_library == null) _library = (CardAndDeckLibrary)target;

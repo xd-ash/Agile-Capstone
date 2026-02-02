@@ -71,7 +71,7 @@ namespace WFC
 
             _tileType = tileType;
         }
-        public void SetNeighborArrays(TileModule[] north, TileModule[] east, TileModule[] south, TileModule[] west)
+        public void SetNeighbourArrays(TileModule[] north, TileModule[] east, TileModule[] south, TileModule[] west)
         {
             _northNeighbours = north;
             _eastNeighbours = east;

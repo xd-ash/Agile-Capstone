@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73da3ba1a1b07684f92fa49097689f1c, type: 3}
-  m_Name: TestIItemSet
+  m_Name: ModuleSet
   m_EditorClassIdentifier: 
   _tileModules:
   - {fileID: 11400000, guid: 3343863fd1a95444383d9db4ef54f5cf, type: 2}
@@ -19,9 +19,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8bc8ec8887b35474bb5ccda024b999ee, type: 2}
   - {fileID: 11400000, guid: 5b1583d4fa4f2604eb98d6582e791736, type: 2}
   - {fileID: 11400000, guid: 416e999f7710fab49ab4a19123adba14, type: 2}
+  - {fileID: 11400000, guid: bcd69f93fae662c469084810b1eed93d, type: 2}
   - {fileID: 11400000, guid: bd902786d845b6549b65e5b96b30089c, type: 2}
   - {fileID: 11400000, guid: 2c3506bb8524a034c87d579e6f951808, type: 2}
   - {fileID: 11400000, guid: 260ee68bfbf91bf4a85c371fdd38f5dc, type: 2}
+  - {fileID: 11400000, guid: 2521d7b3e69cca54fa405aa68e69da37, type: 2}
   - {fileID: 11400000, guid: a908d96e0a849734caf24a90d78e927c, type: 2}
   - {fileID: 11400000, guid: 48e739c89615abd4a8e1154403fe38c0, type: 2}
   - {fileID: 11400000, guid: 11c0156fb2bb6d74da9ea47b7722d7c2, type: 2}

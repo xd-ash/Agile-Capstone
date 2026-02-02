@@ -172,7 +172,7 @@ public class MapCreator : MonoBehaviour
         CheckNeighbours(startLoc, ref validLocs);
         bool result = totalNonObstacleTiles == validLocs.Count;
         if (!result)
-            PlayerDataManager.Instance.GetRandomSeed();
+            PlayerDataManager.Instance.GetRandomSeed();// regen seed only after fail
         return result;
     }
     //recursive method to check neighboring tiles and add locations to list of valid locations
@@ -206,7 +206,7 @@ public class MapCreator : MonoBehaviour
         _map[startPos.x, startPos.y] = 0;
         _map[endPos.x, endPos.y] = unit.GetTeam == Team.Friendly ? (byte)1 : (byte)3;
     }
-    public void UpdateUnitPositionByteMap(Vector2Int deathPos, Unit unit)
+    public void UpdateUnitPositionByteMap(Vector2Int deathPos)
     {
         _map[deathPos.x, deathPos.y] = 0;
     }

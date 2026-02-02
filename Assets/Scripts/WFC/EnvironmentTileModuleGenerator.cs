@@ -19,17 +19,18 @@ namespace WFC
         //private TileSet _tileSet;
         private List<TileModule> _tileModules;
 
-        [SerializeField] private int _moduleWidth = 6;
+        [SerializeField] private int _moduleWidth = 5;
         [SerializeField] private int _keyDepth = 1;
 
         [Space(10), SerializeField] private TileType _tileType;
 
-        //private int _maxNullTilesInModule;// number of tiles within a module, that are null & have no tilebase (catches tilemap sections with no modules)
-        //private int _numEmptyTiles = 0;// number of tile modules with no items present
+        private int _maxNullTilesInModule;// number of tiles within a module, that are null & have no tilebase (catches tilemap sections with no modules)
+        private int _numEmptyModules = 0;// number of modules with no object tiles present
 
         public void GenerateTileModules()
         {
             _tileModules = new List<TileModule>();
+            _maxNullTilesInModule = (_moduleWidth - 2 * _keyDepth) * (_moduleWidth - 2 * _keyDepth) + 4 * _keyDepth; // max null tiles
             //_maxNullTilesInModule = _moduleWidth * _moduleWidth - (_moduleWidth - 2 * _keyDepth) * 4;
 
             Tilemap tilemap = GetComponent<Tilemap>();
@@ -53,17 +54,17 @@ namespace WFC
                         }
                     }
 
-                    string assetPath = $"Assets/ProceduralGen/WFC SOs/Modules/TileModules/{_tileType}Tile({x},{y}).asset";
+                    string assetPath = $"Assets/ScriptableObjects/WFC SOs/TileModules/{_tileType}Tile({x},{y}).asset";
                     TileModule asset = AssetDatabase.LoadAssetAtPath<TileModule>(assetPath);
 
                     if (asset != null)
-                        ClearEnvironmentTileModule(asset);
+                        ClearTileModuleAsset(asset);
+
+                    if (!CheckNullAndEmptyModules(tiles)) continue;
 
                     asset = ScriptableObject.CreateInstance<TileModule>();
                     AssetDatabase.CreateAsset(asset, assetPath);
                     AssetDatabase.SaveAssets();
-
-                    //if (!CheckNullAndEmptyModules(tiles)) continue;
 
                     asset.keyDepth = _keyDepth;
                     asset.moduleWidth = _moduleWidth;
@@ -78,7 +79,7 @@ namespace WFC
             //_tileSet.SetNeighbours();
         }
 
-        /* private bool CheckNullAndEmptyModules(List<TileBase> tiles)
+        private bool CheckNullAndEmptyModules(List<TileBase> tiles)
         {
             int nullCount = 0;
 
@@ -87,22 +88,23 @@ namespace WFC
                 if (tile == null)
                     nullCount++;
 
+                //catch for completely empty sections of tilemap prefab (no keys, no tiles)
                 if (nullCount > _maxNullTilesInModule)
                     return false;
             }
 
             if (nullCount == _maxNullTilesInModule)
             {
-                if (_numEmptyTiles == 0)
-                    _numEmptyTiles++;
+                if (_numEmptyModules == 0)
+                    _numEmptyModules++;
                 else
                     return false;
             }
 
             return true;
-        }*/
+        }
 
-        public void ClearEnvironmentTileModule(TileModule asset)
+        public void ClearTileModuleAsset(TileModule asset)
         {
             EditorUtility.ClearDirty(asset);
             DestroyImmediate(asset, true);

@@ -5,6 +5,8 @@ using UnityEngine;
 [CustomEditor(typeof(Deck)), CanEditMultipleObjects]
 public class DeckSOEditor : Editor
 {
+    CardAndDeckLibrary _library;
+
     private void OnEnable()
     {
         AddToLibrary();
@@ -18,8 +20,9 @@ public class DeckSOEditor : Editor
     private void AddToLibrary()
     {
         Deck deck = (Deck)target;
-        var library = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
-        if (library != null && !library.GetDecksInProject.Contains(deck))
-            library.AddDeckToLibrary(deck);
+        if (_library == null)
+            _library = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+        if (_library != null && !_library.GetDecksInProject.Contains(deck))
+            _library.AddDeckToLibrary(deck);
     }
 }

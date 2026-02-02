@@ -1,5 +1,6 @@
 using CardSystem;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Deckbuilding System/New Card & Deck Library")]
@@ -33,4 +34,24 @@ public class CardAndDeckLibrary : ScriptableObject
             if (_cardsInProject[i] == null)
                 _cardsInProject.RemoveAt(i);
     }
+
+    public CardAbilityDefinition GetCardFromName(string cardName)
+    {
+        foreach (var card in _cardsInProject)
+            if (card.name == cardName)
+                return card;
+
+        Debug.LogError($"No matching card definition found in library for \"{cardName}\"");
+        return null;
+    }
+    public Deck GetDeckFromName(string deckName)
+    {
+        foreach (var deck in _decksInProject)
+            if (deck.name == deckName)
+                return deck;
+
+        Debug.LogError($"No matching deck SO found in library for \"{deckName}\"");
+        return null;
+    }
+
 }

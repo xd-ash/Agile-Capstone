@@ -41,9 +41,6 @@ public class PlayerDataManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        if (_cardAndDeckLibrary == null)
-            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
-
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();
     }
@@ -104,14 +101,17 @@ public class PlayerDataManager : MonoBehaviour
     // reinitialize node data for proper node enabling on node map
     public void OnGameLoad(GameData data)
     {
+        if (_cardAndDeckLibrary == null)
+            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+
         var currencyData = data.GetCurrencyData;
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
 
-        Deck deck = GetDeckFromName(cardData.GetDeckName);
+        Deck deck = _cardAndDeckLibrary.GetDeckFromName(cardData.GetDeckName);
         List<CardAbilityDefinition> ownedCards = new();
         foreach (var name in cardData.GetOwnedCardNames)
-            ownedCards.Add(GetCardDefinitionFromName(name));
+            ownedCards.Add(_cardAndDeckLibrary.GetCardFromName(name));
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetNodesCompleted, nodeData.GetNodesUnlocked, nodeData.GetCurrentNodeIndex, nodeData.GetSeed);
@@ -119,27 +119,5 @@ public class PlayerDataManager : MonoBehaviour
 
         SceneProgressManager.Instance?.InitNodeData();
         //Debug.Log("Game Loaded");
-    }
-
-    // Grab card using card name
-    private CardAbilityDefinition GetCardDefinitionFromName(string cardName)
-    {
-        foreach (var card in _cardAndDeckLibrary.GetCardsInProject)
-            if (card.name == cardName)
-                return card;
-
-        Debug.LogError($"No matching card definition found in library for \"{cardName}\"");
-        return null;
-    }
-
-    // GrabDeck from resources folder
-    private Deck GetDeckFromName(string deckName)
-    {
-        foreach (var deck in _cardAndDeckLibrary.GetDecksInProject)
-            if (deck.name == deckName)
-                return deck;
-
-        Debug.LogError($"No matching deck SO found in library for \"{deckName}\"");
-        return null;
     }
 }
