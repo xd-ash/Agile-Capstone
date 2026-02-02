@@ -34,8 +34,7 @@ public static class CombatMath
         roll = Random.Range(0f, 100f);
         return roll <= hitChance;
     }
-
-    // Keep your old signature too (optional), but it now just uses defaults:
+    
     public static int GetHitChance(Unit attacker, Unit target, int abilityRange)
         => GetHitChance(attacker, target, abilityRange, null);
 
@@ -53,23 +52,23 @@ public static class CombatMath
         return roll <= hitChance;
     }
 
-    // Core calculator (now optionally card-driven)
     private static int GetHitChance(Unit attacker, Unit target, int abilityRange, CardAbilityDefinition cardDef)
     {
         if (attacker == null || target == null || !HasLineOfSight(attacker, target))
+        {
             return 0;
+        }
 
-        // Pull per-card values if provided, otherwise fallback
         int baseHitChance = cardDef != null ? cardDef.GetBaseHitChance : _defaultHitChance;
-        int minHitChance  = cardDef != null ? cardDef.GetMinHitChance  : _defaultMinHitChance;
-        int maxHitChance  = cardDef != null ? cardDef.GetMaxHitChance  : _defaultMaxHitChance;
+        int minHitChance = cardDef != null ? cardDef.GetMinHitChance  : _defaultMinHitChance;
+        int maxHitChance = cardDef != null ? cardDef.GetMaxHitChance  : _defaultMaxHitChance;
 
         int penaltyPerTile = cardDef != null ? cardDef.GetHitPenaltyPerTile : _defaultPenaltyPerTile;
-        float multiplier   = cardDef != null ? cardDef.GetAccuracyMultiplier : _defaultGlobalMultiplier;
-        int flatBonus      = cardDef != null ? cardDef.GetAccuracyFlatBonus  : _defaultGlobalFlatBonus;
+        float multiplier = cardDef != null ? cardDef.GetAccuracyMultiplier : _defaultGlobalMultiplier;
+        int flatBonus = cardDef != null ? cardDef.GetAccuracyFlatBonus  : _defaultGlobalFlatBonus;
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
-        Vector2Int targetCell   = ConvertToGridFromIsometric(target.transform.localPosition);
+        Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
 
         int distance = Mathf.Abs(attackerCell.x - targetCell.x) + Mathf.Abs(attackerCell.y - targetCell.y); // Manhattan
 
@@ -77,9 +76,13 @@ public static class CombatMath
 
         int distancePenalty;
         if (extraDistance > 0 && abilityRange <= 1)
+        {
             distancePenalty = baseHitChance;
+        }
         else
+        {
             distancePenalty = extraDistance * penaltyPerTile;
+        }
 
         int rawHitChance = baseHitChance - distancePenalty;
 
@@ -89,15 +92,17 @@ public static class CombatMath
         final = Mathf.Clamp(final, minHitChance, maxHitChance);
         return final;
     }
-
-    // (rest of your LOS code stays the same)
     public static bool HasLineOfSight(Unit attacker, Unit target)
     {
         if (attacker == null || target == null)
+        {
             return false;
+        }
 
         if (MapCreator.Instance == null)
+        {
             return true; // Fail open
+        }
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
@@ -108,7 +113,10 @@ public static class CombatMath
     public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell)
     {
         byte[,] map = MapCreator.Instance.GetByteMap;
-        if (map == null) return true;
+        if (map == null)
+        {
+            return true;
+        }
 
         int startX = startCell.x;
         int startY = startCell.y;
@@ -137,11 +145,15 @@ public static class CombatMath
             if (!isStartCell && !isEndCell)
             {
                 if (!IsTransparent(currentX, currentY, map, mapWidth, mapHeight))
+                {
                     return false;
+                }
             }
 
             if (isEndCell)
+            {
                 break;
+            }
 
             int errorTwice = 2 * error;
 
@@ -163,7 +175,9 @@ public static class CombatMath
     private static bool IsTransparent(int x, int y, byte[,] map, int mapWidth, int mapHeight)
     {
         if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight)
+        {
             return false;
+        }
 
         byte tileValue = map[x, y];
         return tileValue == 0 || tileValue == 2;
