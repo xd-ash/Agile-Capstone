@@ -180,6 +180,6 @@ public static class CombatMath
         }
 
         byte tileValue = map[x, y];
-        return tileValue == 0 || tileValue == 2;
+        return tileValue == 0 || tileValue == 3 || tileValue == 1;
     }
 }
