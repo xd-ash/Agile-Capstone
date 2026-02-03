@@ -1,62 +1,46 @@
 using UnityEngine;
 using AStarPathfinding;
 using static IsoMetricConversions;
+using CardSystem; // <-- add this so CombatMath can see CardAbilityDefinition
 
 public static class CombatMath
 {
-    //Default fallback numbers if no CombatBalance in the scene
+    // Default fallback numbers if no card is provided
     private const int _defaultHitChance = 80;
     private const int _defaultMinHitChance = 10;
     private const int _defaultMaxHitChance = 95;
-    private const int _defaultNoPenaltyRange = 3;
     private const int _defaultPenaltyPerTile = 5;
     private const float _defaultGlobalMultiplier = 1f;
     private const int _defaultGlobalFlatBonus = 0;
-    
-    private static CombatBalance CB => CombatBalance.instance;
-    
-    //Don't know if this is the proper way of doing things
-    private static int BaseHitChance => CB != null ? CB.baseHitChance : _defaultHitChance;
-    private static int MinHitChance => CB != null ? CB.minHitChance : _defaultMinHitChance;
-    private static int MaxHitChance => CB != null ? CB.maxHitChance : _defaultMaxHitChance;
-    //private static int NoPenaltyRange => CB != null ? CB.noPenaltyRange : _defaultNoPenaltyRange;
-    private static int PenaltyPerTile => CB != null ? CB.hitPenaltyPerTile : _defaultPenaltyPerTile;
-    private static float AccuracyMultiplier => CB != null ? CB.accuracyMultiplier : _defaultGlobalMultiplier;
-    private static int AccuracyFlatBonus => CB != null ? CB.accuracyFlatBonus : _defaultGlobalFlatBonus;
 
-
-    //Returns the hit chance (0–100) from attacker to target.
-    //Returns 0 if line of sight is blocked or if either unit is null.
-    public static int GetHitChance(Unit attacker, Unit target, int abilityRange)
+    // New: Card-based overloads
+    public static int GetHitChance(Unit attacker, Unit target, CardAbilityDefinition cardDef)
     {
-        if (attacker == null || target == null || !HasLineOfSight(attacker, target))
-            return 0;
+        int range = cardDef != null ? cardDef.GetRange : 1;
+        return GetHitChance(attacker, target, range, cardDef);
+    }
 
-        Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
-        Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
+    public static bool RollHit(Unit attacker, Unit target, CardAbilityDefinition cardDef, out int hitChance, out float roll)
+    {
+        int range = cardDef != null ? cardDef.GetRange : 1;
+        hitChance = GetHitChance(attacker, target, range, cardDef);
 
-        int distance = Mathf.Abs(attackerCell.x - targetCell.x) + Mathf.Abs(attackerCell.y - targetCell.y); //Manhattan distance
+        if (hitChance <= 0)
+        {
+            roll = 100f;
+            return false;
+        }
 
-        int extraDistance = Mathf.Max(0, distance - abilityRange);
-        int distancePenalty;
-        if (extraDistance > 0 && abilityRange <= 1)
-            distancePenalty = BaseHitChance;
-        else
-            distancePenalty = extraDistance * PenaltyPerTile;
-        int rawHitChance = BaseHitChance - distancePenalty;
-        
-        float scaled = rawHitChance * AccuracyMultiplier;
-        int final = Mathf.RoundToInt(scaled) + AccuracyFlatBonus;
-        
-        final = Mathf.Clamp(final, MinHitChance, MaxHitChance);
-
-        return final;
+        roll = Random.Range(0f, 100f);
+        return roll <= hitChance;
     }
     
-    //Rolls a random number against the current hit chance.
+    public static int GetHitChance(Unit attacker, Unit target, int abilityRange)
+        => GetHitChance(attacker, target, abilityRange, null);
+
     public static bool RollHit(Unit attacker, Unit target, int abilityRange, out int hitChance, out float roll)
     {
-        hitChance = GetHitChance(attacker, target, abilityRange);
+        hitChance = GetHitChance(attacker, target, abilityRange, null);
 
         if (hitChance <= 0)
         {
@@ -68,26 +52,71 @@ public static class CombatMath
         return roll <= hitChance;
     }
 
+    private static int GetHitChance(Unit attacker, Unit target, int abilityRange, CardAbilityDefinition cardDef)
+    {
+        if (attacker == null || target == null || !HasLineOfSight(attacker, target))
+        {
+            return 0;
+        }
+
+        int baseHitChance = cardDef != null ? cardDef.GetBaseHitChance : _defaultHitChance;
+        int minHitChance = cardDef != null ? cardDef.GetMinHitChance  : _defaultMinHitChance;
+        int maxHitChance = cardDef != null ? cardDef.GetMaxHitChance  : _defaultMaxHitChance;
+
+        int penaltyPerTile = cardDef != null ? cardDef.GetHitPenaltyPerTile : _defaultPenaltyPerTile;
+        float multiplier = cardDef != null ? cardDef.GetAccuracyMultiplier : _defaultGlobalMultiplier;
+        int flatBonus = cardDef != null ? cardDef.GetAccuracyFlatBonus  : _defaultGlobalFlatBonus;
+
+        Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
+        Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
+
+        int distance = Mathf.Abs(attackerCell.x - targetCell.x) + Mathf.Abs(attackerCell.y - targetCell.y); // Manhattan
+
+        int extraDistance = Mathf.Max(0, distance - abilityRange);
+
+        int distancePenalty;
+        if (extraDistance > 0 && abilityRange <= 1)
+        {
+            distancePenalty = baseHitChance;
+        }
+        else
+        {
+            distancePenalty = extraDistance * penaltyPerTile;
+        }
+
+        int rawHitChance = baseHitChance - distancePenalty;
+
+        float scaled = rawHitChance * multiplier;
+        int final = Mathf.RoundToInt(scaled) + flatBonus;
+
+        final = Mathf.Clamp(final, minHitChance, maxHitChance);
+        return final;
+    }
     public static bool HasLineOfSight(Unit attacker, Unit target)
     {
         if (attacker == null || target == null)
+        {
             return false;
+        }
 
         if (MapCreator.Instance == null)
-            return true; //Fail open instead of breaking combat.
+        {
+            return true; // Fail open
+        }
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
 
         return HasLineOfSight(attackerCell, targetCell);
     }
-    
-    //Line of sight check on the byte map using a bresenham style grid line.
-    //Returns true if every tile between start and end is transparent.
+
     public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell)
     {
         byte[,] map = MapCreator.Instance.GetByteMap;
-        if (map == null) return true;
+        if (map == null)
+        {
+            return true;
+        }
 
         int startX = startCell.x;
         int startY = startCell.y;
@@ -113,15 +142,18 @@ public static class CombatMath
             bool isStartCell = (currentX == startX && currentY == startY);
             bool isEndCell = (currentX == endX && currentY == endY);
 
-            //Only tiles between the units can block LOS.
             if (!isStartCell && !isEndCell)
             {
                 if (!IsTransparent(currentX, currentY, map, mapWidth, mapHeight))
+                {
                     return false;
+                }
             }
 
             if (isEndCell)
+            {
                 break;
+            }
 
             int errorTwice = 2 * error;
 
@@ -140,7 +172,6 @@ public static class CombatMath
         return true;
     }
 
-    //Determines whether a given tile lets line of sight pass through.
     private static bool IsTransparent(int x, int y, byte[,] map, int mapWidth, int mapHeight)
     {
         if (x < 0 || y < 0 || x >= mapWidth || y >= mapHeight)
@@ -149,10 +180,6 @@ public static class CombatMath
         }
 
         byte tileValue = map[x, y];
-
-        //0 = empty - transparent
-        //1 = obstacle - blocks LOS
-        //2 = enemy spawn/marker - transparent
         return tileValue == 0 || tileValue == 2;
     }
 }

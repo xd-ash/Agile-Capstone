@@ -44,9 +44,8 @@ namespace CardSystem
             {
                 if (target != null && target.TryGetComponent<Unit>(out Unit targetUnit))
                 {
-                    int abilRange = (graph as CardAbilityDefinition).GetRange;
-
-                    bool hit = CombatMath.RollHit(abilityData.GetUnit, targetUnit, abilRange, out int hitChance, out float roll);
+                    var def = graph as CardAbilityDefinition;
+                    bool hit = CombatMath.RollHit(abilityData.GetUnit, targetUnit, def, out int hitChance, out float roll);
 
                     _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
 
