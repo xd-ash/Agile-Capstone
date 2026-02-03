@@ -55,14 +55,16 @@ namespace AStarPathfinding
         [SerializeField] private float _unitMoveSpeed;
         [SerializeField] private int _moveCostPerTile = 1;
 
-        //Fix with editor script for bool active
+        //Fix with editor script for bool active or dropdown
         [Header("Debug Markers")]
-        [SerializeField] private bool _placePathDebugMarkers = false; // deserialized b/c the marker placement code isn't fixed yet
+        [SerializeField] private bool _placePathDebugMarkers = false;
         private Transform _debugMarkerParent;
         private GameObject _start;
         private GameObject _end;
         private GameObject _pathP;
         private GameObject _truePMark;
+
+        public bool GetIsMoving => _isMoving;
 
         private void Start()
         {
@@ -83,7 +85,7 @@ namespace AStarPathfinding
             if (_isDone && !_isMoving && PauseMenu.isPaused != true)
             {
                 //only allow movement on this unit's turn
-                if (TurnManager.GetCurrentUnit != _unit) return null; 
+                if (TurnManager.GetCurrentUnit != _unit) return null;
 
                 BeginSearch(tilePos);
                 do
@@ -165,7 +167,7 @@ namespace AStarPathfinding
             {
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= size.x || neighbour.y < 0 || neighbour.y >= size.y) continue; //if neighbor is out of bounds
-                if (bMap[neighbour.x, neighbour.y] == 1 || bMap[neighbour.x, neighbour.y] == 2) continue; // if pos is obstacle/enemy
+                if (bMap[neighbour.x, neighbour.y] == 2 || bMap[neighbour.x, neighbour.y] == 3) continue; // if pos is obstacle/enemy
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;
@@ -179,6 +181,12 @@ namespace AStarPathfinding
                     _open.Add(new PathMarker(neighbour, newG, newH, newF, thisNode));
             }
 
+            // fully break out of search and about pathfinding
+            if (_open.Count == 0)
+            {
+                _isDone = true;
+                return;
+            }
             _open = _open.OrderBy(p => p.F).ThenBy(n => n.H).ToList(); //orders by F val, and then by H val
             PathMarker pm = _open[0];
             _closed.Add(pm);
@@ -193,7 +201,7 @@ namespace AStarPathfinding
             _truePath = new List<PathMarker>();
             PathMarker begin = _lastPos; //last pos will be goal, then work backwards using parents
 
-            while (!_startNode.Equals(begin) && begin != null)
+            while (begin != null && !_startNode.Equals(begin))
             {
                 if (_placePathDebugMarkers)
                     CreateDebugMarker(_truePMark, new Vector2Int(begin.location.x, begin.location.y));

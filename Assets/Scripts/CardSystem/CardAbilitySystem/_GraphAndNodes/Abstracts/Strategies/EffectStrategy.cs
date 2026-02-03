@@ -33,7 +33,7 @@ namespace CardSystem
                 }
                 catch
                 {
-                    Debug.Log("null effect visual");
+                    //Debug.Log("null effect visual");
                 }
             }
         }

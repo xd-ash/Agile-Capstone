@@ -18,7 +18,7 @@ public class MovementLine : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        }
+        } 
 
         if (_line == null)
             _line = GetComponent<LineRenderer>();

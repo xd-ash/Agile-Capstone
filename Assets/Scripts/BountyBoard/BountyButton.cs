@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BountyButtonSimple : MonoBehaviour
+public class BountyButton : MonoBehaviour
 {
-    [Tooltip("Name of the combat scene to load for this bounty")]
-    [SerializeField] private string _combatSceneName = "LevelOne";
-    
     private Button _button;
+
+    [Space(10), Tooltip("Combat scene data to pass on scene swap")]
+    [SerializeField] private CombatMapData _combatNodeData; //needs some kind of system for randomizing?
 
     private void Awake()
     {
@@ -18,12 +18,15 @@ public class BountyButtonSimple : MonoBehaviour
 
     private void OnClicked()
     {
-        if (string.IsNullOrEmpty(_combatSceneName))
-        {
-            Debug.LogError("BountyButton: combatSceneName is empty on " + gameObject.name);
-            return;
-        }
-        AudioManager.Instance.PlayButtonSFX();
-        TransitionScene.Instance.StartTransition(_combatSceneName);
+        PlayerDataManager.Instance.SetCurrMapNodeData(_combatNodeData);
+        TransitionScene.instance.StartTransition("Combat");
     }
+}
+//struct to store data on how many enemies/players to spawn based on which node is selected
+//move me somewhere else?
+[System.Serializable]
+public struct CombatMapData
+{
+    public int maxPlayersAllowed;
+    public int maxEnemiesAllowed;
 }

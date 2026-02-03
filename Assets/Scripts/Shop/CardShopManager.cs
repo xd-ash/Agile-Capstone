@@ -6,16 +6,6 @@ public class CardShopManager : MonoBehaviour
 {
     private const string LOG_PREFIX = "[CardShopSpawner]";
 
-    /*[System.Serializable]
-    public struct ShopEntry
-    {
-        public CardSystem.CardAbilityDefinition definition;
-        [Tooltip("Higher weight => more likely to be chosen")]
-        public float weight;
-        [Tooltip("Cost to buy this card in the shop")]
-        public int cost;
-    }*/
-
     [Header("Pool (assign in inspector)")]
     //public List<ShopEntry> pool = new List<ShopEntry>();
     [SerializeField] private Deck _pool;
@@ -29,11 +19,6 @@ public class CardShopManager : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] private Transform _spawnParent; // parent for spawned card GOs (optional)
     [SerializeField] private Vector3 _localOffset = Vector3.zero;
-
-    //[Header("Shop Settings")]
-    //[Tooltip("Optional collider for the buy/drop area. If null, the object tagged 'BuyArea' will be used.")]
-    //public Collider2D buyAreaCollider;
-    //public string buyAreaTag = "BuyArea";
 
     [Header("Layout (fan settings)")]
     [Tooltip("Total horizontal span of the fan in local units")]
@@ -69,6 +54,18 @@ public class CardShopManager : MonoBehaviour
             SpawnMultiple(_initialSpawnCount);
     }
 
+    // Convenience: spawn `count` cards (call this multiple times to populate shop)
+    public void SpawnMultiple(int count)
+    {
+        Random.InitState(PlayerDataManager.Instance.GetSeed);
+
+        for (int i = 0; i < count; i++)
+            SpawnRandomCard();
+
+        // arrange all active cards (new + existing)
+        ArrangeSpawnedCards(activeSpawnedCards);
+    }
+
     // Spawns a single card chosen from `pool` using weighted random selection.
     public void SpawnRandomCard()
     {
@@ -99,16 +96,6 @@ public class CardShopManager : MonoBehaviour
 
         // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);
-    }
-
-    // Convenience: spawn `count` cards (call this multiple times to populate shop)
-    public void SpawnMultiple(int count)
-    {
-        for (int i = 0; i < count; i++)
-            SpawnRandomCard();
-
-        // arrange all active cards (new + existing)
-        ArrangeSpawnedCards(activeSpawnedCards);
     }
 
     // Arrange spawned cards in a centered fan (local coordinates relative to parent)

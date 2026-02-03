@@ -3,14 +3,26 @@ using UnityEngine.UI;
 
 public class MapNodeButton : MonoBehaviour
 {
-    // these need proper systems instead of inspector assignment
-    [SerializeField] private int _nodeIndex;
-    [SerializeField] private string _targetSceneName;
-    //
-
     private Button _button;
     private Image _background;
 
+    private enum NodeType{ None, Shop, Bounty }
+    [SerializeField] private NodeType _nodeType;
+    private int _nodeIndex;
+    private string _targetSceneName;
+
+    private void Awake()
+    {
+        // set nodeindex based on hierarchical order
+        for (int i = 0; i < transform.parent.childCount; i++)
+            if (transform.parent.GetChild(i) == transform)
+            {
+                _nodeIndex = i;
+                break;
+            }
+
+        _targetSceneName = GrabTargetSceneFromType();
+    }
     private void Start()
     {
         if (TryGetComponent(out _button))
@@ -20,7 +32,6 @@ public class MapNodeButton : MonoBehaviour
 
         RefreshVisual();
     }
-
     private void OnEnable()
     {
         _button = GetComponent<Button>();
@@ -51,10 +62,22 @@ public class MapNodeButton : MonoBehaviour
 
         _background.color = c;
     }
+    private string GrabTargetSceneFromType()
+    {
+        switch (_nodeType)
+        {
+            case NodeType.Shop:
+                return "Shop";
+            case NodeType.Bounty:
+                return "BountyBoard";
+            default:
+                return string.Empty;
+        }
+    }
 
     private void OnClicked()
     {
-        AudioManager.Instance.PlayButtonSFX();
+        if (_targetSceneName == string.Empty) return;
         SceneProgressManager.Instance?.EnterNode(_nodeIndex, _targetSceneName);
     }
 }

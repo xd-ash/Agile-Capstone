@@ -45,7 +45,7 @@ public class GoapAgent : MonoBehaviour
     private WorldStates _beliefs = new WorldStates(); //make public or getter/setter if actions needed
     private GoapPlanner _planner;
     [HideInInspector] public Unit unit;
-    [HideInInspector] public Unit curtarget;
+    public Unit curtarget;
 
     public List<GoapAction> GetActions => _actions;
 

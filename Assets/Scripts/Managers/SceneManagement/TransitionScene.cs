@@ -48,10 +48,12 @@ public class TransitionScene : MonoBehaviour
         mainMenu?.SetActive(targetScene == "MainMenu");
 
         SceneSwap?.Invoke(targetScene);
+        SaveLoadScript.SaveGame?.Invoke();
     }
 
     public void QuitApplication()
     {
+        SaveLoadScript.SaveGame?.Invoke();
         Application.Quit();
     }
 }

@@ -94,7 +94,7 @@ public class AudioManager : MonoBehaviour
         // Fallback behavior for existing LevelOne behavior
         switch (sceneLoaded)
         {
-            case "LevelOne":
+            case "Combat":
                 //LevelLoadInits();
                 break;
         }

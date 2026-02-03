@@ -4,7 +4,7 @@ using TMPro;
 public class APHoverIndicator : MonoBehaviour
 {
     [Header("Visuals")]
-    [SerializeField] private TextMeshProUGUI _apText;
+    [SerializeField] private TextMeshPro _apText;
     [SerializeField] private GameObject _xIconRoot;
 
     public static APHoverIndicator Instance { get; private set; }
