@@ -10,9 +10,9 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _playerShieldText;
     [SerializeField] private Slider _playerShieldSlider; // optional visual bar overlay (set max to player's maxHealth by default)
 
-    [Header("Unit")]
-    [SerializeField] private Unit _player;
-    [SerializeField] private Unit _enemy;
+    //[Header("Unit")]
+    //[SerializeField] private Unit _player;
+    //[SerializeField] private Unit _enemy;
 
     [Header("Turn")]
     [SerializeField] private TextMeshProUGUI _turnText;
@@ -32,7 +32,7 @@ public class GameUIManager : MonoBehaviour
         }
         instance = this;
 
-        if (_playerHealthSlider != null && _player != null)
+        /*if (_playerHealthSlider != null && _player != null)
         {
             _playerHealthSlider.maxValue = _player.GetMaxHealth;
             _playerHealthSlider.value    = Mathf.Clamp(_player.GetHealth, 0, _player.GetMaxHealth);
@@ -47,10 +47,10 @@ public class GameUIManager : MonoBehaviour
             _playerShieldSlider.maxValue = _player.GetMaxHealth;
             _playerShieldSlider.gameObject.SetActive(_player.GetShield() > 0);
             _playerShieldSlider.value = _player.GetShield();
-        }
+        }*/
 
-        if (_playerShieldText != null)
-            _playerShieldText.gameObject.SetActive(_player != null && _player.GetShield() > 0);
+        //if (_playerShieldText != null)
+            //_playerShieldText.gameObject.SetActive(_player != null && _player.GetShield() > 0);
     }
 
     public void UpdateApText(Team unitTeam = Team.Friendly)
@@ -77,7 +77,7 @@ public class GameUIManager : MonoBehaviour
         DamageEvents.OnPlayerDamaged += UpdatePlayerHealth;
 
         ShieldEvents.OnPlayerShieldChanged += UpdatePlayerShield;
-        ShieldEvents.OnEnemyShieldChanged  += UpdateEnemyShield;
+        //ShieldEvents.OnEnemyShieldChanged  += UpdateEnemyShield;
 
         AbilityEvents.OnAbilityUsed += UpdateApText;
     }
@@ -87,7 +87,7 @@ public class GameUIManager : MonoBehaviour
         DamageEvents.OnPlayerDamaged -= UpdatePlayerHealth;
 
         ShieldEvents.OnPlayerShieldChanged -= UpdatePlayerShield;
-        ShieldEvents.OnEnemyShieldChanged  -= UpdateEnemyShield;
+        //ShieldEvents.OnEnemyShieldChanged  -= UpdateEnemyShield;
     }
 
     private void UpdatePlayerHealth(int current, int max)
@@ -96,26 +96,20 @@ public class GameUIManager : MonoBehaviour
         if (_playerHealthSlider.maxValue != max) _playerHealthSlider.maxValue = max;
         _playerHealthSlider.value = Mathf.Clamp(current, 0, max);
 
+        if (_playerHealthText == null) return;
         _playerHealthText.text = $"Player Health: {current}/{max}";
     }
 
     private void UpdatePlayerShield(int current)
     {
-        if (_playerShieldSlider != null)
-        {
-            _playerShieldSlider.value = Mathf.Clamp(current, 0, (int)_playerShieldSlider.maxValue);
-            _playerShieldSlider.gameObject.SetActive(current > 0);
-        }
+        if (_playerShieldSlider == null) return;
+        if (_playerShieldSlider.maxValue != _playerHealthSlider.maxValue) _playerShieldSlider.maxValue = _playerHealthSlider.maxValue;
 
-        if (_playerShieldText != null)
-        {
-            _playerShieldText.text = current > 0 ? $"Shield: {current}" : string.Empty;
-            _playerShieldText.gameObject.SetActive(current > 0);
-        }
-    }
+        _playerShieldSlider.value = Mathf.Clamp(current, 0, (int)_playerShieldSlider.maxValue);
+        _playerShieldSlider.gameObject.SetActive(current > 0);
 
-    private void UpdateEnemyShield(int current)
-    {
-        // Optionally add enemy shield UI; for now we don't have slider/text for enemy shield.
+        if (_playerShieldText == null) return;
+        _playerShieldText.gameObject.SetActive(current > 0);
+        _playerShieldText.text = current > 0 ? $"Shield: {current}" : string.Empty;
     }
 }

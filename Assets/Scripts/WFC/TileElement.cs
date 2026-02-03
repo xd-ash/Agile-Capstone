@@ -51,7 +51,7 @@ namespace WFC
                     continue;
                 }
 
-                if (MapCreator.instance == null) continue;
+                if (MapCreator.Instance == null) continue;
 
                 switch (_options[i].GetTileType)
                 {

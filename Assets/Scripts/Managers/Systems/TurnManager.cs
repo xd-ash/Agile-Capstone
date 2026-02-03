@@ -7,7 +7,6 @@ using AStarPathfinding;
 
 public class TurnManager : MonoBehaviour
 {
-    public static TurnManager instance { get; private set; }
     public enum Turn { Player, Enemy }
     public Turn CurrTurn { get; private set; } = Turn.Player;
 
@@ -16,27 +15,24 @@ public class TurnManager : MonoBehaviour
     private List<Unit> _unitTurnOrder;
     private int _turnTracker = -1;
 
-    //[Header("UI")]
-    //[SerializeField] private TextMeshProUGUI _turnText;
-    //[SerializeField] private TextMeshProUGUI _apText;
-
     public event Action OnGameStart;
     public event Action OnPlayerTurnEnd;
     
     public void EndEnemyTurn() => SetTurn();
-    public static bool IsPlayerTurn => instance != null && instance.CurrTurn == Turn.Player;
-    public static bool IsEnemyTurn => instance != null && instance.CurrTurn == Turn.Enemy;
-    public static Unit GetCurrentUnit => instance != null ? instance._curUnit : null;
-    public static List<Unit> GetUnitTurnOrder => instance != null ? instance._unitTurnOrder : null;
+    public static bool IsPlayerTurn => Instance != null && Instance.CurrTurn == Turn.Player;
+    public static bool IsEnemyTurn => Instance != null && Instance.CurrTurn == Turn.Enemy;
+    public static Unit GetCurrentUnit => Instance != null ? Instance._curUnit : null;
+    public static List<Unit> GetUnitTurnOrder => Instance != null ? Instance._unitTurnOrder : null;
 
+    public static TurnManager Instance { get; private set; }
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
@@ -101,7 +97,7 @@ public class TurnManager : MonoBehaviour
 
         // Draw player's starting hand when player's turn begins
         if (_curUnit.GetTeam == Team.Friendly)
-            DeckAndHandManager.instance?.DrawStartingHand(true);
+            DeckAndHandManager.Instance?.DrawStartingHand(true);
 
         GameUIManager.instance.UpdateApText();
     }
@@ -112,13 +108,13 @@ public class TurnManager : MonoBehaviour
         if (CurrTurn != Turn.Player) return; // avoid turn end spam
         if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; //avoid turn end before movement is complete
 
-        AudioManager.instance?.PlayButtonSFX();
+        AudioManager.Instance?.PlayButtonSFX();
 
         SetTurn();
         AbilityEvents.TargetingStopped();
 
         // discard player's hand at end of player turn
-        DeckAndHandManager.instance?.DiscardAll();
+        DeckAndHandManager.Instance?.DiscardAll();
         OnPlayerTurnEnd?.Invoke();
     }
 }

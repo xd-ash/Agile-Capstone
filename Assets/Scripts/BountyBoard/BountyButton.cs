@@ -19,7 +19,7 @@ public class BountyButton : MonoBehaviour
     private void OnClicked()
     {
         PlayerDataManager.Instance.SetCurrMapNodeData(_combatNodeData);
-        TransitionScene.instance.StartTransition("Combat");
+        TransitionScene.Instance.StartTransition("Combat");
     }
 }
 //struct to store data on how many enemies/players to spawn based on which node is selected

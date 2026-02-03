@@ -135,7 +135,7 @@ public class Unit : MonoBehaviour, IDamagable
             }
             //
 
-            MapCreator.instance.UpdateUnitPositionByteMap(IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition));
+            MapCreator.Instance.UpdateUnitPositionByteMap(IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition));
             Destroy(gameObject);
             //Debug.Log($"[{team}] '{name}' unit died");
         }

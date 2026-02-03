@@ -4974,7 +4974,6 @@ Transform:
   - {fileID: 1278766396}
   - {fileID: 752325241}
   - {fileID: 1395463653}
-  - {fileID: 2372962220993994082}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1931126030
@@ -5673,21 +5672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _apText: {fileID: 1293861141}
   _xIconRoot: {fileID: 574021965}
---- !u!4 &2372962220993994082
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5086629866103678813}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1895713566}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4591095891315556890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5711,23 +5695,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!1 &5086629866103678813
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2372962220993994082}
-  - component: {fileID: 8626639282932549420}
-  m_Layer: 0
-  m_Name: CombatBalance
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &5968703634305541883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5745,24 +5712,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8626639282932549420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5086629866103678813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a5f62e9a7aec543b76ce2ab48b7c84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseHitChance: 100
-  minHitChance: 0
-  maxHitChance: 100
-  hitPenaltyPerTile: 10
-  accuracyMultiplier: 1
-  accuracyFlatBonus: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
