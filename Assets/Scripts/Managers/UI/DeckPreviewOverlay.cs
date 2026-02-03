@@ -23,6 +23,8 @@ public class DeckPreviewOverlay : MonoBehaviour
     {
         if (deckManager == null)
             deckManager = DeckAndHandManager.instance;
+
+        Invoke(nameof(Build),1f);
     }
     public void Toggle()
     {
@@ -63,7 +65,7 @@ public class DeckPreviewOverlay : MonoBehaviour
 
         if (rowPrefab == null)
         {
-            Debug.LogError("DeckPreviewOverlay: rowPrefab is not assigned!");
+            //Debug.LogError("DeckPreviewOverlay: rowPrefab is not assigned!");
             return;
         }
 

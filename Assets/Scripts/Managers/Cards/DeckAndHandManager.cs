@@ -53,14 +53,14 @@ namespace CardSystem
         private void Start()
         {
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
-            DeckAndHandManager.instance.DebugRuntimeDeck();
+            //DeckAndHandManager.instance.DebugRuntimeDeck();
             ShuffleDeck(); // Add shuffle before any cards are drawn
             CardActivePos = transform.Find("CardActivePos");
 
             var runtimeDeck = GetRuntimeDeck;
-            Debug.Log("DeckAndHandManager runtime deck count: " + runtimeDeck.Length);
-            foreach (var def in runtimeDeck)
-                Debug.Log(def != null ? def.GetCardName : "NULL card!");
+            //Debug.Log("DeckAndHandManager runtime deck count: " + runtimeDeck.Length);
+            //foreach (var def in runtimeDeck)
+                //Debug.Log(def != null ? def.GetCardName : "NULL card!");
 
         }
 
