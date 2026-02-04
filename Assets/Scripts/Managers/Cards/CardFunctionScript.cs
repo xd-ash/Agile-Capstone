@@ -9,6 +9,19 @@ public class CardFunctionScript : MonoBehaviour
     public bool IsSelected { get; private set; } = false;
     public bool IsDragging { get; private set; } = false;
 
+    [SerializeField] private CardAbilityDefinition cardDefinition;
+
+    public void SetCardDefinition(CardAbilityDefinition def)
+    {
+        cardDefinition = def;
+        // update visuals here (name, art, cost, etc)
+    }
+
+    public CardAbilityDefinition GetDefinition()
+    {
+        return cardDefinition;
+    }
+
     private void OnMouseDown()
     {
         if (PauseMenu.isPaused || IsSelected) return;

@@ -1,97 +1,44 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using CardSystem;
 
 public class DeckPreviewOverlay : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private DeckAndHandManager deckManager;
-    [SerializeField] private GameObject rowPrefab;
+    [Header("UI")]
     [SerializeField] private Transform contentRoot;
-    [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private RectTransform panelRoot;
+    [SerializeField] private DeckPreviewRow rowPrefab;
 
-    [Header("Animation")]
-    [SerializeField] private float animationDuration = 0.25f;
-    [SerializeField] private Vector3 hiddenScale = new Vector3(0.8f, 0.8f, 0.8f);
-    [SerializeField] private Vector3 visibleScale = Vector3.one;
+    private readonly List<DeckPreviewRow> _spawnedRows = new();
 
-    private bool isVisible = false;
-
-
-    private void Awake()
+    private void OnEnable()
     {
-        if (deckManager == null)
-            deckManager = DeckAndHandManager.instance;
-
-        Invoke(nameof(Build),1f);
-    }
-    public void Toggle()
-    {
-        if (isVisible) Hide();
-        else Show();
-    }
-
-    public void Show()
-    {
-        if (!deckManager)
-        {
-            Debug.LogError("DeckPreviewOverlay: deckManager reference is missing!");
-            return;
-        }
-
         Build();
-
-        canvasGroup.alpha = 1f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
-        panelRoot.localScale = visibleScale;
-        isVisible = true;
     }
 
-    public void Hide()
-    {
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
-        panelRoot.localScale = hiddenScale;
-        Clear();
-        isVisible = false;
-    }
-
-    private void Build()
+    public void Build()
     {
         Clear();
 
-        if (rowPrefab == null)
+        var deckManager = DeckAndHandManager.instance;
+        if (deckManager == null)
         {
-            //Debug.LogError("DeckPreviewOverlay: rowPrefab is not assigned!");
-            return;
-        }
-
-        if (contentRoot == null)
-        {
-            Debug.LogError("DeckPreviewOverlay: contentRoot is not assigned!");
+            Debug.LogError("[DeckPreviewOverlay] No DeckAndHandManager found");
             return;
         }
 
         var runtimeDeck = deckManager.GetRuntimeDeck;
-
         if (runtimeDeck == null || runtimeDeck.Length == 0)
         {
-            Debug.LogWarning("DeckPreviewOverlay: runtime deck is empty!");
+            Debug.LogWarning("[DeckPreviewOverlay] Runtime deck is empty");
             return;
         }
 
-        // Count duplicates safely
-        Dictionary<CardAbilityDefinition, int> counts = new Dictionary<CardAbilityDefinition, int>();
+        // Count duplicates
+        Dictionary<CardAbilityDefinition, int> counts = new();
+
         foreach (var def in runtimeDeck)
         {
-            if (def == null)
-            {
-                Debug.LogWarning("DeckPreviewOverlay: null CardAbilityDefinition found in runtime deck! Skipping.");
-                continue;
-            }
+            if (def == null) continue;
 
             if (!counts.ContainsKey(def))
                 counts[def] = 0;
@@ -99,37 +46,19 @@ public class DeckPreviewOverlay : MonoBehaviour
             counts[def]++;
         }
 
-        if (counts.Count == 0)
-        {
-            Debug.LogWarning("DeckPreviewOverlay: no valid cards to display in overlay.");
-            return;
-        }
-
-        // Spawn rows
         foreach (var pair in counts)
         {
-            var rowGO = Instantiate(rowPrefab, contentRoot);
-            var row = rowGO.GetComponent<DeckPreviewRow>();
-
-            if (row == null)
-            {
-                Debug.LogError("DeckPreviewOverlay: rowPrefab missing DeckPreviewRow component!");
-                Destroy(rowGO);
-                continue;
-            }
-
-            // Bind only if valid
-            if (pair.Key != null)
-            {
-                row.Bind(pair.Key, pair.Value);
-                Debug.Log($"DeckPreviewOverlay: spawned row for {pair.Key.GetCardName} x{pair.Value}");
-            }
+            var row = Instantiate(rowPrefab, contentRoot);
+            row.Bind(pair.Key, pair.Value);
+            _spawnedRows.Add(row);
         }
     }
 
     private void Clear()
     {
-        foreach (Transform t in contentRoot)
-            Destroy(t.gameObject);
+        foreach (var row in _spawnedRows)
+            Destroy(row.gameObject);
+
+        _spawnedRows.Clear();
     }
 }
