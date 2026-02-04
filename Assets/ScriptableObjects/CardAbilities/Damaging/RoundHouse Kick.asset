@@ -146,6 +146,12 @@ MonoBehaviour:
   _range: 1
   _shopCost: 20
   _shopWeight: 35
+  _baseHitChance: 100
+  _minHitChance: 10
+  _maxHitChance: 95
+  _hitPenaltyPerTile: 5
+  _accuracyMultiplier: 1
+  _accuracyFlatBonus: 0
 --- !u!114 &5214614789712125746
 MonoBehaviour:
   m_ObjectHideFlags: 0

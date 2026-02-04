@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
-  _maxHealth: 1
+  _maxHealth: 10
   _health: 0
   _maxShield: 25
   _shield: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAbility: {fileID: 11400000, guid: b50b36088f8e5fd4d8a10ce8411903f8, type: 2}
   healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
-  healCharges: 3
+  healCharges: 2
   _goapActionsEnum: 126
   _actions:
   - rid: 184551379020808278

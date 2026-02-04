@@ -45,7 +45,7 @@ MonoBehaviour:
       _dynamic: 0
   _hasDuration: 0
   _duration: 0
-  _effectValue: 5
+  _effectValue: 2
   effectVisuals: 0
   input: 0
   missFontSize: 48
@@ -78,6 +78,7 @@ MonoBehaviour:
     - miscEffects
     - harmfulEffects 0
     - filtering 0
+    - miscEffects 0
     values:
     - _fieldName: targeting
       _node: {fileID: -3844634634637453141}
@@ -151,7 +152,19 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectTypes: 4
+    - _fieldName: miscEffects 0
+      _node: {fileID: -3844634634637453141}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 3130110892317466588}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  _effectTypes: 12
   targeting: 0
   filtering: 0
   helpfulEffects: 0
@@ -199,7 +212,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: Strong Attack
+  m_Name: Swing
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -3844634634637453141}
@@ -207,11 +220,12 @@ MonoBehaviour:
   - {fileID: -76797013698469015}
   - {fileID: 5144402596869855986}
   - {fileID: 6646383339752646348}
-  _cardName: Strong Attack
-  _description: Deal 7 damage close range
+  - {fileID: 3130110892317466588}
+  _cardName: Swing
+  _description: Deal 2 damage and draw 1 card
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
-  _apCost: 7
-  _range: 1
+  _apCost: 2
+  _range: 3
   _shopCost: 25
   _shopWeight: 25
   _baseHitChance: 100
@@ -220,6 +234,54 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+--- !u!114 &3130110892317466588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef4750a7d440fd478df461bb8bc2995, type: 3}
+  m_Name: Deck Effect
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DeckEffect
+  graph: {fileID: 11400000}
+  position: {x: 8, y: 312}
+  ports:
+    keys:
+    - input
+    - effectVisuals
+    values:
+    - _fieldName: input
+      _node: {fileID: 3130110892317466588}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: miscEffects 0
+        node: {fileID: -3844634634637453141}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: 3130110892317466588}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  _hasDuration: 0
+  _duration: 0
+  _effectValue: 0
+  effectVisuals: 0
+  input: 0
+  _action: 0
+  _amount: 1
+  _logResults: 1
 --- !u!114 &5144402596869855986
 MonoBehaviour:
   m_ObjectHideFlags: 0

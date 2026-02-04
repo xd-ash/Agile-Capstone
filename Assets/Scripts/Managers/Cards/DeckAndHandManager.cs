@@ -29,7 +29,7 @@ namespace CardSystem
 
         // runtime deck support
         private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
-        private bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
+        public bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
         //public Deck GetDeck => _deck;
         public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
@@ -98,6 +98,8 @@ namespace CardSystem
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
         public void DrawStartingHand(bool force = false)
         {
+            _startingHandDrawn = true;
+
             if (!force && _startingHandDrawn) return;
             _startingHandDrawn = true;
             
