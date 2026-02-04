@@ -92,7 +92,7 @@ namespace CardSystem
                 }
             }
 
-            CardSplineManager.Instance.ArrangeCardGOs();
+            CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
@@ -127,7 +127,7 @@ namespace CardSystem
             //_nextCardInHandIndex = 0;
             _selectedCard = null;
 
-            CardSplineManager.Instance.ArrangeCardGOs();
+            CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
         public void SelectCard(Card card)
@@ -143,7 +143,7 @@ namespace CardSystem
 
             // remove selectedCard from hand data
             _cardsInHand.Remove(_selectedCard);
-            CardSplineManager.Instance.RemoveSelectedCard(_selectedCard);
+            CardSplineManager.Instance?.RemoveSelectedCard(_selectedCard);
 
             _selectedCard = null;
         }
@@ -175,7 +175,7 @@ namespace CardSystem
             _cardsInHand.RemoveAt(currentIndex);
             newIndex = Mathf.Clamp(newIndex, 0, _cardsInHand.Count);
             _cardsInHand.Insert(newIndex, card);
-            CardSplineManager.Instance.ArrangeCardGOs();
+            CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
         public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)

@@ -158,7 +158,7 @@ namespace CardSystem
 
             // Only update position if explicitly not dragging
             if (!_cfs.IsDragging)
-                CardSplineManager.Instance.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
+                CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
 
         //Calculate new index of card, then start card hand reorder and sorting orders of sprites/texts
@@ -175,7 +175,7 @@ namespace CardSystem
 
             if (!isFinal) return;
             
-            CardSplineManager.Instance.UpdateCardHoverPosition(_cfs.Card, isHovered);
+            CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHovered);
             UpdateSortingOrders(isHovered ? DeckAndHandManager.Instance.CardsInHand.Count : 0);
         }
 
@@ -185,8 +185,8 @@ namespace CardSystem
             if (_spriteRenderer == null) return;
             if (_cfs.IsDragging) sortingBoost = DeckAndHandManager.Instance.CardsInHand.Count;
 
-            int baseSortingValue = CardSplineManager.Instance.GetCardSortingOrderBaseValue;
             bool isShopActive = CardShopManager.Instance != null;
+            int baseSortingValue = isShopActive ? 0 : CardSplineManager.Instance.GetCardSortingOrderBaseValue;
             int cardIndex = isShopActive ? 0 : DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
              
             // Set sorting by taking into account the BaseSortingValue, sorting boost param, and card index (index set to 0 during shop scene)

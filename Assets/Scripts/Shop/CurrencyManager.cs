@@ -9,7 +9,7 @@ public class CurrencyManager : MonoBehaviour
     [SerializeField] private int _maxBalance = 0;
 
     // Fired when balance changes; argument is new balance
-    public event Action<int> OnBalanceChanged;
+    public Action<int> OnBalanceChanged;
 
     public static CurrencyManager Instance { get; private set; }
     private void Awake()
@@ -21,7 +21,7 @@ public class CurrencyManager : MonoBehaviour
         }
         Instance = this;
 
-        PlayerDataManager.Instance.UpdateCurrencyData(_startingBalance);//potentially needs changed if multiple shops
+        //PlayerDataManager.Instance.UpdateCurrencyData(_startingBalance);//potentially needs changed if multiple shops
     }
 
     // Try to spend amount. Returns true if successful and deducts amount.

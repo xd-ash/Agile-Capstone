@@ -69,8 +69,8 @@ public class CardFunctionScript : MonoBehaviour
         }
 
         IsSelected = true;
-        DeckAndHandManager.Instance.SelectCard(Card);
-        CardSplineManager.Instance.ArrangeCardGOs();
+        DeckAndHandManager.Instance?.SelectCard(Card);
+        CardSplineManager.Instance?.ArrangeCardGOs();
 
         Card.GetCardAbility.UseAility(currentUnit);
         return true;

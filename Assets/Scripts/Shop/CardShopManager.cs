@@ -181,6 +181,8 @@ public class CardShopManager : MonoBehaviour
             }
         }
 
+        PlayerDataManager.Instance.GetRandomSeed();
+
         // destroy existing cards
         for (int i = activeSpawnedCards.Count - 1; i >= 0; i--)
         {

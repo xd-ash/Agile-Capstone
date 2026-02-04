@@ -8,7 +8,7 @@ public class PlayerDataManager : MonoBehaviour
 {
     private CardAndDeckLibrary _cardAndDeckLibrary;
 
-    [SerializeField] private int _randomSeed = -1;
+    private int _randomSeed = -1;
     private CombatMapData _currMapNodeData;
 
     private int _balance = 0;
@@ -61,6 +61,7 @@ public class PlayerDataManager : MonoBehaviour
     public void UpdateCurrencyData(int currentBalance)
     {
         _balance = currentBalance;
+        //CurrencyManager.Instance?.OnBalanceChanged?.Invoke(currentBalance);
     }
     public void UpdateNodeData(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex, int seed)
     {
@@ -118,6 +119,7 @@ public class PlayerDataManager : MonoBehaviour
         UpdateCardData(ownedCards, deck);
 
         SceneProgressManager.Instance?.InitNodeData();
+        CurrencyManager.Instance?.OnBalanceChanged?.Invoke(_balance);
         //Debug.Log("Game Loaded");
     }
 }

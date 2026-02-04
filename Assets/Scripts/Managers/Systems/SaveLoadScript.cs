@@ -78,7 +78,7 @@ public class GameData
         if (newGameData)
         {
             _mapNodeData = new(null, null, 0, -1);
-            _currencyData = new(0);
+            _currencyData = new(100);
             _cardData = new(null, pdm.GetDeck);
         }
         else
