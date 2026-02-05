@@ -17,8 +17,8 @@ public class PlayerDataManager : MonoBehaviour
     private bool[] _nodeUnlocked;
     private int _currentNodeIndex;
 
-    [SerializeField] private List<DeckBase> _createdDecks = new();//qweqwsqweqseqw
-    [SerializeField] private DeckBase _activeDeck;
+    [SerializeField] private List<Deck> _createdDecks = new();//qweqwsqweqseqw
+    [SerializeField] private Deck _activeDeck;
     private List<CardAbilityDefinition> _ownedCards = new();
     //[SerializeField] private Deck _deck;
     
@@ -30,7 +30,7 @@ public class PlayerDataManager : MonoBehaviour
     public int GetCurrentNodeIndex => _currentNodeIndex;
     public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
     //public Deck GetDeck => _deck;
-    public DeckBase GetActiveDeck => _activeDeck;
+    public Deck GetActiveDeck => _activeDeck;
 
     public static PlayerDataManager Instance { get; private set; }
     private void Awake()
@@ -82,7 +82,7 @@ public class PlayerDataManager : MonoBehaviour
     {
         _currentNodeIndex = currentNodeIndex;
     }
-    public void UpdateCardData(List<CardAbilityDefinition> ownedCards, DeckBase deck)
+    public void UpdateCardData(List<CardAbilityDefinition> ownedCards, Deck deck)
     {
         _ownedCards = ownedCards;
         //_deck = deck;
@@ -113,7 +113,7 @@ public class PlayerDataManager : MonoBehaviour
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
 
-        DeckBase deck = _cardAndDeckLibrary.GetDeckFromName(cardData.GetDeckName);
+        Deck deck = _cardAndDeckLibrary.GetDeckFromName(cardData.GetDeckName);
         List<CardAbilityDefinition> ownedCards = new();
         foreach (var name in cardData.GetOwnedCardNames)
             ownedCards.Add(_cardAndDeckLibrary.GetCardFromName(name));

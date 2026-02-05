@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
-    [Tooltip("Starting currency for new players")]
-    [SerializeField] private int _startingBalance = 100;
+    //[Tooltip("Starting currency for new players")]
+    //[SerializeField] private int _startingBalance = 100;
     [Tooltip("Max currency (0 = unlimited)")]
     [SerializeField] private int _maxBalance = 0;
 

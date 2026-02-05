@@ -7,7 +7,7 @@ public class CardShopManager : MonoBehaviour
     private const string LOG_PREFIX = "[CardShopSpawner]";
 
     [Header("Pool (assign in inspector)")]
-    [SerializeField] private DeckBase _pool;
+    [SerializeField] private Deck _pool;
 
     [Header("Auto Spawn Settings")]
     [Tooltip("If true, the spawner will populate the shop on scene start")]

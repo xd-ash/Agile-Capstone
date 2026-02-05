@@ -7,17 +7,17 @@ using UnityEngine;
 public class CardAndDeckLibrary : ScriptableObject
 {
     //[SerializeField] private List<Deck> _decksInProject = new();
-    [SerializeField] private List<DeckBase> _decksInProject = new();
-    [SerializeField] private DeckBase _shopPool;
+    [SerializeField] private List<Deck> _decksInProject = new();
+    [SerializeField] private Deck _shopPool;
 
     [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
 
     //public List<Deck> GetDecksInProject => _decksInProject;
-    public List<DeckBase> GetDecksInProject => _decksInProject;
+    public List<Deck> GetDecksInProject => _decksInProject;
     public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
-    public DeckBase GetShopPool => _shopPool;
+    public Deck GetShopPool => _shopPool;
 
-    public void AddDeckToLibrary(DeckBase deck)
+    public void AddDeckToLibrary(Deck deck)
     {
         if (deck == null) return;
 
@@ -50,7 +50,7 @@ public class CardAndDeckLibrary : ScriptableObject
         Debug.LogError($"No matching card definition found in library for \"{cardName}\"");
         return null;
     }
-    public DeckBase GetDeckFromName(string deckName)
+    public Deck GetDeckFromName(string deckName)
     {
         foreach (var deck in _decksInProject)
             if (deck.GetDeckName == deckName)

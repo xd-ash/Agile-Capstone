@@ -136,7 +136,7 @@ public class GameData
         public string[] GetOwnedCardNames => _ownedCardNames;
         public string GetDeckName => _deckName;
 
-        public CardDataToken(List<CardAbilityDefinition> ownedCards, DeckBase deck)
+        public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck deck)
         {
             if (ownedCards != null)
             {
