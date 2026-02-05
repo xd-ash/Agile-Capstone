@@ -24,12 +24,12 @@ public class CardDeckLibraryEditor : Editor
     {
         if (_library == null) _library = (CardAndDeckLibrary)target;
 
-        var deckGUIDS = AssetDatabase.FindAssets("t:Deck", new[] { "Assets/ScriptableObjects/DeckSOs" });
+        //var deckGUIDS = AssetDatabase.FindAssets("t:Deck", new[] { "Assets/ScriptableObjects/DeckSOs" });
         var cardGUIDS = AssetDatabase.FindAssets("t:CardAbilityDefinition", new[] { "Assets/ScriptableObjects/CardAbilities" });
 
-        if (deckGUIDS.Length != _library.GetDecksInProject.Count)
+        /*if (deckGUIDS.Length != _library.GetDecksInProject.Count)
             foreach (var guid in deckGUIDS)
-                _library.AddDeckToLibrary(AssetDatabase.LoadAssetAtPath<Deck>(AssetDatabase.GUIDToAssetPath(guid)));
+                _library.AddDeckToLibrary(AssetDatabase.LoadAssetAtPath<Deck>(AssetDatabase.GUIDToAssetPath(guid)));*/
         if (cardGUIDS.Length != _library.GetCardsInProject.Count)
             foreach (var guid in cardGUIDS)
                 _library.AddCardToLibrary(AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(AssetDatabase.GUIDToAssetPath(guid)));

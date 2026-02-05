@@ -6,12 +6,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Deckbuilding System/New Card & Deck Library")]
 public class CardAndDeckLibrary : ScriptableObject
 {
-    [SerializeField] private List<Deck> _decksInProject = new();
-    [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
-    public List<Deck> GetDecksInProject => _decksInProject;
-    public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
+    //[SerializeField] private List<Deck> _decksInProject = new();
+    [SerializeField] private List<DeckBase> _decksInProject = new();
+    [SerializeField] private DeckBase _shopPool;
 
-    public void AddDeckToLibrary(Deck deck)
+    [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
+
+    //public List<Deck> GetDecksInProject => _decksInProject;
+    public List<DeckBase> GetDecksInProject => _decksInProject;
+    public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
+    public DeckBase GetShopPool => _shopPool;
+
+    public void AddDeckToLibrary(DeckBase deck)
     {
         if (deck == null) return;
 
@@ -44,10 +50,10 @@ public class CardAndDeckLibrary : ScriptableObject
         Debug.LogError($"No matching card definition found in library for \"{cardName}\"");
         return null;
     }
-    public Deck GetDeckFromName(string deckName)
+    public DeckBase GetDeckFromName(string deckName)
     {
         foreach (var deck in _decksInProject)
-            if (deck.name == deckName)
+            if (deck.GetDeckName == deckName)
                 return deck;
 
         Debug.LogError($"No matching deck SO found in library for \"{deckName}\"");

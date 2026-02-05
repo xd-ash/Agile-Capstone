@@ -17,8 +17,10 @@ public class PlayerDataManager : MonoBehaviour
     private bool[] _nodeUnlocked;
     private int _currentNodeIndex;
 
+    [SerializeField] private List<DeckBase> _createdDecks = new();//qweqwsqweqseqw
+    [SerializeField] private DeckBase _activeDeck;
     private List<CardAbilityDefinition> _ownedCards = new();
-    [SerializeField] private Deck _deck;
+    //[SerializeField] private Deck _deck;
     
     public int GetSeed => _randomSeed == -1 ? GetRandomSeed() : _randomSeed;
     public CombatMapData GetCurrMapNodeData => _currMapNodeData;
@@ -27,7 +29,8 @@ public class PlayerDataManager : MonoBehaviour
     public bool[] GetNodeUnlocked => _nodeUnlocked;
     public int GetCurrentNodeIndex => _currentNodeIndex;
     public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
-    public Deck GetDeck => _deck;
+    //public Deck GetDeck => _deck;
+    public DeckBase GetActiveDeck => _activeDeck;
 
     public static PlayerDataManager Instance { get; private set; }
     private void Awake()
@@ -79,10 +82,11 @@ public class PlayerDataManager : MonoBehaviour
     {
         _currentNodeIndex = currentNodeIndex;
     }
-    public void UpdateCardData(List<CardAbilityDefinition> ownedCards, Deck deck)
+    public void UpdateCardData(List<CardAbilityDefinition> ownedCards, DeckBase deck)
     {
         _ownedCards = ownedCards;
-        _deck = deck;
+        //_deck = deck;
+        _activeDeck = deck;
     }
     public void UpdateCardData(CardAbilityDefinition def, bool isAddition = true)
     {
@@ -109,7 +113,7 @@ public class PlayerDataManager : MonoBehaviour
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
 
-        Deck deck = _cardAndDeckLibrary.GetDeckFromName(cardData.GetDeckName);
+        DeckBase deck = _cardAndDeckLibrary.GetDeckFromName(cardData.GetDeckName);
         List<CardAbilityDefinition> ownedCards = new();
         foreach (var name in cardData.GetOwnedCardNames)
             ownedCards.Add(_cardAndDeckLibrary.GetCardFromName(name));

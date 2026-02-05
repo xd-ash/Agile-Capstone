@@ -52,19 +52,19 @@ namespace CardSystem
         public void DrawCard(int count = 1)
         {
             AudioManager.Instance?.PlayDrawCardSfx();
-            var deck = PlayerDataManager.Instance.GetDeck;
+            var deck = PlayerDataManager.Instance.GetActiveDeck;
 
             if (count <= 0) return;
             for (int i = 0; i < count; i++)
             {
                 if (_cardsInHand.Count >= _maxCards) return;
-                if (deck == null || deck.GetDeck == null || deck.GetDeck.Length == 0) return;
+                if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Length == 0) return;
 
                 if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
                 {
                     // build fallback minimal runtime list from _deck if necessary
-                    if (deck == null || deck.GetDeck == null || deck.GetDeck.Length == 0) return;
-                    _runtimeDeckList = new List<CardAbilityDefinition>(deck.GetDeck);
+                    if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Length == 0) return;
+                    _runtimeDeckList = new List<CardAbilityDefinition>(deck.GetCardsInDeck);
                 }
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
@@ -85,7 +85,7 @@ namespace CardSystem
                 //_nextCardInHandIndex++;
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
-                if (_topCardOfDeck >= deck.GetDeck.Length)
+                if (_topCardOfDeck >= deck.GetCardsInDeck.Length)
                 {
                     ShuffleDeck();
                     _topCardOfDeck = 0;
@@ -190,10 +190,10 @@ namespace CardSystem
         private void ShuffleDeck()
         {
             _runtimeDeckList.Clear();
-            var deck = PlayerDataManager.Instance.GetDeck;
+            var deck = PlayerDataManager.Instance.GetActiveDeck;
 
-            if (deck != null && deck.GetDeck != null)
-                _runtimeDeckList.AddRange(deck.GetDeck);
+            if (deck != null && deck.GetCardsInDeck != null)
+                _runtimeDeckList.AddRange(deck.GetCardsInDeck);
 
             if (PlayerDataManager.Instance == null) return;
 
@@ -218,13 +218,13 @@ namespace CardSystem
 
         public CardAbilityDefinition[] PeekTopDefinitions(int count)
         {
-            var deck = PlayerDataManager.Instance.GetDeck;
+            var deck = PlayerDataManager.Instance.GetActiveDeck;
 
-            if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (deck == null || deck.GetDeck == null))
+            if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (deck == null || deck.GetCardsInDeck == null))
                 return Array.Empty<CardAbilityDefinition>();
 
             var source = (_runtimeDeckList != null && _runtimeDeckList.Count > 0)
-                ? _runtimeDeckList : new List<CardAbilityDefinition>(deck.GetDeck);
+                ? _runtimeDeckList : new List<CardAbilityDefinition>(deck.GetCardsInDeck);
 
             if (count <= 0) return Array.Empty<CardAbilityDefinition>();
 

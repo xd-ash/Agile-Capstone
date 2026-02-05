@@ -7,8 +7,7 @@ public class CardShopManager : MonoBehaviour
     private const string LOG_PREFIX = "[CardShopSpawner]";
 
     [Header("Pool (assign in inspector)")]
-    //public List<ShopEntry> pool = new List<ShopEntry>();
-    [SerializeField] private Deck _pool;
+    [SerializeField] private DeckBase _pool;
 
     [Header("Auto Spawn Settings")]
     [Tooltip("If true, the spawner will populate the shop on scene start")]
@@ -39,6 +38,8 @@ public class CardShopManager : MonoBehaviour
     public static CardShopManager Instance { get; private set; }
     private void Awake()
     {
+        _pool = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary").GetShopPool;
+
         if (Instance != null && Instance != this)
         {
             Debug.LogWarning(LOG_PREFIX + " Multiple CardShopSpawner instances found. Keeping the first one.");
@@ -203,8 +204,8 @@ public class CardShopManager : MonoBehaviour
     private CardAbilityDefinition PickRandomEntry()
     {
         //ShopEntry defaultEntry = default;
-        if (_pool == null || _pool.GetDeck.Length == 0) return null;
-        var poolDeck = _pool.GetDeck;
+        if (_pool == null || _pool.GetCardsInDeck.Length == 0) return null;
+        var poolDeck = _pool.GetCardsInDeck;
 
         float total = 0f;
         foreach (var e in poolDeck) total += Mathf.Max(0f, e.GetShopWeight);

@@ -79,13 +79,13 @@ public class GameData
         {
             _mapNodeData = new(null, null, 0, -1);
             _currencyData = new(100);
-            _cardData = new(null, pdm.GetDeck);
+            _cardData = new(null, pdm.GetActiveDeck);
         }
         else
         {
             _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex, pdm.GetSeed);
             _currencyData = new(pdm.GetBalance);
-            _cardData = new(pdm.GetOwnedCards, pdm.GetDeck);
+            _cardData = new(pdm.GetOwnedCards, pdm.GetActiveDeck);
         }
     }
 
@@ -131,11 +131,12 @@ public class GameData
     {
         [SerializeField] private string[] _ownedCardNames;
         [SerializeField] private string _deckName;
+        //[SerializeField] DeckToken[] _decks;
 
         public string[] GetOwnedCardNames => _ownedCardNames;
         public string GetDeckName => _deckName;
 
-        public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck deck)
+        public CardDataToken(List<CardAbilityDefinition> ownedCards, DeckBase deck)
         {
             if (ownedCards != null)
             {
@@ -146,8 +147,16 @@ public class GameData
             else
                 _ownedCardNames = new string[0];
 
-            _deckName = deck.name;
+            _deckName = deck.GetDeckName;
         }
+        /*[System.Serializable]
+        public struct DeckToken
+        {
+            [SerializeField] private string _deckName;
+            [SerializeField] private string[] _cardNames;
+            public string GetDeckName => _deckName;
+            public string[] GetCardNames => _cardNames;
+        }*/
     }
 }
 

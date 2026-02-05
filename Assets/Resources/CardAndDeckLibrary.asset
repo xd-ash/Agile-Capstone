@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: CardAndDeckLibrary
   m_EditorClassIdentifier: Assembly-CSharp::CardAndDeckLibrary
   _decksInProject:
-  - {fileID: 11400000, guid: fee969b131b14494198abd6abb7ce5be, type: 2}
-  - {fileID: 11400000, guid: b234795bd520a064687ba1c4db35c945, type: 2}
-  - {fileID: 11400000, guid: 4dba97571edce6d4289d82213f7627bf, type: 2}
+  - _deckName: Starter Deck
+    _cardsInDeck: []
+  _shopPool:
+    _deckName: Shop Pool
+    _cardsInDeck: []
   _cardsInProject:
   - {fileID: 11400000, guid: b1c238defc2930b4c989f91e6e6a051c, type: 2}
   - {fileID: 11400000, guid: b50b36088f8e5fd4d8a10ce8411903f8, type: 2}
@@ -26,3 +28,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ffe7b2810142e374fbd447eaa4012cd5, type: 2}
   - {fileID: 11400000, guid: 176bb99cc174d414dacdf4a30e00a4fc, type: 2}
   - {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
+  - {fileID: 11400000, guid: 1d5dcedf2531b814e884f1c2f991d642, type: 2}
+  - {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}

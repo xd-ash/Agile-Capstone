@@ -2,7 +2,7 @@ using CardSystem;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Deck)), CanEditMultipleObjects]
+/*[CustomEditor(typeof(Deck)), CanEditMultipleObjects]
 public class DeckSOEditor : Editor
 {
     CardAndDeckLibrary _library;
@@ -25,4 +25,4 @@ public class DeckSOEditor : Editor
         if (_library != null && !_library.GetDecksInProject.Contains(deck))
             _library.AddDeckToLibrary(deck);
     }
-}
+}*/
