@@ -17,10 +17,9 @@ public class PlayerDataManager : MonoBehaviour
     private bool[] _nodeUnlocked;
     private int _currentNodeIndex;
 
-    [SerializeField] private List<Deck> _createdDecks = new();//qweqwsqweqseqw
+    [SerializeField] private List<Deck> _createdDecks = new();
     [SerializeField] private Deck _activeDeck;
     private List<CardAbilityDefinition> _ownedCards = new();
-    //[SerializeField] private Deck _deck;
     
     public int GetSeed => _randomSeed == -1 ? GetRandomSeed() : _randomSeed;
     public CombatMapData GetCurrMapNodeData => _currMapNodeData;
@@ -29,8 +28,8 @@ public class PlayerDataManager : MonoBehaviour
     public bool[] GetNodeUnlocked => _nodeUnlocked;
     public int GetCurrentNodeIndex => _currentNodeIndex;
     public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
-    //public Deck GetDeck => _deck;
     public Deck GetActiveDeck => _activeDeck;
+    public List<Deck> GetAllPlayerDecks => _createdDecks;
 
     public static PlayerDataManager Instance { get; private set; }
     private void Awake()
@@ -82,11 +81,11 @@ public class PlayerDataManager : MonoBehaviour
     {
         _currentNodeIndex = currentNodeIndex;
     }
-    public void UpdateCardData(List<CardAbilityDefinition> ownedCards, Deck deck)
+    public void UpdateCardData(List<CardAbilityDefinition> ownedCards, string activeDeckName, List<Deck> createdDecks)
     {
         _ownedCards = ownedCards;
-        //_deck = deck;
-        _activeDeck = deck;
+        _createdDecks = createdDecks;
+        _activeDeck = _cardAndDeckLibrary.GetDeckFromName(activeDeckName, false);
     }
     public void UpdateCardData(CardAbilityDefinition def, bool isAddition = true)
     {
@@ -97,6 +96,23 @@ public class PlayerDataManager : MonoBehaviour
         else
             if (_ownedCards.Contains(def))
                 _ownedCards.Remove(def);
+    }
+    public void CreateOrAdjustDeck(Deck deck)
+    {
+        if (deck == null) return;
+        for (int i = _createdDecks.Count - 1; i >= 0; i--)
+            if (_createdDecks[i].GetDeckName == deck.GetDeckName)
+                _createdDecks.RemoveAt(i);
+        _createdDecks.Add(deck);
+        SaveLoadScript.SaveGame?.Invoke();
+    }
+    public void DeleteDeck(Deck deck)
+    {
+        if (deck == null) return;
+        for (int i = _createdDecks.Count - 1; i >= 0; i--)
+            if (_createdDecks[i].GetDeckName == deck.GetDeckName)
+                _createdDecks.RemoveAt(i);
+        SaveLoadScript.SaveGame?.Invoke();
     }
     public void SetCurrMapNodeData(CombatMapData currMapNodeData)
     {
@@ -113,14 +129,22 @@ public class PlayerDataManager : MonoBehaviour
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
 
-        Deck deck = _cardAndDeckLibrary.GetDeckFromName(cardData.GetDeckName);
+        List<Deck> createdDecks = new();
+        foreach (var deck in cardData.GetPlayerDecks)
+        {
+            List<CardAbilityDefinition> cards = new();
+            foreach (var card in deck.cardNames)
+                cards.Add(_cardAndDeckLibrary.GetCardFromName(card));
+            createdDecks.Add(new(deck.deckName, cards));
+        }
+
         List<CardAbilityDefinition> ownedCards = new();
         foreach (var name in cardData.GetOwnedCardNames)
             ownedCards.Add(_cardAndDeckLibrary.GetCardFromName(name));
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetNodesCompleted, nodeData.GetNodesUnlocked, nodeData.GetCurrentNodeIndex, nodeData.GetSeed);
-        UpdateCardData(ownedCards, deck);
+        UpdateCardData(ownedCards, cardData.GetActiveDeckName, createdDecks);
 
         SceneProgressManager.Instance?.InitNodeData();
         CurrencyManager.Instance?.OnBalanceChanged?.Invoke(_balance);

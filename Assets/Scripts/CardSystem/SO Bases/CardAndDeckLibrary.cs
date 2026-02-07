@@ -50,14 +50,21 @@ public class CardAndDeckLibrary : ScriptableObject
         Debug.LogError($"No matching card definition found in library for \"{cardName}\"");
         return null;
     }
-    public Deck GetDeckFromName(string deckName)
+    public Deck GetDeckFromName(string deckName, bool sendDebugOnFail = true)
     {
+        //check library starter decks
         foreach (var deck in _decksInProject)
             if (deck.GetDeckName == deckName)
                 return deck;
 
-        Debug.LogError($"No matching deck SO found in library for \"{deckName}\"");
+        //Check player decks
+        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.GetAllPlayerDecks != null)
+            foreach (var deck in PlayerDataManager.Instance.GetAllPlayerDecks)
+                if (deck.GetDeckName == deckName)
+                    return deck;
+
+        if (sendDebugOnFail)
+            Debug.LogError($"No matching deck found in library for \"{deckName}\"");
         return null;
     }
-
 }

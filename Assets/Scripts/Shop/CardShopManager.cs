@@ -204,7 +204,7 @@ public class CardShopManager : MonoBehaviour
     private CardAbilityDefinition PickRandomEntry()
     {
         //ShopEntry defaultEntry = default;
-        if (_pool == null || _pool.GetCardsInDeck.Length == 0) return null;
+        if (_pool == null || _pool.GetCardsInDeck.Count == 0) return null;
         var poolDeck = _pool.GetCardsInDeck;
 
         float total = 0f;
@@ -220,6 +220,6 @@ public class CardShopManager : MonoBehaviour
             if (r <= acc) return e;
         }
 
-        return poolDeck[poolDeck.Length - 1];
+        return poolDeck[poolDeck.Count - 1];
     }
 }

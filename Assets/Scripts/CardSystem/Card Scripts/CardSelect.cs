@@ -239,7 +239,7 @@ namespace CardSystem
             }
 
             _cfs.OnPrefabCreation(card);
-
+            /*
             // Get all TextMeshPro components (non-UI version)
             TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
 
@@ -263,7 +263,7 @@ namespace CardSystem
             }
             else
                 Debug.LogError("Card prefab is missing required TextMeshPro components");
-
+            */
             SetupVisuals();
         }
 

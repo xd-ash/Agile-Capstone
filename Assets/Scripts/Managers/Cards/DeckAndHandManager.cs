@@ -58,12 +58,12 @@ namespace CardSystem
             for (int i = 0; i < count; i++)
             {
                 if (_cardsInHand.Count >= _maxCards) return;
-                if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Length == 0) return;
+                if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
 
                 if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
                 {
                     // build fallback minimal runtime list from _deck if necessary
-                    if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Length == 0) return;
+                    if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
                     _runtimeDeckList = new List<CardAbilityDefinition>(deck.GetCardsInDeck);
                 }
 
@@ -85,7 +85,7 @@ namespace CardSystem
                 //_nextCardInHandIndex++;
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
-                if (_topCardOfDeck >= deck.GetCardsInDeck.Length)
+                if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
                 {
                     ShuffleDeck();
                     _topCardOfDeck = 0;

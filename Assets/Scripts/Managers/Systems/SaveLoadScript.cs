@@ -79,13 +79,13 @@ public class GameData
         {
             _mapNodeData = new(null, null, 0, -1);
             _currencyData = new(100);
-            _cardData = new(null, pdm.GetActiveDeck);
+            _cardData = new(null, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
         }
         else
         {
             _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex, pdm.GetSeed);
             _currencyData = new(pdm.GetBalance);
-            _cardData = new(pdm.GetOwnedCards, pdm.GetActiveDeck);
+            _cardData = new(pdm.GetOwnedCards, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
         }
     }
 
@@ -130,13 +130,14 @@ public class GameData
     public class CardDataToken
     {
         [SerializeField] private string[] _ownedCardNames;
-        [SerializeField] private string _deckName;
-        //[SerializeField] DeckToken[] _decks;
+        [SerializeField] private string _activeDeckName;
+        [SerializeField] DeckToken[] _playerDecks;
 
         public string[] GetOwnedCardNames => _ownedCardNames;
-        public string GetDeckName => _deckName;
+        public string GetActiveDeckName => _activeDeckName;
+        public DeckToken[] GetPlayerDecks => _playerDecks;
 
-        public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck deck)
+        public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck activeDeck, List<Deck> createdDecks)
         {
             if (ownedCards != null)
             {
@@ -147,19 +148,32 @@ public class GameData
             else
                 _ownedCardNames = new string[0];
 
-            _deckName = deck.GetDeckName;
+            if (activeDeck != null)
+                _activeDeckName = activeDeck.GetDeckName;
+            
+            List<DeckToken> temp = new();
+            foreach (var deck in createdDecks) 
+            {
+                List<string> tempCardNames = new();
+                foreach (var card in deck.GetCardsInDeck)
+                    tempCardNames.Add(card.GetCardName);
+
+                temp.Add(new DeckToken()
+                {
+                    deckName = deck.GetDeckName,
+                    cardNames = tempCardNames.ToArray()
+                });
+            }
+            _playerDecks = temp.ToArray();
         }
-        /*[System.Serializable]
-        public struct DeckToken
-        {
-            [SerializeField] private string _deckName;
-            [SerializeField] private string[] _cardNames;
-            public string GetDeckName => _deckName;
-            public string[] GetCardNames => _cardNames;
-        }*/
     }
 }
-
+[System.Serializable]
+public struct DeckToken
+{
+    public string deckName;
+    public string[] cardNames;
+}
 [System.Serializable]
 public class SettingsData
 {
