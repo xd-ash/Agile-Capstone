@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnterDeckNamePopup : MonoBehaviour
 {
@@ -12,6 +11,13 @@ public class EnterDeckNamePopup : MonoBehaviour
 
     public void OnClick()
     {
+        if (_inputField.text == string.Empty)
+        {
+            Debug.Log("Empty deck name attempt");
+            return; //add other name string checks
+        }
+
         DeckBuilderScript.Instance?.CreateNewDeck(_inputField.text);
+        gameObject.SetActive(false);
     }
 }

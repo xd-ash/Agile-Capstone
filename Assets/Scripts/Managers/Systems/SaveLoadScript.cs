@@ -151,7 +151,7 @@ public class GameData
 
             if (activeDeck != null)
                 _activeDeckName = activeDeck.GetDeckName;
-            
+
             List<DeckToken> temp = new();
             foreach (var deck in createdDecks) 
             {

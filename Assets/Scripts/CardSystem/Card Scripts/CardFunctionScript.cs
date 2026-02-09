@@ -90,11 +90,6 @@ public class CardFunctionScript : MonoBehaviour
         // Get all TextMeshPro components (non-UI version)
         TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
 
-        //TEMP catch for alt cards displayed in deck builder
-        TextMeshProUGUI[] cardTextFieldsUI = GetComponentsInChildren<TextMeshProUGUI>();
-        //
-
-
         if (cardTextFields.Length >= 3)
         {
             // Update text content
@@ -109,22 +104,6 @@ public class CardFunctionScript : MonoBehaviour
                 textField.transform.SetParent(transform, true);
             }
         }
-        //*******************
-        else if (cardTextFieldsUI.Length >= 3) //TEMP catch for alt cards displayed in deck builder
-        {
-            // Update text content
-            cardTextFieldsUI[0].text = card.GetCardName;
-            cardTextFieldsUI[1].text = card.GetDescription;
-            cardTextFieldsUI[2].text = card.GetCardAbility.GetApCost.ToString();
-
-            // Make sure text components are properly attached and sorted
-            foreach (var textField in cardTextFieldsUI)
-            {
-                // Ensure text is child of card and follows its transform
-                textField.transform.SetParent(transform, true);
-            }
-        }
-        //***************
         else
             Debug.LogError("Card prefab is missing required TextMeshPro components");
     }

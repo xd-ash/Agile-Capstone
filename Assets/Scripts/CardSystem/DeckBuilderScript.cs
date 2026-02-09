@@ -47,21 +47,26 @@ public class DeckBuilderScript : MonoBehaviour
     {
         if (_currDeck == null || _cardContentPrefab == null || _cardScrollView == null) return;
 
+        ClearScrollviewContent(_cardScrollView.content);
+
         int contentIndex = -1;
         foreach (var card in _cardAndDeckLibrary.GetCardsInProject)
         {
             if (card == null) continue;
 
             GameObject content = Spawn(_cardContentPrefab, Vector3.zero, Quaternion.identity, _cardScrollView.content);
-            if (!content.TryGetComponent(out CardFunctionScript cfs))
-                cfs = content.AddComponent<CardFunctionScript>();
-            cfs.OnPrefabCreation(new Card(card, content.transform));
+
+            TextMeshProUGUI[] cardTextFieldsUI = content.GetComponentsInChildren<TextMeshProUGUI>();
+            // Update text content
+            cardTextFieldsUI[0].text = card.GetCardName;
+            cardTextFieldsUI[1].text = card.GetDescription;
+            cardTextFieldsUI[2].text = card.GetApCost.ToString();
 
             contentIndex++;
             var rt = content.GetComponent<RectTransform>();
             SetCardLibraryContentTransform(ref rt, contentIndex);
 
-            var addCardButton = cfs.GetComponentInChildren<Button>();
+            var addCardButton = content.GetComponentInChildren<Button>();
             if (addCardButton == null) continue;
             addCardButton?.onClick.AddListener(() => AddCardToTempDeck(card));
         }
@@ -88,12 +93,15 @@ public class DeckBuilderScript : MonoBehaviour
     {
         if (_currDeck == null || _deckContentPrefab == null || _deckScrollView == null) return;
 
+        ClearScrollviewContent(_deckScrollView.content);
+
         int contentIndex = -1;
-        foreach (var card in _currDeck.GetCardsInDeck)
+        foreach (var card in _tempDeck)
         {
             if (card == null) continue;
             
-            GameObject content = Spawn(_deckContentPrefab, Vector3.zero, Quaternion.identity, _deckScrollView.content);
+            GameObject content = GameObject.Instantiate(_deckContentPrefab, Vector3.zero, Quaternion.identity, _deckScrollView.content);
+            content.name = card.name;
 
             var texts = content.GetComponentsInChildren<TextMeshProUGUI>();
             if (texts == null || texts.Length < 2) continue;
@@ -108,7 +116,7 @@ public class DeckBuilderScript : MonoBehaviour
             if (removeCardButton == null) continue;
 
             removeCardButton?.onClick.AddListener(() => RemoveCardFromTempDeck(card));
-            removeCardButton.interactable = _isCurrentDeckEditable;
+            removeCardButton.gameObject.SetActive(_isCurrentDeckEditable);
         }
     }
     private void SetDeckCardContentTransform(ref RectTransform rt, int childIndex)
@@ -142,15 +150,16 @@ public class DeckBuilderScript : MonoBehaviour
         if (_tempDeck == null) _tempDeck = new();
         if (_tempDeck.Contains(card))
             _tempDeck.Remove(card);
-
+        
         BuildDeckScrollViewContent();
     }
 
     //add pending/temp cards to current deck & update player data decks
     public void ConfirmDeckAdditions()
     {
-        _currDeck.ClearDeck(_tempDeck);
+        _currDeck.ClearDeck(_tempDeck); 
         PlayerDataManager.Instance?.CreateOrAdjustDeck(_currDeck);
+        SaveLoadScript.SaveGame?.Invoke();
     }
 
     //create new deck to edit
@@ -159,7 +168,12 @@ public class DeckBuilderScript : MonoBehaviour
         _currDeck = new Deck(deckName);
         AddDeckOption(_currDeck);
         SetDropdownValueFromDeckName(deckName);
-        SwapCurrentDeck();
+
+        PlayerDataManager.Instance.SetActiveDeck(_currDeck);
+        _tempDeck = new(_currDeck.GetCardsInDeck);
+        _deckDropdown.captionText.text = _currDeck.GetDeckName;
+
+        //SwapCurrentDeck();
         PlayerDataManager.Instance?.CreateOrAdjustDeck(_currDeck);
     }
     //delete deck from options & player data
@@ -175,6 +189,7 @@ public class DeckBuilderScript : MonoBehaviour
         RemoveDeckOption(_currDeck);
         _deckDropdown.value = 0; //reset to first value
         SwapCurrentDeck();
+        SaveLoadScript.SaveGame?.Invoke();
     }
 
     //Return the amount of the given card in the current deck & in the pending/temp deck additions
@@ -198,22 +213,18 @@ public class DeckBuilderScript : MonoBehaviour
     //Swap current deck
     public void SwapCurrentDeck()
     {
-        ClearDeckCardContent();
+        ClearScrollviewContent(_deckScrollView.content);
 
         var temp = GetCurrentDeckFromDropdown();
         if (temp == null) return;
-
         _currDeck = temp;
-        _tempDeck = _currDeck.GetCardsInDeck;
+        PlayerDataManager.Instance.SetActiveDeck(_currDeck);
+        _tempDeck = new(_currDeck.GetCardsInDeck);
         _deckDropdown.captionText.text = _currDeck.GetDeckName;
 
         BuildDeckScrollViewContent();
     }
-    private void ClearDeckCardContent()
-    {
-        for (int i = _deckScrollView.content.childCount - 1; i >= 0; i--)
-            Destroy(_deckScrollView.content.GetChild(i).gameObject);
-    }
+
     //Grab correct deck from dropdown value
     private Deck GetCurrentDeckFromDropdown()
     {
@@ -282,5 +293,10 @@ public class DeckBuilderScript : MonoBehaviour
                 break;
             }
         return true;
+    }
+    private void ClearScrollviewContent(RectTransform contentTransform)
+    {
+        for (int i = contentTransform.childCount - 1; i >= 0; i--)
+            Destroy(contentTransform.GetChild(i).gameObject);
     }
 }

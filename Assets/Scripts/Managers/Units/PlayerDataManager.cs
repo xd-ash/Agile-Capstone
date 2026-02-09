@@ -42,9 +42,17 @@ public class PlayerDataManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        
+        if (_cardAndDeckLibrary == null)
+            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
 
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();
+        else
+            SaveLoadScript.CreateNewGame?.Invoke();
+
+        if (_activeDeck == null)
+           SetActiveDeck(_cardAndDeckLibrary.GetDecksInProject[0]);
     }
 
     // create random int seed for map generation & shop card pulling
@@ -114,6 +122,12 @@ public class PlayerDataManager : MonoBehaviour
                 _createdDecks.RemoveAt(i);
         SaveLoadScript.SaveGame?.Invoke();
     }
+    public void SetActiveDeck(Deck activeDeck)
+    {
+        if (activeDeck == null) return;
+        _activeDeck = activeDeck;
+    }
+
     public void SetCurrMapNodeData(CombatMapData currMapNodeData)
     {
         _currMapNodeData = currMapNodeData;
@@ -122,9 +136,6 @@ public class PlayerDataManager : MonoBehaviour
     // reinitialize node data for proper node enabling on node map
     public void OnGameLoad(GameData data)
     {
-        if (_cardAndDeckLibrary == null)
-            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
-
         var currencyData = data.GetCurrencyData;
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
