@@ -25,6 +25,7 @@ public static class SaveLoadScript
         sw.Write(json);
         sw.Close();
         //Debug.Log("Game Saved");
+        //Debug.Log($"{_gameDataFilePath}");
     }
     private static void LoadGameData()
     {
