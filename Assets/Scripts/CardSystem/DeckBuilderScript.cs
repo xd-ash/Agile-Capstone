@@ -64,7 +64,7 @@ public class DeckBuilderScript : MonoBehaviour
 
             contentIndex++;
             var rt = content.GetComponent<RectTransform>();
-            SetCardLibraryContentTransform(ref rt, contentIndex);
+            //SetCardLibraryContentTransform(ref rt, contentIndex);
 
             var addCardButton = content.GetComponentInChildren<Button>();
             if (addCardButton == null) continue;
