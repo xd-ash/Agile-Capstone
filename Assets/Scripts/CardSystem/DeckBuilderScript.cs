@@ -110,7 +110,7 @@ public class DeckBuilderScript : MonoBehaviour
 
             contentIndex++;
             var rt = content.GetComponent<RectTransform>();
-            SetDeckCardContentTransform(ref rt, contentIndex);
+            //SetDeckCardContentTransform(ref rt, contentIndex);
 
             var removeCardButton = content.GetComponentInChildren<Button>();
             if (removeCardButton == null) continue;
