@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class DeckViewerScript : MonoBehaviour
 {
+    private CardAndDeckLibrary _cardAndDeckLibrary;
+    private Deck _currentShownDeck;
+    [SerializeField] private TMP_Dropdown _deckDropdown;
     [SerializeField] private GameObject _cardContentPrefab;
     [SerializeField] private ScrollRect _deckScrollView;
     [SerializeField] private TextMeshProUGUI _deckTitleText;
@@ -19,6 +22,10 @@ public class DeckViewerScript : MonoBehaviour
 
     private void OnEnable()
     {
+        _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+
+        GrabAllDeckOptions();
+        SwapCurrentDeck(true);
         BuildDeckScrollViewContent();
     }
 
@@ -32,7 +39,9 @@ public class DeckViewerScript : MonoBehaviour
             return;
         }
 
-        var deck = PlayerDataManager.Instance.GetActiveDeck;
+        var deck = _currentShownDeck; //PlayerDataManager.Instance.GetActiveDeck;
+        if (deck == null) return;
+
         if (_deckTitleText != null)
             _deckTitleText.text = $"All Cards in {deck.GetDeckName}";
 
@@ -64,5 +73,65 @@ public class DeckViewerScript : MonoBehaviour
     {
         for (int i = contentTransform.childCount - 1; i >= 0; i--)
             Destroy(contentTransform.GetChild(i).gameObject);
+    }
+
+    //Swap current deck
+    public void SwapCurrentDeck(bool onEnable = false)
+    {
+        ClearScrollviewContent(_deckScrollView.content);
+
+        var temp = onEnable ? PlayerDataManager.Instance.GetActiveDeck : GetCurrentDeckFromDropdown();
+        if (temp == null) return;
+        _currentShownDeck = temp;
+        _deckDropdown.captionText.text = _currentShownDeck.GetDeckName;
+        SetDropdownValueFromDeckName(_currentShownDeck.GetDeckName);
+
+        BuildDeckScrollViewContent();
+    }
+    //Grab correct deck from dropdown value
+    private Deck GetCurrentDeckFromDropdown()
+    {
+        if (_deckDropdown == null || _deckDropdown.options.Count == 0 || _cardAndDeckLibrary == null) return null;
+
+        int entryIndex = _deckDropdown.value;
+
+        string selectedDeckName = _deckDropdown.options[entryIndex].text;
+        var deck = _cardAndDeckLibrary.GetDeckFromName(selectedDeckName, false);
+        if (deck == null)
+            if (PlayerDataManager.Instance != null)
+                foreach (var playerDeck in PlayerDataManager.Instance.GetAllPlayerDecks)
+                    if (playerDeck != null && playerDeck.GetDeckName == selectedDeckName)
+                        deck = playerDeck;
+
+        return deck;
+    }
+    //Grab all deck options from player data manager
+    private void GrabAllDeckOptions()
+    {
+        if (_deckDropdown == null) return;
+        _deckDropdown.options.Clear();
+
+        // put default decks into dropdown options
+        foreach (var deck in _cardAndDeckLibrary.GetDecksInProject)
+            if (deck != null)
+                _deckDropdown.options.Add(new(deck.GetDeckName));
+
+        // put player decks into dropdown options
+        foreach (var deck in PlayerDataManager.Instance.GetAllPlayerDecks)
+            if (deck != null)
+                _deckDropdown.options.Add(new(deck.GetDeckName));
+    }
+    //Set dropdown value/deck from given deck name
+    private bool SetDropdownValueFromDeckName(string deckName)
+    {
+        if (_deckDropdown == null) return false;
+
+        foreach (var option in _deckDropdown.options)
+            if (option != null && option.text == deckName)
+            {
+                _deckDropdown.value = _deckDropdown.options.IndexOf(option);
+                break;
+            }
+        return true;
     }
 }
