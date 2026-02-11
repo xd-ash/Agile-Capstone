@@ -5,7 +5,7 @@ namespace CardSystem
 {
     // Concrete misc effect class. Currently unimplemented
     [CreateNodeMenu("Misc Effects/Deck Effect")]
-    public class DeckEffect : MiscEffect
+    public class DeckEffect : EffectStrategy
     {
         public enum DeckAction
         {

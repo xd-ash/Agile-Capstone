@@ -7,10 +7,12 @@ namespace CardSystem
     [CustomNodeEditor(typeof(EffectStrategy))]
     public class EffectStrategyEditor : NodeEditor
     {
-        bool isAura = false;
+        //bool isAura = false;
 
         public override void OnBodyGUI()
         {
+            base.OnBodyGUI();
+            /*
             serializedObject.Update();
             EffectStrategy node = target as EffectStrategy;
             if (node is BuffEffect || node is DebuffEffect)
@@ -48,6 +50,7 @@ namespace CardSystem
             if (!isAura) EditorGUI.indentLevel--;
 
             serializedObject.ApplyModifiedProperties();
+            */
         }
         public string DetermineStratType(EffectStrategy node)
         {

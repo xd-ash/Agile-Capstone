@@ -16,7 +16,7 @@ namespace CardSystem
 
     // Concrete harmful effect class to damage a unit instantly or over a duration
     [CreateNodeMenu("Harmful Effects/Damage")]
-    public class DamageEffect : HarmfulEffect
+    public class DamageEffect : EffectStrategy
     {
         [Header("Miss popup")]
         [Tooltip("Font size used for the floating 'Misses' text.")]
@@ -58,9 +58,9 @@ namespace CardSystem
                         continue;
                     }
 
-                    if (_hasDuration)
+                    /*if (_hasDuration)
                         targetUnit.StartCoroutine(DoEffectOverTime(targetUnit, _duration, _effectValue));
-                    else
+                    else*/
                         targetUnit.ChangeHealth(_effectValue, false);
                 }
             }

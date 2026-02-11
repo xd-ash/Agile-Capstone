@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using XNode;
+using System;
 
 namespace CardSystem
 {
@@ -61,5 +62,15 @@ namespace CardSystem
 		{
 			RootNode?.UseAbility(user);
 		}
-	}
+        public void EndEffects(Guid guid)
+        {
+            foreach (Node node in nodes)
+            {
+                if (node is IStoppable)
+                {
+                    (node as IStoppable).Stop(guid);
+                }
+            }
+        }
+    }
 }

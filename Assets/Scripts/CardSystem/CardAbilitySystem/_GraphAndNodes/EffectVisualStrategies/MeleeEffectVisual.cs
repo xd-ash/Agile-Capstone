@@ -1,6 +1,7 @@
 using CardSystem;
 using UnityEngine;
 
+[CreateNodeMenu("Visual Effects/Melee Visual")]
 public class MeleeEffectVisual : EffectVisualsStrategy
 {
     [SerializeField] private GameObject _meleeEffect;

@@ -2,6 +2,7 @@ using CardSystem;
 using System.Collections;
 using UnityEngine;
 
+[CreateNodeMenu("Visual Effects/Bullet Visual")]
 public class BulletEffectVisual : EffectVisualsStrategy
 {
     [SerializeField] private GameObject _smokeEffect;

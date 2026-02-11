@@ -4,7 +4,7 @@ using UnityEngine;
 using XNodeEditor;
 
 namespace CardSystem
-{
+{/*
     [CustomNodeEditor(typeof(AbilityRootNode))]
     public class AbilityRootNodeEditor : NodeEditor
     {
@@ -29,5 +29,5 @@ namespace CardSystem
 
             serializedObject.ApplyModifiedProperties();
         }
-    }
+    }*/
 }
