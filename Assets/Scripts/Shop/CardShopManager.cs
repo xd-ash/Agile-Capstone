@@ -38,7 +38,7 @@ public class CardShopManager : MonoBehaviour
     public static CardShopManager Instance { get; private set; }
     private void Awake()
     {
-        _pool = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary").GetShopPool;
+        _pool = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary").GetShopPool;
 
         if (Instance != null && Instance != this)
         {

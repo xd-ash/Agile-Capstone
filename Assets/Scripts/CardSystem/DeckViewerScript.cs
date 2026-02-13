@@ -22,7 +22,7 @@ public class DeckViewerScript : MonoBehaviour
 
     private void OnEnable()
     {
-        _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+        _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
 
         GrabAllDeckOptions();
         SwapCurrentDeck(true);

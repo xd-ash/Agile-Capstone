@@ -25,7 +25,7 @@ namespace WFC
         [Space(10), SerializeField] private TileType _tileType;
 
         private int _maxNullTilesInModule;// number of tiles within a module, that are null & have no tilebase (catches tilemap sections with no modules)
-        private int _numEmptyModules = 0;// number of modules with no object tiles present
+        //private int _numEmptyModules = 0;// number of modules with no object tiles present
 
         public void GenerateTileModules()
         {
@@ -95,10 +95,10 @@ namespace WFC
 
             if (nullCount == _maxNullTilesInModule)
             {
-                if (_numEmptyModules == 0)
+                /*if (_numEmptyModules == 0)
                     _numEmptyModules++;
                 else
-                    return false;
+                    return false;*/
             }
 
             return true;

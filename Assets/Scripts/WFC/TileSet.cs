@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 
 namespace WFC
 {
-    [CreateAssetMenu(menuName = "WFC/Module Sets/New Item Tile Set")]
+    [CreateAssetMenu(menuName = "WFC/New Tile Module Set")]
     public class TileSet : ScriptableObject
     {
         [SerializeField] private TileModule[] _tileModules;
