@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: TileDataLibrary
   m_EditorClassIdentifier: Assembly-CSharp::ProceduralTileLibrary
   _tileLibrary:
-  - _tileName: P_Tile
+  - _tileName: PlayerTile
     _tileBase: {fileID: 11400000, guid: 6b30f01ba26689e48ac761615de9d17e, type: 2}
     _byteIndicator: 1
     _tileContentPrefab: {fileID: 8440825415147360739, guid: e70a16e0772849541a1929058aba2280, type: 3}
-  - _tileName: OF_Tile
+  - _tileName: FullCoverObstacle
     _tileBase: {fileID: 11400000, guid: 7727bab759f5e2f48a11d21a08170c50, type: 2}
     _byteIndicator: 2
     _tileContentPrefab: {fileID: 6626558593374184628, guid: 022ed79b73ece944aadf4801403c6972, type: 3}
-  - _tileName: EM_Tile
+  - _tileName: MeleeEnemyTile
     _tileBase: {fileID: 11400000, guid: 6abcabfa61863ac4682f622b82a4a845, type: 2}
     _byteIndicator: 3
     _tileContentPrefab: {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
-  - _tileName: ER_Tile
+  - _tileName: RangeEnemyTile
     _tileBase: {fileID: 11400000, guid: 508d85687176b2b40a2a9aeeca2fb3af, type: 2}
     _byteIndicator: 4
     _tileContentPrefab: {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
-  - _tileName: 0H_Tile
+  - _tileName: HalfCoverObstacle
     _tileBase: {fileID: 11400000, guid: fa9c1323e0b87834e9f916fabbf6875b, type: 2}
     _byteIndicator: 5
     _tileContentPrefab: {fileID: 6626558593374184628, guid: cafa7df722d111b4f831b944d9a2a18b, type: 3}

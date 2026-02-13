@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a7314f151e1d44ada68492269fdaf, type: 3}
   m_Name: OnlyObstaclesTile(0,3)
   m_EditorClassIdentifier: Assembly-CSharp::WFC.TileModule
-  keyDepth: 1
-  moduleWidth: 5
+  _keyDepth: 1
+  _moduleWidth: 5
   _northNeighbours: []
   _eastNeighbours: []
   _southNeighbours: []

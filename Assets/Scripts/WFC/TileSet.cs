@@ -8,18 +8,26 @@ namespace WFC
     public class TileSet : ScriptableObject
     {
         [SerializeField] private TileModule[] _tileModules;
-        [SerializeField] private int _moduleWidth;
-        [SerializeField] private int _keyDepth;
+        [SerializeField, HideInInspector] private int _moduleWidth;
+        [SerializeField, HideInInspector] private int _keyDepth;
 
         public TileModule[] Modules => _tileModules;
         public int GetTrueModuleWidth => _moduleWidth - 2 * _keyDepth;
         public int GetModuleKeyDepth => _keyDepth;
-
+        public Vector2 TempGetDimesnions => new Vector2(_moduleWidth, _keyDepth);
+        public void AddModules(List<TileModule> tileModules)
+        {
+            var tmp = new List<TileModule>();
+            foreach (var module in tileModules)
+                if (module != null)
+                    tmp.Add(module);
+            _tileModules = tmp.ToArray();
+        }
         public void SetNeighbours()
         {
-            _moduleWidth = _tileModules[0].moduleWidth;
-            _keyDepth = _tileModules[0].keyDepth;
-
+            _moduleWidth = _tileModules[0].GetModuleWidth;
+            _keyDepth = _tileModules[0].GetKeyDepth;
+            
             for (int j = 0; j < _tileModules.Length; j++)
             {
                 TileModule curModule = _tileModules[j];

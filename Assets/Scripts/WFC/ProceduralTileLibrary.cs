@@ -81,7 +81,7 @@ public class ProceduralTileLibrary : ScriptableObject
     public void SetTileNamesOnGUI()
     {
         foreach (var td in _tileLibrary)
-            if (td.GetTileName == string.Empty)
+            if (td.GetTileName == string.Empty || td.GetTileName != td.GetTileBase.name)
                 td.SetTileName();
     }
 

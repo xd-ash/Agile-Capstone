@@ -14,15 +14,15 @@ public enum TileType
 namespace WFC
 {
     [RequireComponent(typeof(Tilemap))]
-    public class ItemTileModuleGenerator : MonoBehaviour
+    public class TileModuleGenerator : MonoBehaviour
     {
-        //private TileSet _tileSet;
+        [SerializeField] private TileSet _tileSet;
         private List<TileModule> _tileModules;
 
-        [SerializeField] private int _moduleWidth = 5;
-        [SerializeField] private int _keyDepth = 1;
+        [SerializeField, HideInInspector] private int _moduleWidth = 5;
+        [SerializeField, HideInInspector] private int _keyDepth = 1;
 
-        [Space(10), SerializeField] private TileType _tileType;
+        [SerializeField, HideInInspector] private TileType _tileType;
 
         private int _maxNullTilesInModule;// number of tiles within a module, that are null & have no tilebase (catches tilemap sections with no modules)
         //private int _numEmptyModules = 0;// number of modules with no object tiles present
@@ -59,24 +59,26 @@ namespace WFC
 
                     if (asset != null)
                         ClearTileModuleAsset(asset);
+                    AssetDatabase.SaveAssets();
 
                     if (!CheckNullAndEmptyModules(tiles)) continue;
 
                     asset = ScriptableObject.CreateInstance<TileModule>();
                     AssetDatabase.CreateAsset(asset, assetPath);
-                    AssetDatabase.SaveAssets();
 
-                    asset.keyDepth = _keyDepth;
-                    asset.moduleWidth = _moduleWidth;
-                    asset.InitModuleValues(tiles.ToArray(), _tileType);
+                    asset.InitModuleValues(tiles.ToArray(), _tileType, _keyDepth, _moduleWidth);
                     EditorUtility.SetDirty(asset);
 
                     _tileModules.Add(asset);
                 }
             }
+            AssetDatabase.SaveAssets();
 
-            //_tileSet.Modules = _tileModules.ToArray();
-            //_tileSet.SetNeighbours();
+            _tileSet.AddModules(_tileModules);
+            _tileSet.SetNeighbours();
+            EditorUtility.SetDirty(_tileSet);
+
+            AssetDatabase.SaveAssets();
         }
 
         private bool CheckNullAndEmptyModules(List<TileBase> tiles)

@@ -127,7 +127,7 @@ public class MapCreator : MonoBehaviour
                     else
                         _map[x, y] = (byte)_tileLibrary.GetIndicatorFromName(tile.name);
 
-                    if (_map[x, y] != 2)
+                    if (_map[x, y] != 2 && _map[x, y] != 5)
                         emptyTilePositions.Add(gridPos);
                         //totalNonObstacleTiles++;
                 }
@@ -171,12 +171,14 @@ public class MapCreator : MonoBehaviour
             }
         }
 
-        CheckNeighbours(startLoc, ref validLocs);
+        CheckNeighbours(startLoc, ref validLocs); 
+        //Debug.Log($"total nonobst:{totalNonObstacleTiles}, validLoc count:{validLocs.Count}");
         bool result = totalNonObstacleTiles == validLocs.Count;
         if (!result)
             PlayerDataManager.Instance.GetRandomSeed();// regen seed only after fail
         return result;
     }
+
     //recursive method to check neighboring tiles and add locations to list of valid locations
     private void CheckNeighbours(Vector2Int tilePos, ref List<Vector2Int> validLocs)
     {
@@ -187,7 +189,7 @@ public class MapCreator : MonoBehaviour
         {
             for (int x = -1; x <= 1; x++)
             {
-                if ((x == 0 && y == 0) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) // setting up for neighbors, but not diags (1,1)
+                if ((x == 0 && y == 0) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) // setting up for neighbors, but not diags or same tile ((-)1,(-)1), (0,0)
                     continue;
 
                 Vector2Int neighborPos = new Vector2Int(tilePos.x + x, tilePos.y + y);
@@ -195,7 +197,9 @@ public class MapCreator : MonoBehaviour
                 if (neighborPos.x < 0 || neighborPos.y < 0 || neighborPos.x > _map.GetLength(0) - 1 || neighborPos.y > _map.GetLength(1) - 1)
                     continue;
 
-                if (_map[neighborPos.x, neighborPos.y] != 2 && _map[neighborPos.x, neighborPos.y] != 5 &&  !validLocs.Contains(neighborPos))
+                //if (_map[neighborPos.x, neighborPos.y] != 2 && _map[neighborPos.x, neighborPos.y] != 5 && !validLocs.Contains(neighborPos))
+                if ((_map[neighborPos.x, neighborPos.y] == 0 || _map[neighborPos.x, neighborPos.y] == 1 || _map[neighborPos.x, neighborPos.y] == 3) && 
+                    !validLocs.Contains(neighborPos))
                 {
                     validLocs.Add(neighborPos);
                     CheckNeighbours(neighborPos, ref validLocs);
@@ -217,7 +221,6 @@ public class MapCreator : MonoBehaviour
     {
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
         GameObject objToSpawn = _tileLibrary.GetGOFromIndicator(byteIndicator);
-        //GameObject objToSpawn = GetGameObjectFromByte(byteIndicator);
 
         if (byteIndicator == 4)
             _map[mapPos.x, mapPos.y] = 3; // after range enemy spawned, swap byte back to general enemy value
@@ -258,20 +261,4 @@ public class MapCreator : MonoBehaviour
                 _map[pos.x, pos.y] = (byte)Random.Range(3, 5); // randomly choose enemy type (3 or 4) on enemy spawn
         }
     }
-    /*private GameObject GetGameObjectFromByte(int indicator)
-    {
-        switch (indicator)
-        {
-            case 1:
-                return _playerPlaceholder;
-            case 2:
-                return _placeholderObstacle;
-            case 3:
-                return _meleeEnemyPlaceholder;
-            case 4:
-                return _rangeEnemyPlaceholder;
-            default:
-                return null;
-        }
-    }*/
 }

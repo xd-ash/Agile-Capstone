@@ -7,6 +7,10 @@ public class TileDataLbraryEditor : Editor
     {
         ProceduralTileLibrary t = (ProceduralTileLibrary)target;
         t.SetTileNamesOnGUI();
+        EditorUtility.SetDirty(t);
+
         base.OnInspectorGUI();
+
+        AssetDatabase.SaveAssetIfDirty(t);
     }
 }
