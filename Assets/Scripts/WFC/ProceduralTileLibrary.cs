@@ -78,11 +78,29 @@ public class ProceduralTileLibrary : ScriptableObject
         return tileData;
     }
 
-    public void SetTileNamesOnGUI()
+    public bool SetTileNamesOnGUI()
     {
-        foreach (var td in _tileLibrary)
-            if (td.GetTileName == string.Empty || td.GetTileName != td.GetTileBase.name)
+        bool tmp = false;
+        for (int i = 0; i < _tileLibrary.Length; i++)
+        {
+            var td = _tileLibrary[i];
+            string eNumber = $"Element {i}";
+
+            if (td.GetTileBase == null && td.GetTileName != eNumber)
+            {
+                td.SetTileName(eNumber);
+                tmp = true;
+                continue;
+            }
+            if (td.GetTileBase == null) continue;
+
+            if (td.GetTileName != td.GetTileBase.name)
+            {
                 td.SetTileName();
+                tmp = true;
+            }
+        }
+        return tmp;
     }
 
     [System.Serializable]
@@ -97,9 +115,9 @@ public class ProceduralTileLibrary : ScriptableObject
         public int GetByteIndicator => _byteIndicator;
         public GameObject GetTileContentPrefab => _tileContentPrefab;
         public string GetTileName => _tileName;
-        public void SetTileName()
+        public void SetTileName(string fallBackName = "")
         {
-            _tileName = _tileBase.name;
+            _tileName = fallBackName == string.Empty ? _tileBase.name : fallBackName;
         }
     }
 }
