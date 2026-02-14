@@ -12,6 +12,8 @@ public class DeckBuilderScript : MonoBehaviour
     [SerializeField] private TMP_Dropdown _deckDropdown;
     [SerializeField] private ScrollRect _cardScrollView;
     [SerializeField] private ScrollRect _deckScrollView;
+    [SerializeField] private Button _confirmButton;
+    [SerializeField] private Button _deleteDeckButton;
 
     [SerializeField] private GameObject _cardContentPrefab;
     [SerializeField] private GameObject _deckContentPrefab;
@@ -38,8 +40,7 @@ public class DeckBuilderScript : MonoBehaviour
     private void LateStartInits()
     {
         GrabAllDeckOptions();
-        SwapCurrentDeck(); //initial deck grab, temp deck setup, & deck scrollview build 
-        BuildCardLibraryScrollViewContent();
+        SwapCurrentDeck(); //initial deck grab, temp deck setup, & deck/card scrollview builds
     }
 
     //Create all card content in the card library scrollview
@@ -69,23 +70,8 @@ public class DeckBuilderScript : MonoBehaviour
             var addCardButton = content.GetComponentInChildren<Button>();
             if (addCardButton == null) continue;
             addCardButton?.onClick.AddListener(() => AddCardToTempDeck(card));
+            addCardButton.interactable = _isCurrentDeckEditable;
         }
-    }
-    private void SetCardLibraryContentTransform(ref RectTransform rt, int childIndex)
-    {
-        if (rt == null || childIndex == -1) return;
-
-        float w = rt.rect.width;
-        float h = rt.rect.height;
-        float scrollViewWidth = _cardScrollView.viewport.rect.width;
-        int maxNumHorizontal = (int)(scrollViewWidth / w);
-        int ix = childIndex % maxNumHorizontal;
-        int iy = childIndex / maxNumHorizontal;
-
-        float x = 0.5f * w + ix * w;
-        float y = 0.5f * h + iy * h;
-
-        rt.localPosition = new Vector2(x, -y);
     }
 
     //Create all deck content in the deck scrollview
@@ -118,19 +104,23 @@ public class DeckBuilderScript : MonoBehaviour
             removeCardButton?.onClick.AddListener(() => RemoveCardFromTempDeck(card));
             removeCardButton.gameObject.SetActive(_isCurrentDeckEditable);
         }
+        ToggleConfirmbutton();
     }
-    private void SetDeckCardContentTransform(ref RectTransform rt, int childIndex)
+    //toggle confirm button interable if temp deck differes from the actual deck
+    private void ToggleConfirmbutton()
     {
-        if (rt == null || childIndex == -1) return;
+        bool areListsEqual = _currDeck.GetCardsInDeck.Count == _tempDeck.Count;
 
-        float w = rt.rect.width;
-        float h = rt.rect.height;
-        float scrollViewHeight = _cardScrollView.viewport.rect.height;
+        //sloppy and quick way to compare the deck lists. Does not account for order of cards
+        if (areListsEqual)
+            for (int i = 0; i < _currDeck.GetCardsInDeck.Count; i++)
+                if (_currDeck.GetCardsInDeck[i] != _tempDeck[i])
+                {
+                    areListsEqual = false;
+                    break;
+                }
 
-        float x = 0.5f * w;
-        float y = 0.5f * h + childIndex * h;
-
-        rt.localPosition = new Vector2(x, -y);
+        _confirmButton.interactable = !areListsEqual && (_tempDeck.Count != 0 || _currDeck.GetCardsInDeck.Count != 0) && _isCurrentDeckEditable;
     }
 
     //Add card to pending/temp deck list
@@ -140,7 +130,7 @@ public class DeckBuilderScript : MonoBehaviour
         if (_tempDeck == null) _tempDeck = new();
         _tempDeck.Add(card);
 
-        BuildDeckScrollViewContent();
+        Rebuild();
     }
 
     //remove card from pending/temp deck list
@@ -150,16 +140,21 @@ public class DeckBuilderScript : MonoBehaviour
         if (_tempDeck == null) _tempDeck = new();
         if (_tempDeck.Contains(card))
             _tempDeck.Remove(card);
-        
-        BuildDeckScrollViewContent();
+
+        Rebuild();
     }
 
     //add pending/temp cards to current deck & update player data decks
     public void ConfirmDeckAdditions()
     {
+        if (!_isCurrentDeckEditable) return;
+
         _currDeck.ClearDeck(_tempDeck); 
+
         PlayerDataManager.Instance?.CreateOrAdjustDeck(_currDeck);
         SaveLoadScript.SaveGame?.Invoke();
+
+        ToggleConfirmbutton();
     }
 
     //create new deck to edit
@@ -173,7 +168,7 @@ public class DeckBuilderScript : MonoBehaviour
         _tempDeck = new(_currDeck.GetCardsInDeck);
         _deckDropdown.captionText.text = _currDeck.GetDeckName;
 
-        //SwapCurrentDeck();
+        Rebuild();
         PlayerDataManager.Instance?.CreateOrAdjustDeck(_currDeck);
     }
     //delete deck from options & player data
@@ -222,7 +217,15 @@ public class DeckBuilderScript : MonoBehaviour
         _tempDeck = new(_currDeck.GetCardsInDeck);
         _deckDropdown.captionText.text = _currDeck.GetDeckName;
 
+        Rebuild();
+    }
+    private void Rebuild()
+    {
+        BuildCardLibraryScrollViewContent();
         BuildDeckScrollViewContent();
+
+        if (_deleteDeckButton == null) return;
+        _deleteDeckButton.interactable = _isCurrentDeckEditable;
     }
 
     //Grab correct deck from dropdown value
