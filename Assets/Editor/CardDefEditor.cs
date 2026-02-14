@@ -24,5 +24,7 @@ public class CardDefEditor : Editor
             _library = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
         if (_library != null && !_library.GetCardsInProject.Contains(card))
             _library.AddCardToLibrary(card);
+        if (_library == null)
+            Debug.Log("library null");
     }
 }

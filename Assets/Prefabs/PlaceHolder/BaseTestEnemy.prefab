@@ -705,6 +705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6557971832698807318}
   - component: {fileID: 5904661369477725204}
+  - component: {fileID: -8026584907580698463}
   - component: {fileID: 890448977864822885}
   - component: {fileID: 8789888860053324449}
   - component: {fileID: 4228538318824984774}
@@ -758,6 +759,19 @@ MonoBehaviour:
   _shieldHitSfx: {fileID: 8300000, guid: 8ae3191c3504ac44ab354c262aec60a5, type: 3}
   _enemyHPBar: {fileID: 0}
   _hitChanceText: {fileID: 911046034535398077}
+--- !u!114 &-8026584907580698463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440825415147360739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa46901ae8a760940b6afd3f69bb8168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActiveEffectsTracker
+  _effects: []
 --- !u!114 &890448977864822885
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 using static IsoMetricConversions;
 using WFC;
 using System.Linq;
+using System;
 
 public class MapLocation
 {
@@ -50,6 +51,7 @@ public class MapCreator : MonoBehaviour
 
         _moduleSet.SetNeighbours();
         _tileLibrary = Resources.Load<ProceduralTileLibrary>("Libraries/TileDataLibrary");
+        _tilemap = transform.Find("MainTileMap").GetComponent<Tilemap>();
     }
 
     private Tilemap _tilemap;
@@ -61,11 +63,6 @@ public class MapCreator : MonoBehaviour
                                                                       new MapLocation(0,1),
                                                                       new MapLocation(-1,0),
                                                                       new MapLocation(0,-1) };
-    /*[Header("Placeholder Obstacle/Enemy Spawn")]
-    [SerializeField] private GameObject _placeholderObstacle;
-    [SerializeField] private GameObject _rangeEnemyPlaceholder;
-    [SerializeField] private GameObject _meleeEnemyPlaceholder;
-    [SerializeField] private GameObject _playerPlaceholder;*/
 
     [Header("Tile Module Set")]
     [SerializeField] private TileSet _moduleSet;
@@ -74,10 +71,7 @@ public class MapCreator : MonoBehaviour
     public Vector2Int GetMapSize => _mapSize;
     public List<MapLocation> GetDirections => _directions;
 
-    private void OnEnable()
-    {
-        _tilemap = transform.Find("MainTileMap").GetComponent<Tilemap>();
-    }
+    public static Action<Vector2Int, Unit> TileEntered;
 
     private void Start()
     {
@@ -250,7 +244,7 @@ public class MapCreator : MonoBehaviour
             int index = -1;
             do
             {
-                index = Random.Range(0, emptyPositions.Count);
+                index = UnityEngine.Random.Range(0, emptyPositions.Count);
             } while (selectedPositionIndexes.Contains(index));
             selectedPositionIndexes[i] = index;
             var pos = emptyPositions[index];
@@ -258,7 +252,7 @@ public class MapCreator : MonoBehaviour
             if (i < players)
                 _map[pos.x, pos.y] = 1;
             else
-                _map[pos.x, pos.y] = (byte)Random.Range(3, 5); // randomly choose enemy type (3 or 4) on enemy spawn
+                _map[pos.x, pos.y] = (byte)UnityEngine.Random.Range(3, 5); // randomly choose enemy type (3 or 4) on enemy spawn
         }
     }
 }

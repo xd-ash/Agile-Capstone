@@ -10,8 +10,8 @@ namespace CardSystem
     {
         [Input(connectionType = ConnectionType.Override)] public short input;
 
-        public bool isAOE;
-        public float radius;
+        //public bool isAOE;
+        //public float radius;
 
         public virtual void StartTargeting(AbilityData abilityData, Action onFinished)
         {
@@ -21,7 +21,7 @@ namespace CardSystem
                 AudioManager.Instance?.PlayCardSelectSfx();
             }
         }
-        public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
+        //public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
         protected abstract IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit);
     }
 }

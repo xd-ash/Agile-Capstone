@@ -47,6 +47,8 @@ public class GoapAgent : MonoBehaviour
     [HideInInspector] public Unit unit;
     public Unit curtarget;
 
+    public bool showDebugMessages = false;
+
     public List<GoapAction> GetActions => _actions;
 
     private void Awake()
@@ -229,7 +231,7 @@ public class GoapAgent : MonoBehaviour
 
         if (_planner == null || _actionQueue == null)
         {
-            _planner = new GoapPlanner();
+            _planner = new GoapPlanner(this);
             var sortedGoals = from entry in _weightedGoalsDict
                               orderby entry.Value descending
                               select entry;

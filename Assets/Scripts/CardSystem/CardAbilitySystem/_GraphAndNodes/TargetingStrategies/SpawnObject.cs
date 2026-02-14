@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CardSystem;
 using UnityEngine;
 using XNode;
+using static IsoMetricConversions;
 
 [CreateNodeMenu("Misc Effects/Spawn Object")]
 public class SpawnObject : EffectStrategy, IStoppable, IPassSpawnedObjs
@@ -27,23 +28,24 @@ public class SpawnObject : EffectStrategy, IStoppable, IPassSpawnedObjs
     {
         base.StartEffect(abilityData, onFinished);
 
-        GameObject prefab = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
+        foreach (var target in abilityData.Targets)
+        {
+            GameObject prefab = Instantiate(_prefab, Vector3.zero, Quaternion.identity, FindFirstObjectByType<MapCreator>().transform);
+            prefab.transform.localPosition = target.transform.localPosition;
+            Destroy(target);
 
-        SpawnObjectTracker sot; //= prefab.GetComponent<SpawnObjectTracker>();
-        if (!prefab.TryGetComponent(out sot))
-            sot = prefab.AddComponent<SpawnObjectTracker>();
+            if (!prefab.TryGetComponent(out SpawnObjectTracker sot))
+                sot = prefab.AddComponent<SpawnObjectTracker>();
+            
+            sot.Initialize(abilityData.GetGUID, abilityData.GetUnit);
 
-        /*if (sot == null)
-            sot = prefab.AddComponent<SpawnObjectTracker>();
-        */
-        sot.SpawnObjectTRacker(abilityData.GetGUID);
+            if (!spawnedObjs.ContainsKey(abilityData.GetGUID))
+                spawnedObjs.Add(abilityData.GetGUID, new List<SpawnObjectTracker>());
 
-        if (!spawnedObjs.ContainsKey(abilityData.GetGUID))
-            spawnedObjs.Add(abilityData.GetGUID, new List<SpawnObjectTracker>());
+            spawnedObjs[abilityData.GetGUID].Add(sot);
 
-        spawnedObjs[abilityData.GetGUID].Add(sot);
-
-        PassObject(abilityData, sot);
+            PassObject(abilityData, sot);
+        }
     }
 
     public void Stop(Guid guid)
@@ -56,37 +58,46 @@ public class SpawnObject : EffectStrategy, IStoppable, IPassSpawnedObjs
         spawnedObjs.Remove(guid);
     }
 }
-public class SpawnObjectTracker : MonoBehaviour
+public abstract class SpawnObjectTracker : MonoBehaviour
 {
-    public bool one;
+    protected Guid _guid;
+    protected Action _onTriggerAction;
+    protected Unit _creator;
+    protected Vector2Int _pos;
 
-    private Guid _guid;
-    private Action _OnTouched;
-
-    private void Update()
+    private void OnEnable()
     {
-        //different inputs trigger different objs, bool for differenciating objs
-        if (Input.GetKeyDown(KeyCode.Alpha1) && one)
-        {
-            InvokeOnTouched();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !one)
-        {
-            InvokeOnTouched();
-        }
+        OnSpawn();
     }
-    //pseudo constructor
-    public void SpawnObjectTRacker(Guid guid)
+    public abstract void OnSpawn();
+
+    public void Initialize(Guid guid, Unit creator)
     {
         _guid = guid;
+        _creator = creator;
+        _pos = ConvertToGridFromIsometric(transform.localPosition);
     }
-    public void OnTouch(Action action)
+    public void SetOnTrigger(Action action)
     {
-        _OnTouched += action;
+        _onTriggerAction += action;
     }
-    public void InvokeOnTouched()
+    public void InvokeOnTrigger()
     {
-        _OnTouched?.Invoke();
+        _onTriggerAction?.Invoke();
+    }
+}
+public class TrapObjectTracker : SpawnObjectTracker
+{
+    public void CheckForTriggerOnTouch(Vector2Int pos, Unit unitThatTriggered)
+    {
+        if (pos != _pos) return;
+
+        InvokeOnTrigger();
+    }
+
+    public override void OnSpawn()
+    {
+        if (MapCreator.Instance == null) return;
+        MapCreator.TileEntered += CheckForTriggerOnTouch;
     }
 }

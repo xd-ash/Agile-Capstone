@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
     public void PlayDrawCardSfx() => PlaySFX(_audioLibrary.GetDrawCardSFX);
     public void PlayCardSelectSfx() => PlaySFX(_audioLibrary.GetSelectCardSFX);
     public void PlayButtonSFX() => PlaySFX(_audioLibrary.GetGetMenuButtonSFX);
-    public void PlayEndTurnSFX() => PlaySFX(_audioLibrary.GetEndTurnSFX);
+    public void PlayEndTurnSFX(Unit unit) => PlaySFX(_audioLibrary.GetEndTurnSFX);
 
     private void OnEnable()
     {
@@ -78,7 +78,7 @@ public class AudioManager : MonoBehaviour
     {
         // Unsubscribe TurnManager listener if we return to main menu
         if (sceneLoaded == "MainMenu" && TurnManager.Instance != null)
-            TurnManager.Instance.OnPlayerTurnEnd -= PlayEndTurnSFX;
+            TurnManager.Instance.OnTurnEnd -= PlayEndTurnSFX;
 
         // Look for a matching scene music entry
         var entry = _sceneMusic.FirstOrDefault(e => e.sceneName == sceneLoaded);

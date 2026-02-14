@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,18 +55,19 @@ namespace CardSystem
                         // floating 'Miss' text here
                         // Start a coroutine on the target unit to spawn and fade a small world-space 3D TextMesh above it
                         targetUnit.StartCoroutine(SpawnMissPopup(targetUnit));
-                        Debug.Log($"[{abilityData.GetUnit}] Attack Missed, Targetted @ {targetUnit}");
+                        //Debug.Log($"[{abilityData.GetUnit}] Attack Missed, Targetted @ {targetUnit}");
                         continue;
                     }
 
                     /*if (_hasDuration)
                         targetUnit.StartCoroutine(DoEffectOverTime(targetUnit, _duration, _effectValue));
                     else*/
-                        targetUnit.ChangeHealth(_effectValue, false);
+
+                    targetUnit.ChangeHealth(_effectValue, false);
                 }
             }
 
-            onFinished();
+            onFinished?.Invoke();
         }
 
         // Simplified: Uses a 3D TextMesh so we avoid Canvas / Camera / Font nulls.

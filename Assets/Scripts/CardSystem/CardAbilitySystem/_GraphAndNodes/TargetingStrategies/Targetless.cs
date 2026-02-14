@@ -14,10 +14,10 @@ namespace CardSystem
             
             onFinished();
         }
-        public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
+        /*public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit)
         {

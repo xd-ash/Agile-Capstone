@@ -230,7 +230,6 @@ namespace AStarPathfinding
         // Create debug marker
         private void CreateDebugMarker(GameObject marker, Vector2Int pos)
         {
-            Vector3 isoPos = ConvertToIsometricFromGrid(new Vector3(pos.x, pos.y));
             GameObject markerGO = Instantiate(marker, Vector3.zero, Quaternion.identity, _debugMarkerParent);
             markerGO.transform.localPosition = ConvertToIsometricFromGrid(pos);
         }
@@ -259,8 +258,6 @@ namespace AStarPathfinding
 
             //Convert unit local position to grid position
             Vector2Int prev = ConvertToGridFromIsometric(_unit.transform.localPosition);
-            Vector2Int tempStart = prev;
-            Vector2Int tempEnd = Vector2Int.zero;
 
             _dirAnimator?.SetMoving(true);
 
@@ -270,15 +267,14 @@ namespace AStarPathfinding
                     break;
 
                 Vector2Int next = new Vector2Int(_truePath[i].location.x, _truePath[i].location.y);
-                tempEnd = next;
 
                 // Anim direction set
                 Vector2Int delta = next - prev;
                 _dirAnimator?.SetDirectionFromDelta(delta);
 
                 Vector3 startPos = _unit.transform.localPosition;
-                Vector3 endPos = ConvertToIsometricFromGrid(next, startPos.y * .01f);// z pos adjusted with y value to allow for easy layering of sprites
-                                                                                     // (.01f holds no significance, just used to keep value small)
+                Vector3 endPos = ConvertToIsometricFromGrid(next);
+
                 float elapsed = 0f;
                 while (elapsed < _unitMoveSpeed)
                 {
@@ -296,8 +292,12 @@ namespace AStarPathfinding
                 }
 
                 _unit.SpendAP(_moveCostPerTile);
-                //TurnManager.Instance.UpdateApText();
                 GameUIManager.instance.UpdateApText();
+
+                //check for trap or general tile enter event? (make this better?)
+                MapCreator.TileEntered?.Invoke(next, _unit);
+
+                MapCreator.Instance.UpdateUnitPositionByteMap(prev, next, _unit);
 
                 prev = next;
             }
@@ -305,11 +305,8 @@ namespace AStarPathfinding
             _dirAnimator?.SetMoving(false);
             _isMoving = false;
 
-            MapCreator.Instance.UpdateUnitPositionByteMap(tempStart, tempEnd, _unit);
-
             // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
-            if (onFinished != null)
-                onFinished();
+            onFinished?.Invoke();
 
             // rebuild highlights for player right after movement is fully done
             if (_unit.GetTeam == Team.Friendly)

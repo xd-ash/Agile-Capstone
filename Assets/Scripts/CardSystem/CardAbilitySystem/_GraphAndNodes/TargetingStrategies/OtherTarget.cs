@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using static IsoMetricConversions;
 using UnityEngine;
 
 namespace CardSystem
@@ -10,13 +10,15 @@ namespace CardSystem
     [CreateNodeMenu("Targeting/Other")]
     public class OtherTarget : TargetingStrategy
     {
+        [SerializeField] private bool _targetTilesNotUnits = false;
+
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
             switch (abilityData.GetUnit.GetTeam)
             {
                 case Team.Friendly:
                     base.StartTargeting(abilityData, onFinished);
-                    abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished));
+                    abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished, _targetTilesNotUnits));
                     break;
                 case Team.Enemy:
                     GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
@@ -26,7 +28,7 @@ namespace CardSystem
                     break;
             }
         }
-        public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
+        public IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished, bool isTileTargeted)
         {
             Unit caster = abilityData.GetUnit;
             Unit hoveredUnit = null;
@@ -34,31 +36,34 @@ namespace CardSystem
 
             while (true)
             {
-                //Hover detection
-                Unit newHover = GetUnitUnderMouse();
-
-                if (newHover != hoveredUnit)
+                if (!isTileTargeted)
                 {
-                    //Clear old hover
-                    if (hoveredUnit != null)
-                        hoveredUnit.HideHitChance();
+                    //Hover detection
+                    Unit newHover = GetUnitUnderMouse();
 
-                    hoveredUnit = newHover;
-
-                    //Show new hover hit chance
-                    if (hoveredUnit != null && caster != null)
+                    if (newHover != hoveredUnit)
                     {
-                        int hitChance = CombatMath.GetHitChance(caster, hoveredUnit, def);
-                        hoveredUnit.ShowHitChance(hitChance);
+                        //Clear old hover
+                        if (hoveredUnit != null)
+                            hoveredUnit.HideHitChance();
+
+                        hoveredUnit = newHover;
+
+                        //Show new hover hit chance
+                        if (hoveredUnit != null && caster != null)
+                        {
+                            int hitChance = CombatMath.GetHitChance(caster, hoveredUnit, def);
+                            hoveredUnit.ShowHitChance(hitChance);
+                        }
                     }
                 }
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    abilityData.Targets = TargetOnMouse(caster);
+                    abilityData.Targets = isTileTargeted ? TileOnMouse() : TargetOnMouse(caster);
 
-                    if (isAOE)
-                        abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(caster));
+                    //if (isAOE)
+                        //abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(caster));
 
                     if (abilityData.GetTargetCount > 0)
                         break;
@@ -72,6 +77,16 @@ namespace CardSystem
 
             onFinished();
         }
+
+        private IEnumerable<GameObject> TileOnMouse()
+        {
+            Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
+            GameObject empty = new();
+            empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
+            empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
+            yield return empty;
+        }
+
         private Unit GetUnitUnderMouse()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -112,10 +127,12 @@ namespace CardSystem
 
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit)
         {
-            Collider[] foundObjects = Physics.OverlapSphere(unit.transform.position, radius);
+            throw new NotImplementedException();
+
+            /*Collider[] foundObjects = Physics.OverlapSphere(unit.transform.position, radius);
 
             foreach (Collider collider in foundObjects)
-                yield return collider.gameObject;
+                yield return collider.gameObject;*/
         }
 
         /*

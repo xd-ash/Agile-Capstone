@@ -8,8 +8,6 @@ namespace CardSystem
     // Base abstract effect strategy class
     public abstract class EffectStrategy : AbilityNodeBase
     {
-        //[SerializeField] protected bool _hasDuration;
-        //[SerializeField] protected int _duration;
         [SerializeField] protected int _effectValue;
 
         [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte input;
@@ -17,13 +15,9 @@ namespace CardSystem
         protected EffectVisualsStrategy _visualsStrategy;
         [Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public long effectVisuals;
 
-        //[Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public float duration; // used for old failed duration node
-        //public bool HasDuration { get { return _hasDuration; } set { _hasDuration = value; } }
-
         public virtual void StartEffect(AbilityData abilityData, Action onFinished)
         {
             var def = this.graph as CardAbilityDefinition;
-            //Debug.Log($"def effect: {def.abilitySFX.name}");
             AudioManager.Instance?.SetPendingUseSfx(def.GetAbilitySFX);
 
             if (_visualsStrategy == null)
@@ -40,7 +34,7 @@ namespace CardSystem
             }
         }
 
-        // Coroutine to cause an effect over a duration, with interval of 1s for testing
+        /*/ Coroutine to cause an effect over a duration, with interval of 1s for testing
         public virtual IEnumerator DoEffectOverTime(Unit unit, int duration, int effectValue = 0)
         {
             Debug.Log("Do effect over time is commented out");
@@ -56,9 +50,9 @@ namespace CardSystem
                 yield return new WaitForSeconds(1); // tie this to turn order in some way, maybe event
                 tempDur--;
             } while (tempDur > 0);
-            Destroy(auraGO);*/
+            Destroy(auraGO);
         }
-
+        */
         // Spawn placeholder sprite to show buff/debuffs & HOTs/DOTs on unit
         static GameObject SpawnPlaceholderAura(Unit affectedUnit, EffectStrategy effectStrat)
         {

@@ -61,13 +61,19 @@ public class Unit : MonoBehaviour, IDamagable
     {
         if (_team != Team.Friendly || _targetingCoroutine == null) return;
         DeckAndHandManager.Instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
-        TurnManager.Instance.OnPlayerTurnEnd += () => StopCoroutine(_targetingCoroutine);
+        TurnManager.Instance.OnTurnEnd += StopTargetingCoro;
     }
     private void OnDestroy()
     {
         if (_team != Team.Friendly || _targetingCoroutine == null) return;
         DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
-        TurnManager.Instance.OnPlayerTurnEnd -= () => StopCoroutine(_targetingCoroutine);
+        TurnManager.Instance.OnTurnEnd -= StopTargetingCoro;
+    }
+    private void StopTargetingCoro(Unit unit)
+    {
+        if (unit != this) return;
+
+        StopCoroutine(_targetingCoroutine);
     }
     /// <summary>
     /// ChangeHealth handles both healing (isGain = true) and damage (isGain = false).

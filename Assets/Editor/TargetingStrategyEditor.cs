@@ -3,7 +3,7 @@ using XNodeEditor;
 
 namespace CardSystem
 {
-    [CustomNodeEditor(typeof(TargetingStrategy))]
+    //[CustomNodeEditor(typeof(TargetingStrategy))]
     public class TargetingStrategyEditor : NodeEditor
     {
         public override void OnBodyGUI()
@@ -13,10 +13,10 @@ namespace CardSystem
 
             NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("input"));
 
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("isAOE"));
+            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("isAOE"));
             EditorGUI.indentLevel++;
-            if (node.isAOE)
-                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("radius"));
+            //if (node.isAOE)
+                //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("radius"));
             EditorGUI.indentLevel--;
 
             serializedObject.ApplyModifiedProperties();

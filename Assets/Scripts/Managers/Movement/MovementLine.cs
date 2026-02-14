@@ -94,7 +94,7 @@ public class MovementLine : MonoBehaviour
     }
     public static Vector3 GridToWorld(Vector2Int cell)
     {
-        Vector3 localIso = ConvertToIsometricFromGrid(cell, 0f);
+        Vector3 localIso = ConvertToIsometricFromGrid(cell);
         return MapCreator.Instance.transform.TransformPoint(localIso);
     }
 }

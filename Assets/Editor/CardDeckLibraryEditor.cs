@@ -16,12 +16,18 @@ public class CardDeckLibraryEditor : Editor
     {
         if(_library == null) _library = (CardAndDeckLibrary)target;
         _library.CleanUpLists();
-        GrabAssets();
 
+        if (GrabAssets())
+        {
+            EditorUtility.SetDirty(_library);
+            AssetDatabase.SaveAssetIfDirty(_library);
+        }
         base.OnInspectorGUI();
     }
-    private void GrabAssets()
+    public bool GrabAssets()
     {
+        bool tmp = false;
+
         if (_library == null) _library = (CardAndDeckLibrary)target;
 
         //var deckGUIDS = AssetDatabase.FindAssets("t:Deck", new[] { "Assets/ScriptableObjects/DeckSOs" });
@@ -32,7 +38,11 @@ public class CardDeckLibraryEditor : Editor
                 _library.AddDeckToLibrary(AssetDatabase.LoadAssetAtPath<Deck>(AssetDatabase.GUIDToAssetPath(guid)));*/
         if (cardGUIDS.Length != _library.GetCardsInProject.Count)
             foreach (var guid in cardGUIDS)
+            {
                 _library.AddCardToLibrary(AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(AssetDatabase.GUIDToAssetPath(guid)));
+                tmp = true;
+            }
+        return tmp;
     }
 
     /*private void ClearOtherLibraries()

@@ -9,7 +9,7 @@ namespace CardSystem
 	public class CardAbilityDefinition : NodeGraph
 	{
 		[Header("Card Info")]
-        [SerializeField] private string _cardName;
+        //[SerializeField] private string _cardName;
         [TextArea(1, 3)]
         [SerializeField] private string _description;
 		[SerializeField] private AudioClip _abilitySFX;
@@ -31,7 +31,7 @@ namespace CardSystem
 
         private AbilityRootNode _rootNode;
 
-        public string GetCardName => _cardName;
+        public string GetCardName => this.name;
         public string GetDescription => _description;
         public int GetApCost => _apCost;
         public int GetRange => _range;

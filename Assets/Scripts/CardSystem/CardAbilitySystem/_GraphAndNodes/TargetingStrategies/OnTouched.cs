@@ -1,7 +1,7 @@
 ﻿using CardSystem;
 using XNode;
 
-public class OnTouched : Node, IAcceptSpawnObjs, IPassSpawnedObjs
+public class OnTouched : AbilityNodeBase, IAcceptSpawnObjs, IPassSpawnedObjs
 {
     [Input(connectionType = ConnectionType.Override)] public float input;
 
@@ -14,7 +14,7 @@ public class OnTouched : Node, IAcceptSpawnObjs, IPassSpawnedObjs
             if (port.Connection == null || port.Connection.node == null || port.Connection.node is not EffectStrategy)
                 continue;
 
-            tracker.OnTouch(() => (port.Connection.node as EffectStrategy).StartEffect(abilityData, null));
+            tracker.SetOnTrigger(() => (port.Connection.node as EffectStrategy).StartEffect(abilityData, null));
         }
     }
 

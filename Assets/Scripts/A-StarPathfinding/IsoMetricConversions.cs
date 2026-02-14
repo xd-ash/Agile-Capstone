@@ -9,13 +9,15 @@ public static class IsoMetricConversions
     // in the isometric grid. (This must be updated if isometric "tilt" is adjusted)
     private static Vector2 step = new Vector2(0.5f, 0.25f);
 
-    public static Vector3 ConvertToIsometricFromGrid(Vector2Int pos, float z = 0f)
+    // z pos adjusted with y value to allow for easy layering of sprites
+    // (.01f holds no significance, just used to keep value small)
+    private static float _spriteAdjustmentZDir = 0.01f;
+
+    public static Vector3 ConvertToIsometricFromGrid(Vector2Int pos)
     {
-        return new Vector3((pos.x - pos.y) * step.x, (pos.x + pos.y) * step.y, z);
-    }
-    public static Vector3 ConvertToIsometricFromGrid(Vector3 pos)
-    {
-        return new Vector3((pos.x - pos.y) * step.x, (pos.x + pos.y) * step.y, pos.z);
+        float x = (pos.x - pos.y) * step.x;
+        float y = (pos.x + pos.y) * step.y;
+        return new Vector3(x, y, y * _spriteAdjustmentZDir);
     }
     public static Vector2Int ConvertToGridFromIsometric(Vector3 pos)
     {

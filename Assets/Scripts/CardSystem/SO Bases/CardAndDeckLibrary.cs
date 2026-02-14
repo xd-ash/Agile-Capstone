@@ -1,6 +1,5 @@
 using CardSystem;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Deckbuilding System/New Card & Deck Library")]

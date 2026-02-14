@@ -13,14 +13,15 @@ namespace CardSystem
         {
             base.StartTargeting(abilityData, onFinished);
 
-            abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
+            //abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
+            abilityData.Targets = TargetSelf(abilityData);
             onFinished();
         }
 
-        public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
+        /*public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         private IEnumerable<GameObject>TargetSelf(AbilityData abilityData)
         {
@@ -29,12 +30,13 @@ namespace CardSystem
 
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit user)
         {
-            Collider2D[] foundObjects = Physics2D.OverlapCircleAll(user.transform.position, radius);
+            throw new NotImplementedException();
+            /*Collider2D[] foundObjects = Physics2D.OverlapCircleAll(user.transform.position, radius);
 
             foreach (Collider2D collider in foundObjects)
             {
                 yield return collider.gameObject;
-            }
+            }*/
         }
     }
 }
