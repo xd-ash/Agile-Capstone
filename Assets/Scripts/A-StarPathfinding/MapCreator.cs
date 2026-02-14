@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static IsoMetricConversions;
 using WFC;
+using System.Linq;
 
 public class MapLocation
 {
@@ -48,9 +49,11 @@ public class MapCreator : MonoBehaviour
             Destroy(this.gameObject);
 
         _moduleSet.SetNeighbours();
+        _tileLibrary = Resources.Load<ProceduralTileLibrary>("Libraries/TileDataLibrary");
     }
 
     private Tilemap _tilemap;
+    private ProceduralTileLibrary _tileLibrary;
 
     [SerializeField] private Vector2Int _mapSize;
     private byte[,] _map;
@@ -58,11 +61,11 @@ public class MapCreator : MonoBehaviour
                                                                       new MapLocation(0,1),
                                                                       new MapLocation(-1,0),
                                                                       new MapLocation(0,-1) };
-    [Header("Placeholder Obstacle/Enemy Spawn")]
+    /*[Header("Placeholder Obstacle/Enemy Spawn")]
     [SerializeField] private GameObject _placeholderObstacle;
     [SerializeField] private GameObject _rangeEnemyPlaceholder;
     [SerializeField] private GameObject _meleeEnemyPlaceholder;
-    [SerializeField] private GameObject _playerPlaceholder;
+    [SerializeField] private GameObject _playerPlaceholder;*/
 
     [Header("Tile Module Set")]
     [SerializeField] private TileSet _moduleSet;
@@ -78,27 +81,37 @@ public class MapCreator : MonoBehaviour
 
     private void Start()
     {
+        if (_tileLibrary == null)
+        {
+            Debug.LogError($"Tile Library is Null");
+            return;
+        }
+
         _tilemap.CompressBounds();
 
-        int totalNonObstacleTiles;
+        //int totalNonObstacleTiles;
         int failSafeCount = -1;
+        var emptyTilePositions = new List<Vector2Int>();
 
         do
         {
             _map = new byte[_mapSize.x, _mapSize.y];
             int moduleWidth = _moduleSet.GetTrueModuleWidth;
-            TileElement[,] environmentMap = null;
-            totalNonObstacleTiles = 0;
+            TileElement[,] environmentMap = environmentMap = TileWaveFunctionCollapse.WFCGenerate(_moduleSet.Modules,
+                    new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth)); ;
+            //totalNonObstacleTiles = 0;
 
-            int wfcFailCounter = -1;
+            emptyTilePositions.Clear();
+
+            /*int wfcFailCounter = -1;
             do
             {
-                environmentMap = TileWaveFunctionCollapse.WFCGenerate(_moduleSet.Modules,
-                    new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth));
+                
                 wfcFailCounter++;
                 if (wfcFailCounter >= 100)
                     Debug.Log("Excessive map generation fails from player/enemy spawning");
             } while ((environmentMap == null || TileWaveFunctionCollapse.CheckCanSpawnPlayer || TileWaveFunctionCollapse.CheckCanSpawnEnemy) && wfcFailCounter < 100);
+            */
 
             for (int x = 0; x < _map.GetLength(0); x++)
             {
@@ -112,31 +125,20 @@ public class MapCreator : MonoBehaviour
                     if (tile == null)
                         _map[x, y] = 0;
                     else
-                        switch (tile.name)
-                        {
-                            case "P_Tile":
-                                _map[x, y] = 1;
-                                break;
-                            case "O_Tile":
-                                _map[x, y] = 2;
-                                break;
-                            case "EM_Tile":
-                                _map[x, y] = 3;
-                                break;
-                            case "ER_Tile":
-                                _map[x, y] = 4;
-                                break;
-                        }
+                        _map[x, y] = (byte)_tileLibrary.GetIndicatorFromName(tile.name);
 
-                    if (_map[x, y] != 2)
-                        totalNonObstacleTiles++;
+                    if (_map[x, y] != 2 && _map[x, y] != 5)
+                        emptyTilePositions.Add(gridPos);
+                        //totalNonObstacleTiles++;
                 }
             }
 
             failSafeCount++;
             if (failSafeCount >= 100)
                 Debug.LogError("Excessive map generation fails from unreachable positions");
-        } while (!CheckMapForTruePath(totalNonObstacleTiles) && failSafeCount < 100);
+        } while (!CheckMapForTruePath(emptyTilePositions.Count) && failSafeCount < 100);
+
+        GenerateUnitPositions(emptyTilePositions);
 
         for (int x = 0; x < _map.GetLength(0); x++)
         {
@@ -161,7 +163,7 @@ public class MapCreator : MonoBehaviour
 
             for (int y = 0; y < _map.GetLength(1); y++)
             {
-                if (_map[x,y] != 2)
+                if (_map[x,y] != 2 && _map[x,y] != 5) // obstacle indicators
                 {
                     startLoc = new Vector2Int(x, y);
                     break;
@@ -169,12 +171,14 @@ public class MapCreator : MonoBehaviour
             }
         }
 
-        CheckNeighbours(startLoc, ref validLocs);
+        CheckNeighbours(startLoc, ref validLocs); 
+        //Debug.Log($"total nonobst:{totalNonObstacleTiles}, validLoc count:{validLocs.Count}");
         bool result = totalNonObstacleTiles == validLocs.Count;
         if (!result)
             PlayerDataManager.Instance.GetRandomSeed();// regen seed only after fail
         return result;
     }
+
     //recursive method to check neighboring tiles and add locations to list of valid locations
     private void CheckNeighbours(Vector2Int tilePos, ref List<Vector2Int> validLocs)
     {
@@ -185,7 +189,7 @@ public class MapCreator : MonoBehaviour
         {
             for (int x = -1; x <= 1; x++)
             {
-                if ((x == 0 && y == 0) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) // setting up for neighbors, but not diags (1,1)
+                if ((x == 0 && y == 0) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) // setting up for neighbors, but not diags or same tile ((-)1,(-)1), (0,0)
                     continue;
 
                 Vector2Int neighborPos = new Vector2Int(tilePos.x + x, tilePos.y + y);
@@ -193,7 +197,9 @@ public class MapCreator : MonoBehaviour
                 if (neighborPos.x < 0 || neighborPos.y < 0 || neighborPos.x > _map.GetLength(0) - 1 || neighborPos.y > _map.GetLength(1) - 1)
                     continue;
 
-                if (_map[neighborPos.x, neighborPos.y] != 2 && !validLocs.Contains(neighborPos))
+                //if (_map[neighborPos.x, neighborPos.y] != 2 && _map[neighborPos.x, neighborPos.y] != 5 && !validLocs.Contains(neighborPos))
+                if ((_map[neighborPos.x, neighborPos.y] == 0 || _map[neighborPos.x, neighborPos.y] == 1 || _map[neighborPos.x, neighborPos.y] == 3) && 
+                    !validLocs.Contains(neighborPos))
                 {
                     validLocs.Add(neighborPos);
                     CheckNeighbours(neighborPos, ref validLocs);
@@ -214,7 +220,7 @@ public class MapCreator : MonoBehaviour
     private void SpawnTileContents(int byteIndicator, Vector2Int mapPos)
     {
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
-        GameObject objToSpawn = GetGameObjectFromByte(byteIndicator);
+        GameObject objToSpawn = _tileLibrary.GetGOFromIndicator(byteIndicator);
 
         if (byteIndicator == 4)
             _map[mapPos.x, mapPos.y] = 3; // after range enemy spawned, swap byte back to general enemy value
@@ -232,20 +238,27 @@ public class MapCreator : MonoBehaviour
         GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
         newObj.transform.localPosition = adjustedPos;
     }
-    private GameObject GetGameObjectFromByte(int indicator)
+    private void GenerateUnitPositions(List<Vector2Int> emptyPositions)
     {
-        switch (indicator)
+        int players = PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
+        int enemies = PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+
+        int[] selectedPositionIndexes = new int[players + enemies];
+
+        for (int i = 0; i < players + enemies; i++)
         {
-            case 1:
-                return _playerPlaceholder;
-            case 2:
-                return _placeholderObstacle;
-            case 3:
-                return _meleeEnemyPlaceholder;
-            case 4:
-                return _rangeEnemyPlaceholder;
-            default:
-                return null;
+            int index = -1;
+            do
+            {
+                index = Random.Range(0, emptyPositions.Count);
+            } while (selectedPositionIndexes.Contains(index));
+            selectedPositionIndexes[i] = index;
+            var pos = emptyPositions[index];
+
+            if (i < players)
+                _map[pos.x, pos.y] = 1;
+            else
+                _map[pos.x, pos.y] = (byte)Random.Range(3, 5); // randomly choose enemy type (3 or 4) on enemy spawn
         }
     }
 }

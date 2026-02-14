@@ -3,13 +3,12 @@ using UnityEngine;
 
 namespace WFC
 {
-    //Attempt at static WFC class that can be used for different modules/modulesets
     public static class TileWaveFunctionCollapse
     {
-        private static int _playerCount;
-        private static int _enemyCount;
-        public static bool CheckCanSpawnPlayer => _playerCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
-        public static bool CheckCanSpawnEnemy => _enemyCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+        //private static int _playerCount;
+        //private static int _enemyCount;
+        //public static bool CheckCanSpawnPlayer => _playerCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
+        //public static bool CheckCanSpawnEnemy => _enemyCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
 
         public static TileElement[,] WFCGenerate(TileModule[] moduleSet, Vector2Int gridSize)
         {
@@ -18,8 +17,8 @@ namespace WFC
             TileElement[,] grid = new TileElement[gridSize.x, gridSize.y];
             List<Vector2Int> unreachedPositions = new List<Vector2Int>();
 
-            _playerCount = 0;
-            _enemyCount = 0;
+            //_playerCount = 0;
+            //_enemyCount = 0;
 
             for (int y = 0; y < gridSize.y; y++)
             {
@@ -68,7 +67,7 @@ namespace WFC
         {
             curElement.Collapse();
 
-            switch (curElement.GetSelectedModule.GetTileType)
+            /*switch (curElement.GetSelectedModule.GetTileType)
             {
                 case TileType.SingleEnemy:
                     _enemyCount++;
@@ -76,7 +75,7 @@ namespace WFC
                 case TileType.SinglePlayer:
                     _playerCount++;
                     break;
-            }
+            }*/
 
             for (int y = -1; y <= 1; y++)
             {
