@@ -8,7 +8,7 @@ namespace CardSystem
     // Base abstract effect strategy class
     public abstract class EffectStrategy : AbilityNodeBase
     {
-        [SerializeField] protected int _effectValue;
+        [SerializeField, HideInInspector] protected int _effectValue;
 
         [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte input;
 

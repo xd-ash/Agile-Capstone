@@ -6,7 +6,7 @@ using XNode;
 using static IsoMetricConversions;
 
 [CreateNodeMenu("Misc Effects/Spawn Object")]
-public class SpawnObject : EffectStrategy, IStoppable, IPassSpawnedObjs
+public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
 {
     public GameObject _prefab;
     public Dictionary<Guid, List<SpawnObjectTracker>> spawnedObjs = new();
