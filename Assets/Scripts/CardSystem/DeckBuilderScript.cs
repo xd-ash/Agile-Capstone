@@ -30,7 +30,11 @@ public class DeckBuilderScript : MonoBehaviour
         else
             Destroy(this.gameObject);
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            this.gameObject.SetActive(false);
+    }
     private void OnEnable()
     {
         _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
