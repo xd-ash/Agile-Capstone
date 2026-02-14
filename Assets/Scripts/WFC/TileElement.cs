@@ -52,7 +52,7 @@ namespace WFC
                 }
 
                 if (MapCreator.Instance == null) continue;
-
+                /*
                 switch (_options[i].GetTileType)
                 {
                     case TileType.SingleEnemy:
@@ -66,6 +66,7 @@ namespace WFC
                 }
 
                 _options.RemoveAt(i);
+                */
             }
         }
     }

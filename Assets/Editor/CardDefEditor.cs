@@ -21,7 +21,7 @@ public class CardDefEditor : Editor
     {
         CardAbilityDefinition card = (CardAbilityDefinition)target;
         if (_library == null)  
-            _library = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+            _library = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
         if (_library != null && !_library.GetCardsInProject.Contains(card))
             _library.AddCardToLibrary(card);
     }

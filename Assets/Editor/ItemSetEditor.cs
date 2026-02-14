@@ -17,10 +17,10 @@ namespace WFC
         {
             base.OnInspectorGUI();
 
-            if (GUILayout.Button("Generate Neighbours"))
+            /*if (GUILayout.Button("Generate Neighbours"))
             {
                 _environmentTileSet.SetNeighbours();
-            }
+            }*/
         }
     }
 }

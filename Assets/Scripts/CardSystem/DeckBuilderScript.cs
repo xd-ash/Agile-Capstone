@@ -31,7 +31,7 @@ public class DeckBuilderScript : MonoBehaviour
 
     private void OnEnable()
     {
-        _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+        _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
 
         Invoke(nameof(LateStartInits), 0.1f);
     }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c8a7314f151e1d44ada68492269fdaf, type: 3}
-  m_Name: OnlyObstaclesTile(2,2)
+  m_Name: OnlyObstaclesTile(0,3)
   m_EditorClassIdentifier: Assembly-CSharp::WFC.TileModule
   _keyDepth: 1
   _moduleWidth: 5
@@ -26,7 +26,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: fa9c1323e0b87834e9f916fabbf6875b, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   _nKey:
   - {fileID: 11400000, guid: 3e51c10cc5331de47a34b95f2cb2ed87, type: 2}

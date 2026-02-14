@@ -2314,7 +2314,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.05
+  m_fontSize: 55.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2862,7 +2862,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.25
+  m_fontSize: 20.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3982,7 +3982,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
+  m_fontSize: 22.65
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4334,7 +4334,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.2
+  m_fontSize: 27.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4471,7 +4471,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.45
+  m_fontSize: 21
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4557,6 +4557,7 @@ MonoBehaviour:
   _maxCards: 100
   _startingHandSize: 5
   _cardsInHand: []
+  _startingHandDrawn: 0
 --- !u!4 &1691110207
 Transform:
   m_ObjectHideFlags: 0
@@ -4887,7 +4888,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
+  m_fontSize: 65.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5195,8 +5196,6 @@ MonoBehaviour:
   _playerHealthText: {fileID: 1109730920}
   _playerShieldText: {fileID: 1679287172}
   _playerShieldSlider: {fileID: 1740800766}
-  _player: {fileID: 0}
-  _enemy: {fileID: 0}
   _turnText: {fileID: 1020119968}
   _apText: {fileID: 1371437713}
   winText: {fileID: 1319645121}
@@ -5235,7 +5234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.24752648, y: 0.26378334}
   m_AnchorMax: {x: 0.7613157, y: 0.7274335}
-  m_AnchoredPosition: {x: -0.5000019, y: -1.0550003}
+  m_AnchoredPosition: {x: -0.5, y: -1.0550003}
   m_SizeDelta: {x: -0.25500107, y: 2.1100006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2029014750

@@ -44,7 +44,7 @@ public class PlayerDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         if (_cardAndDeckLibrary == null)
-            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("CardAndDeckLibrary");
+            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
 
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();

@@ -5,11 +5,11 @@ using UnityEngine.Tilemaps;
 namespace WFC
 {
     //[CreateAssetMenu(fileName = "NewItemTileModule", menuName = "WFC/Modules/New Item Tile Module")]
+    [System.Serializable]
     public class TileModule : ScriptableObject
     {
-        //public Vector2Int keyDepthByModuleWidth;
-        public int keyDepth;
-        public int moduleWidth;
+        [SerializeField, HideInInspector] private int _keyDepth;
+        [SerializeField, HideInInspector] private int _moduleWidth;
 
         [SerializeField] private TileModule[] _northNeighbours;
         [SerializeField] private TileModule[] _eastNeighbours;
@@ -20,6 +20,8 @@ namespace WFC
         [SerializeField] private TileBase[] _nKey, _eKey, _sKey, _wKey;
         [SerializeField] private TileType _tileType;
 
+        public int GetKeyDepth => _keyDepth;
+        public int GetModuleWidth => _moduleWidth;
         public TileModule[] North => _northNeighbours;
         public TileModule[] East => _eastNeighbours;
         public TileModule[] South => _southNeighbours;
@@ -31,8 +33,11 @@ namespace WFC
         public TileBase[] GetTrueTiles => _trueTiles;
         public TileType GetTileType => _tileType;
 
-        public void InitModuleValues(TileBase[] tileArray, TileType tileType)
+        public void InitModuleValues(TileBase[] tileArray, TileType tileType, int keydepth, int moduleWidth)
         {
+            _keyDepth = keydepth;
+            _moduleWidth = moduleWidth;
+            Debug.Log("test");
             int width = moduleWidth - 1;
             List<TileBase> n = new(), e = new(), s = new(), w = new();
             List<TileBase> trueTileList = new();
@@ -80,11 +85,11 @@ namespace WFC
         }
         private int GetIndex(int x, int y)
         {
-            return y * moduleWidth + x;
+            return y * _moduleWidth + x;
         }
         public int GetTrueTileIndex(int x, int y)
         {
-            return y * (moduleWidth - 2 * keyDepth) + x;
+            return y * (_moduleWidth - 2 * _keyDepth) + x;
         }
     }
 }
