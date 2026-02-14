@@ -37,7 +37,7 @@ namespace WFC
         {
             _keyDepth = keydepth;
             _moduleWidth = moduleWidth;
-            Debug.Log("test");
+            
             int width = moduleWidth - 1;
             List<TileBase> n = new(), e = new(), s = new(), w = new();
             List<TileBase> trueTileList = new();
