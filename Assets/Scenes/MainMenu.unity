@@ -7705,6 +7705,8 @@ MonoBehaviour:
   _deckDropdown: {fileID: 775656045}
   _cardScrollView: {fileID: 151857007}
   _deckScrollView: {fileID: 55939984}
+  _confirmButton: {fileID: 246790075}
+  _deleteDeckButton: {fileID: 244337031}
   _cardContentPrefab: {fileID: 4985146231728430279, guid: 2d22544fcfbc23f4faeb53f91702cceb, type: 3}
   _deckContentPrefab: {fileID: 8033316633250990844, guid: 0cf015ebbb9fcd142a39506fb5348637, type: 3}
   _currDeck:
@@ -9649,6 +9651,14 @@ PrefabInstance:
       propertyPath: _audioLibrary
       value: 
       objectReference: {fileID: 11400000, guid: 8310fb82a58e12c4ab4c204c3088e89a, type: 2}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: _sceneMusic.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: acef2315535cd5f48bbbda578a54d092, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: _sceneMusic.Array.data[1].volume
+      value: 0.188
+      objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[1].sceneName
       value: Combat

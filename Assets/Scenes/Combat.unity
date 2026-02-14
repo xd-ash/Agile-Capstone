@@ -4554,7 +4554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63c42569c9ac04bae120522d983e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCards: 100
+  _maxCards: 9
   _startingHandSize: 5
   _cardsInHand: []
   _startingHandDrawn: 0
@@ -4709,10 +4709,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapSize: {x: 9, y: 9}
-  _placeholderObstacle: {fileID: 6626558593374184628, guid: 022ed79b73ece944aadf4801403c6972, type: 3}
-  _rangeEnemyPlaceholder: {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
-  _meleeEnemyPlaceholder: {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
-  _playerPlaceholder: {fileID: 8440825415147360739, guid: e70a16e0772849541a1929058aba2280, type: 3}
   _moduleSet: {fileID: 11400000, guid: 15461db966d0a454daae9f982ff10ea9, type: 2}
 --- !u!156049354 &1824462642
 Grid:

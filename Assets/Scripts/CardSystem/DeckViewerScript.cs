@@ -1,6 +1,9 @@
+using CardSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
 
 public class DeckViewerScript : MonoBehaviour
 {
@@ -28,7 +31,11 @@ public class DeckViewerScript : MonoBehaviour
         SwapCurrentDeck(true);
         BuildDeckScrollViewContent();
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            this.gameObject.SetActive(false);
+    }
     //Create all card content in the card library scrollview
     private void BuildDeckScrollViewContent()
     {
@@ -39,7 +46,7 @@ public class DeckViewerScript : MonoBehaviour
             return;
         }
 
-        var deck = _currentShownDeck; //PlayerDataManager.Instance.GetActiveDeck;
+        var deck = _currentShownDeck; //PlayerDataManager.Instance.GetActiveDeck;            
         if (deck == null) return;
 
         if (_deckTitleText != null)
@@ -47,8 +54,13 @@ public class DeckViewerScript : MonoBehaviour
 
         ClearScrollviewContent(_deckScrollView.content);
 
+        var cardsToShow = new List<CardAbilityDefinition>(deck.GetCardsInDeck);
+        if (deck == PlayerDataManager.Instance.GetActiveDeck && PlayerDataManager.Instance.GetOwnedCards != null)
+            foreach (var card in PlayerDataManager.Instance.GetOwnedCards)
+                cardsToShow.Add(card);
+
         int contentIndex = -1;
-        foreach (var card in deck.GetCardsInDeck)
+        foreach (var card in cardsToShow)
         {
             if (card == null) continue;
 

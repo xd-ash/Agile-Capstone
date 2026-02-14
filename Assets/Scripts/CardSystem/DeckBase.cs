@@ -36,13 +36,12 @@ public class Deck
         _cardsInDeck.Remove(card);
         return true;
     }
-    public void ClearDeck()
+    public void ClearDeck() 
     {
         _cardsInDeck?.Clear();
     }
     public void ClearDeck(List<CardAbilityDefinition> newDeck)
     {
-        _cardsInDeck?.Clear();
-        _cardsInDeck = newDeck;
+        _cardsInDeck = new(newDeck);
     }
 }

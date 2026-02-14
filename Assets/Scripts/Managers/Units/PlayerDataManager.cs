@@ -19,7 +19,7 @@ public class PlayerDataManager : MonoBehaviour
 
     [SerializeField] private List<Deck> _createdDecks = new();
     [SerializeField] private Deck _activeDeck;
-    private List<CardAbilityDefinition> _ownedCards = new();
+    [SerializeField] private List<CardAbilityDefinition> _ownedCards = new();
     
     public int GetSeed => _randomSeed == -1 ? GetRandomSeed() : _randomSeed;
     public CombatMapData GetCurrMapNodeData => _currMapNodeData;
