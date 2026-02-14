@@ -11,7 +11,7 @@ public class CardFunctionScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (PauseMenu.isPaused || IsSelected) return;
+        if (PauseMenu.isPaused || IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null) return;
 
         bool isShopActive = CardShopManager.Instance != null;
 
