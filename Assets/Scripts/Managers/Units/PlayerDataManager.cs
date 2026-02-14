@@ -20,7 +20,7 @@ public class PlayerDataManager : MonoBehaviour
     [SerializeField] private List<Deck> _createdDecks = new();
     [SerializeField] private Deck _activeDeck;
     [SerializeField] private List<CardAbilityDefinition> _ownedCards = new();
-    
+
     public int GetSeed => _randomSeed == -1 ? GetRandomSeed() : _randomSeed;
     public CombatMapData GetCurrMapNodeData => _currMapNodeData;
     public int GetBalance => _balance;
@@ -42,17 +42,18 @@ public class PlayerDataManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
+
         if (_cardAndDeckLibrary == null)
             _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
 
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();
         else
+        {
+            if (_cardAndDeckLibrary != null)
+                SetActiveDeck(_cardAndDeckLibrary.GetDecksInProject[0]);
             SaveLoadScript.CreateNewGame?.Invoke();
-
-        if (_activeDeck == null)
-           SetActiveDeck(_cardAndDeckLibrary.GetDecksInProject[0]);
+        }
     }
 
     // create random int seed for map generation & shop card pulling
@@ -103,7 +104,7 @@ public class PlayerDataManager : MonoBehaviour
             _ownedCards.Add(def);
         else
             if (_ownedCards.Contains(def))
-                _ownedCards.Remove(def);
+            _ownedCards.Remove(def);
     }
     public void CreateOrAdjustDeck(Deck deck)
     {
