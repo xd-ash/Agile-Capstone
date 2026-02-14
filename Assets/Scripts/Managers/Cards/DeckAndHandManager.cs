@@ -17,7 +17,7 @@ namespace CardSystem
             else
                 Destroy(this.gameObject);
         }
-
+        
         private int _topCardOfDeck = 0;
         //private int _nextCardInHandIndex = 0; //Removed since it was unused, kept in comments in case its needed later
         [SerializeField] private int _maxCards = 100;

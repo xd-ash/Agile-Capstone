@@ -9652,6 +9652,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 8310fb82a58e12c4ab4c204c3088e89a, type: 2}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: _sceneMusic.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: acef2315535cd5f48bbbda578a54d092, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[1].sceneName
       value: Combat
       objectReference: {fileID: 0}
