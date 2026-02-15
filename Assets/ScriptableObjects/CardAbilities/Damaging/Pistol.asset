@@ -84,9 +84,7 @@ MonoBehaviour:
     keys:
     - targeting
     - filtering
-    - helpfulEffects
-    - harmfulEffects
-    - miscEffects
+    - effects
     - filtering 0
     - harmfulEffects 0
     values:
@@ -111,25 +109,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-    - _fieldName: helpfulEffects
-      _node: {fileID: -773093627592473936}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: harmfulEffects
-      _node: {fileID: -773093627592473936}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: miscEffects
+    - _fieldName: effects
       _node: {fileID: -773093627592473936}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -162,12 +142,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectTypes: 4
   targeting: 0
   filtering: 0
-  helpfulEffects: 0
-  harmfulEffects: 0
-  miscEffects: 0
+  effects: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,13 +163,18 @@ MonoBehaviour:
   - {fileID: -5996304546315106641}
   - {fileID: 8984668475923810513}
   - {fileID: -3038007230889526110}
-  _cardName: Pistol
   _description: Deal 5 ranged damage
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
   _apCost: 4
   _range: 5
   _shopCost: 15
   _shopWeight: 55
+  _baseHitChance: 80
+  _minHitChance: 10
+  _maxHitChance: 95
+  _hitPenaltyPerTile: 5
+  _accuracyMultiplier: 1
+  _accuracyFlatBonus: 0
 --- !u!114 &7206340533012667911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,8 +206,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   input: 0
-  isAOE: 0
-  radius: 0
+  _targetTilesNotUnits: 0
 --- !u!114 &8984668475923810513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +228,7 @@ MonoBehaviour:
     values:
     - _fieldName: input
       _node: {fileID: 8984668475923810513}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: harmfulEffects 0
@@ -269,15 +250,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _hasDuration: 0
-  _duration: 2
-  _effectValue: 4
-  effectVisuals: 0
+  effectValue: 5
   input: 0
-  missFontSize: 48
-  missColor: {r: 1, g: 1, b: 1, a: 1}
-  missDuration: 1
-  missYOffset: 1.5
-  missRiseSpeed: 0.5
-  missCharacterSize: 0.08
-  faceCamera: 1
+  effectVisuals: 0

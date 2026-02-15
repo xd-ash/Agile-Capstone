@@ -30,6 +30,7 @@ public class Unit : MonoBehaviour, IDamagable
     [SerializeField] private Slider _enemyHPBar;
     [SerializeField] private TextMeshProUGUI _hitChanceText;
 
+    private FloatingTextController _floatingText;
     private Coroutine _targetingCoroutine;
 
     public Team GetTeam => _team;
@@ -37,11 +38,14 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetHealth => _health;
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
+    public FloatingTextController GetFloatingText => _floatingText;
 
     public event Action<Unit> OnApChanged;
 
     private void Awake()
     {
+        _floatingText = GetComponentInChildren<FloatingTextController>();
+
         _health = _maxHealth;
         _ap = _maxAP;
         RaiseHealthEvent();
@@ -59,19 +63,19 @@ public class Unit : MonoBehaviour, IDamagable
     }
     private void Start()
     {
-        if (_team != Team.Friendly || _targetingCoroutine == null) return;
-        DeckAndHandManager.Instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
+        if (_team != Team.Friendly) return;
+        DeckAndHandManager.Instance.OnCardAblityCancel += () => StopTargetingCoro(this);
         TurnManager.Instance.OnTurnEnd += StopTargetingCoro;
     }
     private void OnDestroy()
     {
-        if (_team != Team.Friendly || _targetingCoroutine == null) return;
-        DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopCoroutine(_targetingCoroutine);
+        if (_team != Team.Friendly) return;
+        DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopTargetingCoro(this);
         TurnManager.Instance.OnTurnEnd -= StopTargetingCoro;
     }
     private void StopTargetingCoro(Unit unit)
     {
-        if (unit != this) return;
+        if (unit != this || _targetingCoroutine == null) return;
 
         StopCoroutine(_targetingCoroutine);
     }

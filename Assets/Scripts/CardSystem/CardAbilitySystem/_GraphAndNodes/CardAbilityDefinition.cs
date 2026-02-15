@@ -5,7 +5,7 @@ using System;
 namespace CardSystem
 {
 	// NodeGraph of new card ability
-	[CreateAssetMenu(fileName = "NewCardAbility", menuName = "Deckbuilding System/New Card Ability")]
+	[CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
 	public class CardAbilityDefinition : NodeGraph
 	{
 		[Header("Card Info")]

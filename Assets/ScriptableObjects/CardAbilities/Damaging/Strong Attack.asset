@@ -21,7 +21,7 @@ MonoBehaviour:
     values:
     - _fieldName: input
       _node: {fileID: -8393294752202084253}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: harmfulEffects 0
@@ -43,18 +43,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _hasDuration: 0
-  _duration: 0
-  _effectValue: 5
-  effectVisuals: 0
+  effectValue: 7
   input: 0
-  missFontSize: 48
-  missColor: {r: 1, g: 1, b: 1, a: 1}
-  missDuration: 1
-  missYOffset: 1.5
-  missRiseSpeed: 0.5
-  missCharacterSize: 0.08
-  faceCamera: 1
+  effectVisuals: 0
 --- !u!114 &-3844634634637453141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,9 +64,7 @@ MonoBehaviour:
     keys:
     - targeting
     - filtering
-    - helpfulEffects
-    - harmfulEffects
-    - miscEffects
+    - effects
     - harmfulEffects 0
     - filtering 0
     values:
@@ -100,25 +89,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-    - _fieldName: helpfulEffects
-      _node: {fileID: -3844634634637453141}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: harmfulEffects
-      _node: {fileID: -3844634634637453141}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: miscEffects
+    - _fieldName: effects
       _node: {fileID: -3844634634637453141}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -151,12 +122,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectTypes: 4
   targeting: 0
   filtering: 0
-  helpfulEffects: 0
-  harmfulEffects: 0
-  miscEffects: 0
+  effects: 0
 --- !u!114 &-76797013698469015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +175,6 @@ MonoBehaviour:
   - {fileID: -76797013698469015}
   - {fileID: 5144402596869855986}
   - {fileID: 6646383339752646348}
-  _cardName: Strong Attack
   _description: Deal 7 damage close range
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
   _apCost: 7
@@ -251,8 +218,7 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   input: 0
-  isAOE: 0
-  radius: 0
+  _targetTilesNotUnits: 0
 --- !u!114 &6646383339752646348
 MonoBehaviour:
   m_ObjectHideFlags: 0

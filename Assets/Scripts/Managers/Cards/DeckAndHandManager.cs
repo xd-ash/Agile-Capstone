@@ -156,7 +156,7 @@ namespace CardSystem
         public void InsertCard(Card card)
         {
             if (!_cardsInHand.Contains(card))
-                _cardsInHand.Insert(CalculateCardIndex(card), card);
+                _cardsInHand.Insert(Math.Max(CalculateCardIndex(card), 0), card);
         }
 
         public void ClearSelection()

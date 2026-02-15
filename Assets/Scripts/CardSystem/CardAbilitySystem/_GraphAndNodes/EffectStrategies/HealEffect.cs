@@ -16,9 +16,9 @@ namespace CardSystem
                 if (target != null && target.TryGetComponent<Unit>(out Unit unit))
                 {
                     /*if (_hasDuration)
-                        unit.StartCoroutine(DoEffectOverTime(unit, _duration, _effectValue));
+                        unit.StartCoroutine(DoEffectOverTime(unit, _duration, effectValue));
                     else*/
-                        unit.ChangeHealth(_effectValue, true);
+                        unit.ChangeHealth(effectValue, true);
                 }
             }
 

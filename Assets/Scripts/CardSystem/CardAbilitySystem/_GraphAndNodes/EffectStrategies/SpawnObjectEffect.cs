@@ -10,6 +10,8 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
 {
     public GameObject _prefab;
     public Dictionary<Guid, List<SpawnObjectTracker>> spawnedObjs = new();
+    public enum SpawnObjectType { Trap, other }
+    public SpawnObjectType objectType = SpawnObjectType.Trap;
 
     [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public float objEffects;
 
@@ -35,8 +37,16 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
             Destroy(target);
 
             if (!prefab.TryGetComponent(out SpawnObjectTracker sot))
-                sot = prefab.AddComponent<SpawnObjectTracker>();
-            
+            {
+                switch (objectType)
+                {
+                    case SpawnObjectType.Trap:
+                        sot = prefab.AddComponent<TrapObjectTracker>();
+                        break;
+                    default:
+                        break;
+                }
+            }
             sot.Initialize(abilityData.GetGUID, abilityData.GetUnit);
 
             if (!spawnedObjs.ContainsKey(abilityData.GetGUID))
@@ -61,7 +71,7 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
 public abstract class SpawnObjectTracker : MonoBehaviour
 {
     protected Guid _guid;
-    protected Action _onTriggerAction;
+    protected Action<Unit> _onTriggerAction;
     protected Unit _creator;
     protected Vector2Int _pos;
 
@@ -77,13 +87,13 @@ public abstract class SpawnObjectTracker : MonoBehaviour
         _creator = creator;
         _pos = ConvertToGridFromIsometric(transform.localPosition);
     }
-    public void SetOnTrigger(Action action)
+    public void SetOnTrigger(Action<Unit> action)
     {
         _onTriggerAction += action;
     }
-    public void InvokeOnTrigger()
+    public void InvokeOnTrigger(Unit unit)
     {
-        _onTriggerAction?.Invoke();
+        _onTriggerAction?.Invoke(unit);
     }
 }
 public class TrapObjectTracker : SpawnObjectTracker
@@ -92,7 +102,7 @@ public class TrapObjectTracker : SpawnObjectTracker
     {
         if (pos != _pos) return;
 
-        InvokeOnTrigger();
+        InvokeOnTrigger(unitThatTriggered);
     }
 
     public override void OnSpawn()

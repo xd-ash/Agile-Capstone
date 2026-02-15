@@ -56,7 +56,7 @@ namespace CardSystem
                         continue;
                     }
 
-                    targetUnit.ChangeHealth(_effectValue, false);
+                    targetUnit.ChangeHealth(effectValue, false);
                 }
             }
 

@@ -34,7 +34,7 @@ public static class CombatMath
         roll = Random.Range(0f, 100f);
         bool result = roll <= hitChance;
         if (!result)
-            target.GetComponentInChildren<FloatingTextController>().SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
+            target.GetFloatingText?.SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
         return result;
     }
 
@@ -54,7 +54,7 @@ public static class CombatMath
         roll = Random.Range(0f, 100f);
         bool result = roll <= hitChance;
         if (!result)
-            target.GetComponentInChildren<FloatingTextController>().SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
+            target.GetFloatingText?.SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
 
         return result;
     }

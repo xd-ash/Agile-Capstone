@@ -8,7 +8,7 @@ namespace CardSystem
     [CreateNodeMenu("Helpful Effects/Buff")]
     public class BuffEffect : EffectStrategy
     {
-        // Uses _effectValue as shield amount when this effect represents a shield.
+        // Uses effectValue as shield amount when this effect represents a shield.
         // _hasDuration and _duration control optional timed expiry (seconds).
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
@@ -19,16 +19,16 @@ namespace CardSystem
             {
                 if (targetObj != null && targetObj.TryGetComponent<Unit>(out Unit unit))
                 {
-                    // Add shield equal to _effectValue
+                    // Add shield equal to effectValue
                     /*if (_hasDuration)
                     {
                         // Add shield and schedule removal after _duration seconds
-                        unit.AddShield(_effectValue, _duration);
+                        unit.AddShield(effectValue, _duration);
                     }
                     else
                     {*/
                         // Permanent until consumed
-                        unit.AddShield(_effectValue);
+                        unit.AddShield(effectValue);
                     //}
                 }
             }

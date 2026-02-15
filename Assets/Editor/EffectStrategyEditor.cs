@@ -4,11 +4,12 @@ using XNodeEditor;
 
 namespace CardSystem
 {
-    [CustomNodeEditor(typeof(EffectStrategy))]
+    //[CustomNodeEditor(typeof(EffectStrategy))]
     public class EffectStrategyEditor : NodeEditor
     {
         public override void OnBodyGUI()
         {
+            /*
             serializedObject.Update();
 
             EffectStrategy node = target as EffectStrategy;
@@ -19,6 +20,7 @@ namespace CardSystem
             base.OnBodyGUI();
 
             serializedObject.ApplyModifiedProperties();
+            */
         }
         public string DetermineStratType(EffectStrategy node)
         {

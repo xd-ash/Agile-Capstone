@@ -23,7 +23,7 @@ public class OverTimeEffect : EffectStrategy
 
                     EffectStrategy strat = port.Connection.node as EffectStrategy;
 
-                    eTracker.AddEffect(() => strat.StartEffect(abilityData, null), _effectValue, Guid.NewGuid(), strat.name);
+                    eTracker.AddEffect(() => strat.StartEffect(abilityData, null), effectValue, Guid.NewGuid(), strat.name);
 
                     foreach (var t in abilityData.Targets)
                         Debug.Log($"target-{target.name}");
