@@ -6,20 +6,20 @@ using UnityEngine.UI;
 
 namespace CardSystem
 {
-    public enum DamageTypes //not used for much currently
+    /*public enum DamageTypes //not used for much currently
     {
         None,
         Slash,
         Pierce,
         Fire,
         Emotional
-    }
+    }*/
 
     // Concrete harmful effect class to damage a unit instantly or over a duration
     [CreateNodeMenu("Harmful Effects/Damage")]
     public class DamageEffect : EffectStrategy
     {
-        [Header("Miss popup")]
+        /*[Header("Miss popup")]
         [Tooltip("Font size used for the floating 'Misses' text.")]
         [SerializeField] private int missFontSize = 48;
         [Tooltip("Color of the floating 'Misses' text.")]
@@ -35,7 +35,7 @@ namespace CardSystem
         [Tooltip("Character size multiplier for the 3D TextMesh (world scale).")]
         [SerializeField] private float missCharacterSize = 0.08f;
         [Tooltip("Optional: if true, popup will face the main camera if present.")]
-        [SerializeField] private bool faceCamera = true;
+        [SerializeField] private bool faceCamera = true;*/
 
         public override void StartEffect(AbilityData abilityData, Action onFinished)
         {
@@ -52,16 +52,9 @@ namespace CardSystem
 
                     if (!hit)
                     {
-                        // floating 'Miss' text here
-                        // Start a coroutine on the target unit to spawn and fade a small world-space 3D TextMesh above it
-                        targetUnit.StartCoroutine(SpawnMissPopup(targetUnit));
-                        //Debug.Log($"[{abilityData.GetUnit}] Attack Missed, Targetted @ {targetUnit}");
+                        //targetUnit.StartCoroutine(SpawnMissPopup(targetUnit));
                         continue;
                     }
-
-                    /*if (_hasDuration)
-                        targetUnit.StartCoroutine(DoEffectOverTime(targetUnit, _duration, _effectValue));
-                    else*/
 
                     targetUnit.ChangeHealth(_effectValue, false);
                 }
@@ -70,7 +63,7 @@ namespace CardSystem
             onFinished?.Invoke();
         }
 
-        // Simplified: Uses a 3D TextMesh so we avoid Canvas / Camera / Font nulls.
+        /*/ Simplified: Uses a 3D TextMesh so we avoid Canvas / Camera / Font nulls.
         private IEnumerator SpawnMissPopup(Unit unit)
         {
             if (unit == null) yield break;
@@ -124,6 +117,6 @@ namespace CardSystem
             }
 
             UnityEngine.Object.Destroy(go);
-        }
+        }*/
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewAudioLibray", menuName = "Audio Library/New Library")]
+[CreateAssetMenu(fileName = "NewAudioLibray", menuName = "Libraries/New Audio Library")]
 public class AudioLibrary : ScriptableObject
 {
     [Header("Music")]

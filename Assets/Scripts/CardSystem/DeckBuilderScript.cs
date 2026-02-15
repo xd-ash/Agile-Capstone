@@ -59,7 +59,7 @@ public class DeckBuilderScript : MonoBehaviour
         {
             if (card == null) continue;
 
-            GameObject content = Spawn(_cardContentPrefab, Vector3.zero, Quaternion.identity, _cardScrollView.content);
+            GameObject content = Spawn(_cardContentPrefab, Vector3.zero, Quaternion.identity, _cardContentPrefab.transform.localScale, _cardScrollView.content);
 
             TextMeshProUGUI[] cardTextFieldsUI = content.GetComponentsInChildren<TextMeshProUGUI>();
             // Update text content

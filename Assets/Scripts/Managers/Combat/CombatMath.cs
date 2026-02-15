@@ -30,11 +30,14 @@ public static class CombatMath
             roll = 100f;
             return false;
         }
-
+       
         roll = Random.Range(0f, 100f);
-        return roll <= hitChance;
+        bool result = roll <= hitChance;
+        if (!result)
+            target.GetComponentInChildren<FloatingTextController>().SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
+        return result;
     }
-    
+
     public static int GetHitChance(Unit attacker, Unit target, int abilityRange)
         => GetHitChance(attacker, target, abilityRange, null);
 
@@ -49,7 +52,11 @@ public static class CombatMath
         }
 
         roll = Random.Range(0f, 100f);
-        return roll <= hitChance;
+        bool result = roll <= hitChance;
+        if (!result)
+            target.GetComponentInChildren<FloatingTextController>().SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
+
+        return result;
     }
 
     private static int GetHitChance(Unit attacker, Unit target, int abilityRange, CardAbilityDefinition cardDef)
@@ -60,12 +67,12 @@ public static class CombatMath
         }
 
         int baseHitChance = cardDef != null ? cardDef.GetBaseHitChance : _defaultHitChance;
-        int minHitChance = cardDef != null ? cardDef.GetMinHitChance  : _defaultMinHitChance;
-        int maxHitChance = cardDef != null ? cardDef.GetMaxHitChance  : _defaultMaxHitChance;
+        int minHitChance = cardDef != null ? cardDef.GetMinHitChance : _defaultMinHitChance;
+        int maxHitChance = cardDef != null ? cardDef.GetMaxHitChance : _defaultMaxHitChance;
 
         int penaltyPerTile = cardDef != null ? cardDef.GetHitPenaltyPerTile : _defaultPenaltyPerTile;
         float multiplier = cardDef != null ? cardDef.GetAccuracyMultiplier : _defaultGlobalMultiplier;
-        int flatBonus = cardDef != null ? cardDef.GetAccuracyFlatBonus  : _defaultGlobalFlatBonus;
+        int flatBonus = cardDef != null ? cardDef.GetAccuracyFlatBonus : _defaultGlobalFlatBonus;
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);

@@ -2,7 +2,7 @@ using CardSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Deckbuilding System/New Card & Deck Library")]
+[CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Libraries/New Card & Deck Library")]
 public class CardAndDeckLibrary : ScriptableObject
 {
     //[SerializeField] private List<Deck> _decksInProject = new();

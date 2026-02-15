@@ -176,7 +176,7 @@ public class MovementRangeHighlighter : MonoBehaviour
         foreach (var cell in cells)
         {
             Vector3 cellLocalPos = ConvertToIsometricFromGrid(cell);
-            GameObject tile = Spawn(_highlightTilePrefab, cellLocalPos, Quaternion.identity, _highlightObjectParent);
+            GameObject tile = Spawn(_highlightTilePrefab, cellLocalPos, Quaternion.identity, Vector3.one, _highlightObjectParent);
             tile.GetComponentInChildren<SpriteRenderer>().color = _reachableColor;
             _lastHighlightedTiles.Add(tile);
         }
