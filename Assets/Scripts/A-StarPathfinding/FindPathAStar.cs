@@ -265,7 +265,11 @@ namespace AStarPathfinding
             {
                 if (!_unit.CanSpend(1) || !_truePath[i].isReachable)
                     break;
-
+                if (!_unit.GetCanMove)
+                {
+                    _dirAnimator?.SetMoving(false);
+                    break;
+                }
                 Vector2Int next = new Vector2Int(_truePath[i].location.x, _truePath[i].location.y);
 
                 // Anim direction set

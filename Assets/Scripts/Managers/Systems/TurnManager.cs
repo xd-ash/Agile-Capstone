@@ -15,7 +15,7 @@ public class TurnManager : MonoBehaviour
     private List<Unit> _unitTurnOrder;
     private int _turnTracker = -1;
 
-    public event Action OnGameStart;
+    public static event Action OnGameStart;
     public event Action<Unit> OnTurnEnd;
     public event Action<Unit> OnTurnStart;
 

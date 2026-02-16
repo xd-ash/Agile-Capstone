@@ -58,8 +58,11 @@ public class DirectionAnimator : MonoBehaviour
         int dir = Mathf.Clamp(_lastDir, 0, 3);
 
         if (_isMoving && dir < _moveHashes.Length && _moveHashes[dir] != 0)
+        {
             _anim.Play(_moveHashes[dir]);
-        else if (dir < _idleHashes.Length && _idleHashes[dir] != 0)
-            _anim.Play(_idleHashes[dir]);
+            return;
+        }
+        //else if (dir < _idleHashes.Length && _idleHashes[dir] != 0)
+        _anim.Play(_idleHashes[dir]);
     }
 }

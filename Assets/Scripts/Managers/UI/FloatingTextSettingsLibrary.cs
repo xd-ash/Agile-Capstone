@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public enum TextPresetType { MissTextPreset, CoinFlipPreset, Default };
+public enum TextPresetType { MissTextPreset, CoinFlipPreset, DamagePreset, HealPreset, ShieldPreset, Default };
 
 [CreateAssetMenu(fileName = "FloatingTextSettingsLibrary", menuName = "Libraries/Floating Text Settings Library")]
 public class FloatingTextSettingsLibrary : ScriptableObject

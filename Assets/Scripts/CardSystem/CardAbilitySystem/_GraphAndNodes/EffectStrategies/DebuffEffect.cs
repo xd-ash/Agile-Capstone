@@ -5,11 +5,11 @@ namespace CardSystem
 {
     // Concrete harmful effect class to debuff a unit for a duration
     [CreateNodeMenu("Harmful Effects/Debuff")]
-    public class DebuffEffect : EffectStrategy
+    public class DebuffEffect : EffectStrategy, IUseEffectValue
     {
-        public override void StartEffect(AbilityData abilityData, Action onFinished)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             foreach (GameObject target in abilityData.Targets)
             {

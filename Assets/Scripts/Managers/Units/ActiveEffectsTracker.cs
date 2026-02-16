@@ -26,7 +26,7 @@ public class ActiveEffectsTracker : MonoBehaviour
     {
         Effect newEffect = new(effect, totalDuration, guid, effectName);
 
-        if(!_effects.Contains(newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
+        if (!_effects.Contains(newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
             _effects.Add(newEffect);
     }
     private void OnThisUnitTurnStart(Unit unit)
@@ -38,8 +38,13 @@ public class ActiveEffectsTracker : MonoBehaviour
             var e = _effects[i];
             e.storedEffect?.Invoke();
             e.turnsRemaining--;
-            if (e.turnsRemaining <= 0)
-                _effects.Remove(e);
+            if (e.turnsRemaining > 0) return;
+            if (e.effectName == "Stop Movement Effect")
+            {
+                unit.ToggleCanMove(true);
+                //Debug.Log($"Stop movement effect manual unit bool flip occured. Fix me sometime :)");
+            }
+            _effects.Remove(e);
         }
     }
 

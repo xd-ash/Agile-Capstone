@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using static IsoMetricConversions;
 using UnityEngine;
+using System.Linq;
 
 namespace CardSystem
 {
@@ -52,7 +53,7 @@ namespace CardSystem
                         //Show new hover hit chance
                         if (hoveredUnit != null && caster != null)
                         {
-                            int hitChance = CombatMath.GetHitChance(caster, hoveredUnit, def);
+                            int hitChance = CombatMath.GetHitChance(caster.transform.localPosition, hoveredUnit, def);
                             hoveredUnit.ShowHitChance(hitChance);
                         }
                     }
@@ -63,7 +64,7 @@ namespace CardSystem
                     abilityData.Targets = isTileTargeted ? TileOnMouse() : TargetOnMouse(caster);
 
                     //if (isAOE)
-                        //abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(caster));
+                    //abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(caster));
 
                     if (abilityData.GetTargetCount > 0)
                         break;
@@ -81,9 +82,10 @@ namespace CardSystem
         private IEnumerable<GameObject> TileOnMouse()
         {
             Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
-            GameObject empty = new();
+            GameObject empty = new("test");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
+            //Debug.Log("test");
             yield return empty;
         }
 
@@ -97,22 +99,6 @@ namespace CardSystem
 
             return hit.collider.GetComponent<Unit>();
         }
-
-        /*public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
-        {
-            do
-            {
-                yield return new WaitForEndOfFrame();
-                yield return new WaitUntil(() => Input.GetMouseButtonDown(0));//find better option?
-                
-                abilityData.Targets = TargetOnMouse(abilityData.GetUnit);
-                
-                if (isAOE)
-                    abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(abilityData.GetUnit));
-            }while (abilityData.GetTargetCount == 0);
-            
-            onFinished();
-        }*/
 
         private IEnumerable<GameObject> TargetOnMouse(Unit unit)
         {
@@ -134,19 +120,5 @@ namespace CardSystem
             foreach (Collider collider in foundObjects)
                 yield return collider.gameObject;*/
         }
-
-        /*
-        protected IEnumerable<GameObject> XXX(Unit unit, IEnumerable<GameObject> x)
-        {
-            Collider[] foundObjects = Physics.OverlapSphere(unit.transform.position, radius);
-
-            foreach (GameObject item in x)
-            {
-                yield return item;
-            }
-
-            foreach (Collider collider in foundObjects)
-                yield return collider.gameObject;
-        }*/
     }
 }

@@ -13,18 +13,33 @@ MonoBehaviour:
   m_Name: FloatingTextSettingsLibrary
   m_EditorClassIdentifier: Assembly-CSharp::FloatingTextSettingsLibrary
   _presets:
-  - _presetType: 2
+  - _presetType: 5
     _textDuration: 1
     _fontSize: 3
     _fontColor: {r: 1, g: 1, b: 1, a: 1}
     _textAlignment: 514
   - _presetType: 0
     _textDuration: 1
-    _fontSize: 4
-    _fontColor: {r: 1, g: 1, b: 1, a: 1}
+    _fontSize: 2
+    _fontColor: {r: 1, g: 1, b: 1, a: 0.74509805}
     _textAlignment: 514
   - _presetType: 1
     _textDuration: 1
     _fontSize: 3
     _fontColor: {r: 1, g: 0.7662507, b: 0.514151, a: 1}
+    _textAlignment: 514
+  - _presetType: 2
+    _textDuration: 1
+    _fontSize: 3
+    _fontColor: {r: 0.9339623, g: 0.19245912, b: 0.118948035, a: 1}
+    _textAlignment: 514
+  - _presetType: 3
+    _textDuration: 1
+    _fontSize: 3
+    _fontColor: {r: 0.11764705, g: 0.93333334, b: 0.33772674, a: 1}
+    _textAlignment: 514
+  - _presetType: 4
+    _textDuration: 1
+    _fontSize: 3
+    _fontColor: {r: 0.1715023, g: 0.7676894, b: 0.7735849, a: 1}
     _textAlignment: 514

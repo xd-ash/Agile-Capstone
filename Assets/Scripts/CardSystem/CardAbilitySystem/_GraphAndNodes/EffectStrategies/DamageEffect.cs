@@ -1,122 +1,33 @@
 using System;
-using System.Collections;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace CardSystem
 {
-    /*public enum DamageTypes //not used for much currently
-    {
-        None,
-        Slash,
-        Pierce,
-        Fire,
-        Emotional
-    }*/
-
     // Concrete harmful effect class to damage a unit instantly or over a duration
     [CreateNodeMenu("Harmful Effects/Damage")]
-    public class DamageEffect : EffectStrategy
+    public class DamageEffect : EffectStrategy, IUseEffectValue
     {
-        /*[Header("Miss popup")]
-        [Tooltip("Font size used for the floating 'Misses' text.")]
-        [SerializeField] private int missFontSize = 48;
-        [Tooltip("Color of the floating 'Misses' text.")]
-        [SerializeField] private Color missColor = Color.white;
-        [Tooltip("Duration the 'Misses' text stays visible (seconds).")]
-        [SerializeField] private float missDuration = 1.0f;
-        [Tooltip("Vertical offset above the unit to place the popup (world units).")]
-        [SerializeField] private float missYOffset = 1.5f;
-        [Tooltip("Vertical speed while fading out (world units per second).")]
-        [SerializeField] private float missRiseSpeed = 0.5f;
-
-        [Header("Miss popup rendering")]
-        [Tooltip("Character size multiplier for the 3D TextMesh (world scale).")]
-        [SerializeField] private float missCharacterSize = 0.08f;
-        [Tooltip("Optional: if true, popup will face the main camera if present.")]
-        [SerializeField] private bool faceCamera = true;*/
-
-        public override void StartEffect(AbilityData abilityData, Action onFinished)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             foreach (GameObject target in abilityData.Targets)
             {
-                if (target != null && target.TryGetComponent<Unit>(out Unit targetUnit))
+                if (target != null && target.TryGetComponent(out Unit targetUnit))
                 {
                     var def = graph as CardAbilityDefinition;
-                    bool hit = CombatMath.RollHit(abilityData.GetUnit, targetUnit, def, out int hitChance, out float roll);
+                    bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
 
                     _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
 
-                    if (!hit)
-                    {
-                        //targetUnit.StartCoroutine(SpawnMissPopup(targetUnit));
-                        continue;
-                    }
+                    if (!hit) continue;
 
                     targetUnit.ChangeHealth(effectValue, false);
+                    targetUnit.GetFloatingText.SpawnFloatingText($"-{effectValue}", TextPresetType.DamagePreset);
                 }
             }
 
-            onFinished?.Invoke();
+            _onFinished?.Invoke();
         }
-
-        /*/ Simplified: Uses a 3D TextMesh so we avoid Canvas / Camera / Font nulls.
-        private IEnumerator SpawnMissPopup(Unit unit)
-        {
-            if (unit == null) yield break;
-
-            // Create a simple world-space TextMesh object (no Canvas involved)
-            GameObject go = new GameObject("MissPopup");
-            // place at world position above unit (avoid inheriting unit scale)
-            go.transform.SetParent(null, false);
-            go.transform.position = unit.transform.position + Vector3.up * missYOffset;
-
-            // Add TextMesh for simple 3D text
-            var textMesh = go.AddComponent<TextMesh>();
-            textMesh.text = "Misses";
-            textMesh.fontSize = Mathf.Max(1, missFontSize);
-            textMesh.characterSize = Mathf.Max(0.0001f, missCharacterSize);
-            textMesh.color = missColor;
-            textMesh.anchor = TextAnchor.MiddleCenter;
-            textMesh.alignment = TextAlignment.Center;
-
-            // Optionally orient toward camera if available
-            if (faceCamera && Camera.main != null)
-            {
-                go.transform.rotation = Quaternion.LookRotation(go.transform.position - Camera.main.transform.position);
-            }
-            else
-            {
-                go.transform.rotation = Quaternion.identity;
-            }
-
-            float elapsed = 0f;
-            Color startColor = textMesh.color;
-
-            while (elapsed < missDuration)
-            {
-                elapsed += Time.deltaTime;
-                float t = Mathf.Clamp01(elapsed / missDuration);
-
-                // fade alpha
-                Color c = startColor;
-                c.a = Mathf.Lerp(1f, 0f, t);
-                textMesh.color = c;
-
-                // rise up
-                go.transform.position += Vector3.up * (missRiseSpeed * Time.deltaTime);
-
-                // keep facing camera if requested (handles camera movement)
-                if (faceCamera && Camera.main != null)
-                    go.transform.rotation = Quaternion.LookRotation(go.transform.position - Camera.main.transform.position);
-
-                yield return null;
-            }
-
-            UnityEngine.Object.Destroy(go);
-        }*/
     }
 }

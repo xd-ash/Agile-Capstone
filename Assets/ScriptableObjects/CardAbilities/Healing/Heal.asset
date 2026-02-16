@@ -50,9 +50,7 @@ MonoBehaviour:
     keys:
     - targeting
     - filtering
-    - helpfulEffects
-    - harmfulEffects
-    - miscEffects
+    - effects
     - filtering 0
     - helpfulEffects 0
     values:
@@ -77,25 +75,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-    - _fieldName: helpfulEffects
-      _node: {fileID: -5742573983026586932}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: harmfulEffects
-      _node: {fileID: -5742573983026586932}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: miscEffects
+    - _fieldName: effects
       _node: {fileID: -5742573983026586932}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -128,12 +108,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectTypes: 2
   targeting: 0
   filtering: 0
-  helpfulEffects: 0
-  harmfulEffects: 0
-  miscEffects: 0
+  effects: 0
 --- !u!114 &-1670849718794438946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +132,7 @@ MonoBehaviour:
     values:
     - _fieldName: input
       _node: {fileID: -1670849718794438946}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: helpfulEffects 0
@@ -174,11 +151,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _hasDuration: 0
-  _duration: 4
-  _effectValue: 3
-  effectVisuals: 0
+  effectValue: 3
   input: 0
+  effectVisuals: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,13 +171,18 @@ MonoBehaviour:
   - {fileID: 1766287723113216939}
   - {fileID: -7141492294398822347}
   - {fileID: -1670849718794438946}
-  _cardName: Heal
   _description: Heal 3 HP
   _abilitySFX: {fileID: 8300000, guid: d9b4b2149cd9459458292b65c4a4d216, type: 3}
   _apCost: 3
   _range: 0
   _shopCost: 20
   _shopWeight: 65
+  _baseHitChance: 80
+  _minHitChance: 10
+  _maxHitChance: 95
+  _hitPenaltyPerTile: 5
+  _accuracyMultiplier: 1
+  _accuracyFlatBonus: 0
 --- !u!114 &1766287723113216939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,5 +214,3 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   input: 0
-  isAOE: 0
-  radius: 0

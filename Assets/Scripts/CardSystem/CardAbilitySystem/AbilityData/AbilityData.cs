@@ -6,6 +6,7 @@ using UnityEngine;
 namespace CardSystem
 {
     // Data container class mostly used to pass data between strategies
+    [System.Serializable]
     public class AbilityData
     {
         private Unit _unit;

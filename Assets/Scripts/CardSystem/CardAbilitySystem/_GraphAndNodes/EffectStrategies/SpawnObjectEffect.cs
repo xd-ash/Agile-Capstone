@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CardSystem;
 using UnityEngine;
 using XNode;
-using static IsoMetricConversions;
 
 [CreateNodeMenu("Misc Effects/Spawn Object")]
 public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
@@ -26,15 +25,15 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
         }
     }
 
-    public override void StartEffect(AbilityData abilityData, Action onFinished)
+    public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
     {
-        base.StartEffect(abilityData, onFinished);
+        base.StartEffect(abilityData, onFinished, effectValueChange);
 
         foreach (var target in abilityData.Targets)
         {
             GameObject prefab = Instantiate(_prefab, Vector3.zero, Quaternion.identity, FindFirstObjectByType<MapCreator>().transform);
             prefab.transform.localPosition = target.transform.localPosition;
-            Destroy(target);
+            Destroy(target.gameObject);
 
             if (!prefab.TryGetComponent(out SpawnObjectTracker sot))
             {
@@ -66,48 +65,5 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
             Destroy(spawnedObjs[guid][i].gameObject);
 
         spawnedObjs.Remove(guid);
-    }
-}
-public abstract class SpawnObjectTracker : MonoBehaviour
-{
-    protected Guid _guid;
-    protected Action<Unit> _onTriggerAction;
-    protected Unit _creator;
-    protected Vector2Int _pos;
-
-    private void OnEnable()
-    {
-        OnSpawn();
-    }
-    public abstract void OnSpawn();
-
-    public void Initialize(Guid guid, Unit creator)
-    {
-        _guid = guid;
-        _creator = creator;
-        _pos = ConvertToGridFromIsometric(transform.localPosition);
-    }
-    public void SetOnTrigger(Action<Unit> action)
-    {
-        _onTriggerAction += action;
-    }
-    public void InvokeOnTrigger(Unit unit)
-    {
-        _onTriggerAction?.Invoke(unit);
-    }
-}
-public class TrapObjectTracker : SpawnObjectTracker
-{
-    public void CheckForTriggerOnTouch(Vector2Int pos, Unit unitThatTriggered)
-    {
-        if (pos != _pos) return;
-
-        InvokeOnTrigger(unitThatTriggered);
-    }
-
-    public override void OnSpawn()
-    {
-        if (MapCreator.Instance == null) return;
-        MapCreator.TileEntered += CheckForTriggerOnTouch;
     }
 }

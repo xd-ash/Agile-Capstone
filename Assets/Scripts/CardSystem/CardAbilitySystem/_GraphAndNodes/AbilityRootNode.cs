@@ -74,7 +74,7 @@ namespace CardSystem
 					continue;
 
 				EffectStrategy curEffect = port.Connection.node as EffectStrategy;
-				curEffect.StartEffect(abilityData, OnEffectFinished);
+				curEffect.StartEffect(abilityData, () => OnEffectFinished());
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
@@ -84,7 +84,7 @@ namespace CardSystem
         // Unused method for now, kept just for reminder of tutorial system setup
         private void OnEffectFinished()
 		{
-			//
+            
 		}
 
         // Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯

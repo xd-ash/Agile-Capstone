@@ -5,20 +5,18 @@ namespace CardSystem
 {
     // Concrete helpful effect class to heal a unit instantly or over a duration
     [CreateNodeMenu("Helpful Effects/Heal")]
-    public class HealEffect : EffectStrategy
+    public class HealEffect : EffectStrategy, IUseEffectValue
     {
-        public override void StartEffect(AbilityData abilityData, Action onFinished)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             foreach (GameObject target in abilityData.Targets)
             {
                 if (target != null && target.TryGetComponent<Unit>(out Unit unit))
                 {
-                    /*if (_hasDuration)
-                        unit.StartCoroutine(DoEffectOverTime(unit, _duration, effectValue));
-                    else*/
-                        unit.ChangeHealth(effectValue, true);
+                    unit.ChangeHealth(effectValue, true);
+                    unit.GetFloatingText.SpawnFloatingText($"+{effectValue}", TextPresetType.HealPreset);
                 }
             }
 

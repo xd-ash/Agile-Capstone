@@ -67,10 +67,12 @@ public class GameData
     [SerializeField] private MapNodeDataToken _mapNodeData;
     [SerializeField] private CurrencyManagerDataToken _currencyData;
     [SerializeField] private CardDataToken _cardData;
+    [SerializeField] private SpecialMechanicsData _specialMechanicData;
 
     public MapNodeDataToken GetMapNodeData => _mapNodeData;
     public CurrencyManagerDataToken GetCurrencyData => _currencyData;
     public CardDataToken GetCardData => _cardData;
+    public SpecialMechanicsData GetSpecialMechanicData => _specialMechanicData;
 
     public GameData(bool newGameData = false)
     {
@@ -81,12 +83,14 @@ public class GameData
             _mapNodeData = new(null, null, 0, -1);
             _currencyData = new(100);
             _cardData = new(null, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
+            _specialMechanicData = new(new bool[0]);
         }
         else
         {
             _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex, pdm.GetSeed);
             _currencyData = new(pdm.GetBalance);
             _cardData = new(pdm.GetOwnedCards, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
+            _specialMechanicData = new(pdm.GetAllCoinFlipsThisRun);
         }
     }
 
@@ -175,6 +179,18 @@ public struct DeckToken
     public string deckName;
     public string[] cardNames;
 }
+[System.Serializable]
+public class SpecialMechanicsData
+{
+    [SerializeField] private bool[] _coinFlipsCurrentRun;
+    public bool[] GetCoinFlipsCurrentRun => _coinFlipsCurrentRun ?? new bool[0];
+
+    public SpecialMechanicsData(bool[] coinflips)
+    {
+        _coinFlipsCurrentRun = coinflips;
+    }
+}
+
 [System.Serializable]
 public class SettingsData
 {

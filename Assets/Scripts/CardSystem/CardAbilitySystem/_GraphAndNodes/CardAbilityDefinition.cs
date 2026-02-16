@@ -24,7 +24,8 @@ namespace CardSystem
         [SerializeField, Range(0, 100)] private int _baseHitChance = 80;
         [SerializeField, Range(0, 100)] private int _minHitChance = 10;
         [SerializeField, Range(0, 100)] private int _maxHitChance = 95;
-        
+
+        [SerializeField] private bool _ignoreLOS = false; // added to fix issues with traps
         [SerializeField] private int _hitPenaltyPerTile = 5;
         [SerializeField] private float _accuracyMultiplier = 1f;
         [SerializeField] private int _accuracyFlatBonus = 0;
@@ -45,7 +46,8 @@ namespace CardSystem
         public int GetHitPenaltyPerTile => _hitPenaltyPerTile;
         public float GetAccuracyMultiplier => _accuracyMultiplier;
         public int GetAccuracyFlatBonus => _accuracyFlatBonus;
-        
+        public bool GetIgnoreLOS => _ignoreLOS;
+
         public AbilityRootNode RootNode
 		{
 			get

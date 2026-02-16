@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 200754008888731454}
   - component: {fileID: 6173928283278551516}
   - component: {fileID: 6541962003932782136}
+  - component: {fileID: 78719088872119898}
   m_Layer: 0
   m_Name: SaveDataManager
   m_TagString: Untagged
@@ -45,8 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 799d68143f2143e459390f7794f4e3f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataManager
-  _currentNodeIndex: 0
-  _deck: {fileID: 11400000, guid: b234795bd520a064687ba1c4db35c945, type: 2}
+  _createdDecks: []
+  _activeDeck:
+    _deckName: 
+    _cardsInDeck: []
+  _ownedCards: []
+  _coinFlipsThisRun: 
 --- !u!114 &6541962003932782136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,3 +64,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e0a0513cb1d40178151feb89109c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneProgressManager
+--- !u!114 &78719088872119898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266246566877072541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce81ca9c9a7e6a4dbe4a96e9576ce07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpecialMechanicsManager

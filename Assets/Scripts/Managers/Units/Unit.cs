@@ -21,14 +21,12 @@ public class Unit : MonoBehaviour, IDamagable
     [SerializeField] private int _maxAP;
     [SerializeField] private int _ap;
 
-    //[Header("SFX")]
-    //public AudioClip stepSfx;
-    [SerializeField] private AudioClip _damageSfx;
-    [SerializeField] private AudioClip _shieldHitSfx;
-
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
     [SerializeField] private TextMeshProUGUI _hitChanceText;
+
+    [Header("Misc")]
+    [SerializeField] private bool _ecanMove = true;
 
     private FloatingTextController _floatingText;
     private Coroutine _targetingCoroutine;
@@ -39,6 +37,7 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
+    public bool GetCanMove => _ecanMove;
 
     public event Action<Unit> OnApChanged;
 
@@ -94,7 +93,7 @@ public class Unit : MonoBehaviour, IDamagable
 
             if (_shield > 0)
             {
-                AudioManager.Instance?.PlaySFX(_shieldHitSfx);
+                AudioManager.Instance?.PlayShieldHitSFX();
 
                 int absorbed = Mathf.Min(_shield, remainingDamage);
                 _shield -= absorbed;
@@ -111,7 +110,7 @@ public class Unit : MonoBehaviour, IDamagable
             if (remainingDamage > 0)
             {
                 _health -= remainingDamage;
-                AudioManager.Instance?.PlaySFX(_damageSfx);
+                AudioManager.Instance?.PlayDamageTakeSFX(this);
                 //Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
             }
             else
@@ -235,6 +234,13 @@ public class Unit : MonoBehaviour, IDamagable
         _ap = _maxAP;
         OnApChanged?.Invoke(this);
     }
+    public void RestoreAP(int amount)
+    {
+        _ap += amount;
+        if (_ap >= _maxAP)
+            _ap = _maxAP;
+        OnApChanged?.Invoke(this);
+    }
 
     public bool CanSpend(int cost) => _ap >= cost;
 
@@ -250,21 +256,10 @@ public class Unit : MonoBehaviour, IDamagable
         return true;
     }
 
-    public bool CanMove()
+    public void ToggleCanMove(bool canMove)
     {
-        
-        // Block movement if the game is paused
-        if (PauseMenu.isPaused)
-        {
-            return false;
-        }
-        
-        // Prevent movement if targeting is active
-        if (AbilityEvents.IsTargeting)
-        {
-            return false;
-        }
-        return true; // Or your existing movement conditions
+        _ecanMove = canMove;
+        _floatingText.SpawnFloatingText("Rooted", TextPresetType.MissTextPreset);
     }
 
     public void ShowHitChance(int hitChance)

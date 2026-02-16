@@ -14,36 +14,42 @@ public static class CombatMath
     private const int _defaultGlobalFlatBonus = 0;
 
     // New: Card-based overloads
-    public static int GetHitChance(Unit attacker, Unit target, CardAbilityDefinition cardDef)
+    public static int GetHitChance(Vector3 attackerPos, Unit target, CardAbilityDefinition cardDef)
     {
         int range = cardDef != null ? cardDef.GetRange : 1;
-        return GetHitChance(attacker, target, range, cardDef);
+        return GetHitChance(attackerPos, target, range, cardDef);
     }
 
-    public static bool RollHit(Unit attacker, Unit target, CardAbilityDefinition cardDef, out int hitChance, out float roll)
+    public static bool RollHit(Vector3 attackerPos, Unit target, CardAbilityDefinition cardDef)
     {
-        int range = cardDef != null ? cardDef.GetRange : 1;
-        hitChance = GetHitChance(attacker, target, range, cardDef);
+        //quick exit added as a fix for traps
+        if (cardDef != null && cardDef.GetIgnoreLOS)
+            return true;
 
-        if (hitChance <= 0)
+        int range = cardDef != null ? cardDef.GetRange : 1;
+        int hitChance = GetHitChance(attackerPos, target, range, cardDef);
+
+        if (hitChance == 100)
+            return true;
+        /*if (hitChance <= 0)
         {
-            roll = 100f;
+            //roll = 100f;
             return false;
-        }
+        }*/
        
-        roll = Random.Range(0f, 100f);
+        int roll = (int)Random.Range(0f, 100f);
         bool result = roll <= hitChance;
         if (!result)
             target.GetFloatingText?.SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
         return result;
     }
 
-    public static int GetHitChance(Unit attacker, Unit target, int abilityRange)
-        => GetHitChance(attacker, target, abilityRange, null);
+    /*public static int GetHitChance(Vector3 attackerPos, Unit target, int abilityRange)
+        => GetHitChance(attackerPos, target, abilityRange, null);
 
-    public static bool RollHit(Unit attacker, Unit target, int abilityRange, out int hitChance, out float roll)
+    public static bool RollHit(Vector3 attackerPos, Unit target, int abilityRange, out int hitChance, out float roll)
     {
-        hitChance = GetHitChance(attacker, target, abilityRange, null);
+        hitChance = GetHitChance(attackerPos, target, abilityRange, null);
 
         if (hitChance <= 0)
         {
@@ -57,16 +63,20 @@ public static class CombatMath
             target.GetFloatingText?.SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
 
         return result;
-    }
+    }*/
 
-    private static int GetHitChance(Unit attacker, Unit target, int abilityRange, CardAbilityDefinition cardDef)
+    private static int GetHitChance(Vector3 attackerPos, Unit target, int abilityRange, CardAbilityDefinition cardDef)
     {
-        if (attacker == null || target == null || !HasLineOfSight(attacker, target))
+        if (target == null || !HasLineOfSight(attackerPos, target))
         {
             return 0;
         }
 
         int baseHitChance = cardDef != null ? cardDef.GetBaseHitChance : _defaultHitChance;
+        
+        if (baseHitChance == 100)
+            return 100;
+
         int minHitChance = cardDef != null ? cardDef.GetMinHitChance : _defaultMinHitChance;
         int maxHitChance = cardDef != null ? cardDef.GetMaxHitChance : _defaultMaxHitChance;
 
@@ -74,7 +84,7 @@ public static class CombatMath
         float multiplier = cardDef != null ? cardDef.GetAccuracyMultiplier : _defaultGlobalMultiplier;
         int flatBonus = cardDef != null ? cardDef.GetAccuracyFlatBonus : _defaultGlobalFlatBonus;
 
-        Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
+        Vector2Int attackerCell = ConvertToGridFromIsometric(attackerPos);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
 
         int distance = Mathf.Abs(attackerCell.x - targetCell.x) + Mathf.Abs(attackerCell.y - targetCell.y); // Manhattan
@@ -99,9 +109,9 @@ public static class CombatMath
         final = Mathf.Clamp(final, minHitChance, maxHitChance);
         return final;
     }
-    public static bool HasLineOfSight(Unit attacker, Unit target)
+    public static bool HasLineOfSight(Vector3 attackerPos, Unit target)
     {
-        if (attacker == null || target == null)
+        if (target == null)
         {
             return false;
         }
@@ -111,10 +121,13 @@ public static class CombatMath
             return true; // Fail open
         }
 
-        Vector2Int attackerCell = ConvertToGridFromIsometric(attacker.transform.localPosition);
+        Vector2Int attackerCell = ConvertToGridFromIsometric(attackerPos);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
 
-        return HasLineOfSight(attackerCell, targetCell);
+        if (attackerCell == targetCell)
+            return true;
+        else
+            return HasLineOfSight(attackerCell, targetCell);
     }
 
     public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell)

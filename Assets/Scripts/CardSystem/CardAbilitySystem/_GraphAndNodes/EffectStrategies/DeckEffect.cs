@@ -5,7 +5,7 @@ namespace CardSystem
 {
     // Concrete misc effect class. Currently unimplemented
     [CreateNodeMenu("Misc Effects/Deck Effect")]
-    public class DeckEffect : EffectStrategy
+    public class DeckEffect : EffectStrategy, IUseEffectValue
     {
         public enum DeckAction
         {
@@ -15,35 +15,33 @@ namespace CardSystem
         }
 
         [SerializeField] private DeckAction _action = DeckAction.Draw;
-        [SerializeField] private int _amount = 1;
+        //[SerializeField] private int _amount = 1;
 
         // Optional: whether to log results to console (useful for initial testing)
         [SerializeField] private bool _logResults = true;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
             if (abilityData.GetUnit.GetTeam != Team.Friendly) return;
 
-            base.StartEffect(abilityData, onFinished);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             // Defensive checks
             if (DeckAndHandManager.Instance == null)
             {
                 Debug.LogWarning("[DeckEffect] CardManager.instance is null - cannot interact with deck.");
-                onFinished?.Invoke();
+                _onFinished?.Invoke();
                 return;
             }
 
             switch (_action)
             {
                 case DeckAction.Draw:
-                    // Draw _amount cards (CardManager.DrawMultiple handles hand size / deck end)
-                    DeckAndHandManager.Instance.DrawCard(_amount);
+                    DeckAndHandManager.Instance.DrawCard(effectValue);
                     break;
-
                 case DeckAction.PeekTop:
                     // Get top definitions without changing deck state
-                    var topDefs = DeckAndHandManager.Instance.PeekTopDefinitions(_amount);
+                    var topDefs = DeckAndHandManager.Instance.PeekTopDefinitions(effectValue);
                     if (_logResults)
                     {
                         for (int i = 0; i < topDefs.Length; i++)
@@ -55,7 +53,7 @@ namespace CardSystem
                     break;
 
                 case DeckAction.RevealTop:
-                    var revealDefs = DeckAndHandManager.Instance.PeekTopDefinitions(_amount);
+                    var revealDefs = DeckAndHandManager.Instance.PeekTopDefinitions(effectValue);
                     // Reveal semantics are UI/game-specific. Here we just log and leave hooks.
                     if (_logResults)
                     {
@@ -67,7 +65,7 @@ namespace CardSystem
             }
 
             // This effect is instant. If you start coroutines or animations, call onFinished after they complete.
-            onFinished?.Invoke();
+            _onFinished?.Invoke();
         }
     }
 }
