@@ -68,6 +68,8 @@ public class MapCreator : MonoBehaviour
     [SerializeField] private TileSet _moduleSet;
 
     public byte[,] GetByteMap => _map;
+    public byte GetByteAtPosition(Vector2Int pos) => _map[pos.x,pos.y];
+
     public Vector2Int GetMapSize => _mapSize;
     public List<MapLocation> GetDirections => _directions;
 

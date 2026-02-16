@@ -63,6 +63,7 @@ namespace CardSystem
                 if (Input.GetMouseButtonDown(0))
                 {
                     abilityData.Targets = isTileTargeted ? TileOnMouse() : TargetOnMouse(caster);
+
                     if (abilityData.GetTargetCount > 0)
                         break;
                 }
@@ -79,6 +80,11 @@ namespace CardSystem
         private List<GameObject> TileOnMouse()
         {
             Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
+            if (tilePos.x < 0 || tilePos.x >= MapCreator.Instance?.GetByteMap.GetLength(0) ||
+                tilePos.y < 0 || tilePos.y >= MapCreator.Instance?.GetByteMap.GetLength(1) ||
+                MapCreator.Instance.GetByteAtPosition(new Vector2Int(tilePos.x, tilePos.y)) != 0)
+                return new();
+
             GameObject empty = new("temp");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
