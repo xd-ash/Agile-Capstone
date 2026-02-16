@@ -24,7 +24,7 @@ public class ActiveEffectsTracker : MonoBehaviour
     }
     public void AddEffect(Action effect, int totalDuration, Guid guid, string effectName = "")
     {
-        Effect newEffect = new(effect, totalDuration, guid, effectName);
+        Effect newEffect = new(ref effect, totalDuration, guid, effectName);
 
         if (!_effects.Contains(newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
             _effects.Add(newEffect);
@@ -56,7 +56,7 @@ public class ActiveEffectsTracker : MonoBehaviour
         public Action storedEffect;
         public int turnsRemaining;
 
-        public Effect(Action effect, int totalDuration, Guid guid, string name = "")
+        public Effect(ref Action effect, int totalDuration, Guid guid, string name = "")
         {
             storedEffect = effect;
             turnsRemaining = totalDuration;

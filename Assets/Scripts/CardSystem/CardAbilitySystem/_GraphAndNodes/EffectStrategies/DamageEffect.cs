@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace CardSystem
 {
-    // Concrete harmful effect class to damage a unit instantly or over a duration
     [CreateNodeMenu("Harmful Effects/Damage")]
     public class DamageEffect : EffectStrategy, IUseEffectValue
     {

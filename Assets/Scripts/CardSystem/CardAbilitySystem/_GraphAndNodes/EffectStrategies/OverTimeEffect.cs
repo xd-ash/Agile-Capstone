@@ -1,4 +1,5 @@
 using CardSystem;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 using XNode;
@@ -7,6 +8,7 @@ using XNode;
 public class OverTimeEffect : EffectStrategy, IUseEffectValue
 {
     [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
+
     [SerializeField] private bool _doEffectAtStart = true;
 
     public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
@@ -26,12 +28,18 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
 
                     EffectStrategy strat = port.Connection.node as EffectStrategy;
 
+                    List<GameObject> temp = new(0);
+                    foreach (var t in abilityData.Targets)
+                        temp.Add(t);
+
                     if (_doEffectAtStart)
                         strat.StartEffect(abilityData, onFinished);//initial effect trigger before store
-                    eTracker.AddEffect(() => { strat.StartEffect(abilityData, onFinished); }, effectValue, Guid.NewGuid(), strat.name);
-
-                    foreach (var t in abilityData.Targets)
-                        Debug.Log($"target-{target.name}");
+                    eTracker.AddEffect(() => 
+                    {
+                        //add targets manually since targets was getting reset on this action store
+                        abilityData.Targets = temp;
+                        strat.StartEffect(abilityData, onFinished);
+                    }, effectValue, Guid.NewGuid(), strat.name);
                 }
             }
             else

@@ -10,21 +10,12 @@ namespace CardSystem
     [CreateNodeMenu("Ability Root Node")]
     public class AbilityRootNode : AbilityNodeBase
 	{
-        //[Flags] public enum EffectTypes { Helpful = 2, Harmful = 4, Misc = 8 }
-        //[SerializeField] private EffectTypes _effectTypes;
-
         [Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public short targeting;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public double filtering;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 		
-		//[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public bool helpfulEffects;
-		//[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public int harmfulEffects;
-		//[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte miscEffects;
-
         private CardAbilityDefinition _cardDefinition => this.graph as CardAbilityDefinition;
 		private TargetingStrategy _targetingStrategy;
-
-        //public EffectTypes GetEffectTypes => _effectTypes;
 
 		// check if user (Unit) is able to use abailty with AP, start targeting
 		// based on connected targeting strategy port

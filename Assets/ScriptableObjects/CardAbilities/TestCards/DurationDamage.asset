@@ -247,10 +247,10 @@ MonoBehaviour:
   _shopCost: 0
   _shopWeight: 0
   _baseHitChance: 100
-  _minHitChance: 10
+  _minHitChance: 100
   _maxHitChance: 100
   _ignoreLOS: 0
-  _hitPenaltyPerTile: 5
+  _hitPenaltyPerTile: 0
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
 --- !u!114 &4496216857249166456
