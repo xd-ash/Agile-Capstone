@@ -50,7 +50,7 @@ public class PlayerDataManager : MonoBehaviour
         
         if (_cardAndDeckLibrary == null)
             _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
-
+        
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();
         else

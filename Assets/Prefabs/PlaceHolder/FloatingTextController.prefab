@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c71fa118da83934e8aee92498aada2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FloatingTextController
+  _textQueueDelay: 0.4
   _textFloatDistance: 0.57
