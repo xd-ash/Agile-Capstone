@@ -50,7 +50,11 @@ public class PlayerDataManager : MonoBehaviour
         
         if (_cardAndDeckLibrary == null)
             _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
-        
+
+#if UNITY_EDITOR
+        CardAndDeckLibrary.GrabAssets?.Invoke();
+#endif
+
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();
         else

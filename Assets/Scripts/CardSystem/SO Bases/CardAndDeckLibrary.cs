@@ -1,4 +1,5 @@
 using CardSystem;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class CardAndDeckLibrary : ScriptableObject
     public List<Deck> GetDecksInProject => _decksInProject;
     public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
     public Deck GetShopPool => _shopPool;
+
+    public static Action GrabAssets;
 
     public void AddDeckToLibrary(Deck deck)
     {

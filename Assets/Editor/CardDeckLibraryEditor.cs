@@ -1,6 +1,7 @@
 using System;
 using CardSystem;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(CardAndDeckLibrary))]
 public class CardDeckLibraryEditor : Editor
@@ -11,7 +12,7 @@ public class CardDeckLibraryEditor : Editor
     {
         //ClearOtherLibraries();
 
-        GrabAssets();
+        CardAndDeckLibrary.GrabAssets += GrabAssetsConnector;
     }
     public override void OnInspectorGUI()
     {
@@ -23,9 +24,16 @@ public class CardDeckLibraryEditor : Editor
             EditorUtility.SetDirty(_library);
             AssetDatabase.SaveAssetIfDirty(_library);
         }
-        base.OnInspectorGUI();
+        base.OnInspectorGUI(); 
     }
-
+    private void GrabAssetsConnector()
+    {
+        if (GrabAssets())
+        {
+            EditorUtility.SetDirty(_library);
+            AssetDatabase.SaveAssetIfDirty(_library);
+        }
+    }
     public bool GrabAssets()
     {
         bool tmp = false;
