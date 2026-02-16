@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using static IsoMetricConversions;
 using UnityEngine;
 using System.Linq;
+using System.Text;
 
 namespace CardSystem
 {
@@ -62,10 +63,6 @@ namespace CardSystem
                 if (Input.GetMouseButtonDown(0))
                 {
                     abilityData.Targets = isTileTargeted ? TileOnMouse() : TargetOnMouse(caster);
-
-                    //if (isAOE)
-                    //abilityData.Targets.Concat<GameObject>(GetGameObjectsInRadius(caster));
-
                     if (abilityData.GetTargetCount > 0)
                         break;
                 }
@@ -76,17 +73,16 @@ namespace CardSystem
             if (hoveredUnit != null)
                 hoveredUnit.HideHitChance();
 
-            onFinished();
+            onFinished?.Invoke();
         }
 
-        private IEnumerable<GameObject> TileOnMouse()
+        private List<GameObject> TileOnMouse()
         {
             Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
-            GameObject empty = new("test");
+            GameObject empty = new("temp");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
-            //Debug.Log("test");
-            yield return empty;
+            return new List<GameObject>() { empty };
         }
 
         private Unit GetUnitUnderMouse()

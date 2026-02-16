@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,11 +17,6 @@ namespace CardSystem
             onFinished();
         }
 
-        /*public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
-        {
-            throw new NotImplementedException();
-        }*/
-
         private IEnumerable<GameObject>TargetSelf(AbilityData abilityData)
         {
             yield return abilityData.GetUnit.gameObject;
@@ -31,12 +25,6 @@ namespace CardSystem
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit user)
         {
             throw new NotImplementedException();
-            /*Collider2D[] foundObjects = Physics2D.OverlapCircleAll(user.transform.position, radius);
-
-            foreach (Collider2D collider in foundObjects)
-            {
-                yield return collider.gameObject;
-            }*/
         }
     }
 }

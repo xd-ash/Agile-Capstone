@@ -34,8 +34,6 @@ namespace CardSystem
         {
             _unit = unit;
             _guid = guid;
-
-            //Debug.Log($"guid: {_guid}");
         }
 
         // Adjust to keep list of active coroutines for easy stopping?

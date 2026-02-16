@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour, IDamagable
     [SerializeField] private TextMeshProUGUI _hitChanceText;
 
     [Header("Misc")]
-    [SerializeField] private bool _ecanMove = true;
+    [SerializeField] private bool _canMove = true;
 
     private FloatingTextController _floatingText;
     private Coroutine _targetingCoroutine;
@@ -37,7 +37,7 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
-    public bool GetCanMove => _ecanMove;
+    public bool GetCanMove => _canMove;
 
     public event Action<Unit> OnApChanged;
 
@@ -258,8 +258,11 @@ public class Unit : MonoBehaviour, IDamagable
 
     public void ToggleCanMove(bool canMove)
     {
-        _ecanMove = canMove;
-        _floatingText.SpawnFloatingText("Rooted", TextPresetType.MissTextPreset);
+        if (_canMove == canMove) return; //avoid any extra texts 
+
+        _canMove = canMove;
+
+        _floatingText.SpawnFloatingText(_canMove ? "Freed" : "Rooted", TextPresetType.MissTextPreset);
     }
 
     public void ShowHitChance(int hitChance)

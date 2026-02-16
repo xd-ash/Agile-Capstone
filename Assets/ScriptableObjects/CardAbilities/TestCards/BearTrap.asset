@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DamageEffect
   graph: {fileID: 11400000}
-  position: {x: 360, y: 328}
+  position: {x: 344, y: 312}
   ports:
     keys:
     - input
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: Spawn Object Effect
   m_EditorClassIdentifier: Assembly-CSharp::SpawnObjectEffect
   graph: {fileID: 11400000}
-  position: {x: -184, y: 88}
+  position: {x: -200, y: 88}
   ports:
     keys:
     - objEffects

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,10 +13,6 @@ namespace CardSystem
             
             onFinished();
         }
-        /*public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
-        {
-            throw new NotImplementedException();
-        }*/
 
         protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit)
         {

@@ -10,9 +10,6 @@ namespace CardSystem
     {
         [Input(connectionType = ConnectionType.Override)] public short input;
 
-        //public bool isAOE;
-        //public float radius;
-
         public virtual void StartTargeting(AbilityData abilityData, Action onFinished)
         {
             if (abilityData.GetUnit.GetTeam != Team.Enemy)
@@ -21,7 +18,6 @@ namespace CardSystem
                 AudioManager.Instance?.PlayCardSelectSfx();
             }
         }
-        //public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
         protected abstract IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit);
     }
 }

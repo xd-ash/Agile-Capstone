@@ -20,10 +20,14 @@ public abstract class SpawnObjectTracker : MonoBehaviour
         _guid = guid;
         _creator = creator;
         _pos = ConvertToGridFromIsometric(transform.localPosition);
-    }
+    } 
     public void SetOnTrigger(Action<Unit> action)
     {
         _onTriggerAction += action;
+    }
+    private void OnDestroy()
+    {
+        _onTriggerAction = null;
     }
     public void InvokeOnTrigger(Unit unit)
     {

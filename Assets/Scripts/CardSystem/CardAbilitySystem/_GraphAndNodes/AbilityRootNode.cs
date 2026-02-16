@@ -87,7 +87,7 @@ namespace CardSystem
             
 		}
 
-        // Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯
+        /*/ Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯
 		// I think this is just grabbing each port's data identifier type
         public override object GetValue(NodePort port)
         {
@@ -103,6 +103,6 @@ namespace CardSystem
                     return GetInputValue<byte>("effects");
             }
             throw new System.Exception($"{this.GetType()}.GetValue() Override issue");
-        }
+        }*/
     }
 }
