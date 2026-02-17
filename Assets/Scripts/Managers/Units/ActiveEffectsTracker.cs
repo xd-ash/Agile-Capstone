@@ -38,7 +38,7 @@ public class ActiveEffectsTracker : MonoBehaviour
             var e = _effects[i];
             e.storedEffect?.Invoke();
             e.turnsRemaining--;
-            if (e.turnsRemaining > 0) return;
+            if (e.turnsRemaining > 0) continue;
             if (e.effectName == "Stop Movement Effect")
             {
                 unit.ToggleCanMove(true);

@@ -85,7 +85,6 @@ public class MapCreator : MonoBehaviour
 
         _tilemap.CompressBounds();
 
-        //int totalNonObstacleTiles;
         int failSafeCount = -1;
         var emptyTilePositions = new List<Vector2Int>();
 
@@ -95,19 +94,8 @@ public class MapCreator : MonoBehaviour
             int moduleWidth = _moduleSet.GetTrueModuleWidth;
             TileElement[,] environmentMap = environmentMap = TileWaveFunctionCollapse.WFCGenerate(_moduleSet.Modules,
                     new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth)); ;
-            //totalNonObstacleTiles = 0;
 
             emptyTilePositions.Clear();
-
-            /*int wfcFailCounter = -1;
-            do
-            {
-                
-                wfcFailCounter++;
-                if (wfcFailCounter >= 100)
-                    Debug.Log("Excessive map generation fails from player/enemy spawning");
-            } while ((environmentMap == null || TileWaveFunctionCollapse.CheckCanSpawnPlayer || TileWaveFunctionCollapse.CheckCanSpawnEnemy) && wfcFailCounter < 100);
-            */
 
             for (int x = 0; x < _map.GetLength(0); x++)
             {
@@ -125,7 +113,6 @@ public class MapCreator : MonoBehaviour
 
                     if (_map[x, y] != 2 && _map[x, y] != 5)
                         emptyTilePositions.Add(gridPos);
-                        //totalNonObstacleTiles++;
                 }
             }
 
@@ -168,7 +155,6 @@ public class MapCreator : MonoBehaviour
         }
 
         CheckNeighbours(startLoc, ref validLocs); 
-        //Debug.Log($"total nonobst:{totalNonObstacleTiles}, validLoc count:{validLocs.Count}");
         bool result = totalNonObstacleTiles == validLocs.Count;
         if (!result)
             PlayerDataManager.Instance.GetRandomSeed();// regen seed only after fail

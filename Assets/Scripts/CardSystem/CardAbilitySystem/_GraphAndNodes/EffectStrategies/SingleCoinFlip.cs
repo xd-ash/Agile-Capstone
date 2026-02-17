@@ -24,7 +24,7 @@ namespace CardSystem
 
                 bool portCoinSide = port.fieldName.Split(' ')[0] == "onHeads";//grab the "onHeads" or "onTails" of the the port field name and assign coin side/bool
                 //filter strats by coinflip results
-                if (coinflip == portCoinSide)
+                if (coinflip != portCoinSide)
                     continue;
 
                 EffectStrategy curEffect = port.Connection.node as EffectStrategy;
