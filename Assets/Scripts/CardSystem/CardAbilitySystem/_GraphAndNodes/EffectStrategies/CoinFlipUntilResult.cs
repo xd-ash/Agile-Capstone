@@ -6,7 +6,7 @@ namespace CardSystem
 {
     // Flip coin until the desired outcome and affect the following effects by the number of undesired outcome flipped
     [CreateNodeMenu("Gambling Effects/Coin Flip Unitl Result")]
-    public class CoinFlipUntilResult : EffectStrategy, IUseEffectValue
+    public class CoinFlipUntilResult : EffectStrategy
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 

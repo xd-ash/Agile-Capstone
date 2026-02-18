@@ -35,8 +35,12 @@ namespace CardSystem
                     return "Debuff Value";
                 case OverTimeEffect:
                     return "Duration (Turns)";
-                    case DeckEffect:
+                case DeckEffect:
                     return "Card Amount";
+                case KnockBackEffect:
+                    return "Knockback Distance";
+                case RestoreAPEffect:
+                    return "AP Value";
                 default:
                     return "Effect Value";
             }

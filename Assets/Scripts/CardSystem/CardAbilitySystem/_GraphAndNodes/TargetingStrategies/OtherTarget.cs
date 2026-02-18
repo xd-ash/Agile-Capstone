@@ -65,7 +65,7 @@ namespace CardSystem
                 if (Input.GetMouseButtonDown(0))
                 {
                     List<GameObject> tempTargets = abilityData.Targets == null ? new List<GameObject>() : new List<GameObject>(abilityData.Targets);
-                    GameObject temp = _targetTilesNotUnits ? TileOnMouse() : TargetOnMouse(caster);
+                    GameObject temp = _targetTilesNotUnits ? TileOnMouse(abilityData) : TargetOnMouse(caster);
                     if (!tempTargets.Contains(temp))
                         tempTargets.Add(temp);
                     abilityData.Targets = tempTargets;
@@ -84,7 +84,7 @@ namespace CardSystem
             onFinished?.Invoke();
         }
 
-        private GameObject TileOnMouse()
+        private GameObject TileOnMouse(AbilityData abilitData)
         {
             var bmc = ByteMapController.Instance;
             Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
@@ -96,6 +96,9 @@ namespace CardSystem
             GameObject empty = new("empty");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
+
+            abilitData.AbilityTriggerPos = tilePos;
+
             return empty;
         }
 

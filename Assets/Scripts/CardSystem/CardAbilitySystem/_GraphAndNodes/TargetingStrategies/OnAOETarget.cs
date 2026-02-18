@@ -31,7 +31,7 @@ namespace CardSystem
                     _targetingStrat = port.Connection.node as TargetingStrategy;
                 }
 
-            List<GameObject> tempTargets = abilityData.Targets == null ? new List<GameObject>() : new List<GameObject>(abilityData.Targets);
+            List<GameObject> tempTargets = new List<GameObject>();
             Vector2Int startingCell = _targetingStrat is SelfTarget ? ConvertToGridFromIsometric(abilityData.GetUnit.transform.localPosition) :
                                                                      (Vector2Int)MouseFunctionManager.Instance?.GetCurrTilePosition;
             if (startingCell == _currTilePos) return;
