@@ -78,6 +78,9 @@ namespace CardSystem
                 for (int i = 1; i <= _effectValue; i++)
                 {
                     var tilePos = targetGridPos + knockbackDir * i;
+                    tilePos.x = Mathf.Clamp(tilePos.x, 0, mapSize.x - 1);
+                    tilePos.y = Mathf.Clamp(tilePos.y, 0, mapSize.y - 1);
+
                     if (ByteMapController.Instance.GetByteMap[tilePos.x, tilePos.y] == 2)
                         break;
                     lastValidPos = tilePos;
