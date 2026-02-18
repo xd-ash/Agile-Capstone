@@ -37,16 +37,23 @@ namespace CardSystem
             SetupVisuals();
             AbilityEvents.OnAbilityTargetingStopped += ReturnCardToHand;
             if (TurnManager.Instance != null)
-                TurnManager.Instance.OnPlayerTurnEnd += ReturnCardToHand;
+                TurnManager.Instance.OnTurnEnd += OnTurnEnd;
         }
 
         private void OnDestroy()
         {
             AbilityEvents.OnAbilityTargetingStopped -= ReturnCardToHand;
             if (TurnManager.Instance != null)
-                TurnManager.Instance.OnPlayerTurnEnd -= ReturnCardToHand;
+                TurnManager.Instance.OnTurnEnd -= OnTurnEnd;
         }
 
+        //Bandaid fix for sawpping to OnTurnEnd action in turn manager
+        private void OnTurnEnd(Unit unit)
+        {
+            if (unit.GetTeam != Team.Friendly) return;
+
+            ReturnCardToHand();
+        }
         private void Start()
         {
             _originalScale = transform.localScale;

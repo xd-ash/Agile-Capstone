@@ -42,6 +42,11 @@ namespace AStarPathfinding
         private Unit _unit;
         private DirectionAnimator _dirAnimator;
 
+        private List<MapLocation> _directions = new List<MapLocation>() { new MapLocation(1,0),
+                                                                      new MapLocation(0,1),
+                                                                      new MapLocation(-1,0),
+                                                                      new MapLocation(0,-1) };
+
         private PathMarker _startNode;
         private PathMarker _goalNode;
         private PathMarker _lastPos;
@@ -64,7 +69,11 @@ namespace AStarPathfinding
         private GameObject _pathP;
         private GameObject _truePMark;
 
+        public bool _isKnockback = false;
         public bool GetIsMoving => _isMoving;
+
+        //temp? variable to track last position during movement coro to be used for trap knockbacks
+        public Vector2Int PrevPosOnMove {  get; private set; }
 
         private void Start()
         {
@@ -78,6 +87,24 @@ namespace AStarPathfinding
             _truePMark = Resources.Load<GameObject>("TempAStarPathMarkers/TrueP");
         }
 
+        public void OnKnockback(Vector2Int targetPos)
+        {
+            StopAllCoroutines();
+            _onMoveFinish?.Invoke();
+
+            _isKnockback = true;
+            _isMoving = false;
+            _dirAnimator?.SetMoving(false);
+            _isDone = true;
+
+            CalculatePath(targetPos);
+            if (_truePath == null)
+            {
+                Debug.Log("truepath null");
+                return;
+            }
+            OnStartUnitMove(() => _isKnockback = false);
+        }
         //Determine and return the path to tile position param. Return null if unit is unable to move,
         //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
         public List<PathMarker> CalculatePath(Vector2Int tilePos)
@@ -85,7 +112,7 @@ namespace AStarPathfinding
             if (_isDone && !_isMoving && PauseMenu.isPaused != true)
             {
                 //only allow movement on this unit's turn
-                if (TurnManager.GetCurrentUnit != _unit) return null;
+                if (TurnManager.GetCurrentUnit != _unit && !_isKnockback) return null;
 
                 BeginSearch(tilePos);
                 do
@@ -94,16 +121,19 @@ namespace AStarPathfinding
                 } while (!_isDone);
                 GetPath();
 
-                //Flip bool in pathmarker to indicate which tiles are within movement range
-                List<PathMarker> tempTrue = _truePath;
-                int steps = _truePath != null ? _truePath.Count : 0;
-                if (steps > _unit.GetAP)
+                if (!_isKnockback)
                 {
-                    int keep = Mathf.Max(0, _unit.GetAP);
-                    tempTrue = _truePath.GetRange(_truePath.Count - keep, keep);
+                    //Flip bool in pathmarker to indicate which tiles are within movement range
+                    List<PathMarker> tempTrue = _truePath;
+                    int steps = _truePath != null ? _truePath.Count : 0;
+                    if (steps > _unit.GetAP)
+                    {
+                        int keep = Mathf.Max(0, _unit.GetAP);
+                        tempTrue = _truePath.GetRange(_truePath.Count - keep, keep);
+                    }
+                    foreach (PathMarker pm in tempTrue)
+                        pm.isReachable = true;
                 }
-                foreach (PathMarker pm in tempTrue)
-                    pm.isReachable = true;
 
                 // return full path to target position
                 return _truePath;
@@ -161,9 +191,9 @@ namespace AStarPathfinding
             }
 
             Vector2 size = MapCreator.Instance.GetMapSize;
-            byte[,] bMap = MapCreator.Instance.GetByteMap;
+            byte[,] bMap = ByteMapController.Instance.GetByteMap;
 
-            foreach (MapLocation dir in MapCreator.Instance.GetDirections)
+            foreach (MapLocation dir in _directions)
             {
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= size.x || neighbour.y < 0 || neighbour.y >= size.y) continue; //if neighbor is out of bounds
@@ -230,7 +260,6 @@ namespace AStarPathfinding
         // Create debug marker
         private void CreateDebugMarker(GameObject marker, Vector2Int pos)
         {
-            Vector3 isoPos = ConvertToIsometricFromGrid(new Vector3(pos.x, pos.y));
             GameObject markerGO = Instantiate(marker, Vector3.zero, Quaternion.identity, _debugMarkerParent);
             markerGO.transform.localPosition = ConvertToIsometricFromGrid(pos);
         }
@@ -250,35 +279,47 @@ namespace AStarPathfinding
                 if (p.location.Equals(marker)) return true;
             return false;
         }
-
+        private Action _onMoveFinish;
         public IEnumerator MoveCoro(Action onFinished = null)
         {
+            // bandaid fix
+            _onMoveFinish = onFinished;
+            //
+
             if (_truePath.Count == 0 || _truePath == null) yield break;
 
             _isMoving = true;
 
             //Convert unit local position to grid position
             Vector2Int prev = ConvertToGridFromIsometric(_unit.transform.localPosition);
-            Vector2Int tempStart = prev;
-            Vector2Int tempEnd = Vector2Int.zero;
 
             _dirAnimator?.SetMoving(true);
 
             for (int i = _truePath.Count - 1; i >= 0; i--)
             {
-                if (!_unit.CanSpend(1) || !_truePath[i].isReachable)
-                    break;
-
+                //Debug.Log($"truepath count: {_truePath.Count}, index: {i}");
+                if (!_isKnockback)
+                {
+                    if (!_unit.CanSpend(1) || !_truePath[i].isReachable)
+                        break;
+                    if (!_unit.GetCanMove)
+                    {
+                        _dirAnimator?.SetMoving(false);
+                        break;
+                    }
+                }
+                //if (IsKnockback)
+                    //Debug.Log("pathcount: " + _truePath.Count+", index: "+i);
                 Vector2Int next = new Vector2Int(_truePath[i].location.x, _truePath[i].location.y);
-                tempEnd = next;
 
                 // Anim direction set
                 Vector2Int delta = next - prev;
-                _dirAnimator?.SetDirectionFromDelta(delta);
+
+                _dirAnimator?.SetDirectionFromDelta(_isKnockback ? -delta : delta);
 
                 Vector3 startPos = _unit.transform.localPosition;
-                Vector3 endPos = ConvertToIsometricFromGrid(next, startPos.y * .01f);// z pos adjusted with y value to allow for easy layering of sprites
-                                                                                     // (.01f holds no significance, just used to keep value small)
+                Vector3 endPos = ConvertToIsometricFromGrid(next);
+
                 float elapsed = 0f;
                 while (elapsed < _unitMoveSpeed)
                 {
@@ -295,9 +336,17 @@ namespace AStarPathfinding
                     yield return null;
                 }
 
-                _unit.SpendAP(_moveCostPerTile);
-                //TurnManager.Instance.UpdateApText();
-                GameUIManager.instance.UpdateApText();
+                if (!_isKnockback)
+                {
+                    _unit.SpendAP(_moveCostPerTile);
+                    GameUIManager.instance.UpdateApText();
+                }
+
+                ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, prev, next);
+
+                // tile enter event for trap check (make this better?)
+                PrevPosOnMove = prev;
+                ByteMapController.TileEntered?.Invoke(next, _unit);
 
                 prev = next;
             }
@@ -305,15 +354,12 @@ namespace AStarPathfinding
             _dirAnimator?.SetMoving(false);
             _isMoving = false;
 
-            MapCreator.Instance.UpdateUnitPositionByteMap(tempStart, tempEnd, _unit);
-
             // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
-            if (onFinished != null)
-                onFinished();
-
+            onFinished?.Invoke();
+            
             // rebuild highlights for player right after movement is fully done
             if (_unit.GetTeam == Team.Friendly)
-                MovementRangeHighlighter.Instance.RebuildForCurrentUnit();
+                MovementRangeCalculator.Instance.RebuildForCurrentUnit();
         }
     }
 }

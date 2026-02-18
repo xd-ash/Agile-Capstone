@@ -52,21 +52,6 @@ namespace WFC
                 }
 
                 if (MapCreator.Instance == null) continue;
-                /*
-                switch (_options[i].GetTileType)
-                {
-                    case TileType.SingleEnemy:
-                        if (TileWaveFunctionCollapse.CheckCanSpawnEnemy) continue;
-                        break;
-                    case TileType.SinglePlayer:
-                        if (TileWaveFunctionCollapse.CheckCanSpawnPlayer) continue;
-                        break;
-                    case TileType.OnlyObstacles:
-                        continue;
-                }
-
-                _options.RemoveAt(i);
-                */
             }
         }
     }

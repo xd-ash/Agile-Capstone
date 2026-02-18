@@ -4554,7 +4554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63c42569c9ac04bae120522d983e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxCards: 9
+  _maxCards: 10
   _startingHandSize: 5
   _cardsInHand: []
   _startingHandDrawn: 0
@@ -4689,6 +4689,7 @@ GameObject:
   - component: {fileID: 1824462643}
   - component: {fileID: 1824462642}
   - component: {fileID: 1824462641}
+  - component: {fileID: 1824462644}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -4741,6 +4742,18 @@ Transform:
   - {fileID: 1190376546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1824462644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824462638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a345802267bc45419615031401045b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ByteMapController
 --- !u!1 &1865530326
 GameObject:
   m_ObjectHideFlags: 0

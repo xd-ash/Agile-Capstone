@@ -1,15 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 //Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
 {
-    //[SerializeField] private GameObject winText, loseText;
     [SerializeField] private float textDuration = 3f;
     private bool _didWin;
 
     [SerializeField] private List<Unit> _enemyUnits;
     public List<Unit> GetEnemyUnits => _enemyUnits;
+
+    public static Action CombatNodeCompleted;
+    public static Action GameReset;
 
     public static WinLossManager Instance { get; private set; }
     private void Awake()
@@ -21,14 +24,14 @@ public class WinLossManager : MonoBehaviour
         }
         Instance = this;
 
-        TurnManager.Instance.OnGameStart += GrabEnemyUnits;
+        TurnManager.OnGameStart += GrabEnemyUnits;
 
         GameOverEvents.OnGameOver += OnGameDone;
     }
 
     private void OnDestroy()
     {
-        TurnManager.Instance.OnGameStart -= GrabEnemyUnits;
+        TurnManager.OnGameStart -= GrabEnemyUnits;
         GameOverEvents.OnGameOver -= OnGameDone;
     }
 
@@ -40,10 +43,19 @@ public class WinLossManager : MonoBehaviour
                 enemies.Add(unit);
         _enemyUnits = enemies;
     }
+    public void RemoveEnemyFromPlay(Unit unit)
+    {
+        if (unit.GetTeam == Team.Friendly) return;
 
+        if (!_enemyUnits.Contains(unit)) return;
+
+        _enemyUnits.Remove(unit);
+        SpecialMechanicsManager.Instance.RemoveUnitCoinFlips(unit);
+    }
     public void OnGameDone(bool didWin)
     {
         _didWin = didWin;
+        CombatNodeCompleted?.Invoke();
         GameUIManager.instance.ToggleWinLossText(_didWin);
         Invoke(nameof(TriggerSceneTrans), textDuration);
     }
@@ -53,6 +65,8 @@ public class WinLossManager : MonoBehaviour
         if (_didWin && SceneProgressManager.Instance != null)
         {
             SceneProgressManager.Instance.CompleteCurrentNode();
+            CombatNodeCompleted?.Invoke();
+
             if (!SceneProgressManager.Instance.GetNodeMapCompleted)
             {
                 SceneProgressManager.Instance.ReturnToMap();
@@ -60,6 +74,7 @@ public class WinLossManager : MonoBehaviour
             }
         }
 
+        GameReset?.Invoke();
         SceneProgressManager.Instance?.ResetNodes();
         SaveLoadScript.CreateNewGame?.Invoke();
         TransitionScene.Instance?.StartTransition();

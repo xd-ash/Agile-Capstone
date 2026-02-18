@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using XNode;
+using System;
 
 namespace CardSystem
 {
 	// NodeGraph of new card ability
-	[CreateAssetMenu(fileName = "NewCardAbility", menuName = "Deckbuilding System/New Card Ability")]
+	[CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
 	public class CardAbilityDefinition : NodeGraph
 	{
 		[Header("Card Info")]
-        [SerializeField] private string _cardName;
+        //[SerializeField] private string _cardName;
         [TextArea(1, 3)]
         [SerializeField] private string _description;
 		[SerializeField] private AudioClip _abilitySFX;
@@ -23,14 +24,15 @@ namespace CardSystem
         [SerializeField, Range(0, 100)] private int _baseHitChance = 80;
         [SerializeField, Range(0, 100)] private int _minHitChance = 10;
         [SerializeField, Range(0, 100)] private int _maxHitChance = 95;
-        
+
+        [SerializeField] private bool _ignoreLOS = false; // added to fix issues with traps
         [SerializeField] private int _hitPenaltyPerTile = 5;
         [SerializeField] private float _accuracyMultiplier = 1f;
         [SerializeField] private int _accuracyFlatBonus = 0;
 
         private AbilityRootNode _rootNode;
 
-        public string GetCardName => _cardName;
+        public string GetCardName => this.name;
         public string GetDescription => _description;
         public int GetApCost => _apCost;
         public int GetRange => _range;
@@ -44,7 +46,8 @@ namespace CardSystem
         public int GetHitPenaltyPerTile => _hitPenaltyPerTile;
         public float GetAccuracyMultiplier => _accuracyMultiplier;
         public int GetAccuracyFlatBonus => _accuracyFlatBonus;
-        
+        public bool GetIgnoreLOS => _ignoreLOS;
+
         public AbilityRootNode RootNode
 		{
 			get
@@ -61,5 +64,15 @@ namespace CardSystem
 		{
 			RootNode?.UseAbility(user);
 		}
-	}
+        public void EndEffects(Guid guid)
+        {
+            foreach (Node node in nodes)
+            {
+                if (node is IStoppable)
+                {
+                    (node as IStoppable).Stop(guid);
+                }
+            }
+        }
+    }
 }

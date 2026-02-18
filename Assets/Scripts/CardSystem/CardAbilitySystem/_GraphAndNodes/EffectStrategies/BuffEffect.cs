@@ -1,42 +1,26 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace CardSystem
 {
     // Concrete helpful effect class to buff a unit for a duration
     [CreateNodeMenu("Helpful Effects/Buff")]
-    public class BuffEffect : HelpfulEffect
+    public class BuffEffect : EffectStrategy, IUseEffectValue
     {
-        // Uses _effectValue as shield amount when this effect represents a shield.
-        // _hasDuration and _duration control optional timed expiry (seconds).
-
-        public override void StartEffect(AbilityData abilityData, Action onFinished)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             foreach (GameObject targetObj in abilityData.Targets)
             {
                 if (targetObj != null && targetObj.TryGetComponent<Unit>(out Unit unit))
                 {
-                    // Add shield equal to _effectValue
-                    if (_hasDuration)
-                    {
-                        // Add shield and schedule removal after _duration seconds
-                        unit.AddShield(_effectValue, _duration);
-                    }
-                    else
-                    {
-                        // Permanent until consumed
-                        unit.AddShield(_effectValue);
-                    }
+                    unit.AddShield(_effectValue);
+                    unit.GetFloatingText.SpawnFloatingText($"+{_effectValue}", TextPresetType.ShieldPreset);
                 }
             }
 
             onFinished();
         }
-
-        // If you prefer a per-second tick effect (legacy support), you can keep/override DoEffectOverTime.
-        // For shield behavior, we use AddShield + optional duration coroutine above.
     }
 }

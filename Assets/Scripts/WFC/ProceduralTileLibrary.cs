@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(fileName = "TileLibrary", menuName = "WFC/New Tile Library")]
+[CreateAssetMenu(fileName = "TileLibrary", menuName = "Libraries/New Tile Library")]
 public class ProceduralTileLibrary : ScriptableObject
 {
     [SerializeField] private TileData[] _tileLibrary;
@@ -22,7 +22,7 @@ public class ProceduralTileLibrary : ScriptableObject
 
         return tile.GetTileContentPrefab;
     }
-   
+
     public TileBase GetTileBaseFromName(string tileName)
     {
         TileData tile = GetTileFromLibrary(tileName);

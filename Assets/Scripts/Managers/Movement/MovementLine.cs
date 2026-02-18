@@ -33,7 +33,7 @@ public class MovementLine : MonoBehaviour
         var tilePos = MouseFunctionManager.Instance.GetCurrTilePosition;
 
         if (PauseMenu.isPaused || TurnManager.Instance == null || TurnManager.Instance.CurrTurn != TurnManager.Turn.Player ||
-            MapCreator.Instance.GetByteMap[tilePos.x, tilePos.y] != 0 || TurnManager.GetCurrentUnit == null)
+            ByteMapController.Instance.GetByteMap[tilePos.x, tilePos.y] != 0 || TurnManager.GetCurrentUnit == null)
             return false;
 
         Unit unit = TurnManager.GetCurrentUnit;
@@ -94,7 +94,7 @@ public class MovementLine : MonoBehaviour
     }
     public static Vector3 GridToWorld(Vector2Int cell)
     {
-        Vector3 localIso = ConvertToIsometricFromGrid(cell, 0f);
+        Vector3 localIso = ConvertToIsometricFromGrid(cell);
         return MapCreator.Instance.transform.TransformPoint(localIso);
     }
 }

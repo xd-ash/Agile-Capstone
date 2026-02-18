@@ -15,8 +15,11 @@ public class TurnManager : MonoBehaviour
     private List<Unit> _unitTurnOrder;
     private int _turnTracker = -1;
 
-    public event Action OnGameStart;
-    public event Action OnPlayerTurnEnd;
+    public static event Action OnGameStart;
+    public event Action<Unit> OnTurnEnd;
+    public event Action<Unit> OnTurnStart;
+
+    //public event Action OnPlayerTurnEnd;
     
     public void EndEnemyTurn() => SetTurn();
     public static bool IsPlayerTurn => Instance != null && Instance.CurrTurn == Turn.Player;
@@ -102,6 +105,7 @@ public class TurnManager : MonoBehaviour
             else if (DeckAndHandManager.Instance._startingHandDrawn)
                 DeckAndHandManager.Instance?.DrawCard(1);
 
+        OnTurnStart?.Invoke(_curUnit);
         GameUIManager.instance.UpdateApText();
     }
 
@@ -117,7 +121,9 @@ public class TurnManager : MonoBehaviour
         AbilityEvents.TargetingStopped();
 
         // discard player's hand at end of player turn
-      //  DeckAndHandManager.Instance?.DiscardAll();
-        OnPlayerTurnEnd?.Invoke();
+        // DeckAndHandManager.Instance?.DiscardAll();
+
+        //OnPlayerTurnEnd?.Invoke();
+        OnTurnEnd?.Invoke(_curUnit);
     }
 }

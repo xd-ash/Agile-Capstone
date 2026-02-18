@@ -21,15 +21,14 @@ public class Unit : MonoBehaviour, IDamagable
     [SerializeField] private int _maxAP;
     [SerializeField] private int _ap;
 
-    //[Header("SFX")]
-    //public AudioClip stepSfx;
-    [SerializeField] private AudioClip _damageSfx;
-    [SerializeField] private AudioClip _shieldHitSfx;
-
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
     [SerializeField] private TextMeshProUGUI _hitChanceText;
 
+    [Header("Misc")]
+    [SerializeField] private bool _canMove = true;
+
+    private FloatingTextController _floatingText;
     private Coroutine _targetingCoroutine;
 
     public Team GetTeam => _team;
@@ -37,11 +36,15 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetHealth => _health;
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
+    public FloatingTextController GetFloatingText => _floatingText;
+    public bool GetCanMove => _canMove;
 
     public event Action<Unit> OnApChanged;
 
     private void Awake()
     {
+        _floatingText = GetComponentInChildren<FloatingTextController>();
+
         _health = _maxHealth;
         _ap = _maxAP;
         RaiseHealthEvent();
@@ -60,18 +63,18 @@ public class Unit : MonoBehaviour, IDamagable
     private void Start()
     {
         if (_team != Team.Friendly) return;
-        DeckAndHandManager.Instance.OnCardAblityCancel += () => StopCoroutine(_targetingCoroutine);
-        TurnManager.Instance.OnPlayerTurnEnd += () => StopCoroutine(_targetingCoroutine);
+        DeckAndHandManager.Instance.OnCardAblityCancel += () => StopTargetingCoro(this);
+        TurnManager.Instance.OnTurnEnd += StopTargetingCoro;
     }
     private void OnDestroy()
     {
         if (_team != Team.Friendly) return;
-        DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopTargetingCoro();
-        TurnManager.Instance.OnPlayerTurnEnd -= () => StopTargetingCoro();
+        DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopTargetingCoro(this);
+        TurnManager.Instance.OnTurnEnd -= StopTargetingCoro;
     }
-    private void StopTargetingCoro()
+    private void StopTargetingCoro(Unit unit)
     {
-        if (_team != Team.Friendly || _targetingCoroutine == null) return;
+        if (unit != this || _targetingCoroutine == null) return;
 
         StopCoroutine(_targetingCoroutine);
     }
@@ -90,7 +93,7 @@ public class Unit : MonoBehaviour, IDamagable
 
             if (_shield > 0)
             {
-                AudioManager.Instance?.PlaySFX(_shieldHitSfx);
+                AudioManager.Instance?.PlayShieldHitSFX();
 
                 int absorbed = Mathf.Min(_shield, remainingDamage);
                 _shield -= absorbed;
@@ -107,7 +110,7 @@ public class Unit : MonoBehaviour, IDamagable
             if (remainingDamage > 0)
             {
                 _health -= remainingDamage;
-                AudioManager.Instance?.PlaySFX(_damageSfx);
+                AudioManager.Instance?.PlayDamageTakeSFX(this);
                 //Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
             }
             else
@@ -141,7 +144,7 @@ public class Unit : MonoBehaviour, IDamagable
             }
             //
 
-            MapCreator.Instance.UpdateUnitPositionByteMap(IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition));
+            ByteMapController.Instance.UpdateUnitPositionByteMap(this, IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition));
             Destroy(gameObject);
             //Debug.Log($"[{team}] '{name}' unit died");
         }
@@ -231,6 +234,13 @@ public class Unit : MonoBehaviour, IDamagable
         _ap = _maxAP;
         OnApChanged?.Invoke(this);
     }
+    public void RestoreAP(int amount)
+    {
+        _ap += amount;
+        if (_ap >= _maxAP)
+            _ap = _maxAP;
+        OnApChanged?.Invoke(this);
+    }
 
     public bool CanSpend(int cost) => _ap >= cost;
 
@@ -246,21 +256,14 @@ public class Unit : MonoBehaviour, IDamagable
         return true;
     }
 
-    public bool CanMove()
+    public void ToggleCanMove(bool canMove, bool sendText = true)
     {
-        
-        // Block movement if the game is paused
-        if (PauseMenu.isPaused)
-        {
-            return false;
-        }
-        
-        // Prevent movement if targeting is active
-        if (AbilityEvents.IsTargeting)
-        {
-            return false;
-        }
-        return true; // Or your existing movement conditions
+        if (_canMove == canMove) return; //avoid any extra texts 
+
+        _canMove = canMove;
+
+        if (!sendText) return;
+        _floatingText.SpawnFloatingText(_canMove ? "Freed" : "Rooted", TextPresetType.MissTextPreset);
     }
 
     public void ShowHitChance(int hitChance)

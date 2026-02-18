@@ -10,19 +10,12 @@ namespace CardSystem
     [CreateNodeMenu("Ability Root Node")]
     public class AbilityRootNode : AbilityNodeBase
 	{
-        [Flags] public enum EffectTypes { Helpful = 2, Harmful = 4, Misc = 8 }
-        [SerializeField] private EffectTypes _effectTypes;
-
         [Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public short targeting;
-		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public double filtering;
-		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public bool helpfulEffects;
-		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public int harmfulEffects;
-		[Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte miscEffects;
-
+        [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public double filtering;
+        [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
+		
         private CardAbilityDefinition _cardDefinition => this.graph as CardAbilityDefinition;
 		private TargetingStrategy _targetingStrategy;
-
-        public EffectTypes GetEffectTypes => _effectTypes;
 
 		// check if user (Unit) is able to use abailty with AP, start targeting
 		// based on connected targeting strategy port
@@ -33,7 +26,8 @@ namespace CardSystem
 
 			if (!user.SpendAP(_cardDefinition.GetApCost, false)) return; // simply check if ap can be spent
 
-			AbilityData abilityData = new AbilityData(user);
+            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user));
+
 			_targetingStrategy?.StartTargeting(abilityData, () =>
 			{
                 // Method sent through to be called after targeting strategy finishes
@@ -53,7 +47,7 @@ namespace CardSystem
 			}
 
             // failed ability cast catcher
-  			if (abilityData.GetUnit.GetTeam == Team.Friendly && _targetingStrategy is not Targetless && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
+  			if (abilityData.GetUnit.GetTeam == Team.Friendly && (abilityData.Targets == null || abilityData.GetTargetCount == 0))
             {
                 // Return the card to hand or destroy it
                 if (DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null)
@@ -61,6 +55,7 @@ namespace CardSystem
                     var cardSelect = DeckAndHandManager.Instance.GetSelectedCard.GetCardTransform.GetComponent<CardSelect>();
                     cardSelect?.ReturnCardToHand();
                 }
+
                 AbilityEvents.TargetingStopped();
                 return;
             }
@@ -72,7 +67,7 @@ namespace CardSystem
 					continue;
 
 				EffectStrategy curEffect = port.Connection.node as EffectStrategy;
-				curEffect.StartEffect(abilityData, OnEffectFinished);
+				curEffect.StartEffect(abilityData, () => OnEffectFinished());
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
@@ -82,10 +77,10 @@ namespace CardSystem
         // Unused method for now, kept just for reminder of tutorial system setup
         private void OnEffectFinished()
 		{
-			//
+            
 		}
 
-        // Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯
+        /*/ Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯
 		// I think this is just grabbing each port's data identifier type
         public override object GetValue(NodePort port)
         {
@@ -97,14 +92,10 @@ namespace CardSystem
 
 				if (port.fieldName.Contains("filtering"))
 					return GetInputValue<double>("filtering");
-				else if (port.fieldName.Contains("helpfulEffects"))
-					return GetInputValue<bool>("helpfulEffects");
-                else if (port.fieldName.Contains("harmfulEffects"))
-                    return GetInputValue<int>("harmfulEffects");
-                else if (port.fieldName.Contains("miscEffects"))
-                    return GetInputValue<byte>("miscEffects");
+                else if (port.fieldName.Contains("effects"))
+                    return GetInputValue<byte>("effects");
             }
             throw new System.Exception($"{this.GetType()}.GetValue() Override issue");
-        }
+        }*/
     }
 }

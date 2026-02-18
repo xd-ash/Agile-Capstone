@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewAudioLibray", menuName = "Audio Library/New Library")]
+[CreateAssetMenu(fileName = "NewAudioLibray", menuName = "Libraries/New Audio Library")]
 public class AudioLibrary : ScriptableObject
 {
     [Header("Music")]
@@ -19,4 +19,11 @@ public class AudioLibrary : ScriptableObject
     public AudioClip GetSelectCardSFX => _selectCardSfx;
     public AudioClip GetDrawCardSFX => _drawCardSfx;
 
+    [Header("Unit")]
+    [SerializeField] private AudioClip _damageTakeSFX1;
+    [SerializeField] private AudioClip _damageTakeSFX2;
+    [SerializeField] private AudioClip _shieldHitSFX;
+    public AudioClip GetDamageTakeSFX1 => _damageTakeSFX1;
+    public AudioClip GetDamageTakeSFX2 => _damageTakeSFX2;
+    public AudioClip GetShieldHitSFX => _shieldHitSFX;
 }

@@ -1,5 +1,7 @@
+using System;
 using CardSystem;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(CardAndDeckLibrary))]
 public class CardDeckLibraryEditor : Editor
@@ -10,18 +12,32 @@ public class CardDeckLibraryEditor : Editor
     {
         //ClearOtherLibraries();
 
-        GrabAssets();
+        CardAndDeckLibrary.GrabAssets += GrabAssetsConnector;
     }
     public override void OnInspectorGUI()
     {
         if(_library == null) _library = (CardAndDeckLibrary)target;
         _library.CleanUpLists();
-        GrabAssets();
 
-        base.OnInspectorGUI();
+        if (GrabAssets())
+        {
+            EditorUtility.SetDirty(_library);
+            AssetDatabase.SaveAssetIfDirty(_library);
+        }
+        base.OnInspectorGUI(); 
     }
-    private void GrabAssets()
+    private void GrabAssetsConnector()
     {
+        if (GrabAssets())
+        {
+            EditorUtility.SetDirty(_library);
+            AssetDatabase.SaveAssetIfDirty(_library);
+        }
+    }
+    public bool GrabAssets()
+    {
+        bool tmp = false;
+
         if (_library == null) _library = (CardAndDeckLibrary)target;
 
         //var deckGUIDS = AssetDatabase.FindAssets("t:Deck", new[] { "Assets/ScriptableObjects/DeckSOs" });
@@ -31,8 +47,15 @@ public class CardDeckLibraryEditor : Editor
             foreach (var guid in deckGUIDS)
                 _library.AddDeckToLibrary(AssetDatabase.LoadAssetAtPath<Deck>(AssetDatabase.GUIDToAssetPath(guid)));*/
         if (cardGUIDS.Length != _library.GetCardsInProject.Count)
+        {
+            _library.ClearCardLibrary();
             foreach (var guid in cardGUIDS)
+            {
                 _library.AddCardToLibrary(AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(AssetDatabase.GUIDToAssetPath(guid)));
+                tmp = true;
+            }
+        }
+        return tmp;
     }
 
     /*private void ClearOtherLibraries()

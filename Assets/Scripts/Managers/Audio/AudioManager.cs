@@ -32,6 +32,15 @@ public class AudioManager : MonoBehaviour
     // Queued clip to play when AbilityEvents.AbilityUsed() fires
     private AudioClip _pendingUseClip;
 
+    // Quick play methods
+    public void PlayDrawCardSfx() => PlaySFX(_audioLibrary.GetDrawCardSFX);
+    public void PlayCardSelectSfx() => PlaySFX(_audioLibrary.GetSelectCardSFX);
+    public void PlayButtonSFX() => PlaySFX(_audioLibrary.GetGetMenuButtonSFX);
+    public void PlayEndTurnSFX(Unit unit) => PlaySFX(_audioLibrary.GetEndTurnSFX);
+    public void PlayDamageTakeSFX(Unit unit) => PlaySFX(unit.GetTeam == Team.Friendly ? _audioLibrary.GetDamageTakeSFX1 : _audioLibrary.GetDamageTakeSFX2);
+    public void PlayShieldHitSFX() => PlaySFX(_audioLibrary.GetShieldHitSFX);
+    //
+
     public static AudioManager Instance { get; private set; }
     private void Awake()
     {
@@ -46,27 +55,9 @@ public class AudioManager : MonoBehaviour
         InitAudioSource(ref _musicSource, _musicVolume);
         InitAudioSource(ref _sfxSource, _sfxVolume);
 
-        /*_musicSource = gameObject.AddComponent<AudioSource>();
-        _musicSource.loop = true;
-        _musicSource.spatialBlend = 0f;
-        _musicSource.playOnAwake = false;
-        _musicSource.volume = _musicVolume;
-
-        _sfxSource = gameObject.AddComponent<AudioSource>();
-        _sfxSource.loop = false;
-        _sfxSource.spatialBlend = 0f;
-        _sfxSource.playOnAwake = false;
-        _sfxSource.volume = _sfxVolume;*/
-
         SaveLoadScript.LoadSettings?.Invoke();
         ApplyVolumes();
     }
-
-    // Quick play methods
-    public void PlayDrawCardSfx() => PlaySFX(_audioLibrary.GetDrawCardSFX);
-    public void PlayCardSelectSfx() => PlaySFX(_audioLibrary.GetSelectCardSFX);
-    public void PlayButtonSFX() => PlaySFX(_audioLibrary.GetGetMenuButtonSFX);
-    public void PlayEndTurnSFX() => PlaySFX(_audioLibrary.GetEndTurnSFX);
 
     private void OnEnable()
     {
@@ -78,7 +69,7 @@ public class AudioManager : MonoBehaviour
     {
         // Unsubscribe TurnManager listener if we return to main menu
         if (sceneLoaded == "MainMenu" && TurnManager.Instance != null)
-            TurnManager.Instance.OnPlayerTurnEnd -= PlayEndTurnSFX;
+            TurnManager.Instance.OnTurnEnd -= PlayEndTurnSFX;
 
         // Look for a matching scene music entry
         var entry = _sceneMusic.FirstOrDefault(e => e.sceneName == sceneLoaded);

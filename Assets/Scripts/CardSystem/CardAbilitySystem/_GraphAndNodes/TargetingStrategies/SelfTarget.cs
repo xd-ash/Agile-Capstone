@@ -13,28 +13,43 @@ namespace CardSystem
         {
             base.StartTargeting(abilityData, onFinished);
 
-            abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
-            onFinished();
+            abilityData.Targets = new List<GameObject>() { abilityData.GetUnit.gameObject };
+
+            //Start target selection for players, 
+            switch (abilityData.GetUnit.GetTeam)
+            {
+                case Team.Friendly:
+                    if (!_aoeStrat)
+                    {
+                        onFinished?.Invoke();
+                        break;
+                    }
+                    abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished));
+                    break;
+                case Team.Enemy:
+                    GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
+                    _aoeStrat?.GrabTargetsInRange(ref abilityData);
+                    onFinished();
+                    break;
+            }
         }
 
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
-            throw new NotImplementedException();
-        }
+            Unit caster = abilityData.GetUnit;
+            var def = graph as CardAbilityDefinition;
 
-        private IEnumerable<GameObject>TargetSelf(AbilityData abilityData)
-        {
-            yield return abilityData.GetUnit.gameObject;
-        }
-
-        protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit user)
-        {
-            Collider2D[] foundObjects = Physics2D.OverlapCircleAll(user.transform.position, radius);
-
-            foreach (Collider2D collider in foundObjects)
+            while (true)
             {
-                yield return collider.gameObject;
+                _aoeStrat?.GrabTargetsInRange(ref abilityData);
+
+                if (Input.GetMouseButtonDown(0))
+                    break;
+
+                yield return null;
             }
+
+            onFinished?.Invoke();
         }
     }
 }

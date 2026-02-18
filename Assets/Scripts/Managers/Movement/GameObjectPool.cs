@@ -5,7 +5,7 @@ public static class GameObjectPool
 {
     private static Dictionary<GameObject, Pool> _objectPools;
 
-    public static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent)
+    public static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Vector3 scale, Transform parent)
     {
         if (_objectPools == null)
             _objectPools = new Dictionary<GameObject, Pool>();
@@ -13,7 +13,7 @@ public static class GameObjectPool
         if (!_objectPools.ContainsKey(prefab))
             _objectPools[prefab] = new Pool(prefab);
 
-        return _objectPools[prefab].Spawn(position, rotation, parent);
+        return _objectPools[prefab].Spawn(position, rotation, scale, parent);
     }
 
     public static void Remove(GameObject objectToRemove)
@@ -38,7 +38,7 @@ public static class GameObjectPool
             _inactiveObjects = new Stack<GameObject>();
         }
 
-        public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = null)
+        public GameObject Spawn(Vector3 position, Quaternion rotation, Vector3 scale, Transform parent = null)
         {
             GameObject obj;
 
@@ -54,11 +54,11 @@ public static class GameObjectPool
                 obj = _inactiveObjects.Pop();
 
                 if (obj == null)
-                    return Spawn(position, rotation, parent);
+                    return Spawn(position, rotation, scale, parent);
             }
 
             obj.transform.SetLocalPositionAndRotation(position, rotation);
-            obj.transform.localScale = Vector3.one; //should be changed to accept a value from param
+            obj.transform.localScale = scale; //should be changed to accept a value from param
             obj.SetActive(true);
 
             return obj;

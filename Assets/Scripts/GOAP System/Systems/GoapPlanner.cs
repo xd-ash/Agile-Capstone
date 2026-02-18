@@ -32,6 +32,14 @@ public class GOAPNode
 
 public class GoapPlanner
 {
+    // temp solution for grabbing a debug bool
+    public GoapPlanner(GoapAgent agent)
+    {
+        _agent = agent;
+    }
+    private GoapAgent _agent;
+    //
+
     public Queue<GoapAction> Plan(List<GoapAction> actions, Dictionary<string,int> goal, WorldStates beliefStates)
     {
         List<GoapAction> usableActions = new List<GoapAction>();
@@ -43,20 +51,24 @@ public class GoapPlanner
         GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
 
         //
-        string tempStr = "Goal: ";
-        foreach (var g in goal)
-            tempStr += g.Key + ", ";
-        tempStr += "\nBeliefs: ";
-        foreach (var b in beliefStates.GetStates())
-            tempStr += b.Key + ", ";
-        Debug.Log(tempStr);
+        if (_agent.showDebugMessages)
+        {
+            string tempStr = "Goal: ";
+            foreach (var g in goal)
+                tempStr += g.Key + ", ";
+            tempStr += "\nBeliefs: ";
+            foreach (var b in beliefStates.GetStates())
+                tempStr += b.Key + ", ";
+            Debug.Log(tempStr);
+        }
         //
 
         bool success = BuildGraph(start, leaves, usableActions, goal);
 
         if (!success)
-        {
-            Debug.Log("NO PLAN");
+        { 
+            if(_agent.showDebugMessages)
+                Debug.Log("NO PLAN");
             return null;
         }
 
@@ -84,11 +96,15 @@ public class GoapPlanner
             queue.Enqueue(a);
 
         //
-        string tempStr2 = "The Plan is: ";
-        foreach (GoapAction a in queue)
-            tempStr2 += $"{a.ToString()} > ";
-        Debug.Log(tempStr2);
+        if (_agent.showDebugMessages)
+        {
+            string tempStr2 = "The Plan is: ";
+            foreach (GoapAction a in queue)
+                tempStr2 += $"{a.ToString()} > ";
+            Debug.Log(tempStr2);
+        }
         //
+
         return queue;
     }
 

@@ -18,9 +18,7 @@ MonoBehaviour:
     keys:
     - targeting
     - filtering
-    - helpfulEffects
-    - harmfulEffects
-    - miscEffects
+    - effects
     - helpfulEffects 0
     - miscEffects 0
     values:
@@ -29,7 +27,7 @@ MonoBehaviour:
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: input
+      - fieldName: abilityRoot
         node: {fileID: 833357395057102542}
         reroutePoints: []
       _direction: 1
@@ -45,25 +43,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-    - _fieldName: helpfulEffects
-      _node: {fileID: -5552358826238473670}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: harmfulEffects
-      _node: {fileID: -5552358826238473670}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: miscEffects
+    - _fieldName: effects
       _node: {fileID: -5552358826238473670}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -96,12 +76,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectTypes: 10
   targeting: 0
   filtering: 0
-  helpfulEffects: 0
-  harmfulEffects: 0
-  miscEffects: 0
+  effects: 0
 --- !u!114 &-5550744489948948604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +92,7 @@ MonoBehaviour:
   m_Name: Buff Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 104, y: 72}
+  position: {x: 152, y: 24}
   ports:
     keys:
     - input
@@ -123,7 +100,7 @@ MonoBehaviour:
     values:
     - _fieldName: input
       _node: {fileID: -5550744489948948604}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: helpfulEffects 0
@@ -142,11 +119,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _hasDuration: 1
-  _duration: 5000
-  _effectValue: 5
-  effectVisuals: 0
+  _effectValue: 3
   input: 0
+  effectVisuals: 0
 --- !u!114 &-2470422592221940434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,13 +162,10 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _hasDuration: 0
-  _duration: 0
-  _effectValue: 0
-  effectVisuals: 0
+  _effectValue: 1
   input: 0
+  effectVisuals: 0
   _action: 0
-  _amount: 1
   _logResults: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -212,13 +184,19 @@ MonoBehaviour:
   - {fileID: 833357395057102542}
   - {fileID: -5550744489948948604}
   - {fileID: -2470422592221940434}
-  _cardName: Tuck Duck n' Roll
   _description: Add 3 Block and draw 1 card
   _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
   _apCost: 3
   _range: 0
   _shopCost: 35
   _shopWeight: 20
+  _baseHitChance: 80
+  _minHitChance: 10
+  _maxHitChance: 95
+  _ignoreLOS: 0
+  _hitPenaltyPerTile: 5
+  _accuracyMultiplier: 1
+  _accuracyFlatBonus: 0
 --- !u!114 &833357395057102542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,9 +213,10 @@ MonoBehaviour:
   position: {x: 104, y: -184}
   ports:
     keys:
-    - input
+    - abilityRoot
+    - aoeStrat
     values:
-    - _fieldName: input
+    - _fieldName: abilityRoot
       _node: {fileID: 833357395057102542}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -249,6 +228,14 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  input: 0
-  isAOE: 0
-  radius: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: 833357395057102542}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0

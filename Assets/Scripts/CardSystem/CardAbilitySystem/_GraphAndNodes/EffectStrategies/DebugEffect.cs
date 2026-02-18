@@ -5,26 +5,18 @@ namespace CardSystem
 {
     // Concrete misc effect class to send a debug log message instantly or multiple time over duration
     [CreateNodeMenu("Misc Effects/Debug Message")]
-    public class DebugEffect : MiscEffect
+    public class DebugEffect : EffectStrategy, IUseEffectValue
     {
         [TextArea]
         [SerializeField] private string message;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
-            foreach (GameObject target in abilityData.Targets)
-            {
-                if (target != null && target.TryGetComponent<Unit>(out Unit unit))
-                {
-                    Debug.Log(message);
-                    if (_hasDuration)
-                        DoEffectOverTime(unit, _duration);
-                }
-            }
+            Debug.Log(message);
 
-            onFinished();
+            _onFinished?.Invoke(); 
         }
     }
 }

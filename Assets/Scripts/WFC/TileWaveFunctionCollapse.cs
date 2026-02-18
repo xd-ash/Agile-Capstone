@@ -5,20 +5,12 @@ namespace WFC
 {
     public static class TileWaveFunctionCollapse
     {
-        //private static int _playerCount;
-        //private static int _enemyCount;
-        //public static bool CheckCanSpawnPlayer => _playerCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
-        //public static bool CheckCanSpawnEnemy => _enemyCount < PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
-
         public static TileElement[,] WFCGenerate(TileModule[] moduleSet, Vector2Int gridSize)
         {
             Random.InitState(PlayerDataManager.Instance.GetSeed);
 
             TileElement[,] grid = new TileElement[gridSize.x, gridSize.y];
             List<Vector2Int> unreachedPositions = new List<Vector2Int>();
-
-            //_playerCount = 0;
-            //_enemyCount = 0;
 
             for (int y = 0; y < gridSize.y; y++)
             {
@@ -66,16 +58,6 @@ namespace WFC
         private static void CollapseElement(TileElement curElement, TileElement[,] grid)
         {
             curElement.Collapse();
-
-            /*switch (curElement.GetSelectedModule.GetTileType)
-            {
-                case TileType.SingleEnemy:
-                    _enemyCount++;
-                    break;
-                case TileType.SinglePlayer:
-                    _playerCount++;
-                    break;
-            }*/
 
             for (int y = -1; y <= 1; y++)
             {
