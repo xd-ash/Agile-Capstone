@@ -15,8 +15,8 @@ namespace CardSystem
             {
                 if (targetObj != null && targetObj.TryGetComponent<Unit>(out Unit unit))
                 {
-                    unit.AddShield(effectValue);
-                    unit.GetFloatingText.SpawnFloatingText($"+{effectValue}", TextPresetType.ShieldPreset);
+                    unit.AddShield(_effectValue);
+                    unit.GetFloatingText.SpawnFloatingText($"+{_effectValue}", TextPresetType.ShieldPreset);
                 }
             }
 

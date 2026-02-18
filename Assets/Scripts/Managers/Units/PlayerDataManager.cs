@@ -171,7 +171,11 @@ public class PlayerDataManager : MonoBehaviour
         {
             List<CardAbilityDefinition> cards = new();
             foreach (var card in deck.cardNames)
-                cards.Add(_cardAndDeckLibrary.GetCardFromName(card));
+            {
+                var cardDef = _cardAndDeckLibrary.GetCardFromName(card);
+                if (cardDef == null) continue;
+                cards.Add(cardDef);
+            }
             createdDecks.Add(new(deck.deckName, cards));
         }
 

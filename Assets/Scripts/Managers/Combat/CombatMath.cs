@@ -132,7 +132,7 @@ public static class CombatMath
 
     public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell)
     {
-        byte[,] map = MapCreator.Instance.GetByteMap;
+        byte[,] map = ByteMapController.Instance.GetByteMap;
         if (map == null)
         {
             return true;

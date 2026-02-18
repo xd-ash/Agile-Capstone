@@ -144,7 +144,7 @@ public class Unit : MonoBehaviour, IDamagable
             }
             //
 
-            MapCreator.Instance.UpdateUnitPositionByteMap(IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition));
+            ByteMapController.Instance.UpdateUnitPositionByteMap(this, IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition));
             Destroy(gameObject);
             //Debug.Log($"[{team}] '{name}' unit died");
         }
@@ -256,12 +256,13 @@ public class Unit : MonoBehaviour, IDamagable
         return true;
     }
 
-    public void ToggleCanMove(bool canMove)
+    public void ToggleCanMove(bool canMove, bool sendText = true)
     {
         if (_canMove == canMove) return; //avoid any extra texts 
 
         _canMove = canMove;
 
+        if (!sendText) return;
         _floatingText.SpawnFloatingText(_canMove ? "Freed" : "Rooted", TextPresetType.MissTextPreset);
     }
 

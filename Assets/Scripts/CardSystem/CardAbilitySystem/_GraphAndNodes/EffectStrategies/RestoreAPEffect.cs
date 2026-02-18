@@ -12,7 +12,7 @@ namespace CardSystem
 
             foreach (GameObject target in abilityData.Targets)
                 if (target != null && target.TryGetComponent(out Unit targetUnit))
-                    targetUnit.RestoreAP(effectValue + (graph as CardAbilityDefinition).GetApCost);
+                    targetUnit.RestoreAP(_effectValue + (graph as CardAbilityDefinition).GetApCost);
 
             _onFinished?.Invoke();
         }

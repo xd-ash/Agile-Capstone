@@ -14,17 +14,6 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
 
     [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public float objEffects;
 
-    public void PassObject(AbilityData abilityData, SpawnObjectTracker tracker)
-    {
-        foreach (NodePort port in Outputs)
-        {
-            if (port.Connection == null || port.Connection.node == null || port.Connection.node is not IAcceptSpawnObjs)
-                continue;
-
-            (port.Connection.node as IAcceptSpawnObjs).AcceptObject(abilityData, tracker);
-        }
-    }
-
     public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
     {
         base.StartEffect(abilityData, onFinished, effectValueChange);
@@ -54,6 +43,17 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
             spawnedObjs[abilityData.GetGUID].Add(sot);
 
             PassObject(abilityData, sot);
+        }
+    }
+
+    public void PassObject(AbilityData abilityData, SpawnObjectTracker tracker)
+    {
+        foreach (NodePort port in Outputs)
+        {
+            if (port.Connection == null || port.Connection.node == null || port.Connection.node is not IAcceptSpawnObjs)
+                continue;
+
+            (port.Connection.node as IAcceptSpawnObjs).AcceptObject(abilityData, tracker);
         }
     }
 

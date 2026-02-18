@@ -47,11 +47,14 @@ public class CardDeckLibraryEditor : Editor
             foreach (var guid in deckGUIDS)
                 _library.AddDeckToLibrary(AssetDatabase.LoadAssetAtPath<Deck>(AssetDatabase.GUIDToAssetPath(guid)));*/
         if (cardGUIDS.Length != _library.GetCardsInProject.Count)
+        {
+            _library.ClearCardLibrary();
             foreach (var guid in cardGUIDS)
             {
                 _library.AddCardToLibrary(AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(AssetDatabase.GUIDToAssetPath(guid)));
                 tmp = true;
             }
+        }
         return tmp;
     }
 

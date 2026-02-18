@@ -42,14 +42,17 @@ public class CardAndDeckLibrary : ScriptableObject
             if (_cardsInProject[i] == null)
                 _cardsInProject.RemoveAt(i);
     }
-
+    public void ClearCardLibrary()
+    {
+        _cardsInProject.Clear();
+    }
     public CardAbilityDefinition GetCardFromName(string cardName)
     {
         foreach (var card in _cardsInProject)
             if (card.name == cardName)
                 return card;
 
-        Debug.LogError($"No matching card definition found in library for \"{cardName}\"");
+        Debug.LogWarning($"No matching card definition found in library for \"{cardName}\"");
         return null;
     }
     public Deck GetDeckFromName(string deckName, bool sendDebugOnFail = true)

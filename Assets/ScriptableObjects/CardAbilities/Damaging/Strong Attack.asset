@@ -24,8 +24,8 @@ MonoBehaviour:
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: harmfulEffects 0
-        node: {fileID: -3844634634637453141}
+      - fieldName: effects 0
+        node: {fileID: 1514123839412922662}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -43,88 +43,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 7
+  _effectValue: 7
   input: 0
   effectVisuals: 0
---- !u!114 &-3844634634637453141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2e72152fd1d8d54690b69f540af0db1, type: 3}
-  m_Name: Ability Root
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -328, y: -104}
-  ports:
-    keys:
-    - targeting
-    - filtering
-    - effects
-    - harmfulEffects 0
-    - filtering 0
-    values:
-    - _fieldName: targeting
-      _node: {fileID: -3844634634637453141}
-      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: 5144402596869855986}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: filtering
-      _node: {fileID: -3844634634637453141}
-      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: effects
-      _node: {fileID: -3844634634637453141}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: harmfulEffects 0
-      _node: {fileID: -3844634634637453141}
-      _typeQualifiedName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -8393294752202084253}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-    - _fieldName: filtering 0
-      _node: {fileID: -3844634634637453141}
-      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -76797013698469015}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-  targeting: 0
-  filtering: 0
-  effects: 0
 --- !u!114 &-76797013698469015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +70,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: filtering 0
-        node: {fileID: -3844634634637453141}
+        node: {fileID: 1514123839412922662}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -170,11 +91,11 @@ MonoBehaviour:
   m_Name: Strong Attack
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: -3844634634637453141}
   - {fileID: -8393294752202084253}
   - {fileID: -76797013698469015}
   - {fileID: 5144402596869855986}
   - {fileID: 6646383339752646348}
+  - {fileID: 1514123839412922662}
   _description: Deal 7 damage close range
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
   _apCost: 7
@@ -188,6 +109,85 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+--- !u!114 &1514123839412922662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e72152fd1d8d54690b69f540af0db1, type: 3}
+  m_Name: Ability Root
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.AbilityRootNode
+  graph: {fileID: 11400000}
+  position: {x: -376, y: -104}
+  ports:
+    keys:
+    - targeting
+    - filtering
+    - effects
+    - filtering 0
+    - effects 0
+    values:
+    - _fieldName: targeting
+      _node: {fileID: 1514123839412922662}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: abilityRoot
+        node: {fileID: 5144402596869855986}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: filtering
+      _node: {fileID: 1514123839412922662}
+      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects
+      _node: {fileID: 1514123839412922662}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: filtering 0
+      _node: {fileID: 1514123839412922662}
+      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -76797013698469015}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+    - _fieldName: effects 0
+      _node: {fileID: 1514123839412922662}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -8393294752202084253}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  targeting: 0
+  filtering: 0
+  effects: 0
 --- !u!114 &5144402596869855986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,21 +204,32 @@ MonoBehaviour:
   position: {x: -40, y: -152}
   ports:
     keys:
-    - input
+    - abilityRoot
+    - aoeStrat
     values:
-    - _fieldName: input
+    - _fieldName: abilityRoot
       _node: {fileID: 5144402596869855986}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: targeting
-        node: {fileID: -3844634634637453141}
+        node: {fileID: 1514123839412922662}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  input: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: 5144402596869855986}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
   _targetTilesNotUnits: 0
 --- !u!114 &6646383339752646348
 MonoBehaviour:

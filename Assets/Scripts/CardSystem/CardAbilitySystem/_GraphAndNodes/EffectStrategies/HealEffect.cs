@@ -15,8 +15,8 @@ namespace CardSystem
             {
                 if (target != null && target.TryGetComponent<Unit>(out Unit unit))
                 {
-                    unit.ChangeHealth(effectValue, true);
-                    unit.GetFloatingText.SpawnFloatingText($"+{effectValue}", TextPresetType.HealPreset);
+                    unit.ChangeHealth(_effectValue, true);
+                    unit.GetFloatingText.SpawnFloatingText($"+{_effectValue}", TextPresetType.HealPreset);
                 }
             }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,19 +13,43 @@ namespace CardSystem
         {
             base.StartTargeting(abilityData, onFinished);
 
-            //abilityData.Targets = isAOE ? GetGameObjectsInRadius(abilityData.GetUnit) : TargetSelf(abilityData);
-            abilityData.Targets = TargetSelf(abilityData);
-            onFinished();
+            abilityData.Targets = new List<GameObject>() { abilityData.GetUnit.gameObject };
+
+            //Start target selection for players, 
+            switch (abilityData.GetUnit.GetTeam)
+            {
+                case Team.Friendly:
+                    if (!_aoeStrat)
+                    {
+                        onFinished?.Invoke();
+                        break;
+                    }
+                    abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished));
+                    break;
+                case Team.Enemy:
+                    GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
+                    _aoeStrat?.GrabTargetsInRange(ref abilityData);
+                    onFinished();
+                    break;
+            }
         }
 
-        private IEnumerable<GameObject>TargetSelf(AbilityData abilityData)
+        public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
-            yield return abilityData.GetUnit.gameObject;
-        }
+            Unit caster = abilityData.GetUnit;
+            var def = graph as CardAbilityDefinition;
 
-        protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit user)
-        {
-            throw new NotImplementedException();
+            while (true)
+            {
+                _aoeStrat?.GrabTargetsInRange(ref abilityData);
+
+                if (Input.GetMouseButtonDown(0))
+                    break;
+
+                yield return null;
+            }
+
+            onFinished?.Invoke();
         }
     }
 }

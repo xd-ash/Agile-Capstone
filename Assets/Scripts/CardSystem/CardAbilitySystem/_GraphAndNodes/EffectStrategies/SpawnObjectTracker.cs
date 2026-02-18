@@ -9,6 +9,8 @@ public abstract class SpawnObjectTracker : MonoBehaviour
     protected Unit _creator;
     protected Vector2Int _pos;
 
+    public Vector2Int GetGridPos => _pos;
+
     private void OnEnable()
     {
         OnSpawn();

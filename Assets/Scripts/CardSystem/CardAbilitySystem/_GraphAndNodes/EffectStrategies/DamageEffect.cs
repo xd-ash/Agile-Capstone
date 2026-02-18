@@ -21,11 +21,11 @@ namespace CardSystem
 
                     if (!hit) continue;
 
-                    targetUnit.ChangeHealth(effectValue, false);
-                    targetUnit.GetFloatingText.SpawnFloatingText($"-{effectValue}", TextPresetType.DamagePreset);
+                    targetUnit.ChangeHealth(_effectValue, false);
+                    targetUnit.GetFloatingText.SpawnFloatingText($"-{_effectValue}", TextPresetType.DamagePreset);
                 }
             }
-
+            
             _onFinished?.Invoke();
         }
     }

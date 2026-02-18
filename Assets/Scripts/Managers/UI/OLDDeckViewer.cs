@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 
-public class DeckViewer : MonoBehaviour
+/*public class DeckViewer : MonoBehaviour
 {
     [Tooltip("Where preview cards will be parented. If null, previews are parented to this object.")]
     [SerializeField] private Transform _spawnParent;
@@ -317,4 +317,4 @@ public class OverlayClickCatcher : MonoBehaviour, IPointerClickHandler
         // Click was not on the DeckViewer world object — close the deck preview.
         owner.ClearPreviews();
     }
-}
+}*/

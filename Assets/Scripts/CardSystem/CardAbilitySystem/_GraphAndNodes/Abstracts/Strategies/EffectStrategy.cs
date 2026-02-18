@@ -6,7 +6,7 @@ namespace CardSystem
     // Base abstract effect strategy class
     public abstract class EffectStrategy : AbilityNodeBase
     {
-        [SerializeField, HideInInspector] public int effectValue;
+        [SerializeField, HideInInspector] protected int _effectValue;
         protected Action _onFinished;
 
         [Input(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte input;
@@ -25,13 +25,13 @@ namespace CardSystem
             _onFinished = onFinished;
 
             //set up value change and store value reset within onfinished
-            int temp = effectValue;
-            effectValue += effectValueChange;
+            int temp = _effectValue;
+            _effectValue += effectValueChange;
             _onFinished += () => { ResetValue(temp); };
         }
         protected void ResetValue(int initVal)
         {
-            effectValue = initVal;
+            _effectValue = initVal;
         }
     }
 }

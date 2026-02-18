@@ -39,7 +39,7 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
                         //add targets manually since targets was getting reset on this action store
                         abilityData.Targets = temp;
                         strat.StartEffect(abilityData, onFinished);
-                    }, effectValue, Guid.NewGuid(), strat.name);
+                    }, _effectValue, Guid.NewGuid(), strat.name);
                 }
             }
             else

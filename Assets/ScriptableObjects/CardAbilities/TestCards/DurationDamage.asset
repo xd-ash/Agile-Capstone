@@ -95,7 +95,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 3
+  _effectValue: 2
   input: 0
   effectVisuals: 0
   effects: 0
@@ -127,7 +127,7 @@ MonoBehaviour:
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: input
+      - fieldName: abilityRoot
         node: {fileID: 4496216857249166456}
         reroutePoints: []
       _direction: 1
@@ -219,7 +219,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 2
+  _effectValue: 2
   input: 0
   effectVisuals: 0
 --- !u!114 &11400000
@@ -269,9 +269,10 @@ MonoBehaviour:
   position: {x: -168, y: -136}
   ports:
     keys:
-    - input
+    - abilityRoot
+    - aoeStrat
     values:
-    - _fieldName: input
+    - _fieldName: abilityRoot
       _node: {fileID: 4496216857249166456}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -283,5 +284,15 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  input: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: 4496216857249166456}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
   _targetTilesNotUnits: 0

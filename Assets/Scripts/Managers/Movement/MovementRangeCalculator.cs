@@ -1,20 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using AStarPathfinding;
 using static IsoMetricConversions;
-using static GameObjectPool;
 
-public class MovementRangeHighlighter : MonoBehaviour
+public class MovementRangeCalculator : MonoBehaviour
 {
     [SerializeField] private Color _reachableColor = new Color(0f, 0.3f, 1f, 0.3f);
-    private Transform _highlightObjectParent;
-    private GameObject _highlightTilePrefab;
 
-    private readonly List<GameObject> _lastHighlightedTiles = new List<GameObject>();
     private Unit _currentUnit;
     private TurnManager.Turn _lastTurn = TurnManager.Turn.Player;
 
-    public static MovementRangeHighlighter Instance { get; private set; }
+    public static MovementRangeCalculator Instance { get; private set; }
     private void Awake()
     {
         if (Instance == null)
@@ -29,15 +24,12 @@ public class MovementRangeHighlighter : MonoBehaviour
         if (TurnManager.Instance != null)
             _lastTurn = TurnManager.Instance.CurrTurn;
 
-        _highlightObjectParent = MapCreator.Instance.transform.Find("HighlightObjParent");
-        _highlightTilePrefab = Resources.Load<GameObject>("HighlightTile");
-
-        AbilityEvents.OnAbilityTargetingStarted += ClearHighlights;
+        AbilityEvents.OnAbilityTargetingStarted += TileHighlighter.ClearHighlights;
         AbilityEvents.OnAbilityTargetingStopped += RebuildForCurrentUnit;
     }
     private void OnDestroy()
     {
-        AbilityEvents.OnAbilityTargetingStarted -= ClearHighlights;
+        AbilityEvents.OnAbilityTargetingStarted -= TileHighlighter.ClearHighlights;
         AbilityEvents.OnAbilityTargetingStopped -= RebuildForCurrentUnit;
     }
 
@@ -65,7 +57,7 @@ public class MovementRangeHighlighter : MonoBehaviour
             TrySetCurrentUnit(TurnManager.GetCurrentUnit);
         else
         {
-            ClearHighlights();
+            TileHighlighter.ClearHighlights();
             UnsubscribeFromUnit();
             _currentUnit = null;
         }
@@ -75,7 +67,7 @@ public class MovementRangeHighlighter : MonoBehaviour
     {
         if (unit == null || unit.GetTeam != Team.Friendly)
         {
-            ClearHighlights();
+            TileHighlighter.ClearHighlights();
             UnsubscribeFromUnit();
             _currentUnit = null;
             return;
@@ -112,18 +104,18 @@ public class MovementRangeHighlighter : MonoBehaviour
             AbilityEvents.IsTargeting ||
             PauseMenu.isPaused)
         {
-            ClearHighlights();
+            TileHighlighter.ClearHighlights();
             return;
         }
         var reachable = ComputeReachableCells(_currentUnit);
-        ApplyHighlights(reachable);
+        TileHighlighter.ApplyHighlights(reachable, _reachableColor);
     }
 
     private HashSet<Vector2Int> ComputeReachableCells(Unit unit)
     {
         var result = new HashSet<Vector2Int>();
         
-        byte[,] map = MapCreator.Instance.GetByteMap;
+        byte[,] map = ByteMapController.Instance.GetByteMap;
         int width = map.GetLength(0);
         int height = map.GetLength(1);
 
@@ -169,7 +161,7 @@ public class MovementRangeHighlighter : MonoBehaviour
         return result;
     }
 
-    private void ApplyHighlights(HashSet<Vector2Int> cells)
+   /* private void ApplyHighlights(HashSet<Vector2Int> cells)
     {
         ClearHighlights();
 
@@ -188,5 +180,5 @@ public class MovementRangeHighlighter : MonoBehaviour
             Remove(_lastHighlightedTiles[i]);
 
         _lastHighlightedTiles.Clear();
-    }
+    }*/
 }

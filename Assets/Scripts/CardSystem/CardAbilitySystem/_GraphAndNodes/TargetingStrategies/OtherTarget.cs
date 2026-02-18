@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using static IsoMetricConversions;
 using UnityEngine;
-using System.Linq;
-using System.Text;
 
 namespace CardSystem
 {
@@ -16,21 +14,23 @@ namespace CardSystem
 
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
         {
+            base.StartTargeting(abilityData, onFinished);
+
             switch (abilityData.GetUnit.GetTeam)
             {
                 case Team.Friendly:
-                    base.StartTargeting(abilityData, onFinished);
-                    abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished, _targetTilesNotUnits));
+                    abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished));
                     break;
                 case Team.Enemy:
                     GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
                     if (agent.curtarget != null)
                         abilityData.Targets = new List<GameObject>() { agent.curtarget.gameObject };
-                    onFinished();
+                    _aoeStrat?.GrabTargetsInRange(ref abilityData);
+                    onFinished?.Invoke();
                     break;
             }
         }
-        public IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished, bool isTileTargeted)
+        public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
             Unit caster = abilityData.GetUnit;
             Unit hoveredUnit = null;
@@ -38,7 +38,9 @@ namespace CardSystem
 
             while (true)
             {
-                if (!isTileTargeted)
+                _aoeStrat?.GrabTargetsInRange(ref abilityData);
+
+                if (!_targetTilesNotUnits)
                 {
                     //Hover detection
                     Unit newHover = GetUnitUnderMouse();
@@ -62,7 +64,11 @@ namespace CardSystem
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    abilityData.Targets = isTileTargeted ? TileOnMouse() : TargetOnMouse(caster);
+                    List<GameObject> tempTargets = abilityData.Targets == null ? new List<GameObject>() : new List<GameObject>(abilityData.Targets);
+                    GameObject temp = _targetTilesNotUnits ? TileOnMouse() : TargetOnMouse(caster);
+                    if (!tempTargets.Contains(temp))
+                        tempTargets.Add(temp);
+                    abilityData.Targets = tempTargets;
 
                     if (abilityData.GetTargetCount > 0)
                         break;
@@ -71,24 +77,26 @@ namespace CardSystem
                 yield return null;
             }
 
+
             if (hoveredUnit != null)
                 hoveredUnit.HideHitChance();
 
             onFinished?.Invoke();
         }
 
-        private List<GameObject> TileOnMouse()
+        private GameObject TileOnMouse()
         {
+            var bmc = ByteMapController.Instance;
             Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
-            if (tilePos.x < 0 || tilePos.x >= MapCreator.Instance?.GetByteMap.GetLength(0) ||
-                tilePos.y < 0 || tilePos.y >= MapCreator.Instance?.GetByteMap.GetLength(1) ||
-                MapCreator.Instance.GetByteAtPosition(new Vector2Int(tilePos.x, tilePos.y)) != 0)
-                return new();
+            if (tilePos.x < 0 || tilePos.x >= bmc?.GetByteMap.GetLength(0) ||
+                tilePos.y < 0 || tilePos.y >= bmc?.GetByteMap.GetLength(1) ||
+                bmc?.GetByteAtPosition(new Vector2Int(tilePos.x, tilePos.y)) != 0)
+                return null;
 
-            GameObject empty = new("temp");
+            GameObject empty = new("empty");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
-            return new List<GameObject>() { empty };
+            return empty;
         }
 
         private Unit GetUnitUnderMouse()
@@ -102,25 +110,13 @@ namespace CardSystem
             return hit.collider.GetComponent<Unit>();
         }
 
-        private IEnumerable<GameObject> TargetOnMouse(Unit unit)
+        private GameObject TargetOnMouse(Unit unit)
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), 
                 Vector2.zero, Mathf.Infinity);
-
             if (hit.collider != null && hit.collider.GetComponent<Unit>())
-                yield return hit.collider.gameObject;
-            else
-                yield break;
-        }
-
-        protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit)
-        {
-            throw new NotImplementedException();
-
-            /*Collider[] foundObjects = Physics.OverlapSphere(unit.transform.position, radius);
-
-            foreach (Collider collider in foundObjects)
-                yield return collider.gameObject;*/
+                return hit.collider.gameObject;
+            return null;
         }
     }
 }

@@ -27,7 +27,7 @@ MonoBehaviour:
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: input
+      - fieldName: abilityRoot
         node: {fileID: 6493304588745031532}
         reroutePoints: []
       _direction: 1
@@ -119,7 +119,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 1
+  _effectValue: 1
   input: 0
   effectVisuals: 0
 --- !u!114 &-1860727759273947384
@@ -172,8 +172,8 @@ MonoBehaviour:
   - {fileID: -1860727759273947384}
   - {fileID: 55771105022752719}
   - {fileID: -2250469497568542709}
-  _description: flip coins until you get heads, then deal damage equal to the number
-    of tail rolled
+  _description: flip coins until you get heads, then deal extra damage equal to the
+    number of tails rolled
   _abilitySFX: {fileID: 0}
   _apCost: 3
   _range: 10
@@ -249,7 +249,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 0
+  _effectValue: 0
   input: 0
   effectVisuals: 0
   effects: 0
@@ -270,9 +270,10 @@ MonoBehaviour:
   position: {x: -184, y: -104}
   ports:
     keys:
-    - input
+    - abilityRoot
+    - aoeStrat
     values:
-    - _fieldName: input
+    - _fieldName: abilityRoot
       _node: {fileID: 6493304588745031532}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -284,5 +285,15 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  input: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: 6493304588745031532}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
   _targetTilesNotUnits: 0

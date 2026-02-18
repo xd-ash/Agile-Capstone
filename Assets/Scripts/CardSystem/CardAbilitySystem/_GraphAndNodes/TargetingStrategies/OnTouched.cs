@@ -16,6 +16,9 @@ public class OnTouched : AbilityNodeBase, IAcceptSpawnObjs, IPassSpawnedObjs
             if (port.Connection == null || port.Connection.node == null || port.Connection.node is not EffectStrategy)
                 continue;
 
+            //set ability data position to trap (used mainly for knockbacks)
+            abilityData.AbilityTriggerPos = tracker.GetGridPos;
+
             //set the trigger action to grab the incoming unit praram (from event/trigger method), set abilityData target, then start the given effect
             tracker.SetOnTrigger((unit) =>
             {

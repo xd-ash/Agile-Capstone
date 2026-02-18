@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections;
 
 namespace CardSystem
 {
-    [CreateNodeMenu("Targeting/Targetless")]
+    /*[CreateNodeMenu("Targeting/Targetless")]
     public class Targetless : TargetingStrategy
     {
         public override void StartTargeting(AbilityData abilityData, Action onFinished)
@@ -14,9 +13,9 @@ namespace CardSystem
             onFinished();
         }
 
-        protected override IEnumerable<GameObject> GetGameObjectsInRadius(Unit unit)
+        public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished, bool isTileTargeted)
         {
             throw new NotImplementedException();
         }
-    }
+    }*/
 }

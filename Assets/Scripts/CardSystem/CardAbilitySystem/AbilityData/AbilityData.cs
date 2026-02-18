@@ -12,10 +12,12 @@ namespace CardSystem
         private Unit _unit;
         private IEnumerable<GameObject> _targets;
         private Guid _guid;
+        private Vector2Int _abilityTriggerPos;
 
         public Unit GetUnit { get { return _unit; } }
         public IEnumerable<GameObject> Targets { get { return _targets; } set { _targets = value; } }
         public Guid GetGUID => _guid;
+        public Vector2Int AbilityTriggerPos { get { return _abilityTriggerPos; } set { _abilityTriggerPos = value; } }
 
         public int GetTargetCount
         {
@@ -30,10 +32,11 @@ namespace CardSystem
             }
         }
 
-        public AbilityData(Unit unit, Guid guid)
+        public AbilityData(Unit unit, Guid guid, Vector2Int abilityTriggerPos)
         {
             _unit = unit;
             _guid = guid;
+            _abilityTriggerPos = abilityTriggerPos;
         }
 
         // Adjust to keep list of active coroutines for easy stopping?

@@ -17,13 +17,13 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange);
 
-            var flipResults = CoinFlip.FlipCoin(abilityData.GetUnit, desiredCoinOutcome, effectValue); //why do I have to do this
+            var flipResults = CoinFlip.FlipCoin(abilityData.GetUnit, desiredCoinOutcome, _effectValue); //why do I have to do this
 
             int undesiredCount = 0;
             foreach (var flipResult in flipResults)
                 if (flipResult != desiredCoinOutcome)
                     undesiredCount++;
-            undesiredCount = Math.Min(undesiredCount, effectValue);
+            undesiredCount = Math.Min(undesiredCount, _effectValue);
             abilityData.GetUnit?.GetFloatingText?.SpawnFloatingText($"{undesiredCount} {(desiredCoinOutcome == false ? "Heads" : "Tails")}", TextPresetType.CoinFlipPreset);
 
             //Do each effect connected to node

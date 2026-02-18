@@ -40,7 +40,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 2
+  _effectValue: 2
   input: 0
   effectVisuals: 0
 --- !u!114 &-7977046378808423703
@@ -106,11 +106,11 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 3
+  _effectValue: 2
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 1
+  _doEffectAtStart: 0
 --- !u!114 &-4847221918280892366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 0
+  _effectValue: 0
   input: 0
   effectVisuals: 0
   onHeads: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 8
+  _effectValue: 8
   input: 0
   effectVisuals: 0
 --- !u!114 &-2084367618930273767
@@ -274,9 +274,10 @@ MonoBehaviour:
   position: {x: -216, y: -184}
   ports:
     keys:
-    - input
+    - abilityRoot
+    - aoeStrat
     values:
-    - _fieldName: input
+    - _fieldName: abilityRoot
       _node: {fileID: -2084367618930273767}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
@@ -288,7 +289,17 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  input: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: -2084367618930273767}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
   _targetTilesNotUnits: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -364,7 +375,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 8
+  _effectValue: 8
   input: 0
   effectVisuals: 0
 --- !u!114 &8404677587845348182
@@ -393,7 +404,7 @@ MonoBehaviour:
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: input
+      - fieldName: abilityRoot
         node: {fileID: -2084367618930273767}
         reroutePoints: []
       _direction: 1

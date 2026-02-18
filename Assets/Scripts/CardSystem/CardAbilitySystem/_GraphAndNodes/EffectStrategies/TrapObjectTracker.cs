@@ -2,9 +2,9 @@
 
 public class TrapObjectTracker : SpawnObjectTracker
 {
-    public void CheckForTriggerOnTouch(Vector2Int pos, Unit unitThatTriggered)
+    public void CheckForTriggerOnTouch(Vector2Int trapPos, Unit unitThatTriggered)
     {
-        if (pos != _pos) return;
+        if (trapPos != _pos) return;
         
         InvokeOnTrigger(unitThatTriggered);
     }
@@ -12,6 +12,6 @@ public class TrapObjectTracker : SpawnObjectTracker
     public override void OnSpawn()
     {
         if (MapCreator.Instance == null) return;
-        MapCreator.TileEntered += CheckForTriggerOnTouch;
+        ByteMapController.TileEntered += CheckForTriggerOnTouch;
     }
 }

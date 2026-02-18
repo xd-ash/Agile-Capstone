@@ -15,7 +15,7 @@ namespace CardSystem
 
             
             if (node is IUseEffectValue)
-                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("effectValue"), new GUIContent($"{DetermineStratType(node)}:"));
+                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_effectValue"), new GUIContent($"{DetermineStratType(node)}:"));
 
             serializedObject.ApplyModifiedProperties();
             base.OnBodyGUI();

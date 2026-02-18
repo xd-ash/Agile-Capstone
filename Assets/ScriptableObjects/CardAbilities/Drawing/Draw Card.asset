@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Deck Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -8, y: -24}
+  position: {x: 24, y: 40}
   ports:
     keys:
     - input
@@ -40,11 +40,10 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 1
+  _effectValue: 1
   input: 0
   effectVisuals: 0
   _action: 0
-  _amount: 1
   _logResults: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -60,8 +59,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 282906417093084810}
-  - {fileID: 6139669208157274387}
   - {fileID: -2584462224668346045}
+  - {fileID: 5885419445873208339}
   _description: Draw 1 Card
   _abilitySFX: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
   _apCost: 1
@@ -71,6 +70,7 @@ MonoBehaviour:
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
+  _ignoreLOS: 0
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
@@ -100,8 +100,8 @@ MonoBehaviour:
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: input
-        node: {fileID: 6139669208157274387}
+      - fieldName: abilityRoot
+        node: {fileID: 5885419445873208339}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -140,6 +140,48 @@ MonoBehaviour:
   targeting: 0
   filtering: 0
   effects: 0
+--- !u!114 &5885419445873208339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5b2b3ff173d174db191a65eea079e3, type: 3}
+  m_Name: Self Target
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.SelfTarget
+  graph: {fileID: 11400000}
+  position: {x: 24, y: -232}
+  ports:
+    keys:
+    - aoeStrat
+    - abilityRoot
+    values:
+    - _fieldName: aoeStrat
+      _node: {fileID: 5885419445873208339}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: abilityRoot
+      _node: {fileID: 5885419445873208339}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: targeting
+        node: {fileID: 282906417093084810}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
 --- !u!114 &6139669208157274387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +199,7 @@ MonoBehaviour:
   ports:
     keys:
     - input
+    - output
     values:
     - _fieldName: input
       _node: {fileID: 6139669208157274387}
@@ -170,4 +213,15 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: 6139669208157274387}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
   input: 0
+  output: 0
+  _aoeStrat: {fileID: 0}
