@@ -19,6 +19,23 @@ public class NodeMapCreator : MonoBehaviour
         LinkNodes();
         InstantiateNodes();
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            RegenerateNodeMap();
+    }
+
+    private void RegenerateNodeMap()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+            Destroy(transform.GetChild(i).gameObject);
+        _nodesInDepths.Clear();
+
+        _maxNodeDepth = UnityEngine.Random.Range(_nodeDepthRange.x, _nodeDepthRange.y);
+        CreateNodes();
+        LinkNodes();
+        InstantiateNodes();
+    }
 
     private void CreateNodes()
     {
@@ -35,7 +52,6 @@ public class NodeMapCreator : MonoBehaviour
                 _nodesInDepths.Add(i, new(tempNodes));
             }
         }
-
     }
 
     private void LinkNodes()
@@ -60,12 +76,14 @@ public class NodeMapCreator : MonoBehaviour
                 {
                     int rng = UnityEngine.Random.Range(0, iMinusNodes.Count);
                     node.inputs.Add(iMinusNodes[rng]);
+                    iMinusNodes[rng].outputs.Add(node);
                 }
 
                 if (i != _maxNodeDepth - 1 && iPlusNodes.Count > 0)
                 {
                     int rng = UnityEngine.Random.Range(0, iPlusNodes.Count);
                     node.outputs.Add(iPlusNodes[rng]);
+                    iPlusNodes[rng].inputs.Add(node);
                 }
             }
         }
@@ -85,6 +103,10 @@ public class NodeMapCreator : MonoBehaviour
                 nodeGo.transform.parent = parent.transform;
                 nodeGo.transform.localPosition = new Vector3(kvp.Key, -kvp.Value.Count / 2f + i, 0);
                 kvp.Value[i].nodeTrans = nodeGo.transform;
+
+                var tracker = nodeGo.AddComponent<NodeTRackers>();
+                tracker.inputs = new List<Node> (kvp.Value[i].inputs);
+                tracker.outputs = new List<Node>(kvp.Value[i].outputs);
             }
         }
     }
@@ -98,6 +120,7 @@ public class NodeMapCreator : MonoBehaviour
                 foreach (var output in node.outputs)
                     Gizmos.DrawLine(node.nodeTrans.position, output.nodeTrans.position);
     }
+    [System.Serializable]
     public class Node
     {
         public int depth;
