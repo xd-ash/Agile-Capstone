@@ -3,6 +3,5 @@ using UnityEngine;
 
 public class NodeTRackers : MonoBehaviour
 {
-    public List<NodeMapCreator.Node> inputs = new();
-    public List<NodeMapCreator.Node> outputs = new();
+    public NewNodeCreation.Node thisNode;
 }

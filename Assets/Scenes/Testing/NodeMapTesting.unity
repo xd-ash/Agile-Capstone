@@ -265,7 +265,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1806112213}
-  - component: {fileID: 1806112212}
   - component: {fileID: 1806112214}
   m_Layer: 0
   m_Name: NodeMapCreator
@@ -274,21 +273,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1806112212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806112211}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac2aa238dd3c44d4daca915231cfd562, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NodeMapCreator
-  _nodeDepthRange: {x: 6, y: 8}
-  _numNodeRange: {x: 3, y: 5}
-  prefab: {fileID: 5281681285242084259, guid: a2cbca0d96ebaed4997a6e4c93ab0241, type: 3}
 --- !u!4 &1806112213
 Transform:
   m_ObjectHideFlags: 0
@@ -388,6 +372,9 @@ MonoBehaviour:
     m_ConstantMin: 0
     m_ConstantMax: 0
   _numberOfTiers: 10
+  _connectAttempts: 75
+  _randomSeed: 1021807634
+  _interectempty: {fileID: 5281681285242084259, guid: a2cbca0d96ebaed4997a6e4c93ab0241, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
