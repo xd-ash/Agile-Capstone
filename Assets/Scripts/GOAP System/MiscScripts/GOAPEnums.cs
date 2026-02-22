@@ -1,7 +1,5 @@
-using CardSystem;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 [Flags]
 public enum GoapActions
@@ -57,31 +55,31 @@ public struct GOAPEnums
             {
                 case 0://Other Move
                     if (binaryEnum[i] == '1')
-                        actions.Add(new OtherMoveAction() { agent = agent });
+                        actions.Add(new OtherMoveAction(agent));
                     break;
                 case 1://MoveIntoLOS
                     if (binaryEnum[i] == '1')
-                        actions.Add(new MoveIntoLOSAction() { agent = agent });
+                        actions.Add(new MoveIntoLOSAction(agent));
                     break;
                 case 2://EndTurn
                     if (binaryEnum[i] == '1')
-                        actions.Add(new EndTurnAction() { agent = agent });
+                        actions.Add(new EndTurnAction(agent));
                     break;
                 case 3://Choose Target
                     if (binaryEnum[i] == '1')
-                        actions.Add(new ChooseTargetAction() { agent = agent });
+                        actions.Add(new ChooseTargetAction(agent));
                     break;
                 case 4://Heal
                     if (binaryEnum[i] == '1')
-                        actions.Add(new HealAction() { agent = agent });
+                        actions.Add(new HealAction(agent));
                     break;
                 case 5://Attack
                     if (binaryEnum[i] == '1')
-                        actions.Add(new AttackAction() { agent = agent });
+                        actions.Add(new AttackAction(agent));
                     break;
                 case 6://Move
                     if (binaryEnum[i] == '1')
-                        actions.Add(new MoveInRangeAction() { agent = agent });
+                        actions.Add(new MoveInRangeAction(agent));
                     break;
                 case 7://None
                     break;

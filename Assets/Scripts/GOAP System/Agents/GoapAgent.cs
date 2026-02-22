@@ -45,11 +45,12 @@ public class GoapAgent : MonoBehaviour
     private WorldStates _beliefs = new WorldStates(); //make public or getter/setter if actions needed
     private GoapPlanner _planner;
     [HideInInspector] public Unit unit;
-    public Unit curtarget;
+    private Unit _curtarget;
 
     public bool showDebugMessages = false;
 
     public List<GoapAction> GetActions => _actions;
+    public Unit GetCurrentTarget => _curtarget;
 
     private void Awake()
     {
@@ -68,6 +69,59 @@ public class GoapAgent : MonoBehaviour
         foreach (var g in _goals)
             _weightedGoalsDict.Add(g, g.value);
         */
+    }
+    void LateUpdate()
+    {
+        if (TurnManager.GetCurrentUnit != unit) return;
+        if (_currentAction != null && _currentAction.IsRunning) return;
+
+        if (_planner == null || _actionQueue == null)
+        {
+            _planner = new GoapPlanner(this);
+            var sortedGoals = from entry in _weightedGoalsDict
+                              orderby entry.Value descending
+                              select entry;
+            //Debug.Log($"weightGoals count: {_weightedGoalsDict.Count}");
+
+            foreach (KeyValuePair<Goal, int> g in sortedGoals)
+            {
+                //Debug.Log($"Action (post count): {_actions[0].ToString()}({_actions[0].postConditions.Count})");
+                _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
+                if (_actionQueue != null)
+                {
+                    _currentGoal = g.Key;
+                    break;
+                }
+            }
+        }
+
+        if (_actionQueue != null && _actionQueue.Count == 0)
+        {
+            if (_beliefs.GetStates.ContainsKey(_currentGoal.key) && _currentGoal.removeOnComplete)
+                for (int i = _weightedGoalsDict.Count - 1; i >= 0; i--)
+                    if (_weightedGoalsDict.ElementAt(i).Key.key == _currentGoal.key)
+                        _weightedGoalsDict.Remove(_weightedGoalsDict.ElementAt(i).Key);
+
+            _planner = null;
+        }
+
+        if (_actionQueue != null && _actionQueue.Count > 0)
+        {
+            _currentAction = _actionQueue.Dequeue();
+            if (_currentAction.PrePerform(ref _beliefs))
+            {
+                _currentAction.IsRunning = true;
+
+                if (_currentAction is AttackAction || _currentAction is HealAction)
+                    Invoke(nameof(ActionPerformDelay), _actionDelayTime);
+                else
+                    _currentAction.Perform();
+            }
+            else
+            {
+                _actionQueue = null;
+            }
+        }
     }
 
     // INCOMPLETE make more secure with deleting null actions or actions added in inpsector by hitting +
@@ -166,14 +220,16 @@ public class GoapAgent : MonoBehaviour
     }
     #endregion
     //
-
+    public void SetCurrentTarget(Unit target)
+    {
+        _curtarget = target;
+    }
     public void CompleteAction()
     {
-        _currentAction.running = false;
+        _currentAction.IsRunning = false;
         _currentAction.PostPerform(ref _beliefs);
-        //TurnManager.Instance.UpdateApText();
         GameUIManager.instance.UpdateApText();
-        if (!_beliefs.states.ContainsKey(GoapStates.HasAttacked.ToString()))
+        if (!_beliefs.GetStates.ContainsKey(GoapStates.HasAttacked.ToString()))
             CheckForAP(unit, ref _beliefs);
     }
 
@@ -202,7 +258,7 @@ public class GoapAgent : MonoBehaviour
             CheckForAP(unit, ref _beliefs);
             CheckIfHealthy(unit, ref _beliefs);
 
-            if (curtarget == null)
+            if (_curtarget == null)
             {
                 _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
                 _beliefs.RemoveState(GoapStates.HasLOS.ToString());
@@ -224,59 +280,6 @@ public class GoapAgent : MonoBehaviour
         */
     }
 
-    void LateUpdate()
-    {
-        if (TurnManager.GetCurrentUnit != unit) return;
-        if (_currentAction != null && _currentAction.running) return;
-
-        if (_planner == null || _actionQueue == null)
-        {
-            _planner = new GoapPlanner(this);
-            var sortedGoals = from entry in _weightedGoalsDict
-                              orderby entry.Value descending
-                              select entry;
-            //Debug.Log($"weightGoals count: {_weightedGoalsDict.Count}");
-
-            foreach (KeyValuePair<Goal, int> g in sortedGoals)
-            {
-                //Debug.Log($"Action (post count): {_actions[0].ToString()}({_actions[0].postConditions.Count})");
-                _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
-                if (_actionQueue != null)
-                {
-                    _currentGoal = g.Key;
-                    break;
-                }
-            }
-        }
-
-        if (_actionQueue != null && _actionQueue.Count == 0)
-        {
-            if (_beliefs.states.ContainsKey(_currentGoal.key) && _currentGoal.removeOnComplete)
-                for (int i = _weightedGoalsDict.Count - 1; i >= 0; i--)
-                    if (_weightedGoalsDict.ElementAt(i).Key.key == _currentGoal.key)
-                        _weightedGoalsDict.Remove(_weightedGoalsDict.ElementAt(i).Key);
-
-            _planner = null;
-        }
-
-        if (_actionQueue != null && _actionQueue.Count > 0)
-        {
-            _currentAction = _actionQueue.Dequeue();
-            if (_currentAction.PrePerform(ref _beliefs))
-            {
-                _currentAction.running = true;
-
-                if (_currentAction is AttackAction || _currentAction is HealAction)
-                    Invoke("ActionPerformDelay", _actionDelayTime);
-                else
-                    _currentAction.Perform();
-            }
-            else
-            {
-                _actionQueue = null;
-            }
-        }
-    }
     private void ActionPerformDelay()
     {
         _currentAction.Perform();

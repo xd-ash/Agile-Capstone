@@ -8,6 +8,8 @@ public class ChooseTargetAction : GoapAction
 {
     private Dictionary<int, Unit> distancesToUnits;
 
+    public ChooseTargetAction(GoapAgent agent) : base(agent) { }
+
     public override bool PrePerform(ref WorldStates beliefs)
     {
         distancesToUnits = new();
@@ -29,7 +31,7 @@ public class ChooseTargetAction : GoapAction
     public override void Perform()
     {
         int min = distancesToUnits.Min(x => x.Key);
-        agent.curtarget = distancesToUnits[min];
+        agent.SetCurrentTarget(distancesToUnits[min]);
 
         //Debug.Log($"target: {(agent.curtarget != null ? agent.curtarget.name : "null")}");
 

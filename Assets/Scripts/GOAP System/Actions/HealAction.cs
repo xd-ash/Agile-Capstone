@@ -3,6 +3,8 @@ using static GOAPDeterminationMethods;
 
 public class HealAction : GoapAction
 {
+    public HealAction(GoapAgent agent) : base(agent) { }
+
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (agent.healCharges <= 0)

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EndTurnAction : GoapAction
 {
+    public EndTurnAction(GoapAgent agent) : base(agent) { }
+
     public override bool PrePerform(ref WorldStates beliefs)
     {
         return true;

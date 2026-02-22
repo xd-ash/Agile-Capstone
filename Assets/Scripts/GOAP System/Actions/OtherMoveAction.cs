@@ -1,11 +1,11 @@
 using AStarPathfinding;
-using Unity.VisualScripting;
-using UnityEngine;
 using static IsoMetricConversions;
 
 public class OtherMoveAction : GoapAction
 {
     private FindPathAStar aStar;
+
+    public OtherMoveAction(GoapAgent agent) : base(agent) { }
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
@@ -17,7 +17,7 @@ public class OtherMoveAction : GoapAction
             return false;
         }
 
-        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
+        var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
         var tempPath = aStar.CalculatePath(tarPos);
         aStar.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
 

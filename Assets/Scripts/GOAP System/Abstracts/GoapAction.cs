@@ -6,36 +6,41 @@ using static GOAPEnums;
 [System.Serializable]
 public abstract class GoapAction
 {
-    [SerializeField, HideInInspector] protected string actionName;
-    public float cost = 1f;
-    public bool running = false; //is performing action currently
-    [HideInInspector] public GoapAgent agent;
+    [SerializeField, HideInInspector] protected string _actionName;
+    [SerializeField] protected float _cost = 1f;
+    [SerializeField] protected bool _isRunning = false; //is performing action currently
+    [HideInInspector] protected GoapAgent agent;
 
-    public Dictionary<string, int> preConditions = new();
-    public Dictionary<string, int> postConditions = new();
+    protected Dictionary<string, int> _preConditions = new();
+    protected Dictionary<string, int> _postConditions = new();
 
-    public GoapStates preConditionsFlags;
-    public GoapStates postConditionsFlags;
+    [SerializeField] protected GoapStates _preConditionsFlags;
+    [SerializeField] protected GoapStates _postConditionsFlags;
 
-    //public GInventory inventory;
-    public WorldStates beliefs;
+    //public WorldStates beliefs;
 
-    public GoapAction()
+    public float GetCost => _cost;
+    public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
+    public Dictionary<string, int> GetPreConditions => _preConditions;
+    public Dictionary<string, int> GetPostConditions => _postConditions;
+
+    public GoapAction(GoapAgent agent)
     {
-        actionName = this.ToString();
+        this.agent = agent;
+        _actionName = this.ToString();
     }
 
     public void GrabConditionsFromEnums()
     {
-        var tempPreCond = GetAllStatesFromFlags(preConditionsFlags);
-        var tempPostCond = GetAllStatesFromFlags(postConditionsFlags);
+        var tempPreCond = GetAllStatesFromFlags(_preConditionsFlags);
+        var tempPostCond = GetAllStatesFromFlags(_postConditionsFlags);
 
         foreach (var c in tempPreCond)
-            if (preConditions == null || !preConditions.ContainsKey(c.key))
-                preConditions.Add(c.key, c.value);
+            if (_preConditions == null || !_preConditions.ContainsKey(c.key))
+                _preConditions.Add(c.key, c.value);
         foreach (var c in tempPostCond)
-            if (postConditions == null || !postConditions.ContainsKey(c.key))
-                postConditions.Add(c.key, c.value);
+            if (_postConditions == null || !_postConditions.ContainsKey(c.key))
+                _postConditions.Add(c.key, c.value);
 
         List<string> tempPreToString = new List<string>(), 
                      tempPostToString = new List<string>();
@@ -45,15 +50,16 @@ public abstract class GoapAction
         foreach (var s in tempPostCond)
             tempPostToString.Add(s.key);
 
-        ManipulateConditionsLists(tempPreCond, tempPreToString, ref preConditions);
-        ManipulateConditionsLists(tempPostCond, tempPostToString, ref postConditions);
-
+        ManipulateConditionsLists(tempPreCond, tempPreToString, ref _preConditions);
+        ManipulateConditionsLists(tempPostCond, tempPostToString, ref _postConditions);
 
         //inventory = this.GetComponent<GAgent>().inventory;
         //beliefs = this.GetComponent<GoapAgent>().beliefs;
     }
-    private void ManipulateConditionsLists(List<WorldState> stateList, List<string> stringList, ref Dictionary<string, int> conditions)
+    protected void ManipulateConditionsLists(List<WorldState> stateList, List<string> stringList, ref Dictionary<string, int> conditions)
     {
+        if (conditions == null) conditions = new();
+
         for (int i = conditions.Count - 1; i >= 0; i--)
         {
             string key = conditions.ElementAt(i).Key;
@@ -105,7 +111,7 @@ public abstract class GoapAction
         Debug.Log($"preconds: " + debugqweqwmessagfe);
         /*/
 
-        foreach (KeyValuePair<string, int> kvp in preConditions)
+        foreach (KeyValuePair<string, int> kvp in _preConditions)
             if (!conditions.ContainsKey(kvp.Key))
                 return false;
         return true;

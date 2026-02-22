@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GOAPNode
@@ -48,7 +45,7 @@ public class GoapPlanner
                 usableActions.Add(a);
 
         List<GOAPNode> leaves = new List<GOAPNode>();
-        GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
+        GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
 
         //
         if (_agent.showDebugMessages)
@@ -57,7 +54,7 @@ public class GoapPlanner
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
             tempStr += "\nBeliefs: ";
-            foreach (var b in beliefStates.GetStates())
+            foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
             Debug.Log(tempStr);
         }
@@ -120,7 +117,7 @@ public class GoapPlanner
 
                 //Debug.Log($"Action (post count): {action.ToString()}({action.postConditions.Count})");
 
-                foreach (KeyValuePair<string, int> eff in action.postConditions)
+                foreach (KeyValuePair<string, int> eff in action.GetPostConditions)
                     if (!currentState.ContainsKey(eff.Key))
                     {
                         //Debug.Log("test curstate contains key");
@@ -128,7 +125,7 @@ public class GoapPlanner
                     }
 
                 // No belief param needed as worldstates are concatenated in
-                GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
+                GOAPNode node = new GOAPNode(parent, parent.cost + action.GetCost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
                 if(GoalAchieved(goal, currentState))
                 {
                     leaves.Add(node);

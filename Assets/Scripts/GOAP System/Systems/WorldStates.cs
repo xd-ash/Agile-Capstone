@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-// small data class to store future dictionary key & value.
+// small data class to store dictionary key & value.
 // Serializable to easily manipulate in inspector
 [System.Serializable]
 public class WorldState
@@ -13,45 +11,42 @@ public class WorldState
 
 public class WorldStates
 {
-    public Dictionary<string, int> states;
+    private Dictionary<string, int> _states;
+    public Dictionary<string, int> GetStates => _states;
 
     public WorldStates()
     {
-        states = new Dictionary<string, int>();
+        _states = new Dictionary<string, int>();
     }
     public bool HasState(string key)
     {
-        return states.ContainsKey(key);
+        return _states.ContainsKey(key);
     }
     void AddState(string key, int value)
     {
-        states.Add(key, value);
+        _states.Add(key, value);
     }
     public void ModifyState(string key, int value)
     {
-        if (states.ContainsKey(key))
+        if (_states.ContainsKey(key))
         {
-            states[key] += value;
-            if (states[key] <= 0) // only use if don't want negative values in worldstate obj
+            _states[key] += value;
+            if (_states[key] <= 0) // only use if don't want negative values in worldstate obj
                 RemoveState(key);
         }
         else
-            states.Add(key, value);
+            _states.Add(key, value);
     }
     public void RemoveState(string key)
     {
-        if (states.ContainsKey(key))
-            states.Remove(key);
+        if (_states.ContainsKey(key))
+            _states.Remove(key);
     }
     public void SetState(string key, int value)
     {
-        if (states.ContainsKey(key))
-            states[key] = value;
+        if (_states.ContainsKey(key))
+            _states[key] = value;
         else
-            states.Add(key, value);
-    }
-    public Dictionary<string, int> GetStates()
-    {
-        return states;
+            _states.Add(key, value);
     }
 }
