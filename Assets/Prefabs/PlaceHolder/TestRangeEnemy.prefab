@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
-  _maxHealth: 10
+  _maxHealth: 1
   _health: 0
   _maxShield: 25
   _shield: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   _ap: 0
   _enemyHPBar: {fileID: 0}
   _hitChanceText: {fileID: 1595068724163467255}
-  _ecanMove: 1
+  _canMove: 1
 --- !u!114 &1680429232163789991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +333,7 @@ MonoBehaviour:
   _unitMoveSpeed: 0.2
   _moveCostPerTile: 1
   _placePathDebugMarkers: 0
+  _isKnockback: 0
 --- !u!114 &112770222690940186
 MonoBehaviour:
   m_ObjectHideFlags: 0

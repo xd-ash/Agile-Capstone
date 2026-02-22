@@ -62,20 +62,19 @@ public class WinLossManager : MonoBehaviour
 
     public void TriggerSceneTrans()
     {
-        if (_didWin && SceneProgressManager.Instance != null)
+        if (_didWin)
         {
-            SceneProgressManager.Instance.CompleteCurrentNode();
+            NodeMapManager.Instance.CompleteCurrentNode();
             CombatNodeCompleted?.Invoke();
 
-            if (!SceneProgressManager.Instance.GetNodeMapCompleted)
+            if (!NodeMapManager.Instance.GetIsNodeMapComplete)
             {
-                SceneProgressManager.Instance.ReturnToMap();
+                NodeMapManager.Instance.ReturnToMap();
                 return;
             }
         }
 
         GameReset?.Invoke();
-        SceneProgressManager.Instance?.ResetNodes();
         SaveLoadScript.CreateNewGame?.Invoke();
         TransitionScene.Instance?.StartTransition();
     }

@@ -7,31 +7,30 @@ public class NodeMapCreator : MonoBehaviour
 {
     public enum NodeTypes { Combat, BountyBoard, Boss, Shop, Other }
 
-    private GameObject _combatSceneNodePrefab, _bountyChoiceNodePrefab, _bossNodePrefab, _shopNodePrefab, _otherNodePrefab;
+    //private GameObject _combatSceneNodePrefab, _bountyChoiceNodePrefab, _bossNodePrefab, _shopNodePrefab, _otherNodePrefab;
+    private GameObject _nodePrefab;
 
     private Dictionary<int, List<NodePlaceholder>> _nodeTiers = new();
 
     [SerializeField] private ParticleSystem.MinMaxCurve _possibleNodesPerTier = new ParticleSystem.MinMaxCurve(1, new AnimationCurve(), new AnimationCurve());
     [SerializeField] private int _numberOfTiers = 10;
-    [SerializeField] private int _maxShopsInMap = 4;
-    [SerializeField] private int _maxBossNodesInMap = 3;
-    [SerializeField] private int _maxOtherNodesInMap = 3;
+    //[SerializeField] private int _maxShopsInMap = 4;
+    //[SerializeField] private int _maxBossNodesInMap = 3;
+    //[SerializeField] private int _maxOtherNodesInMap = 3;
 
     private int _curSeed;
 
+    public int GetNumberOfTiers => _numberOfTiers;
+
     private void Awake()
     {
-        _combatSceneNodePrefab = Resources.Load<GameObject>("TempNodeMap/CombatNode");
+        _nodePrefab = Resources.Load<GameObject>("TempNodeMap/NodePrefab");
+        /*_combatSceneNodePrefab = Resources.Load<GameObject>("TempNodeMap/CombatNode");
         _bountyChoiceNodePrefab = Resources.Load<GameObject>("TempNodeMap/BountyBoardNode");
         _bossNodePrefab = Resources.Load<GameObject>("TempNodeMap/BossNode");
         _shopNodePrefab = Resources.Load<GameObject>("TempNodeMap/ShopNode");
-        _otherNodePrefab = Resources.Load<GameObject>("TempNodeMap/OtherNode");
+        _otherNodePrefab = Resources.Load<GameObject>("TempNodeMap/OtherNode");*/
     }
-    private void Start()
-    {
-        //GenerateFullNodeMap();
-    }
-
     public Dictionary<int, List<NodeMapNode>> GenerateFullNodeMap(int seed)
     {
         _curSeed = seed;
@@ -94,33 +93,10 @@ public class NodeMapCreator : MonoBehaviour
             for (int j = 0; j < _nodeTiers[i].Count; j++)
             {
                 var node = _nodeTiers[i][j];
-                ChooseNodeType(node);
+                ChooseNodeType(ref node);
 
-                GameObject nodeGO = null;
-                NodeMapNode nodeMono = null;
-                switch (node.nodeType)
-                {
-                    case NodeTypes.Combat:
-                        nodeGO = Instantiate(_combatSceneNodePrefab, transform);
-                        nodeMono = nodeGO.AddComponent<CombatNode>();
-                        break;
-                    case NodeTypes.BountyBoard:
-                        nodeGO = Instantiate(_bountyChoiceNodePrefab, transform);
-                        nodeMono = nodeGO.AddComponent<BountyBoardNode>();
-                        break;
-                    case NodeTypes.Boss:
-                        nodeGO = Instantiate(_bossNodePrefab, transform);
-                        nodeMono = nodeGO.AddComponent<BossNode>();
-                        break;
-                    case NodeTypes.Shop:
-                        nodeGO = Instantiate(_shopNodePrefab, transform);
-                        nodeMono = nodeGO.AddComponent<ShopNode>();
-                        break;
-                    case NodeTypes.Other:
-                        nodeGO = Instantiate(_otherNodePrefab, transform);
-                        nodeMono = nodeGO.AddComponent<OtherNode>();
-                        break;
-                }
+                GameObject nodeGO = Instantiate(_nodePrefab, transform); ;
+                NodeMapNode nodeMono = GetNodeStrategy(node, ref nodeGO);
 
                 if (nodeGO == null)
                 {
@@ -144,6 +120,22 @@ public class NodeMapCreator : MonoBehaviour
 
         return trueNodeMap;
     }
+    private NodeMapNode GetNodeStrategy(NodePlaceholder node, ref GameObject nodeGO)
+    {
+        switch (node.nodeType)
+        {
+            case NodeTypes.Combat:
+                return nodeGO.AddComponent<CombatNode>();
+            case NodeTypes.BountyBoard:
+                return nodeGO.AddComponent<BountyBoardNode>();
+            case NodeTypes.Boss:
+                return nodeGO.AddComponent<BossNode>();
+            case NodeTypes.Shop:
+                return nodeGO.AddComponent<ShopNode>();
+            default:
+                return nodeGO.AddComponent<OtherNode>();
+        }
+    }
     private void SetNextAndPrevLists(Vector2Int dictIndex, ref Dictionary<int, List<NodeMapNode>> trueNodeDict)
     {
         List<NodeMapNode> tempPrev = new();
@@ -158,12 +150,19 @@ public class NodeMapCreator : MonoBehaviour
             foreach (var nextNode in nodePlaceholder.next)
                 tempNext.Add(trueNodeDict[nextNode.dictIndex.x][nextNode.dictIndex.y]);
 
-        trueNodeDict[dictIndex.x][dictIndex.y].InitNode(tempPrev, tempNext);
+        trueNodeDict[dictIndex.x][dictIndex.y].InitNode(dictIndex, tempPrev, tempNext);
     }
-    private void ChooseNodeType(NodePlaceholder node)
+    private void ChooseNodeType(ref NodePlaceholder node)
     {
         int enumCount = Enum.GetNames(typeof(NodeTypes)).Count();
         NodeTypes rngType = NodeTypes.Combat;
+
+        //temp setup for initial node to be "blank" and will auto complete
+        if (node.dictIndex == Vector2Int.zero)
+        {
+            node.nodeType = NodeTypes.Other;
+            return;
+        }
 
         int c = -1;
         do
@@ -180,6 +179,11 @@ public class NodeMapCreator : MonoBehaviour
     {
         if (type != NodeTypes.Shop && type != NodeTypes.Other && type != NodeTypes.Boss)
             return true;
+
+        //Don't allow for initial nodes to be shop, other, or boss nodes
+        if ((node.dictIndex.x == 0 || node.dictIndex.x == _nodeTiers.Count - 1) && 
+            (type == NodeTypes.Shop || type == NodeTypes.Other || type == NodeTypes.Boss))
+            return false;
 
         if (node.next != null)
             foreach (var nextNode in node.next)
@@ -206,10 +210,7 @@ public class NodeMapCreator : MonoBehaviour
 
         return true;
     }
-    private bool CheckNodeMapContentCounts()
-    {
-        return true;
-    }
+
     private void ConnectNodes(KeyValuePair<int, List<NodePlaceholder>> nodeKVP)
     {
         UnityEngine.Random.InitState(_curSeed);
