@@ -146,10 +146,10 @@ public class MapCreator : MonoBehaviour
             }
         }
 
-        CheckNeighbours(map, startLoc, ref validLocs); 
+        CheckNeighbours(map, startLoc, ref validLocs);
         bool result = totalNonObstacleTiles == validLocs.Count;
         if (!result)
-            PlayerDataManager.Instance.GetRandomSeed();// regen seed only after fail
+            PlayerDataManager.Instance.GenerateGeneralSeed();// regen seed only after fail
         return result;
     }
 

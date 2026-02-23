@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: db8482d543dec47df99ab0e65220e83f
+guid: 3b79c6cf5f2092d4ebb6e1663c0770ea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3548930959692211697
-    second: IMG_0099_0
+      213: -4324988241467330854
+    second: MoneyBag1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_0099_0
+      name: MoneyBag1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2048
-        height: 2732
+        width: 352
+        height: 424
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0ad82f581aafbec0800000000000000
-      internalID: -3548930959692211697
+      spriteID: ade2991fb1e8af3c0800000000000000
+      internalID: -4324988241467330854
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IMG_0099_0: -3548930959692211697
+      MoneyBag1_0: -4324988241467330854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

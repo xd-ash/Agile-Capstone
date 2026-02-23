@@ -2,12 +2,13 @@ using CardSystem;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public static class SaveLoadScript
 {
     public static Action SaveGame => () => SaveGameData();
-    public static Action CreateNewGame => () => SaveGameData(true);
+    public static Action CreateNewGame => () => { SaveGameData(true); LoadGameData(); }; //create new save sata and immidiately load data to apply
     public static Action LoadGame => () => LoadGameData();
 
     public static Action SaveSettings => () => SaveSettingsData();
@@ -80,14 +81,14 @@ public class GameData
 
         if (newGameData)
         {
-            _mapNodeData = new(null, null, 0, -1);
+            _mapNodeData = new(null, new(0,0), -1, -1);
             _currencyData = new(100);
             _cardData = new(null, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
             _specialMechanicData = new(new bool[0]);
         }
         else
         {
-            _mapNodeData = new(pdm.GetNodeCompleted, pdm.GetNodeUnlocked, pdm.GetCurrentNodeIndex, pdm.GetSeed);
+            _mapNodeData = new(pdm.GetCompletedNodes, pdm.GetCurrentNodeIndex, pdm.GetGeneralSeed, pdm.GetNodeMapSeed);
             _currencyData = new(pdm.GetBalance);
             _cardData = new(pdm.GetOwnedCards, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
             _specialMechanicData = new(pdm.GetAllCoinFlipsThisRun);
@@ -98,22 +99,41 @@ public class GameData
     [System.Serializable]
     public class MapNodeDataToken
     {
-        [SerializeField] private bool[] _nodesCompleted;
-        [SerializeField] private bool[] _nodesUnlocked;
-        [SerializeField] private int _currentNodeIndex;
-        [SerializeField] private int _randomSeed;
+        [SerializeField] private Vector2IntToken[] _completedNodes;
+        [SerializeField] private Vector2IntToken _curNodeIndex;
+        [SerializeField] private int _generalSeed;
+        [SerializeField] private int _nodeMapSeed;
 
-        public bool[] GetNodesCompleted => _nodesCompleted;
-        public bool[] GetNodesUnlocked => _nodesUnlocked;
-        public int GetCurrentNodeIndex => _currentNodeIndex;
-        public int GetSeed => _randomSeed;
+        public Vector2Int[] GetCompletedNodes => _completedNodes.Select((x) => x.GetVector2Int).ToArray();
+        public Vector2Int GetCurrentNodeIndex => _curNodeIndex.GetVector2Int;
+        public int GetGeneralSeed => _generalSeed;
+        public int GetNodeMapSeed => _nodeMapSeed;
 
-        public MapNodeDataToken(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex, int seed)
+        public MapNodeDataToken(Vector2Int[] completedNodes, Vector2Int curNodeIndex, int generalSeed, int nodeMapSeed)
         {
-            _nodesCompleted = nodesCompleted;
-            _nodesUnlocked = nodesUnlocked;
-            _currentNodeIndex = currentNodeIndex;
-            _randomSeed = seed;
+            List<Vector2IntToken> temp = new();
+            if (completedNodes != null)
+                foreach (var nodePos in completedNodes)
+                    temp.Add(new(nodePos.x, nodePos.y));
+            _completedNodes = temp.ToArray();
+
+            _curNodeIndex = new(curNodeIndex.x, curNodeIndex.y);
+            _generalSeed = generalSeed;
+            _nodeMapSeed = nodeMapSeed;
+        }
+    }
+    [System.Serializable]
+    public class Vector2IntToken
+    {
+        [SerializeField] private int _x;
+        [SerializeField] private int _y;
+
+        public Vector2Int GetVector2Int => new(_x,_y);
+
+        public Vector2IntToken(int x, int y)
+        {
+            _x = x;
+            _y = y;
         }
     }
 

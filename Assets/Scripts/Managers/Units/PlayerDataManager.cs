@@ -8,14 +8,13 @@ public class PlayerDataManager : MonoBehaviour
 {
     private CardAndDeckLibrary _cardAndDeckLibrary;
 
-    private int _randomSeed = -1;
-    private CombatMapData _currMapNodeData;
-
     private int _balance = 0;
 
-    private bool[] _nodeCompleted;
-    private bool[] _nodeUnlocked;
-    private int _currentNodeIndex;
+    private Vector2Int[] _completedNodes;
+    [SerializeField] private Vector2Int _curNodeIndex = new(0,0);
+    private int _generalSeed = -1;
+    private int _nodeMapSeed = -1;
+    private CombatMapData _currMapNodeData;
 
     [SerializeField] private List<Deck> _createdDecks = new();
     [SerializeField] private Deck _activeDeck;
@@ -23,12 +22,16 @@ public class PlayerDataManager : MonoBehaviour
 
     [SerializeField] private List<bool> _coinFlipsThisRun = new();
 
-    public int GetSeed => _randomSeed == -1 ? GetRandomSeed() : _randomSeed;
-    public CombatMapData GetCurrMapNodeData => _currMapNodeData;
     public int GetBalance => _balance;
-    public bool[] GetNodeCompleted => _nodeCompleted;
-    public bool[] GetNodeUnlocked => _nodeUnlocked;
-    public int GetCurrentNodeIndex => _currentNodeIndex;
+
+    public Vector2Int[] GetCompletedNodes => _completedNodes;
+    public Vector2Int GetCurrentNodeIndex => _curNodeIndex;
+    public int GetGeneralSeed => _generalSeed == -1 ? GenerateRandomSeed(ref _generalSeed) : _generalSeed;
+    public int GetNodeMapSeed => _nodeMapSeed == -1 ? GenerateRandomSeed(ref _nodeMapSeed) : _nodeMapSeed;
+    public int GenerateGeneralSeed() => GenerateRandomSeed(ref _generalSeed);
+    public int GenerateNodeMapSeed() => GenerateRandomSeed(ref _nodeMapSeed);
+    public CombatMapData GetCurrMapNodeData => _currMapNodeData;
+
     public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
     public Deck GetActiveDeck => _activeDeck;
     public List<Deck> GetAllPlayerDecks => _createdDecks;
@@ -69,39 +72,37 @@ public class PlayerDataManager : MonoBehaviour
     {
         WinLossManager.GameReset -= ClearRunCoinFlips;
     }
-
-    // create random int seed for map generation & shop card pulling
-    public int GetRandomSeed()
+    public int GenerateRandomSeed(ref int seed)
     {
-        int temp = _randomSeed;
+        int temp = seed;
         do
         {
-            _randomSeed = UnityEngine.Random.Range(0, int.MaxValue - DateTime.Now.Millisecond) + DateTime.Now.Millisecond;
-        } while (temp == _randomSeed);
+            seed = UnityEngine.Random.Range(0, int.MaxValue - DateTime.Now.Millisecond) + DateTime.Now.Millisecond;
+        } while (temp == seed);
 
         //Debug.Log("random Seed Generated");
-        return _randomSeed;
+        return seed;
     }
+
     // Data update methods for setting values
     public void UpdateCurrencyData(int currentBalance)
     {
         _balance = currentBalance;
     }
-    public void UpdateNodeData(bool[] nodesCompleted, bool[] nodesUnlocked, int currentNodeIndex, int seed)
+    public void UpdateNodeData(Vector2Int[] completedNodes, Vector2Int currentNodeIndex, int generalSeed, int nodeMapSeed)
     {
-        _nodeCompleted = nodesCompleted;
-        _nodeUnlocked = nodesUnlocked;
-        _currentNodeIndex = currentNodeIndex;
-        _randomSeed = seed;
+        _completedNodes = completedNodes;
+        _curNodeIndex = currentNodeIndex;
+        _generalSeed = generalSeed;
+        _nodeMapSeed = nodeMapSeed;
     }
-    public void UpdateNodeData(bool[] nodesCompleted, bool[] nodesUnlocked)
+    public void UpdateNodeData(Vector2Int[] completedNodes)
     {
-        _nodeCompleted = nodesCompleted;
-        _nodeUnlocked = nodesUnlocked;
+        _completedNodes = completedNodes;
     }
-    public void UpdateNodeData(int currentNodeIndex)
+    public void UpdateNodeData(Vector2Int currentNodeIndex)
     {
-        _currentNodeIndex = currentNodeIndex;
+        _curNodeIndex = currentNodeIndex;
     }
     public void UpdateCardData(List<CardAbilityDefinition> ownedCards, string activeDeckName, List<Deck> createdDecks)
     {
@@ -152,6 +153,11 @@ public class PlayerDataManager : MonoBehaviour
         if (_coinFlipsThisRun == null) _coinFlipsThisRun = new();
         _coinFlipsThisRun.Add(result);
     }
+    public void AddCoinflip(bool[] results)
+    {
+        if (_coinFlipsThisRun == null) _coinFlipsThisRun = new();
+        _coinFlipsThisRun.AddRange(results);
+    }
     public void ClearRunCoinFlips()
     {
         _coinFlipsThisRun?.Clear();
@@ -184,14 +190,12 @@ public class PlayerDataManager : MonoBehaviour
             ownedCards.Add(_cardAndDeckLibrary.GetCardFromName(name));
 
         UpdateCurrencyData(currencyData.GetBalance);
-        UpdateNodeData(nodeData.GetNodesCompleted, nodeData.GetNodesUnlocked, nodeData.GetCurrentNodeIndex, nodeData.GetSeed);
+        UpdateNodeData(nodeData.GetCompletedNodes, nodeData.GetCurrentNodeIndex, nodeData.GetGeneralSeed, nodeData.GetNodeMapSeed);
         UpdateCardData(ownedCards, cardData.GetActiveDeckName, createdDecks);
 
         _coinFlipsThisRun = new();
-        foreach (var b in specialMechanicData.GetCoinFlipsCurrentRun)
-            AddCoinflip(b);
+        AddCoinflip(specialMechanicData.GetCoinFlipsCurrentRun);
 
-        SceneProgressManager.Instance?.InitNodeData();
         CurrencyManager.Instance?.OnBalanceChanged?.Invoke(_balance);
         //Debug.Log("Game Loaded");
     }
