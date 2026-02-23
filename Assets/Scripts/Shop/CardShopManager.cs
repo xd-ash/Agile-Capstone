@@ -58,7 +58,7 @@ public class CardShopManager : MonoBehaviour
     // Convenience: spawn `count` cards (call this multiple times to populate shop)
     public void SpawnMultiple(int count)
     {
-        Random.InitState(PlayerDataManager.Instance.GetSeed);
+        Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
 
         for (int i = 0; i < count; i++)
             SpawnRandomCard();
@@ -182,7 +182,7 @@ public class CardShopManager : MonoBehaviour
             }
         }
 
-        PlayerDataManager.Instance.GetRandomSeed();
+        PlayerDataManager.Instance.GenerateGeneralSeed();
 
         // destroy existing cards
         for (int i = activeSpawnedCards.Count - 1; i >= 0; i--)

@@ -25,11 +25,11 @@ public class StartGameButtonScript : MonoBehaviour
             Debug.Log("PlayerDataManager is null for some reason :(");
             return;
         }
-        _button.interactable = SaveLoadScript.CheckForSaveGame && PlayerDataManager.Instance.GetCurrentNodeIndex > 0;
+        _button.interactable = SaveLoadScript.CheckForSaveGame && PlayerDataManager.Instance.GetCompletedNodes.Length > 0;
     }
     public void ShowConfirmPopupOrLaunch()
     {
-        if (SaveLoadScript.CheckForSaveGame && PlayerDataManager.Instance.GetCurrentNodeIndex > 0)
+        if (SaveLoadScript.CheckForSaveGame && PlayerDataManager.Instance.GetCompletedNodes.Length > 0)
             _confirmPopup?.SetActive(true);
         else
             LaunchGame();

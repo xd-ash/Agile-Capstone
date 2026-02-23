@@ -22,11 +22,3 @@ public class BountyButton : MonoBehaviour
         TransitionScene.Instance.StartTransition("Combat");
     }
 }
-//struct to store data on how many enemies/players to spawn based on which node is selected
-//move me somewhere else?
-[System.Serializable]
-public struct CombatMapData
-{
-    public int maxPlayersAllowed;
-    public int maxEnemiesAllowed;
-}
