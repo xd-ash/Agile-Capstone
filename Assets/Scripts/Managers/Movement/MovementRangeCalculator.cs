@@ -160,25 +160,4 @@ public class MovementRangeCalculator : MonoBehaviour
         }
         return result;
     }
-
-   /* private void ApplyHighlights(HashSet<Vector2Int> cells)
-    {
-        ClearHighlights();
-
-        foreach (var cell in cells)
-        {
-            Vector3 cellLocalPos = ConvertToIsometricFromGrid(cell);
-            GameObject tile = Spawn(_highlightTilePrefab, cellLocalPos, Quaternion.identity, Vector3.one, _highlightObjectParent);
-            tile.GetComponentInChildren<SpriteRenderer>().color = _reachableColor;
-            _lastHighlightedTiles.Add(tile);
-        }
-    }
-
-    private void ClearHighlights()
-    {
-        for (int i = _lastHighlightedTiles.Count - 1; i >= 0; i--)
-            Remove(_lastHighlightedTiles[i]);
-
-        _lastHighlightedTiles.Clear();
-    }*/
 }

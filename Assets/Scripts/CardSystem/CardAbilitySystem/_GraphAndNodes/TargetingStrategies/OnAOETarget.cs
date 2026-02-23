@@ -37,7 +37,7 @@ namespace CardSystem
             if (startingCell == _currTilePos) return;
             _currTilePos = startingCell;
 
-            var cellsInRange = ComputeCellsInRange(startingCell);
+            var cellsInRange = _targetingStrat.ComputeCellsInRange(startingCell, _range);
             ByteMapController bmc = ByteMapController.Instance;
             byte[,] map = bmc.GetByteMap;
 
@@ -56,7 +56,7 @@ namespace CardSystem
             TileHighlighter.ApplyHighlights(cellsInRange, _aoeHighlightColor);
         }
 
-        private HashSet<Vector2Int> ComputeCellsInRange(Vector2Int tilePos)
+        /*private HashSet<Vector2Int> ComputeCellsInRange(Vector2Int tilePos)
         {
             var result = new HashSet<Vector2Int>();
 
@@ -101,6 +101,6 @@ namespace CardSystem
                 }
             }
             return result;
-        }
+        }*/
     }
 }

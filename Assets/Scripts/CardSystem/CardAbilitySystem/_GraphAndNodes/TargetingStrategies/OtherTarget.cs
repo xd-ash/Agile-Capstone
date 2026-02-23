@@ -66,6 +66,7 @@ namespace CardSystem
                 {
                     List<GameObject> tempTargets = abilityData.Targets == null ? new List<GameObject>() : new List<GameObject>(abilityData.Targets);
                     GameObject temp = _targetTilesNotUnits ? TileOnMouse(abilityData) : TargetOnMouse(caster);
+
                     if (!tempTargets.Contains(temp))
                         tempTargets.Add(temp);
                     abilityData.Targets = tempTargets;
@@ -84,7 +85,7 @@ namespace CardSystem
             onFinished?.Invoke();
         }
 
-        private GameObject TileOnMouse(AbilityData abilitData)
+        private GameObject TileOnMouse(AbilityData abilityData)
         {
             var bmc = ByteMapController.Instance;
             Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
@@ -93,11 +94,17 @@ namespace CardSystem
                 bmc?.GetByteAtPosition(new Vector2Int(tilePos.x, tilePos.y)) != 0)
                 return null;
 
+            //check in range
+            int range = (graph as CardAbilityDefinition).GetRange;
+            Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.position);
+            if (ComputeCellsInRange(unitPos, range).Contains(tilePos))
+                return null;
+
             GameObject empty = new("empty");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
 
-            abilitData.AbilityTriggerPos = tilePos;
+            abilityData.AbilityTriggerPos = tilePos;
 
             return empty;
         }
