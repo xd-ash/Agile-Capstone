@@ -217,7 +217,7 @@ public class DeckBuilderScript : MonoBehaviour
         var temp = GetCurrentDeckFromDropdown();
         if (temp == null) return;
         _currDeck = temp;
-        PlayerDataManager.Instance.SetActiveDeck(_currDeck);
+        //PlayerDataManager.Instance.SetActiveDeck(_currDeck);
         _tempDeck = new(_currDeck.GetCardsInDeck);
         _deckDropdown.captionText.text = _currDeck.GetDeckName;
 

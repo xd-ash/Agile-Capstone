@@ -35,6 +35,7 @@ public class PlayerDataManager : MonoBehaviour
     public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
     public Deck GetActiveDeck => _activeDeck;
     public List<Deck> GetAllPlayerDecks => _createdDecks;
+
     public bool[] GetAllCoinFlipsThisRun => _coinFlipsThisRun.ToArray();
     public int GetNumHeadsThisRun => _coinFlipsThisRun.FindAll(x => true).Count;
     public int GetNumTailsThisRun => _coinFlipsThisRun.FindAll(x => false).Count;
