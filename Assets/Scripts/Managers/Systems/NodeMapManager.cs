@@ -43,7 +43,6 @@ public class NodeMapManager : MonoBehaviour
         _seed = PlayerDataManager.Instance.GetNodeMapSeed;
         _nodeMap = _nodeMapCreator.GenerateFullNodeMap(_seed);
         InitNodes();
-        //_bountySelectPanel?.gameObject.SetActive(false);
     }
     public void InitNodes()
     {
@@ -72,8 +71,8 @@ public class NodeMapManager : MonoBehaviour
             }
         }
         if (curNode == null) return;
-        if (curNode.GetNodeIndex == Vector2Int.zero)
-            CompleteCurrentNode();
+        //if (curNode.GetNodeIndex == Vector2Int.zero)
+            //CompleteCurrentNode();
 
         // set next nodes as accessible
         for (int i = 0; i < curNode.GetNextNodes.Length; i++)

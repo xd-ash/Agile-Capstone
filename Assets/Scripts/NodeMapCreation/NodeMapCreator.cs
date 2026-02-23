@@ -25,12 +25,8 @@ public class NodeMapCreator : MonoBehaviour
     private void Awake()
     {
         _nodePrefab = Resources.Load<GameObject>("TempNodeMap/NodePrefab");
-        /*_combatSceneNodePrefab = Resources.Load<GameObject>("TempNodeMap/CombatNode");
-        _bountyChoiceNodePrefab = Resources.Load<GameObject>("TempNodeMap/BountyBoardNode");
-        _bossNodePrefab = Resources.Load<GameObject>("TempNodeMap/BossNode");
-        _shopNodePrefab = Resources.Load<GameObject>("TempNodeMap/ShopNode");
-        _otherNodePrefab = Resources.Load<GameObject>("TempNodeMap/OtherNode");*/
     }
+
     public Dictionary<int, List<NodeMapNode>> GenerateFullNodeMap(int seed)
     {
         _curSeed = seed;
@@ -71,7 +67,7 @@ public class NodeMapCreator : MonoBehaviour
         for (int i = 0; i < _numberOfTiers; i++)
         {
             var nodeKVP = _nodeTiers.ElementAt(i);
-
+            
             int c = -1; // fail counter
             do
             {
@@ -157,10 +153,10 @@ public class NodeMapCreator : MonoBehaviour
         int enumCount = Enum.GetNames(typeof(NodeTypes)).Count();
         NodeTypes rngType = NodeTypes.Combat;
 
-        //temp setup for initial node to be "blank" and will auto complete
+        //temp setup for initial node to be an easier combat
         if (node.dictIndex == Vector2Int.zero)
         {
-            node.nodeType = NodeTypes.Other;
+            node.nodeType = NodeTypes.Combat;
             return;
         }
 

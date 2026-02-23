@@ -355,7 +355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72423069f5083174284be158e2d04a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ViewDeckButtonAlt
-  _deckViewWindow: {fileID: 0}
 --- !u!114 &939503047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,8 +938,8 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.9403501
-        value: 3.4693265
+        time: 0.7486692
+        value: 3.481119
         inSlope: -12.212762
         outSlope: -12.212762
         tangentMode: 0
