@@ -6,8 +6,6 @@ public class MoveInRangeAction : GoapAction
 {
     private FindPathAStar aStar;
 
-    public MoveInRangeAction(GoapAgent agent) : base(agent) { }
-
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString())) return false;

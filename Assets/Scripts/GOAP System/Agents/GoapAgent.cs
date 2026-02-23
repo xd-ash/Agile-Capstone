@@ -58,7 +58,7 @@ public class GoapAgent : MonoBehaviour
         GrabGoalsFromEnum();
 
         foreach (var a in _actions)
-            a?.GrabConditionsFromEnums();
+            a?.GrabConditionsFromEnums(this);
 
         ResetStates();
         /*

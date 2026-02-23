@@ -55,31 +55,31 @@ public struct GOAPEnums
             {
                 case 0://Other Move
                     if (binaryEnum[i] == '1')
-                        actions.Add(new OtherMoveAction(agent));
+                        actions.Add(new OtherMoveAction());
                     break;
                 case 1://MoveIntoLOS
                     if (binaryEnum[i] == '1')
-                        actions.Add(new MoveIntoLOSAction(agent));
+                        actions.Add(new MoveIntoLOSAction());
                     break;
                 case 2://EndTurn
                     if (binaryEnum[i] == '1')
-                        actions.Add(new EndTurnAction(agent));
+                        actions.Add(new EndTurnAction());
                     break;
                 case 3://Choose Target
                     if (binaryEnum[i] == '1')
-                        actions.Add(new ChooseTargetAction(agent));
+                        actions.Add(new ChooseTargetAction());
                     break;
                 case 4://Heal
                     if (binaryEnum[i] == '1')
-                        actions.Add(new HealAction(agent));
+                        actions.Add(new HealAction());
                     break;
                 case 5://Attack
                     if (binaryEnum[i] == '1')
-                        actions.Add(new AttackAction(agent));
+                        actions.Add(new AttackAction());
                     break;
                 case 6://Move
                     if (binaryEnum[i] == '1')
-                        actions.Add(new MoveInRangeAction(agent));
+                        actions.Add(new MoveInRangeAction());
                     break;
                 case 7://None
                     break;

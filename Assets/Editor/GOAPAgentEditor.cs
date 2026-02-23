@@ -12,7 +12,7 @@ public class GOAPAgentEditor : Editor
         agent.GrabGoalsFromEnum();
 
         foreach (var a in agent.GetActions)
-            a?.GrabConditionsFromEnums();
+            a?.GrabConditionsFromEnums(agent);
 
         base.OnInspectorGUI();
 

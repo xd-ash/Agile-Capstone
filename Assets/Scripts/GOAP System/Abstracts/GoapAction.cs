@@ -24,14 +24,16 @@ public abstract class GoapAction
     public Dictionary<string, int> GetPreConditions => _preConditions;
     public Dictionary<string, int> GetPostConditions => _postConditions;
 
-    public GoapAction(GoapAgent agent)
+    public GoapAction()
     {
-        _agent = agent;
         _actionName = this.ToString();
     }
 
-    public void GrabConditionsFromEnums()
+    public void GrabConditionsFromEnums(GoapAgent agent)
     {
+        if (_agent == null)
+            _agent = agent;
+
         var tempPreCond = GetAllStatesFromFlags(_preConditionsFlags);
         var tempPostCond = GetAllStatesFromFlags(_postConditionsFlags);
 

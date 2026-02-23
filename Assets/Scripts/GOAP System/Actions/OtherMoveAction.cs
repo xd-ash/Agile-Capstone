@@ -5,8 +5,6 @@ public class OtherMoveAction : GoapAction
 {
     private FindPathAStar aStar;
 
-    public OtherMoveAction(GoapAgent agent) : base(agent) { }
-
     public override bool PrePerform(ref WorldStates beliefs)
     {
         aStar = _agent.GetComponent<FindPathAStar>();

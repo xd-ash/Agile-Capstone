@@ -7,8 +7,6 @@ public class MoveIntoLOSAction : GoapAction
 {
     private FindPathAStar aStar;
 
-    public MoveIntoLOSAction(GoapAgent agent) : base(agent) { }
-
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.HasLOS.ToString())) return false;

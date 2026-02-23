@@ -1,10 +1,7 @@
-using UnityEngine;
 using static GOAPDeterminationMethods;
 
 public class AttackAction : GoapAction
 {
-    public AttackAction(GoapAgent agent) : base(agent) { }
-
     public override bool PrePerform(ref WorldStates beliefs)
     {
         bool canDoAction = CheckCanDoAction(_agent.unit, _agent.damageAbility.GetApCost);
