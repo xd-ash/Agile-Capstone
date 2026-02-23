@@ -26,7 +26,6 @@ public abstract class GoapAction
 
     public GoapAction(GoapAgent agent)
     {
-        Debug.Log("test");
         _agent = agent;
         _actionName = this.ToString();
     }
