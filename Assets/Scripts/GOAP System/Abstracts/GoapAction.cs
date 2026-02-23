@@ -9,7 +9,7 @@ public abstract class GoapAction
     [SerializeField, HideInInspector] protected string _actionName;
     [SerializeField] protected float _cost = 1f;
     [SerializeField] protected bool _isRunning = false; //is performing action currently
-    [HideInInspector] protected GoapAgent agent;
+    protected GoapAgent _agent;
 
     protected Dictionary<string, int> _preConditions = new();
     protected Dictionary<string, int> _postConditions = new();
@@ -26,7 +26,7 @@ public abstract class GoapAction
 
     public GoapAction(GoapAgent agent)
     {
-        this.agent = agent;
+        _agent = agent;
         _actionName = this.ToString();
     }
 
@@ -52,10 +52,8 @@ public abstract class GoapAction
 
         ManipulateConditionsLists(tempPreCond, tempPreToString, ref _preConditions);
         ManipulateConditionsLists(tempPostCond, tempPostToString, ref _postConditions);
-
-        //inventory = this.GetComponent<GAgent>().inventory;
-        //beliefs = this.GetComponent<GoapAgent>().beliefs;
     }
+
     protected void ManipulateConditionsLists(List<WorldState> stateList, List<string> stringList, ref Dictionary<string, int> conditions)
     {
         if (conditions == null) conditions = new();

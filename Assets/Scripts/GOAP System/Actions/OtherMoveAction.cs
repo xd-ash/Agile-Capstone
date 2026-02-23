@@ -9,15 +9,15 @@ public class OtherMoveAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        aStar = agent.GetComponent<FindPathAStar>();
+        aStar = _agent.GetComponent<FindPathAStar>();
 
-        if (agent.damageAbility.GetRange > 1)
+        if (_agent.damageAbility.GetRange > 1)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             return false;
         }
 
-        var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
+        var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
         var tempPath = aStar.CalculatePath(tarPos);
         aStar.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
 
@@ -28,7 +28,7 @@ public class OtherMoveAction : GoapAction
         aStar.OnStartUnitMove(() =>
         {
             //Debug.Log("test");
-            agent.CompleteAction();
+            _agent.CompleteAction();
         });
     }
 

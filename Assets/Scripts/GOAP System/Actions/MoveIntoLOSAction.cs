@@ -13,11 +13,11 @@ public class MoveIntoLOSAction : GoapAction
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.HasLOS.ToString())) return false;
 
-        aStar = agent.GetComponent<FindPathAStar>();
-        Unit unit = agent.unit;
-        int dmgAbilRange = agent.damageAbility.GetRange;
+        aStar = _agent.GetComponent<FindPathAStar>();
+        Unit unit = _agent.unit;
+        int dmgAbilRange = _agent.damageAbility.GetRange;
 
-        var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
+        var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
         var tempPath = aStar.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 
@@ -38,7 +38,7 @@ public class MoveIntoLOSAction : GoapAction
     {
         aStar.OnStartUnitMove(() =>
         {
-            agent.CompleteAction();
+            _agent.CompleteAction();
         });
     }
     public override void PostPerform(ref WorldStates beliefs)
@@ -47,6 +47,6 @@ public class MoveIntoLOSAction : GoapAction
         beliefs.ModifyState(GoapStates.HasLOS.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoLOS.ToString());
 
-        CheckIfInRange(agent, agent.damageAbility.GetRange, ref beliefs);
+        CheckIfInRange(_agent, _agent.damageAbility.GetRange, ref beliefs);
     }
 }

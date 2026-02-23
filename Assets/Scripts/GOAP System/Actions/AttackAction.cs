@@ -7,7 +7,7 @@ public class AttackAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        bool canDoAction = CheckCanDoAction(agent.unit, agent.damageAbility.GetApCost);
+        bool canDoAction = CheckCanDoAction(_agent.unit, _agent.damageAbility.GetApCost);
         if (!canDoAction)
         {
             beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
@@ -18,14 +18,14 @@ public class AttackAction : GoapAction
     }
     public override void Perform()
     {
-        agent.damageAbility.UseAility(agent.unit);
+        _agent.damageAbility.UseAility(_agent.unit);
 
-        agent.CompleteAction();
+        _agent.CompleteAction();
     }
 
     public override void PostPerform(ref WorldStates beliefs)
     {
-        if (!CheckCanDoAction(agent.unit, agent.damageAbility.GetApCost))
+        if (!CheckCanDoAction(_agent.unit, _agent.damageAbility.GetApCost))
         {
             beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);

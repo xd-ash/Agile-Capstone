@@ -10,10 +10,10 @@ public class EndTurnAction : GoapAction
     }
     public override void Perform()
     {
-        agent.ClearPlanner();
+        _agent.ClearPlanner();
         TurnManager.Instance.EndEnemyTurn();
         //Debug.Log($"End turn Perform");
-        agent.CompleteAction();
+        _agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {

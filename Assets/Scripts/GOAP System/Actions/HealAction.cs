@@ -7,24 +7,24 @@ public class HealAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (agent.healCharges <= 0)
+        if (_agent.healCharges <= 0)
         {
             beliefs.RemoveState(GoapStates.CanHeal.ToString());
             return false;
         }
 
-        return CheckCanDoAction(agent.unit, agent.healAbility.GetApCost);
+        return CheckCanDoAction(_agent.unit, _agent.healAbility.GetApCost);
     }
     public override void Perform()
     {
-        agent.healAbility.UseAility(agent.unit);
-        agent.healCharges--;
+        _agent.healAbility.UseAility(_agent.unit);
+        _agent.healCharges--;
 
-        agent.CompleteAction();
+        _agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        if(CheckIfHealthy(agent.unit, ref beliefs))
+        if(CheckIfHealthy(_agent.unit, ref beliefs))
             beliefs.ModifyState(GoapStates.HasHealed.ToString(), 1);
     }
 }

@@ -13,11 +13,11 @@ public class ChooseTargetAction : GoapAction
     public override bool PrePerform(ref WorldStates beliefs)
     {
         distancesToUnits = new();
-        FindPathAStar aStar = agent.GetComponent<FindPathAStar>();
+        FindPathAStar aStar = _agent.GetComponent<FindPathAStar>();
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
-            if (u == null || u.GetTeam == agent.unit.GetTeam) continue;
+            if (u == null || u.GetTeam == _agent.unit.GetTeam) continue;
             //Debug.Log($"Unit: {u.name} - Pos {u.transform.localPosition}");
 
             var tarPos = ConvertToGridFromIsometric(u.transform.localPosition); 
@@ -31,18 +31,18 @@ public class ChooseTargetAction : GoapAction
     public override void Perform()
     {
         int min = distancesToUnits.Min(x => x.Key);
-        agent.SetCurrentTarget(distancesToUnits[min]);
+        _agent.SetCurrentTarget(distancesToUnits[min]);
 
         //Debug.Log($"target: {(agent.curtarget != null ? agent.curtarget.name : "null")}");
 
-        agent.CompleteAction();
+        _agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
         beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoTarget.ToString());
 
-        CheckIfInRange(agent, agent.damageAbility.GetRange, ref beliefs);
-        CheckIfInLOS(agent, ref beliefs);
+        CheckIfInRange(_agent, _agent.damageAbility.GetRange, ref beliefs);
+        CheckIfInLOS(_agent, ref beliefs);
     }
 }
