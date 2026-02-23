@@ -197,7 +197,7 @@ MonoBehaviour:
   _ap: 0
   _enemyHPBar: {fileID: 0}
   _hitChanceText: {fileID: 1595068724163467255}
-  _ecanMove: 1
+  _canMove: 1
 --- !u!114 &1680429232163789991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,12 +228,12 @@ MonoBehaviour:
   healCharges: 2
   _goapActionsEnum: 126
   _actions:
-  - rid: 184551379020808278
-  - rid: 184551379020808280
-  - rid: 184551379020808281
-  - rid: 7037380749985316943
-  - rid: 814567176430420062
-  - rid: 184551473563828294
+  - rid: 1434491564777275476
+  - rid: 1434491564777275475
+  - rid: 1434491564777275477
+  - rid: 1434491564777275472
+  - rid: 1434491564777275474
+  - rid: 1434491564777275473
   _goalsEnum: 1600
   _goals:
   - rid: 184551379020808282
@@ -241,38 +241,10 @@ MonoBehaviour:
   - rid: 814567176430420063
   _actionDelayTime: 1
   unit: {fileID: 5489418204435330}
-  curtarget: {fileID: 0}
   showDebugMessages: 0
   references:
     version: 2
     RefIds:
-    - rid: 184551379020808278
-      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
-      data:
-        actionName: ChooseTargetAction
-        cost: 0
-        running: 0
-        agent: {fileID: 6670463243099223024}
-        preConditionsFlags: 16386
-        postConditionsFlags: 2048
-    - rid: 184551379020808280
-      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
-      data:
-        actionName: MoveInRangeAction
-        cost: 1
-        running: 0
-        agent: {fileID: 6670463243099223024}
-        preConditionsFlags: 2082
-        postConditionsFlags: 8
-    - rid: 184551379020808281
-      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
-      data:
-        actionName: AttackAction
-        cost: 2
-        running: 0
-        agent: {fileID: 6670463243099223024}
-        preConditionsFlags: 6154
-        postConditionsFlags: 512
     - rid: 184551379020808282
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
@@ -285,39 +257,60 @@ MonoBehaviour:
         key: HasAttacked
         value: 1
         removeOnComplete: 1
-    - rid: 184551473563828294
-      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
-      data:
-        actionName: MoveIntoLOSAction
-        cost: 1
-        running: 0
-        agent: {fileID: 6670463243099223024}
-        preConditionsFlags: 10250
-        postConditionsFlags: 4096
-    - rid: 814567176430420062
-      type: {class: HealAction, ns: , asm: Assembly-CSharp}
-      data:
-        actionName: HealAction
-        cost: 1
-        running: 0
-        agent: {fileID: 6670463243099223024}
-        preConditionsFlags: 32774
-        postConditionsFlags: 1044
     - rid: 814567176430420063
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: HasHealed
         value: 2
         removeOnComplete: 1
-    - rid: 7037380749985316943
+    - rid: 1434491564777275472
+      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveIntoLOSAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 10250
+        _postConditionsFlags: 4096
+    - rid: 1434491564777275473
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
-        actionName: EndTurnAction
-        cost: 0
-        running: 0
-        agent: {fileID: 6670463243099223024}
-        preConditionsFlags: 64
-        postConditionsFlags: 0
+        _actionName: EndTurnAction
+        _cost: 0
+        _isRunning: 0
+        _preConditionsFlags: 64
+        _postConditionsFlags: 0
+    - rid: 1434491564777275474
+      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: ChooseTargetAction
+        _cost: 0
+        _isRunning: 0
+        _preConditionsFlags: 16386
+        _postConditionsFlags: 2048
+    - rid: 1434491564777275475
+      type: {class: HealAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HealAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 32774
+        _postConditionsFlags: 1044
+    - rid: 1434491564777275476
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: AttackAction
+        _cost: 2
+        _isRunning: 0
+        _preConditionsFlags: 6154
+        _postConditionsFlags: 512
+    - rid: 1434491564777275477
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveInRangeAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 2082
+        _postConditionsFlags: 8
 --- !u!114 &4625741828471660904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +326,7 @@ MonoBehaviour:
   _unitMoveSpeed: 0.2
   _moveCostPerTile: 1
   _placePathDebugMarkers: 0
+  _isKnockback: 0
 --- !u!114 &112770222690940186
 MonoBehaviour:
   m_ObjectHideFlags: 0

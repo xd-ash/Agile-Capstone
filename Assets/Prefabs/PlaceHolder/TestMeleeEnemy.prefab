@@ -428,12 +428,12 @@ MonoBehaviour:
   healCharges: 2
   _goapActionsEnum: 126
   _actions:
-  - rid: 1434491558360776782
-  - rid: 1434491558360776783
-  - rid: 1434491558360776784
-  - rid: 1434491558360776785
-  - rid: 1434491558360776786
-  - rid: 1434491558360776787
+  - rid: 1434491564777275483
+  - rid: 1434491564777275482
+  - rid: 1434491564777275484
+  - rid: 1434491564777275479
+  - rid: 1434491564777275481
+  - rid: 1434491564777275480
   _goalsEnum: 1600
   _goals:
   - rid: 184551379020808282
@@ -463,54 +463,54 @@ MonoBehaviour:
         key: HasHealed
         value: 2
         removeOnComplete: 1
-    - rid: 1434491558360776782
-      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: MoveInRangeAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-    - rid: 1434491558360776783
-      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: AttackAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-    - rid: 1434491558360776784
-      type: {class: HealAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: HealAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-    - rid: 1434491558360776785
-      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: ChooseTargetAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-    - rid: 1434491558360776786
-      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: EndTurnAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-    - rid: 1434491558360776787
+    - rid: 1434491564777275479
       type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveIntoLOSAction
         _cost: 1
         _isRunning: 0
-        _preConditionsFlags: 0
+        _preConditionsFlags: 10250
+        _postConditionsFlags: 4096
+    - rid: 1434491564777275480
+      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: EndTurnAction
+        _cost: 0
+        _isRunning: 0
+        _preConditionsFlags: 64
         _postConditionsFlags: 0
+    - rid: 1434491564777275481
+      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: ChooseTargetAction
+        _cost: 0
+        _isRunning: 0
+        _preConditionsFlags: 16386
+        _postConditionsFlags: 2048
+    - rid: 1434491564777275482
+      type: {class: HealAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HealAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 32774
+        _postConditionsFlags: 1044
+    - rid: 1434491564777275483
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: AttackAction
+        _cost: 2
+        _isRunning: 0
+        _preConditionsFlags: 6154
+        _postConditionsFlags: 512
+    - rid: 1434491564777275484
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveInRangeAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 2082
+        _postConditionsFlags: 8
 --- !u!114 &3630910483554471787
 MonoBehaviour:
   m_ObjectHideFlags: 0

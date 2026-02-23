@@ -26,6 +26,7 @@ public abstract class GoapAction
 
     public GoapAction(GoapAgent agent)
     {
+        Debug.Log("test");
         _agent = agent;
         _actionName = this.ToString();
     }
@@ -36,10 +37,10 @@ public abstract class GoapAction
         var tempPostCond = GetAllStatesFromFlags(_postConditionsFlags);
 
         foreach (var c in tempPreCond)
-            if (_preConditions == null || !_preConditions.ContainsKey(c.key))
+            if (_preConditions != null && !_preConditions.ContainsKey(c.key))
                 _preConditions.Add(c.key, c.value);
         foreach (var c in tempPostCond)
-            if (_postConditions == null || !_postConditions.ContainsKey(c.key))
+            if (_postConditions != null && !_postConditions.ContainsKey(c.key))
                 _postConditions.Add(c.key, c.value);
 
         List<string> tempPreToString = new List<string>(), 
