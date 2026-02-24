@@ -5,8 +5,7 @@ public class SpecialMechanicsManager : MonoBehaviour
 {
     Dictionary<Unit, List<bool>> _coinFlipsByUnitThisCombat = new();
 
-    //public int GetNumHeadsThisCombat(Unit unit) { return _coinFlipsByUnitThisCombat[unit].FindAll(x => true).Count; }
-    //public int GetNumTailsThisCombat(Unit unit) { return _coinFlipsByUnitThisCombat[unit].FindAll(x => false).Count; }
+    public bool GetLastCoinFlipOutcome(Unit unit) => _coinFlipsByUnitThisCombat.Count == 0 ? false : _coinFlipsByUnitThisCombat[unit][^1];
     public int GetNumHeadsThisCombat(Unit unit) => GrabNumOfCoinSides(unit, true);
     public int GetNumTailsThisCombat(Unit unit) => GrabNumOfCoinSides(unit, false);
     private int GrabNumOfCoinSides(Unit unit, bool coinSide)

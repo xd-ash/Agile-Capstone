@@ -10,7 +10,7 @@ namespace CardSystem
     {
         [Input(connectionType = ConnectionType.Override)] public bool input;
 
-        [SerializeField] private Color _aoeHighlightColor;
+        [SerializeField] private Color _aoeHighlightColor = Color.darkRed;
         [SerializeField] private int _range;
 
         private Vector2Int _currTilePos;
