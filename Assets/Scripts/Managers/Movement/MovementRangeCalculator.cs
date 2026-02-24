@@ -105,7 +105,8 @@ public class MovementRangeCalculator : MonoBehaviour
             AbilityEvents.IsTargeting ||
             PauseMenu.isPaused)
         {
-            TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
+            if (_currentUnit != null)
+                TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
             return;
         }
         var reachable = ComputeReachableCells(_currentUnit);
