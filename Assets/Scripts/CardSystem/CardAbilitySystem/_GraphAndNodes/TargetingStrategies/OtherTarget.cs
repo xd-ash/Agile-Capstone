@@ -101,9 +101,7 @@ namespace CardSystem
                 return null;
 
             //check in range
-            int range = (graph as CardAbilityDefinition).GetRange;
-            Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.localPosition);
-            if (!ComputeCellsInRange(unitPos, range).Contains(tilePos))
+            if (!_tilesInRange.Contains(tilePos))
                 return null;
 
             GameObject empty = new("empty");

@@ -32,10 +32,12 @@ namespace CardSystem
                 _aoeStrat?.InitNode();
             }
 
+            if (abilityData.GetUnit.GetTeam == Team.Enemy) return;
+
             int range = (graph as CardAbilityDefinition).GetRange;
             Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.localPosition);
             _tilesInRange = ComputeCellsInRange(unitPos, range);
-            ApplyHighlights(_tilesInRange, abilityData.GetUnit.GetGuid, Color.darkGreen * new Color(1,1,1,0.65f), 1); // set up general unit ability range tiles
+            ApplyHighlights(_tilesInRange, abilityData.GetUnit.GetGuid, Color.softRed * new Color(1,1,1,0.65f), 1); // set up general unit ability range tiles
 
             AbilityEvents.OnAbilityTargetingStopped += () => ClearHighlights(abilityData.GetGUID);
             onFinished += () =>
