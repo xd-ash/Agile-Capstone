@@ -57,7 +57,7 @@ namespace CardSystem
                         if (hoveredUnit != null && caster != null)
                         {
                             int hitChance = CombatMath.GetHitChance(caster.transform.localPosition, hoveredUnit, def);
-                            hoveredUnit.ShowHitChance(hitChance);
+                            //hoveredUnit.ShowHitChance(hitChance);
                         }
                     }
                 }
@@ -101,9 +101,7 @@ namespace CardSystem
                 return null;
 
             //check in range
-            int range = (graph as CardAbilityDefinition).GetRange;
-            Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.localPosition);
-            if (!ComputeCellsInRange(unitPos, range).Contains(tilePos))
+            if (!_tilesInRange.Contains(tilePos))
                 return null;
 
             GameObject empty = new("empty");
@@ -130,8 +128,12 @@ namespace CardSystem
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), 
                 Vector2.zero, Mathf.Infinity);
-            if (hit.collider != null && hit.collider.GetComponent<Unit>())
-                return hit.collider.gameObject;
+            if (hit.collider != null && hit.collider.TryGetComponent(out Unit targetUnit))
+            {
+                var targetPos = ConvertToGridFromIsometric(targetUnit.transform.localPosition);
+                if (_tilesInRange.Contains(targetPos))
+                    return hit.collider.gameObject;
+            }
             return null;
         }
     }

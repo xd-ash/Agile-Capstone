@@ -242,7 +242,7 @@ MonoBehaviour:
   _minHitChance: 100
   _maxHitChance: 100
   _ignoreLOS: 0
-  _hitPenaltyPerTile: 5
+  _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
 --- !u!114 &1248464801931553592
