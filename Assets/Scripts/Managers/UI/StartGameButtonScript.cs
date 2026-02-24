@@ -5,16 +5,13 @@ public class StartGameButtonScript : MonoBehaviour
 {
     private string _targetScene = "NodeMap";
     [SerializeField] private bool _isNewGame = true;
-    private GameObject _deckSelectPopup;
-    private GameObject _confirmPopup;
+    [SerializeField] private GameObject _confirmPopup;
     private Button _button;
 
     private void OnEnable()
     {
-        _confirmPopup = transform.parent.Find("NewGameConfirmPanel").gameObject;
-        _confirmPopup?.SetActive(false);
-        _deckSelectPopup = transform.parent.Find("SelectDeckOnRunPopUp")?.gameObject;
-        _deckSelectPopup?.SetActive(false);
+        _confirmPopup = transform.parent.parent.Find("NewGameConfirmPanel").gameObject;
+        _confirmPopup?.SetActive(transform.parent.gameObject == _confirmPopup);
 
         if (_isNewGame || !TryGetComponent(out _button)) return;
 
