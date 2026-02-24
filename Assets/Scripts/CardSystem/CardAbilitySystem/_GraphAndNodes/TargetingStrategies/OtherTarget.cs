@@ -12,9 +12,9 @@ namespace CardSystem
     {
         [SerializeField] private bool _targetTilesNotUnits = false;
 
-        public override void StartTargeting(AbilityData abilityData, Action onFinished)
+        public override void StartTargeting(AbilityData abilityData, ref Action onFinished)
         {
-            base.StartTargeting(abilityData, onFinished);
+            base.StartTargeting(abilityData, ref onFinished);
 
             switch (abilityData.GetUnit.GetTeam)
             {
@@ -67,6 +67,12 @@ namespace CardSystem
                     List<GameObject> tempTargets = abilityData.Targets == null ? new List<GameObject>() : new List<GameObject>(abilityData.Targets);
                     GameObject temp = _targetTilesNotUnits ? TileOnMouse(abilityData) : TargetOnMouse(caster);
 
+                    if (temp == null)
+                    {
+                        yield return null;
+                        continue;
+                    }
+                    
                     if (!tempTargets.Contains(temp))
                         tempTargets.Add(temp);
                     abilityData.Targets = tempTargets;
@@ -96,8 +102,8 @@ namespace CardSystem
 
             //check in range
             int range = (graph as CardAbilityDefinition).GetRange;
-            Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.position);
-            if (ComputeCellsInRange(unitPos, range).Contains(tilePos))
+            Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.localPosition);
+            if (!ComputeCellsInRange(unitPos, range).Contains(tilePos))
                 return null;
 
             GameObject empty = new("empty");

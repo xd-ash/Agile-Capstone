@@ -27,12 +27,12 @@ namespace CardSystem
 			if (!user.SpendAP(_cardDefinition.GetApCost, false)) return; // simply check if ap can be spent
 
             AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user));
-
-			_targetingStrategy?.StartTargeting(abilityData, () =>
-			{
+            Action onFinished = () =>
+            {
                 // Method sent through to be called after targeting strategy finishes
                 InitAbility(abilityData);
-			});
+            };
+            _targetingStrategy?.StartTargeting(abilityData, ref onFinished);
         }
 
 		private void InitAbility(AbilityData abilityData)

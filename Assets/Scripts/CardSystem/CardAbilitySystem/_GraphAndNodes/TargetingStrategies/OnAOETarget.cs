@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
@@ -52,8 +53,8 @@ namespace CardSystem
             }
             abilityData.Targets = tempTargets;
 
-            TileHighlighter.ClearHighlights();
-            TileHighlighter.ApplyHighlights(cellsInRange, _aoeHighlightColor);
+            TileHighlighter.ClearHighlights(abilityData.GetGUID);
+            TileHighlighter.ApplyHighlights(cellsInRange, abilityData.GetGUID, _aoeHighlightColor);
         }
 
         /*private HashSet<Vector2Int> ComputeCellsInRange(Vector2Int tilePos)

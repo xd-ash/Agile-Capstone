@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
+using static IsoMetricConversions;
+using static TileHighlighter;
 
 namespace CardSystem
 {
@@ -13,8 +15,9 @@ namespace CardSystem
         [Output(connectionType = ConnectionType.Override)] public bool aoeStrat;
 
         protected OnAOETarget _aoeStrat;
+        protected HashSet<Vector2Int> _tilesInRange;
 
-        public virtual void StartTargeting(AbilityData abilityData, Action onFinished)
+        public virtual void StartTargeting(AbilityData abilityData, ref Action onFinished)
         {
             if (abilityData.GetUnit.GetTeam != Team.Enemy)
             {
@@ -28,7 +31,20 @@ namespace CardSystem
                 _aoeStrat = port.Connection.node as OnAOETarget;
                 _aoeStrat?.InitNode();
             }
+
+            int range = (graph as CardAbilityDefinition).GetRange;
+            Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.localPosition);
+            _tilesInRange = ComputeCellsInRange(unitPos, range);
+            ApplyHighlights(_tilesInRange, abilityData.GetUnit.GetGuid, Color.darkGreen * new Color(1,1,1,0.65f), 1); // set up general unit ability range tiles
+
+            AbilityEvents.OnAbilityTargetingStopped += () => ClearHighlights(abilityData.GetGUID);
+            onFinished += () =>
+            {
+                //ClearHighlights(abilityData.GetGUID);
+                AbilityEvents.OnAbilityTargetingStopped -= () => ClearHighlights(abilityData.GetGUID);
+            };
         }
+
         public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
 
         public virtual HashSet<Vector2Int> ComputeCellsInRange(Vector2Int tilePos, int range)

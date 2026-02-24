@@ -106,7 +106,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 0
+  _effectValue: 0
   input: 0
   effectVisuals: 0
 --- !u!114 &-2381621893422565370
@@ -149,7 +149,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 3
+  _effectValue: 0
   input: 0
   effectVisuals: 0
 --- !u!114 &-1408864610375403884
@@ -215,7 +215,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 0
+  _effectValue: 0
   input: 0
   effectVisuals: 0
   _prefab: {fileID: 6626558593374184628, guid: cc719c8a7b685144baf2dcc0d0b58f7b, type: 3}
@@ -244,7 +244,7 @@ MonoBehaviour:
   _description: Place a bear trap that root any unit that step on it
   _abilitySFX: {fileID: 0}
   _apCost: 3
-  _range: 0
+  _range: 4
   _shopCost: 0
   _shopWeight: 0
   _baseHitChance: 100
@@ -428,7 +428,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 3
+  _effectValue: 0
   input: 0
   effectVisuals: 0
   effects: 0

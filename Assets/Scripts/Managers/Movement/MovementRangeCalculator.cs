@@ -24,12 +24,12 @@ public class MovementRangeCalculator : MonoBehaviour
         if (TurnManager.Instance != null)
             _lastTurn = TurnManager.Instance.CurrTurn;
 
-        AbilityEvents.OnAbilityTargetingStarted += TileHighlighter.ClearHighlights;
+        AbilityEvents.OnAbilityTargetingStarted += () => TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
         AbilityEvents.OnAbilityTargetingStopped += RebuildForCurrentUnit;
     }
     private void OnDestroy()
     {
-        AbilityEvents.OnAbilityTargetingStarted -= TileHighlighter.ClearHighlights;
+        AbilityEvents.OnAbilityTargetingStarted -= () => TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
         AbilityEvents.OnAbilityTargetingStopped -= RebuildForCurrentUnit;
     }
 
@@ -57,7 +57,7 @@ public class MovementRangeCalculator : MonoBehaviour
             TrySetCurrentUnit(TurnManager.GetCurrentUnit);
         else
         {
-            TileHighlighter.ClearHighlights();
+            TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
             UnsubscribeFromUnit();
             _currentUnit = null;
         }
@@ -67,7 +67,8 @@ public class MovementRangeCalculator : MonoBehaviour
     {
         if (unit == null || unit.GetTeam != Team.Friendly)
         {
-            TileHighlighter.ClearHighlights();
+            if (unit != null)
+                TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
             UnsubscribeFromUnit();
             _currentUnit = null;
             return;
@@ -104,11 +105,11 @@ public class MovementRangeCalculator : MonoBehaviour
             AbilityEvents.IsTargeting ||
             PauseMenu.isPaused)
         {
-            TileHighlighter.ClearHighlights();
+            TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
             return;
         }
         var reachable = ComputeReachableCells(_currentUnit);
-        TileHighlighter.ApplyHighlights(reachable, _reachableColor);
+        TileHighlighter.ApplyHighlights(reachable, _currentUnit.GetGuid, _reachableColor);
     }
 
     private HashSet<Vector2Int> ComputeReachableCells(Unit unit)
