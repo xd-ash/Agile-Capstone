@@ -12,9 +12,9 @@ namespace CardSystem
     {
         [SerializeField] private bool _targetTilesNotUnits = false;
 
-        public override void StartTargeting(AbilityData abilityData, Action onFinished)
+        public override void StartTargeting(AbilityData abilityData, ref Action onFinished)
         {
-            base.StartTargeting(abilityData, onFinished);
+            base.StartTargeting(abilityData, ref onFinished);
 
             switch (abilityData.GetUnit.GetTeam)
             {
@@ -66,6 +66,13 @@ namespace CardSystem
                 {
                     List<GameObject> tempTargets = abilityData.Targets == null ? new List<GameObject>() : new List<GameObject>(abilityData.Targets);
                     GameObject temp = _targetTilesNotUnits ? TileOnMouse(abilityData) : TargetOnMouse(caster);
+
+                    if (temp == null)
+                    {
+                        yield return null;
+                        continue;
+                    }
+                    
                     if (!tempTargets.Contains(temp))
                         tempTargets.Add(temp);
                     abilityData.Targets = tempTargets;
@@ -84,7 +91,7 @@ namespace CardSystem
             onFinished?.Invoke();
         }
 
-        private GameObject TileOnMouse(AbilityData abilitData)
+        private GameObject TileOnMouse(AbilityData abilityData)
         {
             var bmc = ByteMapController.Instance;
             Vector2Int tilePos = (Vector2Int)MouseFunctionManager.Instance.GetCurrTilePosition;
@@ -93,11 +100,15 @@ namespace CardSystem
                 bmc?.GetByteAtPosition(new Vector2Int(tilePos.x, tilePos.y)) != 0)
                 return null;
 
+            //check in range
+            if (!_tilesInRange.Contains(tilePos))
+                return null;
+
             GameObject empty = new("empty");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
 
-            abilitData.AbilityTriggerPos = tilePos;
+            abilityData.AbilityTriggerPos = tilePos;
 
             return empty;
         }

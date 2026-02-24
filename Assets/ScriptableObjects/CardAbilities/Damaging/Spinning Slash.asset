@@ -1,0 +1,265 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2866850248734041623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200feab1eed3a4d468b1e9a30dbef64b, type: 3}
+  m_Name: Damage Effect
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DamageEffect
+  graph: {fileID: 11400000}
+  position: {x: 88, y: 616}
+  ports:
+    keys:
+    - input
+    - effectVisuals
+    values:
+    - _fieldName: input
+      _node: {fileID: -2866850248734041623}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effects 0
+        node: {fileID: 5292118119354859995}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: -2866850248734041623}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  _effectValue: 3
+  input: 0
+  effectVisuals: 0
+--- !u!114 &-2607912168574071115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ba2c3153559754b99d9637d4fbb254, type: 3}
+  m_Name: On AOE Target
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.OnAOETarget
+  graph: {fileID: 11400000}
+  position: {x: 408, y: 280}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: -2607912168574071115}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: aoeStrat
+        node: {fileID: -945476345244973691}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  input: 0
+  _aoeHighlightColor: {r: 0.6981132, g: 0.18591593, b: 0.08232466, a: 1}
+  _range: 2
+--- !u!114 &-945476345244973691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5b2b3ff173d174db191a65eea079e3, type: 3}
+  m_Name: Self Target
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.SelfTarget
+  graph: {fileID: 11400000}
+  position: {x: 88, y: 296}
+  ports:
+    keys:
+    - abilityRoot
+    - aoeStrat
+    values:
+    - _fieldName: abilityRoot
+      _node: {fileID: -945476345244973691}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: targeting
+        node: {fileID: 5292118119354859995}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: -945476345244973691}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -2607912168574071115}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
+  m_Name: Spinning Slash
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.CardAbilityDefinition
+  nodes:
+  - {fileID: 5292118119354859995}
+  - {fileID: -945476345244973691}
+  - {fileID: -2607912168574071115}
+  - {fileID: 6895538949277949010}
+  - {fileID: -2866850248734041623}
+  _description: Deal 3 damage to all enemies in a short range around you
+  _abilitySFX: {fileID: 0}
+  _apCost: 2
+  _range: 2
+  _shopCost: 0
+  _shopWeight: 0
+  _baseHitChance: 95
+  _minHitChance: 30
+  _maxHitChance: 100
+  _ignoreLOS: 0
+  _hitPenaltyPerTile: 100
+  _accuracyMultiplier: 1
+  _accuracyFlatBonus: 0
+--- !u!114 &5292118119354859995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e72152fd1d8d54690b69f540af0db1, type: 3}
+  m_Name: Ability Root
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.AbilityRootNode
+  graph: {fileID: 11400000}
+  position: {x: -201, y: 398}
+  ports:
+    keys:
+    - targeting
+    - filtering
+    - effects
+    - filtering 0
+    - effects 0
+    values:
+    - _fieldName: targeting
+      _node: {fileID: 5292118119354859995}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: abilityRoot
+        node: {fileID: -945476345244973691}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: filtering
+      _node: {fileID: 5292118119354859995}
+      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects
+      _node: {fileID: 5292118119354859995}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: filtering 0
+      _node: {fileID: 5292118119354859995}
+      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 6895538949277949010}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+    - _fieldName: effects 0
+      _node: {fileID: 5292118119354859995}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -2866850248734041623}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  targeting: 0
+  filtering: 0
+  effects: 0
+--- !u!114 &6895538949277949010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2255d4c9131e3e8479e1f6c1b21aae3b, type: 3}
+  m_Name: Layer Filter
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.LayerFilter
+  graph: {fileID: 11400000}
+  position: {x: 88, y: 472}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: 6895538949277949010}
+      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: filtering 0
+        node: {fileID: 5292118119354859995}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  input: 0
+  _targetLayers: 2

@@ -5,6 +5,7 @@ using static IsoMetricConversions;
 
 namespace CardSystem
 {
+    [CreateNodeMenu("Misc Effects/Knockback")]
     public class KnockBackEffect : EffectStrategy, IUseEffectValue
     {
         public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
@@ -75,19 +76,22 @@ namespace CardSystem
 
                 // check for obstacles along path and adjust resulting tile position if any are found
                 var lastValidPos = targetGridPos;
-                for (int i = 1; i <= _effectValue; i++)
+                for (int i = 1; i <= Mathf.Abs(_effectValue); i++)
                 {
-                    var tilePos = targetGridPos + knockbackDir * i;
+                    var tilePos = targetGridPos + knockbackDir * i * (_effectValue < 0 ? -1 : 1);
                     tilePos.x = Mathf.Clamp(tilePos.x, 0, mapSize.x - 1);
                     tilePos.y = Mathf.Clamp(tilePos.y, 0, mapSize.y - 1);
 
-                    if (ByteMapController.Instance.GetByteMap[tilePos.x, tilePos.y] == 2)
+                    if (ByteMapController.Instance.GetByteMap[tilePos.x, tilePos.y] != 0)
                         break;
                     lastValidPos = tilePos;
                 }
                 //Debug.Log($"lastValidPos: ({lastValidPos.x},{lastValidPos.y})");
 
                 aStar.OnKnockback(lastValidPos);
+
+                if (_effectValue < 0)
+                    abilityData.GetUnit.GetFloatingText.SpawnFloatingText("GET OVER HERE!");
             }
 
             onFinished?.Invoke();

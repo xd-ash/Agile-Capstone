@@ -30,6 +30,7 @@ public class Unit : MonoBehaviour, IDamagable
 
     private FloatingTextController _floatingText;
     private Coroutine _targetingCoroutine;
+    private Guid _unitGuid = new();
 
     public Team GetTeam => _team;
     public int GetMaxHealth => _maxHealth;
@@ -38,6 +39,7 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
     public bool GetCanMove => _canMove;
+    public Guid GetGuid => _unitGuid;
 
     public event Action<Unit> OnApChanged;
 

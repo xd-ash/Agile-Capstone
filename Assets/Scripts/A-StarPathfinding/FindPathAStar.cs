@@ -279,7 +279,9 @@ namespace AStarPathfinding
                 if (p.location.Equals(marker)) return true;
             return false;
         }
+        //
         private Action _onMoveFinish;
+        //
         public IEnumerator MoveCoro(Action onFinished = null)
         {
             // bandaid fix
@@ -302,14 +304,13 @@ namespace AStarPathfinding
                 {
                     if (!_unit.CanSpend(1) || !_truePath[i].isReachable)
                         break;
-                    if (!_unit.GetCanMove)
-                    {
-                        _dirAnimator?.SetMoving(false);
-                        break;
-                    }
                 }
-                //if (IsKnockback)
-                    //Debug.Log("pathcount: " + _truePath.Count+", index: "+i);
+                if (!_unit.GetCanMove)
+                {
+                    _dirAnimator?.SetMoving(false);
+                    break;
+                }
+
                 Vector2Int next = new Vector2Int(_truePath[i].location.x, _truePath[i].location.y);
 
                 // Anim direction set

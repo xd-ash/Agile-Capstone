@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: Stop Movement Effect
   m_EditorClassIdentifier: Assembly-CSharp::StopMovementEffect
   graph: {fileID: 11400000}
-  position: {x: 632, y: 136}
+  position: {x: 632, y: 152}
   ports:
     keys:
     - input
@@ -106,7 +106,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 0
+  _effectValue: 0
   input: 0
   effectVisuals: 0
 --- !u!114 &-2381621893422565370
@@ -149,7 +149,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  effectValue: 3
+  _effectValue: 3
   input: 0
   effectVisuals: 0
 --- !u!114 &-1408864610375403884
@@ -215,7 +215,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 0
+  _effectValue: 0
   input: 0
   effectVisuals: 0
   _prefab: {fileID: 6626558593374184628, guid: cc719c8a7b685144baf2dcc0d0b58f7b, type: 3}
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: BearTrap
+  m_Name: Bear Trap
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.CardAbilityDefinition
   nodes:
   - {fileID: -5417239485980431426}
@@ -241,10 +241,11 @@ MonoBehaviour:
   - {fileID: 8229596106003169867}
   - {fileID: -2483818144313059888}
   - {fileID: -2381621893422565370}
-  _description: Place a bear trap that root any unit that step on it
+  _description: Place a bear trap that deals 3 damage and roots any unit that steps
+    on it for 3 turns
   _abilitySFX: {fileID: 0}
   _apCost: 3
-  _range: 0
+  _range: 4
   _shopCost: 0
   _shopWeight: 0
   _baseHitChance: 100
@@ -428,8 +429,9 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  effectValue: 3
+  _effectValue: 3
   input: 0
   effectVisuals: 0
   effects: 0
   _doEffectAtStart: 1
+  _tickOnStart: 0

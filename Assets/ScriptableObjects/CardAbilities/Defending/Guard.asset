@@ -1,71 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5552358826238473670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2e72152fd1d8d54690b69f540af0db1, type: 3}
-  m_Name: Ability Root
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -152, y: -168}
-  ports:
-    keys:
-    - targeting
-    - filtering
-    - effects
-    - helpfulEffects 0
-    values:
-    - _fieldName: targeting
-      _node: {fileID: -5552358826238473670}
-      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: abilityRoot
-        node: {fileID: 833357395057102542}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: filtering
-      _node: {fileID: -5552358826238473670}
-      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: effects
-      _node: {fileID: -5552358826238473670}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: helpfulEffects 0
-      _node: {fileID: -5552358826238473670}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -5550744489948948604}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-  targeting: 0
-  filtering: 0
-  effects: 0
 --- !u!114 &-5550744489948948604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,8 +24,8 @@ MonoBehaviour:
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: helpfulEffects 0
-        node: {fileID: -5552358826238473670}
+      - fieldName: effects 0
+        node: {fileID: 9152373504185057762}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -122,9 +56,9 @@ MonoBehaviour:
   m_Name: Guard
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: -5552358826238473670}
   - {fileID: 833357395057102542}
   - {fileID: -5550744489948948604}
+  - {fileID: 9152373504185057762}
   _description: Add 5 Block
   _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
   _apCost: 2
@@ -163,7 +97,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: targeting
-        node: {fileID: -5552358826238473670}
+        node: {fileID: 9152373504185057762}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -180,3 +114,69 @@ MonoBehaviour:
       _dynamic: 0
   abilityRoot: 0
   aoeStrat: 0
+--- !u!114 &9152373504185057762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e72152fd1d8d54690b69f540af0db1, type: 3}
+  m_Name: Ability Root
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.AbilityRootNode
+  graph: {fileID: 11400000}
+  position: {x: -184, y: -120}
+  ports:
+    keys:
+    - targeting
+    - filtering
+    - effects
+    - effects 0
+    values:
+    - _fieldName: targeting
+      _node: {fileID: 9152373504185057762}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: abilityRoot
+        node: {fileID: 833357395057102542}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: filtering
+      _node: {fileID: 9152373504185057762}
+      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects
+      _node: {fileID: 9152373504185057762}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects 0
+      _node: {fileID: 9152373504185057762}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -5550744489948948604}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  targeting: 0
+  filtering: 0
+  effects: 0

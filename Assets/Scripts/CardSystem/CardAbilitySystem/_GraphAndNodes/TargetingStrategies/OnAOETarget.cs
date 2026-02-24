@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
@@ -9,7 +10,7 @@ namespace CardSystem
     {
         [Input(connectionType = ConnectionType.Override)] public bool input;
 
-        [SerializeField] private Color _aoeHighlightColor;
+        [SerializeField] private Color _aoeHighlightColor = Color.darkRed;
         [SerializeField] private int _range;
 
         private Vector2Int _currTilePos;
@@ -37,7 +38,7 @@ namespace CardSystem
             if (startingCell == _currTilePos) return;
             _currTilePos = startingCell;
 
-            var cellsInRange = ComputeCellsInRange(startingCell);
+            var cellsInRange = _targetingStrat.ComputeCellsInRange(startingCell, _range);
             ByteMapController bmc = ByteMapController.Instance;
             byte[,] map = bmc.GetByteMap;
 
@@ -52,11 +53,11 @@ namespace CardSystem
             }
             abilityData.Targets = tempTargets;
 
-            TileHighlighter.ClearHighlights();
-            TileHighlighter.ApplyHighlights(cellsInRange, _aoeHighlightColor);
+            TileHighlighter.ClearHighlights(abilityData.GetGUID);
+            TileHighlighter.ApplyHighlights(cellsInRange, abilityData.GetGUID, _aoeHighlightColor);
         }
 
-        private HashSet<Vector2Int> ComputeCellsInRange(Vector2Int tilePos)
+        /*private HashSet<Vector2Int> ComputeCellsInRange(Vector2Int tilePos)
         {
             var result = new HashSet<Vector2Int>();
 
@@ -101,6 +102,6 @@ namespace CardSystem
                 }
             }
             return result;
-        }
+        }*/
     }
 }

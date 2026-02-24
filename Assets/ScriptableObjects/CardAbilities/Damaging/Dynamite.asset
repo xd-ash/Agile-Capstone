@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -40, y: 184}
+  position: {x: -40, y: 152}
   ports:
     keys:
     - input
@@ -37,15 +37,47 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: 6646383339752646348}
+        node: {fileID: -3503993893553348278}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 10
+  _effectValue: 5
   input: 0
   effectVisuals: 0
+--- !u!114 &-3503993893553348278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d597ebed51e4a7e43bc165947508c94c, type: 3}
+  m_Name: Melee Effect Visual
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeEffectVisual
+  graph: {fileID: 11400000}
+  position: {x: 248, y: 216}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: -3503993893553348278}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effectVisuals
+        node: {fileID: -8393294752202084253}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  input: 0
+  _meleeEffect: {fileID: 0}
 --- !u!114 &-2651332736042962349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +170,7 @@ MonoBehaviour:
   m_Name: Layer Filter
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -40, y: 24}
+  position: {x: -40, y: 8}
   ports:
     keys:
     - input
@@ -173,21 +205,55 @@ MonoBehaviour:
   - {fileID: -8393294752202084253}
   - {fileID: -76797013698469015}
   - {fileID: 5144402596869855986}
-  - {fileID: 6646383339752646348}
   - {fileID: -2651332736042962349}
-  _description: Deal 10 Damage to one target
+  - {fileID: 2272785073385819277}
+  - {fileID: -3503993893553348278}
+  _description: Deal 5 damage to all enemies in a short range
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
   _apCost: 6
-  _range: 3
+  _range: 5
   _shopCost: 35
   _shopWeight: 15
-  _baseHitChance: 100
-  _minHitChance: 10
-  _maxHitChance: 95
+  _baseHitChance: 95
+  _minHitChance: 30
+  _maxHitChance: 100
   _ignoreLOS: 0
-  _hitPenaltyPerTile: 5
+  _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+--- !u!114 &2272785073385819277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ba2c3153559754b99d9637d4fbb254, type: 3}
+  m_Name: On AOE Target
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.OnAOETarget
+  graph: {fileID: 11400000}
+  position: {x: 264, y: -152}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: 2272785073385819277}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: aoeStrat
+        node: {fileID: 5144402596869855986}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  input: 0
+  _aoeHighlightColor: {r: 0.7647059, g: 0.28349257, b: 0.13333333, a: 1}
+  _range: 2
 --- !u!114 &5144402596869855986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,43 +289,14 @@ MonoBehaviour:
       _node: {fileID: 5144402596869855986}
       _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: input
+        node: {fileID: 2272785073385819277}
+        reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
   abilityRoot: 0
   aoeStrat: 0
-  _targetTilesNotUnits: 0
---- !u!114 &6646383339752646348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d597ebed51e4a7e43bc165947508c94c, type: 3}
-  m_Name: Melee Effect Visual
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 248, y: 184}
-  ports:
-    keys:
-    - input
-    values:
-    - _fieldName: input
-      _node: {fileID: 6646383339752646348}
-      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: effectVisuals
-        node: {fileID: -8393294752202084253}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-  input: 0
-  _meleeEffect: {fileID: 7456636758858463242, guid: 2df06208f89e0d74e8a0539a22598d53, type: 3}
+  _targetTilesNotUnits: 1

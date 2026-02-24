@@ -98,15 +98,15 @@ MonoBehaviour:
   - {fileID: 1514123839412922662}
   _description: Deal 7 damage close range
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
-  _apCost: 7
+  _apCost: 5
   _range: 1
   _shopCost: 25
   _shopWeight: 25
-  _baseHitChance: 100
-  _minHitChance: 10
-  _maxHitChance: 95
+  _baseHitChance: 95
+  _minHitChance: 0
+  _maxHitChance: 100
   _ignoreLOS: 0
-  _hitPenaltyPerTile: 5
+  _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
 --- !u!114 &1514123839412922662

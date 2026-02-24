@@ -14,28 +14,34 @@ public class ActiveEffectsTracker : MonoBehaviour
 
         if (TurnManager.Instance == null) return;
 
-        TurnManager.Instance.OnTurnStart += OnThisUnitTurnStart; // add option or something in effect class for end of turn only effects??
+        TurnManager.Instance.OnTurnStart += (x) => OnThisUnitEffectsTick(x, true);
+        TurnManager.Instance.OnTurnEnd += (x) => OnThisUnitEffectsTick(x, false);
     }
     private void OnDestroy()
     {
         if (TurnManager.Instance == null) return;
 
-        TurnManager.Instance.OnTurnStart += OnThisUnitTurnStart;
+        TurnManager.Instance.OnTurnStart -= (x) => OnThisUnitEffectsTick(x, true);
+        TurnManager.Instance.OnTurnEnd -= (x) => OnThisUnitEffectsTick(x, false);
     }
-    public void AddEffect(Action effect, int totalDuration, Guid guid, string effectName = "")
+
+    public void AddEffect(Action effect, int totalDuration, Guid guid, bool tickOnStart, string effectName = "")
     {
-        Effect newEffect = new(ref effect, totalDuration, guid, effectName);
+        Effect newEffect = new(ref effect, totalDuration, guid, tickOnStart, effectName);
 
         if (!_effects.Contains(newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
             _effects.Add(newEffect);
     }
-    private void OnThisUnitTurnStart(Unit unit)
+
+    private void OnThisUnitEffectsTick(Unit unit, bool isStartOfTurn)
     {
         if (unit != _unit) return;
 
         for (int i = _effects.Count - 1; i >= 0; i--)
         {
             var e = _effects[i];
+            if (isStartOfTurn != e.tickOnStart) continue;
+            
             e.storedEffect?.Invoke();
             e.turnsRemaining--;
             if (e.turnsRemaining > 0) continue;
@@ -55,12 +61,14 @@ public class ActiveEffectsTracker : MonoBehaviour
         public Guid guid;
         public Action storedEffect;
         public int turnsRemaining;
+        public bool tickOnStart;
 
-        public Effect(ref Action effect, int totalDuration, Guid guid, string name = "")
+        public Effect(ref Action effect, int totalDuration, Guid guid, bool tickOnStart, string name = "")
         {
             storedEffect = effect;
             turnsRemaining = totalDuration;
             this.guid = guid;
+            this.tickOnStart = tickOnStart;
             effectName = name == string.Empty ? guid.ToString() : name;
         }
     }

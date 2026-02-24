@@ -29,7 +29,7 @@ public static class CombatMath
         int range = cardDef != null ? cardDef.GetRange : 1;
         int hitChance = GetHitChance(attackerPos, target, range, cardDef);
 
-        if (hitChance == 100 || cardDef.GetBaseHitChance == 100)
+        if (hitChance == 100 || cardDef.GetMinHitChance == 100)
             return true;
         /*if (hitChance <= 0)
         {

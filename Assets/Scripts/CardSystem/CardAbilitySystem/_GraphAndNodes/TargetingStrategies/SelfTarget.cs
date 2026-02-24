@@ -9,9 +9,9 @@ namespace CardSystem
     [CreateNodeMenu("Targeting/Self")]
     public class SelfTarget : TargetingStrategy
     {
-        public override void StartTargeting(AbilityData abilityData, Action onFinished)
+        public override void StartTargeting(AbilityData abilityData, ref Action onFinished)
         {
-            base.StartTargeting(abilityData, onFinished);
+            base.StartTargeting(abilityData, ref onFinished);
 
             abilityData.Targets = new List<GameObject>() { abilityData.GetUnit.gameObject };
 

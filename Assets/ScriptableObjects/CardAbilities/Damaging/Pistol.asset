@@ -87,14 +87,14 @@ MonoBehaviour:
   _description: Deal 5 ranged damage
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
   _apCost: 4
-  _range: 5
+  _range: 7
   _shopCost: 15
   _shopWeight: 55
-  _baseHitChance: 100
-  _minHitChance: 10
-  _maxHitChance: 95
+  _baseHitChance: 95
+  _minHitChance: 30
+  _maxHitChance: 100
   _ignoreLOS: 0
-  _hitPenaltyPerTile: 5
+  _hitPenaltyPerTile: 15
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
 --- !u!114 &3424977469569822914
