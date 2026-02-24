@@ -145,8 +145,8 @@ MonoBehaviour:
   _range: 2
   _shopCost: 0
   _shopWeight: 0
-  _baseHitChance: 95
-  _minHitChance: 30
+  _baseHitChance: 100
+  _minHitChance: 0
   _maxHitChance: 100
   _ignoreLOS: 0
   _hitPenaltyPerTile: 100

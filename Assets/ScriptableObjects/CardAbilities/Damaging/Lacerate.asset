@@ -68,6 +68,7 @@ MonoBehaviour:
   effectVisuals: 0
   effects: 0
   _doEffectAtStart: 0
+  _tickOnStart: 1
 --- !u!114 &-919353082669517679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +261,7 @@ MonoBehaviour:
   _range: 1
   _shopCost: 0
   _shopWeight: 0
-  _baseHitChance: 95
+  _baseHitChance: 100
   _minHitChance: 0
   _maxHitChance: 100
   _ignoreLOS: 0
