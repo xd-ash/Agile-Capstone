@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 8
   m_Viewport: {fileID: 55993575}
   m_HorizontalScrollbar: {fileID: 788969689}
   m_VerticalScrollbar: {fileID: 76499596}
@@ -1264,7 +1264,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 8
   m_Viewport: {fileID: 905940370}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 809278735}
@@ -3466,7 +3466,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 8
   m_Viewport: {fileID: 556250819}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 612349684}
@@ -8907,7 +8907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartGameButtonScript
   _isNewGame: 0
-  _deckSelectPopup: {fileID: 0}
+  _confirmPopup: {fileID: 0}
 --- !u!1 &930080952
 GameObject:
   m_ObjectHideFlags: 0
@@ -12091,7 +12091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartGameButtonScript
   _isNewGame: 1
-  _deckSelectPopup: {fileID: 0}
+  _confirmPopup: {fileID: 0}
 --- !u!114 &1241981406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13694,7 +13694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartGameButtonScript
   _isNewGame: 1
-  _deckSelectPopup: {fileID: 0}
+  _confirmPopup: {fileID: 0}
 --- !u!114 &1471483900
 MonoBehaviour:
   m_ObjectHideFlags: 0
