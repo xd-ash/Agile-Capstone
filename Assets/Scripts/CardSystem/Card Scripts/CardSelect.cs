@@ -114,7 +114,7 @@ namespace CardSystem
         }
         private void OnMouseDrag()
         {
-            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null)
+            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
                 return;
 
             // Temporarily remove from hand management
