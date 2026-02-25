@@ -6,10 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class AttackAnimSet
 {
-    [Tooltip("Matches the key in CardAbilityDefinition (e.g. 'Slash', 'Cast', 'Shoot')")]
     public string key;
 
-    [Tooltip("4 directional attack clips: [0]=NE, [1]=NW, [2]=SE, [3]=SW — matches idle/move dir convention")]
+   //"4 directional animation clips: [0]=NE, [1]=NW, [2]=SE, [3]=SW
     public AnimationClip[] dirClips = new AnimationClip[4];
 }
 
@@ -21,7 +20,6 @@ public class DirectionAnimator : MonoBehaviour
     [Header("Attack Animations")]
     [SerializeField] private AttackAnimSet[] _attackAnimSets;
 
-    [Tooltip("Small fade to avoid popping when toggling idle/move.")]
     [SerializeField] private float _fade = 0.05f;
 
     private Animator _anim;
@@ -29,7 +27,6 @@ public class DirectionAnimator : MonoBehaviour
     private int[] _idleHashes;
     private int[] _moveHashes;
 
-    // key -> array of 4 hashes, one per direction
     private Dictionary<string, int[]> _attackHashLookup = new();
 
     private int _lastDir = 0;
@@ -123,10 +120,6 @@ public class DirectionAnimator : MonoBehaviour
             PlayCurrentState();
     }
 
-    /// <summary>
-    /// Plays the attack animation for the given key and direction.
-    /// onComplete fires immediately if key is null/empty or not found — safe for buff/trap cards.
-    /// </summary>
     public void PlayAttack(string key, int dirIndex, Action onComplete)
     {
         if (string.IsNullOrEmpty(key) || !_attackHashLookup.TryGetValue(key, out int[] hashes))
@@ -154,11 +147,8 @@ public class DirectionAnimator : MonoBehaviour
         _anim.CrossFade(hash, _fade, 0);
         _currentPlayedHash = hash;
 
-        // Wait one frame for CrossFade to register
         yield return null;
-
-        // Wait until we're actually IN the attack state
-        // (the transition itself takes a few frames to complete)
+        
         float timeout = 2f;
         float elapsed = 0f;
         while (!_anim.GetCurrentAnimatorStateInfo(0).shortNameHash.Equals(hash))
@@ -172,7 +162,6 @@ public class DirectionAnimator : MonoBehaviour
             yield return null;
         }
 
-        // Now wait for the attack state to finish (normalizedTime reaches 1)
         elapsed = 0f;
         while (_anim.GetCurrentAnimatorStateInfo(0).shortNameHash.Equals(hash) &&
                _anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
@@ -187,20 +176,14 @@ public class DirectionAnimator : MonoBehaviour
         }
 
         _isPlayingAttack = false;
-
-        // Clear hash so PlayCurrentState doesn't skip the crossfade thinking it's already correct
         _currentPlayedHash = 0;
-
-        // Return to idle (or move if currently moving) for the current direction
         PlayCurrentState(force: true);
-
         onComplete?.Invoke();
     }
 
-    /// <summary>
-    /// Converts a grid delta to a 0-3 direction index.
-    /// 0=NE, 1=NW, 2=SE, 3=SW. Uses dominant-axis snap for off-axis deltas.
-    /// </summary>
+
+    //0=NE, 1=NW, 2=SE, 3=SW
+
     public static int GetDirIndexFromDelta(Vector2Int delta)
     {
         if (delta == Vector2Int.zero) return 0;
