@@ -10659,9 +10659,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 8310fb82a58e12c4ab4c204c3088e89a, type: 2}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: _sceneMusic.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c6d61673cbc39754d8f5a18aaf804ece, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[1].clip
       value: 
-      objectReference: {fileID: 8300000, guid: acef2315535cd5f48bbbda578a54d092, type: 3}
+      objectReference: {fileID: 8300000, guid: 94d97494fcb0b494f935e54c2f681247, type: 3}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[1].volume
       value: 0.188
@@ -13470,7 +13474,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.6564941, y: -0.000015258789}
+  m_AnchoredPosition: {x: -2.6564941, y: 0}
   m_SizeDelta: {x: 12.4041, y: -75.4304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1436270023
