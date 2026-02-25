@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
-  _maxHealth: 15
+  _maxHealth: 10
   _health: 0
   _maxShield: 25
   _shield: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d0cde7cf413194195d7b661b976dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAbility: {fileID: 11400000, guid: af0c4c98a1f00384cbfa3972dbd55600, type: 2}
+  damageAbility: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
   healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
   healCharges: 2
   _goapActionsEnum: 126
@@ -547,15 +547,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleStateAnims:
-  - {fileID: 7400000, guid: a205bbd22a784874eb1147af21ddd4c4, type: 2}
-  - {fileID: 7400000, guid: de6dd5ae3488d214e92a3a0cc4ea6ec0, type: 2}
-  - {fileID: 7400000, guid: f13b1aac06722e84fa8d7d5fd487f561, type: 2}
-  - {fileID: 7400000, guid: 7ade35261cafb4f44ae3772df5fe0887, type: 2}
+  - {fileID: 7400000, guid: 15ae8e62034f0fb4b9c3457e573ed257, type: 2}
+  - {fileID: 7400000, guid: dc339c2ce60db8c4db897d8b3d9ebc2d, type: 2}
+  - {fileID: 7400000, guid: 02f761dc6f4e7be4b8a058acca27e62e, type: 2}
+  - {fileID: 7400000, guid: 3c5d3f848ecc67f469b5ef00c3287950, type: 2}
   _moveStateAnims:
-  - {fileID: 7400000, guid: f3e0595872f8c6b4e8a6cf2cf4c8cc8c, type: 2}
-  - {fileID: 7400000, guid: 74f9945a3aa42574282147a93646e37c, type: 2}
-  - {fileID: 7400000, guid: afd01557e35460d4782adc72ba7eac38, type: 2}
-  - {fileID: 7400000, guid: 597f523ba95cf8545bdefa803668f072, type: 2}
+  - {fileID: 7400000, guid: 9c96cb1c2c3c7b84ab63626ca451ef50, type: 2}
+  - {fileID: 7400000, guid: 1a908e7105300f040bae7d1d0526f364, type: 2}
+  - {fileID: 7400000, guid: 9b15c338c250d16478e30a7874e6bee6, type: 2}
+  - {fileID: 7400000, guid: 15e56ea14fe79b6438a5d7e688ffc955, type: 2}
+  _attackAnimSets:
+  - key: Slash
+    dirClips:
+    - {fileID: 7400000, guid: 884189e6cc9ff4892b24f47974f14062, type: 2}
+    - {fileID: 7400000, guid: 27cab7c66fc554012bc7a157267743b5, type: 2}
+    - {fileID: 7400000, guid: 7b77672e87dde42b0b3c63c01128cac0, type: 2}
+    - {fileID: 7400000, guid: 0cd4c53673269422292f84481a88a641, type: 2}
+  _fade: 0.05
 --- !u!61 &355945360564793161
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -682,12 +690,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -4559898289306967405, guid: 39530baa4ab76c14cb59321d1c958276, type: 3}
-  m_Color: {r: 1, g: 0.09067254, b: 0, a: 1}
+  m_Sprite: {fileID: -2117783955, guid: 14a4caca25bedd34888b9449c8c423d2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -703,7 +711,7 @@ Animator:
   m_GameObject: {fileID: 6721888437333699417}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c356c3953541df449b01e59007208c44, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7360924df8ede894cb51a2af9109d596, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

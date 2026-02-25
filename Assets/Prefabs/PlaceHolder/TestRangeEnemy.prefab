@@ -347,15 +347,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleStateAnims:
-  - {fileID: 7400000, guid: a205bbd22a784874eb1147af21ddd4c4, type: 2}
-  - {fileID: 7400000, guid: de6dd5ae3488d214e92a3a0cc4ea6ec0, type: 2}
-  - {fileID: 7400000, guid: f13b1aac06722e84fa8d7d5fd487f561, type: 2}
-  - {fileID: 7400000, guid: 7ade35261cafb4f44ae3772df5fe0887, type: 2}
+  - {fileID: 7400000, guid: 59acd87f3cfdeee4dae4a43afb4b3cf5, type: 2}
+  - {fileID: 7400000, guid: c9f98599c4ca2764c81d1e3ed10c6ca4, type: 2}
+  - {fileID: 7400000, guid: 5186801ccd46a9f4bae1ffd5bbbd1aa7, type: 2}
+  - {fileID: 7400000, guid: 75121a8d56306fd47b3b003d74cb6a12, type: 2}
   _moveStateAnims:
-  - {fileID: 7400000, guid: f3e0595872f8c6b4e8a6cf2cf4c8cc8c, type: 2}
-  - {fileID: 7400000, guid: 74f9945a3aa42574282147a93646e37c, type: 2}
-  - {fileID: 7400000, guid: afd01557e35460d4782adc72ba7eac38, type: 2}
-  - {fileID: 7400000, guid: 597f523ba95cf8545bdefa803668f072, type: 2}
+  - {fileID: 7400000, guid: 470620acda9ac1b47bb0486d4c46226d, type: 2}
+  - {fileID: 7400000, guid: 660fa8eab07543f4b8d1e5a5b308fc90, type: 2}
+  - {fileID: 7400000, guid: 22e0f3de57289bf44b39c416322bbb62, type: 2}
+  - {fileID: 7400000, guid: 0c5cdee1a0b3e8044b1b31427bc6f98b, type: 2}
+  _attackAnimSets:
+  - key: Shoot
+    dirClips:
+    - {fileID: 7400000, guid: 1dce9c8b8cc199c4292fa5180f4d3a17, type: 2}
+    - {fileID: 7400000, guid: 6aa01ea00caab4741ae83abd1fc30e3e, type: 2}
+    - {fileID: 7400000, guid: 8b81ebe819224bb49b85b9915837c2a8, type: 2}
+    - {fileID: 7400000, guid: c5952f6d4aa287a489ec362647a30181, type: 2}
+  _fade: 0.05
 --- !u!61 &5134102706713077211
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -690,12 +698,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -4559898289306967405, guid: 39530baa4ab76c14cb59321d1c958276, type: 3}
-  m_Color: {r: 0, g: 0.51618147, b: 1, a: 1}
+  m_Sprite: {fileID: 5250438378151091228, guid: f2cf4927e5c58ea4da5be4120b91336f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -711,7 +719,7 @@ Animator:
   m_GameObject: {fileID: 5623386847225295029}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c356c3953541df449b01e59007208c44, type: 2}
+  m_Controller: {fileID: 9100000, guid: e89944b0df9078c45b423d453ba5a18c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
