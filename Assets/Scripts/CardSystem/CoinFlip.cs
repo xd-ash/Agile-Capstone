@@ -12,7 +12,7 @@ public static class CoinFlip
 
         for (int i = 0; i < numCoinFlips; i++)
         {
-            UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+            //UnityEngine.Random.InitState(DateTime.Now.Millisecond);
             bool result = UnityEngine.Random.Range(0, 2) == 1 ? true : false;// Heads(1) - True, Tails(0) - False
             tempCoinFlips.Add(result);
             CoinFlipped?.Invoke(unit, result);
@@ -27,7 +27,7 @@ public static class CoinFlip
         
         do
         {
-            UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+            //UnityEngine.Random.InitState(DateTime.Now.Millisecond);
             bool result = UnityEngine.Random.Range(0, 2) == 1 ? true : false;// Heads(1) - True, Tails(0) - False
             tempCoinFlips.Add(result);
             CoinFlipped?.Invoke(unit, result);

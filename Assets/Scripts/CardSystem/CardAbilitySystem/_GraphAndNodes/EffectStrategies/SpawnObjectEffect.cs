@@ -44,6 +44,8 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
 
             PassObject(abilityData, sot);
         }
+
+        _onFinished?.Invoke();
     }
 
     public void PassObject(AbilityData abilityData, SpawnObjectTracker tracker)

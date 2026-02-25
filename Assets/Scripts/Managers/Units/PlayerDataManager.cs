@@ -21,6 +21,7 @@ public class PlayerDataManager : MonoBehaviour
     [SerializeField] private List<CardAbilityDefinition> _ownedCards = new();
 
     [SerializeField] private List<bool> _coinFlipsThisRun = new();
+    [SerializeField] private List<int> _dieRollsThisRun = new();
 
     public int GetBalance => _balance;
 
@@ -39,6 +40,7 @@ public class PlayerDataManager : MonoBehaviour
     public bool[] GetAllCoinFlipsThisRun => _coinFlipsThisRun.ToArray();
     public int GetNumHeadsThisRun => _coinFlipsThisRun.FindAll(x => true).Count;
     public int GetNumTailsThisRun => _coinFlipsThisRun.FindAll(x => false).Count;
+    public int[] GetAllDiceRollsThisRun => _dieRollsThisRun.ToArray();
 
     public static PlayerDataManager Instance { get; private set; }
     private void Awake()
@@ -149,12 +151,12 @@ public class PlayerDataManager : MonoBehaviour
         _currMapNodeData = currMapNodeData;
     }
 
-    public void AddCoinflip(bool result)
+    public void AddCoinFlip(bool result)
     {
         if (_coinFlipsThisRun == null) _coinFlipsThisRun = new();
         _coinFlipsThisRun.Add(result);
     }
-    public void AddCoinflip(bool[] results)
+    public void AddCoinFlip(bool[] results)
     {
         if (_coinFlipsThisRun == null) _coinFlipsThisRun = new();
         _coinFlipsThisRun.AddRange(results);
@@ -162,6 +164,21 @@ public class PlayerDataManager : MonoBehaviour
     public void ClearRunCoinFlips()
     {
         _coinFlipsThisRun?.Clear();
+    }
+
+    public void AddDiceRoll(int result)
+    {
+        if (_dieRollsThisRun == null) _dieRollsThisRun = new();
+        _dieRollsThisRun.Add(result);
+    }
+    public void AddDiceRoll(int[] results)
+    {
+        if (_dieRollsThisRun == null) _dieRollsThisRun = new();
+        _dieRollsThisRun.AddRange(results);
+    }
+    public void ClearRunDiceRolls()
+    {
+        _dieRollsThisRun?.Clear();
     }
 
     // On game load, update variable values using incoming data param and
@@ -195,7 +212,9 @@ public class PlayerDataManager : MonoBehaviour
         UpdateCardData(ownedCards, cardData.GetActiveDeckName, createdDecks);
 
         _coinFlipsThisRun = new();
-        AddCoinflip(specialMechanicData.GetCoinFlipsCurrentRun);
+        AddCoinFlip(specialMechanicData.GetCoinFlipsCurrentRun);
+        _dieRollsThisRun = new();
+        AddDiceRoll(specialMechanicData.GetDiceRollsCurrentRun);
 
         CurrencyManager.Instance?.OnBalanceChanged?.Invoke(_balance);
         //Debug.Log("Game Loaded");

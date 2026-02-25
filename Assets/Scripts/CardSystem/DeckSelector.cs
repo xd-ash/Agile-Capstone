@@ -12,6 +12,7 @@ public class DeckSelector : MonoBehaviour
         _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
 
         GrabAllDeckOptions();
+        SwapCurrentDeck();
     }
     //Grab all deck options from player data manager
     private void GrabAllDeckOptions()

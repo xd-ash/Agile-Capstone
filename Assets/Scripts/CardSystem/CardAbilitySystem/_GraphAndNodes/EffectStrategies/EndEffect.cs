@@ -9,5 +9,7 @@ public class EndEffect : EffectStrategy
         base.StartEffect(abilityData, onFinished, effectValueChange);
 
         (graph as CardAbilityDefinition).EndEffects(abilityData.GetGUID);
+
+        _onFinished?.Invoke();
     }
 }

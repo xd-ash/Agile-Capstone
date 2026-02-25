@@ -4,8 +4,10 @@ using UnityEngine;
 public class SpecialMechanicsManager : MonoBehaviour
 {
     Dictionary<Unit, List<bool>> _coinFlipsByUnitThisCombat = new();
+    Dictionary<Unit, List<int>> _dieRollsByUnitThisCombat = new();
 
-    public bool GetLastCoinFlipOutcome(Unit unit) => _coinFlipsByUnitThisCombat.Count == 0 ? false : _coinFlipsByUnitThisCombat[unit][^1];
+    public bool GetLastCoinFlipOutcome(Unit unit) => !_coinFlipsByUnitThisCombat.ContainsKey(unit) || 
+                                                            _coinFlipsByUnitThisCombat[unit].Count == 0 ? false : _coinFlipsByUnitThisCombat[unit][^1];
     public int GetNumHeadsThisCombat(Unit unit) => GrabNumOfCoinSides(unit, true);
     public int GetNumTailsThisCombat(Unit unit) => GrabNumOfCoinSides(unit, false);
     private int GrabNumOfCoinSides(Unit unit, bool coinSide)
@@ -18,6 +20,9 @@ public class SpecialMechanicsManager : MonoBehaviour
                 temp++;
         return temp;
     }
+
+    public int GetLastDieOutcome(Unit unit) => !_dieRollsByUnitThisCombat.ContainsKey(unit) || 
+                                                            _dieRollsByUnitThisCombat[unit].Count == 0 ? -1 : _dieRollsByUnitThisCombat[unit][^1];
     public static SpecialMechanicsManager Instance { get; private set; }
     private void Awake()
     {
@@ -29,28 +34,29 @@ public class SpecialMechanicsManager : MonoBehaviour
         Instance = this;
 
         CoinFlip.CoinFlipped += AddCoinFlip;
+        DiceRoll.DiceRolled += AddDiceRoll;
         WinLossManager.CombatNodeCompleted += ClearCombatCoinFlips;
+        WinLossManager.CombatNodeCompleted += ClearCombatDieRolls;
     }
     private void OnDestroy()
     {
         CoinFlip.CoinFlipped -= AddCoinFlip;
+        DiceRoll.DiceRolled -= AddDiceRoll;
         WinLossManager.CombatNodeCompleted -= ClearCombatCoinFlips;
+        WinLossManager.CombatNodeCompleted -= ClearCombatDieRolls;
     }
+
+    //coin flip management
     private void AddCoinFlip(Unit unit, bool result)
     {
-        //Debug.Log($"{(result ? "heads" : "tails")}");
         if (_coinFlipsByUnitThisCombat.ContainsKey(unit))
             _coinFlipsByUnitThisCombat[unit].Add(result);
         else
             _coinFlipsByUnitThisCombat.Add(unit, new() { result });
 
         if (unit.GetTeam != Team.Friendly) return;
-        /*if (result)
-            Debug.Log($"Player Heads Flips:{GetNumHeadsThisCombat(unit)}");
-        else 
-            Debug.Log($"Player Tails Flips:{GetNumTailsThisCombat(unit)}");*/
 
-        PlayerDataManager.Instance?.AddCoinflip(result);
+        PlayerDataManager.Instance?.AddCoinFlip(result);
     }
     private void ClearCombatCoinFlips()
     {
@@ -59,5 +65,26 @@ public class SpecialMechanicsManager : MonoBehaviour
     public void RemoveUnitCoinFlips(Unit unit)
     {
         _coinFlipsByUnitThisCombat.Remove(unit);
+    }
+
+    //Dice roll management
+    private void AddDiceRoll(Unit unit, int result)
+    {
+        if (_dieRollsByUnitThisCombat.ContainsKey(unit))
+            _dieRollsByUnitThisCombat[unit].Add(result);
+        else
+            _dieRollsByUnitThisCombat.Add(unit, new() { result });
+
+        if (unit.GetTeam != Team.Friendly) return;
+
+        PlayerDataManager.Instance?.AddDiceRoll(result);
+    }
+    private void ClearCombatDieRolls()
+    {
+        _dieRollsByUnitThisCombat.Clear();
+    }
+    public void RemoveUnitDieRolls(Unit unit)
+    {
+        _dieRollsByUnitThisCombat.Remove(unit);
     }
 }

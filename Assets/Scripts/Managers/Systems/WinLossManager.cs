@@ -51,6 +51,7 @@ public class WinLossManager : MonoBehaviour
 
         _enemyUnits.Remove(unit);
         SpecialMechanicsManager.Instance.RemoveUnitCoinFlips(unit);
+        SpecialMechanicsManager.Instance.RemoveUnitDieRolls(unit);
     }
     public void OnGameDone(bool didWin)
     {

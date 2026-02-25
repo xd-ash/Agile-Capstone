@@ -23,10 +23,10 @@ public static class CombatMath
     public static bool RollHit(Vector3 attackerPos, Unit target, CardAbilityDefinition cardDef)
     {
         //quick exit added as a fix for traps
-        if (cardDef != null && cardDef.GetIgnoreLOS)
+        if (cardDef == null && cardDef.GetIgnoreLOS)
             return true;
 
-        int range = cardDef != null ? cardDef.GetRange : 1;
+        int range = cardDef.GetRange;
         int hitChance = GetHitChance(attackerPos, target, range, cardDef);
 
         if (hitChance == 100 || cardDef.GetMinHitChance == 100)
@@ -74,8 +74,8 @@ public static class CombatMath
 
         int baseHitChance = cardDef != null ? cardDef.GetBaseHitChance : _defaultHitChance;
         
-        if (baseHitChance == 100)
-            return 100;
+        //if (baseHitChance == 100)
+            //return 100;
 
         int minHitChance = cardDef != null ? cardDef.GetMinHitChance : _defaultMinHitChance;
         int maxHitChance = cardDef != null ? cardDef.GetMaxHitChance : _defaultMaxHitChance;

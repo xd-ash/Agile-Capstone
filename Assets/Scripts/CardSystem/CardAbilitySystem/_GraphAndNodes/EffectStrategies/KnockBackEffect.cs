@@ -94,7 +94,7 @@ namespace CardSystem
                     abilityData.GetUnit.GetFloatingText.SpawnFloatingText("GET OVER HERE!");
             }
 
-            onFinished?.Invoke();
+            _onFinished?.Invoke();
         }
     }
 }

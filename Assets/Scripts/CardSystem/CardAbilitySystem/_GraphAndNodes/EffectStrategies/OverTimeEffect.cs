@@ -47,6 +47,6 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
                 Debug.LogError($"Target failure in OverTimeEffect strategy. " + target == null ? "Target is null" : $"Effect Tracker not attached to {target.name}");
         }
 
-        onFinished?.Invoke();
+        _onFinished?.Invoke();
     }
 }
