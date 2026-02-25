@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: Roll the Dice
+  m_Name: Roll The Dice
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.CardAbilityDefinition
   nodes:
   - {fileID: 8225511878211027836}
@@ -173,6 +173,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 35
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: Shoot
 --- !u!114 &171456546891437306
 MonoBehaviour:
   m_ObjectHideFlags: 0

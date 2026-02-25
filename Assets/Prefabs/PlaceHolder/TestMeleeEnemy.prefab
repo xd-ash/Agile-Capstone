@@ -389,11 +389,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
-  _maxHealth: 10
+  _maxHealth: 15
   _health: 0
   _maxShield: 25
   _shield: 0
-  _maxAP: 10
+  _maxAP: 6
   _ap: 0
   _enemyHPBar: {fileID: 0}
   _hitChanceText: {fileID: 3870034944425325599}

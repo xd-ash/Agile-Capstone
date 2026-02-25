@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: AI_Pistol
+  m_Name: Hip Fire
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 7206340533012667911}
@@ -84,9 +84,9 @@ MonoBehaviour:
   - {fileID: 8984668475923810513}
   - {fileID: -3038007230889526110}
   - {fileID: 3424977469569822914}
-  _description: Deal 3 ranged damage
+  _description: Deal 2 ranged damage
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
-  _apCost: 4
+  _apCost: 3
   _range: 7
   _shopCost: 15
   _shopWeight: 55

@@ -88,16 +88,17 @@ MonoBehaviour:
   _description: Attack twice in a row for 2 damage each
   _abilitySFX: {fileID: 0}
   _apCost: 3
-  _range: 4
+  _range: 1
   _shopCost: 0
   _shopWeight: 0
   _baseHitChance: 100
   _minHitChance: 25
   _maxHitChance: 100
   _ignoreLOS: 0
-  _hitPenaltyPerTile: 10
+  _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: Slash
 --- !u!114 &4011390060207284742
 MonoBehaviour:
   m_ObjectHideFlags: 0
