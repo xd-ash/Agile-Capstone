@@ -49,6 +49,7 @@ public class CardFunctionScript : MonoBehaviour
         }
 
         if (DeckAndHandManager.Instance.CardsInHand.IndexOf(Card) == -1) return;
+        if (OptionsSettings.IsCardSelectOnClick) return;
 
         IsDragging = true;
     }

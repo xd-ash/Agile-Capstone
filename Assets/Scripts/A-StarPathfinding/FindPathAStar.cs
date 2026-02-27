@@ -359,8 +359,8 @@ namespace AStarPathfinding
             onFinished?.Invoke();
             
             // rebuild highlights for player right after movement is fully done
-            if (_unit.GetTeam == Team.Friendly)
-                MovementRangeCalculator.Instance.RebuildForCurrentUnit();
+            //if (_unit.GetTeam == Team.Friendly)
+                //MovementRangeCalculator.Instance.RebuildForCurrentUnit();
         }
     }
 }

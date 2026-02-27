@@ -75,6 +75,8 @@ namespace CardSystem
             // Check for active cards
             if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
 
+            if (OptionsSettings.IsCardSelectOnClick) return;
+
             _isAboveHandArea = false;
 
             _startPosition = transform.position;
@@ -92,28 +94,47 @@ namespace CardSystem
 
             ToggleHighlightAndScale(true);
         }
+
         private void OnMouseUp()
         {
-            if (!_cfs.IsDragging) return;
+            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick) return;
+            if (OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null) return;
 
             if (DeckAndHandManager.Instance == null)
             {
                 ReturnCardToHand();
                 return;
             }
-
-            // If card is dropped above hand area, try to activate it
-            if (_isAboveHandArea)
+            
+            if (OptionsSettings.IsCardSelectOnClick)
             {
-                StartCoroutine(MoveCardToActivePos());
+                // Temporarily remove from hand management
+                DeckAndHandManager.Instance.RemoveCard(_cfs.Card);
+                DeckAndHandManager.Instance.SelectCard(_cfs.Card);
 
-                if (_cfs.TryActivateCard()) return;
+                StartCoroutine(MoveCardToActivePos());
             }
+            else
+            {
+                // If card is dropped above hand area, try to activate it
+                if (_isAboveHandArea)
+                    StartCoroutine(MoveCardToActivePos());
+                else
+                {
+                    ReturnCardToHand();
+                    return;
+                }
+            }
+
+            if (_cfs.TryActivateCard()) return;
 
             ReturnCardToHand();
         }
         private void OnMouseDrag()
         {
+            //disable drag with click to select option enabled
+            if (OptionsSettings.IsCardSelectOnClick) return;
+
             if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
                 return;
 
@@ -142,12 +163,14 @@ namespace CardSystem
         {
             Transform target = DeckAndHandManager.Instance.CardActivePos;
             Vector3 initCardPos = transform.localPosition;
+            Quaternion initCardRot = transform.localRotation;
 
             //Lerp duration uses tween duration
             for (float timer = 0f; timer < _tweenDuration; timer += Time.deltaTime)
             {
                 float lerpRatio = timer / _tweenDuration;
                 transform.localPosition = Vector3.Lerp(initCardPos, target.transform.localPosition, lerpRatio);
+                transform.localRotation = Quaternion.Lerp(initCardRot, target.transform.localRotation, lerpRatio);
                 yield return null;
             }
 
@@ -164,7 +187,7 @@ namespace CardSystem
             UpdateSortingOrders(isHoveredOrSelected ? DeckAndHandManager.Instance.CardsInHand.Count : 0);
 
             // Only update position if explicitly not dragging
-            if (!_cfs.IsDragging)
+            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick)
                 CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
 

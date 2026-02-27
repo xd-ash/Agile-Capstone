@@ -58,6 +58,7 @@ public static class SaveLoadScript
 
         SettingsData settingsData = JsonUtility.FromJson<SettingsData>(json);
         AudioManager.Instance.LoadVolumeSettings(settingsData.GetAudioSettings);
+        OptionsSettings.UpdateOptionsData(settingsData.GetOptionsSettings);
         sr.Close();
     }
 }
@@ -218,8 +219,23 @@ public class SpecialMechanicsData
 public class SettingsData
 {
     [SerializeField] private AudioSettingsToken _audioSettings;
+    [SerializeField] private OptionsSettingsToken _optionsSettings;
 
     public AudioSettingsToken GetAudioSettings => _audioSettings;
+    public OptionsSettingsToken GetOptionsSettings => _optionsSettings;
+
+    [System.Serializable]
+    public class OptionsSettingsToken
+    {
+        [SerializeField] private bool _isCardSelectOnClick;
+
+        public bool IsCardSelectOnClick => _isCardSelectOnClick;
+
+        public OptionsSettingsToken()
+        {
+            _isCardSelectOnClick = OptionsSettings.IsCardSelectOnClick;
+        }
+    }
 
     [System.Serializable]
     public class AudioSettingsToken

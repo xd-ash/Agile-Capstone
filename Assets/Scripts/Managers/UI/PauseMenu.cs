@@ -15,12 +15,20 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Slider _sfxSlider;
     [SerializeField] private Slider _musicSlider;
 
+    [Header("Toggles")]
+    [SerializeField] private Toggle _cardSelectOnClickToggle;
+
     private void Awake()
     {
         isPaused = false;
         Time.timeScale = 1f; // IMPORTANT: reset global timeScale on scene load
+
     }
-    
+    private void OnEnable()
+    {
+        _cardSelectOnClickToggle.isOn = OptionsSettings.IsCardSelectOnClick;
+    }
+
     private void Start()
     {
         if (AudioManager.Instance != null)
@@ -37,10 +45,10 @@ public class PauseMenu : MonoBehaviour
 
         // Hook up listeners
         _masterSlider?.onValueChanged.AddListener(OnMasterChanged);
-
         _sfxSlider?.onValueChanged.AddListener(OnSfxChanged);
-
         _musicSlider?.onValueChanged.AddListener(OnMusicChanged);
+
+        _cardSelectOnClickToggle.onValueChanged.AddListener(OptionsSettings.UpdateCardSelect);
     }
 
     private void Update()
@@ -68,7 +76,6 @@ public class PauseMenu : MonoBehaviour
                 DeckAndHandManager.Instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
             {
                 TargetingStopped();
-                //card.ReturnCardToHand();
                 DeckAndHandManager.Instance.OnCardAblityCancel?.Invoke();
             }
         }
@@ -84,14 +91,9 @@ public class PauseMenu : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (_masterSlider != null)
-            _masterSlider.onValueChanged.RemoveListener(OnMasterChanged);
-
-        if (_sfxSlider != null)
-            _sfxSlider.onValueChanged.RemoveListener(OnSfxChanged);
-
-        if (_musicSlider != null)
-            _musicSlider.onValueChanged.RemoveListener(OnMusicChanged);
+        _masterSlider?.onValueChanged.RemoveListener(OnMasterChanged);
+        _sfxSlider?.onValueChanged.RemoveListener(OnSfxChanged);
+        _musicSlider?.onValueChanged.RemoveListener(OnMusicChanged);
     }
     
     public void OpenSettings()

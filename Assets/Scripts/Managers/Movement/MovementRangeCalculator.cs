@@ -1,3 +1,4 @@
+using AStarPathfinding;
 using System.Collections.Generic;
 using UnityEngine;
 using static IsoMetricConversions;
@@ -21,16 +22,21 @@ public class MovementRangeCalculator : MonoBehaviour
     private void Start()
     {
         TrySetCurrentUnit(TurnManager.GetCurrentUnit);
+
         if (TurnManager.Instance != null)
             _lastTurn = TurnManager.Instance.CurrTurn;
 
-        AbilityEvents.OnAbilityTargetingStarted += () => TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
+        //AbilityEvents.OnAbilityTargetingStarted += () => TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
+        AbilityEvents.OnAbilityTargetingStarted += ClearHighlightsForCurrentUnit;
         AbilityEvents.OnAbilityTargetingStopped += RebuildForCurrentUnit;
+        ByteMapController.TileEntered += (x,y) => RebuildForCurrentUnit();
     }
     private void OnDestroy()
     {
-        AbilityEvents.OnAbilityTargetingStarted -= () => TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
+        //AbilityEvents.OnAbilityTargetingStarted -= () => TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
+        AbilityEvents.OnAbilityTargetingStarted -= ClearHighlightsForCurrentUnit;
         AbilityEvents.OnAbilityTargetingStopped -= RebuildForCurrentUnit;
+        ByteMapController.TileEntered -= (x, y) => RebuildForCurrentUnit();
     }
 
     private void Update()
@@ -111,6 +117,12 @@ public class MovementRangeCalculator : MonoBehaviour
         }
         var reachable = ComputeReachableCells(_currentUnit);
         TileHighlighter.ApplyHighlights(reachable, _currentUnit.GetGuid, _reachableColor);
+    }
+
+    public void ClearHighlightsForCurrentUnit()
+    {
+        if (_currentUnit != null)
+            TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
     }
 
     private HashSet<Vector2Int> ComputeReachableCells(Unit unit)
