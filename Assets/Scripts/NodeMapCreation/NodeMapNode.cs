@@ -42,7 +42,6 @@ public abstract class NodeMapNode : MonoBehaviour
 
         SetButtonIconFromType();
 
-
         NodeMapManager.RefreshNodeVisuals += RefreshNodeVisual;
     }
     protected void OnDestroy()
@@ -87,7 +86,7 @@ public abstract class NodeMapNode : MonoBehaviour
                 return string.Empty;
         }
     }
-    protected void SetButtonIconFromType()
+    protected virtual void SetButtonIconFromType()
     {
         switch (this)
         {
@@ -109,6 +108,7 @@ public abstract class NodeMapNode : MonoBehaviour
                 break;
         }
     }
+
     protected virtual void EnterNodeScene()
     {
         var scene = GrabTargetSceneFromType();
