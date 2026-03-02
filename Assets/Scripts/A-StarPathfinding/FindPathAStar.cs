@@ -340,7 +340,6 @@ namespace AStarPathfinding
                 if (!_isKnockback)
                 {
                     _unit.SpendAP(_moveCostPerTile);
-                    GameUIManager.instance.UpdateApText();
                 }
 
                 ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, prev, next);

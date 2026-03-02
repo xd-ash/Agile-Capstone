@@ -109,7 +109,6 @@ public class TurnManager : MonoBehaviour
                 DeckAndHandManager.Instance?.DrawCard(1);
 
         OnTurnStart?.Invoke(_curUnit);
-        GameUIManager.instance.UpdateApText();
     }
 
     // Mapped to end turn button in combat scene
