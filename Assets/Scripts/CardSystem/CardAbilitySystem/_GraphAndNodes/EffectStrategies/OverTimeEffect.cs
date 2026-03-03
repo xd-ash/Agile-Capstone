@@ -10,6 +10,7 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
     [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 
     [SerializeField] private bool _doEffectAtStart = true;
+    [SerializeField] private bool _tickOnStart = true;
 
     public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
     {
@@ -39,13 +40,13 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
                         //add targets manually since targets was getting reset on this action store
                         abilityData.Targets = temp;
                         strat.StartEffect(abilityData, onFinished);
-                    }, _effectValue, Guid.NewGuid(), strat.name);
+                    }, _effectValue, Guid.NewGuid(), _tickOnStart, strat.name);
                 }
             }
             else
                 Debug.LogError($"Target failure in OverTimeEffect strategy. " + target == null ? "Target is null" : $"Effect Tracker not attached to {target.name}");
         }
 
-        onFinished?.Invoke();
+        _onFinished?.Invoke();
     }
 }

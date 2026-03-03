@@ -58,6 +58,7 @@ public static class SaveLoadScript
 
         SettingsData settingsData = JsonUtility.FromJson<SettingsData>(json);
         AudioManager.Instance.LoadVolumeSettings(settingsData.GetAudioSettings);
+        OptionsSettings.UpdateOptionsData(settingsData.GetOptionsSettings);
         sr.Close();
     }
 }
@@ -84,14 +85,14 @@ public class GameData
             _mapNodeData = new(null, new(0,0), -1, -1);
             _currencyData = new(100);
             _cardData = new(null, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
-            _specialMechanicData = new(new bool[0]);
+            _specialMechanicData = new(new bool[0], new int[0]);
         }
         else
         {
             _mapNodeData = new(pdm.GetCompletedNodes, pdm.GetCurrentNodeIndex, pdm.GetGeneralSeed, pdm.GetNodeMapSeed);
             _currencyData = new(pdm.GetBalance);
             _cardData = new(pdm.GetOwnedCards, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
-            _specialMechanicData = new(pdm.GetAllCoinFlipsThisRun);
+            _specialMechanicData = new(pdm.GetAllCoinFlipsThisRun, pdm.GetAllDiceRollsThisRun);
         }
     }
 
@@ -203,11 +204,14 @@ public struct DeckToken
 public class SpecialMechanicsData
 {
     [SerializeField] private bool[] _coinFlipsCurrentRun;
+    [SerializeField] private int[] _diceRollsCurrentRun;
     public bool[] GetCoinFlipsCurrentRun => _coinFlipsCurrentRun ?? new bool[0];
+    public int[] GetDiceRollsCurrentRun => _diceRollsCurrentRun ?? new int[0];
 
-    public SpecialMechanicsData(bool[] coinflips)
+    public SpecialMechanicsData(bool[] coinflips, int[] diceRolls)
     {
         _coinFlipsCurrentRun = coinflips;
+        _diceRollsCurrentRun = diceRolls;
     }
 }
 
@@ -215,8 +219,23 @@ public class SpecialMechanicsData
 public class SettingsData
 {
     [SerializeField] private AudioSettingsToken _audioSettings;
+    [SerializeField] private OptionsSettingsToken _optionsSettings;
 
     public AudioSettingsToken GetAudioSettings => _audioSettings;
+    public OptionsSettingsToken GetOptionsSettings => _optionsSettings;
+
+    [System.Serializable]
+    public class OptionsSettingsToken
+    {
+        [SerializeField] private bool _isCardSelectOnClick;
+
+        public bool IsCardSelectOnClick => _isCardSelectOnClick;
+
+        public OptionsSettingsToken()
+        {
+            _isCardSelectOnClick = OptionsSettings.IsCardSelectOnClick;
+        }
+    }
 
     [System.Serializable]
     public class AudioSettingsToken

@@ -20,7 +20,7 @@ namespace CardSystem
                 }
             }
 
-            onFinished();
+            _onFinished?.Invoke();
         }
     }
 }

@@ -4,6 +4,7 @@ using XNode;
 
 namespace CardSystem
 {
+    [CreateNodeMenu("Misc Effects/Restore AP")]
     public class RestoreAPEffect : EffectStrategy, IUseEffectValue
     {
         public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)

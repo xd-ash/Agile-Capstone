@@ -86,6 +86,9 @@ public class TurnManager : MonoBehaviour
             SetTurn();
             return;
         }
+
+        OnTurnEnd?.Invoke(_curUnit);
+
         _curUnit = _unitTurnOrder[_turnTracker];
         CurrTurn = _curUnit.GetTeam == Team.Friendly ? Turn.Player : Turn.Enemy;
         _curUnit.transform.Find("turnHighligher").gameObject.SetActive(true);
@@ -124,6 +127,6 @@ public class TurnManager : MonoBehaviour
         // DeckAndHandManager.Instance?.DiscardAll();
 
         //OnPlayerTurnEnd?.Invoke();
-        OnTurnEnd?.Invoke(_curUnit);
+        //OnTurnEnd?.Invoke(_curUnit);
     }
 }

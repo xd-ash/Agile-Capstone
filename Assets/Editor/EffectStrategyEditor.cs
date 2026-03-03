@@ -41,6 +41,8 @@ namespace CardSystem
                     return "Knockback Distance";
                 case RestoreAPEffect:
                     return "AP Value";
+                case MultiplyEffect:
+                    return "Number of Times";
                 default:
                     return "Effect Value";
             }

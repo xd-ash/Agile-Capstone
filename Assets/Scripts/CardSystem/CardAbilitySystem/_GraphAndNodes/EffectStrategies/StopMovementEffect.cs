@@ -24,6 +24,6 @@ public class StopMovementEffect : EffectStrategy
             }
         }
 
-        onFinished?.Invoke();
+        _onFinished?.Invoke();
     }
 }
