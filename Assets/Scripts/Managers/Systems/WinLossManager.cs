@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 //Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
 {
+    private RewardsDisplayScript _rewardsPanel;
+
     [SerializeField] private float textDuration = 3f;
     private bool _didWin;
 
@@ -27,6 +30,9 @@ public class WinLossManager : MonoBehaviour
         TurnManager.OnGameStart += GrabEnemyUnits;
 
         GameOverEvents.OnGameOver += OnGameDone;
+
+        _rewardsPanel = FindAnyObjectByType<RewardsDisplayScript>(FindObjectsInactive.Include);
+        _rewardsPanel.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
@@ -53,6 +59,7 @@ public class WinLossManager : MonoBehaviour
         SpecialMechanicsManager.Instance.RemoveUnitCoinFlips(unit);
         SpecialMechanicsManager.Instance.RemoveUnitDieRolls(unit);
     }
+
     public void OnGameDone(bool didWin)
     {
         _didWin = didWin;
@@ -65,14 +72,17 @@ public class WinLossManager : MonoBehaviour
     {
         if (_didWin)
         {
-            NodeMapManager.Instance.CompleteCurrentNode();
+            _rewardsPanel.gameObject.SetActive(true);
+            return;
+
+            /*NodeMapManager.Instance.CompleteCurrentNode();
             CombatNodeCompleted?.Invoke();
 
             if (!NodeMapManager.Instance.GetIsNodeMapComplete)
             {
                 NodeMapManager.Instance.ReturnToMap();
                 return;
-            }
+            }*/
         }
 
         GameReset?.Invoke();

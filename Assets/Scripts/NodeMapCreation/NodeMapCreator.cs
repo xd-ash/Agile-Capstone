@@ -7,7 +7,6 @@ public class NodeMapCreator : MonoBehaviour
 {
     public enum NodeTypes { Combat, BountyBoard, Boss, Shop, Other }
 
-    //private GameObject _combatSceneNodePrefab, _bountyChoiceNodePrefab, _bossNodePrefab, _shopNodePrefab, _otherNodePrefab;
     private GameObject _nodePrefab;
 
     private Dictionary<int, List<NodePlaceholder>> _nodeTiers = new();
@@ -22,8 +21,16 @@ public class NodeMapCreator : MonoBehaviour
 
     public int GetNumberOfTiers => _numberOfTiers;
 
+    public static NodeMapCreator Instance { get; private set; }
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         _nodePrefab = Resources.Load<GameObject>("TempNodeMap/NodePrefab");
     }
 

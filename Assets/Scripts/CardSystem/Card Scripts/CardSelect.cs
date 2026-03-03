@@ -62,18 +62,18 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null && !RewardsDisplayScript.IsRewarding)
                 ToggleHighlightAndScale(true);
         }
         private void OnMouseExit()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null && !RewardsDisplayScript.IsRewarding)
                 ToggleHighlightAndScale(false);
         }
         private void OnMouseDown()
         {
             // Check for active cards
-            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
+            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn || RewardsDisplayScript.IsRewarding) return;
 
             if (OptionsSettings.IsCardSelectOnClick) return;
 
@@ -135,7 +135,7 @@ namespace CardSystem
             //disable drag with click to select option enabled
             if (OptionsSettings.IsCardSelectOnClick) return;
 
-            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
+            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected || RewardsDisplayScript.IsRewarding)
                 return;
 
             // Temporarily remove from hand management

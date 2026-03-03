@@ -10,9 +10,14 @@ public class CardDeckLibraryEditor : Editor
 
     private void OnEnable()
     {
-        //ClearOtherLibraries();
-
-        CardAndDeckLibrary.GrabAssets += GrabAssetsConnector;
+        CardAndDeckLibrary.GrabAssets += () =>
+        {
+            if (GrabAssets())
+            {
+                EditorUtility.SetDirty(_library);
+                AssetDatabase.SaveAssetIfDirty(_library);
+            }
+        };
     }
     public override void OnInspectorGUI()
     {
@@ -26,26 +31,14 @@ public class CardDeckLibraryEditor : Editor
         }
         base.OnInspectorGUI(); 
     }
-    private void GrabAssetsConnector()
-    {
-        if (GrabAssets())
-        {
-            EditorUtility.SetDirty(_library);
-            AssetDatabase.SaveAssetIfDirty(_library);
-        }
-    }
     public bool GrabAssets()
     {
         bool tmp = false;
 
         if (_library == null) _library = (CardAndDeckLibrary)target;
 
-        //var deckGUIDS = AssetDatabase.FindAssets("t:Deck", new[] { "Assets/ScriptableObjects/DeckSOs" });
         var cardGUIDS = AssetDatabase.FindAssets("t:CardAbilityDefinition", new[] { "Assets/ScriptableObjects/CardAbilities" });
 
-        /*if (deckGUIDS.Length != _library.GetDecksInProject.Count)
-            foreach (var guid in deckGUIDS)
-                _library.AddDeckToLibrary(AssetDatabase.LoadAssetAtPath<Deck>(AssetDatabase.GUIDToAssetPath(guid)));*/
         if (cardGUIDS.Length != _library.GetCardsInProject.Count)
         {
             _library.ClearCardLibrary();
@@ -57,22 +50,4 @@ public class CardDeckLibraryEditor : Editor
         }
         return tmp;
     }
-
-    /*private void ClearOtherLibraries()
-    {
-        if (_library == null) _library = (CardAndDeckLibrary)target;
-
-        var libraryGUIDs = AssetDatabase.FindAssets("t:CardAndDeckLibrary", new[] { "Assets/Resources" });
-        if (libraryGUIDs.Length > 1) 
-        {
-            for (int i = libraryGUIDs.Length - 1; i >= 0; i--)
-            {
-                var libraryAsset = AssetDatabase.LoadAssetAtPath<CardAndDeckLibrary>(AssetDatabase.GUIDToAssetPath(libraryGUIDs[i]));
-                if (libraryAsset == null || libraryAsset == _library) continue;
-                //EditorUtility.ClearDirty(libraryAsset);
-                DestroyImmediate(libraryAsset, true);
-            }
-            Debug.LogError("message");
-        }
-    }*/
 }

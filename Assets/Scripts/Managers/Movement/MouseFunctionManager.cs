@@ -59,7 +59,7 @@ public class MouseFunctionManager : MonoBehaviour
                     DeckAndHandManager.Instance.OnCardAblityCancel?.Invoke();
                 }
 
-        if (PauseMenu.isPaused || !TrackMouse()) return;
+        if (PauseMenu.isPaused || !TrackMouse() || RewardsDisplayScript.IsRewarding) return;
 
         _highlightTile.SetActive(true);
         _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);

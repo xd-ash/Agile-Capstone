@@ -22,7 +22,6 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1f; // IMPORTANT: reset global timeScale on scene load
-
     }
     private void OnEnable()
     {

@@ -6,13 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Libraries/New Card & Deck Library")]
 public class CardAndDeckLibrary : ScriptableObject
 {
-    //[SerializeField] private List<Deck> _decksInProject = new();
     [SerializeField] private List<Deck> _decksInProject = new();
     [SerializeField] private Deck _shopPool;
 
     [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
 
-    //public List<Deck> GetDecksInProject => _decksInProject;
     public List<Deck> GetDecksInProject => _decksInProject;
     public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
     public Deck GetShopPool => _shopPool;

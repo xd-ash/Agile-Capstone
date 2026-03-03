@@ -208,8 +208,8 @@ public class MapCreator : MonoBehaviour
     }
     private void GenerateUnitPositions(byte[,] map, List<Vector2Int> emptyPositions)
     {
-        int players = PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
-        int enemies = PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+        int players = PlayerDataManager.Instance.GetCurrCombatNodeData.maxPlayersAllowed;
+        int enemies = PlayerDataManager.Instance.GetCurrCombatNodeData.maxEnemiesAllowed;
 
         int[] selectedPositionIndexes = new int[players + enemies];
 

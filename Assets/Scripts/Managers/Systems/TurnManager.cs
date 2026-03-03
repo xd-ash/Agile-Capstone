@@ -115,7 +115,7 @@ public class TurnManager : MonoBehaviour
     // Mapped to end turn button in combat scene
     public void EndPlayerTurn()
     {
-        if (CurrTurn != Turn.Player) return; // avoid turn end spam
+        if (CurrTurn != Turn.Player || RewardsDisplayScript.IsRewarding) return; // avoid turn end spam
         if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; //avoid turn end before movement is complete
 
         AudioManager.Instance?.PlayButtonSFX();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +17,16 @@ public abstract class NodeMapNode : MonoBehaviour
     [SerializeField] protected bool _isNodeCompleted;
     [SerializeField] protected bool _isNodeAccessible;
 
+    [SerializeField] protected Reward _nodeRewards;
+
     public NodeMapNode[] GetPrevNodes => _prev.ToArray();
     public NodeMapNode[] GetNextNodes => _next.ToArray();
     public Vector2Int GetNodeIndex => _nodeIndex;
 
     public bool IsNodeCompleted {  get { return _isNodeCompleted; } set { _isNodeCompleted = value; } }
     public bool IsNodeAccessible { get { return _isNodeAccessible; } set { _isNodeAccessible = value; } }
+
+    public Reward GetNodeRewards => _nodeRewards;
 
     public virtual string GetTargetScene => GrabTargetSceneFromType();
 
@@ -41,9 +46,17 @@ public abstract class NodeMapNode : MonoBehaviour
         _background = GetComponent<Image>();
 
         SetButtonIconFromType();
-
+        SetNodeRewards();
         NodeMapManager.RefreshNodeVisuals += RefreshNodeVisual;
     }
+
+    private void SetNodeRewards()
+    {
+        if (this is ShopNode || this is OtherNode) return;
+
+        _nodeRewards = RewardsController.DetermineRewards(_nodeIndex);
+    }
+
     protected void OnDestroy()
     {
         NodeMapManager.RefreshNodeVisuals -= RefreshNodeVisual;
@@ -140,5 +153,8 @@ public abstract class NodeMapNode : MonoBehaviour
         _background.color = c;
     }
 
-    public abstract void OnClick();
+    public virtual void OnClick()
+    {
+        PlayerDataManager.Instance.SetCurrNodeReward(_nodeRewards);
+    }
 }

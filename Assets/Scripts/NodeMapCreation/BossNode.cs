@@ -18,6 +18,8 @@ public class BossNode : NodeMapNode
 
     public override void OnClick()
     {
+        base.OnClick();
+
         PlayerDataManager.Instance.SetCurrMapNodeData(_combatData);
         EnterNodeScene();
     }

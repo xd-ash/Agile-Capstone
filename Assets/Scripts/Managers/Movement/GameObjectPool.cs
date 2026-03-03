@@ -5,6 +5,18 @@ public static class GameObjectPool
 {
     private static Dictionary<GameObject, Pool> _objectPools;
 
+    public static GameObject Spawn(GameObject prefab, Transform parent)
+    {
+        if (prefab == null) return null;
+
+        if (_objectPools == null)
+            _objectPools = new Dictionary<GameObject, Pool>();
+
+        if (!_objectPools.ContainsKey(prefab))
+            _objectPools[prefab] = new Pool(prefab);
+
+        return _objectPools[prefab].Spawn(prefab.transform.localPosition, prefab.transform.localRotation, prefab.transform.localScale, parent);
+    }
     public static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation, Vector3 scale, Transform parent)
     {
         if (_objectPools == null)

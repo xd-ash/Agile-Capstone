@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TransitionScene : MonoBehaviour
 {
-    private GameObject mainMenu, pauseMenu;
+    private GameObject mainMenu, pauseMenu, rewardsMenu;
     private string _currScene = "MainMenu";
 
     public static Action<string> SceneSwap;
@@ -32,6 +32,12 @@ public class TransitionScene : MonoBehaviour
             pauseMenu = pauseMenuTransform?.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
+
+        var rewardsMenuTransform = transform.Find("RewardsMenu");
+        if (rewardsMenuTransform != null)
+            rewardsMenu = rewardsMenuTransform?.gameObject;
+        else
+            Debug.LogWarning("TransitionScene: 'RewardsMenu' child not found under " + name);
     }
 
     public void StartTransition(string targetScene = "MainMenu")
@@ -43,7 +49,10 @@ public class TransitionScene : MonoBehaviour
         AbilityEvents.TargetingStopped();
 
         if (targetScene == "MainMenu")
+        {
             pauseMenu?.SetActive(false);
+            rewardsMenu?.SetActive(false);
+        }
 
         mainMenu?.SetActive(targetScene == "MainMenu");
 

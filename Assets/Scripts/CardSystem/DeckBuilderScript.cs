@@ -54,7 +54,6 @@ public class DeckBuilderScript : MonoBehaviour
 
         ClearScrollviewContent(_cardScrollView.content);
 
-        int contentIndex = -1;
         foreach (var card in _cardAndDeckLibrary.GetCardsInProject)
         {
             if (card == null) continue;
@@ -66,10 +65,6 @@ public class DeckBuilderScript : MonoBehaviour
             cardTextFieldsUI[0].text = card.GetCardName;
             cardTextFieldsUI[1].text = card.GetDescription;
             cardTextFieldsUI[2].text = card.GetApCost.ToString();
-
-            contentIndex++;
-            var rt = content.GetComponent<RectTransform>();
-            //SetCardLibraryContentTransform(ref rt, contentIndex);
 
             var addCardButton = content.GetComponentInChildren<Button>();
             if (addCardButton == null) continue;

@@ -14,7 +14,8 @@ public class PlayerDataManager : MonoBehaviour
     [SerializeField] private Vector2Int _curNodeIndex = new(0,0);
     private int _generalSeed = -1;
     private int _nodeMapSeed = -1;
-    private CombatMapData _currMapNodeData;
+    private CombatMapData _currCombatNodeData;
+    private Reward _currNodeReward;
 
     [SerializeField] private List<Deck> _createdDecks = new();
     [SerializeField] private Deck _activeDeck;
@@ -31,7 +32,8 @@ public class PlayerDataManager : MonoBehaviour
     public int GetNodeMapSeed => _nodeMapSeed == -1 ? GenerateRandomSeed(ref _nodeMapSeed) : _nodeMapSeed;
     public int GenerateGeneralSeed() => GenerateRandomSeed(ref _generalSeed);
     public int GenerateNodeMapSeed() => GenerateRandomSeed(ref _nodeMapSeed);
-    public CombatMapData GetCurrMapNodeData => _currMapNodeData;
+    public CombatMapData GetCurrCombatNodeData => _currCombatNodeData;
+    public Reward GetCurrNodeReward => _currNodeReward;
 
     public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
     public Deck GetActiveDeck => _activeDeck;
@@ -57,9 +59,10 @@ public class PlayerDataManager : MonoBehaviour
         if (_cardAndDeckLibrary == null)
             _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         CardAndDeckLibrary.GrabAssets?.Invoke();
-#endif
+        BadgeLibrary.GrabAssets?.Invoke();
+    #endif
 
         if (SaveLoadScript.CheckForSaveGame)
             SaveLoadScript.LoadGame?.Invoke();
@@ -91,6 +94,10 @@ public class PlayerDataManager : MonoBehaviour
     public void UpdateCurrencyData(int currentBalance)
     {
         _balance = currentBalance;
+    }
+    public void AddChips(int amount)
+    {
+        _balance += amount;
     }
     public void UpdateNodeData(Vector2Int[] completedNodes, Vector2Int currentNodeIndex, int generalSeed, int nodeMapSeed)
     {
@@ -148,7 +155,12 @@ public class PlayerDataManager : MonoBehaviour
 
     public void SetCurrMapNodeData(CombatMapData currMapNodeData)
     {
-        _currMapNodeData = currMapNodeData;
+        _currCombatNodeData = currMapNodeData;
+    }
+
+    public void SetCurrNodeReward(Reward reward)
+    {
+        _currNodeReward = reward;
     }
 
     public void AddCoinFlip(bool result)

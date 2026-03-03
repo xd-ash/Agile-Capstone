@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/*
 public class SceneTransitioner : MonoBehaviour
 {
     [Tooltip("If true this GameObject will persist across scene loads.")]
@@ -79,4 +79,4 @@ public class SceneTransitioner : MonoBehaviour
         }
         return false;
     }
-}
+}*/
