@@ -61,14 +61,6 @@ public class GoapAgent : MonoBehaviour
             a?.GrabConditionsFromEnums(this);
 
         ResetStates();
-        /*
-        _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-        CheckForAP(unit, ref _beliefs);
-        
-        // Init goal dict creation from list in inspector
-        foreach (var g in _goals)
-            _weightedGoalsDict.Add(g, g.value);
-        */
     }
     void LateUpdate()
     {

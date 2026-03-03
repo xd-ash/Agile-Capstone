@@ -45,7 +45,7 @@ public class GoapPlanner
                 usableActions.Add(a);
 
         List<GOAPNode> leaves = new List<GOAPNode>();
-        GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
+        GOAPNode start = new GOAPNode(null, 0, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
 
         //
         if (_agent.showDebugMessages)
