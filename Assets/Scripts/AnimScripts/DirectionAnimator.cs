@@ -27,6 +27,7 @@ public class DirectionAnimator : MonoBehaviour
     private int[] _idleHashes;
     private int[] _moveHashes;
 
+    //Add enum here
     private Dictionary<string, int[]> _attackHashLookup = new();
 
     private int _lastDir = 0;

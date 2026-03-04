@@ -28,7 +28,7 @@ namespace CardSystem
         [SerializeField] private float _accuracyMultiplier = 1f;
         [SerializeField] private int _accuracyFlatBonus = 0;
 
-        [Header("Attack Animation")]
+        [Header("Attack Animation")] //Add enum stuff here
         [SerializeField] private string _attackAnimKey;
 
         private AbilityRootNode _rootNode;
