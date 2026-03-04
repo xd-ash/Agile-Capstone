@@ -63,12 +63,13 @@ public class GoapPlanner
         bool success = BuildGraph(start, leaves, usableActions, goal);
 
         if (!success)
-        { 
+        {
             if(_agent.showDebugMessages)
-                Debug.Log("NO PLAN");
+                Debug.Log("Graph Build Fail - No Plan");
             return null;
         }
 
+        // find cheapest path 
         GOAPNode cheapest = null;
         foreach (GOAPNode leaf in leaves)
         {
@@ -79,15 +80,17 @@ public class GoapPlanner
                     cheapest = leaf;
         }
 
+        // cycle through each parent in order to add all actions
         List<GoapAction> result = new List<GoapAction>();
         GOAPNode n = cheapest;
         while (n != null)
         {
             if(n.action != null)
-                result.Insert(0,n.action);
+                result.Insert(0, n.action);
             n = n.parent;
         }
 
+        // create action queue from cheapest list of actions
         Queue<GoapAction> queue = new Queue<GoapAction>();
         foreach (GoapAction a in result)
             queue.Enqueue(a);
@@ -115,14 +118,9 @@ public class GoapPlanner
             {
                 Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
 
-                //Debug.Log($"Action (post count): {action.ToString()}({action.postConditions.Count})");
-
                 foreach (KeyValuePair<string, int> eff in action.GetPostConditions)
                     if (!currentState.ContainsKey(eff.Key))
-                    {
-                        //Debug.Log("test curstate contains key");
                         currentState.Add(eff.Key, eff.Value);
-                    }
 
                 // No belief param needed as worldstates are concatenated in
                 GOAPNode node = new GOAPNode(parent, parent.cost + action.GetCost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
@@ -133,11 +131,8 @@ public class GoapPlanner
                 }
                 else
                 {
-                    //Debug.Log("starting new recurs");
                     List<GoapAction> subset = ActionSubset(usableActions, action);
-                    bool found = BuildGraph(node, leaves, subset, goal);
-                    if (found)
-                        foundPath = true;
+                    foundPath = BuildGraph(node, leaves, subset, goal); // at this point build graph from subset. On success, bool follows stack back to first call
                 }
             }
         }

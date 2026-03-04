@@ -25,7 +25,7 @@ public class Goal
 public class GoapAgent : MonoBehaviour
 {
     [Header("Temp Enemy Abilities")]
-    public CardAbilityDefinition damageAbility; 
+    public CardAbilityDefinition damageAbility;
     public CardAbilityDefinition healAbility;
     public int healCharges = 3;
     [Space(15)]
@@ -70,14 +70,15 @@ public class GoapAgent : MonoBehaviour
         if (_planner == null || _actionQueue == null)
         {
             _planner = new GoapPlanner(this);
+
+            //sort goals based on weight/prio
             var sortedGoals = from entry in _weightedGoalsDict
                               orderby entry.Value descending
                               select entry;
-            //Debug.Log($"weightGoals count: {_weightedGoalsDict.Count}");
 
+            //pick highest prio goal to plan for first
             foreach (KeyValuePair<Goal, int> g in sortedGoals)
             {
-                //Debug.Log($"Action (post count): {_actions[0].ToString()}({_actions[0].postConditions.Count})");
                 _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
                 if (_actionQueue != null)
                 {
@@ -87,16 +88,22 @@ public class GoapAgent : MonoBehaviour
             }
         }
 
+        // actionqueue is finished
         if (_actionQueue != null && _actionQueue.Count == 0)
         {
             if (_beliefs.GetStates.ContainsKey(_currentGoal.key) && _currentGoal.removeOnComplete)
                 for (int i = _weightedGoalsDict.Count - 1; i >= 0; i--)
-                    if (_weightedGoalsDict.ElementAt(i).Key.key == _currentGoal.key)
-                        _weightedGoalsDict.Remove(_weightedGoalsDict.ElementAt(i).Key);
+                {
+                    var goal = _weightedGoalsDict.ElementAt(i).Key;
+                    if (goal.key != _currentGoal.key) continue;
+
+                    _weightedGoalsDict.Remove(_weightedGoalsDict.ElementAt(i).Key);
+                }
 
             _planner = null;
         }
 
+        // actionqueue is not finished
         if (_actionQueue != null && _actionQueue.Count > 0)
         {
             _currentAction = _actionQueue.Dequeue();
@@ -110,9 +117,7 @@ public class GoapAgent : MonoBehaviour
                     _currentAction.Perform();
             }
             else
-            {
                 _actionQueue = null;
-            }
         }
     }
 
@@ -134,7 +139,7 @@ public class GoapAgent : MonoBehaviour
                 if (a != null)
                     actionsToString.Add(a.ToString());
 
-        for (int i = actionsToString.Count - 1; i >= 0 ; i--)
+        for (int i = actionsToString.Count - 1; i >= 0; i--)
         {
             if (actionsToString[i] == null)
             {
@@ -142,7 +147,7 @@ public class GoapAgent : MonoBehaviour
                 continue;
             }
 
-            if (!tempToString.Contains(actionsToString[i]) || 
+            if (!tempToString.Contains(actionsToString[i]) ||
                 actionsToString[i] == string.Empty)
                 _actions.RemoveAt(i);
         }
@@ -172,7 +177,7 @@ public class GoapAgent : MonoBehaviour
     {
         var temp = GetAllStatesFromFlags(_goalsEnum);
         List<string> tempToString = new List<string>();
-                     //goalsToString = new List<string>();
+        //goalsToString = new List<string>();
 
         foreach (var s in temp)
             tempToString.Add(s.key);
@@ -225,51 +230,45 @@ public class GoapAgent : MonoBehaviour
             CheckForAP(unit, ref _beliefs);
     }
 
-    public void ResetStates() 
+    public void ResetStates()
     {
         _weightedGoalsDict = new();
 
         string temp = "weighted dict goals: ";
+
         // goal dict reset and creation from list in inspector
         foreach (var g in _goals)
         {
             _weightedGoalsDict.Add(g, g.value);
             temp += g.key + ", ";
         }
-        //Debug.Log(temp);
+        if (showDebugMessages)
+            Debug.Log(temp);
 
-        if (unit != null)
+        if (unit == null) return;
+
+        _beliefs = new();
+        _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
+
+        if (healCharges > 0)
+            _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
+
+        CheckForAP(unit, ref _beliefs);
+        CheckIfHealthy(unit, ref _beliefs);
+
+        if (_curtarget == null)
         {
-            _beliefs = new();
+            _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
+            _beliefs.RemoveState(GoapStates.HasLOS.ToString());
 
-            _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
-
-            if (healCharges > 0)
-                _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
-
-            CheckForAP(unit, ref _beliefs);
-            CheckIfHealthy(unit, ref _beliefs);
-
-            if (_curtarget == null)
-            {
-                _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
-                _beliefs.RemoveState(GoapStates.HasLOS.ToString());
-
-                _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-                _beliefs.RemoveState(GoapStates.InRange.ToString());
-            }
-            else
-            {
-                CheckIfInRange(this, damageAbility.GetRange, ref _beliefs);
-                CheckIfInLOS(this, ref _beliefs);
-            }
+            _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+            _beliefs.RemoveState(GoapStates.InRange.ToString());
         }
-        /*
-        string tempStr = "Beliefs on reset: ";
-        foreach (var b in _beliefs.GetStates())
-            tempStr += b.Key + ", ";
-        Debug.Log(tempStr);
-        */
+        else
+        {
+            CheckIfInRange(this, damageAbility.GetRange, ref _beliefs);
+            CheckIfInLOS(this, ref _beliefs);
+        }
     }
 
     private void ActionPerformDelay()
