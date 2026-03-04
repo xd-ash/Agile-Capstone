@@ -14,8 +14,10 @@ public class CardDefEditor : Editor
     public override void OnInspectorGUI()
     {
         AddToLibrary();
-
         base.OnInspectorGUI();
+
+        var c = (CardAbilityDefinition)target;
+        c.SetEffectDefForUpgradeCollections();
     }
     private void AddToLibrary()
     {

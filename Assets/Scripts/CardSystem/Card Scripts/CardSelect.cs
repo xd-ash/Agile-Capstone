@@ -73,7 +73,7 @@ namespace CardSystem
         private void OnMouseDown()
         {
             // Check for active cards
-            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn || RewardsDisplayScript.IsRewarding) return;
+            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn || RewardsDisplayScript.IsRewarding || TurnManager.GetCurrentUnit.GetIsMoving) return;
 
             if (OptionsSettings.IsCardSelectOnClick) return;
 
@@ -97,7 +97,7 @@ namespace CardSystem
 
         private void OnMouseUp()
         {
-            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick) return;
+            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || RewardsDisplayScript.IsRewarding || TurnManager.GetCurrentUnit.GetIsMoving) return;
             if (OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null) return;
 
             if (DeckAndHandManager.Instance == null)

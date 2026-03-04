@@ -1,6 +1,8 @@
 using UnityEngine;
 using XNode;
 using System;
+using System.Collections.Generic;
+using CardSystem;
 
 namespace CardSystem
 {
@@ -32,6 +34,10 @@ namespace CardSystem
         [SerializeField] private string _attackAnimKey;
 
         private AbilityRootNode _rootNode;
+
+        //Card upgrade stuff manged in editor script
+        [SerializeField] private EffectUpgrade[] _onRareUpgradeEffects;
+        [SerializeField] private EffectUpgrade[] _onEpicUpgradeEffects;
 
         public string GetCardName => this.name;
         public string GetDescription => _description;
@@ -76,5 +82,30 @@ namespace CardSystem
                     (node as IStoppable).Stop(guid);
             }
         }
+        public void SetEffectDefForUpgradeCollections()
+        {
+            foreach (var effect in _onRareUpgradeEffects)
+                effect.SetCardDef(this);
+            foreach (var effect in _onEpicUpgradeEffects)
+                effect.SetCardDef(this);
+        }
+    }
+}
+[System.Serializable]
+public class EffectUpgrade
+{
+    public string effectName;
+    public int valueToAdd;
+
+    [HideInInspector] public EffectStrategy effectToUpgrade;
+    [HideInInspector] public CardAbilityDefinition _cardDef;
+
+    public void SetCardDef(CardAbilityDefinition def)
+    {
+        if (effectToUpgrade != null && effectName != effectToUpgrade.name)
+            effectName = effectToUpgrade.name;
+
+        if (_cardDef == def) return;
+        _cardDef = def;
     }
 }

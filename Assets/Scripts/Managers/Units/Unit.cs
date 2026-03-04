@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using CardSystem;
+using AStarPathfinding;
 
 public enum Team {Friendly, Enemy}
 public class Unit : MonoBehaviour, IDamagable
@@ -39,6 +40,7 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
     public bool GetCanMove => _canMove;
+    public bool GetIsMoving => TryGetComponent(out FindPathAStar astar) && astar.GetIsMoving;
     public Guid GetGuid => _unitGuid;
 
     public event Action<Unit> OnApChanged;

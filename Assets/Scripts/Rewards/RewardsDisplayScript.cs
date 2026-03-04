@@ -37,8 +37,8 @@ public class RewardsDisplayScript : MonoBehaviour
             Action temp = () =>
             {
                 RewardsController.RewardChips(_curReward.GetCurrencyReward);
-                OnContinueClick();
                 ClearContent();
+                OnContinueClick();
                 gameObject.SetActive(false);
             };
 
@@ -127,7 +127,7 @@ public class RewardsDisplayScript : MonoBehaviour
             if (_rewardsContentParent.transform.GetChild(i).gameObject == _pendingChoiceContent)
             {
                 newCardContent.transform.SetSiblingIndex(i);
-                Destroy(_pendingChoiceContent);
+                Remove(_pendingChoiceContent);
                 break;
             }
         }
@@ -158,9 +158,11 @@ public class RewardsDisplayScript : MonoBehaviour
     private void ClearContent()
     {
         for (int i = _rewardsContentParent.transform.childCount - 1; i >= 0; i--)
-            Remove(_rewardsContentParent.transform.GetChild(i).gameObject);
-
-        Debug.Log("test");
+        {
+            var obj = _rewardsContentParent.transform.GetChild(i).gameObject;
+            if (obj == null || !obj.activeInHierarchy) continue;
+            Remove(obj);
+        }
 
         _pendingChoices = 0;
     }

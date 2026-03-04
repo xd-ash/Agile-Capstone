@@ -158,6 +158,8 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: Shoot
+  _onRareUpgradeEffects: []
+  _onEpicUpgradeEffects: []
 --- !u!114 &871349067883048404
 MonoBehaviour:
   m_ObjectHideFlags: 0
