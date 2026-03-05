@@ -6,24 +6,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Libraries/New Card & Deck Library")]
 public class CardAndDeckLibrary : ScriptableObject
 {
-    [SerializeField] private List<Deck> _decksInProject = new();
-    [SerializeField] private Deck _shopPool;
+    [SerializeField] private List<CardPack> _packsInProject = new();
+    [SerializeField] private List<CardAbilityDefinition> _shopPool;
 
     [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
 
-    public List<Deck> GetDecksInProject => _decksInProject;
     public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
-    public Deck GetShopPool => _shopPool;
+    public List<CardPack> GetPacksInProject => _packsInProject;
 
     public static Action GrabAssets;
 
-    public void AddDeckToLibrary(Deck deck)
-    {
-        if (deck == null) return;
-
-        if (!_decksInProject.Contains(deck))
-            _decksInProject.Add(deck);
-    }
     public void AddCardToLibrary(CardAbilityDefinition card)
     {
         if (card == null) return;
@@ -33,9 +25,9 @@ public class CardAndDeckLibrary : ScriptableObject
     }
     public void CleanUpLists()
     {
-        for (int i = _decksInProject.Count - 1; i >= 0; i--)
-            if (_decksInProject[i] == null)
-                _decksInProject.RemoveAt(i);
+        for (int i = _packsInProject.Count - 1; i >= 0; i--)
+            if (_packsInProject[i] == null)
+                _packsInProject.RemoveAt(i);
         for (int i = _cardsInProject.Count - 1; i >= 0; i--)
             if (_cardsInProject[i] == null)
                 _cardsInProject.RemoveAt(i);
@@ -53,21 +45,21 @@ public class CardAndDeckLibrary : ScriptableObject
         Debug.LogWarning($"No matching card definition found in library for \"{cardName}\"");
         return null;
     }
-    public Deck GetDeckFromName(string deckName, bool sendDebugOnFail = true)
+    public CardPack GetPackFromName(string packName, bool sendDebugOnFail = true)
     {
         //check library starter decks
-        foreach (var deck in _decksInProject)
-            if (deck.GetDeckName == deckName)
-                return deck;
+        foreach (var pack in _packsInProject)
+            if (pack.GetPackName == packName)
+                return pack;
 
         //Check player decks
         if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.GetAllPlayerDecks != null)
-            foreach (var deck in PlayerDataManager.Instance.GetAllPlayerDecks)
-                if (deck.GetDeckName == deckName)
-                    return deck;
+            foreach (var pack in PlayerDataManager.Instance.GetAllPlayerDecks)
+                if (pack. == deckName)
+                    return pack;
 
         if (sendDebugOnFail)
-            Debug.LogError($"No matching deck found in library for \"{deckName}\"");
+            Debug.LogError($"No matching card pack found in library for \"{packName}\"");
         return null;
     }
 }

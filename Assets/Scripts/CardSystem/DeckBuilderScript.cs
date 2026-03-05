@@ -80,7 +80,6 @@ public class DeckBuilderScript : MonoBehaviour
 
         ClearScrollviewContent(_deckScrollView.content);
 
-        int contentIndex = -1;
         foreach (var card in _tempDeck)
         {
             if (card == null) continue;
@@ -92,10 +91,6 @@ public class DeckBuilderScript : MonoBehaviour
             if (texts == null || texts.Length < 2) continue;
             texts[0].text = card.name;
             //texts[1].text = GetCardAmountInCurrentDeck(card).ToString();
-
-            contentIndex++;
-            var rt = content.GetComponent<RectTransform>();
-            //SetDeckCardContentTransform(ref rt, contentIndex);
 
             var removeCardButton = content.GetComponentInChildren<Button>();
             if (removeCardButton == null) continue;

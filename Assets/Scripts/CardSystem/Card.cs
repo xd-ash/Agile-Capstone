@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace CardSystem
@@ -10,25 +11,33 @@ namespace CardSystem
         {
             GrabSOData(def);
             _cardTransform = cardTransform;
+            _guid = Guid.NewGuid();
         }
 
-        [SerializeField] private string _cardName;
-        private string _description; // change desription text values for rarities? have prefab grab this instead
-        [SerializeField] private Transform _cardTransform;
         [SerializeField] private CardAbilityDefinition _cardAbility;
-        [SerializeField] private int _shopCost;
+        [SerializeField] private CardRarity _rarity;
+        [SerializeField] private Guid _guid;
 
+        [SerializeField, HideInInspector] private string _cardName;
+        private string _description;
+        private Transform _cardTransform;
+        private int _shopCost;
+
+        public CardAbilityDefinition GetCardAbility => _cardAbility;
+        public CardRarity GetCardRarity => _rarity;
+        public Guid GetGuid => _guid;
         public string GetCardName => _cardName;
         public string GetDescription => _description;
         public Transform GetCardTransform => _cardTransform;
-        public CardAbilityDefinition GetCardAbility => _cardAbility;
         public int GetShopCost => _shopCost;
 
         public virtual void GrabSOData(CardAbilityDefinition def)
         {
+            _cardAbility = def;
+            _rarity = def.GetBaseCardRarity;
+
             _cardName = def.GetCardName;
             _description = def.GetDescription;
-            _cardAbility = def;
             _shopCost = def.GetShopCost;
         }
     }

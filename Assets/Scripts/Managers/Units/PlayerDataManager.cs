@@ -17,9 +17,8 @@ public class PlayerDataManager : MonoBehaviour
     private CombatMapData _currCombatNodeData;
     private Reward _currNodeReward;
 
-    [SerializeField] private List<Deck> _createdDecks = new();
-    [SerializeField] private Deck _activeDeck;
-    [SerializeField] private List<CardAbilityDefinition> _ownedCards = new();
+    [SerializeField] private List<CardPack> _createdPacks = new();
+    [SerializeField] private Deck _deck;
 
     [SerializeField] private List<bool> _coinFlipsThisRun = new();
     [SerializeField] private List<int> _dieRollsThisRun = new();
@@ -35,9 +34,8 @@ public class PlayerDataManager : MonoBehaviour
     public CombatMapData GetCurrCombatNodeData => _currCombatNodeData;
     public Reward GetCurrNodeReward => _currNodeReward;
 
-    public List<CardAbilityDefinition> GetOwnedCards => _ownedCards;
-    public Deck GetActiveDeck => _activeDeck;
-    public List<Deck> GetAllPlayerDecks => _createdDecks;
+    public Deck GetPlayerDeck => _deck;
+    public List<CardPack> GetAllPlayerPacks => _createdPacks;
 
     public bool[] GetAllCoinFlipsThisRun => _coinFlipsThisRun.ToArray();
     public int GetNumHeadsThisRun => _coinFlipsThisRun.FindAll(x => true).Count;
@@ -68,9 +66,6 @@ public class PlayerDataManager : MonoBehaviour
             SaveLoadScript.LoadGame?.Invoke();
         else
             SaveLoadScript.CreateNewGame?.Invoke();
-
-        if (_activeDeck == null)
-           SetActiveDeck(_cardAndDeckLibrary.GetDecksInProject[0]);
 
         WinLossManager.GameReset += ClearRunCoinFlips;
     }
@@ -114,21 +109,20 @@ public class PlayerDataManager : MonoBehaviour
     {
         _curNodeIndex = currentNodeIndex;
     }
-    public void UpdateCardData(List<CardAbilityDefinition> ownedCards, string activeDeckName, List<Deck> createdDecks)
+    public void UpdateCardData(Deck deck, List<CardPack> createdPacks)
     {
-        _ownedCards = ownedCards;
-        _createdDecks = createdDecks;
-        _activeDeck = _cardAndDeckLibrary.GetDeckFromName(activeDeckName, false);
+        _deck = deck;
+        _createdPacks = createdPacks;
     }
     public void UpdateCardData(CardAbilityDefinition def, bool isAddition = true)
     {
         if (def == null) return;
 
         if (isAddition)
-            _ownedCards.Add(def);
+            _deck.AddCard(def);
         else
-            if (_ownedCards.Contains(def))
-                _ownedCards.Remove(def);
+            if (_deck.Contains(def))
+                _deck.RemoveCard(def);
     }
     public void CreateOrAdjustDeck(Deck deck)
     {
