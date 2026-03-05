@@ -222,6 +222,12 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: Punch
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 0
+    effectToUpgrade: {fileID: -8393294752202084253}
+  _onEpicUpgradeEffects: []
 --- !u!114 &2272785073385819277
 MonoBehaviour:
   m_ObjectHideFlags: 0

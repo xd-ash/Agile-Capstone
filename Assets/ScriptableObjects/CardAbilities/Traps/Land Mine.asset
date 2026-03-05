@@ -167,6 +167,10 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 
+  _baseCardRarity: 0
+  _onRareUpgradeEffects: []
+  _onEpicUpgradeEffects: []
 --- !u!114 &215215104908119812
 MonoBehaviour:
   m_ObjectHideFlags: 0

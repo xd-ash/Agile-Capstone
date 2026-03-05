@@ -6,6 +6,12 @@ using CardSystem;
 
 namespace CardSystem
 {
+    public enum CardRarity
+    {
+        Common,
+        Rare,
+        Epic
+    }
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
     {
@@ -35,9 +41,9 @@ namespace CardSystem
 
         private AbilityRootNode _rootNode;
 
-        //Card upgrade stuff manged in editor script
-        [SerializeField] private EffectUpgrade[] _onRareUpgradeEffects;
-        [SerializeField] private EffectUpgrade[] _onEpicUpgradeEffects;
+        [SerializeField] private CardRarity _baseCardRarity;
+        [SerializeField] private EffectUpgrade[] _onRareUpgradeEffects = new EffectUpgrade[0];
+        [SerializeField] private EffectUpgrade[] _onEpicUpgradeEffects = new EffectUpgrade[0];
 
         public string GetCardName => this.name;
         public string GetDescription => _description;
@@ -56,6 +62,22 @@ namespace CardSystem
         public bool GetIgnoreLOS => _ignoreLOS;
         
         public string GetAttackAnimKey => _attackAnimKey;
+
+        public CardRarity GetBaseCardRarity => _baseCardRarity;
+        public EffectUpgrade GetRareUpgradeEffect(EffectStrategy strat)
+        {
+            foreach (var effect in _onRareUpgradeEffects)
+                if (effect.effectToUpgrade = strat)
+                    return effect;
+            return null;
+        }
+        public EffectUpgrade GetEpicUpgradeEffect(EffectStrategy strat)
+        {
+            foreach (var effect in _onEpicUpgradeEffects)
+                if (effect.effectToUpgrade = strat)
+                    return effect;
+            return null;
+        }
 
         public AbilityRootNode RootNode
         {
@@ -94,18 +116,18 @@ namespace CardSystem
 [System.Serializable]
 public class EffectUpgrade
 {
+    public CardAbilityDefinition cardDef;
     public string effectName;
-    public int valueToAdd;
 
-    [HideInInspector] public EffectStrategy effectToUpgrade;
-    [HideInInspector] public CardAbilityDefinition _cardDef;
+    public int valueToAdd;
+    public EffectStrategy effectToUpgrade;
 
     public void SetCardDef(CardAbilityDefinition def)
     {
         if (effectToUpgrade != null && effectName != effectToUpgrade.name)
             effectName = effectToUpgrade.name;
 
-        if (_cardDef == def) return;
-        _cardDef = def;
+        if (cardDef == def) return;
+        cardDef = def;
     }
 }

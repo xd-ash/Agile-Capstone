@@ -13,7 +13,7 @@ namespace CardSystem
         }
 
         [SerializeField] private string _cardName;
-        private string _description;
+        private string _description; // change desription text values for rarities? have prefab grab this instead
         [SerializeField] private Transform _cardTransform;
         [SerializeField] private CardAbilityDefinition _cardAbility;
         [SerializeField] private int _shopCost;
