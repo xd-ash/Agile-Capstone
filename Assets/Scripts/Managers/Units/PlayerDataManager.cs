@@ -109,42 +109,41 @@ public class PlayerDataManager : MonoBehaviour
     {
         _curNodeIndex = currentNodeIndex;
     }
+    public void UpdateCardData(Deck deck)
+    {
+        _deck = deck;
+    }
     public void UpdateCardData(Deck deck, List<CardPack> createdPacks)
     {
         _deck = deck;
         _createdPacks = createdPacks;
     }
-    public void UpdateCardData(CardAbilityDefinition def, bool isAddition = true)
+    public void UpdateCardData(Card card, bool isAddition = true)
     {
-        if (def == null) return;
+        if (card == null) return;
 
         if (isAddition)
-            _deck.AddCard(def);
+            _deck.AddCard(card);
         else
-            if (_deck.Contains(def))
-                _deck.RemoveCard(def);
+            if (_deck.Contains(card))
+                _deck.RemoveCard(card);
     }
-    public void CreateOrAdjustDeck(Deck deck)
+    public void CreateOrAdjustPack(CardPack pack)
     {
-        if (deck == null) return;
-        for (int i = _createdDecks.Count - 1; i >= 0; i--)
-            if (_createdDecks[i].GetDeckName == deck.GetDeckName)
-                _createdDecks.RemoveAt(i);
-        _createdDecks.Add(deck);
+        if (pack == null) return;
+        for (int i = _createdPacks.Count - 1; i >= 0; i--)
+            if (_createdPacks[i].GetPackName == pack.GetPackName)
+                _createdPacks.RemoveAt(i);
+        _createdPacks.Add(pack);
         SaveLoadScript.SaveGame?.Invoke();
     }
-    public void DeleteDeck(Deck deck)
+    public void DeletePack(CardPack pack)
     {
-        if (deck == null) return;
-        for (int i = _createdDecks.Count - 1; i >= 0; i--)
-            if (_createdDecks[i].GetDeckName == deck.GetDeckName)
-                _createdDecks.RemoveAt(i);
+        if (pack == null) return;
+        for (int i = _createdPacks.Count - 1; i >= 0; i--)
+            if (_createdPacks[i].GetPackName == pack.GetPackName)
+                _createdPacks.RemoveAt(i);
         SaveLoadScript.SaveGame?.Invoke();
-    }
-    public void SetActiveDeck(Deck activeDeck)
-    {
-        if (activeDeck == null) return;
-        _activeDeck = activeDeck;
     }
 
     public void SetCurrMapNodeData(CombatMapData currMapNodeData)
@@ -196,26 +195,26 @@ public class PlayerDataManager : MonoBehaviour
         var cardData = data.GetCardData;
         var specialMechanicData = data.GetSpecialMechanicData;
 
-        List<Deck> createdDecks = new();
-        foreach (var deck in cardData.GetPlayerDecks)
+        List<CardPack> createdPacks = new();
+        foreach (var pack in cardData.GetPlayerPacks)
         {
             List<CardAbilityDefinition> cards = new();
-            foreach (var card in deck.cardNames)
+            foreach (var card in pack.cardNames)
             {
                 var cardDef = _cardAndDeckLibrary.GetCardFromName(card);
                 if (cardDef == null) continue;
                 cards.Add(cardDef);
             }
-            createdDecks.Add(new(deck.deckName, cards));
+            createdPacks.Add(new(pack.packName, cards));
         }
 
-        List<CardAbilityDefinition> ownedCards = new();
-        foreach (var name in cardData.GetOwnedCardNames)
-            ownedCards.Add(_cardAndDeckLibrary.GetCardFromName(name));
+        List<CardAbilityDefinition> runDeck = new();
+        foreach (var name in cardData.GetDeck)
+            runDeck.Add(_cardAndDeckLibrary.GetCardFromName(name));
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetCompletedNodes, nodeData.GetCurrentNodeIndex, nodeData.GetGeneralSeed, nodeData.GetNodeMapSeed);
-        UpdateCardData(ownedCards, cardData.GetActiveDeckName, createdDecks);
+        UpdateCardData(new Deck(runDeck), createdPacks);
 
         _coinFlipsThisRun = new();
         AddCoinFlip(specialMechanicData.GetCoinFlipsCurrentRun);

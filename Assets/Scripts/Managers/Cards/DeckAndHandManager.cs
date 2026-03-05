@@ -28,7 +28,7 @@ namespace CardSystem
         private Card _selectedCard = null;
 
         // runtime deck support
-        private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
+        //private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         public bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
         //public Deck GetDeck => _deck;
@@ -36,7 +36,7 @@ namespace CardSystem
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
-        public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
+        //public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
 
         public Action OnCardAblityCancel;
 
@@ -52,7 +52,7 @@ namespace CardSystem
         public void DrawCard(int count = 1)
         {
             AudioManager.Instance?.PlayDrawCardSfx();
-            var deck = PlayerDataManager.Instance.GetActiveDeck;
+            var deck = PlayerDataManager.Instance.GetPlayerDeck;
 
             if (count <= 0) return;
             for (int i = 0; i < count; i++)
@@ -60,29 +60,23 @@ namespace CardSystem
                 if (_cardsInHand.Count >= _maxCards) return;
                 if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
 
-                if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
+                /*if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
                 {
                     // build fallback minimal runtime list from _deck if necessary
                     if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
                     _runtimeDeckList = new List<CardAbilityDefinition>(deck.GetCardsInDeck);
-                }
+                }*/
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
-                if (_topCardOfDeck >= _runtimeDeckList.Count)
+                if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
                 {
                     ShuffleDeck();
                     _topCardOfDeck = 0;
                 }
 
-                /*Card newCard = null;
-                if (_topCardOfDeck < _runtimeDeckList.Count)
-                    newCard = new Card(_runtimeDeckList[_topCardOfDeck]); // This creates the card with SO data
-                if (newCard == null) return;
-                */
                 _cardsInHand.Add(CreateCardAndPrefab());
 
                 _topCardOfDeck++;
-                //_nextCardInHandIndex++;
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
                 if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
@@ -178,29 +172,19 @@ namespace CardSystem
             CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
-        public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
+        public void AddCardToRuntimeDeck(Card card)
         {
-            if (def == null) return;
+            if (card == null) return;
 
-            //PlayerCardCollection.instance.Add(def);
-            PlayerDataManager.Instance.UpdateCardData(def);
+            PlayerDataManager.Instance.UpdateCardData(card);
             ShuffleDeck();
         }
 
         private void ShuffleDeck()
         {
-            _runtimeDeckList.Clear();
-            var deck = PlayerDataManager.Instance.GetActiveDeck;
-
-            if (deck != null && deck.GetCardsInDeck != null)
-                _runtimeDeckList.AddRange(deck.GetCardsInDeck);
-
             if (PlayerDataManager.Instance == null) return;
 
-            // include any persisted/purchased cards into the runtime deck
-            foreach (var def in PlayerDataManager.Instance.GetOwnedCards)
-                if (def != null)
-                    _runtimeDeckList.Add(def);
+            var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
 
             if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) return;
 

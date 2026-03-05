@@ -38,7 +38,7 @@ public static class RewardsController
     {
         if (DeckAndHandManager.Instance == null) return;
 
-        DeckAndHandManager.Instance?.AddDefinitionToRuntimeDeck(card);
+        DeckAndHandManager.Instance?.AddCardToRuntimeDeck(card);
     }
     public static void RewardBadge(BadgeSO badge)
     {

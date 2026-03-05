@@ -84,14 +84,14 @@ public class GameData
         {
             _mapNodeData = new(null, new(0,0), -1, -1);
             _currencyData = new(100);
-            _cardData = new(null, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
+            _cardData = new(null, pdm.GetAllPlayerPacks);
             _specialMechanicData = new(new bool[0], new int[0]);
         }
         else
         {
             _mapNodeData = new(pdm.GetCompletedNodes, pdm.GetCurrentNodeIndex, pdm.GetGeneralSeed, pdm.GetNodeMapSeed);
             _currencyData = new(pdm.GetBalance);
-            _cardData = new(pdm.GetOwnedCards, pdm.GetActiveDeck, pdm.GetAllPlayerDecks);
+            _cardData = new(pdm.GetPlayerDeck.GetCardsInDeck, pdm.GetAllPlayerPacks);
             _specialMechanicData = new(pdm.GetAllCoinFlipsThisRun, pdm.GetAllDiceRollsThisRun);
         }
     }
@@ -151,67 +151,64 @@ public class GameData
         }
     }
 
-    // deck and card info
+    // deck, packs, and card info
     [System.Serializable]
     public class CardDataToken
     {
-        [SerializeField] private string[] _ownedCardNames;
-        [SerializeField] private string _activeDeckName;
-        [SerializeField] DeckToken[] _playerDecks;
+        [SerializeField] private string[] _deck;
+        [SerializeField] PackToken[] _playerPacks;
 
-        public string[] GetOwnedCardNames => _ownedCardNames;
-        public string GetActiveDeckName => _activeDeckName;
-        public DeckToken[] GetPlayerDecks => _playerDecks;
+        public string[] GetDeck => _deck;
+        public PackToken[] GetPlayerPacks => _playerPacks;
 
-        public CardDataToken(List<CardAbilityDefinition> ownedCards, Deck activeDeck, List<Deck> createdDecks)
+        public CardDataToken(List<Card> cardsInDeck, List<CardPack> createdPacks)
         {
-            if (ownedCards != null)
+            if (cardsInDeck != null)
             {
-                _ownedCardNames = new string[ownedCards.Count];
-                for (int i = 0; i < ownedCards.Count; i++)
-                    _ownedCardNames[i] = ownedCards[i].name;
+                _deck = new string[cardsInDeck.Count];
+                for (int i = 0; i < cardsInDeck.Count; i++)
+                    _deck[i] = cardsInDeck[i].GetCardName;
             }
             else
-                _ownedCardNames = new string[0];
+                _deck = new string[0];
 
-            if (activeDeck != null)
-                _activeDeckName = activeDeck.GetDeckName;
-
-            List<DeckToken> temp = new();
-            foreach (var deck in createdDecks) 
+            List<PackToken> temp = new();
+            foreach (var pack in createdPacks) 
             {
                 List<string> tempCardNames = new();
-                foreach (var card in deck.GetCardsInDeck)
+                foreach (var card in pack.GetCardsInPack)
                     tempCardNames.Add(card.GetCardName);
 
-                temp.Add(new DeckToken()
+                temp.Add(new PackToken()
                 {
-                    deckName = deck.GetDeckName,
+                    packName = pack.GetPackName,
                     cardNames = tempCardNames.ToArray()
                 });
             }
-            _playerDecks = temp.ToArray();
+            _playerPacks = temp.ToArray();
         }
     }
-}
-[System.Serializable]
-public struct DeckToken
-{
-    public string deckName;
-    public string[] cardNames;
-}
-[System.Serializable]
-public class SpecialMechanicsData
-{
-    [SerializeField] private bool[] _coinFlipsCurrentRun;
-    [SerializeField] private int[] _diceRollsCurrentRun;
-    public bool[] GetCoinFlipsCurrentRun => _coinFlipsCurrentRun ?? new bool[0];
-    public int[] GetDiceRollsCurrentRun => _diceRollsCurrentRun ?? new int[0];
 
-    public SpecialMechanicsData(bool[] coinflips, int[] diceRolls)
+    [System.Serializable]
+    public struct PackToken
     {
-        _coinFlipsCurrentRun = coinflips;
-        _diceRollsCurrentRun = diceRolls;
+        public string packName;
+        public string[] cardNames;
+    }
+
+    [System.Serializable]
+    public class SpecialMechanicsData
+    {
+        [SerializeField] private bool[] _coinFlipsCurrentRun;
+        [SerializeField] private int[] _diceRollsCurrentRun;
+        public bool[] GetCoinFlipsCurrentRun => _coinFlipsCurrentRun ?? new bool[0];
+        public int[] GetDiceRollsCurrentRun => _diceRollsCurrentRun ?? new int[0];
+
+        public SpecialMechanicsData(bool[] coinflips, int[] diceRolls)
+        {
+            _coinFlipsCurrentRun = coinflips;
+            _diceRollsCurrentRun = diceRolls;
+        }
     }
 }
 

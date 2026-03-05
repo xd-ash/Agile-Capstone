@@ -25,7 +25,7 @@ public class CardFunctionScript : MonoBehaviour
             {
                 if (CurrencyManager.Instance != null && CurrencyManager.Instance.TrySpend(price))
                 {
-                    DeckAndHandManager.Instance?.AddDefinitionToRuntimeDeck(Card.GetCardAbility);
+                    DeckAndHandManager.Instance?.AddCardToRuntimeDeck(Card.GetCardAbility);
 
                     if (isShopActive)
                         CardShopManager.Instance?.DeleteCard(gameObject);

@@ -1,7 +1,6 @@
 using CardSystem;
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 [System.Serializable]
 public class Deck
@@ -14,6 +13,10 @@ public class Deck
         _cardsInDeck.Clear();
         foreach (var cardAbility in cardAbilities)
             AddCard(cardAbility);
+    }    
+    public Deck(Deck deck)
+    {
+        _cardsInDeck = deck._cardsInDeck;
     }
 
     public bool AddCard(CardAbilityDefinition cardAbility, Transform cardTransform = null)
@@ -36,26 +39,20 @@ public class Deck
         return true;
     }
 
-    public bool Contains(CardAbilityDefinition cardAbility)
+    public bool Contains(Card card)
     {
-        foreach (var card in _cardsInDeck)
-            if(cardAbility == card.GetCardAbility)
+        foreach (var deckCard in _cardsInDeck)
+            if(deckCard == card)
                 return true;
         return false;
     }
-    /*
-    public void ClearDeck()
-    {
-        _cardsInDeck.Clear();
-    }
-    */
 }
 public class CardPack
 {
     [SerializeField] private List<CardAbilityDefinition> _cardsInPack = new();
     [SerializeField] private string _packName;
 
-    public List<CardAbilityDefinition> GetCardsInDeck => _cardsInPack;
+    public List<CardAbilityDefinition> GetCardsInPack => _cardsInPack;
     public string GetPackName => _packName;
 
     public CardPack(string name, List<CardAbilityDefinition> cardAbilities)
