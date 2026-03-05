@@ -7,7 +7,7 @@ public class CardShopManager : MonoBehaviour
     private const string LOG_PREFIX = "[CardShopSpawner]";
 
     [Header("Pool (assign in inspector)")]
-    [SerializeField] private Deck _pool;
+    [SerializeField] private List<CardAbilityDefinition> _pool;
 
     [Header("Auto Spawn Settings")]
     [Tooltip("If true, the spawner will populate the shop on scene start")]
@@ -38,7 +38,7 @@ public class CardShopManager : MonoBehaviour
     public static CardShopManager Instance { get; private set; }
     private void Awake()
     {
-        _pool = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary").GetShopPool;
+        _pool = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary").GetCardsInProject;
 
         if (Instance != null && Instance != this)
         {
@@ -204,22 +204,21 @@ public class CardShopManager : MonoBehaviour
     private CardAbilityDefinition PickRandomEntry()
     {
         //ShopEntry defaultEntry = default;
-        if (_pool == null || _pool.GetCardsInDeck.Count == 0) return null;
-        var poolDeck = _pool.GetCardsInDeck;
+        if (_pool == null || _pool.Count == 0) return null;
 
         float total = 0f;
-        foreach (var e in poolDeck) total += Mathf.Max(0f, e.GetShopWeight);
+        foreach (var e in _pool) total += Mathf.Max(0f, e.GetShopWeight);
 
-        if (total <= 0f) return poolDeck[0];
+        if (total <= 0f) return _pool[0];
 
         float r = UnityEngine.Random.Range(0f, total);
         float acc = 0f;
-        foreach (var e in poolDeck)
+        foreach (var e in _pool)
         {
             acc += Mathf.Max(0f, e.GetShopWeight);
             if (r <= acc) return e;
         }
 
-        return poolDeck[poolDeck.Count - 1];
+        return _pool[_pool.Count - 1];
     }
 }

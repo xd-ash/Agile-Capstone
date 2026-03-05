@@ -3,14 +3,14 @@ using CardSystem;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(CardAndDeckLibrary))]
-public class CardDeckLibraryEditor : Editor
+[CustomEditor(typeof(CardAndPackLibrary))]
+public class CardAndPackLibraryEditor : Editor
 {
-    private CardAndDeckLibrary _library;
+    private CardAndPackLibrary _library;
 
     private void OnEnable()
     {
-        CardAndDeckLibrary.GrabAssets += () =>
+        CardAndPackLibrary.GrabAssets += () =>
         {
             if (GrabAssets())
             {
@@ -21,7 +21,7 @@ public class CardDeckLibraryEditor : Editor
     }
     public override void OnInspectorGUI()
     {
-        if(_library == null) _library = (CardAndDeckLibrary)target;
+        if(_library == null) _library = (CardAndPackLibrary)target;
         _library.CleanUpLists();
 
         if (GrabAssets())
@@ -35,7 +35,7 @@ public class CardDeckLibraryEditor : Editor
     {
         bool tmp = false;
 
-        if (_library == null) _library = (CardAndDeckLibrary)target;
+        if (_library == null) _library = (CardAndPackLibrary)target;
 
         var cardGUIDS = AssetDatabase.FindAssets("t:CardAbilityDefinition", new[] { "Assets/ScriptableObjects/CardAbilities" });
 

@@ -5,7 +5,7 @@ using UnityEngine;
 [CustomEditor(typeof(CardAbilityDefinition)), CanEditMultipleObjects]
 public class CardDefEditor : Editor
 {
-    CardAndDeckLibrary _library;
+    CardAndPackLibrary _library;
 
     private void OnEnable()
     {
@@ -23,7 +23,7 @@ public class CardDefEditor : Editor
     {
         CardAbilityDefinition card = (CardAbilityDefinition)target;
         if (_library == null)  
-            _library = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
+            _library = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
         if (_library != null && !_library.GetCardsInProject.Contains(card))
             _library.AddCardToLibrary(card);
         if (_library == null)

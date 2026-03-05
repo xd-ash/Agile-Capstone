@@ -269,31 +269,6 @@ namespace CardSystem
             }
 
             _cfs.OnPrefabCreation(card);
-            /*
-            // Get all TextMeshPro components (non-UI version)
-            TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
-
-            if (cardTextFields.Length >= 3)
-            {
-                // Update text content
-                cardTextFields[0].text = card.GetCardName;
-                cardTextFields[1].text = card.GetDescription;
-                cardTextFields[2].text = card.GetCardAbility.GetApCost.ToString();
-
-                // Make sure text components are properly attached and sorted
-                foreach (var textField in cardTextFields)
-                {
-                    // Ensure text is child of card and follows its transform
-                    textField.transform.SetParent(transform, true);
-
-                    // Set up sorting
-                    textField.sortingOrder = _spriteRenderer != null ?
-                        _spriteRenderer.sortingOrder + 1 : 1;
-                }
-            }
-            else
-                Debug.LogError("Card prefab is missing required TextMeshPro components");
-            */
             SetupVisuals();
         }
 

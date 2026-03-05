@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardAndDeckLibrary", menuName = "Libraries/New Card & Deck Library")]
-public class CardAndDeckLibrary : ScriptableObject
+[CreateAssetMenu(fileName = "CardAndPackLibrary", menuName = "Libraries/New Card & Pack Library")]
+public class CardAndPackLibrary : ScriptableObject
 {
     [SerializeField] private List<CardPack> _packsInProject = new();
-    [SerializeField] private List<CardAbilityDefinition> _shopPool;
+    //[SerializeField] private List<CardAbilityDefinition> _shopPool;
 
-    [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
+    private List<CardAbilityDefinition> _cardsInProject = new();
 
     public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
     public List<CardPack> GetPacksInProject => _packsInProject;
@@ -53,9 +53,9 @@ public class CardAndDeckLibrary : ScriptableObject
                 return pack;
 
         //Check player decks
-        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.GetAllPlayerDecks != null)
-            foreach (var pack in PlayerDataManager.Instance.GetAllPlayerDecks)
-                if (pack. == deckName)
+        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.GetAllPlayerPacks != null)
+            foreach (var pack in PlayerDataManager.Instance.GetAllPlayerPacks)
+                if (pack.GetPackName == packName)
                     return pack;
 
         if (sendDebugOnFail)

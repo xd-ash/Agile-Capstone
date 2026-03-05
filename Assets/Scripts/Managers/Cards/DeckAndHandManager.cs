@@ -185,48 +185,49 @@ namespace CardSystem
             if (PlayerDataManager.Instance == null) return;
 
             var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
-
-            if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) return;
+            if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count <= 1) return;
+            var cardsInDeck = deck.GetCardsInDeck;
 
             // Fisher-Yates shuffle algorithm on runtime list
-            for (int i = _runtimeDeckList.Count - 1; i > 0; i--)
+            for (int i = cardsInDeck.Count - 1; i > 0; i--)
             {
                 int randomIndex = UnityEngine.Random.Range(0, i + 1);
-                var temp = _runtimeDeckList[i];
-                _runtimeDeckList[i] = _runtimeDeckList[randomIndex];
-                _runtimeDeckList[randomIndex] = temp;
+                var temp = cardsInDeck[i];
+                cardsInDeck[i] = cardsInDeck[randomIndex];
+                cardsInDeck[randomIndex] = temp;
             }
 
             _topCardOfDeck = 0;
         }
 
-        public CardAbilityDefinition[] PeekTopDefinitions(int count)
+        public Card[] PeekTopCards(int count)
         {
-            var deck = PlayerDataManager.Instance.GetActiveDeck;
+            if (count <= 0) return Array.Empty<Card>();
 
-            if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (deck == null || deck.GetCardsInDeck == null))
-                return Array.Empty<CardAbilityDefinition>();
+            var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
+            if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return Array.Empty<Card>();
+            var cardsInDeck = deck.GetCardsInDeck;
 
-            var source = (_runtimeDeckList != null && _runtimeDeckList.Count > 0)
-                ? _runtimeDeckList : new List<CardAbilityDefinition>(deck.GetCardsInDeck);
+            int available = Math.Max(0, Math.Min(count, cardsInDeck.Count - _topCardOfDeck));
+            if (available == 0) return Array.Empty<Card>();
 
-            if (count <= 0) return Array.Empty<CardAbilityDefinition>();
-
-            int available = Math.Max(0, Math.Min(count, source.Count - _topCardOfDeck));
-            if (available == 0) return Array.Empty<CardAbilityDefinition>();
-
-            CardAbilityDefinition[] result = new CardAbilityDefinition[available];
-            source.CopyTo(_topCardOfDeck, result, 0, available);
+            Card[] result = new Card[available];
+            cardsInDeck.CopyTo(_topCardOfDeck, result, 0, available);
             return result;
         }
 
-        public Card CreateCardAndPrefab(/*Card card*/)
+        public Card CreateCardAndPrefab()
         {
+            var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
+            if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return null;
+            var cardsInDeck = deck.GetCardsInDeck;
+
             GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
 
-            Card newCard = null;
-            if (_topCardOfDeck < _runtimeDeckList.Count)
-                newCard = new Card(_runtimeDeckList[_topCardOfDeck], cardGO.transform); // This creates the card with SO data
+            if (_topCardOfDeck >= cardsInDeck.Count) return null;
+
+            Card newCard = cardsInDeck[_topCardOfDeck];
+            newCard.OnPrefabCreation(cardGO.transform);
 
             if (!cardGO.TryGetComponent(out CardSelect cs))
                 cs = cardGO.AddComponent<CardSelect>();
@@ -259,11 +260,13 @@ namespace CardSystem
         /// </summary>
         public void LogRuntimeDeck()
         {
-            var defs = GetRuntimeDeck;
-            Debug.Log($"[CardManager] Runtime deck contains {defs.Length} definitions.");
-            for (int i = 0; i < defs.Length; i++)
+            if (PlayerDataManager.Instance == null) return;
+            var cardsInDeck = PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck;
+
+            Debug.Log($"[CardManager] Runtime deck contains {cardsInDeck.Count} definitions.");
+            for (int i = 0; i < cardsInDeck.Count; i++)
             {
-                var d = defs[i];
+                var d = cardsInDeck[i];
                 Debug.Log($"[CardManager] #{i}: {(d != null ? d.GetCardName : "<null>")}");
             }
         }

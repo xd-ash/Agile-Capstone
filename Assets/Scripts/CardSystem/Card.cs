@@ -7,7 +7,7 @@ namespace CardSystem
     public class Card
     {
         //initial constructor uses AbilityDefinition param to grab card data
-        public Card(CardAbilityDefinition def, Transform cardTransform)
+        public Card(CardAbilityDefinition def, Transform cardTransform = null)
         {
             GrabSOData(def);
             _cardTransform = cardTransform;
@@ -31,7 +31,7 @@ namespace CardSystem
         public Transform GetCardTransform => _cardTransform;
         public int GetShopCost => _shopCost;
 
-        public virtual void GrabSOData(CardAbilityDefinition def)
+        public void GrabSOData(CardAbilityDefinition def)
         {
             _cardAbility = def;
             _rarity = def.GetBaseCardRarity;
@@ -39,6 +39,10 @@ namespace CardSystem
             _cardName = def.GetCardName;
             _description = def.GetDescription;
             _shopCost = def.GetShopCost;
+        }
+        public void OnPrefabCreation(Transform cardTransform)
+        {
+            _cardTransform = cardTransform;
         }
     }
 }

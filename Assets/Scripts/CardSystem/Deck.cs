@@ -47,26 +47,3 @@ public class Deck
         return false;
     }
 }
-public class CardPack
-{
-    [SerializeField] private List<CardAbilityDefinition> _cardsInPack = new();
-    [SerializeField] private string _packName;
-
-    public List<CardAbilityDefinition> GetCardsInPack => _cardsInPack;
-    public string GetPackName => _packName;
-
-    public CardPack(string name, List<CardAbilityDefinition> cardAbilities)
-    {
-        _cardsInPack = cardAbilities;
-        _packName = name;
-    }
-
-    public void ClearPack()
-    {
-        _cardsInPack.Clear();
-    }
-    public void ClearPack(List<CardAbilityDefinition> cards)
-    {
-        _cardsInPack = new(cards);
-    }
-}

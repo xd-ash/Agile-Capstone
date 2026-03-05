@@ -38,7 +38,7 @@ public static class RewardsController
     {
         if (DeckAndHandManager.Instance == null) return;
 
-        DeckAndHandManager.Instance?.AddCardToRuntimeDeck(card);
+        DeckAndHandManager.Instance?.AddCardToRuntimeDeck(new(card, null));
     }
     public static void RewardBadge(BadgeSO badge)
     {
@@ -103,7 +103,7 @@ public static class RewardsController
     }
     private static CardAbilityDefinition[] GetRewardPoolCards(float mapCompleteRatio, int randomSeed)
     {
-        var cardLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
+        var cardLibrary = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
         if (cardLibrary == null) return null;
 
         int rewardPoolSize = (int)(_maxCardRewardPool * mapCompleteRatio);

@@ -41,7 +41,7 @@ namespace CardSystem
                     break;
                 case DeckAction.PeekTop:
                     // Get top definitions without changing deck state
-                    var topDefs = DeckAndHandManager.Instance.PeekTopDefinitions(_effectValue);
+                    var topDefs = DeckAndHandManager.Instance.PeekTopCards(_effectValue);
                     if (_logResults)
                     {
                         for (int i = 0; i < topDefs.Length; i++)
@@ -53,7 +53,7 @@ namespace CardSystem
                     break;
 
                 case DeckAction.RevealTop:
-                    var revealDefs = DeckAndHandManager.Instance.PeekTopDefinitions(_effectValue);
+                    var revealDefs = DeckAndHandManager.Instance.PeekTopCards(_effectValue);
                     // Reveal semantics are UI/game-specific. Here we just log and leave hooks.
                     if (_logResults)
                     {

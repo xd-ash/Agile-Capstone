@@ -6,7 +6,7 @@ using UnityEngine;
 // Data manager for player data that will be saved in game data
 public class PlayerDataManager : MonoBehaviour
 {
-    private CardAndDeckLibrary _cardAndDeckLibrary;
+    private CardAndPackLibrary _cardAndDeckLibrary;
 
     private int _balance = 0;
 
@@ -55,10 +55,10 @@ public class PlayerDataManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         if (_cardAndDeckLibrary == null)
-            _cardAndDeckLibrary = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary");
+            _cardAndDeckLibrary = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
 
     #if UNITY_EDITOR
-        CardAndDeckLibrary.GrabAssets?.Invoke();
+        CardAndPackLibrary.GrabAssets?.Invoke();
         BadgeLibrary.GrabAssets?.Invoke();
     #endif
 
