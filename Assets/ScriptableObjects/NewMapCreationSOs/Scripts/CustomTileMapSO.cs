@@ -1,5 +1,6 @@
-using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,6 +25,8 @@ public class CustomTileMapSO : ScriptableObject
     public bool DidInit => _didInit;
 
     public GameObject GetMainTileMap => _mainIsoTileMapPrefab;
+
+#if UNITY_EDITOR
 
     // on SO creation, create new folder with new "blank" tilemaps for editing (called via editor script)
     public void InitSO()
@@ -60,7 +63,7 @@ public class CustomTileMapSO : ScriptableObject
         string newFolderPath = string.Join('/', splitPath);
         AssetDatabase.MoveAsset(_folderPath, newFolderPath);
     }
-
+#endif
     public TileBase[,] GenerateTileBaseMap(Vector2Int mapsize)
     {
         var map = new TileBase[mapsize.x, mapsize.y];
