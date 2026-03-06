@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CustomTileMapSOLibrary", menuName = "Scriptable Objects/CustomTileMapSOLibrary")]
+[CreateAssetMenu(fileName = "CustomTileMapSOLibrary", menuName = "Libraries/CustomTileMapSOLibrary")]
 public class CustomTileMapSOLibrary : ScriptableObject
 {
     [SerializeField] private List<CustomTileMapSO> _customTileMapSOsInProject = new();
