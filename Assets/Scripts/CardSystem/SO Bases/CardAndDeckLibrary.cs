@@ -9,7 +9,7 @@ public class CardAndPackLibrary : ScriptableObject
     [SerializeField] private List<CardPack> _packsInProject = new();
     //[SerializeField] private List<CardAbilityDefinition> _shopPool;
 
-    private List<CardAbilityDefinition> _cardsInProject = new();
+    [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
 
     public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
     public List<CardPack> GetPacksInProject => _packsInProject;

@@ -11,7 +11,8 @@ public class CardFunctionScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (PauseMenu.isPaused || IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn || TurnManager.GetCurrentUnit.GetIsMoving) return;
+        if (PauseMenu.isPaused || IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
+        if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
 
         bool isShopActive = CardShopManager.Instance != null;
 

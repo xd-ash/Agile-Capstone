@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PackSelector : MonoBehaviour
 {
     private CardAndPackLibrary _cardAndPackLibrary;
+    [SerializeField] private int _numberRandomPacks = 2;
 
     [SerializeField] private TMP_Dropdown _packDropdown;
 
@@ -37,10 +39,23 @@ public class PackSelector : MonoBehaviour
     {
         var temp = GetCurrentPackFromDropdown();
         if (temp == null) return;
-        //PlayerDataManager.Instance.SetActiveDeck(temp);
+
+        var tempPacks = SelectRandomPacksForRun(temp);
+        PlayerDataManager.Instance.SetInitialPacks(tempPacks);
         _packDropdown.captionText.text = temp.GetPackName;
     }
+    public CardPack[] SelectRandomPacksForRun(CardPack initialPack)
+    {
+        if (_numberRandomPacks <= 0) return new CardPack[] { initialPack };
 
+        List<CardPack> tempPacks = new();
+        int totalPacks = _cardAndPackLibrary.GetPacksInProject.Count;
+
+        tempPacks.Add(initialPack);
+        for (int i = 0; i < _numberRandomPacks; i++)
+            tempPacks.Add(_cardAndPackLibrary.GetPacksInProject[Random.Range(0, totalPacks)]);
+        return tempPacks.ToArray();
+    }
     //Grab correct deck from dropdown value
     private CardPack GetCurrentPackFromDropdown()
     {

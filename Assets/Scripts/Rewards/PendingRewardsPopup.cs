@@ -8,12 +8,14 @@ public class PendingRewardsPopup : MonoBehaviour
 
     private void OnEnable()
     {
+        _backButton.onClick.RemoveAllListeners();
         _backButton.onClick.AddListener(() => gameObject.SetActive(false));
     }
     public void SetContinueButtonOnClick(Action onClick)
     {
+        _continueButton.onClick.RemoveAllListeners();
         _continueButton.onClick.AddListener(() => 
-        { 
+        {
             onClick?.Invoke();
             gameObject.SetActive(false);
         });

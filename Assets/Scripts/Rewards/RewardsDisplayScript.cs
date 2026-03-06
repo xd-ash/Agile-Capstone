@@ -32,6 +32,7 @@ public class RewardsDisplayScript : MonoBehaviour
         _choiceRewardPrefab = Resources.Load<GameObject>("Rewards/ChoiceRewardContent");
 
         _continueButton = GetComponentInChildren<Button>();
+        _continueButton?.onClick.RemoveAllListeners();
         _continueButton?.onClick.AddListener(() =>
         {
             Action temp = () =>
@@ -108,6 +109,7 @@ public class RewardsDisplayScript : MonoBehaviour
         text.text = name;
 
         var button = content.GetComponentInChildren<Button>();
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
             _rewardSelectPanel.gameObject.SetActive(true);

@@ -72,8 +72,11 @@ namespace CardSystem
         }
         private void OnMouseDown()
         {
+            if (CardShopManager.Instance != null) return;
+
             // Check for active cards
-            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn || RewardsDisplayScript.IsRewarding || TurnManager.GetCurrentUnit.GetIsMoving) return;
+            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn || RewardsDisplayScript.IsRewarding) return;
+            if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
 
             if (OptionsSettings.IsCardSelectOnClick) return;
 
@@ -97,7 +100,11 @@ namespace CardSystem
 
         private void OnMouseUp()
         {
-            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || RewardsDisplayScript.IsRewarding || TurnManager.GetCurrentUnit.GetIsMoving) return;
+            if (CardShopManager.Instance != null) return;
+
+            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || RewardsDisplayScript.IsRewarding) return;
+            if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
+
             if (OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null) return;
 
             if (DeckAndHandManager.Instance == null)
@@ -132,11 +139,14 @@ namespace CardSystem
         }
         private void OnMouseDrag()
         {
+            if (CardShopManager.Instance != null) return;
+
             //disable drag with click to select option enabled
             if (OptionsSettings.IsCardSelectOnClick) return;
 
             if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected || RewardsDisplayScript.IsRewarding)
                 return;
+            if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
 
             // Temporarily remove from hand management
             DeckAndHandManager.Instance.RemoveCard(_cfs.Card);

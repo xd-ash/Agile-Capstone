@@ -13,6 +13,12 @@ public class Deck
         _cardsInDeck.Clear();
         foreach (var cardAbility in cardAbilities)
             AddCard(cardAbility);
+    }
+    public Deck(List<Card> cards)
+    {
+        _cardsInDeck.Clear();
+        foreach (var card in cards)
+            AddCard(card);
     }    
     public Deck(Deck deck)
     {

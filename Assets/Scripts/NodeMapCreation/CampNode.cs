@@ -1,8 +1,11 @@
-public class OtherNode : NodeMapNode
+public class CampNode : NodeMapNode
 {
     public override void OnClick()
     {
-        //once true node implemented, add loot get or other event
+        CompleteCampNode();
+    }
+    private void CompleteCampNode()
+    {
         PlayerDataManager.Instance.UpdateNodeData(_nodeIndex);
         NodeMapManager.Instance.CompleteCurrentNode();
         NodeMapManager.Instance.InitNodes();

@@ -6,7 +6,7 @@ using UnityEngine;
 // Data manager for player data that will be saved in game data
 public class PlayerDataManager : MonoBehaviour
 {
-    private CardAndPackLibrary _cardAndDeckLibrary;
+    private CardAndPackLibrary _cardAndPackLibrary;
 
     private int _balance = 0;
 
@@ -18,6 +18,7 @@ public class PlayerDataManager : MonoBehaviour
     private Reward _currNodeReward;
 
     [SerializeField] private List<CardPack> _createdPacks = new();
+    [SerializeField] private List<CardPack> _initialCardPacksThisRun = new();
     [SerializeField] private Deck _deck;
 
     [SerializeField] private List<bool> _coinFlipsThisRun = new();
@@ -35,6 +36,7 @@ public class PlayerDataManager : MonoBehaviour
     public Reward GetCurrNodeReward => _currNodeReward;
 
     public Deck GetPlayerDeck => _deck;
+    public List<CardPack> GetInitialCardPacks => _initialCardPacksThisRun;
     public List<CardPack> GetAllPlayerPacks => _createdPacks;
 
     public bool[] GetAllCoinFlipsThisRun => _coinFlipsThisRun.ToArray();
@@ -54,8 +56,8 @@ public class PlayerDataManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         
-        if (_cardAndDeckLibrary == null)
-            _cardAndDeckLibrary = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
+        if (_cardAndPackLibrary == null)
+            _cardAndPackLibrary = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
 
     #if UNITY_EDITOR
         CardAndPackLibrary.GrabAssets?.Invoke();
@@ -118,6 +120,12 @@ public class PlayerDataManager : MonoBehaviour
         _deck = deck;
         _createdPacks = createdPacks;
     }
+    public void UpdateCardData(Deck deck, List<CardPack> initialPacks, List<CardPack> createdPacks)
+    {
+        _deck = deck;
+        _initialCardPacksThisRun = initialPacks;
+        _createdPacks = createdPacks;
+    }
     public void UpdateCardData(Card card, bool isAddition = true)
     {
         if (card == null) return;
@@ -127,6 +135,21 @@ public class PlayerDataManager : MonoBehaviour
         else
             if (_deck.Contains(card))
                 _deck.RemoveCard(card);
+    }
+    public void SetInitialPacks(CardPack[] packs)
+    {
+        if (packs == null || packs.Length == 0) return;
+        _initialCardPacksThisRun.Clear();
+        _initialCardPacksThisRun.AddRange(packs);
+    }
+    public void CreatePlayerDeckFromPacks()
+    {
+        var tempCards = new List<CardAbilityDefinition>();
+
+        foreach (var pack in _initialCardPacksThisRun)
+            tempCards.AddRange(pack.GetCardsInPack);
+        
+        _deck = new Deck(tempCards);
     }
     public void CreateOrAdjustPack(CardPack pack)
     {
@@ -195,26 +218,22 @@ public class PlayerDataManager : MonoBehaviour
         var cardData = data.GetCardData;
         var specialMechanicData = data.GetSpecialMechanicData;
 
-        List<CardPack> createdPacks = new();
-        foreach (var pack in cardData.GetPlayerPacks)
-        {
-            List<CardAbilityDefinition> cards = new();
-            foreach (var card in pack.cardNames)
-            {
-                var cardDef = _cardAndDeckLibrary.GetCardFromName(card);
-                if (cardDef == null) continue;
-                cards.Add(cardDef);
-            }
-            createdPacks.Add(new(pack.packName, cards));
-        }
+        List<CardPack> initialPacksThisRun = CreatePacksFromNames(cardData.GetInitialPacksThisRun);
+        List<CardPack> createdPacks = CreatePacksFromNames(cardData.GetPlayerPacks);
 
-        List<CardAbilityDefinition> runDeck = new();
+        List<Card> runCards = new();
         foreach (var name in cardData.GetDeck)
-            runDeck.Add(_cardAndDeckLibrary.GetCardFromName(name));
+        {
+            var cardInfo = Card.ReadNamingConventionString(name);
+            Card newCard = new(_cardAndPackLibrary.GetCardFromName(cardInfo.Item2), null);
+            newCard.UpgradeCard(cardInfo.Item1);
+            runCards.Add(newCard);
+        }
+        var runDeck = new Deck(runCards);
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetCompletedNodes, nodeData.GetCurrentNodeIndex, nodeData.GetGeneralSeed, nodeData.GetNodeMapSeed);
-        UpdateCardData(new Deck(runDeck), createdPacks);
+        UpdateCardData(runDeck, initialPacksThisRun, createdPacks);
 
         _coinFlipsThisRun = new();
         AddCoinFlip(specialMechanicData.GetCoinFlipsCurrentRun);
@@ -223,5 +242,21 @@ public class PlayerDataManager : MonoBehaviour
 
         CurrencyManager.Instance?.OnBalanceChanged?.Invoke(_balance);
         //Debug.Log("Game Loaded");
+    }
+    private List<CardPack> CreatePacksFromNames(GameData.PackToken[] packTokens)
+    {
+        List<CardPack> packs = new();
+        foreach (var pack in packTokens)
+        {
+            List<CardAbilityDefinition> cards = new();
+            foreach (var card in pack.cardNames)
+            {
+                var cardDef = _cardAndPackLibrary.GetCardFromName(card);
+                if (cardDef == null) continue;
+                cards.Add(cardDef);
+            }
+            packs.Add(new(pack.packName, cards));
+        }
+        return packs;
     }
 }

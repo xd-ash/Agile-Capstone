@@ -44,6 +44,7 @@ public class BountySelectPanelScript : MonoBehaviour
             image.sprite = Resources.Load<Sprite>($"TempNodeMap/Nodeicons/Bounty{option.maxEnemiesAllowed}");
 
             var button = buttonGO.GetComponent<Button>();
+            button?.onClick.RemoveAllListeners();
             button?.onClick.AddListener(() =>
             {
                 PlayerDataManager.Instance.SetCurrNodeReward(reward);

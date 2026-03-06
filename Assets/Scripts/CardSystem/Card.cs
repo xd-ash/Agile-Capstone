@@ -44,5 +44,33 @@ namespace CardSystem
         {
             _cardTransform = cardTransform;
         }
+        public void UpgradeCard(CardRarity newRarity)
+        {
+            _rarity = newRarity;
+            //change decsriptions?
+        }
+
+        public static string CreateNamingConventionString(Card card)
+        {
+            return $"{card.GetCardName}-{card.GetCardRarity.ToString()}";
+        }
+        public static Tuple<CardRarity, string> ReadNamingConventionString(string name)
+        {
+            var nameSections = name.Split('-');
+            CardRarity rarity;
+            switch (nameSections[1])
+            {
+                case "Rare":
+                    rarity = CardRarity.Rare;
+                    break;
+                case "Epic":
+                    rarity = CardRarity.Epic;
+                    break;
+                default:
+                    rarity = CardRarity.Common;
+                    break;
+            }
+            return new(rarity, nameSections[0]);
+        }
     }
 }

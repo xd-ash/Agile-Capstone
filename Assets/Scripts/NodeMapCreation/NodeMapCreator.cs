@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NodeMapCreator : MonoBehaviour
 {
-    public enum NodeTypes { Combat, BountyBoard, Boss, Shop, Other }
+    public enum NodeTypes { Combat, BountyBoard, Boss, Shop, Camp }
 
     private GameObject _nodePrefab;
 
@@ -136,7 +136,7 @@ public class NodeMapCreator : MonoBehaviour
             case NodeTypes.Shop:
                 return nodeGO.AddComponent<ShopNode>();
             default:
-                return nodeGO.AddComponent<OtherNode>();
+                return nodeGO.AddComponent<CampNode>();
         }
     }
     private void SetNextAndPrevLists(Vector2Int dictIndex, ref Dictionary<int, List<NodeMapNode>> trueNodeDict)
@@ -180,12 +180,12 @@ public class NodeMapCreator : MonoBehaviour
     }
     private bool CheckNodeNeighbourContents(NodePlaceholder node, NodeTypes type)
     {
-        if (type != NodeTypes.Shop && type != NodeTypes.Other && type != NodeTypes.Boss)
+        if (type != NodeTypes.Shop && type != NodeTypes.Camp && type != NodeTypes.Boss)
             return true;
 
         //Don't allow for initial nodes to be shop, other, or boss nodes
         if ((node.dictIndex.x == 0 || node.dictIndex.x == _nodeTiers.Count - 1) && 
-            (type == NodeTypes.Shop || type == NodeTypes.Other || type == NodeTypes.Boss))
+            (type == NodeTypes.Shop || type == NodeTypes.Camp || type == NodeTypes.Boss))
             return false;
 
         if (node.next != null)

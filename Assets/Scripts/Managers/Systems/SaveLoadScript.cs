@@ -84,14 +84,14 @@ public class GameData
         {
             _mapNodeData = new(null, new(0,0), -1, -1);
             _currencyData = new(100);
-            _cardData = new(null, pdm.GetAllPlayerPacks);
+            _cardData = new(null, pdm.GetInitialCardPacks, pdm.GetAllPlayerPacks);
             _specialMechanicData = new(new bool[0], new int[0]);
         }
         else
         {
             _mapNodeData = new(pdm.GetCompletedNodes, pdm.GetCurrentNodeIndex, pdm.GetGeneralSeed, pdm.GetNodeMapSeed);
             _currencyData = new(pdm.GetBalance);
-            _cardData = new(pdm.GetPlayerDeck.GetCardsInDeck, pdm.GetAllPlayerPacks);
+            _cardData = new(pdm.GetPlayerDeck.GetCardsInDeck, pdm.GetInitialCardPacks, pdm.GetAllPlayerPacks);
             _specialMechanicData = new(pdm.GetAllCoinFlipsThisRun, pdm.GetAllDiceRollsThisRun);
         }
     }
@@ -156,24 +156,33 @@ public class GameData
     public class CardDataToken
     {
         [SerializeField] private string[] _deck;
+        [SerializeField] private PackToken[] _initialPacksThisRun;
         [SerializeField] PackToken[] _playerPacks;
 
         public string[] GetDeck => _deck;
+        public PackToken[] GetInitialPacksThisRun => _initialPacksThisRun;
         public PackToken[] GetPlayerPacks => _playerPacks;
 
-        public CardDataToken(List<Card> cardsInDeck, List<CardPack> createdPacks)
+        public CardDataToken(List<Card> cardsInDeck, List<CardPack> initialPacks, List<CardPack> createdPacks)
         {
             if (cardsInDeck != null)
             {
                 _deck = new string[cardsInDeck.Count];
                 for (int i = 0; i < cardsInDeck.Count; i++)
-                    _deck[i] = cardsInDeck[i].GetCardName;
+                    _deck[i] = Card.CreateNamingConventionString(cardsInDeck[i]);
             }
             else
                 _deck = new string[0];
 
+            _initialPacksThisRun = CreatePackTokens(initialPacks);
+            _playerPacks = CreatePackTokens(createdPacks);
+        }
+        private PackToken[] CreatePackTokens(List<CardPack> packs)
+        {
+            if (packs == null || packs.Count == 0) return new PackToken[0];
+
             List<PackToken> temp = new();
-            foreach (var pack in createdPacks) 
+            foreach (var pack in packs)
             {
                 List<string> tempCardNames = new();
                 foreach (var card in pack.GetCardsInPack)
@@ -185,7 +194,7 @@ public class GameData
                     cardNames = tempCardNames.ToArray()
                 });
             }
-            _playerPacks = temp.ToArray();
+            return temp.ToArray();
         }
     }
 

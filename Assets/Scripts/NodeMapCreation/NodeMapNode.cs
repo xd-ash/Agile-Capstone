@@ -42,6 +42,7 @@ public abstract class NodeMapNode : MonoBehaviour
         _lineRenderer.SetPositions(positions);
 
         _button = GetComponent<Button>();
+        _button?.onClick.RemoveAllListeners();
         _button?.onClick.AddListener(OnClick);
         _background = GetComponent<Image>();
 
@@ -52,7 +53,7 @@ public abstract class NodeMapNode : MonoBehaviour
 
     private void SetNodeRewards()
     {
-        if (this is ShopNode || this is OtherNode) return;
+        if (this is ShopNode || this is CampNode) return;
 
         _nodeRewards = RewardsController.DetermineRewards(_nodeIndex);
     }
@@ -94,7 +95,7 @@ public abstract class NodeMapNode : MonoBehaviour
                 return "Combat";
             case ShopNode:
                 return "Shop";
-            case OtherNode:
+            case CampNode:
             default:
                 return string.Empty;
         }
@@ -114,8 +115,8 @@ public abstract class NodeMapNode : MonoBehaviour
             case ShopNode:
                 _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/ShopIcon");
                 break;
-            case OtherNode:
-                _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/MoneyBag1");
+            case CampNode:
+                _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/CampfireNodeIcon");
                 break;
             default:
                 break;

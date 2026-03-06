@@ -68,7 +68,6 @@ public static class GameObjectPool
                 if (obj == null)
                     return Spawn(position, rotation, scale, parent);
             }
-            Debug.Log("spawn obj: " + obj.name);
 
             obj.transform.SetLocalPositionAndRotation(position, rotation);
             obj.transform.localScale = scale;
@@ -79,8 +78,6 @@ public static class GameObjectPool
 
         public void Despawn(GameObject objectToRemove)
         {
-            Debug.Log("despawn obj: "+objectToRemove.name);
-
             objectToRemove.SetActive(false);
             _inactiveObjects.Push(objectToRemove);
         }

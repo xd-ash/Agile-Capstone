@@ -7,7 +7,7 @@ using static GameObjectPool;
 
 public class PackBuilderScript : MonoBehaviour
 {
-    private CardAndPackLibrary _cardAndDeckLibrary;
+    private CardAndPackLibrary _cardAndPackLibrary;
 
     [SerializeField] private TMP_Dropdown _packDropdown;
     [SerializeField] private ScrollRect _cardScrollView;
@@ -20,7 +20,7 @@ public class PackBuilderScript : MonoBehaviour
 
     [SerializeField] private CardPack _currPack;
     [SerializeField] private List<CardAbilityDefinition> _tempPack = new();
-    private bool _isCurrentPackEditable => !_cardAndDeckLibrary.GetPacksInProject.Contains(_currPack);
+    private bool _isCurrentPackEditable => !_cardAndPackLibrary.GetPacksInProject.Contains(_currPack);
 
     public static PackBuilderScript Instance { get; private set; }
     private void Awake()
@@ -37,7 +37,7 @@ public class PackBuilderScript : MonoBehaviour
     }
     private void OnEnable()
     {
-        _cardAndDeckLibrary = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
+        _cardAndPackLibrary = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
 
         Invoke(nameof(LateStartInits), 0.1f);
     }
@@ -54,7 +54,7 @@ public class PackBuilderScript : MonoBehaviour
 
         ClearScrollviewContent(_cardScrollView.content);
 
-        foreach (var card in _cardAndDeckLibrary.GetCardsInProject)
+        foreach (var card in _cardAndPackLibrary.GetCardsInProject)
         {
             if (card == null) continue;
 
@@ -207,7 +207,6 @@ public class PackBuilderScript : MonoBehaviour
         var temp = GetCurrentPackFromDropdown();
         if (temp == null) return;
         _currPack = temp;
-        //PlayerDataManager.Instance.SetActiveDeck(_currDeck);
         _tempPack = new(_currPack.GetCardsInPack);
         _packDropdown.captionText.text = _currPack.GetPackName;
 
@@ -225,12 +224,12 @@ public class PackBuilderScript : MonoBehaviour
     //Grab correct pack from dropdown value
     private CardPack GetCurrentPackFromDropdown()
     {
-        if (_packDropdown == null || _packDropdown.options.Count == 0 || _cardAndDeckLibrary == null) return null;
+        if (_packDropdown == null || _packDropdown.options.Count == 0 || _cardAndPackLibrary == null) return null;
 
         int entryIndex = _packDropdown.value;
 
         string selectedPackName = _packDropdown.options[entryIndex].text;
-        var pack = _cardAndDeckLibrary.GetPackFromName(selectedPackName, false);
+        var pack = _cardAndPackLibrary.GetPackFromName(selectedPackName, false);
         if (pack == null)
             if (PlayerDataManager.Instance != null)
                 foreach (var playerPack in PlayerDataManager.Instance.GetAllPlayerPacks)
@@ -247,7 +246,7 @@ public class PackBuilderScript : MonoBehaviour
         _packDropdown.options.Clear();
 
         // put default packs into dropdown options
-        foreach (var pack in _cardAndDeckLibrary.GetPacksInProject)
+        foreach (var pack in _cardAndPackLibrary.GetPacksInProject)
             if (pack != null)
                 _packDropdown.options.Add(new(pack.GetPackName));
 

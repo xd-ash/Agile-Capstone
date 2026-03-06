@@ -25,12 +25,14 @@ public class RewardSelectScript : MonoBehaviour
         _cardOptionContent = Resources.Load<GameObject>("Rewards/CardOptionContent");
         _badgeOptionContent = Resources.Load<GameObject>("Rewards/BadgeOptionContent");
 
+        _confirmButton?.onClick.RemoveAllListeners();
         _confirmButton.onClick.AddListener(() =>
         {
             _onConfirm?.Invoke();
             gameObject.SetActive(false);
         });
 
+        _skipButton?.onClick.RemoveAllListeners();
         _skipButton.onClick.AddListener(() =>
         {
             _displayScript.OnSkipRewardChoice();
