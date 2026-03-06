@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapSize: {x: 9, y: 9}
-  _moduleSet: {fileID: 11400000, guid: 15461db966d0a454daae9f982ff10ea9, type: 2}
 --- !u!114 &4562159152768878738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +83,7 @@ GameObject:
   - component: {fileID: 869323481564524177}
   - component: {fileID: 4167731430685315700}
   - component: {fileID: 1913332163433909009}
+  - component: {fileID: 2251571559619261140}
   m_Layer: 3
   m_Name: MainTileMap
   m_TagString: Untagged
@@ -1091,3 +1091,15 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &2251571559619261140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4816422579103591533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feacc38caba14054e9522db8f29aa684, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TileMapObjRepositioner

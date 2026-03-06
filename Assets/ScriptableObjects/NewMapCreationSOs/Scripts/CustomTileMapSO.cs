@@ -15,18 +15,15 @@ public class CustomTileMapSO : ScriptableObject
     private string _newIsoPrefabName = "IsoTileMap.prefab";
     private string _newBytePrefabName = "ByteTileMap.prefab";
 
-    [SerializeField] private GameObject _mainIsoTileMap;
-    [SerializeField] private GameObject _byteMapTileMap;
-    private TileBase[,] _tileBaseMap;
+    [SerializeField] private GameObject _mainIsoTileMapPrefab;
+    [SerializeField] private GameObject _byteMapTileMapPrefab;
 
+    private Tilemap _byteTileMap;
 
-    public GameObject GetMainTileMap => _mainIsoTileMap;
-    public TileBase[,] GetTileBaseMap => _tileBaseMap;
+    private bool _didInit = false;
+    public bool DidInit => _didInit;
 
-    public void SetTileBaseMap(TileBase[,] map)
-    {
-        _tileBaseMap = map;
-    }
+    public GameObject GetMainTileMap => _mainIsoTileMapPrefab;
 
     // on SO creation, create new folder with new "blank" tilemaps for editing (called via editor script)
     public void InitSO()
@@ -40,18 +37,16 @@ public class CustomTileMapSO : ScriptableObject
 
         PrefabUtility.SaveAsPrefabAsset(isoTilemapAsset, $"{_folderPath}/{_newIsoPrefabName}");
         PrefabUtility.SaveAsPrefabAsset(byteTilemapAsset, $"{_folderPath}/{_newBytePrefabName}");
-         
-        _mainIsoTileMap = AssetDatabase.LoadAssetAtPath<GameObject>($"{_folderPath}/{_newIsoPrefabName}");
-        _byteMapTileMap = AssetDatabase.LoadAssetAtPath<GameObject>($"{_folderPath}/{_newBytePrefabName}");
-        EditorUtility.SetDirty(_mainIsoTileMap);
-        EditorUtility.SetDirty(_byteMapTileMap);
 
-        if (!_byteMapTileMap.TryGetComponent(out ByteTileMapHelper helper))
-            helper = _byteMapTileMap.AddComponent<ByteTileMapHelper>();
-        helper.InitHelper(this, _gridSize);
+        _mainIsoTileMapPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{_folderPath}/{_newIsoPrefabName}");
+        _byteMapTileMapPrefab = AssetDatabase.LoadAssetAtPath<GameObject>($"{_folderPath}/{_newBytePrefabName}");
 
-        AssetDatabase.SaveAssetIfDirty(_mainIsoTileMap);
-        AssetDatabase.SaveAssetIfDirty(_byteMapTileMap);
+        _byteTileMap = _byteMapTileMapPrefab.GetComponent<Tilemap>();
+
+        _didInit = true;
+
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssetIfDirty(this);
     }
     // method to auto set folder name to match SO name using editor script
     public void SetTileMapFolderName()
@@ -64,5 +59,19 @@ public class CustomTileMapSO : ScriptableObject
         splitPath[^1] = name;
         string newFolderPath = string.Join('/', splitPath);
         AssetDatabase.MoveAsset(_folderPath, newFolderPath);
+    }
+
+    public TileBase[,] GenerateTileBaseMap(Vector2Int mapsize)
+    {
+        var map = new TileBase[mapsize.x, mapsize.y];
+        if (_byteTileMap == null)
+            _byteTileMap = _byteMapTileMapPrefab.GetComponent<Tilemap>();
+        _byteTileMap.CompressBounds();
+
+        //x & y start at 1 because of the "border" that is present in the tilemap prefab to help frame the grid for editing
+        for (int x = 1; x <= mapsize.x; x++)
+            for (int y = 1; y <= mapsize.y; y++)
+                map[x - 1, y - 1] = _byteTileMap.GetTile(new Vector3Int(x, y));
+        return map;
     }
 }

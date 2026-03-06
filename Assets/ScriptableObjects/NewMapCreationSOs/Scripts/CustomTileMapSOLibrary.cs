@@ -2,7 +2,6 @@ using CardSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 [CreateAssetMenu(fileName = "CustomTileMapSOLibrary", menuName = "Scriptable Objects/CustomTileMapSOLibrary")]
 public class CustomTileMapSOLibrary : ScriptableObject
@@ -11,7 +10,6 @@ public class CustomTileMapSOLibrary : ScriptableObject
 
     public List<CustomTileMapSO> GetSOsInProject => _customTileMapSOsInProject;
 
-    public static Action GrabAssets;
     public void AddTileMapSOToLibrary(CustomTileMapSO tileMapSO)
     {
         if (tileMapSO == null) return;

@@ -73,9 +73,9 @@ public class MapCreator : MonoBehaviour
         UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
         int rngMap = UnityEngine.Random.Range(0, _tilemapSOLibrary.GetSOsInProject.Count);
         var so = _tilemapSOLibrary.GetSOsInProject[rngMap];
-
+        
         var tilemap = SetUpTileMapPrefab(so);
-        TileBase[,] tileBaseMap = so.GetTileBaseMap;
+        TileBase[,] tileBaseMap = so.GenerateTileBaseMap(_mapSize);
 
         tilemap.CompressBounds();
 
@@ -116,11 +116,18 @@ public class MapCreator : MonoBehaviour
     }
     private Tilemap SetUpTileMapPrefab(CustomTileMapSO so)
     {
-        var gridPrefab = Instantiate<GameObject>(so.GetMainTileMap);
-        var t = gridPrefab.GetComponentInChildren<Tilemap>().transform;
-        t.parent = transform;
-        t.localPosition = _tileMapPos.localPosition;
-        return t.GetComponent<Tilemap>();
+        var gridPrefab = Instantiate<GameObject>(so.GetMainTileMap, transform);
+
+        var tilemap = gridPrefab.GetComponentInChildren<Tilemap>();
+        tilemap.transform.parent = transform;
+        tilemap.transform.SetLocalPositionAndRotation(_tileMapPos.localPosition, Quaternion.identity);
+        tilemap.transform.localScale = Vector3.one;
+        Destroy(gridPrefab);
+
+        tilemap.enabled = true;
+        tilemap.GetComponent<TileMapObjRepositioner>().enabled = true;
+
+        return tilemap;
     }
     private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {

@@ -42,12 +42,18 @@ public class TurnManager : MonoBehaviour
     {
         //if (PlayerDataManager.Instance == null)
            // Instantiate(Resources.Load<GameObject>("SaveDataManager"));
+        //_unitTurnOrder = GrabUnits();
+
+        //OnGameStart?.Invoke();
+        //SetTurn();
+    }
+    public void LateStartInits()
+    {
         _unitTurnOrder = GrabUnits();
 
         OnGameStart?.Invoke();
         SetTurn();
     }
-
     private List<Unit> GrabUnits()
     {
         var unsortedList = FindObjectsByType<Unit>(sortMode: FindObjectsSortMode.None).ToList<Unit>();

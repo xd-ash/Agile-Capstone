@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d35a899351c03d54cb6a58cc88890972, type: 3}
-  m_Name: test
+  m_Name: TestMapSO
   m_EditorClassIdentifier: Assembly-CSharp::CustomTileMapSO
   _gridSize: {x: 9, y: 9}
-  _mainIsoTileMap: {fileID: 1874900230627164488, guid: a0b8a98297e1f864c98524fcccff0abd, type: 3}
-  _byteMapTileMap: {fileID: 6186530481912963328, guid: ae76101102d83554386818d0f89f9cd3, type: 3}
+  _mainIsoTileMapPrefab: {fileID: 1874900230627164488, guid: 8690e025df34c7841a692040689b0784, type: 3}
+  _byteMapTileMapPrefab: {fileID: 6186530481912963328, guid: cb8dc6d7bc10615459b51830b37c1e4b, type: 3}

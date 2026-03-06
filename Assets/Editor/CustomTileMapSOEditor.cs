@@ -27,7 +27,11 @@ public class CustomTileMapSOEditor : Editor
         if (_library == null)
             _library = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTilemapSOLibrary");
         if (_library != null && !_library.GetSOsInProject.Contains(t))
+        {
             _library.AddTileMapSOToLibrary(t);
+            EditorUtility.SetDirty(_library);
+            AssetDatabase.SaveAssetIfDirty(_library);
+        }
         if (_library == null)
             Debug.Log("library null");
     }
@@ -42,8 +46,10 @@ public class CustomTileMapSOAssetProc : AssetModificationProcessor
         {
             string[] s = path.Split('/');
             if (s[^2] != "NewMapCreationSOs" || s[^1].Substring(s[^1].Length - 4) == "meta") continue;
-            var t = AssetDatabase.LoadAssetAtPath<CustomTileMapSO>(path);
+            var t = AssetDatabase.LoadAssetAtPath<CustomTileMapSO>(path); 
+            if (t.DidInit) continue;
             t.InitSO();
+            CustomTileMapSOLibraryEditor.AssetGrab?.Invoke();
         }
         return paths;
     }

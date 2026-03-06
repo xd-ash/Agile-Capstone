@@ -1,17 +1,18 @@
+using System;
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(CustomTileMapSOLibrary))]
 public class CustomTileMapSOLibraryEditor : Editor
 {
-    private CustomTileMapSOLibrary _library;
+    private static CustomTileMapSOLibrary _library;
 
-    private void OnEnable()
-    {
-        CustomTileMapSOLibrary.GrabAssets += GrabAssetsConnector;
-    }
+    public static Action AssetGrab => () => GrabAssetsConnector();
+
     public override void OnInspectorGUI()
     {
-        if (_library == null) _library = (CustomTileMapSOLibrary)target;
+        if (_library == null) _library = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTilemapSOLibrary");
+
         _library.CleanUpList();
 
         if (GrabAssets())
@@ -21,7 +22,7 @@ public class CustomTileMapSOLibraryEditor : Editor
         }
         base.OnInspectorGUI();
     }
-    private void GrabAssetsConnector()
+    private static void GrabAssetsConnector()
     {
         if (GrabAssets())
         {
@@ -29,11 +30,11 @@ public class CustomTileMapSOLibraryEditor : Editor
             AssetDatabase.SaveAssetIfDirty(_library);
         }
     }
-    public bool GrabAssets()
+    public static bool GrabAssets()
     {
         bool tmp = false;
 
-        if (_library == null) _library = (CustomTileMapSOLibrary)target;
+        if (_library == null) _library = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTilemapSOLibrary");
 
         var soGUIDS = AssetDatabase.FindAssets("t:CustomTileMapSO", new[] { "Assets/ScriptableObjects/NewMapCreationSOs" });
 
