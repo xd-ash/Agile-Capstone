@@ -59,6 +59,7 @@ public class PlayerDataManager : MonoBehaviour
 
 #if UNITY_EDITOR
         CardAndDeckLibrary.GrabAssets?.Invoke();
+        CustomTileMapSOLibrary.GrabAssets?.Invoke();
 #endif
 
         if (SaveLoadScript.CheckForSaveGame)
