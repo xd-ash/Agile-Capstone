@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using XNode;
 
 [CustomPropertyDrawer(typeof(EffectUpgrade)), CanEditMultipleObjects]
 public class EffectUpgradePropDrawer : PropertyDrawer
@@ -29,8 +30,11 @@ public class EffectUpgradePropDrawer : PropertyDrawer
         // create string array to use for popup content
         string[] optionStrings = new string[effectOptions.Count];
         for (int i = 0; i < effectOptions.Count; i++)
-            optionStrings[i] = effectOptions[i].name;
-
+        {
+            var node  = effectOptions[i];
+            optionStrings[i] = GetNodePath(node, string.Empty);
+        }
+        
         //grab current index of selected effect
         int currIndex = target.effectToUpgrade != null ? effectOptions.IndexOf(target.effectToUpgrade) : 0;
 
@@ -51,5 +55,18 @@ public class EffectUpgradePropDrawer : PropertyDrawer
                             EditorGUIUtility.standardVerticalSpacing * (lineCount - 1);
 
         return totalHeight;
+    }
+    private string GetNodePath(Node node, string curPath)
+    {
+        if (node == null || node is AbilityRootNode) return curPath;
+        Node parent = null;
+        curPath = node.name + (curPath == string.Empty ? "" : $">{curPath}");
+        foreach (var port in node.Inputs)
+        {
+            parent = port.Connection.node;
+            if (parent == null) continue;
+            break;
+        }
+        return GetNodePath(parent, curPath);
     }
 }
