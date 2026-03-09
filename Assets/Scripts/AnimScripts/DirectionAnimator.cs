@@ -114,7 +114,7 @@ public class DirectionAnimator : MonoBehaviour
         int newDir = GetDirIndexFromDelta(delta);
         if (newDir == _lastDir) return;
         _lastDir = newDir;
-        Debug.Log($"DELTA {delta} -> dirIndex {newDir} (moving={_isMoving})");
+        //Debug.Log($"DELTA {delta} -> dirIndex {newDir} (moving={_isMoving})");
 
         if (!_isPlayingAttack)
             PlayCurrentState();

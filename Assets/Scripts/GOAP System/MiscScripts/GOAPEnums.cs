@@ -36,6 +36,15 @@ public enum GoapStates
     NoTarget = 16384,
     CanHeal = 32768,
 }
+[Flags]
+public enum GoapGoals
+{
+    None = 0,
+    KillPlayer = 2,
+    //hurt player? more calcs for ability dmg, player health, heuristics, etc
+    StayAlive = 4,
+    KeepAlliesAlive = 8,
+}
 
 public struct GOAPEnums
 {
