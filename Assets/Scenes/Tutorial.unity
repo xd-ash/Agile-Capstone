@@ -3757,7 +3757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf843b75308ea847b30fc64d86cbdfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
-  _tutorialUI: {fileID: 1937536022}
+  _tutorialUI: {fileID: 1937536023}
 --- !u!1 &1740800764
 GameObject:
   m_ObjectHideFlags: 0
@@ -4305,6 +4305,7 @@ MonoBehaviour:
   _playerShieldText: {fileID: 1679287172}
   _playerShieldSlider: {fileID: 1740800766}
   _turnText: {fileID: 1020119968}
+  _apText: {fileID: 0}
   winText: {fileID: 1319645121}
   loseText: {fileID: 241520123}
 --- !u!114 &1937536022
@@ -4316,11 +4317,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937536016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 037f4b827f647824d914c542c9040a3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f742bc7fd62a3a46a73865450ae46db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialUI
-  _panel: {fileID: 214781497}
-  _messageText: {fileID: 1291653060}
+  _boxContainer: {fileID: 1722475740}
+  _apBoxPrefab: {fileID: 2668111355121155222, guid: 82d71e012526a0d4291f6d7815865e77, type: 3}
 --- !u!114 &1937536023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4330,11 +4331,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937536016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9e909fd58671944abd5f12c671b967, type: 3}
+  m_Script: {fileID: 11500000, guid: 22f64edb3c589f34fb464ae6d4e73b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::APDisplay
-  _boxContainer: {fileID: 1722475740}
-  _apBoxPrefab: {fileID: 2668111355121155222, guid: 82d71e012526a0d4291f6d7815865e77, type: 3}
+  _panel: {fileID: 214781497}
+  _messageText: {fileID: 1291653060}
 --- !u!1 &2029014748
 GameObject:
   m_ObjectHideFlags: 0
