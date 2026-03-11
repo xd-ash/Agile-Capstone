@@ -7,18 +7,18 @@ using static GOAPDeterminationMethods;
 
 public class MoveIntoLOSAction : GoapAction
 {
-    private FindPathAStar aStar;
+    private UnitMovementController _unitMover;
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.states.ContainsKey(GoapStates.HasLOS.ToString())) return false;
 
-        aStar = agent.GetComponent<FindPathAStar>();
+        _unitMover = agent.GetComponent<UnitMovementController>();
         Unit unit = agent.unit;
         int dmgAbilRange = agent.damageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
-        var tempPath = aStar.CalculatePath(tarPos);
+        var tempPath = _unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 
         for (int i = tempPath.Count - 1; i >= 0; i--)
@@ -26,17 +26,17 @@ public class MoveIntoLOSAction : GoapAction
             var tempPos = tempPath[i].location.ToVector();
             if (HasLineOfSight(tempPos, tarPos))
             {
-                aStar.CalculatePath(tempPos);
+                _unitMover.CalculatePath(tempPos);
                 return true;
             }
         }
 
-        aStar.CalculatePath(tarPos); //default to walking to target if los cannot be reached?
+        _unitMover.CalculatePath(tarPos); //default to walking to target if los cannot be reached?
         return false;
     }
     public override void Perform()
     {
-        aStar.OnStartUnitMove(() =>
+        _unitMover.OnStartUnitMove(() =>
         {
             agent.CompleteAction();
         });

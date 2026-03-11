@@ -15,11 +15,11 @@ namespace CardSystem
             foreach (GameObject target in abilityData.Targets)
             {
                 if (target == null) return;
-                var aStar = target.GetComponent<FindPathAStar>();
+                var unitMover = target.GetComponent<UnitMovementController>();
                 var targetUnit = target.GetComponent<Unit>();
-                if (aStar == null || targetUnit == null)
+                if (unitMover == null || targetUnit == null)
                 {
-                    Debug.LogError($"Knockback failed. No AStar and/or Unit script on gameobject ({target.name})");
+                    Debug.LogError($"Knockback failed. No UnitMover and/or Unit script on gameobject ({target.name})");
                     return;
                 }
 
@@ -29,7 +29,7 @@ namespace CardSystem
                 Vector2Int knockbackDir = Vector2Int.zero;
 
                 if (casterGridPos == targetGridPos)
-                    knockbackDir = target.GetComponent<FindPathAStar>().PrevPosOnMove - casterGridPos;
+                    knockbackDir = unitMover.PrevPosOnMove - casterGridPos;
                 else
                 {
                     Vector2Int rawDir = targetGridPos - casterGridPos;
@@ -88,7 +88,7 @@ namespace CardSystem
                 }
                 //Debug.Log($"lastValidPos: ({lastValidPos.x},{lastValidPos.y})");
 
-                aStar.OnKnockback(lastValidPos);
+                unitMover.OnKnockback(lastValidPos);
 
                 if (_effectValue < 0)
                     abilityData.GetUnit.GetFloatingText.SpawnFloatingText("GET OVER HERE!");

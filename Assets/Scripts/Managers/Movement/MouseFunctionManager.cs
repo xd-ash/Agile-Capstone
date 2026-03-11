@@ -67,8 +67,8 @@ public class MouseFunctionManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && _shouldMove)
             {
-                var unitAStar = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>();
-                unitAStar?.OnStartUnitMove();
+                var unitMover = TurnManager.GetCurrentUnit.GetComponent<UnitMovementController>();
+                unitMover?.OnStartUnitMove();
             }
         }
     }

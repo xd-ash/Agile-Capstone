@@ -32,11 +32,11 @@ public static class GOAPDeterminationMethods
     }
     public static bool CheckIfInRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
     {
-        var aStar = agent.GetComponent<FindPathAStar>();
+        var unitMover = agent.GetComponent<UnitMovementController>();
         int dmgAbilRange = agent.damageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
-        var tempPath = aStar.CalculatePath(tarPos);
+        var tempPath = unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 
         if (distanceToTar > dmgAbilRange)

@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 5489418204435330}
   - component: {fileID: 1680429232163789991}
   - component: {fileID: 6670463243099223024}
-  - component: {fileID: 4625741828471660904}
+  - component: {fileID: 4973300316486364393}
   - component: {fileID: 112770222690940186}
   - component: {fileID: 5134102706713077211}
   m_Layer: 6
@@ -318,7 +318,7 @@ MonoBehaviour:
         agent: {fileID: 6670463243099223024}
         preConditionsFlags: 64
         postConditionsFlags: 0
---- !u!114 &4625741828471660904
+--- !u!114 &4973300316486364393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,13 +327,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1552371556891506583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76141f66d52b2042b78495f56fcb851, type: 3}
+  m_Script: {fileID: 11500000, guid: a6ed6d83b007cd74fbfe2e7577d218bf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitMovementController
+  _isKnockback: 0
   _unitMoveSpeed: 0.2
   _moveCostPerTile: 1
-  _placePathDebugMarkers: 0
-  _isKnockback: 0
 --- !u!114 &112770222690940186
 MonoBehaviour:
   m_ObjectHideFlags: 0

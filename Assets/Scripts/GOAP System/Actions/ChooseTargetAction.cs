@@ -11,7 +11,7 @@ public class ChooseTargetAction : GoapAction
     public override bool PrePerform(ref WorldStates beliefs)
     {
         distancesToUnits = new();
-        FindPathAStar aStar = agent.GetComponent<FindPathAStar>();
+        var unitMover = agent.GetComponent<UnitMovementController>();
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
@@ -19,7 +19,7 @@ public class ChooseTargetAction : GoapAction
             //Debug.Log($"Unit: {u.name} - Pos {u.transform.localPosition}");
 
             var tarPos = ConvertToGridFromIsometric(u.transform.localPosition); 
-            var tempPath = aStar.CalculatePath(tarPos);
+            var tempPath = unitMover.CalculatePath(tarPos);
 
             distancesToUnits.Add(tempPath.Count, u);
         }
