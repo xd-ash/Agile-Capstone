@@ -134,6 +134,19 @@ namespace CardSystem
                     return;
                 }
             }
+            else
+            {
+                // If card is dropped above hand area, try to activate it
+                if (_isAboveHandArea)
+                    StartCoroutine(MoveCardToActivePos());
+                else
+                {
+                    ReturnCardToHand();
+                    return;
+                }
+            }
+
+            if (_cfs.TryActivateCard()) return;
 
             if (_cfs.TryActivateCard()) return;
 
