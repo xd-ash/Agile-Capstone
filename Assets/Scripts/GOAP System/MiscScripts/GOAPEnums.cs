@@ -21,20 +21,17 @@ public enum GoapStates
     None = 0,
     //All = -1,
     HasAP = 2,
-    IsHurt = 4,
-    InRange = 8,
-    IsHealthy = 16,
-    OutOfRange = 32,
-    OutOfAP = 64,
-    AttackPlayer = 128,
-    HealSelf = 256,
-    HasAttacked = 512,
-    HasHealed = 1024,
+    OutOfAP = 4,
+    IsHealthy = 8,
+    IsHurt = 16,
+    InRange = 32,
+    OutOfRange = 64,
+    CanAttack = 128,
+    CanHeal = 256,
+    HasLOS = 512,
+    NoLOS = 1024,
     HasTarget = 2048,
-    HasLOS = 4096,
-    NoLOS = 8192,
-    NoTarget = 16384,
-    CanHeal = 32768,
+    NoTarget = 4096,
 }
 [Flags]
 public enum GoapGoals
@@ -44,6 +41,7 @@ public enum GoapGoals
     //hurt player? more calcs for ability dmg, player health, heuristics, etc
     StayAlive = 4,
     KeepAlliesAlive = 8,
+    EndTurn = 16
 }
 
 public struct GOAPEnums

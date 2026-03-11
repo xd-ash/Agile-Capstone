@@ -125,7 +125,7 @@ public class MovementRangeCalculator : MonoBehaviour
             TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
     }
 
-    private HashSet<Vector2Int> ComputeReachableCells(Unit unit)
+    public static HashSet<Vector2Int> ComputeReachableCells(Unit unit)
     {
         var result = new HashSet<Vector2Int>();
         

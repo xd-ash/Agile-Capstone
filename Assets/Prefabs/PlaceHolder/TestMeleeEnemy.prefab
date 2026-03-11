@@ -434,10 +434,11 @@ MonoBehaviour:
   - rid: 1434491564777275479
   - rid: 1434491564777275481
   - rid: 1434491564777275480
-  _goalsEnum: 6
+  _goalsEnum: 22
   _goals:
   - rid: 6877345428311900233
   - rid: 6877345428311900234
+  - rid: 6877345429268987975
   _actionDelayTime: 1
   unit: {fileID: 2517929088927519564}
   showDebugMessages: 1
@@ -450,8 +451,8 @@ MonoBehaviour:
         _actionName: MoveIntoLOSAction
         _cost: 1
         _isRunning: 0
-        _preConditionsFlags: 10250
-        _postConditionsFlags: 4096
+        _preConditionsFlags: 3106
+        _postConditionsFlags: 516
         _goalsFlags: 0
     - rid: 1434491564777275480
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
@@ -459,16 +460,16 @@ MonoBehaviour:
         _actionName: EndTurnAction
         _cost: 0
         _isRunning: 0
-        _preConditionsFlags: 64
+        _preConditionsFlags: 0
         _postConditionsFlags: 0
-        _goalsFlags: 0
+        _goalsFlags: 16
     - rid: 1434491564777275481
       type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: ChooseTargetAction
         _cost: 0
         _isRunning: 0
-        _preConditionsFlags: 16386
+        _preConditionsFlags: 4098
         _postConditionsFlags: 2048
         _goalsFlags: 0
     - rid: 1434491564777275482
@@ -477,8 +478,8 @@ MonoBehaviour:
         _actionName: HealAction
         _cost: 1
         _isRunning: 0
-        _preConditionsFlags: 32774
-        _postConditionsFlags: 1044
+        _preConditionsFlags: 274
+        _postConditionsFlags: 4
         _goalsFlags: 4
     - rid: 1434491564777275483
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
@@ -486,8 +487,8 @@ MonoBehaviour:
         _actionName: AttackAction
         _cost: 2
         _isRunning: 0
-        _preConditionsFlags: 6154
-        _postConditionsFlags: 512
+        _preConditionsFlags: 2722
+        _postConditionsFlags: 68
         _goalsFlags: 2
     - rid: 1434491564777275484
       type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
@@ -495,8 +496,8 @@ MonoBehaviour:
         _actionName: MoveInRangeAction
         _cost: 1
         _isRunning: 0
-        _preConditionsFlags: 2082
-        _postConditionsFlags: 8
+        _preConditionsFlags: 2114
+        _postConditionsFlags: 32
         _goalsFlags: 0
     - rid: 6877345428311900233
       type: {class: Goal, ns: , asm: Assembly-CSharp}
@@ -509,6 +510,12 @@ MonoBehaviour:
       data:
         key: StayAlive
         value: 2
+        removeOnComplete: 0
+    - rid: 6877345429268987975
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 0
         removeOnComplete: 0
 --- !u!114 &3630910483554471787
 MonoBehaviour:

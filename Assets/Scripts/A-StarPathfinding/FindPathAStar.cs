@@ -43,9 +43,9 @@ namespace AStarPathfinding
         private DirectionAnimator _dirAnimator;
 
         private List<MapLocation> _directions = new List<MapLocation>() { new MapLocation(1,0),
-                                                                      new MapLocation(0,1),
-                                                                      new MapLocation(-1,0),
-                                                                      new MapLocation(0,-1) };
+                                                                          new MapLocation(0,1),
+                                                                          new MapLocation(-1,0),
+                                                                          new MapLocation(0,-1) };
 
         private PathMarker _startNode;
         private PathMarker _goalNode;
@@ -73,7 +73,7 @@ namespace AStarPathfinding
         public bool GetIsMoving => _isMoving;
 
         //temp? variable to track last position during movement coro to be used for trap knockbacks
-        public Vector2Int PrevPosOnMove {  get; private set; }
+        public Vector2Int PrevPosOnMove { get; private set; }
 
         private void Start()
         {
@@ -149,7 +149,7 @@ namespace AStarPathfinding
                 StartCoroutine(MoveCoro(onFinished));
         }
 
-        void BeginSearch(Vector2Int endLocation)
+        private void BeginSearch(Vector2Int endLocation)
         {
             _isDone = false;
             RemoveAllMarkers();
@@ -181,7 +181,7 @@ namespace AStarPathfinding
             CreateDebugMarker(_start, unitPos);
             CreateDebugMarker(_end, endLocation);
         }
-        public void Search(PathMarker thisNode)
+        private void Search(PathMarker thisNode)
         {
             if (thisNode == null) return;
             if (thisNode.Equals(_goalNode)) //goal has been found
@@ -225,7 +225,7 @@ namespace AStarPathfinding
             _lastPos = pm;
         }
 
-        public void GetPath()
+        private void GetPath()
         {
             RemoveAllMarkers();
             _truePath = new List<PathMarker>();
@@ -241,7 +241,7 @@ namespace AStarPathfinding
             }
         }
 
-        public bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)
+        private bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)
         {
             foreach (PathMarker p in _open)
             {
@@ -265,7 +265,7 @@ namespace AStarPathfinding
         }
 
         //Removes all debug marker gameobjects
-        void RemoveAllMarkers()
+        private void RemoveAllMarkers()
         {
             if (_debugMarkerParent == null) return;
 
@@ -273,7 +273,7 @@ namespace AStarPathfinding
                 Destroy(_debugMarkerParent.GetChild(i).gameObject);
         }
 
-        public bool IsClosed(MapLocation marker)
+        private bool IsClosed(MapLocation marker)
         {
             foreach (PathMarker p in _closed)
                 if (p.location.Equals(marker)) return true;
@@ -282,7 +282,7 @@ namespace AStarPathfinding
         //
         private Action _onMoveFinish;
         //
-        public IEnumerator MoveCoro(Action onFinished = null)
+        private IEnumerator MoveCoro(Action onFinished = null)
         {
             // bandaid fix
             _onMoveFinish = onFinished;

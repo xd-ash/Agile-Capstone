@@ -259,6 +259,8 @@ public class GoapAgent : MonoBehaviour
         CheckForAP(unit, ref _beliefs);
         CheckIfHealthy(unit, ref _beliefs);
 
+        _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
+
         if (_curtarget == null)
         {
             _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
