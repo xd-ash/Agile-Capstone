@@ -4,18 +4,18 @@ using static GOAPDeterminationMethods;
 
 public class MoveInRangeAction : GoapAction
 {
-    private FindPathAStar aStar;
+    private UnitMovementController _unitMover;
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString())) return false;
 
-        aStar = _agent.GetComponent<FindPathAStar>();
+        _unitMover = _agent.GetComponent<UnitMovementController>();
         Unit unit = _agent.unit;
         int dmgAbilRange = _agent.damageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
-        var tempPath = aStar.CalculatePath(tarPos);
+        var tempPath = _unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
         //Debug.Log($"tarPos: {tarPos} | distancetoTar: {distanceToTar}");
 
@@ -29,13 +29,13 @@ public class MoveInRangeAction : GoapAction
         int inRangeTileIndex = dmgAbilRange;
 
         // calc new path to tile just within ability range
-        aStar.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
+        _unitMover.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
 
         return true;
     }
     public override void Perform()
     {
-        aStar.OnStartUnitMove(() =>
+        _unitMover.OnStartUnitMove(() =>
         {
             _agent.CompleteAction();
         });

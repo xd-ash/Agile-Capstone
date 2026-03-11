@@ -146,8 +146,8 @@ GameObject:
   - component: {fileID: 5489418204435330}
   - component: {fileID: 1680429232163789991}
   - component: {fileID: 6670463243099223024}
-  - component: {fileID: 4625741828471660904}
   - component: {fileID: 112770222690940186}
+  - component: {fileID: 5529296334198480914}
   - component: {fileID: 5134102706713077211}
   m_Layer: 6
   m_Name: TestRangeEnemy
@@ -317,22 +317,6 @@ MonoBehaviour:
         key: EndTurn
         value: 0
         removeOnComplete: 0
---- !u!114 &4625741828471660904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552371556891506583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76141f66d52b2042b78495f56fcb851, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitMoveSpeed: 0.2
-  _moveCostPerTile: 1
-  _placePathDebugMarkers: 0
-  _isKnockback: 0
 --- !u!114 &112770222690940186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +347,21 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 8b81ebe819224bb49b85b9915837c2a8, type: 2}
     - {fileID: 7400000, guid: c5952f6d4aa287a489ec362647a30181, type: 2}
   _fade: 0.05
+--- !u!114 &5529296334198480914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552371556891506583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ed6d83b007cd74fbfe2e7577d218bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitMovementController
+  _isKnockback: 0
+  _unitMoveSpeed: 0.2
+  _moveCostPerTile: 1
 --- !u!61 &5134102706713077211
 BoxCollider2D:
   m_ObjectHideFlags: 0

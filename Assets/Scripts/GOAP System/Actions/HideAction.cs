@@ -4,12 +4,12 @@ using static IsoMetricConversions;
 
 public class HideAction : GoapAction
 {
-    private FindPathAStar _aStar;
+    private UnitMovementController _unitMover;
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
         var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
-        _aStar = _agent.GetComponent<FindPathAStar>();
+        _unitMover = _agent.GetComponent<UnitMovementController>();
         var target = _agent.GetCurrentTarget;
         if (target == null) return false;
         var targetTile = ConvertToGridFromIsometric(target.transform.position);

@@ -346,8 +346,8 @@ GameObject:
   - component: {fileID: 2517929088927519564}
   - component: {fileID: 5296086126415365323}
   - component: {fileID: 5945599773227783589}
-  - component: {fileID: 3630910483554471787}
   - component: {fileID: 2725796073088159668}
+  - component: {fileID: 8401737389858039758}
   - component: {fileID: 355945360564793161}
   m_Layer: 6
   m_Name: TestMeleeEnemy
@@ -517,22 +517,6 @@ MonoBehaviour:
         key: EndTurn
         value: 0
         removeOnComplete: 0
---- !u!114 &3630910483554471787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5893557019395072273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76141f66d52b2042b78495f56fcb851, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitMoveSpeed: 0.2
-  _moveCostPerTile: 1
-  _placePathDebugMarkers: 0
-  _isKnockback: 0
 --- !u!114 &2725796073088159668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,6 +547,21 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 7b77672e87dde42b0b3c63c01128cac0, type: 2}
     - {fileID: 7400000, guid: 0cd4c53673269422292f84481a88a641, type: 2}
   _fade: 0.05
+--- !u!114 &8401737389858039758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893557019395072273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ed6d83b007cd74fbfe2e7577d218bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitMovementController
+  _isKnockback: 0
+  _unitMoveSpeed: 0.2
+  _moveCostPerTile: 1
 --- !u!61 &355945360564793161
 BoxCollider2D:
   m_ObjectHideFlags: 0

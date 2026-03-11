@@ -116,7 +116,7 @@ public class TurnManager : MonoBehaviour
     public void EndPlayerTurn()
     {
         if (CurrTurn != Turn.Player) return; // avoid turn end spam
-        if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; //avoid turn end before movement is complete
+        if (_curUnit != null && _curUnit.TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving) return; //avoid turn end before movement is complete
 
         AudioManager.Instance?.PlayButtonSFX();
 
