@@ -1,4 +1,6 @@
 using AStarPathfinding;
+using Unity.VisualScripting;
+using UnityEngine;
 using static IsoMetricConversions;
 using static CombatMath;
 
@@ -30,11 +32,11 @@ public static class GOAPDeterminationMethods
     }
     public static bool CheckIfInRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
     {
-        var aStar = agent.GetComponent<FindPathAStar>();
+        var unitMover = agent.GetComponent<UnitMovementController>();
         int dmgAbilRange = agent.damageAbility.GetRange;
 
-        var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
-        var tempPath = aStar.CalculatePath(tarPos);
+        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
+        var tempPath = unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 
         if (distanceToTar > dmgAbilRange)
@@ -68,7 +70,7 @@ public static class GOAPDeterminationMethods
     public static bool CheckIfInLOS(GoapAgent agent, ref WorldStates beliefs)
     {
         var agentPos = ConvertToGridFromIsometric(agent.transform.localPosition);
-        var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
+        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
 
         bool hasLOS = HasLineOfSight(agentPos, tarPos);
 

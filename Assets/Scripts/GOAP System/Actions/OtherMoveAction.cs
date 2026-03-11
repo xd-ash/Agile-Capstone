@@ -1,32 +1,34 @@
 using AStarPathfinding;
+using Unity.VisualScripting;
+using UnityEngine;
 using static IsoMetricConversions;
 
 public class OtherMoveAction : GoapAction
 {
-    private FindPathAStar aStar;
+    private UnitMovementController _unitMover;
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        aStar = _agent.GetComponent<FindPathAStar>();
+        _unitMover = agent.GetComponent<UnitMovementController>();
 
-        if (_agent.damageAbility.GetRange > 1)
+        if (agent.damageAbility.GetRange > 1)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             return false;
         }
 
-        var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
-        var tempPath = aStar.CalculatePath(tarPos);
-        aStar.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
+        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
+        var tempPath = _unitMover.CalculatePath(tarPos);
+        _unitMover.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
 
         return true;
     }
     public override void Perform()
     {
-        aStar.OnStartUnitMove(() =>
+        _unitMover.OnStartUnitMove(() =>
         {
             //Debug.Log("test");
-            _agent.CompleteAction();
+            agent.CompleteAction();
         });
     }
 
