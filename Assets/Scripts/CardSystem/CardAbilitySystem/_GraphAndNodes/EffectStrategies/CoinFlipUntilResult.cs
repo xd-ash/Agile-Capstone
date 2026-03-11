@@ -6,7 +6,7 @@ namespace CardSystem
 {
     // Flip coin until the desired outcome and affect the following effects by the number of undesired outcome flipped
     [CreateNodeMenu("Gambling Effects/Coin Flip Unitl Result")]
-    public class CoinFlipUntilResult : EffectStrategy
+    public class CoinFlipUntilResult : EffectStrategy, IUseEffectValue
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 
@@ -17,7 +17,7 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange);
 
-            var flipResults = CoinFlip.FlipCoin(abilityData.GetUnit, _desiredCoinOutcome, _effectValue); //why do I have to do this
+            var flipResults = CoinFlip.FlipCoin(abilityData.GetUnit, _desiredCoinOutcome, _effectValue);
 
             int undesiredCount = 0;
             foreach (var flipResult in flipResults)

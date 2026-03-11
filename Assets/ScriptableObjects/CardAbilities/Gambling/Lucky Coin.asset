@@ -172,8 +172,8 @@ MonoBehaviour:
   - {fileID: -1860727759273947384}
   - {fileID: 55771105022752719}
   - {fileID: -2250469497568542709}
-  _description: flip coins until you get heads, then deal extra damage equal to the
-    number of tails rolled
+  _description: Deal 4 damage and flip coins until you get heads, then deal extra
+    damage equal to the number of tails (max 6)
   _abilitySFX: {fileID: 0}
   _apCost: 3
   _range: 4
@@ -186,6 +186,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: Shoot
 --- !u!114 &55771105022752719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,11 +250,11 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectValue: 0
+  _effectValue: 6
   input: 0
   effectVisuals: 0
   effects: 0
-  _desiredCoinOutcome: 0
+  _desiredCoinOutcome: 1
 --- !u!114 &6493304588745031532
 MonoBehaviour:
   m_ObjectHideFlags: 0

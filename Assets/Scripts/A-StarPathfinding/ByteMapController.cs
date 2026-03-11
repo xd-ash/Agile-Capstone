@@ -27,6 +27,7 @@ public class ByteMapController : MonoBehaviour
     private void Start()
     {
         _map = _mapCreator?.CreateMap();
+        TurnManager.Instance.LateStartInits();
     }
 
     public byte GetByteAtPosition(Vector2Int pos) => _map[pos.x, pos.y];

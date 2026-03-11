@@ -133,6 +133,12 @@ namespace CardSystem
         public void SelectCard(Card card)
         {
             if (PauseMenu.isPaused || card == null) return;
+
+            // Block cards if tutorial is active and not in card step
+            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                return;
+
             if (_selectedCard != card)
                 _selectedCard = card;
         }

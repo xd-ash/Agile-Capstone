@@ -42,12 +42,18 @@ public class TurnManager : MonoBehaviour
     {
         //if (PlayerDataManager.Instance == null)
            // Instantiate(Resources.Load<GameObject>("SaveDataManager"));
+        //_unitTurnOrder = GrabUnits();
+
+        //OnGameStart?.Invoke();
+        //SetTurn();
+    }
+    public void LateStartInits()
+    {
         _unitTurnOrder = GrabUnits();
 
         OnGameStart?.Invoke();
         SetTurn();
     }
-
     private List<Unit> GrabUnits()
     {
         var unsortedList = FindObjectsByType<Unit>(sortMode: FindObjectsSortMode.None).ToList<Unit>();
@@ -109,14 +115,18 @@ public class TurnManager : MonoBehaviour
                 DeckAndHandManager.Instance?.DrawCard(1);
 
         OnTurnStart?.Invoke(_curUnit);
-        GameUIManager.instance.UpdateApText();
     }
 
     // Mapped to end turn button in combat scene
     public void EndPlayerTurn()
     {
         if (CurrTurn != Turn.Player) return; // avoid turn end spam
-        if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; //avoid turn end before movement is complete
+        if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; 
+        // Block end turn if tutorial is active and not on end turn step
+        if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.EndTurnOnly)
+            return;
+        //avoid turn end before movement is complete
 
         AudioManager.Instance?.PlayButtonSFX();
 

@@ -28,9 +28,6 @@ public class MouseFunctionManager : MonoBehaviour
             return;
         }
 
-        if (_tilemap == null)
-            _tilemap = FindAnyObjectByType<Tilemap>();
-
         InitializeTileHighlight();
     }
 
@@ -55,7 +52,6 @@ public class MouseFunctionManager : MonoBehaviour
                     DeckAndHandManager.Instance.GetSelectedCard.GetCardTransform.TryGetComponent(out CardSelect card))
                 {
                     TargetingStopped();
-                    //card.ReturnCardToHand();
                     DeckAndHandManager.Instance.OnCardAblityCancel?.Invoke();
                 }
 
@@ -71,6 +67,11 @@ public class MouseFunctionManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && _shouldMove)
             {
+                // Block movement if tutorial is active and not in move step
+                if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveOnly)
+                    return; // skip to next frame, don't move
+                
                 var unitAStar = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>();
                 unitAStar?.OnStartUnitMove();
             }
@@ -80,6 +81,9 @@ public class MouseFunctionManager : MonoBehaviour
     // return true if mouse is over valid tile
     private bool TrackMouse()
     {
+        if (_tilemap == null)
+            _tilemap = FindAnyObjectByType<Tilemap>();
+
         Vector3 worldMouse = GetMouseWorldPosition();
         _tilePos = _tilemap.WorldToCell(worldMouse);
         _currTile = _tilemap.GetTile(_tilePos);

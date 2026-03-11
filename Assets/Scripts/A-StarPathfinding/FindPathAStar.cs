@@ -340,7 +340,6 @@ namespace AStarPathfinding
                 if (!_isKnockback)
                 {
                     _unit.SpendAP(_moveCostPerTile);
-                    GameUIManager.instance.UpdateApText();
                 }
 
                 ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, prev, next);
@@ -359,8 +358,8 @@ namespace AStarPathfinding
             onFinished?.Invoke();
             
             // rebuild highlights for player right after movement is fully done
-            if (_unit.GetTeam == Team.Friendly)
-                MovementRangeCalculator.Instance.RebuildForCurrentUnit();
+            //if (_unit.GetTeam == Team.Friendly)
+                //MovementRangeCalculator.Instance.RebuildForCurrentUnit();
         }
     }
 }
