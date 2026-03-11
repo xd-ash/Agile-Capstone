@@ -1,9 +1,7 @@
-using AStarPathfinding;
 using System.Collections.Generic;
 using System.Linq;
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
-using UnityEngine;
 
 public class ChooseTargetAction : GoapAction
 {

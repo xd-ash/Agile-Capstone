@@ -12,7 +12,7 @@ public enum GoapActions
     ChooseTarget = 16,
     EndTurn = 32,
     MoveIntoLOS = 64,
-    OtherMove = 128,
+    Hide = 128,
 }
 
 [Flags]
@@ -60,9 +60,9 @@ public struct GOAPEnums
         {
             switch (i)
             {
-                case 0://Other Move
+                case 0://Hide
                     if (binaryEnum[i] == '1')
-                        actions.Add(new OtherMoveAction());
+                        actions.Add(new HideAction());
                     break;
                 case 1://MoveIntoLOS
                     if (binaryEnum[i] == '1')

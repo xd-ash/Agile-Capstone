@@ -226,7 +226,7 @@ MonoBehaviour:
   damageAbility: {fileID: 11400000, guid: 3806d31e083fc7b4ebfc88e021e474fe, type: 2}
   healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
   healCharges: 2
-  _goapActionsEnum: 126
+  _goapActionsEnum: -1
   _actions:
   - rid: 1434491564777275476
   - rid: 1434491564777275475
@@ -234,6 +234,7 @@ MonoBehaviour:
   - rid: 1434491564777275472
   - rid: 1434491564777275474
   - rid: 1434491564777275473
+  - rid: 3253435382377480263
   _goalsEnum: 22
   _goals:
   - rid: 6877345428311900236
@@ -260,7 +261,7 @@ MonoBehaviour:
         _actionName: EndTurnAction
         _cost: 0
         _isRunning: 0
-        _preConditionsFlags: 0
+        _preConditionsFlags: 4
         _postConditionsFlags: 0
         _goalsFlags: 16
     - rid: 1434491564777275474
@@ -299,6 +300,15 @@ MonoBehaviour:
         _preConditionsFlags: 2114
         _postConditionsFlags: 32
         _goalsFlags: 0
+    - rid: 3253435382377480263
+      type: {class: HideAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HideAction
+        _cost: 2
+        _isRunning: 0
+        _preConditionsFlags: 530
+        _postConditionsFlags: 1028
+        _goalsFlags: 4
     - rid: 6877345428311900236
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
