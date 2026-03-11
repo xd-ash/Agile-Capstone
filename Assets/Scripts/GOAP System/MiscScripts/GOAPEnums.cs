@@ -96,15 +96,48 @@ public struct GOAPEnums
         }
         return actions;
     }
+    public static List<WorldState> GetAllStatesFromFlags(GoapStates statesEnum, GoapGoals goalsEnum)
+    {
+        List<WorldState> states = new List<WorldState>();
+
+        string[] statesStrings = statesEnum.ToString().Split(", ");
+        string[] goalsStrings = goalsEnum.ToString().Split(", ");
+
+        foreach (string s in statesStrings)
+        {
+            if (s == null || s == "None") continue;
+            states.Add(new WorldState() { key = s });
+        }
+        foreach (string s in goalsStrings)
+        {
+            if (s == null || s == "None") continue;
+            states.Add(new WorldState() { key = s });
+        }
+
+        return states;
+    }
+    public static List<WorldState> GetAllStatesFromFlags(GoapGoals goalsEnum)
+    {
+        List<WorldState> states = new List<WorldState>();
+
+        string[] goalsStrings = goalsEnum.ToString().Split(", ");
+
+        foreach (string s in goalsStrings)
+        {
+            if (s == null || s == "None") continue;
+            states.Add(new WorldState() { key = s });
+        }
+        return states;
+    }
     public static List<WorldState> GetAllStatesFromFlags(GoapStates statesEnum)
     {
         List<WorldState> states = new List<WorldState>();
 
-        string[] enumStrings =  statesEnum.ToString().Split(", ");
+        string[] enumStrings = statesEnum.ToString().Split(", ");
 
         foreach (string s in enumStrings)
         {
-            if (s != null && s != "None")
+            if (s == null || s == "None") continue;
             states.Add(new WorldState() { key = s });
         }
         return states;

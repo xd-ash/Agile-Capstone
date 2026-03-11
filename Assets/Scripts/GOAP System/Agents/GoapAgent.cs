@@ -35,7 +35,7 @@ public class GoapAgent : MonoBehaviour
     private GoapAction _currentAction;
     private Queue<GoapAction> _actionQueue;
 
-    [SerializeField] private GoapStates _goalsEnum;
+    [SerializeField] private GoapGoals _goalsEnum;
     [SerializeReference] private List<Goal> _goals = new();// find better way? used for setting weight/values & remove bool
     private Dictionary<Goal, int> _weightedGoalsDict = new();
     private Goal _currentGoal;
@@ -87,6 +87,10 @@ public class GoapAgent : MonoBehaviour
                 }
             }
         }
+
+        if (_actionQueue == null)
+            if (!CheckForAP(unit, ref _beliefs) || !CheckCanDoAction(unit, damageAbility.GetApCost)|| !CheckCanDoAction(unit, healAbility.GetApCost))
+            return;
 
         // actionqueue is finished
         if (_actionQueue != null && _actionQueue.Count == 0)
@@ -176,8 +180,7 @@ public class GoapAgent : MonoBehaviour
     public void GrabGoalsFromEnum()
     {
         var temp = GetAllStatesFromFlags(_goalsEnum);
-        List<string> tempToString = new List<string>();
-        //goalsToString = new List<string>();
+        List<string> tempToString = new();
 
         foreach (var s in temp)
             tempToString.Add(s.key);
@@ -226,7 +229,7 @@ public class GoapAgent : MonoBehaviour
         _currentAction.IsRunning = false;
         _currentAction.PostPerform(ref _beliefs);
         GameUIManager.instance.UpdateApText();
-        if (!_beliefs.GetStates.ContainsKey(GoapStates.HasAttacked.ToString()))
+        if (!_beliefs.GetStates.ContainsKey(GoapGoals.KillPlayer.ToString()))
             CheckForAP(unit, ref _beliefs);
     }
 

@@ -7,7 +7,7 @@ public class AttackAction : GoapAction
         bool canDoAction = CheckCanDoAction(_agent.unit, _agent.damageAbility.GetApCost);
         if (!canDoAction)
         {
-            beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
+            //beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
         }
 
@@ -24,7 +24,8 @@ public class AttackAction : GoapAction
     {
         if (!CheckCanDoAction(_agent.unit, _agent.damageAbility.GetApCost))
         {
-            beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
+            beliefs.ModifyState(GoapGoals.KillPlayer.ToString(), 1);
+            //beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
         }
     }

@@ -16,8 +16,7 @@ public abstract class GoapAction
 
     [SerializeField] protected GoapStates _preConditionsFlags;
     [SerializeField] protected GoapStates _postConditionsFlags;
-
-    //public WorldStates beliefs;
+    [SerializeField] protected GoapGoals _goalsFlags;
 
     public float GetCost => _cost;
     public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
@@ -35,7 +34,7 @@ public abstract class GoapAction
             _agent = agent;
 
         var tempPreCond = GetAllStatesFromFlags(_preConditionsFlags);
-        var tempPostCond = GetAllStatesFromFlags(_postConditionsFlags);
+        var tempPostCond = GetAllStatesFromFlags(_postConditionsFlags, _goalsFlags);
 
         foreach (var c in tempPreCond)
             if (_preConditions != null && !_preConditions.ContainsKey(c.key))
@@ -43,7 +42,7 @@ public abstract class GoapAction
         foreach (var c in tempPostCond)
             if (_postConditions != null && !_postConditions.ContainsKey(c.key))
                 _postConditions.Add(c.key, c.value);
-
+        
         List<string> tempPreToString = new List<string>(), 
                      tempPostToString = new List<string>();
 

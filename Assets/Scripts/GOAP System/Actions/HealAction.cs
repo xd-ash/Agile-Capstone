@@ -23,6 +23,7 @@ public class HealAction : GoapAction
     public override void PostPerform(ref WorldStates beliefs)
     {
         if(CheckIfHealthy(_agent.unit, ref beliefs))
-            beliefs.ModifyState(GoapStates.HasHealed.ToString(), 1);
+            beliefs.ModifyState(GoapGoals.StayAlive.ToString(), 1);
+            //beliefs.ModifyState(GoapStates.HasHealed.ToString(), 1);
     }
 }

@@ -434,35 +434,16 @@ MonoBehaviour:
   - rid: 1434491564777275479
   - rid: 1434491564777275481
   - rid: 1434491564777275480
-  _goalsEnum: 1600
+  _goalsEnum: 6
   _goals:
-  - rid: 184551379020808282
-  - rid: 184551379020808284
-  - rid: 814567176430420063
+  - rid: 6877345428311900233
+  - rid: 6877345428311900234
   _actionDelayTime: 1
   unit: {fileID: 2517929088927519564}
   showDebugMessages: 1
   references:
     version: 2
     RefIds:
-    - rid: 184551379020808282
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: OutOfAP
-        value: 0
-        removeOnComplete: 0
-    - rid: 184551379020808284
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: HasAttacked
-        value: 1
-        removeOnComplete: 1
-    - rid: 814567176430420063
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: HasHealed
-        value: 2
-        removeOnComplete: 1
     - rid: 1434491564777275479
       type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
       data:
@@ -471,6 +452,7 @@ MonoBehaviour:
         _isRunning: 0
         _preConditionsFlags: 10250
         _postConditionsFlags: 4096
+        _goalsFlags: 0
     - rid: 1434491564777275480
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
@@ -479,6 +461,7 @@ MonoBehaviour:
         _isRunning: 0
         _preConditionsFlags: 64
         _postConditionsFlags: 0
+        _goalsFlags: 0
     - rid: 1434491564777275481
       type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
       data:
@@ -487,6 +470,7 @@ MonoBehaviour:
         _isRunning: 0
         _preConditionsFlags: 16386
         _postConditionsFlags: 2048
+        _goalsFlags: 0
     - rid: 1434491564777275482
       type: {class: HealAction, ns: , asm: Assembly-CSharp}
       data:
@@ -495,6 +479,7 @@ MonoBehaviour:
         _isRunning: 0
         _preConditionsFlags: 32774
         _postConditionsFlags: 1044
+        _goalsFlags: 4
     - rid: 1434491564777275483
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
@@ -503,6 +488,7 @@ MonoBehaviour:
         _isRunning: 0
         _preConditionsFlags: 6154
         _postConditionsFlags: 512
+        _goalsFlags: 2
     - rid: 1434491564777275484
       type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
       data:
@@ -511,6 +497,19 @@ MonoBehaviour:
         _isRunning: 0
         _preConditionsFlags: 2082
         _postConditionsFlags: 8
+        _goalsFlags: 0
+    - rid: 6877345428311900233
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KillPlayer
+        value: 1
+        removeOnComplete: 0
+    - rid: 6877345428311900234
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAlive
+        value: 2
+        removeOnComplete: 0
 --- !u!114 &3630910483554471787
 MonoBehaviour:
   m_ObjectHideFlags: 0
