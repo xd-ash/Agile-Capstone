@@ -33,4 +33,5 @@ public struct CombatMapData
 {
     public int maxPlayersAllowed;
     public int maxEnemiesAllowed;
+    public CustomTileMapSO selectedMap;
 }

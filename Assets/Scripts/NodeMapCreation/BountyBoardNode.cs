@@ -4,7 +4,6 @@ using UnityEngine;
 public class BountyBoardNode : NodeMapNode
 {
     [SerializeField] private BountySelectPanelScript _bountySelectPanel;
-
     [SerializeField] private List<CombatMapData> _combatData = new();
 
     public override void InitNode(Vector2Int index, List<NodeMapNode> prev, List<NodeMapNode> next)

@@ -62,7 +62,7 @@ public class MapCreator : MonoBehaviour
 
     public Vector2Int GetMapSize => _mapSize;
 
-    public byte[,] CreateMap()
+    public byte[,] CreateMap(string forcedMapSOName = "")
     {
         if (_tileLibrary == null)
         {

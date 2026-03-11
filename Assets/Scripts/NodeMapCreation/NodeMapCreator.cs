@@ -34,6 +34,7 @@ public class NodeMapCreator : MonoBehaviour
         GeneratePlaceholderNodeMap();
         return PopulateNodeMap();
     }
+
     private void GeneratePlaceholderNodeMap()
     {
         UnityEngine.Random.InitState(_curSeed);
