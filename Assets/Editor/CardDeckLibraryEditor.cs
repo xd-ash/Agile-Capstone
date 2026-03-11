@@ -10,11 +10,9 @@ public class CardDeckLibraryEditor : Editor
 
     private void OnEnable()
     {
+        //ClearOtherLibraries();
+
         CardAndDeckLibrary.GrabAssets += GrabAssetsConnector;
-    }
-    private void OnDestroy()
-    {
-        CardAndDeckLibrary.GrabAssets -= GrabAssetsConnector;
     }
     public override void OnInspectorGUI()
     {

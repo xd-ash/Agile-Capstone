@@ -49,16 +49,18 @@ public class MapCreator : MonoBehaviour
         else
             Destroy(this.gameObject);
 
+        _moduleSet.SetNeighbours();
         _tileLibrary = Resources.Load<ProceduralTileLibrary>("Libraries/TileDataLibrary");
-        _tilemapSOLibrary = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTileMapSOLibrary");
-        _tileMapPos = transform.Find("TileMapPos");
+        _tilemap = transform.Find("MainTileMap").GetComponent<Tilemap>();
     }
 
-    private Transform _tileMapPos;
+    private Tilemap _tilemap;
     private ProceduralTileLibrary _tileLibrary;
-    private CustomTileMapSOLibrary _tilemapSOLibrary;
 
     [SerializeField] private Vector2Int _mapSize;
+
+    [Header("Tile Module Set")]
+    [SerializeField] private TileSet _moduleSet;
 
     public Vector2Int GetMapSize => _mapSize;
 
@@ -70,37 +72,47 @@ public class MapCreator : MonoBehaviour
             return null;
         }
 
-        UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
-        int rngMap = UnityEngine.Random.Range(0, _tilemapSOLibrary.GetSOsInProject.Count);
-        var so = _tilemapSOLibrary.GetSOsInProject[rngMap];
-        
-        var tilemap = SetUpTileMapPrefab(so);
-        TileBase[,] tileBaseMap = so.GenerateTileBaseMap(_mapSize);
+        _tilemap.CompressBounds();
 
-        tilemap.CompressBounds();
-
+        int failSafeCount = -1;
         var emptyTilePositions = new List<Vector2Int>();
-        var map = new byte[_mapSize.x, _mapSize.y];
+        byte[,] map;
 
-        for (int x = 0; x < map.GetLength(0); x++)
+        do
         {
-            for (int y = 0; y < map.GetLength(1); y++)
+            map = new byte[_mapSize.x, _mapSize.y];
+            int moduleWidth = _moduleSet.GetTrueModuleWidth;
+            TileElement[,] environmentMap = environmentMap = TileWaveFunctionCollapse.WFCGenerate(_moduleSet.Modules,
+                    new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth)); ;
+
+            emptyTilePositions.Clear();
+
+            for (int x = 0; x < map.GetLength(0); x++)
             {
-                Vector2Int gridPos = new Vector2Int(x, y);
-                var tile = tileBaseMap[x, y];
+                for (int y = 0; y < map.GetLength(1); y++)
+                {
+                    Vector2Int gridPos = new Vector2Int(x, y);
+                    var environmentElement = environmentMap[x / moduleWidth, y / moduleWidth];
+                    var module = environmentElement.GetSelectedModule;
+                    var tile = module.GetTrueTiles[module.GetTrueTileIndex(x % moduleWidth, y % moduleWidth)];
 
-                if (tile == null)
-                    map[x, y] = 0;
-                else
-                    map[x, y] = (byte)_tileLibrary.GetIndicatorFromName(tile.name);
+                    if (tile == null)
+                        map[x, y] = 0;
+                    else
+                        map[x, y] = (byte)_tileLibrary.GetIndicatorFromName(tile.name);
 
-                if (map[x, y] != 2 && map[x, y] != 5)
-                    emptyTilePositions.Add(gridPos);
+                    if (map[x, y] != 2 && map[x, y] != 5)
+                        emptyTilePositions.Add(gridPos);
+                }
             }
-        }
+
+            failSafeCount++;
+            if (failSafeCount >= 100)
+                Debug.LogError("Excessive map generation fails from unreachable positions");
+        } while (!CheckMapForTruePath(map, emptyTilePositions.Count) && failSafeCount < 100);
 
         GenerateUnitPositions(map, emptyTilePositions);
-        
+
         for (int x = 0; x < map.GetLength(0); x++)
         {
             for (int y = 0; y < map.GetLength(1); y++)
@@ -108,31 +120,70 @@ public class MapCreator : MonoBehaviour
                 Vector2Int gridPos = new Vector2Int(x, y);
 
                 SpawnTileContents(map, map[x, y], gridPos);
-                tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
+                _tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
             }
         }
 
         return map;
     }
-    private Tilemap SetUpTileMapPrefab(CustomTileMapSO so)
+    //Check each valid tile and determine if there are unreachable positions
+    public bool CheckMapForTruePath(byte[,] map, int totalNonObstacleTiles)
     {
-        var gridPrefab = Instantiate<GameObject>(so.GetMainTileMap, transform);
+        List<Vector2Int> validLocs = new();
+        Vector2Int startLoc = new Vector2Int(-1,-1);
 
-        var tilemap = gridPrefab.GetComponentInChildren<Tilemap>();
-        tilemap.transform.parent = transform;
-        tilemap.transform.SetLocalPositionAndRotation(_tileMapPos.localPosition, Quaternion.identity);
-        tilemap.transform.localScale = Vector3.one;
-        Destroy(gridPrefab);
+        for (int x = 0; x < map.GetLength(0); x++)
+        {
+            if (startLoc.x != -1) break;
 
-        tilemap.enabled = true;
-        tilemap.GetComponent<TileMapObjRepositioner>().enabled = true;
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                if (map[x,y] != 2 && map[x,y] != 5) // obstacle indicators
+                {
+                    startLoc = new Vector2Int(x, y);
+                    break;
+                }
+            }
+        }
 
-        return tilemap;
+        CheckNeighbours(map, startLoc, ref validLocs);
+        bool result = totalNonObstacleTiles == validLocs.Count;
+        if (!result)
+            PlayerDataManager.Instance.GenerateGeneralSeed();// regen seed only after fail
+        return result;
     }
+
+    //recursive method to check neighboring tiles and add locations to list of valid locations
+    private void CheckNeighbours(byte[,] map, Vector2Int tilePos, ref List<Vector2Int> validLocs)
+    {
+        if (!validLocs.Contains(tilePos))
+            validLocs.Add(tilePos);
+
+        for (int y = -1; y <= 1; y++)
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                if ((x == 0 && y == 0) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) // setting up for neighbors, but not diags or same tile ((-)1,(-)1), (0,0)
+                    continue;
+
+                Vector2Int neighborPos = new Vector2Int(tilePos.x + x, tilePos.y + y);
+
+                if (neighborPos.x < 0 || neighborPos.y < 0 || neighborPos.x > map.GetLength(0) - 1 || neighborPos.y > map.GetLength(1) - 1)
+                    continue;
+
+                //if (_map[neighborPos.x, neighborPos.y] != 2 && _map[neighborPos.x, neighborPos.y] != 5 && !validLocs.Contains(neighborPos))
+                if ((map[neighborPos.x, neighborPos.y] == 0 || map[neighborPos.x, neighborPos.y] == 1 || map[neighborPos.x, neighborPos.y] == 3) && 
+                    !validLocs.Contains(neighborPos))
+                {
+                    validLocs.Add(neighborPos);
+                    CheckNeighbours(map, neighborPos, ref validLocs);
+                }
+            }
+        }
+    }
+
     private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {
-        if (byteIndicator != 3 && byteIndicator != 4 && byteIndicator != 1) return; //quick fix for WFC removal. Only spawn units
-
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
         GameObject objToSpawn = _tileLibrary.GetGOFromIndicator(byteIndicator);
 

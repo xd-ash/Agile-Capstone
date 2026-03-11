@@ -37,49 +37,119 @@ namespace AStarPathfinding
         }
     }
 
-    public static class FindPathAStar
+    public class FindPathAStar : MonoBehaviour
     {
-        private static List<MapLocation> _directions = new List<MapLocation>() { new MapLocation(1,0),
-                                                                                 new MapLocation(0,1),
-                                                                                 new MapLocation(-1,0),
-                                                                                 new MapLocation(0,-1) };
+        private Unit _unit;
+        private DirectionAnimator _dirAnimator;
 
-        private static PathMarker _startNode;
-        private static PathMarker _goalNode;
-        private static PathMarker _lastPos;
-        private static bool _isDone = true;
+        private List<MapLocation> _directions = new List<MapLocation>() { new MapLocation(1,0),
+                                                                          new MapLocation(0,1),
+                                                                          new MapLocation(-1,0),
+                                                                          new MapLocation(0,-1) };
 
-        private static List<PathMarker> _open = new List<PathMarker>();
-        private static List<PathMarker> _closed = new List<PathMarker>();
+        private PathMarker _startNode;
+        private PathMarker _goalNode;
+        private PathMarker _lastPos;
+        private bool _isDone = true;
+        private bool _isMoving = false;
+
+        private List<PathMarker> _open = new List<PathMarker>();
+        private List<PathMarker> _closed = new List<PathMarker>();
+        private List<PathMarker> _truePath;
+
+        [SerializeField] private float _unitMoveSpeed;
+        [SerializeField] private int _moveCostPerTile = 1;
 
         //Fix with editor script for bool active or dropdown
         [Header("Debug Markers")]
-        [SerializeField] private static bool _placePathDebugMarkers = false;
-        private static Transform _debugMarkerParent;
-        private static GameObject _start = Resources.Load<GameObject>("TempAStarPathMarkers/Start");
-        private static GameObject _end = Resources.Load<GameObject>("TempAStarPathMarkers/End");
-        private static GameObject _pathP = Resources.Load<GameObject>("TempAStarPathMarkers/PathP");
-        private static GameObject _truePMark = Resources.Load<GameObject>("TempAStarPathMarkers/TrueP");
+        [SerializeField] private bool _placePathDebugMarkers = false;
+        private Transform _debugMarkerParent;
+        private GameObject _start;
+        private GameObject _end;
+        private GameObject _pathP;
+        private GameObject _truePMark;
 
+        public bool _isKnockback = false;
+        public bool GetIsMoving => _isMoving;
+
+        //temp? variable to track last position during movement coro to be used for trap knockbacks
+        public Vector2Int PrevPosOnMove { get; private set; }
+
+        private void Start()
+        {
+            _unit = GetComponent<Unit>();
+            _dirAnimator = _unit.GetComponent<DirectionAnimator>();
+
+            // Debug path marker grab
+            _start = Resources.Load<GameObject>("TempAStarPathMarkers/Start");
+            _end = Resources.Load<GameObject>("TempAStarPathMarkers/End");
+            _pathP = Resources.Load<GameObject>("TempAStarPathMarkers/PathP");
+            _truePMark = Resources.Load<GameObject>("TempAStarPathMarkers/TrueP");
+        }
+
+        public void OnKnockback(Vector2Int targetPos)
+        {
+            StopAllCoroutines();
+            _onMoveFinish?.Invoke();
+
+            _isKnockback = true;
+            _isMoving = false;
+            _dirAnimator?.SetMoving(false);
+            _isDone = true;
+
+            CalculatePath(targetPos);
+            if (_truePath == null)
+            {
+                Debug.Log("truepath null");
+                return;
+            }
+            OnStartUnitMove(() => _isKnockback = false);
+        }
         //Determine and return the path to tile position param. Return null if unit is unable to move,
         //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
-        public static List<PathMarker> CalculatePath(Vector2Int startPos, Vector2Int endPos)
+        public List<PathMarker> CalculatePath(Vector2Int tilePos)
         {
-            if (_isDone)
+            if (_isDone && !_isMoving && PauseMenu.isPaused != true)
             {
-                BeginSearch(startPos, endPos);
+                //only allow movement on this unit's turn
+                if (TurnManager.GetCurrentUnit != _unit && !_isKnockback) return null;
+
+                BeginSearch(tilePos);
                 do
                 {
                     Search(_lastPos);
                 } while (!_isDone);
-                return GetPath();
+                GetPath();
+
+                if (!_isKnockback)
+                {
+                    //Flip bool in pathmarker to indicate which tiles are within movement range
+                    List<PathMarker> tempTrue = _truePath;
+                    int steps = _truePath != null ? _truePath.Count : 0;
+                    if (steps > _unit.GetAP)
+                    {
+                        int keep = Mathf.Max(0, _unit.GetAP);
+                        tempTrue = _truePath.GetRange(_truePath.Count - keep, keep);
+                    }
+                    foreach (PathMarker pm in tempTrue)
+                        pm.isReachable = true;
+                }
+
+                // return full path to target position
+                return _truePath;
             }
 
-            Debug.LogError("AStar Path null due to call during calculation (!_isDone)");
             return null;
         }
 
-        private static void BeginSearch(Vector2Int startLocation, Vector2Int endLocation)
+        //Start unit's movement towards determined goal
+        public void OnStartUnitMove(Action onFinished = null)
+        {
+            if (_isDone && !_isMoving && PauseMenu.isPaused != true)
+                StartCoroutine(MoveCoro(onFinished));
+        }
+
+        private void BeginSearch(Vector2Int endLocation)
         {
             _isDone = false;
             RemoveAllMarkers();
@@ -97,7 +167,8 @@ namespace AStarPathfinding
                 }
             }
 
-            _startNode = new PathMarker(new MapLocation(startLocation.x, startLocation.y), 0.0f, 0.0f, 0.0f, null);
+            Vector2Int unitPos = ConvertToGridFromIsometric(_unit.transform.localPosition);
+            _startNode = new PathMarker(new MapLocation(unitPos.x, unitPos.y), 0.0f, 0.0f, 0.0f, null);
             _goalNode = new PathMarker(new MapLocation(endLocation.x, endLocation.y), 0.0f, 0.0f, 0.0f, null);
 
             _open.Clear();
@@ -107,10 +178,10 @@ namespace AStarPathfinding
 
             // Create start/end debug markers if option selected
             if (!_placePathDebugMarkers) return;
-            CreateDebugMarker(_start, startLocation);
+            CreateDebugMarker(_start, unitPos);
             CreateDebugMarker(_end, endLocation);
         }
-        private static void Search(PathMarker thisNode)
+        private void Search(PathMarker thisNode)
         {
             if (thisNode == null) return;
             if (thisNode.Equals(_goalNode)) //goal has been found
@@ -154,10 +225,10 @@ namespace AStarPathfinding
             _lastPos = pm;
         }
 
-        private static List<PathMarker> GetPath()
+        private void GetPath()
         {
             RemoveAllMarkers();
-            var truePath = new List<PathMarker>();
+            _truePath = new List<PathMarker>();
             PathMarker begin = _lastPos; //last pos will be goal, then work backwards using parents
 
             while (begin != null && !_startNode.Equals(begin))
@@ -165,14 +236,12 @@ namespace AStarPathfinding
                 if (_placePathDebugMarkers)
                     CreateDebugMarker(_truePMark, new Vector2Int(begin.location.x, begin.location.y));
 
-                truePath.Add(begin);
+                _truePath.Add(begin);
                 begin = begin.parent;
             }
-
-            return truePath;
         }
 
-        private static bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)
+        private bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)
         {
             foreach (PathMarker p in _open)
             {
@@ -189,26 +258,109 @@ namespace AStarPathfinding
         }
 
         // Create debug marker
-        private static void CreateDebugMarker(GameObject marker, Vector2Int pos)
+        private void CreateDebugMarker(GameObject marker, Vector2Int pos)
         {
-            GameObject markerGO = GameObject.Instantiate(marker, Vector3.zero, Quaternion.identity, _debugMarkerParent);
+            GameObject markerGO = Instantiate(marker, Vector3.zero, Quaternion.identity, _debugMarkerParent);
             markerGO.transform.localPosition = ConvertToIsometricFromGrid(pos);
         }
 
         //Removes all debug marker gameobjects
-        private static void RemoveAllMarkers()
+        private void RemoveAllMarkers()
         {
             if (_debugMarkerParent == null) return;
 
             for (int i = _debugMarkerParent.childCount - 1; i >= 0; i--)
-                GameObject.Destroy(_debugMarkerParent.GetChild(i).gameObject);
+                Destroy(_debugMarkerParent.GetChild(i).gameObject);
         }
 
-        public static bool IsClosed(MapLocation marker)
+        private bool IsClosed(MapLocation marker)
         {
             foreach (PathMarker p in _closed)
                 if (p.location.Equals(marker)) return true;
             return false;
+        }
+        //
+        private Action _onMoveFinish;
+        //
+        private IEnumerator MoveCoro(Action onFinished = null)
+        {
+            // bandaid fix
+            _onMoveFinish = onFinished;
+            //
+
+            if (_truePath.Count == 0 || _truePath == null) yield break;
+
+            _isMoving = true;
+
+            //Convert unit local position to grid position
+            Vector2Int prev = ConvertToGridFromIsometric(_unit.transform.localPosition);
+
+            _dirAnimator?.SetMoving(true);
+
+            for (int i = _truePath.Count - 1; i >= 0; i--)
+            {
+                //Debug.Log($"truepath count: {_truePath.Count}, index: {i}");
+                if (!_isKnockback)
+                {
+                    if (!_unit.CanSpend(1) || !_truePath[i].isReachable)
+                        break;
+                }
+                if (!_unit.GetCanMove)
+                {
+                    _dirAnimator?.SetMoving(false);
+                    break;
+                }
+
+                Vector2Int next = new Vector2Int(_truePath[i].location.x, _truePath[i].location.y);
+
+                // Anim direction set
+                Vector2Int delta = next - prev;
+
+                _dirAnimator?.SetDirectionFromDelta(_isKnockback ? -delta : delta);
+
+                Vector3 startPos = _unit.transform.localPosition;
+                Vector3 endPos = ConvertToIsometricFromGrid(next);
+
+                float elapsed = 0f;
+                while (elapsed < _unitMoveSpeed)
+                {
+                    // If the game is paused, just wait here without progressing the move
+                    if (PauseMenu.isPaused)
+                    {
+                        yield return null;
+                        continue;
+                    }
+
+                    elapsed += Time.unscaledDeltaTime;
+                    float t = Mathf.Clamp01(elapsed / _unitMoveSpeed);
+                    _unit.transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+                    yield return null;
+                }
+
+                if (!_isKnockback)
+                {
+                    _unit.SpendAP(_moveCostPerTile);
+                    GameUIManager.instance.UpdateApText();
+                }
+
+                ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, prev, next);
+
+                // tile enter event for trap check (make this better?)
+                PrevPosOnMove = prev;
+                ByteMapController.TileEntered?.Invoke(next, _unit);
+
+                prev = next;
+            }
+
+            _dirAnimator?.SetMoving(false);
+            _isMoving = false;
+
+            // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
+            onFinished?.Invoke();
+            
+            // rebuild highlights for player right after movement is fully done
+            //if (_unit.GetTeam == Team.Friendly)
+                //MovementRangeCalculator.Instance.RebuildForCurrentUnit();
         }
     }
 }

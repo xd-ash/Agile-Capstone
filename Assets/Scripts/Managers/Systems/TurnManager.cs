@@ -42,18 +42,12 @@ public class TurnManager : MonoBehaviour
     {
         //if (PlayerDataManager.Instance == null)
            // Instantiate(Resources.Load<GameObject>("SaveDataManager"));
-        //_unitTurnOrder = GrabUnits();
-
-        //OnGameStart?.Invoke();
-        //SetTurn();
-    }
-    public void LateStartInits()
-    {
         _unitTurnOrder = GrabUnits();
 
         OnGameStart?.Invoke();
         SetTurn();
     }
+
     private List<Unit> GrabUnits()
     {
         var unsortedList = FindObjectsByType<Unit>(sortMode: FindObjectsSortMode.None).ToList<Unit>();
@@ -122,7 +116,7 @@ public class TurnManager : MonoBehaviour
     public void EndPlayerTurn()
     {
         if (CurrTurn != Turn.Player) return; // avoid turn end spam
-        if (_curUnit != null && _curUnit.TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving) return; //avoid turn end before movement is complete
+        if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; //avoid turn end before movement is complete
 
         AudioManager.Instance?.PlayButtonSFX();
 

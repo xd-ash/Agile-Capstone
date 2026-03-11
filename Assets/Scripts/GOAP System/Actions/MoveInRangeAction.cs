@@ -1,27 +1,25 @@
 using AStarPathfinding;
-using CardSystem;
-using UnityEngine;
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
 
 public class MoveInRangeAction : GoapAction
 {
-    private UnitMovementController _unitMover;
+    private FindPathAStar aStar;
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (beliefs.states.ContainsKey(GoapStates.InRange.ToString())) return false;
+        if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString())) return false;
 
-        _unitMover = agent.GetComponent<UnitMovementController>();
-        Unit unit = agent.unit;
-        int dmgAbilRange = agent.damageAbility.GetRange;
+        aStar = _agent.GetComponent<FindPathAStar>();
+        Unit unit = _agent.unit;
+        int dmgAbilRange = _agent.damageAbility.GetRange;
 
-        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
-        var tempPath = _unitMover.CalculatePath(tarPos);
+        var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
+        var tempPath = aStar.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
         //Debug.Log($"tarPos: {tarPos} | distancetoTar: {distanceToTar}");
 
-        if (agent.damageAbility == null)
+        if (_agent.damageAbility == null)
             return false;
 
         //return true if unit cannot get into ability range and calc path to closest tile
@@ -31,15 +29,15 @@ public class MoveInRangeAction : GoapAction
         int inRangeTileIndex = dmgAbilRange;
 
         // calc new path to tile just within ability range
-        _unitMover.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
+        aStar.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
 
         return true;
     }
     public override void Perform()
     {
-        _unitMover.OnStartUnitMove(() =>
+        aStar.OnStartUnitMove(() =>
         {
-            agent.CompleteAction();
+            _agent.CompleteAction();
         });
     }
 
@@ -48,6 +46,6 @@ public class MoveInRangeAction : GoapAction
         beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
         beliefs.RemoveState(GoapStates.OutOfRange.ToString());
 
-        CheckIfInLOS(agent, ref beliefs);
+        CheckIfInLOS(_agent, ref beliefs);
     }
 }

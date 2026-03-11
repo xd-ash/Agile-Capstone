@@ -18,7 +18,7 @@ public class CardAndDeckLibrary : ScriptableObject
     public Deck GetShopPool => _shopPool;
 
     public static Action GrabAssets;
-     
+
     public void AddDeckToLibrary(Deck deck)
     {
         if (deck == null) return;
