@@ -22,7 +22,6 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1f; // IMPORTANT: reset global timeScale on scene load
-
     }
     private void OnEnable()
     {
@@ -111,7 +110,6 @@ public class PauseMenu : MonoBehaviour
         if (TransitionScene.Instance.GetCurrentScene != "MainMenu")
             _pauseMenuPanel.SetActive(true);
     }
-
 
     private void OnMasterChanged(float value)
     {

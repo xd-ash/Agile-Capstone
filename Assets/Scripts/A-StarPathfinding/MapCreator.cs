@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static IsoMetricConversions;
 using WFC;
-using System.Linq;
-using System;
+using static IsoMetricConversions;
+using static UnityEditor.PlayerSettings;
 
 public class MapLocation
 {
@@ -70,16 +71,20 @@ public class MapCreator : MonoBehaviour
             return null;
         }
 
-        UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
-        int rngMap = UnityEngine.Random.Range(0, _tilemapSOLibrary.GetSOsInProject.Count);
-        var so = _tilemapSOLibrary.GetSOsInProject[rngMap];
-        
+        var so = PlayerDataManager.Instance.GetCurrMapNodeData.selectedMap;
+        if (so == null)
+        {
+            Debug.LogError("SO is null");
+            return null;
+        }
         var tilemap = SetUpTileMapPrefab(so);
         TileBase[,] tileBaseMap = so.GenerateTileBaseMap(_mapSize);
 
         tilemap.CompressBounds();
 
-        var emptyTilePositions = new List<Vector2Int>();
+        var playerSpawnPositions = new List<Vector2Int>();
+        var enemySpawnPositions = new List<Vector2Int>();
+        var emptyPositions = new List<Vector2Int>();
         var map = new byte[_mapSize.x, _mapSize.y];
 
         for (int x = 0; x < map.GetLength(0); x++)
@@ -94,13 +99,27 @@ public class MapCreator : MonoBehaviour
                 else
                     map[x, y] = (byte)_tileLibrary.GetIndicatorFromName(tile.name);
 
-                if (map[x, y] != 2 && map[x, y] != 5)
-                    emptyTilePositions.Add(gridPos);
+                if (map[x, y] == 1)
+                    playerSpawnPositions.Add(gridPos);
+                else if (map[x, y] == 3)
+                    enemySpawnPositions.Add(gridPos);
+                else if (map[x, y] == 0)
+                    emptyPositions.Add(gridPos);
             }
         }
 
-        GenerateUnitPositions(map, emptyTilePositions);
+        int players = PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
+        int enemies = PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+
+        //check if tilemap prefab had enough spawners for the number of units and sidestep tilebase system if failed
+        if (playerSpawnPositions.Count < players)
+            SidestepUnitSpawnerTileBasesOnFail(ref map, players, playerSpawnPositions, emptyPositions, 1);
+        if (enemySpawnPositions.Count < enemies)
+            SidestepUnitSpawnerTileBasesOnFail(ref map, enemies, enemySpawnPositions, emptyPositions, 3);
         
+        GenerateUnitPositions(ref map, players, playerSpawnPositions);
+        GenerateUnitPositions(ref map, enemies, enemySpawnPositions);
+
         for (int x = 0; x < map.GetLength(0); x++)
         {
             for (int y = 0; y < map.GetLength(1); y++)
@@ -114,8 +133,14 @@ public class MapCreator : MonoBehaviour
 
         return map;
     }
+
     private Tilemap SetUpTileMapPrefab(CustomTileMapSO so)
     {
+        if (so == null)
+        {
+            Debug.LogError("TileMap SO null");
+            return null;
+        }
         var gridPrefab = Instantiate<GameObject>(so.GetMainTileMap, transform);
 
         var tilemap = gridPrefab.GetComponentInChildren<Tilemap>();
@@ -131,13 +156,19 @@ public class MapCreator : MonoBehaviour
     }
     private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {
-        if (byteIndicator != 3 && byteIndicator != 4 && byteIndicator != 1) return; //quick fix for WFC removal. Only spawn units
+        if (byteIndicator != 3 && byteIndicator != 1) return; //quick fix for WFC removal. Only spawn units
 
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
-        GameObject objToSpawn = _tileLibrary.GetGOFromIndicator(byteIndicator);
+        GameObject[] objs = _tileLibrary.GetGOFromIndicator(byteIndicator);
+        GameObject objToSpawn = objs[0];
 
-        if (byteIndicator == 4)
-            map[mapPos.x, mapPos.y] = 3; // after range enemy spawned, swap byte back to general enemy value
+        //grab random prefab from array if length > 1 (replace with proper enemy determination system)
+        if (objs.Length > 1)
+        {
+            UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed - int.Parse($"{mapPos.x}{mapPos.y}"));
+            int rng = UnityEngine.Random.Range(0, objs.Length);
+            objToSpawn = objs[rng];
+        }
 
         if (objToSpawn == null)
         {
@@ -146,36 +177,53 @@ public class MapCreator : MonoBehaviour
             return;
         }
 
-        // z pos adjusted with y value to allow for easy layering of sprites (.01f holds no signifigance, just to make it small)
-        //Vector3 adjustedPos = new Vector3(truePos.x, truePos.y, truePos.y * 0.01f);
-
         GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
         newObj.transform.localPosition = truePos;
 
         if (newObj.TryGetComponent(out Unit unit))
             ByteMapController.Instance.InitUnitPosition(unit, mapPos);
     }
-    private void GenerateUnitPositions(byte[,] map, List<Vector2Int> emptyPositions)
+    private void GenerateUnitPositions(ref byte[,] map, int numUnits, List<Vector2Int> unitSpawnPoints)
     {
-        int players = PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
-        int enemies = PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+        List<Vector2Int> selectedUnitSpawns = new();
 
-        int[] selectedPositionIndexes = new int[players + enemies];
-
-        for (int i = 0; i < players + enemies; i++)
+        for (int i = 0; i < numUnits; i++)
         {
             int index = -1;
+            Vector2Int pos;
             do
             {
-                index = UnityEngine.Random.Range(0, emptyPositions.Count);
-            } while (selectedPositionIndexes.Contains(index));
-            selectedPositionIndexes[i] = index;
-            var pos = emptyPositions[index];
-
-            if (i < players)
-                map[pos.x, pos.y] = 1;
-            else
-                map[pos.x, pos.y] = (byte)UnityEngine.Random.Range(3, 5); // randomly choose enemy type (3 or 4) on enemy spawn
+                index = UnityEngine.Random.Range(0, unitSpawnPoints.Count);
+                pos = unitSpawnPoints[index];
+            } while (selectedUnitSpawns.Contains(pos));
+            selectedUnitSpawns.Add(pos);
         }
+
+        //reset non-selected spawn positions to empty tile/byte indicators
+        for (int i = 0; i < unitSpawnPoints.Count; i++)
+        {
+            var gridPos = unitSpawnPoints[i];
+            if (selectedUnitSpawns.Contains(gridPos)) continue; //ignore selected spawn positions
+            map[gridPos.x, gridPos.y] = 0;
+        }
+    }
+    private void SidestepUnitSpawnerTileBasesOnFail(ref byte[,] map, int numUnits, List<Vector2Int> unitPositions, List<Vector2Int> emptyPositions, int unitIndicator)
+    {
+        int diff = numUnits - unitPositions.Count;
+        for (int i = 0; i < diff; i++)
+        {
+            Vector2Int tempPos;
+            do
+            {
+                UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
+                var rng = UnityEngine.Random.Range(0, emptyPositions.Count);
+                tempPos = emptyPositions[rng];
+            } while (unitPositions.Contains(tempPos));
+            unitPositions.Add(tempPos);
+            emptyPositions.Remove(tempPos);
+            map[tempPos.x, tempPos.y] = (byte)unitIndicator;
+        }
+        Debug.LogWarning("Unit spawner system failed. Likely due to \"byte\" tilemap containing less \"spawner\" tilebases than required units for this node. " +
+            "\n(Generally need at least 1 player spawn and at least 3 enemy spawns per map prefab)");
     }
 }

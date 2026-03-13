@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BountyBoardNode : NodeMapNode
+public class BountyBoardNode : NodeMapNode, IUseCombatMapData
 {
     [SerializeField] private BountySelectPanelScript _bountySelectPanel;
     [SerializeField] private List<CombatMapData> _combatData = new();
@@ -11,17 +11,31 @@ public class BountyBoardNode : NodeMapNode
         base.InitNode(index, prev, next);
 
         _bountySelectPanel = FindFirstObjectByType<BountySelectPanelScript>(FindObjectsInactive.Include);
-
-        Random.InitState(PlayerDataManager.Instance.GetNodeMapSeed);
-        int numBounties = Random.Range(2, 4);
-        _combatData.Clear();
-        for (int i = 0; i < numBounties; i++)
-            _combatData.Add(new CombatMapData() { maxEnemiesAllowed = Random.Range(1, 4), maxPlayersAllowed = 1 });
     }
 
     public override void OnClick()
     {
         _bountySelectPanel?.gameObject.SetActive(true);
         _bountySelectPanel?.InitBountyBoard(_combatData.ToArray(), _nodeIndex);
+    }
+
+    public void SetCombatData(CustomTileMapSO[] mapPool)
+    {
+        //filter map pool by type?
+        Random.InitState(PlayerDataManager.Instance.GetNodeMapSeed);
+        int numBounties = Random.Range(2, 4);
+        _combatData.Clear();
+        for (int i = 0; i < numBounties; i++)
+        {
+            Random.InitState(PlayerDataManager.Instance.GetGeneralSeed + i);
+            int rngMap = Random.Range(0, mapPool.Length);
+            var so = mapPool[rngMap];
+            if (so == null)
+            {
+                Debug.LogError("tileMap SO Null");
+                return;
+            }
+            _combatData.Add(new CombatMapData() { maxEnemiesAllowed = Random.Range(1, 4), maxPlayersAllowed = 1, selectedMap = so });
+        }
     }
 }
