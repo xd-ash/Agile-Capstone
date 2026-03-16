@@ -36,7 +36,7 @@ public class CombatNode : NodeMapNode, IUseCombatMapData
                 so = library.GetTileMapSOsFromType(CombatMapType.Tutorial)[0]; //change to be random if multiple?
             }
 
-            _combatData = new CombatMapData { maxEnemiesAllowed = 3, maxPlayersAllowed = 1, selectedMap = so };
+            _combatData = new CombatMapData { maxEnemiesAllowed = 1, maxPlayersAllowed = 1, selectedMap = so };
         }
         else
         {
