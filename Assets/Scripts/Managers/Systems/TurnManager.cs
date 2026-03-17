@@ -50,7 +50,7 @@ public class TurnManager : MonoBehaviour
 
     private List<Unit> GrabUnits()
     {
-        var unsortedList = FindObjectsByType<Unit>(sortMode: FindObjectsSortMode.None).ToList<Unit>();
+        var unsortedList = FindObjectsByType<Unit>(sortMode: FindObjectsSortMode.None).ToList();
         var sortedList = new List<Unit>();
 
         for (int i = 0; i < unsortedList.Count; i++)

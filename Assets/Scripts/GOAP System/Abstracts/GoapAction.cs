@@ -11,8 +11,8 @@ public abstract class GoapAction
     [SerializeField] protected bool _isRunning = false; //is performing action currently
     protected GoapAgent _agent;
 
-    protected Dictionary<string, int> _preConditions = new();
-    protected Dictionary<string, int> _postConditions = new();
+    protected Dictionary<string, float> _preConditions = new();
+    protected Dictionary<string, float> _postConditions = new();
 
     [SerializeField] protected GoapStates _preConditionsFlags;
     [SerializeField] protected GoapStates _postConditionsFlags;
@@ -20,8 +20,8 @@ public abstract class GoapAction
 
     public float GetCost => _cost;
     public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
-    public Dictionary<string, int> GetPreConditions => _preConditions;
-    public Dictionary<string, int> GetPostConditions => _postConditions;
+    public Dictionary<string, float> GetPreConditions => _preConditions;
+    public Dictionary<string, float> GetPostConditions => _postConditions;
 
     public GoapAction()
     {
@@ -55,7 +55,7 @@ public abstract class GoapAction
         ManipulateConditionsLists(tempPostCond, tempPostToString, ref _postConditions);
     }
 
-    protected void ManipulateConditionsLists(List<WorldState> stateList, List<string> stringList, ref Dictionary<string, int> conditions)
+    protected void ManipulateConditionsLists(List<WorldState> stateList, List<string> stringList, ref Dictionary<string, float> conditions)
     {
         if (conditions == null) conditions = new();
 
@@ -97,7 +97,7 @@ public abstract class GoapAction
     {
         return true;
     }
-    public bool IsAchievableGiven(Dictionary<string, int> conditions)
+    public bool IsAchievableGiven(Dictionary<string, float> conditions)
     {
         /*/
         string debugmessagfe = "";
@@ -110,7 +110,7 @@ public abstract class GoapAction
         Debug.Log($"preconds: " + debugqweqwmessagfe);
         /*/
 
-        foreach (KeyValuePair<string, int> kvp in _preConditions)
+        foreach (KeyValuePair<string, float> kvp in _preConditions)
             if (!conditions.ContainsKey(kvp.Key))
                 return false;
         return true;

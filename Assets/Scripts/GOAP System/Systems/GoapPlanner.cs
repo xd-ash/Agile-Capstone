@@ -5,22 +5,22 @@ public class GOAPNode
 {
     public GOAPNode parent;
     public float cost;
-    public Dictionary<string, int> state;
+    public Dictionary<string, float> state;
     public GoapAction action;
 
-    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, int> allStates, GoapAction action)
+    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, float> allStates, GoapAction action)
     {
         this.parent = parent;
         this.cost = cost;
-        this.state = new Dictionary<string, int>(allStates);
+        this.state = new Dictionary<string, float>(allStates);
         this.action = action;
     }
-    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, int> allStates, Dictionary<string, int> beliefStates, GoapAction action)
+    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, float> allStates, Dictionary<string, float> beliefStates, GoapAction action)
     {
         this.parent = parent;
         this.cost = cost;
-        this.state = new Dictionary<string, int>(allStates);
-        foreach(KeyValuePair<string, int> b in beliefStates)
+        this.state = new Dictionary<string, float>(allStates);
+        foreach(KeyValuePair<string, float> b in beliefStates)
             if(!this.state.ContainsKey(b.Key))
                 this.state.Add(b.Key, b.Value);
         this.action = action;
@@ -37,7 +37,7 @@ public class GoapPlanner
     private GoapAgent _agent;
     //
 
-    public Queue<GoapAction> Plan(List<GoapAction> actions, Dictionary<string,int> goal, WorldStates beliefStates)
+    public Queue<GoapAction> Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
     {
         List<GoapAction> usableActions = new List<GoapAction>();
         foreach (GoapAction a in actions)
@@ -109,39 +109,38 @@ public class GoapPlanner
     }
 
     //recursive method for node graph building
-    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, int> goal)
+    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, float> goal)
     {
         bool foundPath = false;
         foreach (GoapAction action in usableActions)
         {
-            if (action.IsAchievableGiven(parent.state))
+            if (!action.IsAchievableGiven(parent.state)) continue;
+            
+            Dictionary<string, float> currentState = new Dictionary<string, float>(parent.state);
+
+            foreach (KeyValuePair<string, float> eff in action.GetPostConditions)
+                if (!currentState.ContainsKey(eff.Key))
+                    currentState.Add(eff.Key, eff.Value);
+
+            // No belief param needed as worldstates are concatenated in
+            GOAPNode node = new GOAPNode(parent, parent.cost + action.GetCost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
+            if(GoalAchieved(goal, currentState))
             {
-                Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
-
-                foreach (KeyValuePair<string, int> eff in action.GetPostConditions)
-                    if (!currentState.ContainsKey(eff.Key))
-                        currentState.Add(eff.Key, eff.Value);
-
-                // No belief param needed as worldstates are concatenated in
-                GOAPNode node = new GOAPNode(parent, parent.cost + action.GetCost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
-                if(GoalAchieved(goal, currentState))
-                {
-                    leaves.Add(node);
-                    foundPath = true;
-                }
-                else
-                {
-                    List<GoapAction> subset = ActionSubset(usableActions, action);
-                    foundPath = BuildGraph(node, leaves, subset, goal); // at this point build graph from subset. On success, bool follows stack back to first call
-                }
+                leaves.Add(node);
+                foundPath = true;
+            }
+            else
+            {
+                List<GoapAction> subset = ActionSubset(usableActions, action);
+                foundPath = BuildGraph(node, leaves, subset, goal); // at this point build graph from subset. On success, bool follows stack back to first call
             }
         }
 
         return foundPath;
     }
-    private bool GoalAchieved(Dictionary<string, int> goal, Dictionary<string, int> state)
+    private bool GoalAchieved(Dictionary<string, float> goal, Dictionary<string, float> state)
     {
-        foreach (KeyValuePair<string, int> g in goal)
+        foreach (KeyValuePair<string, float> g in goal)
             if (!state.ContainsKey(g.Key))
                 return false;
 

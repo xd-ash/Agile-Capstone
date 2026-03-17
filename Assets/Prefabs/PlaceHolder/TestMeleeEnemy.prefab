@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 2517929088927519564}
   - component: {fileID: 5296086126415365323}
   - component: {fileID: 5945599773227783589}
+  - component: {fileID: 7353482559713829540}
   - component: {fileID: 2725796073088159668}
   - component: {fileID: 8401737389858039758}
   - component: {fileID: 355945360564793161}
@@ -423,100 +424,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d0cde7cf413194195d7b661b976dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAbility: {fileID: 11400000, guid: 4fcf9b60a10d99d44814b30619840312, type: 2}
-  healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
+  _agentSO: {fileID: 11400000, guid: 862325fc6b536a344ae6217164532238, type: 2}
   healCharges: 2
-  _goapActionsEnum: 126
-  _actions:
-  - rid: 1434491564777275483
-  - rid: 1434491564777275482
-  - rid: 1434491564777275484
-  - rid: 1434491564777275479
-  - rid: 1434491564777275481
-  - rid: 1434491564777275480
-  _goalsEnum: 22
-  _goals:
-  - rid: 6877345428311900233
-  - rid: 6877345428311900234
-  - rid: 6877345429268987975
   _actionDelayTime: 1
   unit: {fileID: 2517929088927519564}
   showDebugMessages: 1
-  references:
-    version: 2
-    RefIds:
-    - rid: 1434491564777275479
-      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: MoveIntoLOSAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 3106
-        _postConditionsFlags: 516
-        _goalsFlags: 0
-    - rid: 1434491564777275480
-      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: EndTurnAction
-        _cost: 0
-        _isRunning: 0
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 16
-    - rid: 1434491564777275481
-      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: ChooseTargetAction
-        _cost: 0
-        _isRunning: 0
-        _preConditionsFlags: 4098
-        _postConditionsFlags: 2048
-        _goalsFlags: 0
-    - rid: 1434491564777275482
-      type: {class: HealAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: HealAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 274
-        _postConditionsFlags: 4
-        _goalsFlags: 4
-    - rid: 1434491564777275483
-      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: AttackAction
-        _cost: 2
-        _isRunning: 0
-        _preConditionsFlags: 2722
-        _postConditionsFlags: 68
-        _goalsFlags: 2
-    - rid: 1434491564777275484
-      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: MoveInRangeAction
-        _cost: 1
-        _isRunning: 0
-        _preConditionsFlags: 2114
-        _postConditionsFlags: 32
-        _goalsFlags: 0
-    - rid: 6877345428311900233
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: KillPlayer
-        value: 1
-        removeOnComplete: 0
-    - rid: 6877345428311900234
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: StayAlive
-        value: 2
-        removeOnComplete: 0
-    - rid: 6877345429268987975
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: EndTurn
-        value: 0
-        removeOnComplete: 0
+--- !u!114 &7353482559713829540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893557019395072273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c793f82fdbf40884aabd60638d3957e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentHueristics
 --- !u!114 &2725796073088159668
 MonoBehaviour:
   m_ObjectHideFlags: 0

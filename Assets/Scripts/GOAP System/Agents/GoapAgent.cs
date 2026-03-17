@@ -10,11 +10,11 @@ using CardSystem;
 public class Goal
 {
     [SerializeField, HideInInspector] public string key = "";
-    public int value = 0;
+    public float value = 0;
     public bool removeOnComplete = false; //removes goal once completed
-    public Dictionary<string, int> GetGoal => new Dictionary<string, int>() { { key, value } };
+    public Dictionary<string, float> GetGoal => new Dictionary<string, float>() { { key, value } };
 
-    public Goal(string s, int i, bool r)
+    public Goal(string s, float i, bool r)
     {
         key = s;
         value = i;
@@ -29,13 +29,13 @@ public class GoapAgent : MonoBehaviour
 
     public int healCharges = 3;
 
-    private List<GoapAction> _actions = new();
+    [SerializeReference] private List<GoapAction> _actions = new();
     private GoapAction _currentAction;
     private Queue<GoapAction> _actionQueue;
 
-    private List<Goal> _goals = new();
+    [SerializeField] private List<Goal> _goals = new();
 
-    private Dictionary<Goal, int> _weightedGoalsDict = new();
+    private Dictionary<Goal, float> _weightedGoalsDict = new();
     private Goal _currentGoal;
 
     [SerializeField] private float _actionDelayTime = 1.5f;
@@ -67,11 +67,18 @@ public class GoapAgent : MonoBehaviour
 
         _actions = new(_agentSO.GetActions);
         foreach (var a in _actions)
+        {
             a.SetAgent(this);
+            a.GrabConditionsFromEnums();
+        }
         _goals = new(_agentSO.GetGoals);
         healCharges = _agentSO.GetTotalHealCharges;
 
-        ResetStates();
+        TurnManager.OnGameStart += ResetStates;
+    }
+    private void OnDestroy()
+    {
+        TurnManager.OnGameStart -= ResetStates;
     }
     void LateUpdate()
     {
@@ -88,7 +95,7 @@ public class GoapAgent : MonoBehaviour
                               select entry;
 
             //pick highest prio goal to plan for first
-            foreach (KeyValuePair<Goal, int> g in sortedGoals)
+            foreach (KeyValuePair<Goal, float> g in sortedGoals)
             {
                 _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
                 if (_actionQueue != null)
@@ -151,16 +158,17 @@ public class GoapAgent : MonoBehaviour
 
     public void ResetStates()
     {
-        var agentDesires = _agentHeuristics.GetAgentDesires();
+        //var agentDesires = _agentHeuristics.GetAgentDesires();
 
         _weightedGoalsDict = new();
         string tempDebug = "weighted dict goals: ";
         // goal dict reset and creation from list in inspector
         foreach (var g in _goals)
         {
-            var tempVal = (float)g.value;
-            if (agentDesires.ContainsKey(g.key))
-                tempVal = agentDesires[g.key];
+            var tempVal = g.value;
+            //if (agentDesires.ContainsKey(g.key))
+                //tempVal = agentDesires[g.key];
+
             _weightedGoalsDict.Add(g, tempVal);
             tempDebug += g.key + ", ";
         }

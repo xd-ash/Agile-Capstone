@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
+  m_Name: MeleeEnemyTest 1
+  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
+  _damageAbility: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
+  _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
+  _totalHealCharges: 0
+  _goalsEnum: 22
+  _goals:
+  - rid: 6877345560813109319
+  - rid: 6877345560813109320
+  - rid: 6877345560813109321
+  _goapActionsEnum: 246
+  _actions:
+  - rid: 6877345560813109323
+  - rid: 6877345560813109325
+  - rid: 6877345560813109322
+  - rid: 6877345560813109326
+  - rid: 6877345560813109327
+  - rid: 6877345560813109328
+  _agentHealthWeight: 0.4
+  _enemyDistanceWeight: 0.2
+  _enemyHealthWeight: 0.4
+  _allyHealthWeight: 0
+  _allyDistanceWeght: 0
+  _selfPreservationWeight: 0.4
+  _aggressionWeight: 0.6
+  _altruismWeight: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877345560813109319
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KillPlayer
+        value: 0
+        removeOnComplete: 1
+    - rid: 6877345560813109320
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAlive
+        value: 0
+        removeOnComplete: 1
+    - rid: 6877345560813109321
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 0
+        removeOnComplete: 0
+    - rid: 6877345560813109322
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveInRangeAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 2114
+        _postConditionsFlags: 32
+        _goalsFlags: 0
+    - rid: 6877345560813109323
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: AttackAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 2722
+        _postConditionsFlags: 4
+        _goalsFlags: 2
+    - rid: 6877345560813109325
+      type: {class: HideAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HideAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 2066
+        _postConditionsFlags: 1024
+        _goalsFlags: 4
+    - rid: 6877345560813109326
+      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveIntoLOSAction
+        _cost: 1
+        _isRunning: 0
+        _preConditionsFlags: 3074
+        _postConditionsFlags: 512
+        _goalsFlags: 0
+    - rid: 6877345560813109327
+      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: EndTurnAction
+        _cost: 0
+        _isRunning: 0
+        _preConditionsFlags: 4
+        _postConditionsFlags: 0
+        _goalsFlags: 16
+    - rid: 6877345560813109328
+      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: ChooseTargetAction
+        _cost: 0
+        _isRunning: 0
+        _preConditionsFlags: 4098
+        _postConditionsFlags: 2048
+        _goalsFlags: 0

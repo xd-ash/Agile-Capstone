@@ -6,27 +6,27 @@ using System.Collections.Generic;
 public class WorldState
 {
     public string key;
-    public int value;
+    public float value;
 }
 
 public class WorldStates
 {
-    private Dictionary<string, int> _states;
-    public Dictionary<string, int> GetStates => _states;
+    private Dictionary<string, float> _states;
+    public Dictionary<string, float> GetStates => _states;
 
     public WorldStates()
     {
-        _states = new Dictionary<string, int>();
+        _states = new Dictionary<string, float>();
     }
     public bool HasState(string key)
     {
         return _states.ContainsKey(key);
     }
-    void AddState(string key, int value)
+    void AddState(string key, float value)
     {
         _states.Add(key, value);
     }
-    public void ModifyState(string key, int value)
+    public void ModifyState(string key, float value)
     {
         if (_states.ContainsKey(key))
         {
@@ -42,7 +42,7 @@ public class WorldStates
         if (_states.ContainsKey(key))
             _states.Remove(key);
     }
-    public void SetState(string key, int value)
+    public void SetState(string key, float value)
     {
         if (_states.ContainsKey(key))
             _states[key] = value;
