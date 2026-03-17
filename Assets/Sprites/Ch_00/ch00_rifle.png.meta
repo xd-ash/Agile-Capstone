@@ -1,0 +1,3926 @@
+fileFormatVersion: 2
+guid: 0a732dd1ef486134dbe497dbf34ffa8b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3755614145609385517
+    second: ch00_rifle_0
+  - first:
+      213: -4137461148904287557
+    second: ch00_rifle_1
+  - first:
+      213: -6859183108040650692
+    second: ch00_rifle_2
+  - first:
+      213: -44217390695860300
+    second: ch00_rifle_3
+  - first:
+      213: -2089047628104413843
+    second: ch00_rifle_4
+  - first:
+      213: 4600988974716464071
+    second: ch00_rifle_5
+  - first:
+      213: 7395048462389639434
+    second: ch00_rifle_6
+  - first:
+      213: -3639590881350741697
+    second: ch00_rifle_7
+  - first:
+      213: 3015635361400523597
+    second: ch00_rifle_8
+  - first:
+      213: 3996705429957470352
+    second: ch00_rifle_9
+  - first:
+      213: 7158132241873941520
+    second: ch00_rifle_10
+  - first:
+      213: 4436617384072867176
+    second: ch00_rifle_11
+  - first:
+      213: 1251443223513569897
+    second: ch00_rifle_12
+  - first:
+      213: -4742353697650336686
+    second: ch00_rifle_13
+  - first:
+      213: -5421744816030719630
+    second: ch00_rifle_14
+  - first:
+      213: -6656792790461424746
+    second: ch00_rifle_15
+  - first:
+      213: -7345241234979842234
+    second: ch00_rifle_16
+  - first:
+      213: -4718804187306547271
+    second: ch00_rifle_17
+  - first:
+      213: -6246472546605561921
+    second: ch00_rifle_18
+  - first:
+      213: 5519178815935475171
+    second: ch00_rifle_19
+  - first:
+      213: -3754139828152855450
+    second: ch00_rifle_20
+  - first:
+      213: -2366475432368088849
+    second: ch00_rifle_21
+  - first:
+      213: 4382543229828465145
+    second: ch00_rifle_22
+  - first:
+      213: 1316630829789138874
+    second: ch00_rifle_23
+  - first:
+      213: 6083274577000214718
+    second: ch00_rifle_24
+  - first:
+      213: 7629635285190274661
+    second: ch00_rifle_25
+  - first:
+      213: 3892934349781531812
+    second: ch00_rifle_26
+  - first:
+      213: 747486950704002106
+    second: ch00_rifle_27
+  - first:
+      213: 6271793841480885898
+    second: ch00_rifle_28
+  - first:
+      213: -5694934359081740356
+    second: ch00_rifle_29
+  - first:
+      213: 734387071270156278
+    second: ch00_rifle_30
+  - first:
+      213: -1604493089674222033
+    second: ch00_rifle_31
+  - first:
+      213: 5324561910881727361
+    second: ch00_rifle_32
+  - first:
+      213: 2317968421009567737
+    second: ch00_rifle_33
+  - first:
+      213: -4227574356666223814
+    second: ch00_rifle_34
+  - first:
+      213: 6459301861631662451
+    second: ch00_rifle_35
+  - first:
+      213: 2326820424000275023
+    second: ch00_rifle_36
+  - first:
+      213: -658575626887787111
+    second: ch00_rifle_37
+  - first:
+      213: 552224531840195151
+    second: ch00_rifle_38
+  - first:
+      213: 894607734151483641
+    second: ch00_rifle_39
+  - first:
+      213: -2185779563897006557
+    second: ch00_rifle_40
+  - first:
+      213: 8457007990022073613
+    second: ch00_rifle_41
+  - first:
+      213: -242068197333068627
+    second: ch00_rifle_42
+  - first:
+      213: 754355999106552994
+    second: ch00_rifle_43
+  - first:
+      213: -1991046465712298319
+    second: ch00_rifle_44
+  - first:
+      213: -3099993819109318449
+    second: ch00_rifle_45
+  - first:
+      213: 1900629000606572345
+    second: ch00_rifle_46
+  - first:
+      213: 4791257020893105306
+    second: ch00_rifle_47
+  - first:
+      213: 666910562535672270
+    second: ch00_rifle_48
+  - first:
+      213: 92350540412573318
+    second: ch00_rifle_49
+  - first:
+      213: -5437700195190159536
+    second: ch00_rifle_50
+  - first:
+      213: -511610859164761049
+    second: ch00_rifle_51
+  - first:
+      213: -3462943600728112047
+    second: ch00_rifle_52
+  - first:
+      213: 1768759332998769991
+    second: ch00_rifle_53
+  - first:
+      213: -235018195598943249
+    second: ch00_rifle_54
+  - first:
+      213: 9141216744676824924
+    second: ch00_rifle_55
+  - first:
+      213: -2540228023226671134
+    second: ch00_rifle_56
+  - first:
+      213: -6221317137504752261
+    second: ch00_rifle_57
+  - first:
+      213: 2781427661634815705
+    second: ch00_rifle_58
+  - first:
+      213: 6559503804874138900
+    second: ch00_rifle_59
+  - first:
+      213: 3528846628470495789
+    second: ch00_rifle_60
+  - first:
+      213: -3966513867108367935
+    second: ch00_rifle_61
+  - first:
+      213: 6518097513931802387
+    second: ch00_rifle_62
+  - first:
+      213: 2107199582761723604
+    second: ch00_rifle_63
+  - first:
+      213: 6266301666208021493
+    second: ch00_rifle_64
+  - first:
+      213: 3642651678631308027
+    second: ch00_rifle_65
+  - first:
+      213: -8394703807415841206
+    second: ch00_rifle_66
+  - first:
+      213: 6931674330981125506
+    second: ch00_rifle_67
+  - first:
+      213: -1452227566018199639
+    second: ch00_rifle_68
+  - first:
+      213: -1105823048942341087
+    second: ch00_rifle_69
+  - first:
+      213: 2374289684090535962
+    second: ch00_rifle_70
+  - first:
+      213: -6127339446360175698
+    second: ch00_rifle_71
+  - first:
+      213: -8200477614134971675
+    second: ch00_rifle_72
+  - first:
+      213: -1566331407269039354
+    second: ch00_rifle_73
+  - first:
+      213: 6296551227974884923
+    second: ch00_rifle_74
+  - first:
+      213: -287718869660736284
+    second: ch00_rifle_75
+  - first:
+      213: 4725271606671732592
+    second: ch00_rifle_76
+  - first:
+      213: 5226090935112117538
+    second: ch00_rifle_77
+  - first:
+      213: 9090171663601908351
+    second: ch00_rifle_78
+  - first:
+      213: -8693730003827300517
+    second: ch00_rifle_79
+  - first:
+      213: 8825497677402860518
+    second: ch00_rifle_80
+  - first:
+      213: 6598970425537861295
+    second: ch00_rifle_81
+  - first:
+      213: -8355065160553444911
+    second: ch00_rifle_82
+  - first:
+      213: 5971482596380836728
+    second: ch00_rifle_83
+  - first:
+      213: -2419989813612217603
+    second: ch00_rifle_84
+  - first:
+      213: -6488038499026553551
+    second: ch00_rifle_85
+  - first:
+      213: 8004082801606998731
+    second: ch00_rifle_86
+  - first:
+      213: -2839541057581471475
+    second: ch00_rifle_87
+  - first:
+      213: -3719250994979150531
+    second: ch00_rifle_88
+  - first:
+      213: 2510747594540013441
+    second: ch00_rifle_89
+  - first:
+      213: 6973949350021263428
+    second: ch00_rifle_90
+  - first:
+      213: -8711151375906814960
+    second: ch00_rifle_91
+  - first:
+      213: 5937138563952090993
+    second: ch00_rifle_92
+  - first:
+      213: -5927573446982660814
+    second: ch00_rifle_93
+  - first:
+      213: 3120614412714767772
+    second: ch00_rifle_94
+  - first:
+      213: -1511789543682302847
+    second: ch00_rifle_95
+  - first:
+      213: 5527278304876347220
+    second: ch00_rifle_96
+  - first:
+      213: -6267886429409787207
+    second: ch00_rifle_97
+  - first:
+      213: 1063905190791269270
+    second: ch00_rifle_98
+  - first:
+      213: 2587862042966075940
+    second: ch00_rifle_99
+  - first:
+      213: 8843704591913364432
+    second: ch00_rifle_100
+  - first:
+      213: 6868030339893550148
+    second: ch00_rifle_101
+  - first:
+      213: -4965046583651851774
+    second: ch00_rifle_102
+  - first:
+      213: -209844225823891179
+    second: ch00_rifle_103
+  - first:
+      213: 5351458213604823515
+    second: ch00_rifle_104
+  - first:
+      213: -9148083253589722430
+    second: ch00_rifle_105
+  - first:
+      213: 2824278412835490266
+    second: ch00_rifle_106
+  - first:
+      213: -3082715389415770231
+    second: ch00_rifle_107
+  - first:
+      213: 1195429968295513073
+    second: ch00_rifle_108
+  - first:
+      213: -7932855782879739651
+    second: ch00_rifle_109
+  - first:
+      213: 3639745992570656
+    second: ch00_rifle_110
+  - first:
+      213: -4364926411988475441
+    second: ch00_rifle_111
+  - first:
+      213: 5823038200007748700
+    second: ch00_rifle_112
+  - first:
+      213: -3714690958876522711
+    second: ch00_rifle_113
+  - first:
+      213: -4775651897200710595
+    second: ch00_rifle_114
+  - first:
+      213: -2703923284441768150
+    second: ch00_rifle_115
+  - first:
+      213: 6810932685987315338
+    second: ch00_rifle_116
+  - first:
+      213: 8113247294169598175
+    second: ch00_rifle_117
+  - first:
+      213: -7408054327419840423
+    second: ch00_rifle_118
+  - first:
+      213: -946613593195508512
+    second: ch00_rifle_119
+  - first:
+      213: 373198300211508910
+    second: ch00_rifle_120
+  - first:
+      213: -7729168234684178662
+    second: ch00_rifle_121
+  - first:
+      213: -3038791480973674515
+    second: ch00_rifle_122
+  - first:
+      213: -6507945561074651882
+    second: ch00_rifle_123
+  - first:
+      213: 719646000018218475
+    second: ch00_rifle_124
+  - first:
+      213: 8895910450681306254
+    second: ch00_rifle_125
+  - first:
+      213: 5235403380005945582
+    second: ch00_rifle_126
+  - first:
+      213: 2257096629991418341
+    second: ch00_rifle_127
+  - first:
+      213: -8279213002811627285
+    second: ch00_rifle_128
+  - first:
+      213: -3640791377736263606
+    second: ch00_rifle_129
+  - first:
+      213: 4650481487737582438
+    second: ch00_rifle_130
+  - first:
+      213: -6833603718666378979
+    second: ch00_rifle_131
+  - first:
+      213: -4104279568824990503
+    second: ch00_rifle_132
+  - first:
+      213: 5113707380117291305
+    second: ch00_rifle_133
+  - first:
+      213: 7568801658782729416
+    second: ch00_rifle_134
+  - first:
+      213: 6609303012936569444
+    second: ch00_rifle_135
+  - first:
+      213: -5054391761390245849
+    second: ch00_rifle_136
+  - first:
+      213: 5690323822706481273
+    second: ch00_rifle_137
+  - first:
+      213: 8177181854057730941
+    second: ch00_rifle_138
+  - first:
+      213: -977625671752623748
+    second: ch00_rifle_139
+  - first:
+      213: 1312169310131698294
+    second: ch00_rifle_140
+  - first:
+      213: -5521896510516218967
+    second: ch00_rifle_141
+  - first:
+      213: 6701614919617834304
+    second: ch00_rifle_142
+  - first:
+      213: 1216041873900557213
+    second: ch00_rifle_143
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 40
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ch00_rifle_0
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 934
+        width: 39
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d26ca76da2f9e1430800000000000000
+      internalID: 3755614145609385517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_1
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 934
+        width: 48
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb2949b9109c496c0800000000000000
+      internalID: -4137461148904287557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_2
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 934
+        width: 58
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3090e30e494fc0a0800000000000000
+      internalID: -6859183108040650692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_3
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 934
+        width: 38
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b7bda67488e26ff0800000000000000
+      internalID: -44217390695860300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_4
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 965
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6dc6ff10463203e0800000000000000
+      internalID: -2089047628104413843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_5
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 934
+        width: 38
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cba67d681ff9df30800000000000000
+      internalID: 4600988974716464071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_6
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 934
+        width: 40
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a097889556d70a660800000000000000
+      internalID: 7395048462389639434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_7
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 934
+        width: 46
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f31965570639d7dc0800000000000000
+      internalID: -3639590881350741697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_8
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 934
+        width: 58
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4b82683260b9d920800000000000000
+      internalID: 3015635361400523597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_9
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 934
+        width: 48
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0986d70c966277730800000000000000
+      internalID: 3996705429957470352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_10
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 965
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 014ba2c395bc65360800000000000000
+      internalID: 7158132241873941520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_11
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 934
+        width: 60
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86d6cfd2108029d30800000000000000
+      internalID: 4436617384072867176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_12
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 934
+        width: 39
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96a981a3bf40e5110800000000000000
+      internalID: 1251443223513569897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_13
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 934
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25c9a442076cf2eb0800000000000000
+      internalID: -4742353697650336686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_14
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 934
+        width: 59
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2716ca1c0d712c4b0800000000000000
+      internalID: -5421744816030719630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_15
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 934
+        width: 60
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69b5a2de9325e93a0800000000000000
+      internalID: -6656792790461424746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_16
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 808
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64799777306701a90800000000000000
+      internalID: -7345241234979842234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_17
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 808
+        width: 38
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b7a7fac790738eb0800000000000000
+      internalID: -4718804187306547271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_18
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 808
+        width: 44
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb7885860521059a0800000000000000
+      internalID: -6246472546605561921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_19
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 808
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ede1b724ef089c40800000000000000
+      internalID: 5519178815935475171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_20
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 816
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6649dc177bd96ebc0800000000000000
+      internalID: -3754139828152855450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_21
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 808
+        width: 28
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe8d204e127982fd0800000000000000
+      internalID: -2366475432368088849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_22
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 808
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f108ba09dbe1dc30800000000000000
+      internalID: 4382543229828465145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_23
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 808
+        width: 36
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abfc8ed83cc954210800000000000000
+      internalID: 1316630829789138874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_24
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 808
+        width: 44
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb033494ff12c6450800000000000000
+      internalID: 6083274577000214718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_25
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 808
+        width: 35
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56e6d8b4ed8e1e960800000000000000
+      internalID: 7629635285190274661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_26
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 816
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4acf4ac5a2b760630800000000000000
+      internalID: 3892934349781531812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_27
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 808
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a34b3fadb6b9f5a00800000000000000
+      internalID: 747486950704002106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_28
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 808
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8663f9f443e90750800000000000000
+      internalID: 6271793841480885898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_29
+      rect:
+        serializedVersion: 2
+        x: 1463
+        y: 808
+        width: 36
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb714cb9f5787f0b0800000000000000
+      internalID: -5694934359081740356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_30
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 808
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f772be7621113a00800000000000000
+      internalID: 734387071270156278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_31
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 808
+        width: 44
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2626613902bbb9e0800000000000000
+      internalID: -1604493089674222033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_32
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 674
+        width: 19
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1833ea2e8d4a4e940800000000000000
+      internalID: 5324561910881727361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_33
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 674
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ff29de6ff31b2020800000000000000
+      internalID: 2317968421009567737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_34
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 674
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a33fb517583a455c0800000000000000
+      internalID: -4227574356666223814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_35
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 674
+        width: 19
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 379139ff1dc04a950800000000000000
+      internalID: 6459301861631662451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_36
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 674
+        width: 19
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4209acf8d68a4020800000000000000
+      internalID: 2326820424000275023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_37
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 674
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99d8f95e4f44cd6f0800000000000000
+      internalID: -658575626887787111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_38
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 674
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4a57903945e9a700800000000000000
+      internalID: 552224531840195151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_39
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 674
+        width: 21
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f09a6f8ef84a6c00800000000000000
+      internalID: 894607734151483641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_40
+      rect:
+        serializedVersion: 2
+        x: 1079
+        y: 674
+        width: 19
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3265c90411d8aa1e0800000000000000
+      internalID: -2185779563897006557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_41
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 674
+        width: 19
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0de7e3b5f35d5570800000000000000
+      internalID: 8457007990022073613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_42
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 674
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da41b8ec14004acf0800000000000000
+      internalID: -242068197333068627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_43
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 674
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a45ee0d8c2087a00800000000000000
+      internalID: 754355999106552994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_44
+      rect:
+        serializedVersion: 2
+        x: 1589
+        y: 674
+        width: 21
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b6ebe7d9c16e54e0800000000000000
+      internalID: -1991046465712298319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_45
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 674
+        width: 20
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc02516cb0c9af4d0800000000000000
+      internalID: -3099993819109318449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_46
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 546
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93fd5fe8104606a10800000000000000
+      internalID: 1900629000606572345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_47
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 546
+        width: 40
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c0ee510e6fd7240800000000000000
+      internalID: 4791257020893105306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_48
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 546
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec905e88f97514900800000000000000
+      internalID: 666910562535672270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_49
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 563
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6865b14c358184100800000000000000
+      internalID: 92350540412573318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_50
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 546
+        width: 31
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0574e9e8b786984b0800000000000000
+      internalID: -5437700195190159536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_51
+      rect:
+        serializedVersion: 2
+        x: 553
+        y: 546
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 724804c52a466e8f0800000000000000
+      internalID: -511610859164761049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_52
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 546
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1548361842721ffc0800000000000000
+      internalID: -3462943600728112047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_53
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 546
+        width: 38
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74d6c88fd35eb8810800000000000000
+      internalID: 1768759332998769991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_54
+      rect:
+        serializedVersion: 2
+        x: 923
+        y: 546
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feb529f323c0dbcf0800000000000000
+      internalID: -235018195598943249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_55
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 564
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c57905172302cde70800000000000000
+      internalID: 9141216744676824924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_56
+      rect:
+        serializedVersion: 2
+        x: 1062
+        y: 546
+        width: 33
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2efd413521c4fbcd0800000000000000
+      internalID: -2540228023226671134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_57
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 546
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7daaff760179a9a0800000000000000
+      internalID: -6221317137504752261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_58
+      rect:
+        serializedVersion: 2
+        x: 1321
+        y: 546
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d6403cb8bd999620800000000000000
+      internalID: 2781427661634815705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_59
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 546
+        width: 38
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 415a850f4f9080b50800000000000000
+      internalID: 6559503804874138900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_60
+      rect:
+        serializedVersion: 2
+        x: 1563
+        y: 546
+        width: 44
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2a91dcdf4bf8f030800000000000000
+      internalID: 3528846628470495789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_61
+      rect:
+        serializedVersion: 2
+        x: 1690
+        y: 546
+        width: 45
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1485247ac14f8c0800000000000000
+      internalID: -3966513867108367935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_62
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3170341972fe47a50800000000000000
+      internalID: 6518097513931802387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_63
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 457
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d62d592bd64e3d10800000000000000
+      internalID: 2107199582761723604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_64
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fb74c54a2066f650800000000000000
+      internalID: 6266301666208021493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_65
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 423
+        width: 58
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfaac41f66c4d8230800000000000000
+      internalID: 3642651678631308027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_66
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 459
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4e0c5c3d55008b80800000000000000
+      internalID: -8394703807415841206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_67
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28dc2d41411423060800000000000000
+      internalID: 6931674330981125506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_68
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9af747219b6a8dbe0800000000000000
+      internalID: -1452227566018199639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_69
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 423
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1243a5fbbc357a0f0800000000000000
+      internalID: -1105823048942341087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_70
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 457
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a10471e53eb23f020800000000000000
+      internalID: 2374289684090535962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_71
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 423
+        width: 37
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab8671dc3157faa0800000000000000
+      internalID: -6127339446360175698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_72
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 423
+        width: 59
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e231f4de0d023e80800000000000000
+      internalID: -8200477614134971675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_73
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 459
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 603f03542e5434ae0800000000000000
+      internalID: -1566331407269039354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_74
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 423
+        width: 44
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e1e753bf7d16750800000000000000
+      internalID: 6296551227974884923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_75
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 423
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e4e1b26631d10cf0800000000000000
+      internalID: -287718869660736284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_76
+      rect:
+        serializedVersion: 2
+        x: 1316
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07f68ee9d79839140800000000000000
+      internalID: 4725271606671732592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_77
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 458
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22d2f37340ec68840800000000000000
+      internalID: 5226090935112117538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_78
+      rect:
+        serializedVersion: 2
+        x: 1444
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a305c57f6c62e70800000000000000
+      internalID: 9090171663601908351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_79
+      rect:
+        serializedVersion: 2
+        x: 1550
+        y: 457
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b57e7b47f9aa95780800000000000000
+      internalID: -8693730003827300517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_80
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ebe1abc0677a7a70800000000000000
+      internalID: 8825497677402860518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_81
+      rect:
+        serializedVersion: 2
+        x: 1678
+        y: 457
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa61e71a3a0449b50800000000000000
+      internalID: 6598970425537861295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_82
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 459
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d948f5e088dc0c80800000000000000
+      internalID: -8355065160553444911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_83
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 423
+        width: 38
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87305bb78c7fed250800000000000000
+      internalID: 5971482596380836728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_84
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 346
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfa749f06187a6ed0800000000000000
+      internalID: -2419989813612217603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_85
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 297
+        width: 44
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 135b6783c5bd5f5a0800000000000000
+      internalID: -6488038499026553551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_86
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 351
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bca399e86e6341f60800000000000000
+      internalID: 8004082801606998731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_87
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 345
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0928b1e37ce798d0800000000000000
+      internalID: -2839541057581471475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_88
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 297
+        width: 43
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35efbdece0926cc0800000000000000
+      internalID: -3719250994979150531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_89
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 351
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 187593d72a7f7d220800000000000000
+      internalID: 2510747594540013441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_90
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 297
+        width: 32
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4407599fbf178c060800000000000000
+      internalID: 6973949350021263428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_91
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 297
+        width: 43
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0144b6e2af5cb1780800000000000000
+      internalID: -8711151375906814960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_92
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 297
+        width: 34
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17f13ae4114f46250800000000000000
+      internalID: 5937138563952090993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_93
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 297
+        width: 42
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23d8f880b570dbda0800000000000000
+      internalID: -5927573446982660814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_94
+      rect:
+        serializedVersion: 2
+        x: 1696
+        y: 297
+        width: 43
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c95f3de4646ae4b20800000000000000
+      internalID: 3120614412714767772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_95
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 297
+        width: 28
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18c9aa97b6b050be0800000000000000
+      internalID: -1511789543682302847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_96
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 297
+        width: 28
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45fb0e06556d4bc40800000000000000
+      internalID: 5527278304876347220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_97
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 297
+        width: 28
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b2c98a408ef309a0800000000000000
+      internalID: -6267886429409787207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_98
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 297
+        width: 28
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69bcecb5220c3ce00800000000000000
+      internalID: 1063905190791269270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_99
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 337
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42aa5b621dee9e320800000000000000
+      internalID: 2587862042966075940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_100
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 297
+        width: 28
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dbac7b68762bba70800000000000000
+      internalID: 8843704591913364432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_101
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 297
+        width: 28
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44cd5fba435205f50800000000000000
+      internalID: 6868030339893550148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_102
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 338
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2022a28207c981bb0800000000000000
+      internalID: -4965046583651851774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_103
+      rect:
+        serializedVersion: 2
+        x: 1327
+        y: 297
+        width: 28
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 511a995d9cb761df0800000000000000
+      internalID: -209844225823891179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_104
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 223
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd1134c54e2344a40800000000000000
+      internalID: 5351458213604823515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_105
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 222
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cab51edfba7b0180800000000000000
+      internalID: -9148083253589722430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_106
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 167
+        width: 21
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad90dd7b04ad13720800000000000000
+      internalID: 2824278412835490266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_107
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 230
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9873e3eafaef735d0800000000000000
+      internalID: -3082715389415770231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_108
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 223
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb4c16f835079010800000000000000
+      internalID: 1195429968295513073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_109
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 222
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df0cc0f02b5d8e190800000000000000
+      internalID: -7932855782879739651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_110
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 167
+        width: 21
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 027b5f6645eec0000800000000000000
+      internalID: 3639745992570656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_111
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 167
+        width: 20
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc1e4befd8aac63c0800000000000000
+      internalID: -4364926411988475441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_112
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 229
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5cedf024669fc050800000000000000
+      internalID: 5823038200007748700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_113
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 167
+        width: 20
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9274fc11144c27cc0800000000000000
+      internalID: -3714690958876522711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_114
+      rect:
+        serializedVersion: 2
+        x: 1478
+        y: 222
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3c6e68e6e979bdb0800000000000000
+      internalID: -4775651897200710595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_115
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 167
+        width: 21
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2fd0fa491cb97ad0800000000000000
+      internalID: -2703923284441768150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_116
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 167
+        width: 21
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8efe59213b458e50800000000000000
+      internalID: 6810932685987315338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_117
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 167
+        width: 20
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd8c0ef9d6b089070800000000000000
+      internalID: 8113247294169598175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_118
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 167
+        width: 20
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9585859b6dd413990800000000000000
+      internalID: -7408054327419840423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_119
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 167
+        width: 20
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ec860ec3f3fcd2f0800000000000000
+      internalID: -946613593195508512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_120
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 167
+        width: 20
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea6f2e270eddd2500800000000000000
+      internalID: 373198300211508910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_121
+      rect:
+        serializedVersion: 2
+        x: 696
+        y: 167
+        width: 20
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1f9a62017a7cb490800000000000000
+      internalID: -7729168234684178662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_122
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 167
+        width: 20
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de7b41e8f3b04d5d0800000000000000
+      internalID: -3038791480973674515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_123
+      rect:
+        serializedVersion: 2
+        x: 1336
+        y: 167
+        width: 20
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61da0962ef12fa5a0800000000000000
+      internalID: -6507945561074651882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_124
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 167
+        width: 20
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: beddd136932bcf900800000000000000
+      internalID: 719646000018218475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_125
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 84
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8c5b8e1c6f947b70800000000000000
+      internalID: 8895910450681306254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_126
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 38
+        width: 45
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee04221c2a3e7a840800000000000000
+      internalID: 5235403380005945582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_127
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 91
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e9ae562d61d25f10800000000000000
+      internalID: 2257096629991418341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_128
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 84
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be82e9b93a35a1d80800000000000000
+      internalID: -8279213002811627285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_129
+      rect:
+        serializedVersion: 2
+        x: 955
+        y: 38
+        width: 45
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4899bc188f497dc0800000000000000
+      internalID: -3640791377736263606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_130
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 38
+        width: 37
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 663f0271644d98040800000000000000
+      internalID: 4650481487737582438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_131
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 87
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d112a15bf992a21a0800000000000000
+      internalID: -6833603718666378979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_132
+      rect:
+        serializedVersion: 2
+        x: 1211
+        y: 38
+        width: 45
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d40b414a7baa07c0800000000000000
+      internalID: -4104279568824990503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_133
+      rect:
+        serializedVersion: 2
+        x: 1494
+        y: 84
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9214f25c4c987f640800000000000000
+      internalID: 5113707380117291305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_134
+      rect:
+        serializedVersion: 2
+        x: 1595
+        y: 38
+        width: 45
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c4c127e109c90960800000000000000
+      internalID: 7568801658782729416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_135
+      rect:
+        serializedVersion: 2
+        x: 1723
+        y: 38
+        width: 45
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 462d00b9216f8bb50800000000000000
+      internalID: 6609303012936569444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_136
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 38
+        width: 31
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7286caae8713bd9b0800000000000000
+      internalID: -5054391761390245849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_137
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 38
+        width: 31
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 978dc5d3e5718fe40800000000000000
+      internalID: 5690323822706481273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_138
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 38
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7391ea529f2b7170800000000000000
+      internalID: 8177181854057730941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_139
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 38
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79d1e791a6ce62f0800000000000000
+      internalID: -977625671752623748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_140
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 38
+        width: 33
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ab19f0903c53210800000000000000
+      internalID: 1312169310131698294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_141
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 38
+        width: 30
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a3363441684e53b0800000000000000
+      internalID: -5521896510516218967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_142
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 38
+        width: 31
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04d6741434be00d50800000000000000
+      internalID: 6701614919617834304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ch00_rifle_143
+      rect:
+        serializedVersion: 2
+        x: 1467
+        y: 38
+        width: 31
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d93d7d534af30e010800000000000000
+      internalID: 1216041873900557213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ch00_rifle_0: 3755614145609385517
+      ch00_rifle_1: -4137461148904287557
+      ch00_rifle_10: 7158132241873941520
+      ch00_rifle_100: 8843704591913364432
+      ch00_rifle_101: 6868030339893550148
+      ch00_rifle_102: -4965046583651851774
+      ch00_rifle_103: -209844225823891179
+      ch00_rifle_104: 5351458213604823515
+      ch00_rifle_105: -9148083253589722430
+      ch00_rifle_106: 2824278412835490266
+      ch00_rifle_107: -3082715389415770231
+      ch00_rifle_108: 1195429968295513073
+      ch00_rifle_109: -7932855782879739651
+      ch00_rifle_11: 4436617384072867176
+      ch00_rifle_110: 3639745992570656
+      ch00_rifle_111: -4364926411988475441
+      ch00_rifle_112: 5823038200007748700
+      ch00_rifle_113: -3714690958876522711
+      ch00_rifle_114: -4775651897200710595
+      ch00_rifle_115: -2703923284441768150
+      ch00_rifle_116: 6810932685987315338
+      ch00_rifle_117: 8113247294169598175
+      ch00_rifle_118: -7408054327419840423
+      ch00_rifle_119: -946613593195508512
+      ch00_rifle_12: 1251443223513569897
+      ch00_rifle_120: 373198300211508910
+      ch00_rifle_121: -7729168234684178662
+      ch00_rifle_122: -3038791480973674515
+      ch00_rifle_123: -6507945561074651882
+      ch00_rifle_124: 719646000018218475
+      ch00_rifle_125: 8895910450681306254
+      ch00_rifle_126: 5235403380005945582
+      ch00_rifle_127: 2257096629991418341
+      ch00_rifle_128: -8279213002811627285
+      ch00_rifle_129: -3640791377736263606
+      ch00_rifle_13: -4742353697650336686
+      ch00_rifle_130: 4650481487737582438
+      ch00_rifle_131: -6833603718666378979
+      ch00_rifle_132: -4104279568824990503
+      ch00_rifle_133: 5113707380117291305
+      ch00_rifle_134: 7568801658782729416
+      ch00_rifle_135: 6609303012936569444
+      ch00_rifle_136: -5054391761390245849
+      ch00_rifle_137: 5690323822706481273
+      ch00_rifle_138: 8177181854057730941
+      ch00_rifle_139: -977625671752623748
+      ch00_rifle_14: -5421744816030719630
+      ch00_rifle_140: 1312169310131698294
+      ch00_rifle_141: -5521896510516218967
+      ch00_rifle_142: 6701614919617834304
+      ch00_rifle_143: 1216041873900557213
+      ch00_rifle_15: -6656792790461424746
+      ch00_rifle_16: -7345241234979842234
+      ch00_rifle_17: -4718804187306547271
+      ch00_rifle_18: -6246472546605561921
+      ch00_rifle_19: 5519178815935475171
+      ch00_rifle_2: -6859183108040650692
+      ch00_rifle_20: -3754139828152855450
+      ch00_rifle_21: -2366475432368088849
+      ch00_rifle_22: 4382543229828465145
+      ch00_rifle_23: 1316630829789138874
+      ch00_rifle_24: 6083274577000214718
+      ch00_rifle_25: 7629635285190274661
+      ch00_rifle_26: 3892934349781531812
+      ch00_rifle_27: 747486950704002106
+      ch00_rifle_28: 6271793841480885898
+      ch00_rifle_29: -5694934359081740356
+      ch00_rifle_3: -44217390695860300
+      ch00_rifle_30: 734387071270156278
+      ch00_rifle_31: -1604493089674222033
+      ch00_rifle_32: 5324561910881727361
+      ch00_rifle_33: 2317968421009567737
+      ch00_rifle_34: -4227574356666223814
+      ch00_rifle_35: 6459301861631662451
+      ch00_rifle_36: 2326820424000275023
+      ch00_rifle_37: -658575626887787111
+      ch00_rifle_38: 552224531840195151
+      ch00_rifle_39: 894607734151483641
+      ch00_rifle_4: -2089047628104413843
+      ch00_rifle_40: -2185779563897006557
+      ch00_rifle_41: 8457007990022073613
+      ch00_rifle_42: -242068197333068627
+      ch00_rifle_43: 754355999106552994
+      ch00_rifle_44: -1991046465712298319
+      ch00_rifle_45: -3099993819109318449
+      ch00_rifle_46: 1900629000606572345
+      ch00_rifle_47: 4791257020893105306
+      ch00_rifle_48: 666910562535672270
+      ch00_rifle_49: 92350540412573318
+      ch00_rifle_5: 4600988974716464071
+      ch00_rifle_50: -5437700195190159536
+      ch00_rifle_51: -511610859164761049
+      ch00_rifle_52: -3462943600728112047
+      ch00_rifle_53: 1768759332998769991
+      ch00_rifle_54: -235018195598943249
+      ch00_rifle_55: 9141216744676824924
+      ch00_rifle_56: -2540228023226671134
+      ch00_rifle_57: -6221317137504752261
+      ch00_rifle_58: 2781427661634815705
+      ch00_rifle_59: 6559503804874138900
+      ch00_rifle_6: 7395048462389639434
+      ch00_rifle_60: 3528846628470495789
+      ch00_rifle_61: -3966513867108367935
+      ch00_rifle_62: 6518097513931802387
+      ch00_rifle_63: 2107199582761723604
+      ch00_rifle_64: 6266301666208021493
+      ch00_rifle_65: 3642651678631308027
+      ch00_rifle_66: -8394703807415841206
+      ch00_rifle_67: 6931674330981125506
+      ch00_rifle_68: -1452227566018199639
+      ch00_rifle_69: -1105823048942341087
+      ch00_rifle_7: -3639590881350741697
+      ch00_rifle_70: 2374289684090535962
+      ch00_rifle_71: -6127339446360175698
+      ch00_rifle_72: -8200477614134971675
+      ch00_rifle_73: -1566331407269039354
+      ch00_rifle_74: 6296551227974884923
+      ch00_rifle_75: -287718869660736284
+      ch00_rifle_76: 4725271606671732592
+      ch00_rifle_77: 5226090935112117538
+      ch00_rifle_78: 9090171663601908351
+      ch00_rifle_79: -8693730003827300517
+      ch00_rifle_8: 3015635361400523597
+      ch00_rifle_80: 8825497677402860518
+      ch00_rifle_81: 6598970425537861295
+      ch00_rifle_82: -8355065160553444911
+      ch00_rifle_83: 5971482596380836728
+      ch00_rifle_84: -2419989813612217603
+      ch00_rifle_85: -6488038499026553551
+      ch00_rifle_86: 8004082801606998731
+      ch00_rifle_87: -2839541057581471475
+      ch00_rifle_88: -3719250994979150531
+      ch00_rifle_89: 2510747594540013441
+      ch00_rifle_9: 3996705429957470352
+      ch00_rifle_90: 6973949350021263428
+      ch00_rifle_91: -8711151375906814960
+      ch00_rifle_92: 5937138563952090993
+      ch00_rifle_93: -5927573446982660814
+      ch00_rifle_94: 3120614412714767772
+      ch00_rifle_95: -1511789543682302847
+      ch00_rifle_96: 5527278304876347220
+      ch00_rifle_97: -6267886429409787207
+      ch00_rifle_98: 1063905190791269270
+      ch00_rifle_99: 2587862042966075940
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
