@@ -99,7 +99,7 @@ public class TurnManager : MonoBehaviour
         _curUnit?.RefreshAP();
 
         if (CurrTurn == Turn.Enemy)
-            _curUnit.GetComponent<GoapAgent>().ResetStates();
+            _curUnit.GetComponent<GoapAgent>()?.ResetStates();
 
         // Draw player's starting hand when player's turn begins
         if (_curUnit.GetTeam == Team.Friendly)

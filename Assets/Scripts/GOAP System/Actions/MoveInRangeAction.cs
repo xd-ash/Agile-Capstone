@@ -12,14 +12,14 @@ public class MoveInRangeAction : GoapAction
 
         _unitMover = _agent.GetComponent<UnitMovementController>();
         Unit unit = _agent.unit;
-        int dmgAbilRange = _agent.damageAbility.GetRange;
+        int dmgAbilRange = _agent.GetDamageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
         var tempPath = _unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
         //Debug.Log($"tarPos: {tarPos} | distancetoTar: {distanceToTar}");
 
-        if (_agent.damageAbility == null)
+        if (_agent.GetDamageAbility == null)
             return false;
 
         //return true if unit cannot get into ability range and calc path to closest tile

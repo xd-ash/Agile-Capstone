@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
+  _damageAbility: {fileID: 0}
+  _healAbility: {fileID: 0}
+  _totalHealCharges: 3
+  _goalsEnum: -1
+  _goals:
+  - rid: 6877345558926196828
+  - rid: 6877345558926196829
+  - rid: 6877345558926196830
+  - rid: 6877345558926196831
+  _goapActionsEnum: 0
+  _actions: []
+  _agentHealthWeight: 0.255
+  _enemyDistanceWeight: 0.52
+  _enemyHealthWeight: 0.515
+  _allyHealthWeight: 0.219
+  _allyDistanceWeght: 0.811
+  _selfPreservationWeight: 0
+  _aggressionWeight: 0
+  _altruismWeight: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 6877345558926196828
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KillPlayer
+        value: 0
+        removeOnComplete: 0
+    - rid: 6877345558926196829
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAlive
+        value: 0
+        removeOnComplete: 0
+    - rid: 6877345558926196830
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KeepAlliesAlive
+        value: 0
+        removeOnComplete: 0
+    - rid: 6877345558926196831
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 0
+        removeOnComplete: 0

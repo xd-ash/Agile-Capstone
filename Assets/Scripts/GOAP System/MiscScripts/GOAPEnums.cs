@@ -47,7 +47,7 @@ public enum GoapGoals
 public struct GOAPEnums
 {
     // Create and return a list of all goap actions determined by the given enum flag.
-    public static List<GoapAction> GetAllActionsFromFlags(GoapAgent agent, GoapActions actionsEnum)
+    public static List<GoapAction> GetAllActionsFromFlags(GoapActions actionsEnum)
     {
         List<GoapAction> actions = new List<GoapAction>();
 
@@ -101,6 +101,11 @@ public struct GOAPEnums
         string[] statesStrings = statesEnum.ToString().Split(", ");
         string[] goalsStrings = goalsEnum.ToString().Split(", ");
 
+        if ((int)statesEnum == -1)
+            statesStrings = typeof(GoapStates).GetEnumNames();
+        if ((int)goalsEnum == -1)
+            goalsStrings = typeof(GoapStates).GetEnumNames();
+
         foreach (string s in statesStrings)
         {
             if (s == null || s == "None") continue;
@@ -119,6 +124,8 @@ public struct GOAPEnums
         List<WorldState> states = new List<WorldState>();
 
         string[] goalsStrings = goalsEnum.ToString().Split(", ");
+        if ((int)goalsEnum == -1)
+            goalsStrings = typeof(GoapGoals).GetEnumNames();
 
         foreach (string s in goalsStrings)
         {
@@ -132,6 +139,8 @@ public struct GOAPEnums
         List<WorldState> states = new List<WorldState>();
 
         string[] enumStrings = statesEnum.ToString().Split(", ");
+        if ((int)statesEnum == -1)
+            enumStrings = typeof(GoapStates).GetEnumNames();
 
         foreach (string s in enumStrings)
         {

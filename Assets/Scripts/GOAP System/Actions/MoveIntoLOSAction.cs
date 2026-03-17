@@ -13,7 +13,7 @@ public class MoveIntoLOSAction : GoapAction
 
         _unitMover = _agent.GetComponent<UnitMovementController>();
         Unit unit = _agent.unit;
-        int dmgAbilRange = _agent.damageAbility.GetRange;
+        int dmgAbilRange = _agent.GetDamageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
         var tempPath = _unitMover.CalculatePath(tarPos);
@@ -45,6 +45,6 @@ public class MoveIntoLOSAction : GoapAction
         beliefs.ModifyState(GoapStates.HasLOS.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoLOS.ToString());
 
-        CheckIfInRange(_agent, _agent.damageAbility.GetRange, ref beliefs);
+        CheckIfInRange(_agent, _agent.GetDamageAbility.GetRange, ref beliefs);
     }
 }

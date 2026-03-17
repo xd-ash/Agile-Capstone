@@ -4,7 +4,7 @@ public class AttackAction : GoapAction
 {
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        bool canDoAction = CheckCanDoAction(_agent.unit, _agent.damageAbility.GetApCost);
+        bool canDoAction = CheckCanDoAction(_agent.unit, _agent.GetDamageAbility.GetApCost);
         if (!canDoAction)
         {
             beliefs.RemoveState(GoapStates.CanAttack.ToString());
@@ -15,7 +15,7 @@ public class AttackAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.damageAbility.UseAility(_agent.unit);
+        _agent.GetDamageAbility.UseAility(_agent.unit);
 
         _agent.CompleteAction();
     }
@@ -23,7 +23,7 @@ public class AttackAction : GoapAction
     public override void PostPerform(ref WorldStates beliefs)
     {
         //if agent can no longer attack, then modify states
-        if (!CheckCanDoAction(_agent.unit, _agent.damageAbility.GetApCost))
+        if (!CheckCanDoAction(_agent.unit, _agent.GetDamageAbility.GetApCost))
         {
             beliefs.ModifyState(GoapGoals.KillPlayer.ToString(), 1);
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);

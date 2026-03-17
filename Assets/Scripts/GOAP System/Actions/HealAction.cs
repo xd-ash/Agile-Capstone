@@ -11,11 +11,11 @@ public class HealAction : GoapAction
             return false;
         }
 
-        return CheckCanDoAction(_agent.unit, _agent.healAbility.GetApCost);
+        return CheckCanDoAction(_agent.unit, _agent.GetHealAbility.GetApCost);
     }
     public override void Perform()
     {
-        _agent.healAbility.UseAility(_agent.unit);
+        _agent.GetHealAbility.UseAility(_agent.unit);
         _agent.healCharges--;
 
         _agent.CompleteAction();

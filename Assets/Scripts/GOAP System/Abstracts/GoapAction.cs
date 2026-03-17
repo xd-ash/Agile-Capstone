@@ -27,12 +27,12 @@ public abstract class GoapAction
     {
         _actionName = this.ToString();
     }
-
-    public void GrabConditionsFromEnums(GoapAgent agent)
+    public void SetAgent(GoapAgent agent)
     {
-        if (_agent == null)
-            _agent = agent;
-
+        _agent = agent;
+    }
+    public void GrabConditionsFromEnums()
+    {
         var tempPreCond = GetAllStatesFromFlags(_preConditionsFlags);
         var tempPostCond = GetAllStatesFromFlags(_postConditionsFlags, _goalsFlags);
 

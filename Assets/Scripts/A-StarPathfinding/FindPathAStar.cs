@@ -78,6 +78,26 @@ namespace AStarPathfinding
             Debug.LogError("AStar Path null due to call during calculation (!_isDone)");
             return null;
         }
+        //Determine and return the path to tile position param. Return null if unit is unable to move,
+        //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
+        public static List<PathMarker> CalculatePath(Transform startTrans, Transform endTrans)
+        {
+            Vector2Int startPos = ConvertToGridFromIsometric(startTrans.position);
+            Vector2Int endPos = ConvertToGridFromIsometric(endTrans.position);
+
+            if (_isDone)
+            {
+                BeginSearch(startPos, endPos);
+                do
+                {
+                    Search(_lastPos);
+                } while (!_isDone);
+                return GetPath();
+            }
+
+            Debug.LogError("AStar Path null due to call during calculation (!_isDone)");
+            return null;
+        }
 
         private static void BeginSearch(Vector2Int startLocation, Vector2Int endLocation)
         {

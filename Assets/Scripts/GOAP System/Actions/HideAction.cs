@@ -36,6 +36,7 @@ public class HideAction : GoapAction
     {
         if (_hidePos == -Vector2Int.one || _agent == null) return;
         _unitMover.CalculatePath(_hidePos);
+        Debug.Log($"hidePos: {_hidePos}");
 
         _unitMover.OnStartUnitMove(() =>
         {

@@ -1,77 +1,75 @@
-using System;
+using AStarPathfinding;
+using System.Collections.Generic;
 using UnityEngine;
+using static AStarPathfinding.FindPathAStar;
 
 public class GoapAgentHueristics : MonoBehaviour
 {
-    private Unit _thisUnit;
+    private Unit _unit;
+    private GoapAgent _agent;
+    private GoapAgentSO _so;
 
-    [Tooltip("Sum of all weights must add up to 1")]
-    [SerializeField] private float _healthWeight,
-                                   _enemyDistanceWeight,
-                                   _enemyHealthWeight,
-                                   _allyHealthWeight,
-                                   _allyDistanceWeght;
-
-    private float _maxNeed = 1;
-    [SerializeField] private float _selfPreservation, 
-                                   _aggression,
-                                   _altruistism;
-
-    [Tooltip("Sum of all weights must add up to 1")]
-    [SerializeField] private float _selfPreservationWeight,
-                                   _aggressionWeight,
-                                   _altruisticWeight;
-
-    [SerializeField] private float _attackDesire, 
-                                   _stayAliveDesire, 
-                                   _helpAllyDesire;
-
+    private int _maxDetectDistance;
+    private float _selfPreservation,
+                  _aggression,
+                  _altruisism;
+    
     private void Awake()
     {
-        if (!TryGetComponent(out _thisUnit))
-            Debug.Log("Hueristics Mono serparated from unit script0");
-    }
+        if (!TryGetComponent(out _unit) || !TryGetComponent(out _agent))
+        {
+            Debug.LogError("Goap Hueristics Script serparated from unit/agent script");
+            return;
+        }
 
-    private float CalculateDesires(Unit[] units)
+        _so = _agent.GetAgentSO;
+        _maxDetectDistance = _unit.GetMaxAP + Mathf.Max(_agent.GetDamageAbility.GetRange, _agent.GetHealAbility.GetRange);
+    }
+    public Dictionary<string, float> GetAgentDesires()
     {
-        return 0;
+        CalculateDesires(TurnManager.GetUnitTurnOrder.ToArray());
 
-        //get closest ally & enemy, as well ally healths
-        //find lowest health ally or average of healths
-        //calc distances to closest ally & enemy (use tile dist or raw?)
-
-        //if _healthweight over 0
-            // healthFactor = (maxhealth - health) / maxhealth (lower health = greater factor value)
-            
-        //if _enemyDistanceWeight over 0
-            // enemyDisFactor = (maxRange? - distToClosestEnemy) / maxRange? (closer to enemy = greater factor value)
-
-        //if _enemyHealthWeight over 0
-            // enemyHealthFactor = (maxhealth - health) / maxhealth (lower health = greater factor value)
-
-        //if _allyHealthWeight over 0
-            // allyHealthFactor = (maxhealth - health) / maxhealth (lower health = greater factor value)
-
-        //if _allyDistanceWeight over 0
-            // allyDistFactor = (maxRange? - distToClosestAlly) / maxRange? (closer to enemy = greater factor value)
-
-        // selfPreserve factor = selfPreservation / maxDesire
-        // aggression factor = aggression / maxDesire
-        // altruistic factor = altruistic / maxDesire
-
-        // stayAliveDesire = healthFactor * healthWeight + enemyDistfactor * enemyDistWeight
-        // aggressionDesire = enemydistFactor * enemyDistWeight + enemyHealthFactor * enemyHealth Weight
-        // altruismDesire = allyHealthFactor * allyHealthWeight + allyDistFactor * allyDistWeight
+        return new() { { GoapGoals.StayAlive.ToString(), _selfPreservation },
+                       { GoapGoals.KillPlayer.ToString(), _aggression },
+                       { GoapGoals.KeepAlliesAlive.ToString(), _altruisism } };
     }
+
+    private void CalculateDesires(Unit[] units)
+    {
+        var closestUnits = GetClosestUnits(units);
+        Unit closestEnemy = closestUnits[0];
+        Unit closestAlly = closestUnits[1];//find lowest health ally or average of healths?
+        //set agent target here?
+
+        var distToEnemy = CalculatePath(_unit.transform, closestEnemy.transform).Count;
+        var distToAlly = CalculatePath(_unit.transform, closestAlly.transform).Count;
+
+        float agentHealthFactor = 0,
+              enemyDistFactor = 0, enemyHealthFactor = 0,
+              allyDistFactor = 0, allyHealthFactor = 0;
+
+        agentHealthFactor = ((float)_unit.GetMaxHealth - (float)_unit.GetHealth) / (float)_unit.GetMaxHealth;
+        enemyDistFactor = ((float)_maxDetectDistance - (float)distToEnemy) / (float)_maxDetectDistance;
+        enemyHealthFactor = ((float)closestEnemy.GetMaxHealth - (float)closestEnemy.GetHealth) / (float)closestEnemy.GetMaxHealth;
+        allyDistFactor = ((float)_maxDetectDistance - (float)distToAlly) / (float)_maxDetectDistance;
+        allyHealthFactor = ((float)closestAlly.GetMaxHealth - (float)closestAlly.GetHealth) / (float)closestAlly.GetMaxHealth;
+
+        _selfPreservation = agentHealthFactor * _so.GetAgentHealthWeight + enemyDistFactor * _so.GetEnemyDistanceWeight;
+        _aggression = enemyDistFactor * _so.GetEnemyDistanceWeight + enemyHealthFactor * _so.GetEnemyHealthWeight;
+        _altruisism = allyHealthFactor * _so.GetAllyHealthWeight + allyDistFactor * _so.GetAllyDistanceWeght;
+    }
+
     private Unit[] GetClosestUnits(Unit[] units)
     {
-        var thisTeam = _thisUnit.GetTeam;
-        float closestEnemyDist = float.MaxValue, 
+        var thisTeam = _unit.GetTeam;
+        float closestEnemyDist = float.MaxValue,
               closestAllyDist =  float.MaxValue;
         Unit closestEnemy = null, closestAlly = null;
 
         foreach (var unit in units)
         {
+            if (unit == null) continue;
+
             var dist = Vector3.Distance(unit.transform.position, transform.position);
 
             if (unit.GetTeam == thisTeam)
@@ -91,7 +89,7 @@ public class GoapAgentHueristics : MonoBehaviour
     }
     private Unit GetLowestHealthAlly(Unit[] units)
     {
-        var thisTeam = _thisUnit.GetTeam;
+        var thisTeam = _unit.GetTeam;
         float lowestHealthVal = -1;
         Unit lowestHealthUnit = null;
 

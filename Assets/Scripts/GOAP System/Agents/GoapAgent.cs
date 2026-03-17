@@ -24,19 +24,17 @@ public class Goal
 
 public class GoapAgent : MonoBehaviour
 {
-    [Header("Temp Enemy Abilities")]
-    public CardAbilityDefinition damageAbility;
-    public CardAbilityDefinition healAbility;
-    public int healCharges = 3;
-    [Space(15)]
+    [SerializeField] private GoapAgentSO _agentSO;
+    private GoapAgentHueristics _agentHeuristics;
 
-    [SerializeField] private GoapActions _goapActionsEnum;
-    [SerializeReference] private List<GoapAction> _actions = new();
+    public int healCharges = 3;
+
+    private List<GoapAction> _actions = new();
     private GoapAction _currentAction;
     private Queue<GoapAction> _actionQueue;
 
-    [SerializeField] private GoapGoals _goalsEnum;
-    [SerializeReference] private List<Goal> _goals = new();// find better way? used for setting weight/values & remove bool
+    private List<Goal> _goals = new();
+
     private Dictionary<Goal, int> _weightedGoalsDict = new();
     private Goal _currentGoal;
 
@@ -49,16 +47,29 @@ public class GoapAgent : MonoBehaviour
 
     public bool showDebugMessages = false;
 
-    public List<GoapAction> GetActions => _actions;
     public Unit GetCurrentTarget => _curtarget;
+
+    public GoapAgentSO GetAgentSO => _agentSO;
+
+    //temp?
+    public CardAbilityDefinition GetDamageAbility => _agentSO.GetDamageAbility;
+    public CardAbilityDefinition GetHealAbility => _agentSO.GetHealAbility;
 
     private void Awake()
     {
-        GrabActionsFromEnum();
-        GrabGoalsFromEnum();
+        if (_agentSO == null)
+        {
+            Debug.LogError($"No GOAP Agent SO Attached to ({gameObject.name})");
+            return;
+        }
+        if (!TryGetComponent(out _agentHeuristics))
+            Debug.LogError($"No Goap heuristics attached to agent ({name})");
 
+        _actions = new(_agentSO.GetActions);
         foreach (var a in _actions)
-            a?.GrabConditionsFromEnums(this);
+            a.SetAgent(this);
+        _goals = new(_agentSO.GetGoals);
+        healCharges = _agentSO.GetTotalHealCharges;
 
         ResetStates();
     }
@@ -89,7 +100,7 @@ public class GoapAgent : MonoBehaviour
         }
 
         if (_actionQueue == null)
-            if (!CheckForAP(unit, ref _beliefs) || !CheckCanDoAction(unit, damageAbility.GetApCost)|| !CheckCanDoAction(unit, healAbility.GetApCost))
+            if (!CheckForAP(unit, ref _beliefs) || !CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost)|| !CheckCanDoAction(unit, _agentSO.GetHealAbility.GetApCost))
             return;
 
         // actionqueue is finished
@@ -125,101 +136,6 @@ public class GoapAgent : MonoBehaviour
         }
     }
 
-    // INCOMPLETE make more secure with deleting null actions or actions added in inpsector by hitting +
-    #region OnInspectorMethods
-    public void GrabActionsFromEnum()
-    {
-        if (unit == null) unit = gameObject.GetComponent<Unit>();
-
-        var temp = GetAllActionsFromFlags(this, _goapActionsEnum);
-        List<string> tempToString = new List<string>(),
-                     actionsToString = new List<string>();
-
-        foreach (var a in temp)
-            tempToString.Add(a.ToString());
-
-        if (_actions.Count > 0)
-            foreach (var a in _actions)
-                if (a != null)
-                    actionsToString.Add(a.ToString());
-
-        for (int i = actionsToString.Count - 1; i >= 0; i--)
-        {
-            if (actionsToString[i] == null)
-            {
-                _actions.RemoveAt(i);
-                continue;
-            }
-
-            if (!tempToString.Contains(actionsToString[i]) ||
-                actionsToString[i] == string.Empty)
-                _actions.RemoveAt(i);
-        }
-
-        if (_actions.Count == 0)
-            foreach (var a in temp)
-                _actions.Add(a);
-        else
-        {
-            foreach (var a in temp)
-            {
-                bool actionPresent = false;
-
-                foreach (var b in _actions)
-                    if (a.ToString() == b.ToString())
-                    {
-                        actionPresent = true;
-                        break;
-                    }
-
-                if (!actionPresent)
-                    _actions.Add(a);
-            }
-        }
-    }
-    public void GrabGoalsFromEnum()
-    {
-        var temp = GetAllStatesFromFlags(_goalsEnum);
-        List<string> tempToString = new();
-
-        foreach (var s in temp)
-            tempToString.Add(s.key);
-
-        for (int i = _goals.Count - 1; i >= 0; i--)
-        {
-            if (_goals[i] == null)
-            {
-                _goals.RemoveAt(i);
-                continue;
-            }
-
-            if (!tempToString.Contains(_goals[i].key) || _goals[i].key == string.Empty)
-                _goals.RemoveAt(i);
-        }
-
-        if (_goals.Count == 0)
-            foreach (var s in temp)
-                _goals.Add(new Goal(s.key, s.value, false));
-        else
-        {
-            foreach (var s in temp)
-            {
-                bool goalPresent = false;
-
-                foreach (var g in _goals)
-                    if (s.key == g.key)
-                    {
-                        goalPresent = true;
-                        break;
-                    }
-
-                if (!goalPresent)
-                    _goals.Add(new Goal(s.key, s.value, false));
-            }
-        }
-    }
-    #endregion
-    //
     public void SetCurrentTarget(Unit target)
     {
         _curtarget = target;
@@ -235,18 +151,21 @@ public class GoapAgent : MonoBehaviour
 
     public void ResetStates()
     {
+        var agentDesires = _agentHeuristics.GetAgentDesires();
+
         _weightedGoalsDict = new();
-
-        string temp = "weighted dict goals: ";
-
+        string tempDebug = "weighted dict goals: ";
         // goal dict reset and creation from list in inspector
         foreach (var g in _goals)
         {
-            _weightedGoalsDict.Add(g, g.value);
-            temp += g.key + ", ";
+            var tempVal = (float)g.value;
+            if (agentDesires.ContainsKey(g.key))
+                tempVal = agentDesires[g.key];
+            _weightedGoalsDict.Add(g, tempVal);
+            tempDebug += g.key + ", ";
         }
-        if (showDebugMessages)
-            Debug.Log(temp);
+        //if (showDebugMessages)
+            //Debug.Log(temp);
 
         if (unit == null) return;
 
@@ -271,7 +190,7 @@ public class GoapAgent : MonoBehaviour
         }
         else
         {
-            CheckIfInRange(this, damageAbility.GetRange, ref _beliefs);
+            CheckIfInRange(this, _agentSO.GetDamageAbility.GetRange, ref _beliefs);
             CheckIfInLOS(this, ref _beliefs);
         }
     }

@@ -31,13 +31,13 @@ public static class GOAPDeterminationMethods
     public static bool CheckIfInRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
     {
         var unitMover = agent.GetComponent<UnitMovementController>();
-        int dmgAbilRange = agent.damageAbility.GetRange;
+        //int dmgAbilRange = agent.damageAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
         var tempPath = unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 
-        if (distanceToTar > dmgAbilRange)
+        if (distanceToTar > abilityRange)
         {
             beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
             beliefs.RemoveState(GoapStates.InRange.ToString());
