@@ -158,7 +158,7 @@ public class GoapAgent : MonoBehaviour
 
     public void ResetStates()
     {
-        //var agentDesires = _agentHeuristics.GetAgentDesires();
+        var agentDesires = _agentHeuristics.GetAgentDesires();
 
         _weightedGoalsDict = new();
         string tempDebug = "weighted dict goals: ";
@@ -166,8 +166,8 @@ public class GoapAgent : MonoBehaviour
         foreach (var g in _goals)
         {
             var tempVal = g.value;
-            //if (agentDesires.ContainsKey(g.key))
-                //tempVal = agentDesires[g.key];
+            if (agentDesires.ContainsKey(g.key))
+                tempVal = agentDesires[g.key];
 
             _weightedGoalsDict.Add(g, tempVal);
             tempDebug += g.key + ", ";

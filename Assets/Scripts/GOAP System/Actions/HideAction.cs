@@ -1,6 +1,7 @@
 using AStarPathfinding;
 using UnityEngine;
 using static IsoMetricConversions;
+using static GOAPDeterminationMethods;
 
 public class HideAction : GoapAction
 {
@@ -9,6 +10,8 @@ public class HideAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
+        if (!CheckForAP(_agent.unit, ref beliefs)) return false;
+
         var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
         _unitMover = _agent.GetComponent<UnitMovementController>();
         var target = _agent.GetCurrentTarget;
@@ -36,7 +39,7 @@ public class HideAction : GoapAction
     {
         if (_hidePos == -Vector2Int.one || _agent == null) return;
         _unitMover.CalculatePath(_hidePos);
-        Debug.Log($"hidePos: {_hidePos}");
+        //Debug.Log($"hidePos: {_hidePos}");
 
         _unitMover.OnStartUnitMove(() =>
         {

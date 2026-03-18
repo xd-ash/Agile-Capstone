@@ -28,7 +28,7 @@ public class GoapAgentHueristics : MonoBehaviour
     public Dictionary<string, float> GetAgentDesires()
     {
         CalculateDesires(TurnManager.GetUnitTurnOrder.ToArray());
-
+        Debug.Log($"sp:{_selfPreservation}, ag:{_aggression}, alt:{_altruisism}");
         return new() { { GoapGoals.StayAlive.ToString(), _selfPreservation },
                        { GoapGoals.KillPlayer.ToString(), _aggression },
                        { GoapGoals.KeepAlliesAlive.ToString(), _altruisism } };
@@ -44,18 +44,19 @@ public class GoapAgentHueristics : MonoBehaviour
         var distToEnemy = CalculatePath(_unit.transform, closestEnemy.transform).Count;
         var distToAlly = CalculatePath(_unit.transform, closestAlly.transform).Count;
 
-        float agentHealthFactor = 0,
-              enemyDistFactor = 0, enemyHealthFactor = 0,
+        float agentHealthFactor = 0, enemyDistFactorSP = 0,
+              enemyDistFactorA = 0, enemyHealthFactor = 0,
               allyDistFactor = 0, allyHealthFactor = 0;
 
         agentHealthFactor = ((float)_unit.GetMaxHealth - (float)_unit.GetHealth) / (float)_unit.GetMaxHealth;
-        enemyDistFactor = ((float)_maxDetectDistance - (float)distToEnemy) / (float)_maxDetectDistance;
+        enemyDistFactorSP = ((float)_maxDetectDistance - (float)distToEnemy) / (float)_maxDetectDistance;
+        enemyDistFactorA = (float)distToEnemy / (float)_maxDetectDistance;
         enemyHealthFactor = ((float)closestEnemy.GetMaxHealth - (float)closestEnemy.GetHealth) / (float)closestEnemy.GetMaxHealth;
         allyDistFactor = ((float)_maxDetectDistance - (float)distToAlly) / (float)_maxDetectDistance;
         allyHealthFactor = ((float)closestAlly.GetMaxHealth - (float)closestAlly.GetHealth) / (float)closestAlly.GetMaxHealth;
 
-        _selfPreservation = agentHealthFactor * _so.GetAgentHealthWeight + enemyDistFactor * _so.GetEnemyDistanceWeight;
-        _aggression = enemyDistFactor * _so.GetEnemyDistanceWeight + enemyHealthFactor * _so.GetEnemyHealthWeight;
+        _selfPreservation = agentHealthFactor * _so.GetAgentHealthWeight + enemyDistFactorSP * _so.GetEnemyDistanceWeight;
+        _aggression = enemyDistFactorA * _so.GetEnemyDistanceWeight + enemyHealthFactor * _so.GetEnemyHealthWeight;
         _altruisism = allyHealthFactor * _so.GetAllyHealthWeight + allyDistFactor * _so.GetAllyDistanceWeght;
     }
 
