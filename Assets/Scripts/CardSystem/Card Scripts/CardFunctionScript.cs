@@ -107,6 +107,8 @@ public class CardFunctionScript : MonoBehaviour
         }
         else
             Debug.LogError("Card prefab is missing required TextMeshPro components");
+        
+        GetComponent<CardVisualController>()?.ApplyVisuals(card.GetCardAbility);
     }
 
     public void EnableShopMode()

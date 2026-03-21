@@ -4,6 +4,7 @@ using System;
 
 namespace CardSystem
 {
+    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling }
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
     {
@@ -11,6 +12,8 @@ namespace CardSystem
         [TextArea(1, 3)]
         [SerializeField] private string _description;
         [SerializeField] private AudioClip _abilitySFX;
+        [SerializeField] private CardCategory _cardCategory;
+        [SerializeField] private int _effectValue;
 
         [Header("Card Data")]
         [SerializeField] private int _apCost;
@@ -41,6 +44,8 @@ namespace CardSystem
         public int GetShopCost => _shopCost;
         public int GetShopWeight => _shopWeight;
         public AudioClip GetAbilitySFX => _abilitySFX;
+        public CardCategory GetCardCategory => _cardCategory;
+        public int GetEffectValue => _effectValue;
 
         public int GetBaseHitChance => _baseHitChance;
         public int GetMinHitChance => _minHitChance;

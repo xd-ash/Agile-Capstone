@@ -64,11 +64,18 @@ namespace CardSystem
         {
             if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
                 ToggleHighlightAndScale(true);
+            
+            int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
+            APDisplay.Instance?.ShowPreview(cost);
         }
         private void OnMouseExit()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging &&
+                DeckAndHandManager.Instance.GetSelectedCard == null)
+            {
                 ToggleHighlightAndScale(false);
+                APDisplay.Instance?.ClearPreview();
+            }
         }
         private void OnMouseDown()
         {
@@ -198,9 +205,11 @@ namespace CardSystem
             float scaleMultiplier = isHoveredOrSelected ? _hoverScaleMultiplier : 1;
             transform.DOScale(_originalScale * scaleMultiplier, _tweenDuration);
 
-            UpdateSortingOrders(isHoveredOrSelected ? DeckAndHandManager.Instance.CardsInHand.Count : 0);
+            // Was: DeckAndHandManager.Instance.CardsInHand.Count
+            // The boost must beat the highest possible cardIndex * 10
+            int hoverBoost = isHoveredOrSelected ? (DeckAndHandManager.Instance.CardsInHand.Count * 10) + 10 : 0;
+            UpdateSortingOrders(hoverBoost);
 
-            // Only update position if explicitly not dragging
             if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick)
                 CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
@@ -232,17 +241,20 @@ namespace CardSystem
             bool isShopActive = CardShopManager.Instance != null;
             int baseSortingValue = isShopActive ? 0 : CardSplineManager.Instance.GetCardSortingOrderBaseValue;
             int cardIndex = isShopActive ? 0 : DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
-             
-            // Set sorting by taking into account the BaseSortingValue, sorting boost param, and card index (index set to 0 during shop scene)
-            _spriteRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
-            
-            if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
 
-            // Update all TextMeshPro components sorting order
+            // Multiply cardIndex by 10 to give each card a safe range of sorting slots
+            int finalOrder = baseSortingValue + sortingBoost + (cardIndex * 10);
+
+            _spriteRenderer.sortingOrder = finalOrder;
+
+            if (_highlightRenderer != null)
+                _highlightRenderer.sortingOrder = finalOrder + 2;
+
             foreach (var text in GetComponentsInChildren<TextMeshPro>())
                 if (text != null)
-                    text.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
+                    text.sortingOrder = finalOrder + 1;
+
+            GetComponent<CardVisualController>()?.UpdateSortingOrder(finalOrder);
         }
 
         // Return card to hand, clear selection, stop coroutines and tweens, then update card orders
@@ -325,7 +337,7 @@ namespace CardSystem
 
             _startIndex = DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
 
-            UpdateSortingOrders();
+            UpdateSortingOrders(); // this already calls UpdateSortingOrder internally — no second call needed
         }
     }
 }

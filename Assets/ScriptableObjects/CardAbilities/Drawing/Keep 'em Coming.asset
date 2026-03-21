@@ -134,6 +134,7 @@ MonoBehaviour:
   effectVisuals: 0
   effects: 0
   _doEffectAtStart: 0
+  _tickOnStart: 1
 --- !u!114 &-380372070312746705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +196,8 @@ MonoBehaviour:
   - {fileID: 4468958634529343221}
   _description: Draw an additional card next turn and for 2 turn after
   _abilitySFX: {fileID: 0}
+  _cardCategory: 4
+  _effectValue: 0
   _apCost: 2
   _range: 0
   _shopCost: 0
@@ -206,6 +209,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 0
 --- !u!114 &4468958634529343221
 MonoBehaviour:
   m_ObjectHideFlags: 0

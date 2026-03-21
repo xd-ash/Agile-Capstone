@@ -9,6 +9,16 @@ public class APDisplay : MonoBehaviour
     private Image[] _apFills;
     private Unit _currentUnit;
     private int _lastMaxAP = -1;
+    
+    public static APDisplay Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     private void OnEnable()
     {
@@ -76,5 +86,36 @@ public class APDisplay : MonoBehaviour
             if (_apFills[i] != null)
                 _apFills[i].enabled = i < currentAP;
         }
+    }
+    
+    public void ShowPreview(int cost)
+    {
+        if (_apFills == null || _currentUnit == null) return;
+
+        int currentAP = _currentUnit.GetAP;
+
+        // Walk backwards through filled boxes and dim the ones that would be spent
+        int previewCount = 0;
+        for (int i = _apFills.Length - 1; i >= 0 && previewCount < cost; i--)
+        {
+            if (_apFills[i] == null || !_apFills[i].enabled) continue;
+
+            _apFills[i].color = new Color(1f, 0.3f, 0.3f, 0.8f); // dim red tint
+            previewCount++;
+        }
+    }
+
+    public void ClearPreview()
+    {
+        if (_apFills == null) return;
+
+        foreach (var fill in _apFills)
+            if (fill != null)
+                fill.color = Color.white;
+    }
+
+    public bool CanAfford(int cost)
+    {
+        return _currentUnit != null && _currentUnit.GetAP >= cost;
     }
 }
