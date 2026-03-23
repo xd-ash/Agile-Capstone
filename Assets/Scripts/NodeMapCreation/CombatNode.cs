@@ -10,7 +10,7 @@ public class CombatNode : NodeMapNode
         base.InitNode(index, prev, next);
 
         if (_nodeIndex == Vector2Int.zero)
-            _combatData = new CombatMapData { maxEnemiesAllowed = 1, maxPlayersAllowed = 1 };
+            _combatData = new CombatMapData { maxEnemiesAllowed = 2, maxPlayersAllowed = 1 };
         else
         {
             Random.InitState(PlayerDataManager.Instance.GetNodeMapSeed + (int)transform.localPosition.x + (int)transform.localPosition.y); // adding variation in seed based on node position

@@ -5,30 +5,36 @@ using static GOAPDeterminationMethods;
 
 public class ChooseTargetAction : GoapAction
 {
-    private Dictionary<int, Unit> distancesToUnits;
+    private Dictionary<int, Unit> _distancesToEnemies;
+    private Dictionary<int, Unit> _distancesToAllies;
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        distancesToUnits = new();
+        _distancesToEnemies = new();
+        _distancesToAllies = new();
         var unitMover = _agent.GetComponent<UnitMovementController>();
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
-            if (u == null || u.GetTeam == _agent.unit.GetTeam) continue;
+            if (u == null) continue;
             //Debug.Log($"Unit: {u.name} - Pos {u.transform.localPosition}");
 
             var tarPos = ConvertToGridFromIsometric(u.transform.localPosition); 
             var tempPath = unitMover.CalculatePath(tarPos);
 
-            distancesToUnits.Add(tempPath.Count, u);
+            if (u.GetTeam == _agent.unit.GetTeam)
+                _distancesToAllies.Add(tempPath.Count, u);
+            else
+                _distancesToEnemies.Add(tempPath.Count, u);
         }
 
-        return distancesToUnits.Count > 0 ? true : false;
+        return _distancesToEnemies.Count > 0 ? true : false;
     }
     public override void Perform()
     {
-        int min = distancesToUnits.Min(x => x.Key);
-        _agent.SetCurrentTarget(distancesToUnits[min]);
+        int minEnemy = _distancesToEnemies.Min(x => x.Key);
+        int minAlly = _distancesToAllies.Min(x => x.Key);
+        _agent.SetCurrentTargets(_distancesToEnemies[minEnemy], _distancesToAllies[minAlly]);
 
         //Debug.Log($"target: {(agent.curtarget != null ? agent.curtarget.name : "null")}");
 

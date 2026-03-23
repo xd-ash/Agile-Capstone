@@ -64,6 +64,10 @@ public class MapCreator : MonoBehaviour
 
     public Vector2Int GetMapSize => _mapSize;
 
+    //TEMP
+    int _enemyCount = 0;
+    //
+
     public byte[,] CreateMap()
     {
         if (_tileLibrary == null)
@@ -112,6 +116,10 @@ public class MapCreator : MonoBehaviour
         } while (!CheckMapForTruePath(map, emptyTilePositions.Count) && failSafeCount < 100);
 
         GenerateUnitPositions(map, emptyTilePositions);
+
+    //TEMP enemy THINGS
+    _enemyCount = 0;
+    //
 
         for (int x = 0; x < map.GetLength(0); x++)
         {
@@ -185,6 +193,14 @@ public class MapCreator : MonoBehaviour
     private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
+
+        if (byteIndicator == 3 || byteIndicator == 4)
+        {
+            Debug.Log("Temp enemy spawn stuff");
+            if (_enemyCount == 0) byteIndicator = 6;
+            if (_enemyCount > 0) byteIndicator = 3;
+            _enemyCount++;
+        }
         GameObject objToSpawn = _tileLibrary.GetGOFromIndicator(byteIndicator);
 
         if (byteIndicator == 4)

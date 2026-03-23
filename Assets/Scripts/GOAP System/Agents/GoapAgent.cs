@@ -43,19 +43,28 @@ public class GoapAgent : MonoBehaviour
     private WorldStates _beliefs = new WorldStates(); //make public or getter/setter if actions needed
     private GoapPlanner _planner;
     [HideInInspector] public Unit unit;
-    private Unit _curtarget;
+    private Unit _enemyTarget;
+    private Unit _allyTarget;
 
     public bool showDebugMessages = false;
 
     public Goal GetHighestGoalDesire()
     {
+        if (_weightedGoalsDict.Count == 0)
+        {
+            Debug.Log("Null Goal Created?");
+            return new("nullGoal", 1, true);
+        }
+
         Goal highestPrio = null;
         foreach (var kvp in _weightedGoalsDict)
             if (highestPrio == null || kvp.Value > _weightedGoalsDict[highestPrio])
                 highestPrio = kvp.Key;
         return highestPrio;
     }
-    public Unit GetCurrentTarget => _curtarget;
+    //public Unit GetCurrentEnemyTarget => _enemyTarget;
+    //public Unit GetCurrentAllyTarget => _allyTarget;
+    public Unit GetCurrentTarget => GetHighestGoalDesire().key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget;
     public GoapAgentSO GetAgentSO => _agentSO;
 
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
@@ -156,9 +165,10 @@ public class GoapAgent : MonoBehaviour
         }
     }
 
-    public void SetCurrentTarget(Unit target)
+    public void SetCurrentTargets(Unit enemyTarget, Unit allyTarget)
     {
-        _curtarget = target;
+        _enemyTarget = enemyTarget;
+        _allyTarget = allyTarget;
     }
     public void CompleteAction()
     {
@@ -202,7 +212,7 @@ public class GoapAgent : MonoBehaviour
 
         _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
 
-        if (_curtarget == null)
+        if (GetCurrentTarget == null)
         {
             _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
             _beliefs.RemoveState(GoapStates.HasLOS.ToString());
