@@ -498,323 +498,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch00_knifeSlash_0
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 932
-        width: 32
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fa24260268d10c030800000000000000
-      internalID: 3512840171255120559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_1
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 37291163bb3866d10800000000000000
-      internalID: 2118525514813641331
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_2
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f38dac6664b381db0800000000000000
-      internalID: -4821038227541796801
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_3
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 932
-        width: 33
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e119519678bf09590800000000000000
-      internalID: -7669353606409776866
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_4
-      rect:
-        serializedVersion: 2
-        x: 564
-        y: 932
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c2ae3702312b78f0800000000000000
-      internalID: -541802831414385981
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_5
-      rect:
-        serializedVersion: 2
-        x: 692
-        y: 932
-        width: 33
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eae6f5fcdc7837a70800000000000000
-      internalID: 8823545412966117038
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_6
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 932
-        width: 34
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9ac91bd1a6653ccd0800000000000000
-      internalID: -2539090751142126423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_7
-      rect:
-        serializedVersion: 2
-        x: 949
-        y: 932
-        width: 43
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c5485f2f2fc508fa0800000000000000
-      internalID: -5800534121525181348
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_8
-      rect:
-        serializedVersion: 2
-        x: 1077
-        y: 932
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c22e5706e4eb57960800000000000000
-      internalID: 7599189190092644908
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_9
-      rect:
-        serializedVersion: 2
-        x: 1205
-        y: 932
-        width: 32
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 221474319f1441a70800000000000000
-      internalID: 8796728510187520290
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_10
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 932
-        width: 39
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8c36f46e572d4a4e0800000000000000
-      internalID: -1971219333064465464
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_11
-      rect:
-        serializedVersion: 2
-        x: 1458
-        y: 932
-        width: 39
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 84ce3060663707e70800000000000000
-      internalID: 9110908928195292232
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_12
-      rect:
-        serializedVersion: 2
-        x: 1589
-        y: 932
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee645f62fb8d37b90800000000000000
-      internalID: -7245209060005034258
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_13
-      rect:
-        serializedVersion: 2
-        x: 1719
-        y: 933
-        width: 28
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8661ee55f31441970800000000000000
-      internalID: 8724670118403905128
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_knifeSlash_14
       rect:
         serializedVersion: 2
-        x: 50
-        y: 805
-        width: 33
-        height: 42
+        x: 0
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -831,12 +523,12 @@ TextureImporter:
       name: ch00_knifeSlash_15
       rect:
         serializedVersion: 2
-        x: 178
-        y: 805
-        width: 33
-        height: 42
+        x: 128
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -853,12 +545,12 @@ TextureImporter:
       name: ch00_knifeSlash_16
       rect:
         serializedVersion: 2
-        x: 306
-        y: 805
-        width: 35
-        height: 41
+        x: 256
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -875,12 +567,12 @@ TextureImporter:
       name: ch00_knifeSlash_17
       rect:
         serializedVersion: 2
-        x: 434
-        y: 805
-        width: 37
-        height: 40
+        x: 384
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -897,12 +589,12 @@ TextureImporter:
       name: ch00_knifeSlash_18
       rect:
         serializedVersion: 2
-        x: 562
-        y: 805
-        width: 38
-        height: 42
+        x: 512
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -919,12 +611,12 @@ TextureImporter:
       name: ch00_knifeSlash_19
       rect:
         serializedVersion: 2
-        x: 690
-        y: 805
-        width: 37
-        height: 43
+        x: 640
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -941,12 +633,12 @@ TextureImporter:
       name: ch00_knifeSlash_20
       rect:
         serializedVersion: 2
-        x: 818
-        y: 805
-        width: 36
-        height: 42
+        x: 768
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -963,12 +655,12 @@ TextureImporter:
       name: ch00_knifeSlash_21
       rect:
         serializedVersion: 2
-        x: 946
-        y: 805
-        width: 34
-        height: 43
+        x: 896
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -985,12 +677,12 @@ TextureImporter:
       name: ch00_knifeSlash_22
       rect:
         serializedVersion: 2
-        x: 1074
-        y: 805
-        width: 36
-        height: 44
+        x: 1024
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1007,12 +699,12 @@ TextureImporter:
       name: ch00_knifeSlash_23
       rect:
         serializedVersion: 2
-        x: 1202
-        y: 805
-        width: 42
-        height: 47
+        x: 1152
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1029,12 +721,12 @@ TextureImporter:
       name: ch00_knifeSlash_24
       rect:
         serializedVersion: 2
-        x: 1329
-        y: 805
-        width: 39
-        height: 51
+        x: 1280
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1051,12 +743,12 @@ TextureImporter:
       name: ch00_knifeSlash_25
       rect:
         serializedVersion: 2
-        x: 1457
-        y: 804
-        width: 34
-        height: 45
+        x: 1408
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1073,12 +765,12 @@ TextureImporter:
       name: ch00_knifeSlash_26
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 805
-        width: 35
-        height: 44
+        x: 1536
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1095,12 +787,12 @@ TextureImporter:
       name: ch00_knifeSlash_27
       rect:
         serializedVersion: 2
-        x: 1717
-        y: 807
-        width: 29
-        height: 42
+        x: 1664
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1114,323 +806,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_knifeSlash_28
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 671
-        width: 27
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2201b855276fb1930800000000000000
-      internalID: 4115153655454961698
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_29
-      rect:
-        serializedVersion: 2
-        x: 179
-        y: 671
-        width: 29
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fe80f0df6b8f1b560800000000000000
-      internalID: 7327911533521864943
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_30
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 671
-        width: 31
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 26a474fee3d6ba2b0800000000000000
-      internalID: -5572239996871030174
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_31
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 671
-        width: 32
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 309951cfe425d2e90800000000000000
-      internalID: -7048887342574757629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_32
-      rect:
-        serializedVersion: 2
-        x: 564
-        y: 671
-        width: 31
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 61312e5714cba73f0800000000000000
-      internalID: -902201785997716714
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_33
-      rect:
-        serializedVersion: 2
-        x: 692
-        y: 671
-        width: 32
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 99294ea6f89619380800000000000000
-      internalID: -8966269318423342439
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_34
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 671
-        width: 33
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cff7d462b076977f0800000000000000
-      internalID: -614346576574447620
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_35
-      rect:
-        serializedVersion: 2
-        x: 948
-        y: 671
-        width: 36
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c65b73a7a1eec55e0800000000000000
-      internalID: -1919397543679642260
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_36
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 671
-        width: 37
-        height: 56
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: af28fa793c174eae0800000000000000
-      internalID: -1520965689266961670
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_37
-      rect:
-        serializedVersion: 2
-        x: 1203
-        y: 671
-        width: 34
-        height: 58
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 67a296c90a883e710800000000000000
-      internalID: 1721369705985944182
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_38
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 671
-        width: 22
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 58f912c8860dfaf40800000000000000
-      internalID: 5742037197366861701
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_39
-      rect:
-        serializedVersion: 2
-        x: 1459
-        y: 671
-        width: 22
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: be1db36cc218ad650800000000000000
-      internalID: 6258456661489078763
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_40
-      rect:
-        serializedVersion: 2
-        x: 1585
-        y: 672
-        width: 24
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72d86d4d382e37fe0800000000000000
-      internalID: -1192360420483625689
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_41
-      rect:
-        serializedVersion: 2
-        x: 1714
-        y: 673
-        width: 23
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fdfac650b402d5a80800000000000000
-      internalID: -8476583417055760417
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_knifeSlash_42
       rect:
         serializedVersion: 2
-        x: 52
-        y: 544
-        width: 21
-        height: 45
+        x: 0
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1447,12 +831,12 @@ TextureImporter:
       name: ch00_knifeSlash_43
       rect:
         serializedVersion: 2
-        x: 181
-        y: 544
-        width: 21
-        height: 43
+        x: 128
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1469,12 +853,12 @@ TextureImporter:
       name: ch00_knifeSlash_44
       rect:
         serializedVersion: 2
-        x: 310
-        y: 544
-        width: 21
-        height: 39
+        x: 256
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1491,12 +875,12 @@ TextureImporter:
       name: ch00_knifeSlash_45
       rect:
         serializedVersion: 2
-        x: 438
-        y: 545
-        width: 25
-        height: 35
+        x: 384
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1513,12 +897,12 @@ TextureImporter:
       name: ch00_knifeSlash_46
       rect:
         serializedVersion: 2
-        x: 566
-        y: 545
-        width: 27
-        height: 36
+        x: 512
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1535,12 +919,12 @@ TextureImporter:
       name: ch00_knifeSlash_47
       rect:
         serializedVersion: 2
-        x: 694
-        y: 545
-        width: 28
-        height: 36
+        x: 640
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1557,12 +941,12 @@ TextureImporter:
       name: ch00_knifeSlash_48
       rect:
         serializedVersion: 2
-        x: 821
-        y: 544
-        width: 29
-        height: 39
+        x: 768
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1579,12 +963,12 @@ TextureImporter:
       name: ch00_knifeSlash_49
       rect:
         serializedVersion: 2
-        x: 936
-        y: 544
-        width: 43
-        height: 43
+        x: 896
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1601,12 +985,12 @@ TextureImporter:
       name: ch00_knifeSlash_50
       rect:
         serializedVersion: 2
-        x: 1076
-        y: 544
-        width: 27
-        height: 60
+        x: 1024
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1623,12 +1007,12 @@ TextureImporter:
       name: ch00_knifeSlash_51
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 544
-        width: 20
-        height: 59
+        x: 1152
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1645,12 +1029,12 @@ TextureImporter:
       name: ch00_knifeSlash_52
       rect:
         serializedVersion: 2
-        x: 1330
-        y: 544
-        width: 22
-        height: 58
+        x: 1280
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1667,12 +1051,12 @@ TextureImporter:
       name: ch00_knifeSlash_53
       rect:
         serializedVersion: 2
-        x: 1452
-        y: 544
-        width: 31
-        height: 54
+        x: 1408
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1689,12 +1073,12 @@ TextureImporter:
       name: ch00_knifeSlash_54
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 545
-        width: 23
-        height: 53
+        x: 1536
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1711,12 +1095,12 @@ TextureImporter:
       name: ch00_knifeSlash_55
       rect:
         serializedVersion: 2
-        x: 1715
-        y: 545
-        width: 19
-        height: 51
+        x: 1664
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1730,323 +1114,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_knifeSlash_56
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 423
-        width: 33
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f524a9a3854aabab0800000000000000
-      internalID: -4991496538139508129
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_57
-      rect:
-        serializedVersion: 2
-        x: 173
-        y: 423
-        width: 33
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4a356d9ef10a43e30800000000000000
-      internalID: 4482383588068053924
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_58
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 423
-        width: 32
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d18d49fe81cf440c0800000000000000
-      internalID: -4592268535982139363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_59
-      rect:
-        serializedVersion: 2
-        x: 429
-        y: 423
-        width: 33
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c72f8fb9fe3325d80800000000000000
-      internalID: -8263485262064455044
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_60
-      rect:
-        serializedVersion: 2
-        x: 557
-        y: 423
-        width: 33
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7e04914ba696aa8e0800000000000000
-      internalID: -1681415603860455193
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_61
-      rect:
-        serializedVersion: 2
-        x: 685
-        y: 423
-        width: 33
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1adcd4e3a9e567f20800000000000000
-      internalID: 3420024983597731233
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_62
-      rect:
-        serializedVersion: 2
-        x: 812
-        y: 423
-        width: 34
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 546e6f01a46898e70800000000000000
-      internalID: 9117966573258597957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_63
-      rect:
-        serializedVersion: 2
-        x: 931
-        y: 423
-        width: 42
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9994e59a7fad625b0800000000000000
-      internalID: -5393382746496284263
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_64
-      rect:
-        serializedVersion: 2
-        x: 1070
-        y: 423
-        width: 31
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b4b424f76ff5663a0800000000000000
-      internalID: -6672540285601166517
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_65
-      rect:
-        serializedVersion: 2
-        x: 1197
-        y: 423
-        width: 34
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c2f67ccc0aaf5be0800000000000000
-      internalID: -1486282380062297405
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_66
-      rect:
-        serializedVersion: 2
-        x: 1319
-        y: 423
-        width: 40
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dd535e2ecf78ba890800000000000000
-      internalID: -7445708038718802467
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_67
-      rect:
-        serializedVersion: 2
-        x: 1450
-        y: 424
-        width: 39
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aa8bee9d98ff23450800000000000000
-      internalID: 6067192615553382570
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_68
-      rect:
-        serializedVersion: 2
-        x: 1581
-        y: 424
-        width: 32
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b02724b7ec7bfc270800000000000000
-      internalID: 8273033137961988619
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_69
-      rect:
-        serializedVersion: 2
-        x: 1711
-        y: 423
-        width: 28
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dc3d91ea4ba3581b0800000000000000
-      internalID: -5655049209404337203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_knifeSlash_70
       rect:
         serializedVersion: 2
-        x: 47
-        y: 297
-        width: 34
-        height: 44
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2063,12 +1139,12 @@ TextureImporter:
       name: ch00_knifeSlash_71
       rect:
         serializedVersion: 2
-        x: 175
-        y: 298
-        width: 33
-        height: 43
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2085,12 +1161,12 @@ TextureImporter:
       name: ch00_knifeSlash_72
       rect:
         serializedVersion: 2
-        x: 301
-        y: 299
-        width: 35
-        height: 40
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2107,12 +1183,12 @@ TextureImporter:
       name: ch00_knifeSlash_73
       rect:
         serializedVersion: 2
-        x: 428
-        y: 300
-        width: 36
-        height: 38
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2129,12 +1205,12 @@ TextureImporter:
       name: ch00_knifeSlash_74
       rect:
         serializedVersion: 2
-        x: 555
-        y: 300
-        width: 37
-        height: 37
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2151,12 +1227,12 @@ TextureImporter:
       name: ch00_knifeSlash_75
       rect:
         serializedVersion: 2
-        x: 684
-        y: 300
-        width: 36
-        height: 38
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2173,12 +1249,12 @@ TextureImporter:
       name: ch00_knifeSlash_76
       rect:
         serializedVersion: 2
-        x: 808
-        y: 300
-        width: 40
-        height: 39
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2195,12 +1271,12 @@ TextureImporter:
       name: ch00_knifeSlash_77
       rect:
         serializedVersion: 2
-        x: 942
-        y: 301
-        width: 34
-        height: 52
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2217,12 +1293,12 @@ TextureImporter:
       name: ch00_knifeSlash_78
       rect:
         serializedVersion: 2
-        x: 1068
-        y: 301
-        width: 36
-        height: 47
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2239,12 +1315,12 @@ TextureImporter:
       name: ch00_knifeSlash_79
       rect:
         serializedVersion: 2
-        x: 1190
-        y: 301
-        width: 42
-        height: 42
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2261,12 +1337,12 @@ TextureImporter:
       name: ch00_knifeSlash_80
       rect:
         serializedVersion: 2
-        x: 1323
-        y: 299
-        width: 38
-        height: 44
+        x: 1280
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2283,12 +1359,12 @@ TextureImporter:
       name: ch00_knifeSlash_81
       rect:
         serializedVersion: 2
-        x: 1455
-        y: 297
-        width: 35
-        height: 47
+        x: 1408
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2305,12 +1381,12 @@ TextureImporter:
       name: ch00_knifeSlash_82
       rect:
         serializedVersion: 2
-        x: 1583
-        y: 297
-        width: 35
-        height: 47
+        x: 1536
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2327,12 +1403,12 @@ TextureImporter:
       name: ch00_knifeSlash_83
       rect:
         serializedVersion: 2
-        x: 1712
-        y: 297
-        width: 29
-        height: 47
+        x: 1664
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2346,323 +1422,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_knifeSlash_84
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 164
-        width: 27
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4f70e6a3f251fb430800000000000000
-      internalID: 3800779903111923700
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_85
-      rect:
-        serializedVersion: 2
-        x: 178
-        y: 165
-        width: 29
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9ec826309f566b3c0800000000000000
-      internalID: -4344172670374212375
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_86
-      rect:
-        serializedVersion: 2
-        x: 303
-        y: 166
-        width: 32
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ae79236908de6120800000000000000
-      internalID: 2409100385519763109
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_87
-      rect:
-        serializedVersion: 2
-        x: 431
-        y: 167
-        width: 31
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7f62a514750028e40800000000000000
-      internalID: 5657084456689346295
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_88
-      rect:
-        serializedVersion: 2
-        x: 559
-        y: 167
-        width: 31
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d15bc054bb0f66d60800000000000000
-      internalID: 7883252884866643229
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_89
-      rect:
-        serializedVersion: 2
-        x: 686
-        y: 166
-        width: 33
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 49c021dd554ee62a0800000000000000
-      internalID: -6742200534694753132
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_90
-      rect:
-        serializedVersion: 2
-        x: 813
-        y: 167
-        width: 34
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff59f23d6d88ea610800000000000000
-      internalID: 1634394171029558783
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_91
-      rect:
-        serializedVersion: 2
-        x: 938
-        y: 167
-        width: 37
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 37a2e1f6ffe7370d0800000000000000
-      internalID: -3426255255952807309
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_92
-      rect:
-        serializedVersion: 2
-        x: 1066
-        y: 167
-        width: 37
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 48dcbd5147da09940800000000000000
-      internalID: 5300927475509611908
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_93
-      rect:
-        serializedVersion: 2
-        x: 1197
-        y: 166
-        width: 34
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a51c9ee1111704f0800000000000000
-      internalID: -862702034902837847
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_94
-      rect:
-        serializedVersion: 2
-        x: 1337
-        y: 166
-        width: 22
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0e767d39b81c9cc50800000000000000
-      internalID: 6686087927033194464
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_95
-      rect:
-        serializedVersion: 2
-        x: 1465
-        y: 164
-        width: 21
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b4a7610c95c1a1ec0800000000000000
-      internalID: -3595530180701554101
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_96
-      rect:
-        serializedVersion: 2
-        x: 1593
-        y: 165
-        width: 25
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 000cdd6300ef0c4a0800000000000000
-      internalID: -6574976179086966784
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_knifeSlash_97
-      rect:
-        serializedVersion: 2
-        x: 1721
-        y: 166
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 477777aafcb887a90800000000000000
-      internalID: -7315943870628923532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_knifeSlash_98
       rect:
         serializedVersion: 2
-        x: 57
-        y: 34
-        width: 21
-        height: 52
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2679,12 +1447,12 @@ TextureImporter:
       name: ch00_knifeSlash_99
       rect:
         serializedVersion: 2
-        x: 184
-        y: 35
-        width: 22
-        height: 52
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2701,12 +1469,12 @@ TextureImporter:
       name: ch00_knifeSlash_100
       rect:
         serializedVersion: 2
-        x: 311
-        y: 35
-        width: 22
-        height: 53
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2723,12 +1491,12 @@ TextureImporter:
       name: ch00_knifeSlash_101
       rect:
         serializedVersion: 2
-        x: 435
-        y: 35
-        width: 26
-        height: 53
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2745,12 +1513,12 @@ TextureImporter:
       name: ch00_knifeSlash_102
       rect:
         serializedVersion: 2
-        x: 562
-        y: 35
-        width: 27
-        height: 53
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2767,12 +1535,12 @@ TextureImporter:
       name: ch00_knifeSlash_103
       rect:
         serializedVersion: 2
-        x: 689
-        y: 35
-        width: 28
-        height: 53
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2789,12 +1557,12 @@ TextureImporter:
       name: ch00_knifeSlash_104
       rect:
         serializedVersion: 2
-        x: 816
-        y: 35
-        width: 30
-        height: 53
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2811,12 +1579,12 @@ TextureImporter:
       name: ch00_knifeSlash_105
       rect:
         serializedVersion: 2
-        x: 943
-        y: 35
-        width: 43
-        height: 57
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2833,12 +1601,12 @@ TextureImporter:
       name: ch00_knifeSlash_106
       rect:
         serializedVersion: 2
-        x: 1075
-        y: 35
-        width: 28
-        height: 54
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2855,12 +1623,12 @@ TextureImporter:
       name: ch00_knifeSlash_107
       rect:
         serializedVersion: 2
-        x: 1211
-        y: 34
-        width: 18
-        height: 55
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2877,12 +1645,12 @@ TextureImporter:
       name: ch00_knifeSlash_108
       rect:
         serializedVersion: 2
-        x: 1339
-        y: 34
-        width: 22
-        height: 54
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2899,12 +1667,12 @@ TextureImporter:
       name: ch00_knifeSlash_109
       rect:
         serializedVersion: 2
-        x: 1463
-        y: 34
-        width: 32
-        height: 48
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2921,12 +1689,12 @@ TextureImporter:
       name: ch00_knifeSlash_110
       rect:
         serializedVersion: 2
-        x: 1595
-        y: 35
-        width: 23
-        height: 49
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2943,12 +1711,12 @@ TextureImporter:
       name: ch00_knifeSlash_111
       rect:
         serializedVersion: 2
-        x: 1724
-        y: 36
-        width: 20
-        height: 48
+        x: 1664
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2965,7 +1733,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 86f4b120cd003ef4298b66e476d62ca7
     internalID: 0
     vertices: []
     indices: 
@@ -2973,7 +1741,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":14.0,"y":8.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ch00_knifeSlash_0: 3512840171255120559
       ch00_knifeSlash_1: 2118525514813641331

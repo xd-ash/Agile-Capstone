@@ -498,323 +498,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch00_throw_0
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 934
-        width: 25
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d52496a5eab5c8920800000000000000
-      internalID: 2993868656693822045
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_1
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 933
-        width: 29
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: edb981d8b36a63010800000000000000
-      internalID: 1168303928049703902
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_2
-      rect:
-        serializedVersion: 2
-        x: 306
-        y: 932
-        width: 36
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c1d7ccee104f85a80800000000000000
-      internalID: -8477758009386435300
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_3
-      rect:
-        serializedVersion: 2
-        x: 437
-        y: 932
-        width: 32
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f0529b5844e698930800000000000000
-      internalID: 4145966172551587087
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_4
-      rect:
-        serializedVersion: 2
-        x: 565
-        y: 932
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8161ab61360e9eb80800000000000000
-      internalID: -8364908116676307432
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_5
-      rect:
-        serializedVersion: 2
-        x: 693
-        y: 932
-        width: 41
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7d0c594d76e70e80800000000000000
-      internalID: -8212341969710740098
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_6
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 932
-        width: 33
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00d77b97b34af1cf0800000000000000
-      internalID: -279324076521587456
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_7
-      rect:
-        serializedVersion: 2
-        x: 948
-        y: 932
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 030bfd462e0c64760800000000000000
-      internalID: 7441847512863846448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_8
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e0c68a84fa059cca0800000000000000
-      internalID: -5996172715098608626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_9
-      rect:
-        serializedVersion: 2
-        x: 1205
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b41c3b89b0f73e500800000000000000
-      internalID: 424322477686243659
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_10
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 932
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 26a94d99e14f187c0800000000000000
-      internalID: -4070704175899174302
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_11
-      rect:
-        serializedVersion: 2
-        x: 1460
-        y: 932
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4bc7f185a9c4fddf0800000000000000
-      internalID: -153319636520174412
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_12
-      rect:
-        serializedVersion: 2
-        x: 1588
-        y: 932
-        width: 34
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b668d6d43e4b5c3d0800000000000000
-      internalID: -3186942272945158549
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_13
-      rect:
-        serializedVersion: 2
-        x: 1717
-        y: 932
-        width: 32
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f0317ad715dc500c0800000000000000
-      internalID: -4610052893659688177
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_throw_14
       rect:
         serializedVersion: 2
-        x: 55
-        y: 808
-        width: 26
-        height: 41
+        x: 0
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -831,12 +523,12 @@ TextureImporter:
       name: ch00_throw_15
       rect:
         serializedVersion: 2
-        x: 180
-        y: 806
-        width: 30
-        height: 43
+        x: 128
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -853,12 +545,12 @@ TextureImporter:
       name: ch00_throw_16
       rect:
         serializedVersion: 2
-        x: 305
-        y: 804
-        width: 34
-        height: 44
+        x: 256
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -875,12 +567,12 @@ TextureImporter:
       name: ch00_throw_17
       rect:
         serializedVersion: 2
-        x: 434
-        y: 805
-        width: 33
-        height: 48
+        x: 384
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -897,12 +589,12 @@ TextureImporter:
       name: ch00_throw_18
       rect:
         serializedVersion: 2
-        x: 562
-        y: 805
-        width: 32
-        height: 44
+        x: 512
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -919,12 +611,12 @@ TextureImporter:
       name: ch00_throw_19
       rect:
         serializedVersion: 2
-        x: 690
-        y: 805
-        width: 34
-        height: 43
+        x: 640
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -941,12 +633,12 @@ TextureImporter:
       name: ch00_throw_20
       rect:
         serializedVersion: 2
-        x: 818
-        y: 805
-        width: 37
-        height: 40
+        x: 768
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -963,12 +655,12 @@ TextureImporter:
       name: ch00_throw_21
       rect:
         serializedVersion: 2
-        x: 946
-        y: 805
-        width: 38
-        height: 39
+        x: 896
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -985,12 +677,12 @@ TextureImporter:
       name: ch00_throw_22
       rect:
         serializedVersion: 2
-        x: 1074
-        y: 805
-        width: 36
-        height: 41
+        x: 1024
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1007,12 +699,12 @@ TextureImporter:
       name: ch00_throw_23
       rect:
         serializedVersion: 2
-        x: 1202
-        y: 805
-        width: 33
-        height: 42
+        x: 1152
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1029,12 +721,12 @@ TextureImporter:
       name: ch00_throw_24
       rect:
         serializedVersion: 2
-        x: 1329
-        y: 805
-        width: 34
-        height: 42
+        x: 1280
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1051,12 +743,12 @@ TextureImporter:
       name: ch00_throw_25
       rect:
         serializedVersion: 2
-        x: 1457
-        y: 805
-        width: 34
-        height: 42
+        x: 1408
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1073,12 +765,12 @@ TextureImporter:
       name: ch00_throw_26
       rect:
         serializedVersion: 2
-        x: 1585
-        y: 805
-        width: 34
-        height: 42
+        x: 1536
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1095,12 +787,12 @@ TextureImporter:
       name: ch00_throw_27
       rect:
         serializedVersion: 2
-        x: 1715
-        y: 805
-        width: 32
-        height: 42
+        x: 1664
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1114,323 +806,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_throw_28
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 674
-        width: 19
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 61d360562e080f390800000000000000
-      internalID: -7786582045877715690
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_29
-      rect:
-        serializedVersion: 2
-        x: 177
-        y: 672
-        width: 24
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee8950942eac9fad0800000000000000
-      internalID: -2667878231003784978
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_30
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 671
-        width: 21
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9e3d622df5adea120800000000000000
-      internalID: 2427117354281784297
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_31
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 671
-        width: 22
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8571eabed1353bc90800000000000000
-      internalID: -7155283994988374184
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_32
-      rect:
-        serializedVersion: 2
-        x: 564
-        y: 671
-        width: 24
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 683cd9ae9086c95f0800000000000000
-      internalID: -748609046250142842
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_33
-      rect:
-        serializedVersion: 2
-        x: 692
-        y: 671
-        width: 27
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f8fd00ee87dbfd9b0800000000000000
-      internalID: -5053111929799647345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_34
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 671
-        width: 29
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6794cc967465b6d90800000000000000
-      internalID: -7103489122529162890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_35
-      rect:
-        serializedVersion: 2
-        x: 948
-        y: 671
-        width: 30
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 62b3a0d282f3219d0800000000000000
-      internalID: -2805110176111510746
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_36
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 671
-        width: 28
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c13a360c539224a60800000000000000
-      internalID: 7656727627321025308
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_37
-      rect:
-        serializedVersion: 2
-        x: 1203
-        y: 671
-        width: 26
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 60d355b8a7ac278a0800000000000000
-      internalID: -6308757500320203514
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_38
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 671
-        width: 21
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dc8f1499775cbabb0800000000000000
-      internalID: -4923624650136487731
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_39
-      rect:
-        serializedVersion: 2
-        x: 1460
-        y: 671
-        width: 21
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c254f02563cd30bb0800000000000000
-      internalID: -4970887437823818452
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_40
-      rect:
-        serializedVersion: 2
-        x: 1585
-        y: 671
-        width: 24
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e23e056c5ce0ff80800000000000000
-      internalID: -8074694250298723615
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_41
-      rect:
-        serializedVersion: 2
-        x: 1713
-        y: 672
-        width: 24
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c9fda80bc33e93660800000000000000
-      internalID: 7366168515340591004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_throw_42
       rect:
         serializedVersion: 2
-        x: 52
-        y: 546
-        width: 19
-        height: 50
+        x: 0
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1447,12 +831,12 @@ TextureImporter:
       name: ch00_throw_43
       rect:
         serializedVersion: 2
-        x: 181
-        y: 545
-        width: 17
-        height: 51
+        x: 128
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1469,12 +853,12 @@ TextureImporter:
       name: ch00_throw_44
       rect:
         serializedVersion: 2
-        x: 308
-        y: 544
-        width: 23
-        height: 54
+        x: 256
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1491,12 +875,12 @@ TextureImporter:
       name: ch00_throw_45
       rect:
         serializedVersion: 2
-        x: 435
-        y: 544
-        width: 20
-        height: 58
+        x: 384
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1513,12 +897,12 @@ TextureImporter:
       name: ch00_throw_46
       rect:
         serializedVersion: 2
-        x: 565
-        y: 544
-        width: 17
-        height: 57
+        x: 512
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1535,12 +919,12 @@ TextureImporter:
       name: ch00_throw_47
       rect:
         serializedVersion: 2
-        x: 683
-        y: 544
-        width: 27
-        height: 42
+        x: 640
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1557,12 +941,12 @@ TextureImporter:
       name: ch00_throw_48
       rect:
         serializedVersion: 2
-        x: 822
-        y: 545
-        width: 16
-        height: 36
+        x: 768
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1579,12 +963,12 @@ TextureImporter:
       name: ch00_throw_49
       rect:
         serializedVersion: 2
-        x: 950
-        y: 545
-        width: 16
-        height: 34
+        x: 896
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1601,12 +985,12 @@ TextureImporter:
       name: ch00_throw_50
       rect:
         serializedVersion: 2
-        x: 1078
-        y: 544
-        width: 16
-        height: 38
+        x: 1024
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1623,12 +1007,12 @@ TextureImporter:
       name: ch00_throw_51
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 544
-        width: 17
-        height: 43
+        x: 1152
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1645,12 +1029,12 @@ TextureImporter:
       name: ch00_throw_52
       rect:
         serializedVersion: 2
-        x: 1331
-        y: 544
-        width: 20
-        height: 47
+        x: 1280
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1667,12 +1051,12 @@ TextureImporter:
       name: ch00_throw_53
       rect:
         serializedVersion: 2
-        x: 1460
-        y: 544
-        width: 19
-        height: 50
+        x: 1408
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1689,12 +1073,12 @@ TextureImporter:
       name: ch00_throw_54
       rect:
         serializedVersion: 2
-        x: 1587
-        y: 545
-        width: 21
-        height: 50
+        x: 1536
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1711,12 +1095,12 @@ TextureImporter:
       name: ch00_throw_55
       rect:
         serializedVersion: 2
-        x: 1713
-        y: 545
-        width: 22
-        height: 50
+        x: 1664
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1730,323 +1114,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_throw_56
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 423
-        width: 25
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 93ae6833e38081820800000000000000
-      internalID: 2889068224203647545
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_57
-      rect:
-        serializedVersion: 2
-        x: 174
-        y: 423
-        width: 30
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dc3ba9adef480de30800000000000000
-      internalID: 4526263855631479757
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_58
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 424
-        width: 36
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c811b944137c8fe60800000000000000
-      internalID: 7996360152814653836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_59
-      rect:
-        serializedVersion: 2
-        x: 429
-        y: 423
-        width: 33
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9779fc10f95827ff0800000000000000
-      internalID: -39822528716236935
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_60
-      rect:
-        serializedVersion: 2
-        x: 558
-        y: 423
-        width: 31
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fcde73c46d4d13170800000000000000
-      internalID: 8156534417011502543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_61
-      rect:
-        serializedVersion: 2
-        x: 676
-        y: 423
-        width: 41
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 722e391507a090e30800000000000000
-      internalID: 4470115582663189031
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_62
-      rect:
-        serializedVersion: 2
-        x: 813
-        y: 423
-        width: 33
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ab188f53ef7d00200800000000000000
-      internalID: 144352674902999482
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_63
-      rect:
-        serializedVersion: 2
-        x: 941
-        y: 423
-        width: 33
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 632912cc747ed8640800000000000000
-      internalID: 5083973849924604470
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_64
-      rect:
-        serializedVersion: 2
-        x: 1070
-        y: 423
-        width: 32
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df8d7ff8a8c5bc890800000000000000
-      internalID: -7436748609481615107
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_65
-      rect:
-        serializedVersion: 2
-        x: 1197
-        y: 423
-        width: 33
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9e7b9258cfe53fe80800000000000000
-      internalID: -8146062862324221975
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_66
-      rect:
-        serializedVersion: 2
-        x: 1325
-        y: 424
-        width: 33
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8e44abc2162a2ac40800000000000000
-      internalID: 5522154631355581672
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_67
-      rect:
-        serializedVersion: 2
-        x: 1452
-        y: 424
-        width: 34
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5cb1023822ff2a800800000000000000
-      internalID: 622340222224440261
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_68
-      rect:
-        serializedVersion: 2
-        x: 1580
-        y: 424
-        width: 34
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 96ae7221aebfa6680800000000000000
-      internalID: -8760913142350353815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_69
-      rect:
-        serializedVersion: 2
-        x: 1709
-        y: 423
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4c9dbb0fc471730c0800000000000000
-      internalID: -4596179275484505660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_throw_70
       rect:
         serializedVersion: 2
-        x: 49
-        y: 297
-        width: 26
-        height: 46
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2063,12 +1139,12 @@ TextureImporter:
       name: ch00_throw_71
       rect:
         serializedVersion: 2
-        x: 176
-        y: 297
-        width: 31
-        height: 45
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2085,12 +1161,12 @@ TextureImporter:
       name: ch00_throw_72
       rect:
         serializedVersion: 2
-        x: 303
-        y: 297
-        width: 35
-        height: 44
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2107,12 +1183,12 @@ TextureImporter:
       name: ch00_throw_73
       rect:
         serializedVersion: 2
-        x: 431
-        y: 300
-        width: 34
-        height: 43
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2129,12 +1205,12 @@ TextureImporter:
       name: ch00_throw_74
       rect:
         serializedVersion: 2
-        x: 559
-        y: 301
-        width: 33
-        height: 46
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2151,12 +1227,12 @@ TextureImporter:
       name: ch00_throw_75
       rect:
         serializedVersion: 2
-        x: 686
-        y: 301
-        width: 34
-        height: 44
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2173,12 +1249,12 @@ TextureImporter:
       name: ch00_throw_76
       rect:
         serializedVersion: 2
-        x: 812
-        y: 300
-        width: 36
-        height: 38
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2195,12 +1271,12 @@ TextureImporter:
       name: ch00_throw_77
       rect:
         serializedVersion: 2
-        x: 939
-        y: 300
-        width: 37
-        height: 37
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2217,12 +1293,12 @@ TextureImporter:
       name: ch00_throw_78
       rect:
         serializedVersion: 2
-        x: 1069
-        y: 300
-        width: 35
-        height: 39
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2239,12 +1315,12 @@ TextureImporter:
       name: ch00_throw_79
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 298
-        width: 33
-        height: 43
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2261,12 +1337,12 @@ TextureImporter:
       name: ch00_throw_80
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 297
-        width: 34
-        height: 44
+        x: 1280
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2283,12 +1359,12 @@ TextureImporter:
       name: ch00_throw_81
       rect:
         serializedVersion: 2
-        x: 1455
-        y: 297
-        width: 34
-        height: 44
+        x: 1408
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2305,12 +1381,12 @@ TextureImporter:
       name: ch00_throw_82
       rect:
         serializedVersion: 2
-        x: 1583
-        y: 297
-        width: 34
-        height: 45
+        x: 1536
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2327,12 +1403,12 @@ TextureImporter:
       name: ch00_throw_83
       rect:
         serializedVersion: 2
-        x: 1711
-        y: 297
-        width: 32
-        height: 45
+        x: 1664
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2346,213 +1422,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_throw_84
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 167
-        width: 20
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8245d893af2941050800000000000000
-      internalID: 5770398625973490728
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_85
-      rect:
-        serializedVersion: 2
-        x: 185
-        y: 165
-        width: 25
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 940ae7b168a952b60800000000000000
-      internalID: 7720747036974161993
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_86
-      rect:
-        serializedVersion: 2
-        x: 313
-        y: 164
-        width: 21
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bdab30dd535111c30800000000000000
-      internalID: 4328264037965216475
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_87
-      rect:
-        serializedVersion: 2
-        x: 441
-        y: 166
-        width: 22
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 95a0b4a6f98206470800000000000000
-      internalID: 8385747171312077401
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_88
-      rect:
-        serializedVersion: 2
-        x: 566
-        y: 167
-        width: 25
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7ce7155ae75bb6c0800000000000000
-      internalID: -4126607969593332610
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_89
-      rect:
-        serializedVersion: 2
-        x: 691
-        y: 167
-        width: 28
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 42e01cb8806554b40800000000000000
-      internalID: 5423835920942042660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_90
-      rect:
-        serializedVersion: 2
-        x: 819
-        y: 166
-        width: 28
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1eae075b739fba8a0800000000000000
-      internalID: -6292662036657542431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_91
-      rect:
-        serializedVersion: 2
-        x: 945
-        y: 167
-        width: 29
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: feba177407926a3c0800000000000000
-      internalID: -4348742827967927313
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_92
-      rect:
-        serializedVersion: 2
-        x: 1074
-        y: 166
-        width: 29
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 47823d251bfa1cbc0800000000000000
-      internalID: -3764534637371381644
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_throw_93
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 165
-        width: 25
-        height: 50
+        x: 1152
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2566,103 +1444,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_throw_94
-      rect:
-        serializedVersion: 2
-        x: 1337
-        y: 164
-        width: 22
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b409c878b1ab644d0800000000000000
-      internalID: -3150626261898063797
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_95
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 164
-        width: 21
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 43908142750c5ea40800000000000000
-      internalID: 5396931208973650228
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_96
-      rect:
-        serializedVersion: 2
-        x: 1593
-        y: 164
-        width: 24
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7585273df91543020800000000000000
-      internalID: 2320569454891784279
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_throw_97
-      rect:
-        serializedVersion: 2
-        x: 1721
-        y: 165
-        width: 24
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4f2b02618e6221f70800000000000000
-      internalID: 9156423770643149556
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_throw_98
       rect:
         serializedVersion: 2
-        x: 59
-        y: 38
-        width: 19
-        height: 46
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2679,12 +1469,12 @@ TextureImporter:
       name: ch00_throw_99
       rect:
         serializedVersion: 2
-        x: 188
-        y: 36
-        width: 18
-        height: 47
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2701,12 +1491,12 @@ TextureImporter:
       name: ch00_throw_100
       rect:
         serializedVersion: 2
-        x: 311
-        y: 34
-        width: 23
-        height: 48
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2723,12 +1513,12 @@ TextureImporter:
       name: ch00_throw_101
       rect:
         serializedVersion: 2
-        x: 443
-        y: 34
-        width: 19
-        height: 52
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2745,12 +1535,12 @@ TextureImporter:
       name: ch00_throw_102
       rect:
         serializedVersion: 2
-        x: 573
-        y: 35
-        width: 17
-        height: 54
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2767,12 +1557,12 @@ TextureImporter:
       name: ch00_throw_103
       rect:
         serializedVersion: 2
-        x: 701
-        y: 35
-        width: 27
-        height: 53
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2789,12 +1579,12 @@ TextureImporter:
       name: ch00_throw_104
       rect:
         serializedVersion: 2
-        x: 829
-        y: 35
-        width: 16
-        height: 53
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2811,12 +1601,12 @@ TextureImporter:
       name: ch00_throw_105
       rect:
         serializedVersion: 2
-        x: 957
-        y: 35
-        width: 16
-        height: 53
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2833,12 +1623,12 @@ TextureImporter:
       name: ch00_throw_106
       rect:
         serializedVersion: 2
-        x: 1084
-        y: 35
-        width: 17
-        height: 53
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2855,12 +1645,12 @@ TextureImporter:
       name: ch00_throw_107
       rect:
         serializedVersion: 2
-        x: 1212
-        y: 35
-        width: 18
-        height: 52
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2877,12 +1667,12 @@ TextureImporter:
       name: ch00_throw_108
       rect:
         serializedVersion: 2
-        x: 1339
-        y: 34
-        width: 20
-        height: 51
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2899,12 +1689,12 @@ TextureImporter:
       name: ch00_throw_109
       rect:
         serializedVersion: 2
-        x: 1467
-        y: 34
-        width: 20
-        height: 49
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2921,12 +1711,12 @@ TextureImporter:
       name: ch00_throw_110
       rect:
         serializedVersion: 2
-        x: 1595
-        y: 34
-        width: 20
-        height: 48
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2943,12 +1733,12 @@ TextureImporter:
       name: ch00_throw_111
       rect:
         serializedVersion: 2
-        x: 1723
-        y: 35
-        width: 22
-        height: 48
+        x: 1664
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2965,7 +1755,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 042bfd13fb74a034c96cca6488b90f86
     internalID: 0
     vertices: []
     indices: 
@@ -2973,7 +1763,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":14.0,"y":8.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ch00_throw_0: 2993868656693822045
       ch00_throw_1: 1168303928049703902

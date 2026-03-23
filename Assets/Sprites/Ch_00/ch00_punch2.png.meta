@@ -498,323 +498,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch00_punch2_0
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 932
-        width: 32
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 21856ead4946a12b0800000000000000
-      internalID: -5613063395073435630
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_1
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d95847e0419890f40800000000000000
-      internalID: 5695233923021571485
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_2
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 97f7a342718f104a0800000000000000
-      internalID: -6628744398236909703
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_3
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 932
-        width: 33
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dba68dec86e842d80800000000000000
-      internalID: -8276333634402096451
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_4
-      rect:
-        serializedVersion: 2
-        x: 564
-        y: 932
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6d7085b79a4f01610800000000000000
-      internalID: 1590039677217802198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_5
-      rect:
-        serializedVersion: 2
-        x: 692
-        y: 932
-        width: 33
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d1203508d6fc04cd0800000000000000
-      internalID: -2575830917644615139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_6
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 932
-        width: 34
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5db38d65c5a9f3620800000000000000
-      internalID: 2756091218358713301
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_7
-      rect:
-        serializedVersion: 2
-        x: 949
-        y: 932
-        width: 39
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d0dec404b75ebcc10800000000000000
-      internalID: 2075004370856766733
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_8
-      rect:
-        serializedVersion: 2
-        x: 1077
-        y: 932
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cee405b017bbdef80800000000000000
-      internalID: -8075592462609920276
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_9
-      rect:
-        serializedVersion: 2
-        x: 1205
-        y: 932
-        width: 32
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dfe3d2cbfe1ea17f0800000000000000
-      internalID: -640951577176359171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_10
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 932
-        width: 39
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 21666080a8fdfa8f0800000000000000
-      internalID: -526956847445940718
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_11
-      rect:
-        serializedVersion: 2
-        x: 1458
-        y: 932
-        width: 39
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 77bd12019569c8520800000000000000
-      internalID: 2705702785409735543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_12
-      rect:
-        serializedVersion: 2
-        x: 1589
-        y: 932
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1815b9148afc59180800000000000000
-      internalID: -9109146349724806783
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_13
-      rect:
-        serializedVersion: 2
-        x: 1719
-        y: 933
-        width: 28
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 524b2d1bd43ea5300800000000000000
-      internalID: 241755452853105701
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_punch2_14
       rect:
         serializedVersion: 2
-        x: 50
-        y: 805
-        width: 33
-        height: 42
+        x: 0
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -831,12 +523,12 @@ TextureImporter:
       name: ch00_punch2_15
       rect:
         serializedVersion: 2
-        x: 178
-        y: 805
-        width: 33
-        height: 42
+        x: 128
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -853,12 +545,12 @@ TextureImporter:
       name: ch00_punch2_16
       rect:
         serializedVersion: 2
-        x: 306
-        y: 805
-        width: 35
-        height: 41
+        x: 256
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -875,12 +567,12 @@ TextureImporter:
       name: ch00_punch2_17
       rect:
         serializedVersion: 2
-        x: 434
-        y: 805
-        width: 37
-        height: 40
+        x: 384
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -897,12 +589,12 @@ TextureImporter:
       name: ch00_punch2_18
       rect:
         serializedVersion: 2
-        x: 562
-        y: 805
-        width: 38
-        height: 42
+        x: 512
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -919,12 +611,12 @@ TextureImporter:
       name: ch00_punch2_19
       rect:
         serializedVersion: 2
-        x: 690
-        y: 805
-        width: 37
-        height: 43
+        x: 640
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -941,12 +633,12 @@ TextureImporter:
       name: ch00_punch2_20
       rect:
         serializedVersion: 2
-        x: 818
-        y: 805
-        width: 36
-        height: 42
+        x: 768
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -963,12 +655,12 @@ TextureImporter:
       name: ch00_punch2_21
       rect:
         serializedVersion: 2
-        x: 946
-        y: 805
-        width: 34
-        height: 43
+        x: 896
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -985,12 +677,12 @@ TextureImporter:
       name: ch00_punch2_22
       rect:
         serializedVersion: 2
-        x: 1074
-        y: 805
-        width: 36
-        height: 44
+        x: 1024
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1007,12 +699,12 @@ TextureImporter:
       name: ch00_punch2_23
       rect:
         serializedVersion: 2
-        x: 1202
-        y: 805
-        width: 42
-        height: 47
+        x: 1152
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1029,12 +721,12 @@ TextureImporter:
       name: ch00_punch2_24
       rect:
         serializedVersion: 2
-        x: 1329
-        y: 805
-        width: 39
-        height: 48
+        x: 1280
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1051,12 +743,12 @@ TextureImporter:
       name: ch00_punch2_25
       rect:
         serializedVersion: 2
-        x: 1457
-        y: 804
-        width: 34
-        height: 44
+        x: 1408
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1073,12 +765,12 @@ TextureImporter:
       name: ch00_punch2_26
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 805
-        width: 35
-        height: 44
+        x: 1536
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1095,12 +787,12 @@ TextureImporter:
       name: ch00_punch2_27
       rect:
         serializedVersion: 2
-        x: 1717
-        y: 807
-        width: 29
-        height: 42
+        x: 1664
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1114,323 +806,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_punch2_28
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 671
-        width: 27
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 38b70bc2109e18cc0800000000000000
-      internalID: -3710428426722575485
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_29
-      rect:
-        serializedVersion: 2
-        x: 179
-        y: 671
-        width: 29
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f826f4e7d5105fbf0800000000000000
-      internalID: -291325099832810865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_30
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 671
-        width: 31
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ba66be82e635aa110800000000000000
-      internalID: 1272921577283610283
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_31
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 671
-        width: 32
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fa23a7dcfa31e7250800000000000000
-      internalID: 5944210203963175599
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_32
-      rect:
-        serializedVersion: 2
-        x: 564
-        y: 671
-        width: 31
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 37ba2b5ddb77d3180800000000000000
-      internalID: -9134012812019717261
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_33
-      rect:
-        serializedVersion: 2
-        x: 692
-        y: 671
-        width: 32
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cfbdac9c098a86ee0800000000000000
-      internalID: -1267577955290522628
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_34
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 671
-        width: 33
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54a66b3ad55b70a30800000000000000
-      internalID: 4181510192820021829
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_35
-      rect:
-        serializedVersion: 2
-        x: 948
-        y: 671
-        width: 36
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d4015e5defd9b1ea0800000000000000
-      internalID: -5900949168903090099
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_36
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 671
-        width: 37
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fef647e98a495f020800000000000000
-      internalID: 2374967830441652207
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_37
-      rect:
-        serializedVersion: 2
-        x: 1203
-        y: 671
-        width: 34
-        height: 58
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5853af38a5e260810800000000000000
-      internalID: 1731122073066681733
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_38
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 671
-        width: 22
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bb9de576cb2978030800000000000000
-      internalID: 3496924973562255803
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_39
-      rect:
-        serializedVersion: 2
-        x: 1460
-        y: 671
-        width: 21
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f5fc82d566305e720800000000000000
-      internalID: 2874707675330432863
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_40
-      rect:
-        serializedVersion: 2
-        x: 1585
-        y: 672
-        width: 24
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8215c3b8186c76400800000000000000
-      internalID: 317440558441976104
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_41
-      rect:
-        serializedVersion: 2
-        x: 1714
-        y: 673
-        width: 23
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2e39c101f1f166510800000000000000
-      internalID: 1541954140695729122
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_punch2_42
       rect:
         serializedVersion: 2
-        x: 52
-        y: 544
-        width: 21
-        height: 45
+        x: 0
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1447,12 +831,12 @@ TextureImporter:
       name: ch00_punch2_43
       rect:
         serializedVersion: 2
-        x: 181
-        y: 544
-        width: 21
-        height: 43
+        x: 128
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1469,12 +853,12 @@ TextureImporter:
       name: ch00_punch2_44
       rect:
         serializedVersion: 2
-        x: 310
-        y: 544
-        width: 21
-        height: 39
+        x: 256
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1491,12 +875,12 @@ TextureImporter:
       name: ch00_punch2_45
       rect:
         serializedVersion: 2
-        x: 438
-        y: 545
-        width: 25
-        height: 35
+        x: 384
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1513,12 +897,12 @@ TextureImporter:
       name: ch00_punch2_46
       rect:
         serializedVersion: 2
-        x: 566
-        y: 545
-        width: 27
-        height: 36
+        x: 512
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1535,12 +919,12 @@ TextureImporter:
       name: ch00_punch2_47
       rect:
         serializedVersion: 2
-        x: 694
-        y: 545
-        width: 28
-        height: 36
+        x: 640
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1557,12 +941,12 @@ TextureImporter:
       name: ch00_punch2_48
       rect:
         serializedVersion: 2
-        x: 821
-        y: 544
-        width: 29
-        height: 39
+        x: 768
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1579,12 +963,12 @@ TextureImporter:
       name: ch00_punch2_49
       rect:
         serializedVersion: 2
-        x: 939
-        y: 544
-        width: 40
-        height: 43
+        x: 896
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1601,12 +985,12 @@ TextureImporter:
       name: ch00_punch2_50
       rect:
         serializedVersion: 2
-        x: 1077
-        y: 544
-        width: 26
-        height: 56
+        x: 1024
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1623,12 +1007,12 @@ TextureImporter:
       name: ch00_punch2_51
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 544
-        width: 17
-        height: 59
+        x: 1152
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1645,12 +1029,12 @@ TextureImporter:
       name: ch00_punch2_52
       rect:
         serializedVersion: 2
-        x: 1330
-        y: 544
-        width: 21
-        height: 58
+        x: 1280
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1667,12 +1051,12 @@ TextureImporter:
       name: ch00_punch2_53
       rect:
         serializedVersion: 2
-        x: 1452
-        y: 544
-        width: 31
-        height: 54
+        x: 1408
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1689,12 +1073,12 @@ TextureImporter:
       name: ch00_punch2_54
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 545
-        width: 23
-        height: 53
+        x: 1536
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1711,12 +1095,12 @@ TextureImporter:
       name: ch00_punch2_55
       rect:
         serializedVersion: 2
-        x: 1715
-        y: 545
-        width: 19
-        height: 51
+        x: 1664
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1730,323 +1114,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_punch2_56
-      rect:
-        serializedVersion: 2
-        x: 45
-        y: 423
-        width: 33
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 35acdf442b1e01870800000000000000
-      internalID: 8651663039956634195
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_57
-      rect:
-        serializedVersion: 2
-        x: 173
-        y: 423
-        width: 33
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2769e010a75482070800000000000000
-      internalID: 8081785921622414962
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_58
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 423
-        width: 32
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a7431b5c6828b2b00800000000000000
-      internalID: 804880473769718906
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_59
-      rect:
-        serializedVersion: 2
-        x: 429
-        y: 423
-        width: 33
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ac1bdfd7ee3bc0f50800000000000000
-      internalID: 6849046970221048266
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_60
-      rect:
-        serializedVersion: 2
-        x: 557
-        y: 423
-        width: 33
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 36563b50fad7ec910800000000000000
-      internalID: 1859561886818985315
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_61
-      rect:
-        serializedVersion: 2
-        x: 685
-        y: 423
-        width: 33
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9e66cef48a4b7a5f0800000000000000
-      internalID: -745428578318129431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_62
-      rect:
-        serializedVersion: 2
-        x: 812
-        y: 423
-        width: 34
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1da953de56c736aa0800000000000000
-      internalID: -6168950287354193199
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_63
-      rect:
-        serializedVersion: 2
-        x: 936
-        y: 423
-        width: 37
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c7990949f1ccf0cb0800000000000000
-      internalID: -4895469833919882884
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_64
-      rect:
-        serializedVersion: 2
-        x: 1070
-        y: 423
-        width: 31
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fef6973a56b463790800000000000000
-      internalID: -7550764825333633041
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_65
-      rect:
-        serializedVersion: 2
-        x: 1197
-        y: 423
-        width: 32
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2e33fb403f37deb80800000000000000
-      internalID: -8363901445363256350
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_66
-      rect:
-        serializedVersion: 2
-        x: 1319
-        y: 423
-        width: 40
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eeafc27eea86682d0800000000000000
-      internalID: -3276816578453374226
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_67
-      rect:
-        serializedVersion: 2
-        x: 1450
-        y: 424
-        width: 38
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ea0a2a7bfd57ad680800000000000000
-      internalID: -8729535323985239890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_68
-      rect:
-        serializedVersion: 2
-        x: 1581
-        y: 424
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7742b4caafba368f0800000000000000
-      internalID: -548405636488289161
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_69
-      rect:
-        serializedVersion: 2
-        x: 1711
-        y: 423
-        width: 28
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d9c4ac3002706f790800000000000000
-      internalID: -7496796695627674467
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_punch2_70
       rect:
         serializedVersion: 2
-        x: 47
-        y: 297
-        width: 34
-        height: 44
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2063,12 +1139,12 @@ TextureImporter:
       name: ch00_punch2_71
       rect:
         serializedVersion: 2
-        x: 175
-        y: 298
-        width: 33
-        height: 43
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2085,12 +1161,12 @@ TextureImporter:
       name: ch00_punch2_72
       rect:
         serializedVersion: 2
-        x: 301
-        y: 299
-        width: 35
-        height: 40
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2107,12 +1183,12 @@ TextureImporter:
       name: ch00_punch2_73
       rect:
         serializedVersion: 2
-        x: 428
-        y: 300
-        width: 36
-        height: 38
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2129,12 +1205,12 @@ TextureImporter:
       name: ch00_punch2_74
       rect:
         serializedVersion: 2
-        x: 555
-        y: 300
-        width: 37
-        height: 37
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2151,12 +1227,12 @@ TextureImporter:
       name: ch00_punch2_75
       rect:
         serializedVersion: 2
-        x: 684
-        y: 300
-        width: 36
-        height: 38
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2173,12 +1249,12 @@ TextureImporter:
       name: ch00_punch2_76
       rect:
         serializedVersion: 2
-        x: 813
-        y: 300
-        width: 35
-        height: 39
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2195,12 +1271,12 @@ TextureImporter:
       name: ch00_punch2_77
       rect:
         serializedVersion: 2
-        x: 942
-        y: 301
-        width: 34
-        height: 47
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2217,12 +1293,12 @@ TextureImporter:
       name: ch00_punch2_78
       rect:
         serializedVersion: 2
-        x: 1068
-        y: 301
-        width: 36
-        height: 47
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2239,12 +1315,12 @@ TextureImporter:
       name: ch00_punch2_79
       rect:
         serializedVersion: 2
-        x: 1190
-        y: 301
-        width: 42
-        height: 42
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2261,12 +1337,12 @@ TextureImporter:
       name: ch00_punch2_80
       rect:
         serializedVersion: 2
-        x: 1323
-        y: 299
-        width: 38
-        height: 44
+        x: 1280
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2283,12 +1359,12 @@ TextureImporter:
       name: ch00_punch2_81
       rect:
         serializedVersion: 2
-        x: 1455
-        y: 297
-        width: 35
-        height: 47
+        x: 1408
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2305,12 +1381,12 @@ TextureImporter:
       name: ch00_punch2_82
       rect:
         serializedVersion: 2
-        x: 1583
-        y: 297
-        width: 35
-        height: 47
+        x: 1536
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2327,12 +1403,12 @@ TextureImporter:
       name: ch00_punch2_83
       rect:
         serializedVersion: 2
-        x: 1712
-        y: 297
-        width: 29
-        height: 45
+        x: 1664
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2346,323 +1422,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_punch2_84
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 164
-        width: 27
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b3129acb3f4076de0800000000000000
-      internalID: -1340096919230668485
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_85
-      rect:
-        serializedVersion: 2
-        x: 178
-        y: 165
-        width: 29
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b1486c7e7b95ecfd0800000000000000
-      internalID: -2319818111646792677
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_86
-      rect:
-        serializedVersion: 2
-        x: 303
-        y: 166
-        width: 32
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e7bc990b40234ad80800000000000000
-      internalID: -8240406422457037954
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_87
-      rect:
-        serializedVersion: 2
-        x: 431
-        y: 167
-        width: 31
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 70001162f8190e050800000000000000
-      internalID: 5827817961822420999
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_88
-      rect:
-        serializedVersion: 2
-        x: 559
-        y: 167
-        width: 31
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d171ca144d117e3e0800000000000000
-      internalID: -2024629904147212515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_89
-      rect:
-        serializedVersion: 2
-        x: 686
-        y: 166
-        width: 33
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f56e871e45741d050800000000000000
-      internalID: 5823514223052383839
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_90
-      rect:
-        serializedVersion: 2
-        x: 813
-        y: 167
-        width: 34
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 242b63d0cb0848080800000000000000
-      internalID: -9186075794765073854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_91
-      rect:
-        serializedVersion: 2
-        x: 938
-        y: 167
-        width: 37
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2a0e1689ba2558af0800000000000000
-      internalID: -394818495375613790
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_92
-      rect:
-        serializedVersion: 2
-        x: 1066
-        y: 167
-        width: 37
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ec1b98344eeb189c0800000000000000
-      internalID: -3926647512495443506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_93
-      rect:
-        serializedVersion: 2
-        x: 1197
-        y: 166
-        width: 34
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0f63ef4b0079accb0800000000000000
-      internalID: -4842892419991193872
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_94
-      rect:
-        serializedVersion: 2
-        x: 1337
-        y: 166
-        width: 22
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 84d51803254277ad0800000000000000
-      internalID: -2704653115792990904
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_95
-      rect:
-        serializedVersion: 2
-        x: 1465
-        y: 164
-        width: 21
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ac32560af39ee1c00800000000000000
-      internalID: 873391837239649226
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_96
-      rect:
-        serializedVersion: 2
-        x: 1593
-        y: 165
-        width: 25
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6d2897ae0fffaed80800000000000000
-      internalID: -8220476759620353322
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_punch2_97
-      rect:
-        serializedVersion: 2
-        x: 1721
-        y: 166
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 35ed6157b8e8a1060800000000000000
-      internalID: 6925004106651590227
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_punch2_98
       rect:
         serializedVersion: 2
-        x: 57
-        y: 34
-        width: 21
-        height: 52
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2679,12 +1447,12 @@ TextureImporter:
       name: ch00_punch2_99
       rect:
         serializedVersion: 2
-        x: 184
-        y: 35
-        width: 22
-        height: 52
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2701,12 +1469,12 @@ TextureImporter:
       name: ch00_punch2_100
       rect:
         serializedVersion: 2
-        x: 311
-        y: 35
-        width: 22
-        height: 53
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2723,12 +1491,12 @@ TextureImporter:
       name: ch00_punch2_101
       rect:
         serializedVersion: 2
-        x: 435
-        y: 35
-        width: 26
-        height: 53
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2745,12 +1513,12 @@ TextureImporter:
       name: ch00_punch2_102
       rect:
         serializedVersion: 2
-        x: 562
-        y: 35
-        width: 27
-        height: 53
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2767,12 +1535,12 @@ TextureImporter:
       name: ch00_punch2_103
       rect:
         serializedVersion: 2
-        x: 689
-        y: 35
-        width: 28
-        height: 53
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2789,12 +1557,12 @@ TextureImporter:
       name: ch00_punch2_104
       rect:
         serializedVersion: 2
-        x: 816
-        y: 35
-        width: 30
-        height: 53
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2811,12 +1579,12 @@ TextureImporter:
       name: ch00_punch2_105
       rect:
         serializedVersion: 2
-        x: 943
-        y: 35
-        width: 41
-        height: 54
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2833,12 +1601,12 @@ TextureImporter:
       name: ch00_punch2_106
       rect:
         serializedVersion: 2
-        x: 1075
-        y: 35
-        width: 27
-        height: 54
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2855,12 +1623,12 @@ TextureImporter:
       name: ch00_punch2_107
       rect:
         serializedVersion: 2
-        x: 1212
-        y: 34
-        width: 17
-        height: 55
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2877,12 +1645,12 @@ TextureImporter:
       name: ch00_punch2_108
       rect:
         serializedVersion: 2
-        x: 1339
-        y: 34
-        width: 22
-        height: 54
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2899,12 +1667,12 @@ TextureImporter:
       name: ch00_punch2_109
       rect:
         serializedVersion: 2
-        x: 1463
-        y: 34
-        width: 32
-        height: 48
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2921,12 +1689,12 @@ TextureImporter:
       name: ch00_punch2_110
       rect:
         serializedVersion: 2
-        x: 1595
-        y: 35
-        width: 23
-        height: 49
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2943,12 +1711,12 @@ TextureImporter:
       name: ch00_punch2_111
       rect:
         serializedVersion: 2
-        x: 1724
-        y: 36
-        width: 20
-        height: 48
+        x: 1664
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2965,7 +1733,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: da9a8a9e16fa4bf4d94a4475faa94a37
     internalID: 0
     vertices: []
     indices: 
@@ -2973,7 +1741,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":14.0,"y":8.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ch00_punch2_0: -5613063395073435630
       ch00_punch2_1: 5695233923021571485

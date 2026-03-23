@@ -507,323 +507,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch00_macheteSwing_0
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 934
-        width: 25
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9d9b5b85ef72573d0800000000000000
-      internalID: -3209615186068129319
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_1
-      rect:
-        serializedVersion: 2
-        x: 183
-        y: 933
-        width: 29
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2526b1261d93307b0800000000000000
-      internalID: -5259296368381697454
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_2
-      rect:
-        serializedVersion: 2
-        x: 306
-        y: 932
-        width: 36
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8cbbe4a3ab92ba590800000000000000
-      internalID: -7661984461221872696
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_3
-      rect:
-        serializedVersion: 2
-        x: 437
-        y: 932
-        width: 32
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cf7789d34e0256750800000000000000
-      internalID: 6297475818605541372
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_4
-      rect:
-        serializedVersion: 2
-        x: 565
-        y: 932
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 55451959756937ea0800000000000000
-      internalID: -5876187785872714667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_5
-      rect:
-        serializedVersion: 2
-        x: 693
-        y: 932
-        width: 46
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 191fc1d26a4ef38c0800000000000000
-      internalID: -4017240940218617455
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_6
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 932
-        width: 33
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dabf6c9af16a52e10800000000000000
-      internalID: 2172325050198719405
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_7
-      rect:
-        serializedVersion: 2
-        x: 948
-        y: 932
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72466dec9e2f5c950800000000000000
-      internalID: 6468843525799044135
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_8
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d5a2a459e18ff1000800000000000000
-      internalID: 8998534515403357
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_9
-      rect:
-        serializedVersion: 2
-        x: 1205
-        y: 932
-        width: 32
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c6f87b57d5ed06b60800000000000000
-      internalID: 7737428652810801004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_10
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 932
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 912f1a6b3047f5320800000000000000
-      internalID: 2548883473412780569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_11
-      rect:
-        serializedVersion: 2
-        x: 1460
-        y: 932
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1029eb6b5d26409f0800000000000000
-      internalID: -503168588325154303
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_12
-      rect:
-        serializedVersion: 2
-        x: 1588
-        y: 932
-        width: 34
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6dbedb74f92669a60800000000000000
-      internalID: 7680434650769910742
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_13
-      rect:
-        serializedVersion: 2
-        x: 1717
-        y: 932
-        width: 32
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 10dd757ec58471cd0800000000000000
-      internalID: -2587519897045574399
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_macheteSwing_14
       rect:
         serializedVersion: 2
-        x: 55
-        y: 808
-        width: 26
-        height: 41
+        x: 0
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -840,12 +532,12 @@ TextureImporter:
       name: ch00_macheteSwing_15
       rect:
         serializedVersion: 2
-        x: 180
-        y: 806
-        width: 30
-        height: 43
+        x: 128
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -862,12 +554,12 @@ TextureImporter:
       name: ch00_macheteSwing_16
       rect:
         serializedVersion: 2
-        x: 300
-        y: 804
-        width: 39
-        height: 45
+        x: 256
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -884,12 +576,12 @@ TextureImporter:
       name: ch00_macheteSwing_17
       rect:
         serializedVersion: 2
-        x: 434
-        y: 805
-        width: 33
-        height: 56
+        x: 384
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -906,12 +598,12 @@ TextureImporter:
       name: ch00_macheteSwing_18
       rect:
         serializedVersion: 2
-        x: 562
-        y: 805
-        width: 32
-        height: 53
+        x: 512
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -928,12 +620,12 @@ TextureImporter:
       name: ch00_macheteSwing_19
       rect:
         serializedVersion: 2
-        x: 690
-        y: 805
-        width: 38
-        height: 43
+        x: 640
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -950,12 +642,12 @@ TextureImporter:
       name: ch00_macheteSwing_20
       rect:
         serializedVersion: 2
-        x: 818
-        y: 805
-        width: 40
-        height: 40
+        x: 768
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -972,12 +664,12 @@ TextureImporter:
       name: ch00_macheteSwing_21
       rect:
         serializedVersion: 2
-        x: 946
-        y: 805
-        width: 38
-        height: 39
+        x: 896
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -994,12 +686,12 @@ TextureImporter:
       name: ch00_macheteSwing_22
       rect:
         serializedVersion: 2
-        x: 1074
-        y: 805
-        width: 36
-        height: 41
+        x: 1024
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1016,12 +708,12 @@ TextureImporter:
       name: ch00_macheteSwing_23
       rect:
         serializedVersion: 2
-        x: 1202
-        y: 805
-        width: 33
-        height: 42
+        x: 1152
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1038,12 +730,12 @@ TextureImporter:
       name: ch00_macheteSwing_24
       rect:
         serializedVersion: 2
-        x: 1329
-        y: 805
-        width: 34
-        height: 42
+        x: 1280
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1060,12 +752,12 @@ TextureImporter:
       name: ch00_macheteSwing_25
       rect:
         serializedVersion: 2
-        x: 1457
-        y: 805
-        width: 34
-        height: 42
+        x: 1408
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1082,12 +774,12 @@ TextureImporter:
       name: ch00_macheteSwing_26
       rect:
         serializedVersion: 2
-        x: 1585
-        y: 805
-        width: 34
-        height: 42
+        x: 1536
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1104,12 +796,12 @@ TextureImporter:
       name: ch00_macheteSwing_27
       rect:
         serializedVersion: 2
-        x: 1715
-        y: 805
-        width: 32
-        height: 42
+        x: 1664
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1123,323 +815,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_macheteSwing_28
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 674
-        width: 19
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 52efcc930b4edcc60800000000000000
-      internalID: 7840173971857014309
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_29
-      rect:
-        serializedVersion: 2
-        x: 177
-        y: 672
-        width: 24
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 619fb59a745a41830800000000000000
-      internalID: 4041036492860815638
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_30
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 671
-        width: 29
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 883371f81dfddf6f0800000000000000
-      internalID: -649116680129662072
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_31
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 671
-        width: 24
-        height: 61
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7acca7fd2192aa3a0800000000000000
-      internalID: -6653460338450969433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_32
-      rect:
-        serializedVersion: 2
-        x: 563
-        y: 671
-        width: 25
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bcfdc6a82bf838f10800000000000000
-      internalID: 2270816634114203595
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_33
-      rect:
-        serializedVersion: 2
-        x: 692
-        y: 671
-        width: 27
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2af94f6fd239a1f00800000000000000
-      internalID: 1088344085589434274
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_34
-      rect:
-        serializedVersion: 2
-        x: 820
-        y: 671
-        width: 33
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 975c0366b2fa964b0800000000000000
-      internalID: -5446629673394977415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_35
-      rect:
-        serializedVersion: 2
-        x: 948
-        y: 671
-        width: 37
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3ec93a7f194778ff0800000000000000
-      internalID: -33930301908214557
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_36
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 671
-        width: 36
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bb2d8576a677e9400800000000000000
-      internalID: 332834721356108475
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_37
-      rect:
-        serializedVersion: 2
-        x: 1203
-        y: 671
-        width: 31
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a43d0d669856b0640800000000000000
-      internalID: 5047239448208659274
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_38
-      rect:
-        serializedVersion: 2
-        x: 1332
-        y: 671
-        width: 26
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a70f20bcd19d09740800000000000000
-      internalID: 5156860295322464378
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_39
-      rect:
-        serializedVersion: 2
-        x: 1459
-        y: 671
-        width: 22
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 104fde206572defd0800000000000000
-      internalID: -2311147783401376767
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_40
-      rect:
-        serializedVersion: 2
-        x: 1585
-        y: 671
-        width: 24
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ac381532863d62a00800000000000000
-      internalID: 731504433716888522
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_41
-      rect:
-        serializedVersion: 2
-        x: 1713
-        y: 672
-        width: 24
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 06520cc727838f750800000000000000
-      internalID: 6338878539894367584
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_macheteSwing_42
       rect:
         serializedVersion: 2
-        x: 52
-        y: 546
-        width: 19
-        height: 50
+        x: 0
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1456,12 +840,12 @@ TextureImporter:
       name: ch00_macheteSwing_43
       rect:
         serializedVersion: 2
-        x: 175
-        y: 545
-        width: 23
-        height: 51
+        x: 128
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1478,12 +862,12 @@ TextureImporter:
       name: ch00_macheteSwing_44
       rect:
         serializedVersion: 2
-        x: 308
-        y: 544
-        width: 23
-        height: 57
+        x: 256
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1500,12 +884,12 @@ TextureImporter:
       name: ch00_macheteSwing_45
       rect:
         serializedVersion: 2
-        x: 435
-        y: 544
-        width: 30
-        height: 59
+        x: 384
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1522,12 +906,12 @@ TextureImporter:
       name: ch00_macheteSwing_46
       rect:
         serializedVersion: 2
-        x: 564
-        y: 544
-        width: 19
-        height: 63
+        x: 512
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1544,12 +928,12 @@ TextureImporter:
       name: ch00_macheteSwing_47
       rect:
         serializedVersion: 2
-        x: 679
-        y: 544
-        width: 31
-        height: 42
+        x: 640
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1566,12 +950,12 @@ TextureImporter:
       name: ch00_macheteSwing_48
       rect:
         serializedVersion: 2
-        x: 822
-        y: 545
-        width: 17
-        height: 36
+        x: 768
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1588,12 +972,12 @@ TextureImporter:
       name: ch00_macheteSwing_49
       rect:
         serializedVersion: 2
-        x: 838
-        y: 553
-        width: 8
-        height: 6
+        x: 896
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1610,12 +994,12 @@ TextureImporter:
       name: ch00_macheteSwing_50
       rect:
         serializedVersion: 2
-        x: 950
-        y: 545
-        width: 29
-        height: 34
+        x: 1024
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1632,12 +1016,12 @@ TextureImporter:
       name: ch00_macheteSwing_51
       rect:
         serializedVersion: 2
-        x: 1078
-        y: 544
-        width: 28
-        height: 38
+        x: 1152
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1654,12 +1038,12 @@ TextureImporter:
       name: ch00_macheteSwing_52
       rect:
         serializedVersion: 2
-        x: 1205
-        y: 544
-        width: 22
-        height: 43
+        x: 1280
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1676,12 +1060,12 @@ TextureImporter:
       name: ch00_macheteSwing_53
       rect:
         serializedVersion: 2
-        x: 1330
-        y: 544
-        width: 21
-        height: 47
+        x: 1408
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1698,12 +1082,12 @@ TextureImporter:
       name: ch00_macheteSwing_54
       rect:
         serializedVersion: 2
-        x: 1458
-        y: 544
-        width: 21
-        height: 50
+        x: 1536
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1720,12 +1104,12 @@ TextureImporter:
       name: ch00_macheteSwing_55
       rect:
         serializedVersion: 2
-        x: 1581
-        y: 545
-        width: 27
-        height: 50
+        x: 1664
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1739,323 +1123,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_macheteSwing_56
-      rect:
-        serializedVersion: 2
-        x: 1713
-        y: 545
-        width: 22
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 92a242d2dac65f930800000000000000
-      internalID: 4176363720498489897
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_57
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 423
-        width: 25
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 24214dd5699130480800000000000000
-      internalID: -8934269102162963902
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_58
-      rect:
-        serializedVersion: 2
-        x: 174
-        y: 423
-        width: 30
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ae792c7d352f36230800000000000000
-      internalID: 3631012166506813418
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_59
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 424
-        width: 36
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 77fb026ab292d7990800000000000000
-      internalID: -7386702546370248841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_60
-      rect:
-        serializedVersion: 2
-        x: 429
-        y: 423
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cdb0d308a133d97a0800000000000000
-      internalID: -6368878109118362660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_61
-      rect:
-        serializedVersion: 2
-        x: 558
-        y: 423
-        width: 31
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 38d135994e1cc5270800000000000000
-      internalID: 8240674605750230403
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_62
-      rect:
-        serializedVersion: 2
-        x: 671
-        y: 423
-        width: 46
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2d2512d1723767eb0800000000000000
-      internalID: -4722460547421744430
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_63
-      rect:
-        serializedVersion: 2
-        x: 813
-        y: 423
-        width: 33
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3a9253e7baab35ed0800000000000000
-      internalID: -2426390528502978141
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_64
-      rect:
-        serializedVersion: 2
-        x: 941
-        y: 423
-        width: 33
-        height: 33
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 432b9a8d846993040800000000000000
-      internalID: 4627895331716706868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_65
-      rect:
-        serializedVersion: 2
-        x: 1070
-        y: 423
-        width: 32
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3c663e0a7b54996c0800000000000000
-      internalID: -4136198127782500669
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_66
-      rect:
-        serializedVersion: 2
-        x: 1197
-        y: 423
-        width: 33
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3b899b592a6c42f00800000000000000
-      internalID: 1091215411329472691
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_67
-      rect:
-        serializedVersion: 2
-        x: 1325
-        y: 424
-        width: 33
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 457d3b29c03ae7430800000000000000
-      internalID: 3782640011433989972
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_68
-      rect:
-        serializedVersion: 2
-        x: 1452
-        y: 424
-        width: 34
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4fa869b4be7ee0ab0800000000000000
-      internalID: -5039835935209518348
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_69
-      rect:
-        serializedVersion: 2
-        x: 1580
-        y: 424
-        width: 34
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e8cc7ba2e3a1ecfd0800000000000000
-      internalID: -2319887903742243698
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_macheteSwing_70
       rect:
         serializedVersion: 2
-        x: 1709
-        y: 423
-        width: 32
-        height: 46
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2072,12 +1148,12 @@ TextureImporter:
       name: ch00_macheteSwing_71
       rect:
         serializedVersion: 2
-        x: 49
-        y: 297
-        width: 26
-        height: 50
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2094,12 +1170,12 @@ TextureImporter:
       name: ch00_macheteSwing_72
       rect:
         serializedVersion: 2
-        x: 176
-        y: 297
-        width: 32
-        height: 52
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2116,12 +1192,12 @@ TextureImporter:
       name: ch00_macheteSwing_73
       rect:
         serializedVersion: 2
-        x: 303
-        y: 297
-        width: 35
-        height: 44
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2138,12 +1214,12 @@ TextureImporter:
       name: ch00_macheteSwing_74
       rect:
         serializedVersion: 2
-        x: 336
-        y: 329
-        width: 7
-        height: 7
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2160,12 +1236,12 @@ TextureImporter:
       name: ch00_macheteSwing_75
       rect:
         serializedVersion: 2
-        x: 431
-        y: 300
-        width: 34
-        height: 43
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2182,12 +1258,12 @@ TextureImporter:
       name: ch00_macheteSwing_76
       rect:
         serializedVersion: 2
-        x: 559
-        y: 301
-        width: 33
-        height: 46
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2204,12 +1280,12 @@ TextureImporter:
       name: ch00_macheteSwing_77
       rect:
         serializedVersion: 2
-        x: 683
-        y: 301
-        width: 37
-        height: 56
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2226,12 +1302,12 @@ TextureImporter:
       name: ch00_macheteSwing_78
       rect:
         serializedVersion: 2
-        x: 808
-        y: 300
-        width: 40
-        height: 38
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2248,12 +1324,12 @@ TextureImporter:
       name: ch00_macheteSwing_79
       rect:
         serializedVersion: 2
-        x: 939
-        y: 300
-        width: 37
-        height: 37
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2270,12 +1346,12 @@ TextureImporter:
       name: ch00_macheteSwing_80
       rect:
         serializedVersion: 2
-        x: 1069
-        y: 300
-        width: 35
-        height: 39
+        x: 1280
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2292,12 +1368,12 @@ TextureImporter:
       name: ch00_macheteSwing_81
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 298
-        width: 33
-        height: 43
+        x: 1408
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2314,12 +1390,12 @@ TextureImporter:
       name: ch00_macheteSwing_82
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 297
-        width: 34
-        height: 44
+        x: 1536
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2336,12 +1412,12 @@ TextureImporter:
       name: ch00_macheteSwing_83
       rect:
         serializedVersion: 2
-        x: 1455
-        y: 297
-        width: 34
-        height: 44
+        x: 1664
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2355,323 +1431,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_macheteSwing_84
-      rect:
-        serializedVersion: 2
-        x: 1583
-        y: 297
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 10d29530ff908eb90800000000000000
-      internalID: -7212503812356363007
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_85
-      rect:
-        serializedVersion: 2
-        x: 1711
-        y: 297
-        width: 32
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ec9a5f46d496aabb0800000000000000
-      internalID: -4924007461448996402
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_86
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 167
-        width: 20
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 71add5996a880e7b0800000000000000
-      internalID: -5197003720866538985
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_87
-      rect:
-        serializedVersion: 2
-        x: 185
-        y: 165
-        width: 25
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 467578e1a28520d60800000000000000
-      internalID: 7854937638011623268
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_88
-      rect:
-        serializedVersion: 2
-        x: 313
-        y: 164
-        width: 30
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f3407adca039c8040800000000000000
-      internalID: 4651254189776110655
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_89
-      rect:
-        serializedVersion: 2
-        x: 441
-        y: 166
-        width: 22
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df71cb8a37b6b6e30800000000000000
-      internalID: 4497806797355882493
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_90
-      rect:
-        serializedVersion: 2
-        x: 566
-        y: 167
-        width: 25
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3e561b00af80ce960800000000000000
-      internalID: 7632485338332620259
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_91
-      rect:
-        serializedVersion: 2
-        x: 691
-        y: 167
-        width: 28
-        height: 67
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78300dbdf952b1860800000000000000
-      internalID: 7501630972833563527
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_92
-      rect:
-        serializedVersion: 2
-        x: 807
-        y: 166
-        width: 40
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ae6b6fefe69c90f00800000000000000
-      internalID: 1083618663920482026
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_93
-      rect:
-        serializedVersion: 2
-        x: 936
-        y: 167
-        width: 38
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cf293e2fcc34ae260800000000000000
-      internalID: 7127583907794621180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_94
-      rect:
-        serializedVersion: 2
-        x: 1066
-        y: 166
-        width: 37
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 31af06c553f0ebe50800000000000000
-      internalID: 6826910806997793299
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_95
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 165
-        width: 31
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aaa349be0f4958d10800000000000000
-      internalID: 2127270161467849386
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_96
-      rect:
-        serializedVersion: 2
-        x: 1337
-        y: 164
-        width: 22
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b0142c5cbde4b8f40800000000000000
-      internalID: 5731761656581734667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_97
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 164
-        width: 21
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9e2214909917eef90800000000000000
-      internalID: -6922470675122674967
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_macheteSwing_98
       rect:
         serializedVersion: 2
-        x: 1593
-        y: 164
-        width: 24
-        height: 48
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2688,12 +1456,12 @@ TextureImporter:
       name: ch00_macheteSwing_99
       rect:
         serializedVersion: 2
-        x: 1721
-        y: 165
-        width: 24
-        height: 48
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2710,12 +1478,12 @@ TextureImporter:
       name: ch00_macheteSwing_100
       rect:
         serializedVersion: 2
-        x: 59
-        y: 38
-        width: 19
-        height: 53
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2732,12 +1500,12 @@ TextureImporter:
       name: ch00_macheteSwing_101
       rect:
         serializedVersion: 2
-        x: 188
-        y: 36
-        width: 24
-        height: 47
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2754,12 +1522,12 @@ TextureImporter:
       name: ch00_macheteSwing_102
       rect:
         serializedVersion: 2
-        x: 311
-        y: 34
-        width: 23
-        height: 48
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2776,12 +1544,12 @@ TextureImporter:
       name: ch00_macheteSwing_103
       rect:
         serializedVersion: 2
-        x: 434
-        y: 76
-        width: 7
-        height: 7
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2798,12 +1566,12 @@ TextureImporter:
       name: ch00_macheteSwing_104
       rect:
         serializedVersion: 2
-        x: 443
-        y: 34
-        width: 19
-        height: 52
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2820,12 +1588,12 @@ TextureImporter:
       name: ch00_macheteSwing_105
       rect:
         serializedVersion: 2
-        x: 573
-        y: 35
-        width: 18
-        height: 54
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2842,12 +1610,12 @@ TextureImporter:
       name: ch00_macheteSwing_106
       rect:
         serializedVersion: 2
-        x: 701
-        y: 35
-        width: 31
-        height: 62
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2864,12 +1632,12 @@ TextureImporter:
       name: ch00_macheteSwing_107
       rect:
         serializedVersion: 2
-        x: 820
-        y: 35
-        width: 25
-        height: 53
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2886,12 +1654,12 @@ TextureImporter:
       name: ch00_macheteSwing_108
       rect:
         serializedVersion: 2
-        x: 943
-        y: 35
-        width: 30
-        height: 53
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2908,12 +1676,12 @@ TextureImporter:
       name: ch00_macheteSwing_109
       rect:
         serializedVersion: 2
-        x: 1072
-        y: 35
-        width: 29
-        height: 53
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2930,12 +1698,12 @@ TextureImporter:
       name: ch00_macheteSwing_110
       rect:
         serializedVersion: 2
-        x: 1209
-        y: 35
-        width: 21
-        height: 52
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2952,12 +1720,12 @@ TextureImporter:
       name: ch00_macheteSwing_111
       rect:
         serializedVersion: 2
-        x: 1339
-        y: 34
-        width: 21
-        height: 51
+        x: 1664
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2970,77 +1738,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_112
-      rect:
-        serializedVersion: 2
-        x: 1467
-        y: 34
-        width: 22
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 14fcd1c4d10eb4c50800000000000000
-      internalID: 6650655691178364737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_113
-      rect:
-        serializedVersion: 2
-        x: 1595
-        y: 34
-        width: 26
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e5f7a30b3a782a6a0800000000000000
-      internalID: -6439435380080345250
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_macheteSwing_114
-      rect:
-        serializedVersion: 2
-        x: 1723
-        y: 35
-        width: 28
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 764082e3d5ff1ad10800000000000000
-      internalID: 2135268474290177127
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d7e83700c75e5054996a24045070fdbd
     internalID: 0
     vertices: []
     indices: 
@@ -3048,7 +1750,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":14.0,"y":8.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ch00_macheteSwing_0: -3209615186068129319
       ch00_macheteSwing_1: -5259296368381697454
@@ -3066,9 +1770,6 @@ TextureImporter:
       ch00_macheteSwing_11: -503168588325154303
       ch00_macheteSwing_110: 6776250448486554525
       ch00_macheteSwing_111: 7659221864989275528
-      ch00_macheteSwing_112: 6650655691178364737
-      ch00_macheteSwing_113: -6439435380080345250
-      ch00_macheteSwing_114: 2135268474290177127
       ch00_macheteSwing_12: 7680434650769910742
       ch00_macheteSwing_13: -2587519897045574399
       ch00_macheteSwing_14: 7869644723543770777

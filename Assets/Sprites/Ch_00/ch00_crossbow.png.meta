@@ -498,323 +498,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch00_crossbow_0
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1d1f5ae37dcdec720800000000000000
-      internalID: 2868472829708726737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_1
-      rect:
-        serializedVersion: 2
-        x: 184
-        y: 934
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 600a1b02a0f3d0240800000000000000
-      internalID: 4759529693931216902
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_2
-      rect:
-        serializedVersion: 2
-        x: 312
-        y: 934
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ef7adef5196f22110800000000000000
-      internalID: 1234820352093038590
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_3
-      rect:
-        serializedVersion: 2
-        x: 440
-        y: 934
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b85e0c650d35142e0800000000000000
-      internalID: -2143339793377860213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_4
-      rect:
-        serializedVersion: 2
-        x: 568
-        y: 934
-        width: 32
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5121ef0906a204fa0800000000000000
-      internalID: -5818604124324883947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_5
-      rect:
-        serializedVersion: 2
-        x: 696
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9a37442a16a0e8140800000000000000
-      internalID: 4723724473608729513
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_6
-      rect:
-        serializedVersion: 2
-        x: 824
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8d1942081a6f7aec0800000000000000
-      internalID: -3555602207285669416
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_7
-      rect:
-        serializedVersion: 2
-        x: 952
-        y: 934
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7099d75e13e31e0a0800000000000000
-      internalID: -6854128773856651001
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_8
-      rect:
-        serializedVersion: 2
-        x: 1080
-        y: 934
-        width: 34
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 139328857c8f0fc90800000000000000
-      internalID: -7137931874315126479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_9
-      rect:
-        serializedVersion: 2
-        x: 1208
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2a87ff825427fc7b0800000000000000
-      internalID: -5201813403223492446
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_10
-      rect:
-        serializedVersion: 2
-        x: 1336
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 890cbff02ae886d50800000000000000
-      internalID: 6730786469809209496
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_11
-      rect:
-        serializedVersion: 2
-        x: 1464
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72942958b36dedde0800000000000000
-      internalID: -1306371290758493913
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_12
-      rect:
-        serializedVersion: 2
-        x: 1592
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1b84851936d55e780800000000000000
-      internalID: -8654408426700912463
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_13
-      rect:
-        serializedVersion: 2
-        x: 1720
-        y: 934
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4606eb4494bbb7c70800000000000000
-      internalID: 8969969006198808676
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_crossbow_14
       rect:
         serializedVersion: 2
-        x: 55
-        y: 808
-        width: 29
-        height: 41
+        x: 0
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -831,12 +523,12 @@ TextureImporter:
       name: ch00_crossbow_15
       rect:
         serializedVersion: 2
-        x: 183
-        y: 808
-        width: 29
-        height: 41
+        x: 128
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -853,12 +545,12 @@ TextureImporter:
       name: ch00_crossbow_16
       rect:
         serializedVersion: 2
-        x: 311
-        y: 808
-        width: 28
-        height: 41
+        x: 256
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -875,12 +567,12 @@ TextureImporter:
       name: ch00_crossbow_17
       rect:
         serializedVersion: 2
-        x: 439
-        y: 808
-        width: 28
-        height: 41
+        x: 384
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -897,12 +589,12 @@ TextureImporter:
       name: ch00_crossbow_18
       rect:
         serializedVersion: 2
-        x: 567
-        y: 808
-        width: 28
-        height: 42
+        x: 512
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -919,12 +611,12 @@ TextureImporter:
       name: ch00_crossbow_19
       rect:
         serializedVersion: 2
-        x: 695
-        y: 808
-        width: 28
-        height: 42
+        x: 640
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -941,12 +633,12 @@ TextureImporter:
       name: ch00_crossbow_20
       rect:
         serializedVersion: 2
-        x: 823
-        y: 808
-        width: 28
-        height: 42
+        x: 768
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -963,12 +655,12 @@ TextureImporter:
       name: ch00_crossbow_21
       rect:
         serializedVersion: 2
-        x: 951
-        y: 808
-        width: 28
-        height: 42
+        x: 896
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -985,12 +677,12 @@ TextureImporter:
       name: ch00_crossbow_22
       rect:
         serializedVersion: 2
-        x: 1079
-        y: 808
-        width: 28
-        height: 42
+        x: 1024
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1007,12 +699,12 @@ TextureImporter:
       name: ch00_crossbow_23
       rect:
         serializedVersion: 2
-        x: 1207
-        y: 808
-        width: 28
-        height: 41
+        x: 1152
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1029,12 +721,12 @@ TextureImporter:
       name: ch00_crossbow_24
       rect:
         serializedVersion: 2
-        x: 1335
-        y: 808
-        width: 28
-        height: 41
+        x: 1280
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1051,12 +743,12 @@ TextureImporter:
       name: ch00_crossbow_25
       rect:
         serializedVersion: 2
-        x: 1463
-        y: 808
-        width: 28
-        height: 41
+        x: 1408
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1073,12 +765,12 @@ TextureImporter:
       name: ch00_crossbow_26
       rect:
         serializedVersion: 2
-        x: 1591
-        y: 808
-        width: 29
-        height: 41
+        x: 1536
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1095,12 +787,12 @@ TextureImporter:
       name: ch00_crossbow_27
       rect:
         serializedVersion: 2
-        x: 1719
-        y: 808
-        width: 28
-        height: 41
+        x: 1664
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1114,323 +806,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_crossbow_28
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e748c0377abf16ce0800000000000000
-      internalID: -1413572111409314690
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_29
-      rect:
-        serializedVersion: 2
-        x: 178
-        y: 674
-        width: 24
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 941873734c7b28820800000000000000
-      internalID: 2919097561857360201
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_30
-      rect:
-        serializedVersion: 2
-        x: 307
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 64e358ce38218af40800000000000000
-      internalID: 5739858082901868102
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_31
-      rect:
-        serializedVersion: 2
-        x: 435
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ea8ebdb9de2664020800000000000000
-      internalID: 2325655030245091502
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_32
-      rect:
-        serializedVersion: 2
-        x: 563
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 98277b9612552e2f0800000000000000
-      internalID: -945099369798471031
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_33
-      rect:
-        serializedVersion: 2
-        x: 691
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6c8000bd4057044c0800000000000000
-      internalID: -4305312580051662650
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_34
-      rect:
-        serializedVersion: 2
-        x: 819
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5a7f74def391b6a40800000000000000
-      internalID: 5362407543669258149
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_35
-      rect:
-        serializedVersion: 2
-        x: 947
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a73e7c7fce4a5a150800000000000000
-      internalID: 5883289825905730426
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_36
-      rect:
-        serializedVersion: 2
-        x: 1075
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 37b61bd5732803cb0800000000000000
-      internalID: -4886262421390267533
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_37
-      rect:
-        serializedVersion: 2
-        x: 1203
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bcd38e249e4886f80800000000000000
-      internalID: -8113088591323185717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_38
-      rect:
-        serializedVersion: 2
-        x: 1330
-        y: 674
-        width: 24
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 35f6836a011f08fb0800000000000000
-      internalID: -4647449761635864749
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_39
-      rect:
-        serializedVersion: 2
-        x: 1458
-        y: 674
-        width: 24
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 28084d331673aa6f0800000000000000
-      internalID: -672664303717547902
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_40
-      rect:
-        serializedVersion: 2
-        x: 1586
-        y: 674
-        width: 24
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 10a15889f7fb73ab0800000000000000
-      internalID: -5028339904195257855
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_41
-      rect:
-        serializedVersion: 2
-        x: 1715
-        y: 674
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ad9f3a2cef094b970800000000000000
-      internalID: 8769793798258817498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_crossbow_42
       rect:
         serializedVersion: 2
-        x: 41
-        y: 546
-        width: 30
-        height: 50
+        x: 0
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1447,12 +831,12 @@ TextureImporter:
       name: ch00_crossbow_43
       rect:
         serializedVersion: 2
-        x: 169
-        y: 546
-        width: 30
-        height: 50
+        x: 128
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1469,12 +853,12 @@ TextureImporter:
       name: ch00_crossbow_44
       rect:
         serializedVersion: 2
-        x: 298
-        y: 546
-        width: 29
-        height: 50
+        x: 256
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1491,12 +875,12 @@ TextureImporter:
       name: ch00_crossbow_45
       rect:
         serializedVersion: 2
-        x: 426
-        y: 546
-        width: 29
-        height: 50
+        x: 384
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1513,12 +897,12 @@ TextureImporter:
       name: ch00_crossbow_46
       rect:
         serializedVersion: 2
-        x: 554
-        y: 546
-        width: 29
-        height: 50
+        x: 512
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1535,12 +919,12 @@ TextureImporter:
       name: ch00_crossbow_47
       rect:
         serializedVersion: 2
-        x: 682
-        y: 546
-        width: 29
-        height: 50
+        x: 640
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1557,12 +941,12 @@ TextureImporter:
       name: ch00_crossbow_48
       rect:
         serializedVersion: 2
-        x: 810
-        y: 546
-        width: 29
-        height: 50
+        x: 768
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1579,12 +963,12 @@ TextureImporter:
       name: ch00_crossbow_49
       rect:
         serializedVersion: 2
-        x: 938
-        y: 546
-        width: 29
-        height: 50
+        x: 896
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1601,12 +985,12 @@ TextureImporter:
       name: ch00_crossbow_50
       rect:
         serializedVersion: 2
-        x: 1066
-        y: 546
-        width: 29
-        height: 50
+        x: 1024
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1623,12 +1007,12 @@ TextureImporter:
       name: ch00_crossbow_51
       rect:
         serializedVersion: 2
-        x: 1194
-        y: 546
-        width: 29
-        height: 50
+        x: 1152
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1645,12 +1029,12 @@ TextureImporter:
       name: ch00_crossbow_52
       rect:
         serializedVersion: 2
-        x: 1322
-        y: 546
-        width: 29
-        height: 50
+        x: 1280
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1667,12 +1051,12 @@ TextureImporter:
       name: ch00_crossbow_53
       rect:
         serializedVersion: 2
-        x: 1449
-        y: 546
-        width: 30
-        height: 50
+        x: 1408
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1689,12 +1073,12 @@ TextureImporter:
       name: ch00_crossbow_54
       rect:
         serializedVersion: 2
-        x: 1577
-        y: 546
-        width: 30
-        height: 50
+        x: 1536
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1711,12 +1095,12 @@ TextureImporter:
       name: ch00_crossbow_55
       rect:
         serializedVersion: 2
-        x: 1705
-        y: 546
-        width: 30
-        height: 50
+        x: 1664
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1730,323 +1114,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_crossbow_56
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 423
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 09d22559a97242ee0800000000000000
-      internalID: -1286860048637481584
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_57
-      rect:
-        serializedVersion: 2
-        x: 168
-        y: 423
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d04671b31f038c6c0800000000000000
-      internalID: -4122991646221048819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_58
-      rect:
-        serializedVersion: 2
-        x: 296
-        y: 423
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: de4289a1e6360cd60800000000000000
-      internalID: 7908430270206321901
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_59
-      rect:
-        serializedVersion: 2
-        x: 425
-        y: 423
-        width: 33
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 74f06829a11218a20800000000000000
-      internalID: 3062765619599773511
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_60
-      rect:
-        serializedVersion: 2
-        x: 553
-        y: 423
-        width: 33
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 42efa9e7260cba0b0800000000000000
-      internalID: -5716263772753297884
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_61
-      rect:
-        serializedVersion: 2
-        x: 681
-        y: 423
-        width: 33
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 17287516c6bda93d0800000000000000
-      internalID: -3199003326757240207
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_62
-      rect:
-        serializedVersion: 2
-        x: 810
-        y: 423
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f7299de9e4a5c6db0800000000000000
-      internalID: -4797360209337412993
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_63
-      rect:
-        serializedVersion: 2
-        x: 938
-        y: 423
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7222d6357f4236080800000000000000
-      internalID: -9195465369485237721
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_64
-      rect:
-        serializedVersion: 2
-        x: 1066
-        y: 423
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8bea1d7b7db675990800000000000000
-      internalID: -7397325288686637384
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_65
-      rect:
-        serializedVersion: 2
-        x: 1193
-        y: 423
-        width: 33
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c85e5474c7c5f4730800000000000000
-      internalID: 3985505884087641484
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_66
-      rect:
-        serializedVersion: 2
-        x: 1321
-        y: 423
-        width: 33
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 752f19f29db9c42f0800000000000000
-      internalID: -987242861192678825
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_67
-      rect:
-        serializedVersion: 2
-        x: 1448
-        y: 423
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7e900eade9500d6b0800000000000000
-      internalID: -5273708983815763481
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_68
-      rect:
-        serializedVersion: 2
-        x: 1576
-        y: 423
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e5b65e4a733028b90800000000000000
-      internalID: -7241221713333752994
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_69
-      rect:
-        serializedVersion: 2
-        x: 1704
-        y: 423
-        width: 34
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f40f5470a523dc3b0800000000000000
-      internalID: -5490677008444297137
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_crossbow_70
       rect:
         serializedVersion: 2
-        x: 47
-        y: 297
-        width: 28
-        height: 50
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2063,12 +1139,12 @@ TextureImporter:
       name: ch00_crossbow_71
       rect:
         serializedVersion: 2
-        x: 175
-        y: 297
-        width: 28
-        height: 51
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2085,12 +1161,12 @@ TextureImporter:
       name: ch00_crossbow_72
       rect:
         serializedVersion: 2
-        x: 303
-        y: 297
-        width: 28
-        height: 50
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2107,12 +1183,12 @@ TextureImporter:
       name: ch00_crossbow_73
       rect:
         serializedVersion: 2
-        x: 431
-        y: 297
-        width: 28
-        height: 50
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2129,12 +1205,12 @@ TextureImporter:
       name: ch00_crossbow_74
       rect:
         serializedVersion: 2
-        x: 560
-        y: 297
-        width: 27
-        height: 50
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2151,12 +1227,12 @@ TextureImporter:
       name: ch00_crossbow_75
       rect:
         serializedVersion: 2
-        x: 688
-        y: 297
-        width: 27
-        height: 50
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2173,12 +1249,12 @@ TextureImporter:
       name: ch00_crossbow_76
       rect:
         serializedVersion: 2
-        x: 816
-        y: 297
-        width: 27
-        height: 50
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2195,12 +1271,12 @@ TextureImporter:
       name: ch00_crossbow_77
       rect:
         serializedVersion: 2
-        x: 944
-        y: 297
-        width: 27
-        height: 50
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2217,12 +1293,12 @@ TextureImporter:
       name: ch00_crossbow_78
       rect:
         serializedVersion: 2
-        x: 1072
-        y: 297
-        width: 27
-        height: 50
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2239,12 +1315,12 @@ TextureImporter:
       name: ch00_crossbow_79
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 297
-        width: 28
-        height: 50
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2261,12 +1337,12 @@ TextureImporter:
       name: ch00_crossbow_80
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 297
-        width: 28
-        height: 50
+        x: 1280
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2283,12 +1359,12 @@ TextureImporter:
       name: ch00_crossbow_81
       rect:
         serializedVersion: 2
-        x: 1455
-        y: 297
-        width: 28
-        height: 50
+        x: 1408
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2305,12 +1381,12 @@ TextureImporter:
       name: ch00_crossbow_82
       rect:
         serializedVersion: 2
-        x: 1583
-        y: 297
-        width: 28
-        height: 50
+        x: 1536
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2327,12 +1403,12 @@ TextureImporter:
       name: ch00_crossbow_83
       rect:
         serializedVersion: 2
-        x: 1711
-        y: 297
-        width: 28
-        height: 50
+        x: 1664
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2346,323 +1422,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_crossbow_84
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 004935a40edb2eae0800000000000000
-      internalID: -1521444953080491008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_85
-      rect:
-        serializedVersion: 2
-        x: 184
-        y: 167
-        width: 24
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5e51cb479bbccb690800000000000000
-      internalID: -7584963675010886171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_86
-      rect:
-        serializedVersion: 2
-        x: 312
-        y: 167
-        width: 24
-        height: 53
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4fc4a32bc5be79e50800000000000000
-      internalID: 6816175344408218868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_87
-      rect:
-        serializedVersion: 2
-        x: 440
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a5d5c0aa438e68470800000000000000
-      internalID: 8396653868167748954
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_88
-      rect:
-        serializedVersion: 2
-        x: 568
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a8d25fb4b2484a7b0800000000000000
-      internalID: -5213897147095372406
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_89
-      rect:
-        serializedVersion: 2
-        x: 696
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b91c801f86c1e4870800000000000000
-      internalID: 8668897569780842907
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_90
-      rect:
-        serializedVersion: 2
-        x: 824
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e0afcf149b4395620800000000000000
-      internalID: 2763297816649202190
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_91
-      rect:
-        serializedVersion: 2
-        x: 952
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 44ecbba58f442c1a0800000000000000
-      internalID: -6790789454656451004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_92
-      rect:
-        serializedVersion: 2
-        x: 1080
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f4453b97c24593710800000000000000
-      internalID: 1673461286541939791
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_93
-      rect:
-        serializedVersion: 2
-        x: 1208
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c685e41ba825c3b90800000000000000
-      internalID: -7260837743594416020
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_94
-      rect:
-        serializedVersion: 2
-        x: 1336
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c46b5b8be583c7040800000000000000
-      internalID: 4646650895016506956
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_95
-      rect:
-        serializedVersion: 2
-        x: 1464
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 72e3bc114672e7520800000000000000
-      internalID: 2701640137217621543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_96
-      rect:
-        serializedVersion: 2
-        x: 1592
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3409a16b7a3f9f7a0800000000000000
-      internalID: -6342770698534350781
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_crossbow_97
-      rect:
-        serializedVersion: 2
-        x: 1720
-        y: 167
-        width: 24
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7d4bfa70f9f0bf470800000000000000
-      internalID: 8429348303257187543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ch00_crossbow_98
       rect:
         serializedVersion: 2
-        x: 59
-        y: 38
-        width: 30
-        height: 49
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2679,12 +1447,12 @@ TextureImporter:
       name: ch00_crossbow_99
       rect:
         serializedVersion: 2
-        x: 187
-        y: 38
-        width: 30
-        height: 50
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2701,12 +1469,12 @@ TextureImporter:
       name: ch00_crossbow_100
       rect:
         serializedVersion: 2
-        x: 315
-        y: 38
-        width: 30
-        height: 50
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2723,12 +1491,12 @@ TextureImporter:
       name: ch00_crossbow_101
       rect:
         serializedVersion: 2
-        x: 443
-        y: 38
-        width: 30
-        height: 49
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2745,12 +1513,12 @@ TextureImporter:
       name: ch00_crossbow_102
       rect:
         serializedVersion: 2
-        x: 571
-        y: 38
-        width: 30
-        height: 49
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2767,12 +1535,12 @@ TextureImporter:
       name: ch00_crossbow_103
       rect:
         serializedVersion: 2
-        x: 699
-        y: 38
-        width: 30
-        height: 49
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2789,12 +1557,12 @@ TextureImporter:
       name: ch00_crossbow_104
       rect:
         serializedVersion: 2
-        x: 827
-        y: 38
-        width: 30
-        height: 49
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2811,12 +1579,12 @@ TextureImporter:
       name: ch00_crossbow_105
       rect:
         serializedVersion: 2
-        x: 955
-        y: 38
-        width: 30
-        height: 49
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2833,12 +1601,12 @@ TextureImporter:
       name: ch00_crossbow_106
       rect:
         serializedVersion: 2
-        x: 1083
-        y: 38
-        width: 30
-        height: 49
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2855,12 +1623,12 @@ TextureImporter:
       name: ch00_crossbow_107
       rect:
         serializedVersion: 2
-        x: 1211
-        y: 38
-        width: 30
-        height: 49
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2877,12 +1645,12 @@ TextureImporter:
       name: ch00_crossbow_108
       rect:
         serializedVersion: 2
-        x: 1339
-        y: 38
-        width: 30
-        height: 49
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2899,12 +1667,12 @@ TextureImporter:
       name: ch00_crossbow_109
       rect:
         serializedVersion: 2
-        x: 1467
-        y: 38
-        width: 30
-        height: 49
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2921,12 +1689,12 @@ TextureImporter:
       name: ch00_crossbow_110
       rect:
         serializedVersion: 2
-        x: 1595
-        y: 38
-        width: 30
-        height: 49
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2943,12 +1711,12 @@ TextureImporter:
       name: ch00_crossbow_111
       rect:
         serializedVersion: 2
-        x: 1723
-        y: 38
-        width: 30
-        height: 49
+        x: 1664
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -2965,7 +1733,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ba6269494e734fe46bd63d5d3b9fd255
     internalID: 0
     vertices: []
     indices: 
@@ -2973,7 +1741,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":14.0,"y":8.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       ch00_crossbow_0: 2868472829708726737
       ch00_crossbow_1: 4759529693931216902

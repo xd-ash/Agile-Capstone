@@ -498,2465 +498,1233 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch00_takeDamage_0
+      name: Ch00_TakeDamage_14
       rect:
         serializedVersion: 2
-        x: 54
-        y: 932
-        width: 30
-        height: 47
+        x: 0
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 88ffe4ee2964a3f40800000000000000
-      internalID: 5708953074522849160
+      spriteID: db064d68e75494b6c8bde6c986b44f49
+      internalID: -1663122909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_1
+      name: Ch00_TakeDamage_15
       rect:
         serializedVersion: 2
-        x: 183
-        y: 932
-        width: 29
-        height: 46
+        x: 128
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f33ea2fdf1c448f60800000000000000
-      internalID: 8035631334907634495
+      spriteID: 006b612225085427bb086de8ea97bf6e
+      internalID: 841332851
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_2
+      name: Ch00_TakeDamage_16
       rect:
         serializedVersion: 2
-        x: 310
-        y: 932
-        width: 30
-        height: 46
+        x: 256
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: adc230b41fb9908f0800000000000000
-      internalID: -573756016865104678
+      spriteID: 4e6e67a23fb99410098c04149ed1a04f
+      internalID: 1007004742
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_3
+      name: Ch00_TakeDamage_17
       rect:
         serializedVersion: 2
-        x: 437
-        y: 931
-        width: 31
-        height: 43
+        x: 384
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2da78868864602f10800000000000000
-      internalID: 2242903014526974674
+      spriteID: 1e817584c998043f88dd8fe8f791f107
+      internalID: -1184919346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_4
+      name: Ch00_TakeDamage_18
       rect:
         serializedVersion: 2
-        x: 565
-        y: 930
-        width: 31
-        height: 40
+        x: 512
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: dd3e0473c62dc8f50800000000000000
-      internalID: 6885109292567946205
+      spriteID: 0a455c41876f64500ad00c37654686b8
+      internalID: 562335150
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_5
+      name: Ch00_TakeDamage_19
       rect:
         serializedVersion: 2
-        x: 692
-        y: 930
-        width: 32
-        height: 38
+        x: 640
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 250f2dc6be8c1ba60800000000000000
-      internalID: 7688146952366780498
+      spriteID: 038187c69179d49da926ce03ee6cd5c8
+      internalID: -1286942355
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_6
+      name: Ch00_TakeDamage_20
       rect:
         serializedVersion: 2
-        x: 821
-        y: 930
-        width: 31
-        height: 36
+        x: 768
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ccb8cb7fc2de79b20800000000000000
-      internalID: 3141240042504883148
+      spriteID: 4734a20ac733e463d8dcd1c98d93d65a
+      internalID: 1702953705
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_7
+      name: Ch00_TakeDamage_21
       rect:
         serializedVersion: 2
-        x: 949
-        y: 930
-        width: 31
-        height: 36
+        x: 896
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 274e32c38b04c9b20800000000000000
-      internalID: 3142457800024908914
+      spriteID: 3ce0dcf9be4a6466385c5f79c448eb07
+      internalID: 375170783
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_8
+      name: Ch00_TakeDamage_22
       rect:
         serializedVersion: 2
-        x: 1077
-        y: 931
-        width: 31
-        height: 40
+        x: 1024
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b7dc8c56b58a31f50800000000000000
-      internalID: 6851004568663805307
+      spriteID: 065782da25f534030bfd68d52693b63c
+      internalID: -1826030576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_9
+      name: Ch00_TakeDamage_23
       rect:
         serializedVersion: 2
-        x: 1206
-        y: 932
-        width: 30
-        height: 43
+        x: 1152
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1d25ef14b199b5410800000000000000
-      internalID: 1466934445989581521
+      spriteID: d1b96b8cf54e44f0a9e10e8bc4e31a3f
+      internalID: 610226728
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_10
+      name: Ch00_TakeDamage_24
       rect:
         serializedVersion: 2
-        x: 1335
-        y: 932
-        width: 30
-        height: 45
+        x: 1280
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5dfb3d176b98715e0800000000000000
-      internalID: -1938929697872953387
+      spriteID: 87af5659a4e314905a258fb98de990f5
+      internalID: 1316782619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_11
+      name: Ch00_TakeDamage_25
       rect:
         serializedVersion: 2
-        x: 1462
-        y: 932
-        width: 30
-        height: 46
+        x: 1408
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 226e7c3e6617c2260800000000000000
-      internalID: 7074153801414338082
+      spriteID: cf963560094264d4ebdcb6eac0890cb0
+      internalID: 335966182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_12
+      name: Ch00_TakeDamage_26
       rect:
         serializedVersion: 2
-        x: 1590
-        y: 932
-        width: 30
-        height: 46
+        x: 1536
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e734416447c5a6530800000000000000
-      internalID: 3848990486003204990
+      spriteID: f3b8945f527854deda2d13710246a68f
+      internalID: -1297704905
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_13
+      name: Ch00_TakeDamage_27
       rect:
         serializedVersion: 2
-        x: 1718
-        y: 932
-        width: 30
-        height: 46
+        x: 1664
+        y: 768
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4ac29f80917d8bd00800000000000000
-      internalID: 988776620732525732
+      spriteID: 9fe7740f0a0cd47cea7b878271ca794c
+      internalID: -2102365260
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_14
+      name: Ch00_TakeDamage_42
       rect:
         serializedVersion: 2
-        x: 50
-        y: 805
-        width: 31
-        height: 44
+        x: 0
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9137c01acf9838f80800000000000000
-      internalID: -8105483186210049255
+      spriteID: 401790c37bdd3445683afa65561e0c50
+      internalID: 58991304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_15
+      name: Ch00_TakeDamage_43
       rect:
         serializedVersion: 2
-        x: 178
-        y: 805
-        width: 31
-        height: 44
+        x: 128
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f26424b997b472240800000000000000
-      internalID: 4766861716262897199
+      spriteID: ed1f5be0c7e5b4895b7b883aae8c1d3d
+      internalID: -11122191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_16
+      name: Ch00_TakeDamage_44
       rect:
         serializedVersion: 2
-        x: 306
-        y: 805
-        width: 31
-        height: 45
+        x: 256
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3b9882c875de62d20800000000000000
-      internalID: 3253548741091166643
+      spriteID: 9c7066073d5ca464e96b422df78d19a0
+      internalID: 1303026575
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_17
+      name: Ch00_TakeDamage_45
       rect:
         serializedVersion: 2
-        x: 432
-        y: 805
-        width: 33
-        height: 44
+        x: 384
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9c12acf37fccc8610800000000000000
-      internalID: 1624898927873106377
+      spriteID: 26f59ca111fe647b8be7f785f6a19d00
+      internalID: -1466229244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_18
+      name: Ch00_TakeDamage_46
       rect:
         serializedVersion: 2
-        x: 558
-        y: 805
-        width: 35
-        height: 41
+        x: 512
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4156938f8fdfa07e0800000000000000
-      internalID: -1798345855422864108
+      spriteID: 0693c4d2d70b247c8b1c34d7694c9f54
+      internalID: -1619508005
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_19
+      name: Ch00_TakeDamage_47
       rect:
         serializedVersion: 2
-        x: 685
-        y: 805
-        width: 36
-        height: 37
+        x: 640
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0bddacf09a9f1b050800000000000000
-      internalID: 5814703098421763504
+      spriteID: fc7dfefe84dc2437ebe65507e0d9bb6d
+      internalID: -2092128845
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_20
+      name: Ch00_TakeDamage_48
       rect:
         serializedVersion: 2
-        x: 814
-        y: 805
-        width: 35
-        height: 36
+        x: 768
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8567df8f1be7ffbf0800000000000000
-      internalID: -288372548276750760
+      spriteID: e4922f3fb28d04ea893f9f26400684fe
+      internalID: -1557260503
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_21
+      name: Ch00_TakeDamage_49
       rect:
         serializedVersion: 2
-        x: 943
-        y: 805
-        width: 34
-        height: 36
+        x: 896
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8470b97cf38972b50800000000000000
-      internalID: 6568385981242345288
+      spriteID: 410a3aa2cd99b4bc299087e334309cbb
+      internalID: 123098657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_22
+      name: Ch00_TakeDamage_50
       rect:
         serializedVersion: 2
-        x: 1071
-        y: 805
-        width: 34
-        height: 38
+        x: 1024
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b1f28599767a60220800000000000000
-      internalID: 2451831110545977115
+      spriteID: 9e80a4a171bf24adca3f458cdc4ad626
+      internalID: -854878029
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_23
+      name: Ch00_TakeDamage_51
       rect:
         serializedVersion: 2
-        x: 1202
-        y: 805
-        width: 31
-        height: 40
+        x: 1152
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 08707d0c7eb0b2060800000000000000
-      internalID: 6929645541640308608
+      spriteID: 1504775f9e5c14121a8b163f1d7f89e2
+      internalID: -513395248
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_24
+      name: Ch00_TakeDamage_52
       rect:
         serializedVersion: 2
-        x: 1330
-        y: 805
-        width: 31
-        height: 42
+        x: 1280
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1ebb4640aa701c4a0800000000000000
-      internalID: -6574965554184668191
+      spriteID: 1f388862f39744a0286a35aced2d6299
+      internalID: -116337690
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_25
+      name: Ch00_TakeDamage_53
       rect:
         serializedVersion: 2
-        x: 1458
-        y: 805
-        width: 31
-        height: 43
+        x: 1408
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 28875dd4bf2a369f0800000000000000
-      internalID: -476357935344813950
+      spriteID: 0e78b407f90d447a1b760049d14abe44
+      internalID: 1869797063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_26
+      name: Ch00_TakeDamage_54
       rect:
         serializedVersion: 2
-        x: 1586
-        y: 805
-        width: 31
-        height: 43
+        x: 1536
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cdd97c80efb4e0060800000000000000
-      internalID: 6921553231756107228
+      spriteID: 90120b437ef104924886615d7097bf96
+      internalID: 839309201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_27
+      name: Ch00_TakeDamage_55
       rect:
         serializedVersion: 2
-        x: 1714
-        y: 805
-        width: 31
-        height: 44
+        x: 1664
+        y: 512
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c7485380aa1bcc660800000000000000
-      internalID: 7407490830957905020
+      spriteID: fa7f79e4ebcd14584be9eba17ad56903
+      internalID: -392324210
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_28
+      name: Ch00_TakeDamage_70
       rect:
         serializedVersion: 2
-        x: 52
-        y: 672
-        width: 20
-        height: 50
+        x: 0
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e9cea66f2275cd0c0800000000000000
-      internalID: -4549665715876336482
+      spriteID: f4c7bda7655394494afc87a8044b3cde
+      internalID: 1511073201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_29
+      name: Ch00_TakeDamage_71
       rect:
         serializedVersion: 2
-        x: 180
-        y: 672
-        width: 20
-        height: 50
+        x: 128
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4f2eed1c966b4d330800000000000000
-      internalID: 3734810556337414900
+      spriteID: 94443105d789945f884da233d07c4788
+      internalID: -96478547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_30
+      name: Ch00_TakeDamage_72
       rect:
         serializedVersion: 2
-        x: 307
-        y: 672
-        width: 21
-        height: 51
+        x: 256
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: afa687be60ceb9e60800000000000000
-      internalID: 7970223480026721018
+      spriteID: 895d06a37011540cca198e096abe9acc
+      internalID: -409977547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_31
+      name: Ch00_TakeDamage_73
       rect:
         serializedVersion: 2
-        x: 432
-        y: 672
-        width: 24
-        height: 52
+        x: 384
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8b239944303018cc0800000000000000
-      internalID: -3710681305405902152
+      spriteID: 565e683ecfde248fab43d09d17dad2b8
+      internalID: 1661067862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_32
+      name: Ch00_TakeDamage_74
       rect:
         serializedVersion: 2
-        x: 557
-        y: 672
-        width: 27
-        height: 51
+        x: 512
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c4ff26f32dba52470800000000000000
-      internalID: 8369284402032869196
+      spriteID: 9efaa8b8a171b40d6b2de2d2d341f791
+      internalID: 1421423884
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_33
+      name: Ch00_TakeDamage_75
       rect:
         serializedVersion: 2
-        x: 683
-        y: 672
-        width: 28
-        height: 50
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 852890b782a493570800000000000000
-      internalID: 8446864113833443928
+      spriteID: 6fe0971370490445487ed846ccbd11cc
+      internalID: 1841695713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_34
+      name: Ch00_TakeDamage_76
       rect:
         serializedVersion: 2
-        x: 811
-        y: 672
-        width: 28
-        height: 49
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d878f8eb5da007d80800000000000000
-      internalID: -8255086203828729971
+      spriteID: 4d53208ca0af04f458a61f6df87f26cf
+      internalID: 1263199064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_35
+      name: Ch00_TakeDamage_77
       rect:
         serializedVersion: 2
-        x: 942
-        y: 672
-        width: 26
-        height: 48
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6b2748ad772781730800000000000000
-      internalID: 3970048930619880118
+      spriteID: fa3673d96195641e89ce99336acd8839
+      internalID: 417886707
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_36
+      name: Ch00_TakeDamage_78
       rect:
         serializedVersion: 2
-        x: 1074
-        y: 672
-        width: 22
-        height: 47
+        x: 1024
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 726b6f63a1f459bc0800000000000000
-      internalID: -3777025738470410713
+      spriteID: 3e71f57ad823b41b2b2236a718fdd587
+      internalID: 1304627825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_37
+      name: Ch00_TakeDamage_79
       rect:
         serializedVersion: 2
-        x: 1203
-        y: 672
-        width: 21
-        height: 46
+        x: 1152
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d9da44db70ae403e0800000000000000
-      internalID: -2088287008232002147
+      spriteID: 828eee74483304278a55caea22c0cd1d
+      internalID: -231119354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_38
+      name: Ch00_TakeDamage_80
       rect:
         serializedVersion: 2
-        x: 1332
-        y: 672
-        width: 20
-        height: 47
+        x: 1280
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9047735ff23713e60800000000000000
-      internalID: 7940254267845604361
+      spriteID: e761a231d55b3420aa26b05040fb7f3a
+      internalID: 1024466005
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_39
+      name: Ch00_TakeDamage_81
       rect:
         serializedVersion: 2
-        x: 1460
-        y: 672
-        width: 20
-        height: 48
+        x: 1408
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 649dd96a60f400ab0800000000000000
-      internalID: -5043944692671194810
+      spriteID: dac239c10167d4fb59e8a9ff0c3f7823
+      internalID: 1723594384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_40
+      name: Ch00_TakeDamage_82
       rect:
         serializedVersion: 2
-        x: 1588
-        y: 672
-        width: 20
-        height: 49
+        x: 1536
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d2652250cdc2ee210800000000000000
-      internalID: 1364077060630402605
+      spriteID: f8eba0deaa3da4dddaa6ceb2e36546e1
+      internalID: 1041687590
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_41
+      name: Ch00_TakeDamage_83
       rect:
         serializedVersion: 2
-        x: 1716
-        y: 672
-        width: 20
-        height: 50
+        x: 1664
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3a5320406f9a97760800000000000000
-      internalID: 7456177532182869411
+      spriteID: 11eb49529b9704ace9bc528dfea17616
+      internalID: 1194500717
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_42
+      name: Ch00_TakeDamage_98
       rect:
         serializedVersion: 2
-        x: 53
-        y: 546
-        width: 17
-        height: 49
+        x: 0
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e73ad5cce96a63ae0800000000000000
-      internalID: -1569884219128306818
+      spriteID: 7ed90bf6f1143405a9f64f62a94ff7b7
+      internalID: 2026657388
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_43
+      name: Ch00_TakeDamage_99
       rect:
         serializedVersion: 2
-        x: 181
-        y: 546
-        width: 17
-        height: 49
+        x: 128
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 870bcd055aa8078b0800000000000000
-      internalID: -5156469130708340616
+      spriteID: bd0223a747550465dacc4cf7e44e535c
+      internalID: 1401990804
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_44
+      name: Ch00_TakeDamage_100
       rect:
         serializedVersion: 2
-        x: 309
-        y: 546
-        width: 17
-        height: 51
+        x: 256
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 724b09bc248239850800000000000000
-      internalID: 6382489364262335527
+      spriteID: 0ce7dc3499f73429087a701eda9ffd1a
+      internalID: -1492566292
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_45
+      name: Ch00_TakeDamage_101
       rect:
         serializedVersion: 2
-        x: 435
-        y: 546
-        width: 19
-        height: 52
+        x: 384
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 983bcb8e013c72970800000000000000
-      internalID: 8730160880072569737
+      spriteID: 799d17d9ce823445b8ea5da24a539867
+      internalID: 59715700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_46
+      name: Ch00_TakeDamage_102
       rect:
         serializedVersion: 2
-        x: 563
-        y: 546
-        width: 20
-        height: 53
+        x: 512
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7569c79870a090650800000000000000
-      internalID: 6199497389539890775
+      spriteID: 7f553f50b65844a04a9e5ef36bf994a4
+      internalID: -24667454
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_47
+      name: Ch00_TakeDamage_103
       rect:
         serializedVersion: 2
-        x: 692
-        y: 546
-        width: 20
-        height: 52
+        x: 640
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9fca786fc7175e9c0800000000000000
-      internalID: -3898585120893326087
+      spriteID: 635c3aea282b2489d92eb91ffc9bc97d
+      internalID: 850267154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_48
+      name: Ch00_TakeDamage_104
       rect:
         serializedVersion: 2
-        x: 818
-        y: 546
-        width: 22
-        height: 51
+        x: 768
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6a9368f1406592a90800000000000000
-      internalID: -7338239542114764378
+      spriteID: 5750d29790d9d4b3d866326e81953bc1
+      internalID: 656290569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_49
+      name: Ch00_TakeDamage_105
       rect:
         serializedVersion: 2
-        x: 945
-        y: 546
-        width: 23
-        height: 50
+        x: 896
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 304056d3cf8a856e0800000000000000
-      internalID: -1848541845720333309
+      spriteID: e21ce92d380884da7becb8204ef2cb3c
+      internalID: -469644470
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_50
+      name: Ch00_TakeDamage_106
       rect:
         serializedVersion: 2
-        x: 1073
-        y: 546
-        width: 22
-        height: 48
+        x: 1024
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 03691cfca783bd310800000000000000
-      internalID: 1430799406743000624
+      spriteID: f73d71482b2f749ac83cd5372204f6c8
+      internalID: -1056540945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_51
+      name: Ch00_TakeDamage_107
       rect:
         serializedVersion: 2
-        x: 1199
-        y: 546
-        width: 23
-        height: 47
+        x: 1152
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1751655d0ffb1e740800000000000000
-      internalID: 5179632087545025905
+      spriteID: 2852208d004bc4cc3a77879d30fe467e
+      internalID: -336053954
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_52
+      name: Ch00_TakeDamage_108
       rect:
         serializedVersion: 2
-        x: 1327
-        y: 546
-        width: 23
-        height: 47
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7564c645ea4b94a70800000000000000
-      internalID: 8811772806760777303
+      spriteID: 47afa3f131e724e96926072d739537ba
+      internalID: -102521266
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_53
+      name: Ch00_TakeDamage_109
       rect:
         serializedVersion: 2
-        x: 1457
-        y: 546
-        width: 21
-        height: 48
+        x: 1408
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8c0b942eb004a89a0800000000000000
-      internalID: -6230096714728361784
+      spriteID: cabd0318f30be43a3988c69120e71e6a
+      internalID: -1580846810
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_54
+      name: Ch00_TakeDamage_110
       rect:
         serializedVersion: 2
-        x: 1586
-        y: 546
-        width: 20
-        height: 48
+        x: 1536
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5927331ba632589a0800000000000000
-      internalID: -6231535568250768747
+      spriteID: 23fe66b1d62c0409da59398bdab04145
+      internalID: 1076003379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ch00_takeDamage_55
+      name: Ch00_TakeDamage_111
       rect:
         serializedVersion: 2
-        x: 1716
-        y: 546
-        width: 18
-        height: 49
+        x: 1664
+        y: 0
+        width: 128
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c490d0790109db3f0800000000000000
-      internalID: -883391550966658740
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_56
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 424
-        width: 30
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ac00678c6f83a8b60800000000000000
-      internalID: 7749068741420646602
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_57
-      rect:
-        serializedVersion: 2
-        x: 174
-        y: 424
-        width: 30
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7042d8e95959c8440800000000000000
-      internalID: 4939487361161307143
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_58
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 424
-        width: 30
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54c4a8dc1bf99bed0800000000000000
-      internalID: -2397709740591657915
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_59
-      rect:
-        serializedVersion: 2
-        x: 430
-        y: 424
-        width: 31
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fc84079083f47f030800000000000000
-      internalID: 3528375935163189455
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_60
-      rect:
-        serializedVersion: 2
-        x: 558
-        y: 425
-        width: 32
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 790b656e3b67e6510800000000000000
-      internalID: 1544302237270323351
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_61
-      rect:
-        serializedVersion: 2
-        x: 686
-        y: 425
-        width: 33
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 58cf0439cc25a9fa0800000000000000
-      internalID: -5793226932061406075
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_62
-      rect:
-        serializedVersion: 2
-        x: 814
-        y: 425
-        width: 31
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8c0b2139cb633b7c0800000000000000
-      internalID: -4056838655781457720
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_63
-      rect:
-        serializedVersion: 2
-        x: 942
-        y: 425
-        width: 31
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: afef594dd35ee0e50800000000000000
-      internalID: 6777606542961540858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_64
-      rect:
-        serializedVersion: 2
-        x: 1070
-        y: 424
-        width: 31
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ba53b6b384ed83a10800000000000000
-      internalID: 1889504445497816491
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_65
-      rect:
-        serializedVersion: 2
-        x: 1198
-        y: 424
-        width: 30
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c155147308fae6640800000000000000
-      internalID: 5075186795310830876
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_66
-      rect:
-        serializedVersion: 2
-        x: 1325
-        y: 424
-        width: 31
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 87d5c93eb238444a0800000000000000
-      internalID: -6610014128547537544
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_67
-      rect:
-        serializedVersion: 2
-        x: 1454
-        y: 424
-        width: 30
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b4c13e7c7e51b3f80800000000000000
-      internalID: -8125877017424749493
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_68
-      rect:
-        serializedVersion: 2
-        x: 1582
-        y: 424
-        width: 30
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 68b7c182bcaa58f40800000000000000
-      internalID: 5730173890426862470
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_69
-      rect:
-        serializedVersion: 2
-        x: 1710
-        y: 424
-        width: 30
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1f82be932b6f4ac50800000000000000
-      internalID: 6675731793006242033
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_70
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 298
-        width: 32
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f106b0ab11167f910800000000000000
-      internalID: 1871070898959376415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_71
-      rect:
-        serializedVersion: 2
-        x: 177
-        y: 298
-        width: 32
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 283527161f4037290800000000000000
-      internalID: -7893960287081835646
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_72
-      rect:
-        serializedVersion: 2
-        x: 305
-        y: 297
-        width: 32
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cbd47a44d0f745cd0800000000000000
-      internalID: -2570289792358593092
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_73
-      rect:
-        serializedVersion: 2
-        x: 433
-        y: 298
-        width: 33
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 672a6f48fe3e924f0800000000000000
-      internalID: -852900036542553482
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_74
-      rect:
-        serializedVersion: 2
-        x: 561
-        y: 298
-        width: 36
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 765a02b0cce9bb8d0800000000000000
-      internalID: -2829493341675018905
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_75
-      rect:
-        serializedVersion: 2
-        x: 689
-        y: 298
-        width: 37
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e919a38a0c41ee70800000000000000
-      internalID: 9142672326581098977
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_76
-      rect:
-        serializedVersion: 2
-        x: 817
-        y: 298
-        width: 35
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a9ccfc68b110c7ed0800000000000000
-      internalID: -2415054082439918438
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_77
-      rect:
-        serializedVersion: 2
-        x: 945
-        y: 298
-        width: 34
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9107797b8c3378730800000000000000
-      internalID: 4001223731108605977
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_78
-      rect:
-        serializedVersion: 2
-        x: 1073
-        y: 298
-        width: 34
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cf1d79712ceedebd0800000000000000
-      internalID: -2599158892536016388
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_79
-      rect:
-        serializedVersion: 2
-        x: 1201
-        y: 298
-        width: 32
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a258289424127b500800000000000000
-      internalID: 411834459512538410
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_80
-      rect:
-        serializedVersion: 2
-        x: 1329
-        y: 298
-        width: 31
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6bf2d695f28e6e110800000000000000
-      internalID: 1289973633349660598
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_81
-      rect:
-        serializedVersion: 2
-        x: 1457
-        y: 298
-        width: 32
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d20e97664c7a43980800000000000000
-      internalID: -8560032529749778387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_82
-      rect:
-        serializedVersion: 2
-        x: 1585
-        y: 298
-        width: 32
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b2b878568276771e0800000000000000
-      internalID: -2200176469747463381
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_83
-      rect:
-        serializedVersion: 2
-        x: 1713
-        y: 298
-        width: 32
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 35742b6cca4febef0800000000000000
-      internalID: -90365919595706541
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_84
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 166
-        width: 21
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c3006eae83487e140800000000000000
-      internalID: 4748909712079454268
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_85
-      rect:
-        serializedVersion: 2
-        x: 186
-        y: 166
-        width: 21
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c4d4cc4ee8e115fe0800000000000000
-      internalID: -1202146026458428084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_86
-      rect:
-        serializedVersion: 2
-        x: 314
-        y: 165
-        width: 21
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 56aa2829b94739580800000000000000
-      internalID: -8821579033561879963
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_87
-      rect:
-        serializedVersion: 2
-        x: 442
-        y: 165
-        width: 24
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c4242dfd2dd580780800000000000000
-      internalID: -8716613918495980980
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_88
-      rect:
-        serializedVersion: 2
-        x: 571
-        y: 164
-        width: 27
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 11229f0da50c08960800000000000000
-      internalID: 7602287667286974993
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_89
-      rect:
-        serializedVersion: 2
-        x: 699
-        y: 164
-        width: 29
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 33d23ebb7ed3da4b0800000000000000
-      internalID: -5427613910412612301
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_90
-      rect:
-        serializedVersion: 2
-        x: 827
-        y: 164
-        width: 28
-        height: 39
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6afb4e24aa8ea4220800000000000000
-      internalID: 2471043163530510246
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_91
-      rect:
-        serializedVersion: 2
-        x: 955
-        y: 165
-        width: 26
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c4bbdcef7e918d480800000000000000
-      internalID: -8874314581530526900
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_92
-      rect:
-        serializedVersion: 2
-        x: 1082
-        y: 165
-        width: 23
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c60e02016be2e6220800000000000000
-      internalID: 2480971804217237612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_93
-      rect:
-        serializedVersion: 2
-        x: 1210
-        y: 166
-        width: 21
-        height: 46
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 12e402b87e7cfbd30800000000000000
-      internalID: 4449494754150862369
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_94
-      rect:
-        serializedVersion: 2
-        x: 1338
-        y: 166
-        width: 20
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4a97b16a9d0eb5a00800000000000000
-      internalID: 746437388659292580
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_95
-      rect:
-        serializedVersion: 2
-        x: 1466
-        y: 166
-        width: 21
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f8606961858119750800000000000000
-      internalID: 6309851319537895055
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_96
-      rect:
-        serializedVersion: 2
-        x: 1594
-        y: 166
-        width: 20
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 20ab5e05dc03df970800000000000000
-      internalID: 8790235706080737794
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_97
-      rect:
-        serializedVersion: 2
-        x: 1722
-        y: 166
-        width: 20
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 95af0130e0056cbc0800000000000000
-      internalID: -3763232417510262183
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_98
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 34
-        width: 17
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7ba9323a5c730ed70800000000000000
-      internalID: 9070310971509283511
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_99
-      rect:
-        serializedVersion: 2
-        x: 188
-        y: 34
-        width: 17
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f7c38b1db21c80ea0800000000000000
-      internalID: -5906258517350138753
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_100
-      rect:
-        serializedVersion: 2
-        x: 316
-        y: 34
-        width: 18
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1da2abe512609d2a0800000000000000
-      internalID: -6712327029226067247
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_101
-      rect:
-        serializedVersion: 2
-        x: 444
-        y: 33
-        width: 19
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 901ea0985643907b0800000000000000
-      internalID: -5257613479282810615
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_102
-      rect:
-        serializedVersion: 2
-        x: 571
-        y: 32
-        width: 21
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78179280fe2a130f0800000000000000
-      internalID: -1138950083230207609
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_103
-      rect:
-        serializedVersion: 2
-        x: 698
-        y: 32
-        width: 22
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8a0853b115e6cb940800000000000000
-      internalID: 5313242955018240168
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_104
-      rect:
-        serializedVersion: 2
-        x: 826
-        y: 32
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ee0e5d80f11560620800000000000000
-      internalID: 2739966617035596014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_105
-      rect:
-        serializedVersion: 2
-        x: 954
-        y: 33
-        width: 23
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3cf50c0993bfc95f0800000000000000
-      internalID: -748447213390110781
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_106
-      rect:
-        serializedVersion: 2
-        x: 1083
-        y: 33
-        width: 23
-        height: 44
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 219b50b7b495dfb70800000000000000
-      internalID: 8934395416494323986
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_107
-      rect:
-        serializedVersion: 2
-        x: 1212
-        y: 34
-        width: 23
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e62d92b36be019d90800000000000000
-      internalID: -7092871762292387218
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_108
-      rect:
-        serializedVersion: 2
-        x: 1340
-        y: 34
-        width: 23
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79b7ccaba4893b200800000000000000
-      internalID: 194666655636028311
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_109
-      rect:
-        serializedVersion: 2
-        x: 1468
-        y: 34
-        width: 22
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9b46eae311e41dab0800000000000000
-      internalID: -4985117476549401415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_110
-      rect:
-        serializedVersion: 2
-        x: 1596
-        y: 34
-        width: 20
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 92a4533d4e21e94c0800000000000000
-      internalID: -4278961821950064087
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ch00_takeDamage_111
-      rect:
-        serializedVersion: 2
-        x: 1724
-        y: 34
-        width: 18
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d86cb956d75fa3a40800000000000000
-      internalID: 5348857426380310157
+      spriteID: f30eeca1704934cd6a7656f9cac125af
+      internalID: 155160630
       vertices: []
       indices: 
       edges: []
@@ -2965,7 +1733,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b8d7eaa6b8ab54117b9eaa50bcfe04f5
     internalID: 0
     vertices: []
     indices: 
@@ -2973,120 +1741,122 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":14.0,"y":8.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      ch00_takeDamage_0: 5708953074522849160
-      ch00_takeDamage_1: 8035631334907634495
-      ch00_takeDamage_10: -1938929697872953387
-      ch00_takeDamage_100: -6712327029226067247
-      ch00_takeDamage_101: -5257613479282810615
-      ch00_takeDamage_102: -1138950083230207609
-      ch00_takeDamage_103: 5313242955018240168
-      ch00_takeDamage_104: 2739966617035596014
-      ch00_takeDamage_105: -748447213390110781
-      ch00_takeDamage_106: 8934395416494323986
-      ch00_takeDamage_107: -7092871762292387218
-      ch00_takeDamage_108: 194666655636028311
-      ch00_takeDamage_109: -4985117476549401415
-      ch00_takeDamage_11: 7074153801414338082
-      ch00_takeDamage_110: -4278961821950064087
-      ch00_takeDamage_111: 5348857426380310157
-      ch00_takeDamage_12: 3848990486003204990
-      ch00_takeDamage_13: 988776620732525732
-      ch00_takeDamage_14: -8105483186210049255
-      ch00_takeDamage_15: 4766861716262897199
-      ch00_takeDamage_16: 3253548741091166643
-      ch00_takeDamage_17: 1624898927873106377
-      ch00_takeDamage_18: -1798345855422864108
-      ch00_takeDamage_19: 5814703098421763504
-      ch00_takeDamage_2: -573756016865104678
-      ch00_takeDamage_20: -288372548276750760
-      ch00_takeDamage_21: 6568385981242345288
-      ch00_takeDamage_22: 2451831110545977115
-      ch00_takeDamage_23: 6929645541640308608
-      ch00_takeDamage_24: -6574965554184668191
-      ch00_takeDamage_25: -476357935344813950
-      ch00_takeDamage_26: 6921553231756107228
-      ch00_takeDamage_27: 7407490830957905020
-      ch00_takeDamage_28: -4549665715876336482
-      ch00_takeDamage_29: 3734810556337414900
-      ch00_takeDamage_3: 2242903014526974674
-      ch00_takeDamage_30: 7970223480026721018
-      ch00_takeDamage_31: -3710681305405902152
-      ch00_takeDamage_32: 8369284402032869196
-      ch00_takeDamage_33: 8446864113833443928
-      ch00_takeDamage_34: -8255086203828729971
-      ch00_takeDamage_35: 3970048930619880118
-      ch00_takeDamage_36: -3777025738470410713
-      ch00_takeDamage_37: -2088287008232002147
-      ch00_takeDamage_38: 7940254267845604361
-      ch00_takeDamage_39: -5043944692671194810
-      ch00_takeDamage_4: 6885109292567946205
-      ch00_takeDamage_40: 1364077060630402605
-      ch00_takeDamage_41: 7456177532182869411
-      ch00_takeDamage_42: -1569884219128306818
-      ch00_takeDamage_43: -5156469130708340616
-      ch00_takeDamage_44: 6382489364262335527
-      ch00_takeDamage_45: 8730160880072569737
-      ch00_takeDamage_46: 6199497389539890775
-      ch00_takeDamage_47: -3898585120893326087
-      ch00_takeDamage_48: -7338239542114764378
-      ch00_takeDamage_49: -1848541845720333309
-      ch00_takeDamage_5: 7688146952366780498
-      ch00_takeDamage_50: 1430799406743000624
-      ch00_takeDamage_51: 5179632087545025905
-      ch00_takeDamage_52: 8811772806760777303
-      ch00_takeDamage_53: -6230096714728361784
-      ch00_takeDamage_54: -6231535568250768747
-      ch00_takeDamage_55: -883391550966658740
-      ch00_takeDamage_56: 7749068741420646602
-      ch00_takeDamage_57: 4939487361161307143
-      ch00_takeDamage_58: -2397709740591657915
-      ch00_takeDamage_59: 3528375935163189455
-      ch00_takeDamage_6: 3141240042504883148
-      ch00_takeDamage_60: 1544302237270323351
-      ch00_takeDamage_61: -5793226932061406075
-      ch00_takeDamage_62: -4056838655781457720
-      ch00_takeDamage_63: 6777606542961540858
-      ch00_takeDamage_64: 1889504445497816491
-      ch00_takeDamage_65: 5075186795310830876
-      ch00_takeDamage_66: -6610014128547537544
-      ch00_takeDamage_67: -8125877017424749493
-      ch00_takeDamage_68: 5730173890426862470
-      ch00_takeDamage_69: 6675731793006242033
-      ch00_takeDamage_7: 3142457800024908914
-      ch00_takeDamage_70: 1871070898959376415
-      ch00_takeDamage_71: -7893960287081835646
-      ch00_takeDamage_72: -2570289792358593092
-      ch00_takeDamage_73: -852900036542553482
-      ch00_takeDamage_74: -2829493341675018905
-      ch00_takeDamage_75: 9142672326581098977
-      ch00_takeDamage_76: -2415054082439918438
-      ch00_takeDamage_77: 4001223731108605977
-      ch00_takeDamage_78: -2599158892536016388
-      ch00_takeDamage_79: 411834459512538410
-      ch00_takeDamage_8: 6851004568663805307
-      ch00_takeDamage_80: 1289973633349660598
-      ch00_takeDamage_81: -8560032529749778387
-      ch00_takeDamage_82: -2200176469747463381
-      ch00_takeDamage_83: -90365919595706541
-      ch00_takeDamage_84: 4748909712079454268
-      ch00_takeDamage_85: -1202146026458428084
-      ch00_takeDamage_86: -8821579033561879963
-      ch00_takeDamage_87: -8716613918495980980
-      ch00_takeDamage_88: 7602287667286974993
-      ch00_takeDamage_89: -5427613910412612301
-      ch00_takeDamage_9: 1466934445989581521
-      ch00_takeDamage_90: 2471043163530510246
-      ch00_takeDamage_91: -8874314581530526900
-      ch00_takeDamage_92: 2480971804217237612
-      ch00_takeDamage_93: 4449494754150862369
-      ch00_takeDamage_94: 746437388659292580
-      ch00_takeDamage_95: 6309851319537895055
-      ch00_takeDamage_96: 8790235706080737794
-      ch00_takeDamage_97: -3763232417510262183
-      ch00_takeDamage_98: 9070310971509283511
-      ch00_takeDamage_99: -5906258517350138753
+      Ch00_TakeDamage_0: -607570578
+      Ch00_TakeDamage_1: -415988486
+      Ch00_TakeDamage_10: 1964689078
+      Ch00_TakeDamage_100: -1492566292
+      Ch00_TakeDamage_101: 59715700
+      Ch00_TakeDamage_102: -24667454
+      Ch00_TakeDamage_103: 850267154
+      Ch00_TakeDamage_104: 656290569
+      Ch00_TakeDamage_105: -469644470
+      Ch00_TakeDamage_106: -1056540945
+      Ch00_TakeDamage_107: -336053954
+      Ch00_TakeDamage_108: -102521266
+      Ch00_TakeDamage_109: -1580846810
+      Ch00_TakeDamage_11: 1727962136
+      Ch00_TakeDamage_110: 1076003379
+      Ch00_TakeDamage_111: 155160630
+      Ch00_TakeDamage_12: 897996316
+      Ch00_TakeDamage_13: 498553748
+      Ch00_TakeDamage_14: -1663122909
+      Ch00_TakeDamage_15: 841332851
+      Ch00_TakeDamage_16: 1007004742
+      Ch00_TakeDamage_17: -1184919346
+      Ch00_TakeDamage_18: 562335150
+      Ch00_TakeDamage_19: -1286942355
+      Ch00_TakeDamage_2: -812352987
+      Ch00_TakeDamage_20: 1702953705
+      Ch00_TakeDamage_21: 375170783
+      Ch00_TakeDamage_22: -1826030576
+      Ch00_TakeDamage_23: 610226728
+      Ch00_TakeDamage_24: 1316782619
+      Ch00_TakeDamage_25: 335966182
+      Ch00_TakeDamage_26: -1297704905
+      Ch00_TakeDamage_27: -2102365260
+      Ch00_TakeDamage_28: -569771134
+      Ch00_TakeDamage_29: 1125543084
+      Ch00_TakeDamage_3: 1842197664
+      Ch00_TakeDamage_30: -1786636671
+      Ch00_TakeDamage_31: 121852703
+      Ch00_TakeDamage_32: -2050875649
+      Ch00_TakeDamage_33: 1075554019
+      Ch00_TakeDamage_34: -1466285851
+      Ch00_TakeDamage_35: -1601205916
+      Ch00_TakeDamage_36: -865151279
+      Ch00_TakeDamage_37: -579378331
+      Ch00_TakeDamage_38: -876150238
+      Ch00_TakeDamage_39: 251620534
+      Ch00_TakeDamage_4: 726526894
+      Ch00_TakeDamage_40: -1537197313
+      Ch00_TakeDamage_41: 1110883595
+      Ch00_TakeDamage_42: 58991304
+      Ch00_TakeDamage_43: -11122191
+      Ch00_TakeDamage_44: 1303026575
+      Ch00_TakeDamage_45: -1466229244
+      Ch00_TakeDamage_46: -1619508005
+      Ch00_TakeDamage_47: -2092128845
+      Ch00_TakeDamage_48: -1557260503
+      Ch00_TakeDamage_49: 123098657
+      Ch00_TakeDamage_5: 577343829
+      Ch00_TakeDamage_50: -854878029
+      Ch00_TakeDamage_51: -513395248
+      Ch00_TakeDamage_52: -116337690
+      Ch00_TakeDamage_53: 1869797063
+      Ch00_TakeDamage_54: 839309201
+      Ch00_TakeDamage_55: -392324210
+      Ch00_TakeDamage_56: 1494100377
+      Ch00_TakeDamage_57: 1996067630
+      Ch00_TakeDamage_58: -1886509909
+      Ch00_TakeDamage_59: -1241008478
+      Ch00_TakeDamage_6: 1146777732
+      Ch00_TakeDamage_60: -1769975784
+      Ch00_TakeDamage_61: 33151082
+      Ch00_TakeDamage_62: -1574831793
+      Ch00_TakeDamage_63: -1324257788
+      Ch00_TakeDamage_64: -463433353
+      Ch00_TakeDamage_65: 2019202710
+      Ch00_TakeDamage_66: 901064221
+      Ch00_TakeDamage_67: -285559127
+      Ch00_TakeDamage_68: -1162313987
+      Ch00_TakeDamage_69: -921572682
+      Ch00_TakeDamage_7: -1355595153
+      Ch00_TakeDamage_70: 1511073201
+      Ch00_TakeDamage_71: -96478547
+      Ch00_TakeDamage_72: -409977547
+      Ch00_TakeDamage_73: 1661067862
+      Ch00_TakeDamage_74: 1421423884
+      Ch00_TakeDamage_75: 1841695713
+      Ch00_TakeDamage_76: 1263199064
+      Ch00_TakeDamage_77: 417886707
+      Ch00_TakeDamage_78: 1304627825
+      Ch00_TakeDamage_79: -231119354
+      Ch00_TakeDamage_8: -423760491
+      Ch00_TakeDamage_80: 1024466005
+      Ch00_TakeDamage_81: 1723594384
+      Ch00_TakeDamage_82: 1041687590
+      Ch00_TakeDamage_83: 1194500717
+      Ch00_TakeDamage_84: -774452443
+      Ch00_TakeDamage_85: 887208282
+      Ch00_TakeDamage_86: -209460721
+      Ch00_TakeDamage_87: -910262416
+      Ch00_TakeDamage_88: -658632006
+      Ch00_TakeDamage_89: -1593661540
+      Ch00_TakeDamage_9: -277117957
+      Ch00_TakeDamage_90: 288372577
+      Ch00_TakeDamage_91: 1011228140
+      Ch00_TakeDamage_92: -2025384500
+      Ch00_TakeDamage_93: 2080874708
+      Ch00_TakeDamage_94: -527079894
+      Ch00_TakeDamage_95: 248575391
+      Ch00_TakeDamage_96: 890808461
+      Ch00_TakeDamage_97: -1680791066
+      Ch00_TakeDamage_98: 2026657388
+      Ch00_TakeDamage_99: 1401990804
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
