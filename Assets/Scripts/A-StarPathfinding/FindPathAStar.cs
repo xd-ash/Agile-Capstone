@@ -63,14 +63,14 @@ namespace AStarPathfinding
 
         //Determine and return the path to tile position param. Return null if unit is unable to move,
         //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
-        public static List<PathMarker> CalculatePath(Vector2Int startPos, Vector2Int endPos)
+        public static List<PathMarker> CalculatePath(Vector2Int startPos, Vector2Int endPos, bool ignoreUnits = false)
         {
             if (_isDone)
             {
                 BeginSearch(startPos, endPos);
                 do
                 {
-                    Search(_lastPos);
+                    Search(_lastPos, ignoreUnits);
                 } while (!_isDone);
                 return GetPath();
             }
@@ -80,10 +80,10 @@ namespace AStarPathfinding
         }
         //Determine and return the path to tile position param. Return null if unit is unable to move,
         //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
-        public static List<PathMarker> CalculatePath(Transform startTrans, Transform endTrans)
+        public static List<PathMarker> CalculatePath(Transform startTrans, Transform endTrans, bool ignoreUnits = false)
         {
-            Vector2Int startPos = ConvertToGridFromIsometric(startTrans.position);
-            Vector2Int endPos = ConvertToGridFromIsometric(endTrans.position);
+            Vector2Int startPos = ConvertToGridFromIsometric(startTrans.localPosition);
+            Vector2Int endPos = ConvertToGridFromIsometric(endTrans.localPosition);
 
             if (_isDone)
             {
@@ -130,7 +130,7 @@ namespace AStarPathfinding
             CreateDebugMarker(_start, startLocation);
             CreateDebugMarker(_end, endLocation);
         }
-        private static void Search(PathMarker thisNode)
+        private static void Search(PathMarker thisNode, bool ignoreUnits = false)
         {
             if (thisNode == null) return;
             if (thisNode.Equals(_goalNode)) //goal has been found
@@ -146,7 +146,10 @@ namespace AStarPathfinding
             {
                 MapLocation neighbour = dir + thisNode.location;
                 if (neighbour.x < 0 || neighbour.x >= size.x || neighbour.y < 0 || neighbour.y >= size.y) continue; //if neighbor is out of bounds
-                if (bMap[neighbour.x, neighbour.y] == 2 || bMap[neighbour.x, neighbour.y] == 5 || bMap[neighbour.x, neighbour.y] == 3) continue; // if pos is obstacle/enemy
+                Vector2Int neighborLoc = new Vector2Int(neighbour.x, neighbour.y);
+                Vector2Int goalLoc = new Vector2Int(_goalNode.location.x, _goalNode.location.y);
+                if (neighborLoc != goalLoc && CheckNeighborForCollision(bMap[neighbour.x, neighbour.y], ignoreUnits)) continue; // if pos is obstacle/enemy/player
+                //if (neighborLoc != goalLoc && (bMap[neighbour.x, neighbour.y] == 2 || bMap[neighbour.x, neighbour.y] == 5 || bMap[neighbour.x, neighbour.y] == 3 || bMap[neighbour.x, neighbour.y] == 1)) continue; // if pos is obstacle/enemy
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;
@@ -173,7 +176,10 @@ namespace AStarPathfinding
 
             _lastPos = pm;
         }
-
+        private static bool CheckNeighborForCollision(byte neighbourByte, bool ignoreUnits)
+        {
+            return neighbourByte == 2 || !ignoreUnits && (neighbourByte == 3 || neighbourByte == 1);
+        }
         private static List<PathMarker> GetPath()
         {
             RemoveAllMarkers();
@@ -189,7 +195,7 @@ namespace AStarPathfinding
                 begin = begin.parent;
             }
 
-            return truePath;
+            return new(truePath);
         }
 
         private static bool UpdateMarker(MapLocation pos, float g, float h, float f, PathMarker prt)

@@ -5,13 +5,14 @@ public class HealAction : GoapAction
 {
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (_agent.healCharges <= 0)
+        if (_agent.healCharges <= 0 || !CheckCanDoAction(_agent.unit, _agent.GetHealAbility.GetApCost))
         {
+            //beliefs.ModifyState(GoapStates.CantHeal.ToString(), 1);
             beliefs.RemoveState(GoapStates.CanHeal.ToString());
             return false;
         }
 
-        return CheckCanDoAction(_agent.unit, _agent.GetHealAbility.GetApCost);
+        return true;
     }
     public override void Perform()
     {
@@ -22,8 +23,10 @@ public class HealAction : GoapAction
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        if(CheckIfHealthy(_agent.unit, ref beliefs))
+        CheckIfHealthy(_agent.unit, ref beliefs);
+
+        string highestPrioGoalName = _agent.GetHighestGoalDesire().key;
+        if (highestPrioGoalName != GoapGoals.StayAlive.ToString())
             beliefs.ModifyState(GoapGoals.StayAlive.ToString(), 1);
-            //beliefs.ModifyState(GoapStates.HasHealed.ToString(), 1);
     }
 }

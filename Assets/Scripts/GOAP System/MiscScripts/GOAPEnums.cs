@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 [Flags]
 public enum GoapActions
@@ -13,6 +14,8 @@ public enum GoapActions
     EndTurn = 32,
     MoveIntoLOS = 64,
     Hide = 128,
+    MoveOutOfLOS = 256,
+    MoveToRange = 512,
 }
 
 [Flags]
@@ -32,13 +35,14 @@ public enum GoapStates
     NoLOS = 1024,
     HasTarget = 2048,
     NoTarget = 4096,
+    AtRange = 8192,
+    AtMelee = 16384,
 }
 [Flags]
 public enum GoapGoals
 {
     None = 0,
     KillPlayer = 2,
-    //hurt player? more calcs for ability dmg, player health, heuristics, etc
     StayAlive = 4,
     KeepAlliesAlive = 8,
     EndTurn = 16
@@ -51,44 +55,46 @@ public struct GOAPEnums
     {
         List<GoapAction> actions = new List<GoapAction>();
 
+        int enumCount = typeof(GoapActions).GetEnumNames().Length;
         // Convert enum flag to binary.
-        string binaryEnum = Convert.ToString((int)actionsEnum, 2).PadLeft(8, '0');
+        string binaryEnum = Convert.ToString((int)actionsEnum, 2).PadLeft(enumCount, '0');
 
         // Loop through each character in the binaryEnum string and add relevant
         // GOAP Actions to the list.
-        for (int i = 0; i < binaryEnum.Length; i++)
+        for (int i = binaryEnum.Length - 1; i >= 0; i--)
         {
+            int index = binaryEnum.Length - 1 - i;
+            if (binaryEnum[index] == '0') continue;
             switch (i)
             {
-                case 0://Hide
-                    if (binaryEnum[i] == '1')
-                        actions.Add(new HideAction());
+                case 0://None
                     break;
-                case 1://MoveIntoLOS
-                    if (binaryEnum[i] == '1')
-                        actions.Add(new MoveIntoLOSAction());
+                case 1://Move
+                    actions.Add(new MoveInRangeAction());
                     break;
-                case 2://EndTurn
-                    if (binaryEnum[i] == '1')
-                        actions.Add(new EndTurnAction());
+                case 2://Attack
+                    actions.Add(new AttackAction());
                     break;
-                case 3://Choose Target
-                    if (binaryEnum[i] == '1')
-                        actions.Add(new ChooseTargetAction());
+                case 3://Heal
+                    actions.Add(new HealAction());
                     break;
-                case 4://Heal
-                    if (binaryEnum[i] == '1')
-                        actions.Add(new HealAction());
+                case 4://Choose Target
+                    actions.Add(new ChooseTargetAction());
                     break;
-                case 5://Attack
-                    if (binaryEnum[i] == '1')
-                        actions.Add(new AttackAction());
+                case 5://EndTurn
+                    actions.Add(new EndTurnAction());
                     break;
-                case 6://Move
-                    if (binaryEnum[i] == '1')
-                        actions.Add(new MoveInRangeAction());
+                case 6://MoveIntoLOS
+                    actions.Add(new MoveIntoLOSAction());
                     break;
-                case 7://None
+                case 7://Hide
+                    actions.Add(new HideAction());
+                    break;
+                case 8://MoveOutOfLOS
+                    actions.Add(new MoveOutOfLOSAction());
+                    break;
+                case 9://MoveToRange
+                    actions.Add(new MoveToRangeAction());
                     break;
             }
         }

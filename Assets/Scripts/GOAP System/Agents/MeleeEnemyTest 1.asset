@@ -28,9 +28,9 @@ MonoBehaviour:
   - rid: 6877345560813109326
   - rid: 6877345560813109327
   - rid: 6877345560813109328
-  _agentHealthWeight: 0.4
-  _enemyDistanceWeight: 0.2
-  _enemyHealthWeight: 0.4
+  _agentHealthWeight: 0.3
+  _enemyDistanceWeight: 0.1
+  _enemyHealthWeight: 0.6
   _allyHealthWeight: 0
   _allyDistanceWeght: 0
   _selfPreservationWeight: 0.4
@@ -62,7 +62,6 @@ MonoBehaviour:
       data:
         _actionName: MoveInRangeAction
         _cost: 1
-        _isRunning: 0
         _preConditionsFlags: 2114
         _postConditionsFlags: 32
         _goalsFlags: 0
@@ -71,7 +70,6 @@ MonoBehaviour:
       data:
         _actionName: AttackAction
         _cost: 1
-        _isRunning: 0
         _preConditionsFlags: 2722
         _postConditionsFlags: 4
         _goalsFlags: 2
@@ -80,7 +78,6 @@ MonoBehaviour:
       data:
         _actionName: HideAction
         _cost: 1
-        _isRunning: 0
         _preConditionsFlags: 2066
         _postConditionsFlags: 1024
         _goalsFlags: 4
@@ -89,7 +86,6 @@ MonoBehaviour:
       data:
         _actionName: MoveIntoLOSAction
         _cost: 1
-        _isRunning: 0
         _preConditionsFlags: 3074
         _postConditionsFlags: 512
         _goalsFlags: 0
@@ -98,7 +94,6 @@ MonoBehaviour:
       data:
         _actionName: EndTurnAction
         _cost: 0
-        _isRunning: 0
         _preConditionsFlags: 4
         _postConditionsFlags: 0
         _goalsFlags: 16
@@ -107,7 +102,6 @@ MonoBehaviour:
       data:
         _actionName: ChooseTargetAction
         _cost: 0
-        _isRunning: 0
         _preConditionsFlags: 4098
         _postConditionsFlags: 2048
         _goalsFlags: 0

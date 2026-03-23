@@ -8,7 +8,7 @@ public abstract class GoapAction
 {
     [SerializeField, HideInInspector] protected string _actionName;
     [SerializeField] protected float _cost = 1f;
-    [SerializeField] protected bool _isRunning = false; //is performing action currently
+    protected bool _isRunning = false; //is performing action currently
     protected GoapAgent _agent;
 
     protected Dictionary<string, float> _preConditions = new();
@@ -54,7 +54,6 @@ public abstract class GoapAction
         ManipulateConditionsLists(tempPreCond, tempPreToString, ref _preConditions);
         ManipulateConditionsLists(tempPostCond, tempPostToString, ref _postConditions);
     }
-
     protected void ManipulateConditionsLists(List<WorldState> stateList, List<string> stringList, ref Dictionary<string, float> conditions)
     {
         if (conditions == null) conditions = new();

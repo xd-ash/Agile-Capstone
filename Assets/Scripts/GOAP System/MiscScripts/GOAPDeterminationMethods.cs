@@ -4,6 +4,9 @@ using static CombatMath;
 
 public static class GOAPDeterminationMethods
 {
+    private static int _atRangeThreshold = 4;
+    public static int GetAtRangeThreshold => _atRangeThreshold;
+
     public static int FindAPAfterAction(Unit unit, int actionAPCost)
     {
         int result = unit.GetAP - actionAPCost;
@@ -28,7 +31,7 @@ public static class GOAPDeterminationMethods
             return true;
         }
     }
-    public static bool CheckIfInRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
+    public static bool CheckRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
     {
         var unitMover = agent.GetComponent<UnitMovementController>();
         //int dmgAbilRange = agent.damageAbility.GetRange;
@@ -36,6 +39,17 @@ public static class GOAPDeterminationMethods
         var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
         var tempPath = unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
+
+        if (distanceToTar >= _atRangeThreshold)
+        {
+            beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
+            beliefs.RemoveState(GoapStates.AtMelee.ToString());
+        }
+        else
+        {
+            beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
+            beliefs.RemoveState(GoapStates.AtRange.ToString());
+        }
 
         if (distanceToTar > abilityRange)
         {

@@ -27,37 +27,55 @@ public class GoapAgentHueristics : MonoBehaviour
     }
     public Dictionary<string, float> GetAgentDesires()
     {
-        CalculateDesires(TurnManager.GetUnitTurnOrder.ToArray());
-        Debug.Log($"sp:{_selfPreservation}, ag:{_aggression}, alt:{_altruisism}");
+        CalculateDesires();
+        //Debug.Log($"selfPres:{_selfPreservation}, aggro:{_aggression}, altru:{_altruisism}");
         return new() { { GoapGoals.StayAlive.ToString(), _selfPreservation },
                        { GoapGoals.KillPlayer.ToString(), _aggression },
                        { GoapGoals.KeepAlliesAlive.ToString(), _altruisism } };
     }
 
-    private void CalculateDesires(Unit[] units)
+    private void CalculateDesires()
     {
+        var units = TurnManager.GetUnitTurnOrder.ToArray();
         var closestUnits = GetClosestUnits(units);
         Unit closestEnemy = closestUnits[0];
         Unit closestAlly = closestUnits[1];//find lowest health ally or average of healths?
         //set agent target here?
+        
+        if (closestEnemy == null)
+        {
+            Debug.LogWarning($"Closest Enemy Null for agent ({name}). This may be fine if a game was just lost (player killed)");
+            return;
+        }
 
         var distToEnemy = CalculatePath(_unit.transform, closestEnemy.transform).Count;
         var distToAlly = CalculatePath(_unit.transform, closestAlly.transform).Count;
+        distToEnemy = Mathf.Clamp(distToEnemy, 0, _maxDetectDistance);
+        distToAlly = Mathf.Clamp(distToAlly, 0, _maxDetectDistance);
 
         float agentHealthFactor = 0, enemyDistFactorSP = 0,
               enemyDistFactorA = 0, enemyHealthFactor = 0,
               allyDistFactor = 0, allyHealthFactor = 0;
 
-        agentHealthFactor = ((float)_unit.GetMaxHealth - (float)_unit.GetHealth) / (float)_unit.GetMaxHealth;
+        int agentEffectiveHealth = Mathf.Clamp(_unit.GetEffectiveHealth, 0, _unit.GetMaxHealth);
+        int enemyEffectiveHealth = Mathf.Clamp(closestEnemy.GetEffectiveHealth, 0, closestEnemy.GetMaxHealth);
+        int allyEffectiveHealth = Mathf.Clamp(closestAlly.GetEffectiveHealth, 0, closestAlly.GetMaxHealth); 
+
+        agentHealthFactor = ((float)_unit.GetMaxHealth - (float)agentEffectiveHealth) / (float)_unit.GetMaxHealth;
         enemyDistFactorSP = ((float)_maxDetectDistance - (float)distToEnemy) / (float)_maxDetectDistance;
         enemyDistFactorA = (float)distToEnemy / (float)_maxDetectDistance;
-        enemyHealthFactor = ((float)closestEnemy.GetMaxHealth - (float)closestEnemy.GetHealth) / (float)closestEnemy.GetMaxHealth;
-        allyDistFactor = ((float)_maxDetectDistance - (float)distToAlly) / (float)_maxDetectDistance;
-        allyHealthFactor = ((float)closestAlly.GetMaxHealth - (float)closestAlly.GetHealth) / (float)closestAlly.GetMaxHealth;
+        enemyHealthFactor = ((float)closestEnemy.GetMaxHealth - (float)enemyEffectiveHealth) / (float)closestEnemy.GetMaxHealth;
+        allyDistFactor = ((float)_maxDetectDistance - (float)distToAlly) / (float)_maxDetectDistance; 
+        allyHealthFactor = ((float)closestAlly.GetMaxHealth - (float)allyEffectiveHealth) / (float)closestAlly.GetMaxHealth;
+        //Debug.Log($"agentHealthfactor:{agentHealthFactor}, distFactorSP:{enemyDistFactorSP}, distFactorA:{enemyDistFactorA}, eHealthFact:{enemyHealthFactor}");
 
         _selfPreservation = agentHealthFactor * _so.GetAgentHealthWeight + enemyDistFactorSP * _so.GetEnemyDistanceWeight;
-        _aggression = enemyDistFactorA * _so.GetEnemyDistanceWeight + enemyHealthFactor * _so.GetEnemyHealthWeight;
+        _aggression = enemyDistFactorA * _so.GetEnemyDistanceWeight + enemyHealthFactor * _so.GetEnemyHealthWeight + (1 - agentHealthFactor);
         _altruisism = allyHealthFactor * _so.GetAllyHealthWeight + allyDistFactor * _so.GetAllyDistanceWeght;
+
+        _selfPreservation += _so.GetSelfPreservationWeight;
+        _aggression += _so.GetAggressionWeight;
+        _altruisism += _so.GetAltruismWeight;
     }
 
     private Unit[] GetClosestUnits(Unit[] units)

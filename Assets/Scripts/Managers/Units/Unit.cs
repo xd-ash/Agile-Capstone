@@ -35,6 +35,10 @@ public class Unit : MonoBehaviour, IDamagable
     public Team GetTeam => _team;
     public int GetMaxHealth => _maxHealth;
     public int GetHealth => _health;
+    public int GetMaxShield => _maxShield;
+    public int GetShield => _shield;
+    public int GetEffectiveHealth => _health + _shield;
+    public int GetMaxEffectiveHealth => _maxHealth + _maxShield;
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
@@ -203,9 +207,6 @@ public class Unit : MonoBehaviour, IDamagable
         yield return new WaitForSeconds(seconds);
         RemoveShield(amount);
     }
-
-    // Optional accessor if needed by UI
-    public int GetShield() => _shield;
 
     //placeholder enemy damage dealing
     public void DealDamage(Unit target, int damage = 2)

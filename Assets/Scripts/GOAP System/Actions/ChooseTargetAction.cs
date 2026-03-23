@@ -39,7 +39,7 @@ public class ChooseTargetAction : GoapAction
         beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoTarget.ToString());
 
-        CheckIfInRange(_agent, _agent.GetDamageAbility.GetRange, ref beliefs);
+        CheckRange(_agent, _agent.GetDamageAbility.GetRange, ref beliefs);
         CheckIfInLOS(_agent, ref beliefs);
     }
 }
