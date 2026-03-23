@@ -45,6 +45,6 @@ public class MoveIntoLOSAction : GoapAction
         beliefs.ModifyState(GoapStates.HasLOS.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoLOS.ToString());
 
-        CheckRange(_agent, _agent.GetDamageAbility.GetRange, ref beliefs);
+        CheckRange(_agent, _agent.GetCurrentAbility.GetRange, ref beliefs);
     }
 }

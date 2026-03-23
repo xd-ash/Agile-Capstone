@@ -42,6 +42,6 @@ public class MoveToRangeAction : GoapAction
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        CheckRange(_agent, _agent.GetDamageAbility.GetRange, ref beliefs);
+        CheckRange(_agent, _agent.GetCurrentAbility.GetRange, ref beliefs);
     }
 }

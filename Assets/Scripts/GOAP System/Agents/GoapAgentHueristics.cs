@@ -28,7 +28,7 @@ public class GoapAgentHueristics : MonoBehaviour
     public Dictionary<string, float> GetAgentDesires()
     {
         CalculateDesires();
-        //Debug.Log($"selfPres:{_selfPreservation}, aggro:{_aggression}, altru:{_altruisism}");
+        Debug.Log($"Agent:{name}, selfPres:{_selfPreservation}, aggro:{_aggression}, altru:{_altruisism}");
         return new() { { GoapGoals.StayAlive.ToString(), _selfPreservation },
                        { GoapGoals.KillPlayer.ToString(), _aggression },
                        { GoapGoals.KeepAlliesAlive.ToString(), _altruisism } };
@@ -70,7 +70,7 @@ public class GoapAgentHueristics : MonoBehaviour
         //Debug.Log($"agentHealthfactor:{agentHealthFactor}, distFactorSP:{enemyDistFactorSP}, distFactorA:{enemyDistFactorA}, eHealthFact:{enemyHealthFactor}");
 
         _selfPreservation = agentHealthFactor * _so.GetAgentHealthWeight + enemyDistFactorSP * _so.GetEnemyDistanceWeight;
-        _aggression = enemyDistFactorA * _so.GetEnemyDistanceWeight + enemyHealthFactor * _so.GetEnemyHealthWeight + (1 - agentHealthFactor);
+        _aggression = enemyDistFactorA * _so.GetEnemyDistanceWeight + enemyHealthFactor * _so.GetEnemyHealthWeight + (1 - agentHealthFactor) * _so.GetAgentHealthWeight;
         _altruisism = allyHealthFactor * _so.GetAllyHealthWeight + allyDistFactor * _so.GetAllyDistanceWeght;
 
         _selfPreservation += _so.GetSelfPreservationWeight;
@@ -87,7 +87,7 @@ public class GoapAgentHueristics : MonoBehaviour
 
         foreach (var unit in units)
         {
-            if (unit == null) continue;
+            if (unit == null || unit == _unit) continue;
 
             var dist = Vector3.Distance(unit.transform.position, transform.position);
 

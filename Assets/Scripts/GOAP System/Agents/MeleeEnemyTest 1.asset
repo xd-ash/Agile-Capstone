@@ -20,7 +20,7 @@ MonoBehaviour:
   - rid: 6877345560813109319
   - rid: 6877345560813109320
   - rid: 6877345560813109321
-  _goapActionsEnum: 246
+  _goapActionsEnum: 502
   _actions:
   - rid: 6877345560813109323
   - rid: 6877345560813109325
@@ -28,6 +28,7 @@ MonoBehaviour:
   - rid: 6877345560813109326
   - rid: 6877345560813109327
   - rid: 6877345560813109328
+  - rid: 3253435652315021390
   _agentHealthWeight: 0.3
   _enemyDistanceWeight: 0.1
   _enemyHealthWeight: 0.6
@@ -39,6 +40,14 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3253435652315021390
+      type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveOutOfLOSAction
+        _cost: 1
+        _preConditionsFlags: 2562
+        _postConditionsFlags: 1024
+        _goalsFlags: 0
     - rid: 6877345560813109319
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
@@ -77,8 +86,8 @@ MonoBehaviour:
       type: {class: HideAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: HideAction
-        _cost: 1
-        _preConditionsFlags: 2066
+        _cost: 10
+        _preConditionsFlags: 3074
         _postConditionsFlags: 1024
         _goalsFlags: 4
     - rid: 6877345560813109326

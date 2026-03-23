@@ -50,10 +50,10 @@ public class GoapPlanner
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr = "Goal: ";
+            string tempStr = _agent.name + " - Goal: ";
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
-            tempStr += "\nBeliefs: ";
+            tempStr += $" (Target: {_agent.GetCurrentTarget})\nBeliefs: ";
             foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
             Debug.Log(tempStr);
@@ -98,7 +98,7 @@ public class GoapPlanner
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr2 = "The Plan is: ";
+            string tempStr2 = $"{_agent.name} - The Plan is: ";
             foreach (GoapAction a in queue)
                 tempStr2 += $"{a.ToString()} > ";
             Debug.Log(tempStr2);

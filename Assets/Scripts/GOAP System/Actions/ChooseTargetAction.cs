@@ -22,6 +22,8 @@ public class ChooseTargetAction : GoapAction
             var tarPos = ConvertToGridFromIsometric(u.transform.localPosition); 
             var tempPath = unitMover.CalculatePath(tarPos);
 
+            if (u == _agent.unit) continue;
+
             if (u.GetTeam == _agent.unit.GetTeam)
                 _distancesToAllies.Add(tempPath.Count, u);
             else
@@ -32,9 +34,16 @@ public class ChooseTargetAction : GoapAction
     }
     public override void Perform()
     {
-        int minEnemy = _distancesToEnemies.Min(x => x.Key);
-        int minAlly = _distancesToAllies.Min(x => x.Key);
-        _agent.SetCurrentTargets(_distancesToEnemies[minEnemy], _distancesToAllies[minAlly]);
+        int minEnemyIndex = _distancesToEnemies.Min(x => x.Key);
+        var minEnemy = _distancesToEnemies[minEnemyIndex];
+        int minAllyIndex = _distancesToAllies.Min(x => x.Key);
+        var minAlly = _distancesToAllies[minAllyIndex];
+
+        var curGoal = _agent.GetHighestGoalDesire().key;
+        if (curGoal == GoapGoals.StayAlive.ToString())
+            minAlly = _agent.unit;
+
+        _agent.SetCurrentTargets(minEnemy, minAlly);
 
         //Debug.Log($"target: {(agent.curtarget != null ? agent.curtarget.name : "null")}");
 
@@ -45,7 +54,7 @@ public class ChooseTargetAction : GoapAction
         beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoTarget.ToString());
 
-        CheckRange(_agent, _agent.GetDamageAbility.GetRange, ref beliefs);
+        CheckRange(_agent, _agent.GetCurrentAbility.GetRange, ref beliefs);
         CheckIfInLOS(_agent, ref beliefs);
     }
 }

@@ -27,6 +27,7 @@ public class GoapAgent : MonoBehaviour
     [SerializeField] private GoapAgentSO _agentSO;
     private GoapAgentHueristics _agentHeuristics;
 
+    [Tooltip("Number of times unit can heal per combat. (-1 for infinite heals)")]
     public int healCharges = 3;
 
     private List<GoapAction> _actions = new();
@@ -62,13 +63,13 @@ public class GoapAgent : MonoBehaviour
                 highestPrio = kvp.Key;
         return highestPrio;
     }
-    //public Unit GetCurrentEnemyTarget => _enemyTarget;
-    //public Unit GetCurrentAllyTarget => _allyTarget;
-    public Unit GetCurrentTarget => GetHighestGoalDesire().key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget;
+
+    public Unit GetCurrentTarget => GetHighestGoalDesire().key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget;
     public GoapAgentSO GetAgentSO => _agentSO;
 
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
     public CardAbilityDefinition GetHealAbility => _agentSO?.GetHealAbility;
+    public CardAbilityDefinition GetCurrentAbility => GetHighestGoalDesire().key == GoapGoals.KillPlayer.ToString() ? _agentSO.GetDamageAbility : _agentSO.GetHealAbility;
 
     private void Awake()
     {
@@ -173,7 +174,7 @@ public class GoapAgent : MonoBehaviour
     public void CompleteAction()
     {
         SetAgentGoalDesires();
-
+        Debug.Log("agent desires set");
         _currentAction.IsRunning = false;
         _currentAction.PostPerform(ref _beliefs);
         GameUIManager.instance.UpdateApText();
@@ -202,7 +203,7 @@ public class GoapAgent : MonoBehaviour
         _beliefs = new();
         _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
 
-        if (healCharges > 0)
+        if (healCharges != 0)
             _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
         //else
            // _beliefs.ModifyState(GoapStates.CantHeal.ToString(), 1);
@@ -224,7 +225,8 @@ public class GoapAgent : MonoBehaviour
         }
         else
         {
-            CheckRange(this, _agentSO.GetDamageAbility.GetRange, ref _beliefs);
+            //CheckRange(this, _agentSO.GetDamageAbility.GetRange, ref _beliefs);
+            CheckRange(this, GetCurrentAbility.GetRange, ref _beliefs);
             CheckIfInLOS(this, ref _beliefs);
         }
 

@@ -14,121 +14,119 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
   _damageAbility: {fileID: 11400000, guid: 962876e3ccf8efd47a7eb416ba03904a, type: 2}
   _healAbility: {fileID: 11400000, guid: 6c66956e9c012584f9b3d036b56cfceb, type: 2}
-  _totalHealCharges: 3
-  _goalsEnum: 14
+  _totalHealCharges: -1
+  _goalsEnum: -1
   _goals:
-  - rid: 6877345709834108999
   - rid: 6877345709834109000
-  - rid: 6877345709834109001
-  _goapActionsEnum: -1
+  - rid: 3253435652315021391
+  - rid: 3253435652315021392
+  - rid: 3253435652315021393
+  _goapActionsEnum: 510
   _actions:
-  - rid: 6877345709834109002
-  - rid: 6877345709834109003
+  - rid: 6877345709834109009
+  - rid: 6877345709834109008
   - rid: 6877345709834109004
+  - rid: 6877345709834109010
   - rid: 6877345709834109005
   - rid: 6877345709834109006
   - rid: 6877345709834109007
-  - rid: 6877345709834109008
-  - rid: 6877345709834109009
-  - rid: 6877345709834109010
-  _agentHealthWeight: 0.3
+  - rid: 6877345709834109003
+  _agentHealthWeight: 0.4
   _enemyDistanceWeight: 0.1
   _enemyHealthWeight: 0
-  _allyHealthWeight: 0.3
-  _allyDistanceWeght: 0.3
+  _allyHealthWeight: 0.4
+  _allyDistanceWeght: 0.1
   _selfPreservationWeight: 0.4
-  _aggressionWeight: 0.1
-  _altruismWeight: 0.5
+  _aggressionWeight: 0.05
+  _altruismWeight: 0.4
   references:
     version: 2
     RefIds:
-    - rid: 6877345709834108999
+    - rid: 3253435652315021391
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: StayAlive
+        value: 1
+        removeOnComplete: 1
+    - rid: 3253435652315021392
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KillPlayer
+        value: 1
+        removeOnComplete: 1
+    - rid: 3253435652315021393
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
         value: 0
         removeOnComplete: 0
     - rid: 6877345709834109000
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: KeepAlliesAlive
-        value: 0
-        removeOnComplete: 0
-    - rid: 6877345709834109001
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: KillPlayer
-        value: 0
-        removeOnComplete: 0
-    - rid: 6877345709834109002
-      type: {class: MoveToRangeAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: MoveToRangeAction
-        _cost: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
+        value: 2
+        removeOnComplete: 1
     - rid: 6877345709834109003
       type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveOutOfLOSAction
         _cost: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
+        _preConditionsFlags: 2562
+        _postConditionsFlags: 1024
         _goalsFlags: 0
     - rid: 6877345709834109004
       type: {class: HideAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: HideAction
-        _cost: 1
-        _preConditionsFlags: 0
+        _cost: 10
+        _preConditionsFlags: 3076
         _postConditionsFlags: 0
-        _goalsFlags: 0
+        _goalsFlags: 4
     - rid: 6877345709834109005
       type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveIntoLOSAction
         _cost: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
+        _preConditionsFlags: 3074
+        _postConditionsFlags: 512
         _goalsFlags: 0
     - rid: 6877345709834109006
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: EndTurnAction
-        _cost: 1
-        _preConditionsFlags: 0
+        _cost: 10
+        _preConditionsFlags: 4
         _postConditionsFlags: 0
-        _goalsFlags: 0
+        _goalsFlags: 16
     - rid: 6877345709834109007
       type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: ChooseTargetAction
-        _cost: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
+        _cost: 0
+        _preConditionsFlags: 4098
+        _postConditionsFlags: 2048
         _goalsFlags: 0
     - rid: 6877345709834109008
       type: {class: HealAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: HealAction
         _cost: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
+        _preConditionsFlags: 2850
+        _postConditionsFlags: 12
+        _goalsFlags: 12
     - rid: 6877345709834109009
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: AttackAction
         _cost: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
+        _preConditionsFlags: 19106
+        _postConditionsFlags: 4
+        _goalsFlags: 2
     - rid: 6877345709834109010
       type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveInRangeAction
         _cost: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
+        _preConditionsFlags: 2114
+        _postConditionsFlags: 32
         _goalsFlags: 0
