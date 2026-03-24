@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5550744489948948604
+--- !u!114 &-5809867982243863817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,30 +9,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb53b83c3d38b44cad7a4aeebb74423, type: 3}
-  m_Name: Buff Effect
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: c8e2d94d38f4a8548bcf21d2ab26add0, type: 3}
+  m_Name: Spawn Object Effect
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnObjectEffect
   graph: {fileID: 11400000}
-  position: {x: 88, y: 40}
+  position: {x: -232, y: 56}
   ports:
     keys:
+    - objEffects
     - input
     - effectVisuals
+    - objEffects 0
     values:
+    - _fieldName: objEffects
+      _node: {fileID: -5809867982243863817}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
     - _fieldName: input
-      _node: {fileID: -5550744489948948604}
+      _node: {fileID: -5809867982243863817}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: effects 0
-        node: {fileID: -3932625633257097676}
+        node: {fileID: -5417239485980431426}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: effectVisuals
-      _node: {fileID: -5550744489948948604}
+      _node: {fileID: -5809867982243863817}
       _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -40,10 +51,25 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 3
+    - _fieldName: objEffects 0
+      _node: {fileID: -5809867982243863817}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 215215104908119812}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  _effectValue: 0
   input: 0
   effectVisuals: 0
---- !u!114 &-3932625633257097676
+  _prefab: {fileID: 6626558593374184628, guid: bb85d3bdc9a11dc4f943eee17532710d, type: 3}
+  objectType: 0
+  objEffects: 0
+--- !u!114 &-5417239485980431426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,29 +82,28 @@ MonoBehaviour:
   m_Name: Ability Root
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.AbilityRootNode
   graph: {fileID: 11400000}
-  position: {x: -248, y: -72}
+  position: {x: -487, y: -59}
   ports:
     keys:
     - targeting
     - filtering
     - effects
     - effects 0
-    - effects 1
     values:
     - _fieldName: targeting
-      _node: {fileID: -3932625633257097676}
+      _node: {fileID: -5417239485980431426}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: abilityRoot
-        node: {fileID: 833357395057102542}
+        node: {fileID: 6388884134802078426}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: filtering
-      _node: {fileID: -3932625633257097676}
+      _node: {fileID: -5417239485980431426}
       _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -87,7 +112,7 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: effects
-      _node: {fileID: -3932625633257097676}
+      _node: {fileID: -5417239485980431426}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -96,24 +121,12 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: effects 0
-      _node: {fileID: -3932625633257097676}
+      _node: {fileID: -5417239485980431426}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: -5550744489948948604}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-    - _fieldName: effects 1
-      _node: {fileID: -3932625633257097676}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -2470422592221940434}
+        node: {fileID: -5809867982243863817}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -122,7 +135,94 @@ MonoBehaviour:
   targeting: 0
   filtering: 0
   effects: 0
---- !u!114 &-2470422592221940434
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
+  m_Name: Bait and Switch
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.CardAbilityDefinition
+  nodes:
+  - {fileID: -5417239485980431426}
+  - {fileID: 6388884134802078426}
+  - {fileID: -5809867982243863817}
+  - {fileID: 215215104908119812}
+  - {fileID: 3932998406960985764}
+  _description: 'Place a trap: when an enemy steps on it draw 1 card'
+  _abilitySFX: {fileID: 0}
+  _apCost: 2
+  _range: 4
+  _shopCost: 15
+  _shopWeight: 15
+  _baseHitChance: 100
+  _minHitChance: 99
+  _maxHitChance: 100
+  _ignoreLOS: 1
+  _hitPenaltyPerTile: 5
+  _accuracyMultiplier: 1
+  _accuracyFlatBonus: 0
+  _attackAnimKey: 
+--- !u!114 &215215104908119812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebdb81f1d1655f8489090bb13cb020f2, type: 3}
+  m_Name: On Touched
+  m_EditorClassIdentifier: Assembly-CSharp::OnTouched
+  graph: {fileID: 11400000}
+  position: {x: -8, y: 40}
+  ports:
+    keys:
+    - input
+    - effects
+    - effects 0
+    values:
+    - _fieldName: input
+      _node: {fileID: 215215104908119812}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: objEffects 0
+        node: {fileID: -5809867982243863817}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: effects
+      _node: {fileID: 215215104908119812}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects 0
+      _node: {fileID: 215215104908119812}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 3932998406960985764}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  input: 0
+  effects: 0
+--- !u!114 &3932998406960985764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,28 +233,28 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aef4750a7d440fd478df461bb8bc2995, type: 3}
   m_Name: Deck Effect
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DeckEffect
   graph: {fileID: 11400000}
-  position: {x: 88, y: 168}
+  position: {x: 200, y: 40}
   ports:
     keys:
     - input
     - effectVisuals
     values:
     - _fieldName: input
-      _node: {fileID: -2470422592221940434}
+      _node: {fileID: 3932998406960985764}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: effects 1
-        node: {fileID: -3932625633257097676}
+      - fieldName: effects 0
+        node: {fileID: 215215104908119812}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: effectVisuals
-      _node: {fileID: -2470422592221940434}
+      _node: {fileID: 3932998406960985764}
       _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -167,7 +267,7 @@ MonoBehaviour:
   effectVisuals: 0
   _action: 0
   _logResults: 1
---- !u!114 &11400000
+--- !u!114 &6388884134802078426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,61 +276,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: Tuck Duck n' Roll
-  m_EditorClassIdentifier: 
-  nodes:
-  - {fileID: 833357395057102542}
-  - {fileID: -5550744489948948604}
-  - {fileID: -2470422592221940434}
-  - {fileID: -3932625633257097676}
-  _description: Add 4 Block and draw 1 card
-  _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
-  _apCost: 3
-  _range: 0
-  _shopCost: 35
-  _shopWeight: 20
-  _baseHitChance: 80
-  _minHitChance: 10
-  _maxHitChance: 95
-  _ignoreLOS: 0
-  _hitPenaltyPerTile: 5
-  _accuracyMultiplier: 1
-  _accuracyFlatBonus: 0
-  _attackAnimKey: 
---- !u!114 &833357395057102542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5b2b3ff173d174db191a65eea079e3, type: 3}
-  m_Name: Self Target
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: 34a7cef4b5ecc5c4288e116924b1a99b, type: 3}
+  m_Name: Other Target
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.OtherTarget
   graph: {fileID: 11400000}
-  position: {x: 104, y: -184}
+  position: {x: -152, y: -136}
   ports:
     keys:
     - abilityRoot
     - aoeStrat
     values:
     - _fieldName: abilityRoot
-      _node: {fileID: 833357395057102542}
+      _node: {fileID: 6388884134802078426}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: targeting
-        node: {fileID: -3932625633257097676}
+        node: {fileID: -5417239485980431426}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
     - _fieldName: aoeStrat
-      _node: {fileID: 833357395057102542}
+      _node: {fileID: 6388884134802078426}
       _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -240,3 +309,4 @@ MonoBehaviour:
       _dynamic: 0
   abilityRoot: 0
   aoeStrat: 0
+  _targetTilesNotUnits: 1

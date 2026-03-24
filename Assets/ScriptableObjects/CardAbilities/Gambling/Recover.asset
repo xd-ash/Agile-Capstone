@@ -151,6 +151,51 @@ MonoBehaviour:
       _dynamic: 0
   abilityRoot: 0
   aoeStrat: 0
+--- !u!114 &-5101356667325056713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef4750a7d440fd478df461bb8bc2995, type: 3}
+  m_Name: Deck Effect
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DeckEffect
+  graph: {fileID: 11400000}
+  position: {x: 264, y: 72}
+  ports:
+    keys:
+    - input
+    - effectVisuals
+    values:
+    - _fieldName: input
+      _node: {fileID: -5101356667325056713}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: onTails 1
+        node: {fileID: 1839337159297336669}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: -5101356667325056713}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  _effectValue: 1
+  input: 0
+  effectVisuals: 0
+  _action: 0
+  _logResults: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +213,8 @@ MonoBehaviour:
   - {fileID: 1839337159297336669}
   - {fileID: -8745326763752087817}
   - {fileID: -7718154352750455304}
-  _description: 'if your last flip was tails, this card costs 0: draw 1 card and
-    get 1 AP back'
+  - {fileID: -5101356667325056713}
+  _description: 'If your last flip was tails: draw 1 card and get 1 AP back'
   _abilitySFX: {fileID: 0}
   _apCost: 2
   _range: 0
@@ -182,6 +227,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 
 --- !u!114 &1839337159297336669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,6 +249,8 @@ MonoBehaviour:
     - input
     - effectVisuals
     - onTails 0
+    - onTails 1
+    - onTails 2
     values:
     - _fieldName: onHeads
       _node: {fileID: 1839337159297336669}
@@ -251,6 +299,27 @@ MonoBehaviour:
       - fieldName: input
         node: {fileID: -8745326763752087817}
         reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+    - _fieldName: onTails 1
+      _node: {fileID: 1839337159297336669}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -5101356667325056713}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+    - _fieldName: onTails 2
+      _node: {fileID: 1839337159297336669}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2
