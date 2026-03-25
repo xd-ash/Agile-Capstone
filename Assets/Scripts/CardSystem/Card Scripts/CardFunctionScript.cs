@@ -46,6 +46,8 @@ public class CardFunctionScript : MonoBehaviour
 
             if (ShopConfirmPopup.Instance == null)
                 cancelAction();
+
+            return;
         }
 
         if (DeckAndHandManager.Instance.CardsInHand.IndexOf(Card) == -1) return;

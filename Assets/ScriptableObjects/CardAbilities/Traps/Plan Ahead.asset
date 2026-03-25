@@ -200,6 +200,8 @@ MonoBehaviour:
   _description: 'Place a trap: when an enemy steps on it draw 1 card and restore
     2 AP'
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 5
   _range: 4
   _shopCost: 15
@@ -211,7 +213,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 2
 --- !u!114 &215215104908119812
 MonoBehaviour:
   m_ObjectHideFlags: 0

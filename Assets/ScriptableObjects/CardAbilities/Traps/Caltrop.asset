@@ -199,6 +199,8 @@ MonoBehaviour:
   - {fileID: -7998303595264660776}
   _description: Deal 2 damage to an enemy and stun their movement when stepped on
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 2
   _range: 4
   _shopCost: 20
@@ -210,7 +212,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 2
 --- !u!114 &215215104908119812
 MonoBehaviour:
   m_ObjectHideFlags: 0

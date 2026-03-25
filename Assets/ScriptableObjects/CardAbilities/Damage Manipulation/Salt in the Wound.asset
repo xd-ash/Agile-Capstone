@@ -148,6 +148,8 @@ MonoBehaviour:
   - {fileID: -452775121787942069}
   _description: Deal 12 damage, if below 50% hp, restore 2 ap
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 6
   _range: 0
   _shopCost: 10
@@ -159,7 +161,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 2
 --- !u!114 &4660106898515325862
 MonoBehaviour:
   m_ObjectHideFlags: 0

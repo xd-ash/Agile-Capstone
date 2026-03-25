@@ -162,6 +162,8 @@ MonoBehaviour:
   - {fileID: -4205514980600249406}
   _description: Deal 2 damage, flip a coin until tails and add +1 for each heads.
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 2
   _range: 3
   _shopCost: 20
@@ -173,7 +175,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 35
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Shoot
+  _attackAnimKey: 3
 --- !u!114 &171456546891437306
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -53,6 +53,8 @@ MonoBehaviour:
   - {fileID: 8680823233425288928}
   _description: Deal 5 damage and knockback all enemies hit by 1 tile
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 4
   _range: 7
   _shopCost: 0
@@ -64,7 +66,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Punch
+  _attackAnimKey: 2
 --- !u!114 &209486274004273265
 MonoBehaviour:
   m_ObjectHideFlags: 0
