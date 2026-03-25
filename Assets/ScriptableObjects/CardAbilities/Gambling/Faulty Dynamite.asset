@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -40, y: 152}
+  position: {x: 216, y: 104}
   ports:
     keys:
     - input
@@ -24,8 +24,8 @@ MonoBehaviour:
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: effects 0
-        node: {fileID: -2651332736042962349}
+      - fieldName: onHeads 0
+        node: {fileID: 5462576431810370091}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -38,6 +38,52 @@ MonoBehaviour:
       connections:
       - fieldName: input
         node: {fileID: -3503993893553348278}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  _effectValue: 7
+  input: 0
+  effectVisuals: 0
+--- !u!114 &-7892475943247170667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200feab1eed3a4d468b1e9a30dbef64b, type: 3}
+  m_Name: Damage Effect
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 216, y: 248}
+  ports:
+    keys:
+    - input
+    - effectVisuals
+    values:
+    - _fieldName: input
+      _node: {fileID: -7892475943247170667}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: onTails 0
+        node: {fileID: 5462576431810370091}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: -7892475943247170667}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 7803874144529295915}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -59,7 +105,7 @@ MonoBehaviour:
   m_Name: Melee Effect Visual
   m_EditorClassIdentifier: Assembly-CSharp::MeleeEffectVisual
   graph: {fileID: 11400000}
-  position: {x: 248, y: 216}
+  position: {x: 456, y: 200}
   ports:
     keys:
     - input
@@ -148,7 +194,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: -8393294752202084253}
+        node: {fileID: 5462576431810370091}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -199,7 +245,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: Dynamite
+  m_Name: Faulty Dynamite
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: -8393294752202084253}
@@ -208,9 +254,12 @@ MonoBehaviour:
   - {fileID: -2651332736042962349}
   - {fileID: 2272785073385819277}
   - {fileID: -3503993893553348278}
-  _description: Deal 5 damage to all enemies in a short range
-  _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
-  _apCost: 3
+  - {fileID: 5462576431810370091}
+  - {fileID: -7892475943247170667}
+  - {fileID: 7803874144529295915}
+  _description: Flip a coin, if heads, deal 7 AOE damage. If tails, deal 5.
+  _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
+  _apCost: 5
   _range: 5
   _shopCost: 10
   _shopWeight: 20
@@ -235,7 +284,7 @@ MonoBehaviour:
   m_Name: On AOE Target
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.OnAOETarget
   graph: {fileID: 11400000}
-  position: {x: 264, y: -152}
+  position: {x: 296, y: -72}
   ports:
     keys:
     - input
@@ -301,3 +350,126 @@ MonoBehaviour:
   abilityRoot: 0
   aoeStrat: 0
   _targetTilesNotUnits: 1
+--- !u!114 &5462576431810370091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f199000f1006244699d8ff54ed41bba, type: 3}
+  m_Name: Single Coin Flip
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.SingleCoinFlip
+  graph: {fileID: 11400000}
+  position: {x: -104, y: 104}
+  ports:
+    keys:
+    - onHeads
+    - onTails
+    - input
+    - effectVisuals
+    - onHeads 0
+    - onTails 0
+    values:
+    - _fieldName: onHeads
+      _node: {fileID: 5462576431810370091}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: onTails
+      _node: {fileID: 5462576431810370091}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: 5462576431810370091}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effects 0
+        node: {fileID: -2651332736042962349}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: 5462576431810370091}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: onHeads 0
+      _node: {fileID: 5462576431810370091}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -8393294752202084253}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+    - _fieldName: onTails 0
+      _node: {fileID: 5462576431810370091}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -7892475943247170667}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  _effectValue: 0
+  input: 0
+  effectVisuals: 0
+  onHeads: 0
+  onTails: 0
+--- !u!114 &7803874144529295915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d597ebed51e4a7e43bc165947508c94c, type: 3}
+  m_Name: Melee Effect Visual
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeEffectVisual
+  graph: {fileID: 11400000}
+  position: {x: 456, y: 344}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: 7803874144529295915}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effectVisuals
+        node: {fileID: -7892475943247170667}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  input: 0
+  _meleeEffect: {fileID: 0}

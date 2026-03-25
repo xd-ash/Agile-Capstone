@@ -139,7 +139,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 2
+  _effectValue: 1
   input: 0
   effectVisuals: 0
 --- !u!114 &11400000
@@ -160,12 +160,12 @@ MonoBehaviour:
   - {fileID: -6787235425892309938}
   - {fileID: -6392418779710061930}
   - {fileID: -4205514980600249406}
-  _description: Deal 2 damage, roll a single die and add the result to the damage
+  _description: Deal 2 damage, flip a coin until tails and add +1 for each heads.
   _abilitySFX: {fileID: 0}
-  _apCost: 4
+  _apCost: 2
   _range: 3
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 20
+  _shopWeight: 15
   _baseHitChance: 100
   _minHitChance: 10
   _maxHitChance: 100

@@ -40,7 +40,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 5
+  _effectValue: 6
   input: 0
   effectVisuals: 0
 --- !u!114 &11400000
@@ -59,14 +59,12 @@ MonoBehaviour:
   - {fileID: 833357395057102542}
   - {fileID: -5550744489948948604}
   - {fileID: 9152373504185057762}
-  _description: Add 5 Block
+  _description: Add 6 Block
   _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
-  _cardCategory: 3
-  _effectValue: 0
-  _apCost: 2
+  _apCost: 3
   _range: 0
-  _shopCost: 20
-  _shopWeight: 25
+  _shopCost: 10
+  _shopWeight: 20
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -74,7 +72,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 0
+  _attackAnimKey: 
 --- !u!114 &833357395057102542
 MonoBehaviour:
   m_ObjectHideFlags: 0

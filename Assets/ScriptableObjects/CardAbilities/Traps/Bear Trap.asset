@@ -246,8 +246,8 @@ MonoBehaviour:
   _abilitySFX: {fileID: 0}
   _apCost: 3
   _range: 4
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 25
+  _shopWeight: 15
   _baseHitChance: 100
   _minHitChance: 99
   _maxHitChance: 100
@@ -255,6 +255,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 
 --- !u!114 &3793682004127739578
 MonoBehaviour:
   m_ObjectHideFlags: 0
