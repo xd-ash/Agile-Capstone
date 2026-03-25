@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using WFC;
 using static IsoMetricConversions;
-using static UnityEditor.PlayerSettings;
 
 public class MapLocation
 {
@@ -74,8 +70,12 @@ public class MapCreator : MonoBehaviour
         var so = PlayerDataManager.Instance.GetCurrMapNodeData.selectedMap;
         if (so == null)
         {
-            Debug.LogError("SO is null");
-            return null;
+            so = _tilemapSOLibrary.GetSOsInProject[0];
+            if (so == null)
+            {
+                Debug.LogError("SO is null");
+                return null;
+            }
         }
         var tilemap = SetUpTileMapPrefab(so);
         TileBase[,] tileBaseMap = so.GenerateTileBaseMap(_mapSize);

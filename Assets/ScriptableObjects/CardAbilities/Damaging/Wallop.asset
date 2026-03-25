@@ -198,6 +198,8 @@ MonoBehaviour:
   - {fileID: -4916656435886294077}
   _description: Deal 3 damage and knock the enemy back 2 tiles
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 2
   _range: 1
   _shopCost: 15
@@ -209,7 +211,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Punch
+  _attackAnimKey: 2
 --- !u!114 &290636062283579545
 MonoBehaviour:
   m_ObjectHideFlags: 0
