@@ -67,6 +67,8 @@ public class DeckBuilderScript : MonoBehaviour
             cardTextFieldsUI[1].text = card.GetDescription;
             cardTextFieldsUI[2].text = card.GetApCost.ToString();
 
+            content.GetComponent<DeckViewerCardVisuals>()?.ApplyVisuals(card);
+            
             contentIndex++;
             var rt = content.GetComponent<RectTransform>();
             //SetCardLibraryContentTransform(ref rt, contentIndex);
@@ -97,6 +99,8 @@ public class DeckBuilderScript : MonoBehaviour
             if (texts == null || texts.Length < 2) continue;
             texts[0].text = card.name;
             //texts[1].text = GetCardAmountInCurrentDeck(card).ToString();
+            
+            content.GetComponent<DeckViewerCardVisuals>()?.ApplyVisuals(card);
 
             contentIndex++;
             var rt = content.GetComponent<RectTransform>();

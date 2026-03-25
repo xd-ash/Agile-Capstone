@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/2-CombatScenes/LevelTwo.unity
     guid: 7de604ba3ec3c4ed7b9cb63dd6d36a40
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 9e932034f93e5b548b1518a537af0fdf
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dbb05ad2e9774234caec23ca9e9e8783, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -18,6 +18,8 @@ MonoBehaviour:
   - {fileID: 2719676598115075082}
   _description: Heal 3 HP
   _abilitySFX: {fileID: 8300000, guid: d9b4b2149cd9459458292b65c4a4d216, type: 3}
+  _cardCategory: 2
+  _effectValue: 0
   _apCost: 2
   _range: 0
   _shopCost: 20
@@ -29,6 +31,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 0
 --- !u!114 &1766287723113216939
 MonoBehaviour:
   m_ObjectHideFlags: 0

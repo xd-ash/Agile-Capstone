@@ -557,7 +557,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 9b15c338c250d16478e30a7874e6bee6, type: 2}
   - {fileID: 7400000, guid: 15e56ea14fe79b6438a5d7e688ffc955, type: 2}
   _attackAnimSets:
-  - key: Slash
+  - key: 1
     dirClips:
     - {fileID: 7400000, guid: 884189e6cc9ff4892b24f47974f14062, type: 2}
     - {fileID: 7400000, guid: 27cab7c66fc554012bc7a157267743b5, type: 2}
@@ -668,7 +668,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 7260e2b9c9dc51a49b9027cede048e87, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

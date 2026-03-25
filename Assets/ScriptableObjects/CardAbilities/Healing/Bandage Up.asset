@@ -68,6 +68,7 @@ MonoBehaviour:
   effectVisuals: 0
   effects: 0
   _doEffectAtStart: 1
+  _tickOnStart: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +88,8 @@ MonoBehaviour:
   - {fileID: 3814506347024606729}
   _description: Heal for 2 every turn for 3 turns
   _abilitySFX: {fileID: 0}
+  _cardCategory: 2
+  _effectValue: 0
   _apCost: 2
   _range: 0
   _shopCost: 0
@@ -98,6 +101,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 0
 --- !u!114 &439481316846956790
 MonoBehaviour:
   m_ObjectHideFlags: 0

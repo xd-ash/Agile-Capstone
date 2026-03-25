@@ -71,6 +71,9 @@ public class DeckViewerScript : MonoBehaviour
             cardTextFieldsUI[0].text = card.GetCardName;
             cardTextFieldsUI[1].text = card.GetDescription;
             cardTextFieldsUI[2].text = card.GetApCost.ToString();
+            
+            content.GetComponent<DeckViewerCardVisuals>()?.ApplyVisuals(card);
+
 
             contentIndex++;
             var rt = content.GetComponent<RectTransform>();
