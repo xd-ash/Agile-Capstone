@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a603a37575532e4daf4c7e873f9bbbe, type: 3}
+  m_Name: AudioLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
+  _bgmClip: {fileID: 8300000, guid: b9a88d124b8b3c64eaa34a4cf774930f, type: 3}
+  _endTurnSfx: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
+  _menuButtonClick: {fileID: 8300000, guid: 323f0966565f64b659f54dd74a1df2f3, type: 3}
+  _selectCardSfx: {fileID: 8300000, guid: 4b183abc6c86a458f9fe3f7a8e9ab7b0, type: 3}
+  _drawCardSfx: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
+  _damageTakeSFX1: {fileID: 8300000, guid: abef91ba9c06db94a8004696a5aad8dc, type: 3}
+  _damageTakeSFX2: {fileID: 8300000, guid: c565fb594e92e8748a701e88045343f6, type: 3}
+  _shieldHitSFX: {fileID: 8300000, guid: 8ae3191c3504ac44ab354c262aec60a5, type: 3}
