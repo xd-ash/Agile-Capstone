@@ -50,6 +50,8 @@ public class MovementLine : MonoBehaviour
         Vector3 indicatorPos = GridToWorld((Vector2Int)tilePos);
         indicatorPos.z += _lineZOffset;
 
+        APDisplay.Instance?.ClearPreview(false);
+
         if (steps <= movePoints)
         {
             // In range � show only the AP number
@@ -63,7 +65,6 @@ public class MovementLine : MonoBehaviour
             // Out of range � show AP number plus red X
             APHoverIndicator.Instance?.ShowOutOfRange(indicatorPos, steps);
             _line.gameObject.SetActive(false);
-            APDisplay.Instance?.ClearPreview(false);
         }
 
         List<Vector3> points = new List<Vector3>();
