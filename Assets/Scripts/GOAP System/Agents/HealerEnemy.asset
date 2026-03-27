@@ -31,14 +31,6 @@ MonoBehaviour:
   - rid: 6877345709834109006
   - rid: 6877345709834109007
   - rid: 6877345709834109003
-  _agentHealthWeight: 0.4
-  _enemyDistanceWeight: 0.1
-  _enemyHealthWeight: 0
-  _allyHealthWeight: 0.4
-  _allyDistanceWeght: 0.1
-  _selfPreservationWeight: 0.4
-  _aggressionWeight: 0.05
-  _altruismWeight: 0.4
   references:
     version: 2
     RefIds:
@@ -71,15 +63,15 @@ MonoBehaviour:
       data:
         _actionName: MoveOutOfLOSAction
         _cost: 1
-        _preConditionsFlags: 2562
-        _postConditionsFlags: 1024
+        _preConditionsFlags: 5122
+        _postConditionsFlags: 3072
         _goalsFlags: 0
     - rid: 6877345709834109004
       type: {class: HideAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: HideAction
         _cost: 10
-        _preConditionsFlags: 3076
+        _preConditionsFlags: 6148
         _postConditionsFlags: 0
         _goalsFlags: 4
     - rid: 6877345709834109005
@@ -87,8 +79,8 @@ MonoBehaviour:
       data:
         _actionName: MoveIntoLOSAction
         _cost: 1
-        _preConditionsFlags: 3074
-        _postConditionsFlags: 512
+        _preConditionsFlags: 6146
+        _postConditionsFlags: 1024
         _goalsFlags: 0
     - rid: 6877345709834109006
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
@@ -103,15 +95,15 @@ MonoBehaviour:
       data:
         _actionName: ChooseTargetAction
         _cost: 0
-        _preConditionsFlags: 4098
-        _postConditionsFlags: 2048
+        _preConditionsFlags: 8194
+        _postConditionsFlags: 4096
         _goalsFlags: 0
     - rid: 6877345709834109008
       type: {class: HealAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: HealAction
         _cost: 1
-        _preConditionsFlags: 2850
+        _preConditionsFlags: 5650
         _postConditionsFlags: 12
         _goalsFlags: 12
     - rid: 6877345709834109009
@@ -119,7 +111,7 @@ MonoBehaviour:
       data:
         _actionName: AttackAction
         _cost: 1
-        _preConditionsFlags: 19106
+        _preConditionsFlags: 38210
         _postConditionsFlags: 4
         _goalsFlags: 2
     - rid: 6877345709834109010
@@ -127,6 +119,6 @@ MonoBehaviour:
       data:
         _actionName: MoveInRangeAction
         _cost: 1
-        _preConditionsFlags: 2114
-        _postConditionsFlags: 32
+        _preConditionsFlags: 4226
+        _postConditionsFlags: 64
         _goalsFlags: 0

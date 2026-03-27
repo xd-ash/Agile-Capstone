@@ -31,14 +31,6 @@ MonoBehaviour:
   - rid: 6877345560813109328
   - rid: 6877345702617808967
   - rid: 6877345702617808990
-  _agentHealthWeight: 0.4
-  _enemyDistanceWeight: 0.3
-  _enemyHealthWeight: 0.3
-  _allyHealthWeight: 0
-  _allyDistanceWeght: 0
-  _selfPreservationWeight: 0.6
-  _aggressionWeight: 0.4
-  _altruismWeight: 0
   references:
     version: 2
     RefIds:
@@ -65,15 +57,15 @@ MonoBehaviour:
       data:
         _actionName: MoveInRangeAction
         _cost: 1
-        _preConditionsFlags: 2114
-        _postConditionsFlags: 32
+        _preConditionsFlags: 4226
+        _postConditionsFlags: 96
         _goalsFlags: 0
     - rid: 6877345560813109323
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: AttackAction
         _cost: 1
-        _preConditionsFlags: 10914
+        _preConditionsFlags: 21826
         _postConditionsFlags: 4
         _goalsFlags: 2
     - rid: 6877345560813109324
@@ -81,7 +73,7 @@ MonoBehaviour:
       data:
         _actionName: HealAction
         _cost: 1
-        _preConditionsFlags: 274
+        _preConditionsFlags: 530
         _postConditionsFlags: 12
         _goalsFlags: 4
     - rid: 6877345560813109325
@@ -89,7 +81,7 @@ MonoBehaviour:
       data:
         _actionName: HideAction
         _cost: 10
-        _preConditionsFlags: 3076
+        _preConditionsFlags: 6148
         _postConditionsFlags: 0
         _goalsFlags: 4
     - rid: 6877345560813109326
@@ -97,8 +89,8 @@ MonoBehaviour:
       data:
         _actionName: MoveIntoLOSAction
         _cost: 1
-        _preConditionsFlags: 3074
-        _postConditionsFlags: 512
+        _preConditionsFlags: 6146
+        _postConditionsFlags: 1024
         _goalsFlags: 0
     - rid: 6877345560813109327
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
@@ -113,22 +105,22 @@ MonoBehaviour:
       data:
         _actionName: ChooseTargetAction
         _cost: 0
-        _preConditionsFlags: 4098
-        _postConditionsFlags: 2048
+        _preConditionsFlags: 8194
+        _postConditionsFlags: 4096
         _goalsFlags: 0
     - rid: 6877345702617808967
       type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveOutOfLOSAction
         _cost: 1
-        _preConditionsFlags: 2562
-        _postConditionsFlags: 1024
+        _preConditionsFlags: 5122
+        _postConditionsFlags: 2048
         _goalsFlags: 0
     - rid: 6877345702617808990
       type: {class: MoveToRangeAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveToRangeAction
         _cost: 1
-        _preConditionsFlags: 2722
-        _postConditionsFlags: 8192
+        _preConditionsFlags: 5442
+        _postConditionsFlags: 16384
         _goalsFlags: 0
