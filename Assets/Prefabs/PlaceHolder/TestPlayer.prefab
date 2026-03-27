@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: e15062a975ddeba4ba3db8c81fa9ceb9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -1403907938, guid: 474b8fcdd52084647b58a7a9e664235f, type: 3}
+  m_Sprite: {fileID: -3200267608832165720, guid: 474b8fcdd52084647b58a7a9e664235f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -242,13 +242,13 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 2fd63fc0dc2e2b841a40b60a3e85005c, type: 2}
   - {fileID: 7400000, guid: 093505aa767859641a2c0e3bff1cef4d, type: 2}
   _attackAnimSets:
-  - key: Shoot
+  - key: 3
     dirClips:
-    - {fileID: 7400000, guid: 258d9ef356d83854588dba05c59ef49a, type: 2}
-    - {fileID: 7400000, guid: a3e9cb93ec13f364e96340291329aea9, type: 2}
-    - {fileID: 7400000, guid: 624f10a5563d51145a34ef216ca465a3, type: 2}
-    - {fileID: 7400000, guid: e84e93843dc78a344b2bd9934f500d2a, type: 2}
-  - key: Punch
+    - {fileID: 7400000, guid: 838f019c585ee9a4ab7639d6b1f44f3f, type: 2}
+    - {fileID: 7400000, guid: 95df7490569ae854494ae372b36d33a3, type: 2}
+    - {fileID: 7400000, guid: 332eb41ff71c7144ca2e1cee448709ee, type: 2}
+    - {fileID: 7400000, guid: eddef37145abec64f983014c5188636d, type: 2}
+  - key: 2
     dirClips:
     - {fileID: 7400000, guid: 16ab2c1b909b440adbad902993090a27, type: 2}
     - {fileID: 7400000, guid: 4922fa86f1be34f45bbfd6c60729c6bc, type: 2}

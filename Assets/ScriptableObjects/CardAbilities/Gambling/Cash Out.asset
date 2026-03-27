@@ -93,13 +93,14 @@ MonoBehaviour:
   - {fileID: -1660142609854353126}
   - {fileID: 3212037309399614669}
   - {fileID: -4281210284086437110}
-  _description: Deal 2 damage, increased by 1 for each heads flipped during this
-    combat
+  _description: Deal 2 damage for each heads flipped this combat
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 3
   _range: 2
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 50
+  _shopWeight: 5
   _baseHitChance: 100
   _minHitChance: 25
   _maxHitChance: 100
@@ -107,7 +108,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Shoot
+  _attackAnimKey: 3
 --- !u!114 &3212037309399614669
 MonoBehaviour:
   m_ObjectHideFlags: 0

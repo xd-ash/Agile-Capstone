@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 //Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
@@ -63,6 +64,14 @@ public class WinLossManager : MonoBehaviour
 
     public void TriggerSceneTrans()
     {
+        //bandaid for tutorial
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            TransitionScene.Instance?.StartTransition();
+            return;
+        }
+
+
         if (_didWin)
         {
             NodeMapManager.Instance.CompleteCurrentNode();

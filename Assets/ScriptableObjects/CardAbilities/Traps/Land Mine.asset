@@ -156,6 +156,8 @@ MonoBehaviour:
   _description: Place an explosive trap that deals 5 damage any unit that steps on
     it
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 3
   _range: 4
   _shopCost: 0
@@ -167,6 +169,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 2
 --- !u!114 &215215104908119812
 MonoBehaviour:
   m_ObjectHideFlags: 0

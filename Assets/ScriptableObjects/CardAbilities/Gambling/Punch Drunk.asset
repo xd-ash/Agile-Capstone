@@ -168,6 +168,8 @@ MonoBehaviour:
   _description: Deal 2 damage and knockback 2 tiles. Roll a dice and root the enemy
     for that many turns
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 4
   _range: 1
   _shopCost: 0
@@ -179,7 +181,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Punch
+  _attackAnimKey: 2
 --- !u!114 &171456546891437306
 MonoBehaviour:
   m_ObjectHideFlags: 0

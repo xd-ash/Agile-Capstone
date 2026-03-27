@@ -141,6 +141,8 @@ MonoBehaviour:
   - {fileID: -2866850248734041623}
   _description: Deal 3 damage to all enemies in a short range around you
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 2
   _range: 2
   _shopCost: 0
@@ -152,7 +154,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Slash
+  _attackAnimKey: 1
 --- !u!114 &5292118119354859995
 MonoBehaviour:
   m_ObjectHideFlags: 0

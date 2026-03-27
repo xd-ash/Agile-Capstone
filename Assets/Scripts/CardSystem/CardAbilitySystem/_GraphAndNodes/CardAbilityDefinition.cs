@@ -1,11 +1,10 @@
 using UnityEngine;
 using XNode;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace CardSystem
 {
+    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling }
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
     {
@@ -13,6 +12,8 @@ namespace CardSystem
         [TextArea(1, 3)]
         [SerializeField] private string _description;
         [SerializeField] private AudioClip _abilitySFX;
+        [SerializeField] private CardCategory _cardCategory;
+        [SerializeField] private int _effectValue;
 
         [Header("Card Data")]
         [SerializeField] private int _apCost;
@@ -31,7 +32,8 @@ namespace CardSystem
         [SerializeField] private int _accuracyFlatBonus = 0;
 
         [Header("Attack Animation")]
-        [SerializeField] private string _attackAnimKey;
+        [SerializeField] private AttackAnimKey _attackAnimKey = AttackAnimKey.None;
+        public AttackAnimKey GetAttackAnimKey => _attackAnimKey;
 
         private AbilityRootNode _rootNode;
 
@@ -42,6 +44,8 @@ namespace CardSystem
         public int GetShopCost => _shopCost;
         public int GetShopWeight => _shopWeight;
         public AudioClip GetAbilitySFX => _abilitySFX;
+        public CardCategory GetCardCategory => _cardCategory;
+        public int GetEffectValue => _effectValue;
 
         public int GetBaseHitChance => _baseHitChance;
         public int GetMinHitChance => _minHitChance;
@@ -50,8 +54,7 @@ namespace CardSystem
         public float GetAccuracyMultiplier => _accuracyMultiplier;
         public int GetAccuracyFlatBonus => _accuracyFlatBonus;
         public bool GetIgnoreLOS => _ignoreLOS;
-
-        public string GetAttackAnimKey => _attackAnimKey;
+        
 
         public AbilityRootNode RootNode
         {
@@ -67,6 +70,10 @@ namespace CardSystem
 
         public void UseAility(Unit user)
         {
+            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                return;
+            
             RootNode?.UseAbility(user);
         }
 
@@ -78,106 +85,5 @@ namespace CardSystem
                     (node as IStoppable).Stop(guid);
             }
         }
-
-        // Card "Reading" Testing
-        public enum AbilityTypes
-        {
-            None,
-            Damage,
-            Heal,
-            Buff,
-            OverTime,
-            RestoreAP,
-            Knockback,
-            DeckEffect,
-            DiceRoll,
-            CoinFlip,
-            SpawnObj,
-            SelfTarget,
-            OtherTarget,
-            IsAOE,
-            TileTarget,
-            UnitTarget
-        }
-        private AbilityTypes[] _cardAbilityTags;
-        public AbilityTypes[] GetCardAbilityTags;
-
-        private void SetAbilityTags()
-        {
-            List<AbilityTypes> temp = new();
-            foreach (var type in Enum.GetValues(typeof(AbilityTypes)) as AbilityTypes[])
-                if (CheckForNode(type) && !temp.Contains(type))
-                    temp.Add(type);
-            _cardAbilityTags = temp.ToArray();
-        }
-        private bool CheckForNode(AbilityTypes nodeType)
-        {
-            foreach (Node node in nodes)
-                switch (nodeType)
-                {
-                    case AbilityTypes.Damage:
-                        if (node is DamageEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.Heal:
-                        if (node is HealEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.Buff:
-                        if (node is BuffEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.OverTime:
-                        if (node is OverTimeEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.RestoreAP:
-                        if (node is RestoreAPEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.Knockback:
-                        if (node is KnockBackEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.DeckEffect:
-                        if (node is DeckEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.DiceRoll:
-                        if (node is IRollDice)
-                            return true;
-                        break;
-                    case AbilityTypes.CoinFlip:
-                        if (node is IFlipCoins)
-                            return true;
-                        break;
-                    case AbilityTypes.SpawnObj:
-                        if (node is SpawnObjectEffect)
-                            return true;
-                        break;
-                    case AbilityTypes.SelfTarget:
-                        if (node is SelfTarget)
-                            return true;
-                        break;
-                    case AbilityTypes.OtherTarget:
-                        if (node is OtherTarget)
-                            return true;
-                        break;
-                    case AbilityTypes.IsAOE:
-                        if (node is OnAOETarget)
-                            return true;
-                        break;
-                    case AbilityTypes.TileTarget:
-                        if (node is OnAOETarget)
-                            return true;
-                        break;
-                    case AbilityTypes.UnitTarget:
-                        if (node is OnAOETarget)
-                            return true;
-                        break;
-                }
-            return false;
-        }
-
     }
 }

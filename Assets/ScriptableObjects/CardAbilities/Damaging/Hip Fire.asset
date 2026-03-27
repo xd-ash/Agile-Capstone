@@ -86,10 +86,12 @@ MonoBehaviour:
   - {fileID: 3424977469569822914}
   _description: Deal 2 ranged damage
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 3
   _range: 7
-  _shopCost: 15
-  _shopWeight: 55
+  _shopCost: 10
+  _shopWeight: 20
   _baseHitChance: 100
   _minHitChance: 30
   _maxHitChance: 100
@@ -97,7 +99,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 15
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Shoot
+  _attackAnimKey: 3
 --- !u!114 &3424977469569822914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +265,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 3
+  _effectValue: 2
   input: 0
   effectVisuals: 0

@@ -31,7 +31,6 @@ namespace CardSystem
 
             var dirAnimator = abilityData.GetUnit?.GetComponent<DirectionAnimator>();
             dirAnimator?.PlayAttack(def.GetAttackAnimKey, dirIndex, null);
-
             DoEffect(abilityData);
         }
         

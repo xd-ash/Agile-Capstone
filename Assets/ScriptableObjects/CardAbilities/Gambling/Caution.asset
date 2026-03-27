@@ -1,48 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7477649814045321667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8f7e11ee076d4d4ab18f168ba7b4079, type: 3}
-  m_Name: Restore AP Effect
-  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.RestoreAPEffect
-  graph: {fileID: 11400000}
-  position: {x: 88, y: 392}
-  ports:
-    keys:
-    - input
-    - effectVisuals
-    values:
-    - _fieldName: input
-      _node: {fileID: -7477649814045321667}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: onTails 0
-        node: {fileID: 8497486673921316787}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: effectVisuals
-      _node: {fileID: -7477649814045321667}
-      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-  _effectValue: 2
-  input: 0
-  effectVisuals: 0
 --- !u!114 &-2652688260289560249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,7 +40,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 2
+  _effectValue: 1
   input: 0
   effectVisuals: 0
 --- !u!114 &-714015060107290056
@@ -99,7 +56,7 @@ MonoBehaviour:
   m_Name: Buff Effect
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.BuffEffect
   graph: {fileID: 11400000}
-  position: {x: 104, y: 216}
+  position: {x: 56, y: 264}
   ports:
     keys:
     - input
@@ -110,8 +67,8 @@ MonoBehaviour:
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: onHeads 0
-        node: {fileID: 8497486673921316787}
+      - fieldName: effects 0
+        node: {fileID: 1102946486807168034}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -126,7 +83,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 2
+  _effectValue: 3
   input: 0
   effectVisuals: 0
 --- !u!114 &11400000
@@ -145,18 +102,17 @@ MonoBehaviour:
   - {fileID: 1665532735519635991}
   - {fileID: 5737549930721706454}
   - {fileID: -2652688260289560249}
-  - {fileID: 8497486673921316787}
   - {fileID: -714015060107290056}
-  - {fileID: -7477649814045321667}
-  _description: 'Add 2 shield and flip a coin. If heads add an additional 2 shield,
-    if tails restore 2 AP.
+  - {fileID: 1102946486807168034}
+  _description: 'Add 1 shield. Flip 2 coins: if 1 heads, add 3 more shield. If 2
+    heads, add 5
 
 '
   _abilitySFX: {fileID: 0}
-  _apCost: 3
+  _apCost: 1
   _range: 0
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 20
+  _shopWeight: 15
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -164,6 +120,75 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 
+--- !u!114 &1102946486807168034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc96f14b7693ff4abe8ff6ef31518bc, type: 3}
+  m_Name: Multiple Coin Flip
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.MultipleCoinFlip
+  graph: {fileID: 11400000}
+  position: {x: -240.79298, y: 248.193}
+  ports:
+    keys:
+    - effects
+    - input
+    - effectVisuals
+    - effects 0
+    values:
+    - _fieldName: effects
+      _node: {fileID: 1102946486807168034}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: 1102946486807168034}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effects 1
+        node: {fileID: 1665532735519635991}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: 1102946486807168034}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects 0
+      _node: {fileID: 1102946486807168034}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -714015060107290056}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  _effectValue: 2
+  input: 0
+  effectVisuals: 0
+  effects: 0
+  _desiredCoinSide: 1
 --- !u!114 &1665532735519635991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +259,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: 8497486673921316787}
+        node: {fileID: 1102946486807168034}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -285,94 +310,3 @@ MonoBehaviour:
       _dynamic: 0
   abilityRoot: 0
   aoeStrat: 0
---- !u!114 &8497486673921316787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f199000f1006244699d8ff54ed41bba, type: 3}
-  m_Name: Single Coin Flip
-  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.SingleCoinFlip
-  graph: {fileID: 11400000}
-  position: {x: -216, y: 200}
-  ports:
-    keys:
-    - onHeads
-    - onTails
-    - input
-    - effectVisuals
-    - onHeads 0
-    - onTails 0
-    values:
-    - _fieldName: onHeads
-      _node: {fileID: 8497486673921316787}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: onTails
-      _node: {fileID: 8497486673921316787}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: input
-      _node: {fileID: 8497486673921316787}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: effects 1
-        node: {fileID: 1665532735519635991}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: effectVisuals
-      _node: {fileID: 8497486673921316787}
-      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 0
-    - _fieldName: onHeads 0
-      _node: {fileID: 8497486673921316787}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -714015060107290056}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-    - _fieldName: onTails 0
-      _node: {fileID: 8497486673921316787}
-      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -7477649814045321667}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 2
-      _dynamic: 1
-  _effectValue: 0
-  input: 0
-  effectVisuals: 0
-  onHeads: 0
-  onTails: 0
