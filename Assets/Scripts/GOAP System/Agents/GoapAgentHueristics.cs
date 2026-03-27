@@ -2,7 +2,7 @@ using AStarPathfinding;
 using System.Collections.Generic;
 using UnityEngine;
 using static AStarPathfinding.FindPathAStar;
-
+/*
 public class GoapAgentHueristics : MonoBehaviour
 {
     private Unit _unit;
@@ -47,9 +47,13 @@ public class GoapAgentHueristics : MonoBehaviour
             Debug.LogWarning($"Closest Enemy Null for agent ({name}). This may be fine if a game was just lost (player killed)");
             return;
         }
+        int distToEnemy = int.MaxValue;
+        int distToAlly = int.MaxValue;
 
-        var distToEnemy = CalculatePath(_unit.transform, closestEnemy.transform).Count;
-        var distToAlly = CalculatePath(_unit.transform, closestAlly.transform).Count;
+        if (closestEnemy != null)
+            distToEnemy = CalculatePath(_unit.transform, closestEnemy.transform).Count;
+        if (closestAlly != null)
+            distToAlly = CalculatePath(_unit.transform, closestAlly.transform).Count;
         distToEnemy = Mathf.Clamp(distToEnemy, 0, _maxDetectDistance);
         distToAlly = Mathf.Clamp(distToAlly, 0, _maxDetectDistance);
 
@@ -59,14 +63,17 @@ public class GoapAgentHueristics : MonoBehaviour
 
         int agentEffectiveHealth = Mathf.Clamp(_unit.GetEffectiveHealth, 0, _unit.GetMaxHealth);
         int enemyEffectiveHealth = Mathf.Clamp(closestEnemy.GetEffectiveHealth, 0, closestEnemy.GetMaxHealth);
-        int allyEffectiveHealth = Mathf.Clamp(closestAlly.GetEffectiveHealth, 0, closestAlly.GetMaxHealth); 
+        int allyEffectiveHealth = 0;
+        if (closestAlly != null)
+            allyEffectiveHealth = Mathf.Clamp(closestAlly.GetEffectiveHealth, 0, closestAlly.GetMaxHealth); 
 
         agentHealthFactor = ((float)_unit.GetMaxHealth - (float)agentEffectiveHealth) / (float)_unit.GetMaxHealth;
         enemyDistFactorSP = ((float)_maxDetectDistance - (float)distToEnemy) / (float)_maxDetectDistance;
         enemyDistFactorA = (float)distToEnemy / (float)_maxDetectDistance;
         enemyHealthFactor = ((float)closestEnemy.GetMaxHealth - (float)enemyEffectiveHealth) / (float)closestEnemy.GetMaxHealth;
-        allyDistFactor = ((float)_maxDetectDistance - (float)distToAlly) / (float)_maxDetectDistance; 
-        allyHealthFactor = ((float)closestAlly.GetMaxHealth - (float)allyEffectiveHealth) / (float)closestAlly.GetMaxHealth;
+        allyDistFactor = ((float)_maxDetectDistance - (float)distToAlly) / (float)_maxDetectDistance;
+        if (closestAlly != null)
+            allyHealthFactor = ((float)closestAlly.GetMaxHealth - (float)allyEffectiveHealth) / (float)closestAlly.GetMaxHealth;
         //Debug.Log($"agentHealthfactor:{agentHealthFactor}, distFactorSP:{enemyDistFactorSP}, distFactorA:{enemyDistFactorA}, eHealthFact:{enemyHealthFactor}");
 
         _selfPreservation = agentHealthFactor * _so.GetAgentHealthWeight + enemyDistFactorSP * _so.GetEnemyDistanceWeight;
@@ -123,3 +130,4 @@ public class GoapAgentHueristics : MonoBehaviour
         return lowestHealthUnit;
     }
 }
+*/

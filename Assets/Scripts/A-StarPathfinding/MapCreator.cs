@@ -194,13 +194,13 @@ public class MapCreator : MonoBehaviour
     {
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
 
-        if (byteIndicator == 3 || byteIndicator == 4)
+        /*if (byteIndicator == 3 || byteIndicator == 4)
         {
             Debug.Log("Temp enemy spawn stuff");
             if (_enemyCount == 0) byteIndicator = 6;
             if (_enemyCount > 0) byteIndicator = 3;
             _enemyCount++;
-        }
+        }*/
         GameObject objToSpawn = _tileLibrary.GetGOFromIndicator(byteIndicator);
 
         if (byteIndicator == 4)

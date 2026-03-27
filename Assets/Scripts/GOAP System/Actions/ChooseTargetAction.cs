@@ -36,8 +36,14 @@ public class ChooseTargetAction : GoapAction
     {
         int minEnemyIndex = _distancesToEnemies.Min(x => x.Key);
         var minEnemy = _distancesToEnemies[minEnemyIndex];
-        int minAllyIndex = _distancesToAllies.Min(x => x.Key);
-        var minAlly = _distancesToAllies[minAllyIndex];
+
+        int minAllyIndex;
+        Unit minAlly = null;
+        if (_distancesToAllies.Count > 0)
+        {
+            minAllyIndex = _distancesToAllies.Min(x => x.Key);
+            minAlly = _distancesToAllies[minAllyIndex];
+        }
 
         var curGoal = _agent.GetHighestGoalDesire().key;
         if (curGoal == GoapGoals.StayAlive.ToString())

@@ -4,7 +4,7 @@ using XNode;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/Single Coin Flip")]
-    public class SingleCoinFlip : EffectStrategy
+    public class SingleCoinFlip : EffectStrategy, IFlipCoins
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onHeads;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onTails;

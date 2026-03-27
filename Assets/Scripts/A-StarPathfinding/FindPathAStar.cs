@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -149,7 +147,6 @@ namespace AStarPathfinding
                 Vector2Int neighborLoc = new Vector2Int(neighbour.x, neighbour.y);
                 Vector2Int goalLoc = new Vector2Int(_goalNode.location.x, _goalNode.location.y);
                 if (neighborLoc != goalLoc && CheckNeighborForCollision(bMap[neighbour.x, neighbour.y], ignoreUnits)) continue; // if pos is obstacle/enemy/player
-                //if (neighborLoc != goalLoc && (bMap[neighbour.x, neighbour.y] == 2 || bMap[neighbour.x, neighbour.y] == 5 || bMap[neighbour.x, neighbour.y] == 3 || bMap[neighbour.x, neighbour.y] == 1)) continue; // if pos is obstacle/enemy
                 if (IsClosed(neighbour)) continue;
 
                 float newG = Vector2.Distance(thisNode.location.ToVector(), neighbour.ToVector()) + thisNode.G;

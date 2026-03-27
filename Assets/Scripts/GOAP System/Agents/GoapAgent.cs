@@ -25,7 +25,7 @@ public class Goal
 public class GoapAgent : MonoBehaviour
 {
     [SerializeField] private GoapAgentSO _agentSO;
-    private GoapAgentHueristics _agentHeuristics;
+    //private GoapAgentHueristics _agentHeuristics;
 
     [Tooltip("Number of times unit can heal per combat. (-1 for infinite heals)")]
     public int healCharges = 3;
@@ -78,8 +78,8 @@ public class GoapAgent : MonoBehaviour
             Debug.LogError($"No GOAP Agent SO Attached to ({gameObject.name})");
             return;
         }
-        if (!TryGetComponent(out _agentHeuristics))
-            Debug.LogError($"No Goap heuristics attached to agent ({name})");
+        //if (!TryGetComponent(out _agentHeuristics))
+            //Debug.LogError($"No Goap heuristics attached to agent ({name})");
 
         _actions = new(_agentSO.GetActions);
         foreach (var a in _actions)
@@ -237,14 +237,15 @@ public class GoapAgent : MonoBehaviour
     }
     private void SetAgentGoalDesires()
     {
-        var agentDesires = _agentHeuristics.GetAgentDesires();
+        //var agentDesires = _agentHeuristics.GetAgentDesires();
 
         for (int i = 0; i < _weightedGoalsDict.Count; i++)
         {
             var kvp = _weightedGoalsDict.ElementAt(i);
-            var goalName = kvp.Key.key;
-            if (!agentDesires.Keys.Contains(goalName)) continue;
-            _weightedGoalsDict[kvp.Key] = agentDesires[goalName];
+            //var goalName = kvp.Key.key;
+            //if (!agentDesires.Keys.Contains(goalName)) continue;
+            //_weightedGoalsDict[kvp.Key] = agentDesires[goalName];
+            _weightedGoalsDict[kvp.Key] = kvp.Value;
         }
     }
     private void ActionPerformDelay()

@@ -5,7 +5,7 @@ using static DiceRoll;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/Dice Rolls Doubles Effect")]
-    public class RollDicePairForDoubles : EffectStrategy, IUseEffectValue
+    public class RollDicePairForDoubles : EffectStrategy, IUseEffectValue, IRollDice
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onDoubles;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onSnakeEyes;

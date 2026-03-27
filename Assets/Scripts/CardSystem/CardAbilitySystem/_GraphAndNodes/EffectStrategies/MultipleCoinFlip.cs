@@ -5,7 +5,7 @@ using XNode;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/Multiple Coin Flips")]
-    public class MultipleCoinFlip : EffectStrategy, IUseEffectValue
+    public class MultipleCoinFlip : EffectStrategy, IUseEffectValue, IFlipCoins
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 

@@ -11,27 +11,14 @@ public class GoapAgentSO : ScriptableObject
     [SerializeField] private CardAbilityDefinition _healAbility; //swap to array?
     [SerializeField] private int _totalHealCharges = 3; //make better
 
+    private CardAbilityDefinition[] _damageAbilities;
+    private CardAbilityDefinition[] _healAbilities;
+
     [Header("Goap Goals & Actions")]
     [SerializeField] private GoapGoals _goalsEnum;
-    [SerializeReference] private List<Goal> _goals = new();// find better way? used for setting weight/values & remove bool
+    [SerializeReference] private List<Goal> _goals = new();
     [SerializeField] private GoapActions _goapActionsEnum;
     [SerializeReference] private List<GoapAction> _actions = new();
-
-    [Header("Heuristics Weights")]
-    [Tooltip("Sum of all weights must add up to 1"), Range(0f, 1f)]
-    [SerializeField] private float _agentHealthWeight;
-    [Tooltip("Sum of all weights must add up to 1"), Range(0f, 1f)]
-    [SerializeField] private float _enemyDistanceWeight,
-                                   _enemyHealthWeight,
-                                   _allyHealthWeight,
-                                   _allyDistanceWeght;
-
-    [Header("Desire Weights")]
-    [Tooltip("Sum of all weights must add up to 1"), Range(0f, 1f)]
-    [SerializeField] private float _selfPreservationWeight;
-    [Tooltip("Sum of all weights must add up to 1"), Range(0f, 1f)]
-    [SerializeField] private float _aggressionWeight,
-                                   _altruismWeight;
 
     public CardAbilityDefinition GetDamageAbility => _damageAbility;
     public CardAbilityDefinition GetHealAbility => _healAbility;
@@ -39,16 +26,6 @@ public class GoapAgentSO : ScriptableObject
 
     public List<Goal> GetGoals => _goals;
     public List<GoapAction> GetActions => _actions;
-
-    public float GetAgentHealthWeight => _agentHealthWeight;
-    public float GetEnemyDistanceWeight => _enemyDistanceWeight;
-    public float GetEnemyHealthWeight => _enemyHealthWeight;
-    public float GetAllyHealthWeight => _allyHealthWeight;
-    public float GetAllyDistanceWeght => _allyDistanceWeght;
-
-    public float GetSelfPreservationWeight => _selfPreservationWeight;
-    public float GetAggressionWeight => _aggressionWeight;
-    public float GetAltruismWeight => _altruismWeight;
 
     // Make more secure with deleting null actions or actions added in inpsector by hitting +
     #region OnInspectorMethods
