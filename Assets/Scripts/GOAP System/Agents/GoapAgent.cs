@@ -173,8 +173,8 @@ public class GoapAgent : MonoBehaviour
     }
     public void CompleteAction()
     {
-        SetAgentGoalDesires();
-        Debug.Log("agent desires set");
+        SetAgentGoalWeights();
+        
         _currentAction.IsRunning = false;
         _currentAction.PostPerform(ref _beliefs);
         GameUIManager.instance.UpdateApText();
@@ -194,9 +194,9 @@ public class GoapAgent : MonoBehaviour
             tempDebug += g.key + ", ";
         }
         //if (showDebugMessages)
-            //Debug.Log(temp);
+        //Debug.Log(temp);
 
-        SetAgentGoalDesires();
+        SetAgentGoalWeights();
 
         if (unit == null) return;
 
@@ -235,7 +235,7 @@ public class GoapAgent : MonoBehaviour
             beliefDebug += $"{belief.Key}, ";
         Debug.Log(beliefDebug);
     }
-    private void SetAgentGoalDesires()
+    private void SetAgentGoalWeights()
     {
         //var agentDesires = _agentHeuristics.GetAgentDesires();
 

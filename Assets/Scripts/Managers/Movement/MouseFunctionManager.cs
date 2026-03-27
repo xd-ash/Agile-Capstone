@@ -72,8 +72,8 @@ public class MouseFunctionManager : MonoBehaviour
                     TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveOnly)
                     return; // skip to next frame, don't move
                 
-                var unitAStar = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>();
-                unitAStar?.OnStartUnitMove();
+                var unitmover = TurnManager.GetCurrentUnit.GetComponent<UnitMovementController>();
+                unitmover?.OnStartUnitMove();
             }
         }
     }

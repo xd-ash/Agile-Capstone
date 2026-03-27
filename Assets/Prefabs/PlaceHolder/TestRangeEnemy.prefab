@@ -146,7 +146,6 @@ GameObject:
   - component: {fileID: 5489418204435330}
   - component: {fileID: 1680429232163789991}
   - component: {fileID: 6670463243099223024}
-  - component: {fileID: 3073903562083494219}
   - component: {fileID: 112770222690940186}
   - component: {fileID: 5529296334198480914}
   - component: {fileID: 5134102706713077211}
@@ -229,18 +228,6 @@ MonoBehaviour:
   _actionDelayTime: 1
   unit: {fileID: 5489418204435330}
   showDebugMessages: 1
---- !u!114 &3073903562083494219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552371556891506583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c793f82fdbf40884aabd60638d3957e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentHueristics
 --- !u!114 &112770222690940186
 MonoBehaviour:
   m_ObjectHideFlags: 0

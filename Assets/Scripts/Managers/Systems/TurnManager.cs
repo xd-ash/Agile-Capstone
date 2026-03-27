@@ -121,7 +121,7 @@ public class TurnManager : MonoBehaviour
     public void EndPlayerTurn()
     {
         if (CurrTurn != Turn.Player) return; // avoid turn end spam
-        if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; 
+        if (_curUnit != null && _curUnit.TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving) return; 
         // Block end turn if tutorial is active and not on end turn step
         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.EndTurnOnly)
