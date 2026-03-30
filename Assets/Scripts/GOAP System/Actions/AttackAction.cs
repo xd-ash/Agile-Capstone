@@ -1,3 +1,4 @@
+using UnityEngine;
 using static GOAPDeterminationMethods;
 
 public class AttackAction : GoapAction
@@ -34,6 +35,9 @@ public class AttackAction : GoapAction
     {
         if (_agent == null || tempTarget == null) return _cost;
 
-        return _cost;
+        var targetHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
+        var dmgAbility = _agent.GetAgentSO.GetDamageAbility;
+        var attackCostRatio = dmgAbility.GetApCost / (float)_agent.unit.GetMaxAP;
+        return _cost * (targetHealthRatio + attackCostRatio) * _costMultiplier;
     }
 }

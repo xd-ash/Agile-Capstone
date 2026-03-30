@@ -48,7 +48,7 @@ MonoBehaviour:
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: KillPlayer
-        value: 2
+        value: 1
         removeOnComplete: 1
     - rid: 6877345560813109320
       type: {class: Goal, ns: , asm: Assembly-CSharp}
@@ -67,16 +67,16 @@ MonoBehaviour:
       data:
         _actionName: MoveInRangeAction
         _cost: 1
-        _costMultiplier: 1
+        _costMultiplier: 1.5
         _preConditionsFlags: 4226
-        _postConditionsFlags: 32
+        _postConditionsFlags: 64
         _goalsFlags: 0
     - rid: 6877345560813109323
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: AttackAction
         _cost: 1
-        _costMultiplier: 1
+        _costMultiplier: 2
         _preConditionsFlags: 5442
         _postConditionsFlags: 4
         _goalsFlags: 2
@@ -94,7 +94,7 @@ MonoBehaviour:
       data:
         _actionName: MoveIntoLOSAction
         _cost: 1
-        _costMultiplier: 1
+        _costMultiplier: 1.5
         _preConditionsFlags: 6146
         _postConditionsFlags: 1024
         _goalsFlags: 0

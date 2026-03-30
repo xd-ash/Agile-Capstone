@@ -10,7 +10,6 @@ public class ChooseTargetAction : GoapAction
     public override bool PrePerform(ref WorldStates beliefs)
     {
         var distancesToEnemies = GrabUnitDistances(Team.Friendly);
-        Debug.Log("preperform: " + (distancesToEnemies.Count > 0 ? true : false));
         return distancesToEnemies.Count > 0 ? true : false; // change this
     }
     private Dictionary<int, Unit> GrabUnitDistances(Team team)
@@ -31,7 +30,7 @@ public class ChooseTargetAction : GoapAction
     {
         var enemiesDists = GrabUnitDistances(Team.Friendly);
         var allyDists = GrabUnitDistances(Team.Enemy);
-        Unit minIndexEnemy = null, minIndexAlly = null;
+        Unit minIndexEnemy = null, minIndexAlly = _agent.unit;
         int minIndex = 0;
 
         minIndex = enemiesDists.Min(x => x.Key);
@@ -42,8 +41,6 @@ public class ChooseTargetAction : GoapAction
             minIndex = allyDists.Min(x => x.Key);
             minIndexAlly = allyDists[minIndex];
         }
-        else if (curGoal == GoapGoals.StayAlive.ToString())
-            minIndexAlly = _agent.unit;
 
         return new Unit[2] { minIndexEnemy, minIndexAlly };
     }

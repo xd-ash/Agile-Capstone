@@ -118,7 +118,7 @@ public static class GOAPDeterminationMethods
 
         var distToTar = CalculatePath(agentPos, targetPos).Count;
         int maxAP = unit.GetAP;
-        float distRatio = (maxAP - distToTar) / (float)maxAP;
+        float distRatio = distToTar / (float)maxAP;
         return Mathf.Clamp(distRatio, 0, 1);
     }
 }

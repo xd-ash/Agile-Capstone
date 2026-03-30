@@ -37,8 +37,9 @@ public class HealAction : GoapAction
     {
         if (_agent == null || tempTarget == null) return _cost;
 
-        float tarHealthRatio = (tempTarget.GetMaxHealth - tempTarget.GetHealth) / (float)tempTarget.GetMaxHealth;
-        float healCostRatio = (_agent.unit.GetMaxAP - _agent.GetHealAbility.GetApCost) / (float)_agent.unit.GetMaxAP;
+        float tarHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
+        float healCostRatio = _agent.GetHealAbility.GetApCost / (float)_agent.unit.GetMaxAP;
+        //Debug.Log(_cost * (tarHealthRatio + healCostRatio) * _costMultiplier);
         return _cost * (tarHealthRatio + healCostRatio) * _costMultiplier;
     }
 }

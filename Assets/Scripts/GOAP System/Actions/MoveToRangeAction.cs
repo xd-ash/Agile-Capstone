@@ -3,6 +3,7 @@ using UnityEngine;
 using static GOAPDeterminationMethods;
 using static IsoMetricConversions;
 using static CombatMath;
+using System;
 
 public class MoveToRangeAction : GoapAction
 {
@@ -11,23 +12,32 @@ public class MoveToRangeAction : GoapAction
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if(!CheckForAP(_agent.unit, ref beliefs)) return false;
-        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
         var target = _agent.GetCurrentTarget;
         if (target == null) return false;
+
+        var tmp = DetermineMovePos(target);
+        _movePos = tmp.Item1;
+        int furthestDist = tmp.Item2;
+        return furthestDist != 0;
+    }
+    private Tuple<Vector2Int, int> DetermineMovePos(Unit target)
+    {
         var agentTile = ConvertToGridFromIsometric(_agent.transform.localPosition);
+        if (target == null) return new(agentTile, 0);
         var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
+        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
 
         int furthestDist = 0;
+        Vector2Int movePos = agentTile;
         foreach (var reachableTile in reachableTiles)
         {
             var dist = FindPathAStar.CalculatePath(reachableTile, targetTile, true).Count;
             if (dist <= furthestDist || dist > GetAtRangeThreshold) continue;
             if (!HasLineOfSight(reachableTile, targetTile) || FindPathAStar.CalculatePath(agentTile, targetTile).Count > dist) continue;
             furthestDist = dist;
-            _movePos = reachableTile;
+            movePos = reachableTile;
         }
-
-        return furthestDist != 0;
+        return new(movePos, furthestDist);
     }
     public override void Perform()
     {
@@ -48,7 +58,9 @@ public class MoveToRangeAction : GoapAction
     public override float EvaluateCost(Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
-
-        return _cost;
+        var moveTuple = DetermineMovePos(tempTarget);
+        var agentTile = ConvertToGridFromIsometric(_agent.transform.localPosition);
+        var distRatio = GetAdjustedMovementDistRatio(agentTile, moveTuple.Item1, _agent.unit);
+        return _cost * distRatio * _costMultiplier;
     }
 }

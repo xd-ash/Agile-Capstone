@@ -41,7 +41,7 @@ MonoBehaviour:
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: StayAlive
-        value: 2
+        value: 1
         removeOnComplete: 1
     - rid: 3253435652315021392
       type: {class: Goal, ns: , asm: Assembly-CSharp}
@@ -59,7 +59,7 @@ MonoBehaviour:
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: KeepAlliesAlive
-        value: 2
+        value: 1
         removeOnComplete: 1
     - rid: 6877345709834109003
       type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
@@ -75,7 +75,7 @@ MonoBehaviour:
       data:
         _actionName: HideAction
         _cost: 10
-        _costMultiplier: 1
+        _costMultiplier: 0.75
         _preConditionsFlags: 6148
         _postConditionsFlags: 0
         _goalsFlags: 4
@@ -111,7 +111,7 @@ MonoBehaviour:
       data:
         _actionName: HealAction
         _cost: 1
-        _costMultiplier: 1
+        _costMultiplier: 0.5
         _preConditionsFlags: 5650
         _postConditionsFlags: 12
         _goalsFlags: 12
@@ -120,7 +120,7 @@ MonoBehaviour:
       data:
         _actionName: AttackAction
         _cost: 1
-        _costMultiplier: 1
+        _costMultiplier: 2
         _preConditionsFlags: 38210
         _postConditionsFlags: 4
         _goalsFlags: 2

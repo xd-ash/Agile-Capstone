@@ -16,20 +16,7 @@ public class MoveOutOfLOSAction : GoapAction
         _unitMover = _agent.GetComponent<UnitMovementController>();
         var target = _agent.GetCurrentTarget;
         if (target == null) return false;
-        var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
-
-        _hidePos = -Vector2Int.one; // maybe change this?
-        int bestDistCount = int.MaxValue;
-        foreach (var tile in reachableTiles)
-        {
-            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile);
-            if (pathToTarget == null || pathToTarget.Count == 0) continue;
-            if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
-
-            if (pathToTarget.Count >= bestDistCount) continue;
-            _hidePos = tile;
-            bestDistCount = pathToTarget.Count;
-        }
+        _hidePos = DetermineHidePos(target);
 
         if (_hidePos == -Vector2Int.one)
         {
@@ -38,6 +25,26 @@ public class MoveOutOfLOSAction : GoapAction
             return false;
         }
         return true;
+    }
+    private Vector2Int DetermineHidePos(Unit target)
+    {
+        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
+        if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
+        var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
+
+        var hidePos = -Vector2Int.one;
+        int bestDistCount = int.MaxValue;
+        foreach (var tile in reachableTiles)
+        {
+            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile);
+            if (pathToTarget == null || pathToTarget.Count == 0) continue;
+            if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
+
+            if (pathToTarget.Count >= bestDistCount) continue;
+            hidePos = tile;
+            bestDistCount = pathToTarget.Count;
+        }
+        return hidePos;
     }
     public override void Perform()
     {
@@ -61,7 +68,7 @@ public class MoveOutOfLOSAction : GoapAction
         if (_agent == null || tempTarget == null) return _cost;
 
         var agentPos = ConvertToGridFromIsometric(_agent.transform.localPosition);
-        var distRatio = GetAdjustedMovementDistRatio(agentPos, _hidePos, _agent.unit);
+        var distRatio = GetAdjustedMovementDistRatio(agentPos, DetermineHidePos(tempTarget), _agent.unit);
         return _cost * distRatio * _costMultiplier;
     }
 }

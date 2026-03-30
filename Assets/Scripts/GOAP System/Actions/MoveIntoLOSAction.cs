@@ -52,7 +52,7 @@ public class MoveIntoLOSAction : GoapAction
     {
         if (_agent == null || tempTarget == null) return _cost;
 
-        var distRatio = GetAdjustedMovementDistRatio(_agent.transform, _agent.unit.transform);
+        var distRatio = GetAdjustedMovementDistRatio(_agent.transform, tempTarget.transform);
         return _cost * distRatio * _costMultiplier;
     }
 }

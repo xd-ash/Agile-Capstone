@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -38,7 +39,7 @@ public class GoapPlanner
     private GoapAgent _agent;
     //
 
-    public Queue<GoapAction> Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
+    public Tuple<float, Queue<GoapAction>> Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
     {
         List<GoapAction> usableActions = new List<GoapAction>();
         foreach (GoapAction a in actions)
@@ -106,7 +107,7 @@ public class GoapPlanner
         }
         //
 
-        return queue;
+        return new(cheapest.cost, queue);
     }
 
     //recursive method for node graph building

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using static GOAPDeterminationMethods;
 using CardSystem;
+using System;
 
 [System.Serializable]
 public class Goal
@@ -109,15 +110,25 @@ public class GoapAgent : MonoBehaviour
                               orderby entry.Value descending
                               select entry;
 
+            Dictionary<Goal, Tuple<float, Queue<GoapAction>>> goalQueues = new();
             //pick highest prio goal to plan for first
             foreach (KeyValuePair<Goal, float> g in sortedGoals)
             {
-                _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
-                if (_actionQueue != null) 
-                {
-                    _currentGoal = g.Key;
-                    break;
-                }
+                var tempPlan = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
+                if (tempPlan == null) continue;
+                goalQueues.Add(g.Key, tempPlan);
+            }
+
+            float cheapestCost = float.MaxValue;
+            foreach (var element in goalQueues)
+            {
+                if (element.Value.Item2 == null) continue;
+
+                var cost = element.Value.Item1;
+                if (cost >= cheapestCost) continue;
+                _actionQueue = element.Value.Item2;
+                _currentGoal = element.Key;
+                cheapestCost = cost;
             }
         }
 
@@ -169,7 +180,6 @@ public class GoapAgent : MonoBehaviour
     {
         _enemyTarget = enemyTarget;
         _allyTarget = allyTarget;
-        Debug.Log($"e:{enemyTarget != null}, a:{allyTarget != null}");
     }
     public void CompleteAction()
     {
