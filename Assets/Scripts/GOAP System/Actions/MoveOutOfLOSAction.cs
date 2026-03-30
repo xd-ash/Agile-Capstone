@@ -55,4 +55,13 @@ public class MoveOutOfLOSAction : GoapAction
         beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
         beliefs.RemoveState(GoapStates.HasLOS.ToString());
     }
+
+    public override float EvaluateCost(Unit tempTarget)
+    {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        var agentPos = ConvertToGridFromIsometric(_agent.transform.localPosition);
+        var distRatio = GetAdjustedMovementDistRatio(agentPos, _hidePos, _agent.unit);
+        return _cost * distRatio * _costMultiplier;
+    }
 }

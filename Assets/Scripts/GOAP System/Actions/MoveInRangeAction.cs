@@ -1,6 +1,6 @@
-using AStarPathfinding;
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
+using static AStarPathfinding.FindPathAStar;
 
 public class MoveInRangeAction : GoapAction
 {
@@ -33,6 +33,7 @@ public class MoveInRangeAction : GoapAction
 
         return true;
     }
+
     public override void Perform()
     {
         _unitMover.OnStartUnitMove(() =>
@@ -47,5 +48,13 @@ public class MoveInRangeAction : GoapAction
         beliefs.RemoveState(GoapStates.OutOfRange.ToString());
 
         CheckIfInLOS(_agent, ref beliefs);
+    }
+
+    public override float EvaluateCost(Unit tempTarget)
+    {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        var distRatio = GetAdjustedMovementDistRatio(_agent.transform, tempTarget.transform);
+        return _cost * distRatio * _costMultiplier;
     }
 }

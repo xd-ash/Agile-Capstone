@@ -44,4 +44,11 @@ public class MoveToRangeAction : GoapAction
     {
         CheckRange(_agent, _agent.GetCurrentAbility.GetRange, ref beliefs);
     }
+
+    public override float EvaluateCost(Unit tempTarget)
+    {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        return _cost;
+    }
 }

@@ -1,12 +1,13 @@
+using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GoapAgentPriorityController : MonoBehaviour
 {
-    public enum AgentPrioState { KillPlayer, StayAlive, HelpAllies }
-    private AgentPrioState _agentPrioState;
-
+    //public enum AgentPrioState { KillPlayer, StayAlive, HelpAllies }
+    //private AgentPrioState _agentPrioState;
+    
     private GoapAgent _agent;
-    private Unit _curTarget;
     private Unit _unit;
     private GoapAgentSO _so;
 
@@ -14,7 +15,6 @@ public class GoapAgentPriorityController : MonoBehaviour
     {
         if (TryGetComponent(out _agent))
         {
-            _curTarget = _agent.GetCurrentTarget;
             _unit = _agent.unit;
             _so = _agent.GetAgentSO;
         }
@@ -34,8 +34,8 @@ public class GoapAgentPriorityController : MonoBehaviour
 
     private float CalculateKillPlayerPrio(float initialPrio)
     {
-        //check current target health and compare to thresholds
-
+        if (_agent == null || _agent.GetCurrentTarget == null) return 0;
+        
         return -1f;
     }
     private float CalculateStayAlivePrio(float initialPrio)
@@ -46,6 +46,10 @@ public class GoapAgentPriorityController : MonoBehaviour
     {
         return -1f;
     }
-
-
+    
+    private float CalcWeights(float[] values, float[] maxes)
+    {
+        if (values.Length != maxes.Length) return 0;
+        return values.Sum() / maxes.Sum();
+    }
 }

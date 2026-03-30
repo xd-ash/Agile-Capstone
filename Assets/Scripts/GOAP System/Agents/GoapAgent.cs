@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
-using static GOAPEnums;
 using static GOAPDeterminationMethods;
 using CardSystem;
 
@@ -166,10 +165,11 @@ public class GoapAgent : MonoBehaviour
         }
     }
 
-    public void SetCurrentTargets(Unit enemyTarget, Unit allyTarget)
+    public void SetCurrentTargets(Unit enemyTarget, Unit allyTarget) 
     {
         _enemyTarget = enemyTarget;
         _allyTarget = allyTarget;
+        Debug.Log($"e:{enemyTarget != null}, a:{allyTarget != null}");
     }
     public void CompleteAction()
     {

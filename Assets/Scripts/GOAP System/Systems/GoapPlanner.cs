@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GOAPNode
@@ -122,8 +123,18 @@ public class GoapPlanner
                 if (!currentState.ContainsKey(eff.Key))
                     currentState.Add(eff.Key, eff.Value);
 
+            Unit tempTarget = null;
+            string curGoal = goal.ElementAt(0).Key;
+            int i = curGoal == GoapGoals.KillPlayer.ToString() ? 0 : 1;
+            foreach (var ua in usableActions)
+                if (ua is ChooseTargetAction)
+                {
+                    tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
+                    break;
+                }
+
             // No belief param needed as worldstates are concatenated in
-            GOAPNode node = new GOAPNode(parent, parent.cost + action.GetCost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
+            GOAPNode node = new GOAPNode(parent, parent.cost + action.EvaluateCost(tempTarget), currentState, action); //parent cost + action cost for accumulating costs as plan is created
             if(GoalAchieved(goal, currentState))
             {
                 leaves.Add(node);

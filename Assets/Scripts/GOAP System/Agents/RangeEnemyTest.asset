@@ -15,6 +15,9 @@ MonoBehaviour:
   _damageAbility: {fileID: 11400000, guid: 3806d31e083fc7b4ebfc88e021e474fe, type: 2}
   _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
   _totalHealCharges: 3
+  _selfPreservationBias: 0
+  _aggressionBias: 0
+  _altruismBias: 0
   _goalsEnum: 22
   _goals:
   - rid: 6877345560813109319
@@ -38,13 +41,13 @@ MonoBehaviour:
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: KillPlayer
-        value: 1
+        value: 2
         removeOnComplete: 1
     - rid: 6877345560813109320
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: StayAlive
-        value: 2
+        value: 1
         removeOnComplete: 1
     - rid: 6877345560813109321
       type: {class: Goal, ns: , asm: Assembly-CSharp}
@@ -57,6 +60,7 @@ MonoBehaviour:
       data:
         _actionName: MoveInRangeAction
         _cost: 1
+        _costMultiplier: 1
         _preConditionsFlags: 4226
         _postConditionsFlags: 96
         _goalsFlags: 0
@@ -65,6 +69,7 @@ MonoBehaviour:
       data:
         _actionName: AttackAction
         _cost: 1
+        _costMultiplier: 1
         _preConditionsFlags: 21826
         _postConditionsFlags: 4
         _goalsFlags: 2
@@ -73,6 +78,7 @@ MonoBehaviour:
       data:
         _actionName: HealAction
         _cost: 1
+        _costMultiplier: 1
         _preConditionsFlags: 530
         _postConditionsFlags: 12
         _goalsFlags: 4
@@ -81,6 +87,7 @@ MonoBehaviour:
       data:
         _actionName: HideAction
         _cost: 10
+        _costMultiplier: 1
         _preConditionsFlags: 6148
         _postConditionsFlags: 0
         _goalsFlags: 4
@@ -89,6 +96,7 @@ MonoBehaviour:
       data:
         _actionName: MoveIntoLOSAction
         _cost: 1
+        _costMultiplier: 1
         _preConditionsFlags: 6146
         _postConditionsFlags: 1024
         _goalsFlags: 0
@@ -97,6 +105,7 @@ MonoBehaviour:
       data:
         _actionName: EndTurnAction
         _cost: 10
+        _costMultiplier: 1
         _preConditionsFlags: 4
         _postConditionsFlags: 0
         _goalsFlags: 16
@@ -105,6 +114,7 @@ MonoBehaviour:
       data:
         _actionName: ChooseTargetAction
         _cost: 0
+        _costMultiplier: 1
         _preConditionsFlags: 8194
         _postConditionsFlags: 4096
         _goalsFlags: 0
@@ -113,6 +123,7 @@ MonoBehaviour:
       data:
         _actionName: MoveOutOfLOSAction
         _cost: 1
+        _costMultiplier: 1
         _preConditionsFlags: 5122
         _postConditionsFlags: 2048
         _goalsFlags: 0
@@ -121,6 +132,7 @@ MonoBehaviour:
       data:
         _actionName: MoveToRangeAction
         _cost: 1
+        _costMultiplier: 1
         _preConditionsFlags: 5442
         _postConditionsFlags: 16384
         _goalsFlags: 0

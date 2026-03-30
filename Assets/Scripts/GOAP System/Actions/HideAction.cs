@@ -1,6 +1,3 @@
-using AStarPathfinding;
-using UnityEngine;
-using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
 
 public class HideAction : GoapAction
@@ -18,5 +15,9 @@ public class HideAction : GoapAction
     public override void PostPerform(ref WorldStates beliefs)
     {
         
+    }
+    public override float EvaluateCost(Unit tempTarget)
+    {
+        return _cost;
     }
 }

@@ -17,4 +17,9 @@ public class EndTurnAction : GoapAction
     {
         // do nothing?
     }
+
+    public override float EvaluateCost(Unit tempTarget)
+    {
+        return _cost;
+    }
 }

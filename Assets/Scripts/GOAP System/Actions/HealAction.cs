@@ -1,5 +1,6 @@
 using UnityEngine;
 using static GOAPDeterminationMethods;
+using static AStarPathfinding.FindPathAStar;
 
 public class HealAction : GoapAction
 {
@@ -30,5 +31,14 @@ public class HealAction : GoapAction
             beliefs.ModifyState(GoapGoals.StayAlive.ToString(), 1);
         else if (highestPrioGoalName != GoapGoals.KeepAlliesAlive.ToString())
             beliefs.ModifyState(GoapGoals.KeepAlliesAlive.ToString(), 1);
+    }
+
+    public override float EvaluateCost(Unit tempTarget)
+    {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        float tarHealthRatio = (tempTarget.GetMaxHealth - tempTarget.GetHealth) / (float)tempTarget.GetMaxHealth;
+        float healCostRatio = (_agent.unit.GetMaxAP - _agent.GetHealAbility.GetApCost) / (float)_agent.unit.GetMaxAP;
+        return _cost * (tarHealthRatio + healCostRatio) * _costMultiplier;
     }
 }

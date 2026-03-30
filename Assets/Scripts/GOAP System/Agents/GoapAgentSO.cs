@@ -11,8 +11,11 @@ public class GoapAgentSO : ScriptableObject
     [SerializeField] private CardAbilityDefinition _healAbility; //swap to array?
     [SerializeField] private int _totalHealCharges = 3; //make better
 
-    private CardAbilityDefinition[] _damageAbilities;
-    private CardAbilityDefinition[] _healAbilities;
+    [Header("Agent Biases")]
+    [SerializeField, Range(0f, 1f)] private float _selfPreservationBias, _aggressionBias, _altruismBias;
+
+    //private CardAbilityDefinition[] _damageAbilities;
+    //private CardAbilityDefinition[] _healAbilities;
 
     [Header("Goap Goals & Actions")]
     [SerializeField] private GoapGoals _goalsEnum;
@@ -26,6 +29,11 @@ public class GoapAgentSO : ScriptableObject
 
     public List<Goal> GetGoals => _goals;
     public List<GoapAction> GetActions => _actions;
+
+    public float GetSelfPreservationBias => _selfPreservationBias;
+    public float GetAggressionBias => _aggressionBias;
+    public float GetAltruismBias => _altruismBias;
+    public float GetMaxBias => 1f;
 
     // Make more secure with deleting null actions or actions added in inpsector by hitting +
     #region OnInspectorMethods

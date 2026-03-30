@@ -8,6 +8,7 @@ public abstract class GoapAction
 {
     [SerializeField, HideInInspector] protected string _actionName;
     [SerializeField] protected float _cost = 1f;
+    [SerializeField] protected float _costMultiplier = 1f;
     protected bool _isRunning = false; //is performing action currently
     protected GoapAgent _agent;
 
@@ -18,7 +19,7 @@ public abstract class GoapAction
     [SerializeField] protected GoapStates _postConditionsFlags;
     [SerializeField] protected GoapGoals _goalsFlags;
 
-    public float GetCost => _cost;
+    //public float GetCost => EvaluateCost();
     public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
     public Dictionary<string, float> GetPreConditions => _preConditions;
     public Dictionary<string, float> GetPostConditions => _postConditions;
@@ -117,4 +118,5 @@ public abstract class GoapAction
     public abstract bool PrePerform(ref WorldStates beliefs);
     public abstract void Perform();
     public abstract void PostPerform(ref WorldStates beliefs);
+    public abstract float EvaluateCost(Unit tempTarget = null);
 }

@@ -47,4 +47,12 @@ public class MoveIntoLOSAction : GoapAction
 
         CheckRange(_agent, _agent.GetCurrentAbility.GetRange, ref beliefs);
     }
+
+    public override float EvaluateCost(Unit tempTarget)
+    {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        var distRatio = GetAdjustedMovementDistRatio(_agent.transform, _agent.unit.transform);
+        return _cost * distRatio * _costMultiplier;
+    }
 }

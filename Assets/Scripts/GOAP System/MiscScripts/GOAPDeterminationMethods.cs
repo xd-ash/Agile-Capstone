@@ -1,6 +1,9 @@
 using AStarPathfinding;
 using static IsoMetricConversions;
 using static CombatMath;
+using UnityEngine;
+using static AStarPathfinding.FindPathAStar;
+using static UnityEngine.GraphicsBuffer;
 
 public static class GOAPDeterminationMethods
 {
@@ -99,5 +102,23 @@ public static class GOAPDeterminationMethods
             beliefs.RemoveState(GoapStates.HasLOS.ToString());
         }
         return hasLOS;
+    }
+    public static float GetAdjustedMovementDistRatio(Transform agent, Transform target)
+    {
+        if (!agent.TryGetComponent(out Unit unit)) return 0f;
+
+        var distToTar = CalculatePath(agent, target).Count;
+        int maxAP = unit.GetAP;
+        float distRatio = (maxAP - distToTar) / (float)maxAP;
+        return Mathf.Clamp(distRatio, 0, 1);
+    }
+    public static float GetAdjustedMovementDistRatio(Vector2Int agentPos, Vector2Int targetPos, Unit unit)
+    {
+        if (unit == null) return 0f;
+
+        var distToTar = CalculatePath(agentPos, targetPos).Count;
+        int maxAP = unit.GetAP;
+        float distRatio = (maxAP - distToTar) / (float)maxAP;
+        return Mathf.Clamp(distRatio, 0, 1);
     }
 }
