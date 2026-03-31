@@ -15,9 +15,6 @@ MonoBehaviour:
   _damageAbility: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
   _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
   _totalHealCharges: 0
-  _selfPreservationBias: 0
-  _aggressionBias: 0
-  _altruismBias: 0
   _goalsEnum: 22
   _goals:
   - rid: 6877345560813109319

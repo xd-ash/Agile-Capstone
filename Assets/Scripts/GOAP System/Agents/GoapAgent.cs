@@ -114,11 +114,11 @@ public class GoapAgent : MonoBehaviour
                 var cost = element.Value.Item1;
                 if (cost >= cheapestCost) continue;
                 _actionQueue = element.Value.Item2;
-                _currentGoal = element.Key;
+                _currentGoal = element.Key ?? new("null", 1, true);
                 cheapestCost = cost;
             }
             //
-            if (showDebugMessages)
+            if (showDebugMessages && _actionQueue != null)
             {
                 string tempStr2 = $"{name} - Chosen Plan: ";
                 foreach (GoapAction a in _actionQueue)
@@ -241,7 +241,7 @@ public class GoapAgent : MonoBehaviour
         string beliefDebug = "Beliefs: ";
         foreach (var belief in _beliefs.GetStates)
             beliefDebug += $"{belief.Key}, ";
-        Debug.Log(beliefDebug);
+        //Debug.Log(beliefDebug);
     }
     private void SetAgentGoalWeights()
     {

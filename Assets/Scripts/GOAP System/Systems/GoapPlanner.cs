@@ -55,10 +55,10 @@ public class GoapPlanner
             string tempStr = _agent.name + " - Goal: ";
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
-            tempStr += $" (Target: {_agent.GetCurrentTarget})\nBeliefs: ";
+            tempStr += $"\nBeliefs: ";
             foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
-            //Debug.Log(tempStr);
+            Debug.Log(tempStr);
         }
         //
 
@@ -69,7 +69,6 @@ public class GoapPlanner
             if (ua is ChooseTargetAction)
             {
                 tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
-                Debug.Log($"TempTar:{tempTarget?.name}"); 
                 break;
             }
         bool success = BuildGraph(start, leaves, usableActions, goal, tempTarget);

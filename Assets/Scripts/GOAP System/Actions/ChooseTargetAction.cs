@@ -32,7 +32,7 @@ public class ChooseTargetAction : GoapAction
         var allyDists = GrabUnitDistances(Team.Enemy);
         Unit minIndexEnemy = null, minIndexAlly = _agent.unit;
         int minIndex = 0;
-
+       
         minIndex = enemiesDists.Min(x => x.Key);
         minIndexEnemy = enemiesDists[minIndex];
 
