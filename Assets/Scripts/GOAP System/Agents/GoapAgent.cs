@@ -1,10 +1,11 @@
-using UnityEngine;
-using System.Linq;
-using System.Collections.Generic;
-using UnityEditor;
-using static GOAPDeterminationMethods;
 using CardSystem;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using static GOAPDeterminationMethods;
 
 [System.Serializable]
 public class Goal
@@ -49,27 +50,13 @@ public class GoapAgent : MonoBehaviour
 
     public bool showDebugMessages = false;
 
-    public Goal GetHighestGoalDesire()
-    {
-        if (_weightedGoalsDict.Count == 0)
-        {
-            Debug.Log("Null Goal Created?");
-            return new("nullGoal", 1, true);
-        }
-
-        Goal highestPrio = null;
-        foreach (var kvp in _weightedGoalsDict)
-            if (highestPrio == null || kvp.Value > _weightedGoalsDict[highestPrio])
-                highestPrio = kvp.Key;
-        return highestPrio;
-    }
-
-    public Unit GetCurrentTarget => GetHighestGoalDesire().key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget;
+    public Goal GetCurrentGoal => _currentGoal;
+    public Unit GetCurrentTarget => _currentGoal != null && _currentGoal.key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget;
     public GoapAgentSO GetAgentSO => _agentSO;
 
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
     public CardAbilityDefinition GetHealAbility => _agentSO?.GetHealAbility;
-    public CardAbilityDefinition GetCurrentAbility => GetHighestGoalDesire().key == GoapGoals.KillPlayer.ToString() ? _agentSO.GetDamageAbility : _agentSO.GetHealAbility;
+    public CardAbilityDefinition GetCurrentAbility => _currentGoal != null && _currentGoal.key == GoapGoals.KillPlayer.ToString() ? _agentSO.GetDamageAbility : _agentSO.GetHealAbility;
 
     private void Awake()
     {
@@ -130,6 +117,15 @@ public class GoapAgent : MonoBehaviour
                 _currentGoal = element.Key;
                 cheapestCost = cost;
             }
+            //
+            if (showDebugMessages)
+            {
+                string tempStr2 = $"{name} - Chosen Plan: ";
+                foreach (GoapAction a in _actionQueue)
+                    tempStr2 += $"{a.ToString()} > ";
+                Debug.Log(tempStr2 + $"(Cost: {cheapestCost})");
+            }
+            //
         }
 
         if (_actionQueue == null)
@@ -164,6 +160,8 @@ public class GoapAgent : MonoBehaviour
             _currentAction = _actionQueue.Dequeue();
             if (_currentAction.PrePerform(ref _beliefs))
             {
+                Debug.Log($"Performing-{_currentAction.ToString()}");
+
                 _currentAction.IsRunning = true;
 
                 if (_currentAction is AttackAction || _currentAction is HealAction)
@@ -247,14 +245,9 @@ public class GoapAgent : MonoBehaviour
     }
     private void SetAgentGoalWeights()
     {
-        //var agentDesires = _agentHeuristics.GetAgentDesires();
-
         for (int i = 0; i < _weightedGoalsDict.Count; i++)
         {
             var kvp = _weightedGoalsDict.ElementAt(i);
-            //var goalName = kvp.Key.key;
-            //if (!agentDesires.Keys.Contains(goalName)) continue;
-            //_weightedGoalsDict[kvp.Key] = agentDesires[goalName];
             _weightedGoalsDict[kvp.Key] = kvp.Value;
         }
     }

@@ -24,12 +24,11 @@ public class HealAction : GoapAction
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        CheckIfHealthy(_agent.unit, ref beliefs);
+        if (!CheckIfHealthy(_agent.unit, ref beliefs)) return;
 
-        string highestPrioGoalName = _agent.GetHighestGoalDesire().key;
-        if (highestPrioGoalName != GoapGoals.StayAlive.ToString())
+        if (_agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
             beliefs.ModifyState(GoapGoals.StayAlive.ToString(), 1);
-        else if (highestPrioGoalName != GoapGoals.KeepAlliesAlive.ToString())
+        else if (_agent.GetCurrentGoal.key == GoapGoals.KeepAlliesAlive.ToString())
             beliefs.ModifyState(GoapGoals.KeepAlliesAlive.ToString(), 1);
     }
 
@@ -39,7 +38,6 @@ public class HealAction : GoapAction
 
         float tarHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
         float healCostRatio = _agent.GetHealAbility.GetApCost / (float)_agent.unit.GetMaxAP;
-        //Debug.Log(_cost * (tarHealthRatio + healCostRatio) * _costMultiplier);
         return _cost * (tarHealthRatio + healCostRatio) * _costMultiplier;
     }
 }

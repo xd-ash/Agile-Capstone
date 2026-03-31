@@ -46,7 +46,7 @@ public class ChooseTargetAction : GoapAction
     }
     public override void Perform()
     {
-        var curGoal = _agent.GetHighestGoalDesire().key;
+        var curGoal = _agent.GetCurrentGoal.key;
         var targets = GetCurrentTargets(curGoal);
         _agent.SetCurrentTargets(targets[0], targets[1]);
 

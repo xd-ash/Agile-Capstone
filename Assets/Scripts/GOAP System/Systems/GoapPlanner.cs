@@ -58,11 +58,21 @@ public class GoapPlanner
             tempStr += $" (Target: {_agent.GetCurrentTarget})\nBeliefs: ";
             foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
-            Debug.Log(tempStr);
+            //Debug.Log(tempStr);
         }
         //
 
-        bool success = BuildGraph(start, leaves, usableActions, goal);
+        Unit tempTarget = null;
+        string curGoal = goal.ElementAt(0).Key;
+        int i = curGoal == GoapGoals.KillPlayer.ToString() ? 0 : 1;
+        foreach (var ua in usableActions)
+            if (ua is ChooseTargetAction)
+            {
+                tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
+                Debug.Log($"TempTar:{tempTarget?.name}"); 
+                break;
+            }
+        bool success = BuildGraph(start, leaves, usableActions, goal, tempTarget);
 
         if (!success)
         {
@@ -100,10 +110,11 @@ public class GoapPlanner
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr2 = $"{_agent.name} - The Plan is: ";
+            string tempStr2 = $"{_agent.name} - Possible Plan: ";
             foreach (GoapAction a in queue)
                 tempStr2 += $"{a.ToString()} > ";
-            Debug.Log(tempStr2);
+            //string target = _agent.GetCurrentTarget == null ? "null" : _agent.GetCurrentTarget.name;
+            Debug.Log(tempStr2 + $"(Cost: {cheapest.cost}, Target:{tempTarget?.name}, Goal: {goal?.ElementAt(0).Key})");
         }
         //
 
@@ -111,7 +122,7 @@ public class GoapPlanner
     }
 
     //recursive method for node graph building
-    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, float> goal)
+    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, float> goal, Unit tempTarget)
     {
         bool foundPath = false;
         foreach (GoapAction action in usableActions)
@@ -124,16 +135,6 @@ public class GoapPlanner
                 if (!currentState.ContainsKey(eff.Key))
                     currentState.Add(eff.Key, eff.Value);
 
-            Unit tempTarget = null;
-            string curGoal = goal.ElementAt(0).Key;
-            int i = curGoal == GoapGoals.KillPlayer.ToString() ? 0 : 1;
-            foreach (var ua in usableActions)
-                if (ua is ChooseTargetAction)
-                {
-                    tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
-                    break;
-                }
-
             // No belief param needed as worldstates are concatenated in
             GOAPNode node = new GOAPNode(parent, parent.cost + action.EvaluateCost(tempTarget), currentState, action); //parent cost + action cost for accumulating costs as plan is created
             if(GoalAchieved(goal, currentState))
@@ -144,7 +145,7 @@ public class GoapPlanner
             else
             {
                 List<GoapAction> subset = ActionSubset(usableActions, action);
-                foundPath = BuildGraph(node, leaves, subset, goal); // at this point build graph from subset. On success, bool follows stack back to first call
+                foundPath = BuildGraph(node, leaves, subset, goal, tempTarget); // at this point build graph from subset. On success, bool follows stack back to first call
             }
         }
 

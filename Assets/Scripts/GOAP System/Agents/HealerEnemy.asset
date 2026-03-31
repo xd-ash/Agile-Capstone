@@ -15,9 +15,6 @@ MonoBehaviour:
   _damageAbility: {fileID: 11400000, guid: 962876e3ccf8efd47a7eb416ba03904a, type: 2}
   _healAbility: {fileID: 11400000, guid: 6c66956e9c012584f9b3d036b56cfceb, type: 2}
   _totalHealCharges: -1
-  _selfPreservationBias: 0
-  _aggressionBias: 0
-  _altruismBias: 0
   _goalsEnum: -1
   _goals:
   - rid: 6877345709834109000
@@ -65,7 +62,7 @@ MonoBehaviour:
       type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveOutOfLOSAction
-        _cost: 1
+        _cost: 0.5
         _costMultiplier: 1
         _preConditionsFlags: 5122
         _postConditionsFlags: 3072
@@ -74,8 +71,8 @@ MonoBehaviour:
       type: {class: HideAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: HideAction
-        _cost: 10
-        _costMultiplier: 0.75
+        _cost: 2
+        _costMultiplier: 1
         _preConditionsFlags: 6148
         _postConditionsFlags: 0
         _goalsFlags: 4
@@ -83,7 +80,7 @@ MonoBehaviour:
       type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: MoveIntoLOSAction
-        _cost: 1
+        _cost: 0.5
         _costMultiplier: 1
         _preConditionsFlags: 6146
         _postConditionsFlags: 1024
@@ -102,7 +99,7 @@ MonoBehaviour:
       data:
         _actionName: ChooseTargetAction
         _cost: 0
-        _costMultiplier: 1
+        _costMultiplier: 0.5
         _preConditionsFlags: 8194
         _postConditionsFlags: 4096
         _goalsFlags: 0
@@ -111,7 +108,7 @@ MonoBehaviour:
       data:
         _actionName: HealAction
         _cost: 1
-        _costMultiplier: 0.5
+        _costMultiplier: 10
         _preConditionsFlags: 5650
         _postConditionsFlags: 12
         _goalsFlags: 12
