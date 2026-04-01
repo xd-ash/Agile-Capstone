@@ -219,8 +219,8 @@ MonoBehaviour:
   - {fileID: -2107084117080994363}
   - {fileID: -2958339069064852565}
   - {fileID: 1502323548779038394}
-  _description: flip a coin every turn for 3 turns, on heads gain 3 shield, on tails
-    draw 2 cards
+  _description: Flip a coin every turn for 3 turns. If heads get 3 shield, if tails
+    draw 2
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 030000000200000004000000
