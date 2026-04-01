@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static IsoMetricConversions;
-using WFC;
-using System.Linq;
-using System;
 
 public class MapLocation
 {
@@ -49,22 +46,20 @@ public class MapCreator : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        _moduleSet.SetNeighbours();
         _tileLibrary = Resources.Load<ProceduralTileLibrary>("Libraries/TileDataLibrary");
-        _tilemap = transform.Find("MainTileMap").GetComponent<Tilemap>();
+        _tilemapSOLibrary = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTileMapSOLibrary");
+        _tileMapPos = transform.Find("TileMapPos");
     }
 
-    private Tilemap _tilemap;
+    private Transform _tileMapPos;
     private ProceduralTileLibrary _tileLibrary;
+    private CustomTileMapSOLibrary _tilemapSOLibrary;
 
     [SerializeField] private Vector2Int _mapSize;
 
-    [Header("Tile Module Set")]
-    [SerializeField] private TileSet _moduleSet;
-
     public Vector2Int GetMapSize => _mapSize;
 
-    public byte[,] CreateMap()
+    public byte[,] CreateMap(string forcedMapSOName = "")
     {
         if (_tileLibrary == null)
         {
@@ -72,46 +67,58 @@ public class MapCreator : MonoBehaviour
             return null;
         }
 
-        _tilemap.CompressBounds();
-
-        int failSafeCount = -1;
-        var emptyTilePositions = new List<Vector2Int>();
-        byte[,] map;
-
-        do
+        var so = PlayerDataManager.Instance.GetCurrMapNodeData.selectedMap;
+        if (so == null)
         {
-            map = new byte[_mapSize.x, _mapSize.y];
-            int moduleWidth = _moduleSet.GetTrueModuleWidth;
-            TileElement[,] environmentMap = environmentMap = TileWaveFunctionCollapse.WFCGenerate(_moduleSet.Modules,
-                    new Vector2Int(_mapSize.x / moduleWidth, _mapSize.y / moduleWidth)); ;
-
-            emptyTilePositions.Clear();
-
-            for (int x = 0; x < map.GetLength(0); x++)
+            so = _tilemapSOLibrary.GetSOsInProject[0];
+            if (so == null)
             {
-                for (int y = 0; y < map.GetLength(1); y++)
-                {
-                    Vector2Int gridPos = new Vector2Int(x, y);
-                    var environmentElement = environmentMap[x / moduleWidth, y / moduleWidth];
-                    var module = environmentElement.GetSelectedModule;
-                    var tile = module.GetTrueTiles[module.GetTrueTileIndex(x % moduleWidth, y % moduleWidth)];
-
-                    if (tile == null)
-                        map[x, y] = 0;
-                    else
-                        map[x, y] = (byte)_tileLibrary.GetIndicatorFromName(tile.name);
-
-                    if (map[x, y] != 2 && map[x, y] != 5)
-                        emptyTilePositions.Add(gridPos);
-                }
+                Debug.LogError("SO is null");
+                return null;
             }
+        }
+        var tilemap = SetUpTileMapPrefab(so);
+        TileBase[,] tileBaseMap = so.GenerateTileBaseMap(_mapSize);
 
-            failSafeCount++;
-            if (failSafeCount >= 100)
-                Debug.LogError("Excessive map generation fails from unreachable positions");
-        } while (!CheckMapForTruePath(map, emptyTilePositions.Count) && failSafeCount < 100);
+        tilemap.CompressBounds();
 
-        GenerateUnitPositions(map, emptyTilePositions);
+        var playerSpawnPositions = new List<Vector2Int>();
+        var enemySpawnPositions = new List<Vector2Int>();
+        var emptyPositions = new List<Vector2Int>();
+        var map = new byte[_mapSize.x, _mapSize.y];
+
+        for (int x = 0; x < map.GetLength(0); x++)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                Vector2Int gridPos = new Vector2Int(x, y);
+                var tile = tileBaseMap[x, y];
+
+                if (tile == null)
+                    map[x, y] = 0;
+                else
+                    map[x, y] = (byte)_tileLibrary.GetIndicatorFromName(tile.name);
+
+                if (map[x, y] == 1)
+                    playerSpawnPositions.Add(gridPos);
+                else if (map[x, y] == 3)
+                    enemySpawnPositions.Add(gridPos);
+                else if (map[x, y] == 0)
+                    emptyPositions.Add(gridPos);
+            }
+        }
+
+        int players = PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
+        int enemies = PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+
+        //check if tilemap prefab had enough spawners for the number of units and sidestep tilebase system if failed
+        if (playerSpawnPositions.Count < players)
+            SidestepUnitSpawnerTileBasesOnFail(ref map, players, playerSpawnPositions, emptyPositions, 1);
+        if (enemySpawnPositions.Count < enemies)
+            SidestepUnitSpawnerTileBasesOnFail(ref map, enemies, enemySpawnPositions, emptyPositions, 3);
+        
+        GenerateUnitPositions(ref map, players, playerSpawnPositions);
+        GenerateUnitPositions(ref map, enemies, enemySpawnPositions);
 
         for (int x = 0; x < map.GetLength(0); x++)
         {
@@ -120,75 +127,48 @@ public class MapCreator : MonoBehaviour
                 Vector2Int gridPos = new Vector2Int(x, y);
 
                 SpawnTileContents(map, map[x, y], gridPos);
-                _tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
+                tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
             }
         }
 
         return map;
     }
-    //Check each valid tile and determine if there are unreachable positions
-    public bool CheckMapForTruePath(byte[,] map, int totalNonObstacleTiles)
+
+    private Tilemap SetUpTileMapPrefab(CustomTileMapSO so)
     {
-        List<Vector2Int> validLocs = new();
-        Vector2Int startLoc = new Vector2Int(-1,-1);
-
-        for (int x = 0; x < map.GetLength(0); x++)
+        if (so == null)
         {
-            if (startLoc.x != -1) break;
-
-            for (int y = 0; y < map.GetLength(1); y++)
-            {
-                if (map[x,y] != 2 && map[x,y] != 5) // obstacle indicators
-                {
-                    startLoc = new Vector2Int(x, y);
-                    break;
-                }
-            }
+            Debug.LogError("TileMap SO null");
+            return null;
         }
+        var gridPrefab = Instantiate<GameObject>(so.GetMainTileMap, transform);
 
-        CheckNeighbours(map, startLoc, ref validLocs);
-        bool result = totalNonObstacleTiles == validLocs.Count;
-        if (!result)
-            PlayerDataManager.Instance.GenerateGeneralSeed();// regen seed only after fail
-        return result;
+        var tilemap = gridPrefab.GetComponentInChildren<Tilemap>();
+        tilemap.transform.parent = transform;
+        tilemap.transform.SetLocalPositionAndRotation(_tileMapPos.localPosition, Quaternion.identity);
+        tilemap.transform.localScale = Vector3.one;
+        Destroy(gridPrefab);
+
+        tilemap.enabled = true;
+        tilemap.GetComponent<TileMapObjRepositioner>().enabled = true;
+
+        return tilemap;
     }
-
-    //recursive method to check neighboring tiles and add locations to list of valid locations
-    private void CheckNeighbours(byte[,] map, Vector2Int tilePos, ref List<Vector2Int> validLocs)
-    {
-        if (!validLocs.Contains(tilePos))
-            validLocs.Add(tilePos);
-
-        for (int y = -1; y <= 1; y++)
-        {
-            for (int x = -1; x <= 1; x++)
-            {
-                if ((x == 0 && y == 0) || (Mathf.Abs(x) == 1 && Mathf.Abs(y) == 1)) // setting up for neighbors, but not diags or same tile ((-)1,(-)1), (0,0)
-                    continue;
-
-                Vector2Int neighborPos = new Vector2Int(tilePos.x + x, tilePos.y + y);
-
-                if (neighborPos.x < 0 || neighborPos.y < 0 || neighborPos.x > map.GetLength(0) - 1 || neighborPos.y > map.GetLength(1) - 1)
-                    continue;
-
-                //if (_map[neighborPos.x, neighborPos.y] != 2 && _map[neighborPos.x, neighborPos.y] != 5 && !validLocs.Contains(neighborPos))
-                if ((map[neighborPos.x, neighborPos.y] == 0 || map[neighborPos.x, neighborPos.y] == 1 || map[neighborPos.x, neighborPos.y] == 3) && 
-                    !validLocs.Contains(neighborPos))
-                {
-                    validLocs.Add(neighborPos);
-                    CheckNeighbours(map, neighborPos, ref validLocs);
-                }
-            }
-        }
-    }
-
     private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {
-        Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
-        GameObject objToSpawn = _tileLibrary.GetGOFromIndicator(byteIndicator);
+        if (byteIndicator != 3 && byteIndicator != 1) return; //quick fix for WFC removal. Only spawn units
 
-        if (byteIndicator == 4)
-            map[mapPos.x, mapPos.y] = 3; // after range enemy spawned, swap byte back to general enemy value
+        Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
+        GameObject[] objs = _tileLibrary.GetGOFromIndicator(byteIndicator);
+        GameObject objToSpawn = objs[0];
+
+        //grab random prefab from array if length > 1 (replace with proper enemy determination system)
+        if (objs.Length > 1)
+        {
+            UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed - int.Parse($"{mapPos.x}{mapPos.y}"));
+            int rng = UnityEngine.Random.Range(0, objs.Length);
+            objToSpawn = objs[rng];
+        }
 
         if (objToSpawn == null)
         {
@@ -197,36 +177,53 @@ public class MapCreator : MonoBehaviour
             return;
         }
 
-        // z pos adjusted with y value to allow for easy layering of sprites (.01f holds no signifigance, just to make it small)
-        //Vector3 adjustedPos = new Vector3(truePos.x, truePos.y, truePos.y * 0.01f);
-
         GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
         newObj.transform.localPosition = truePos;
 
         if (newObj.TryGetComponent(out Unit unit))
             ByteMapController.Instance.InitUnitPosition(unit, mapPos);
     }
-    private void GenerateUnitPositions(byte[,] map, List<Vector2Int> emptyPositions)
+    private void GenerateUnitPositions(ref byte[,] map, int numUnits, List<Vector2Int> unitSpawnPoints)
     {
-        int players = PlayerDataManager.Instance.GetCurrCombatNodeData.maxPlayersAllowed;
-        int enemies = PlayerDataManager.Instance.GetCurrCombatNodeData.maxEnemiesAllowed;
+        List<Vector2Int> selectedUnitSpawns = new();
 
-        int[] selectedPositionIndexes = new int[players + enemies];
-
-        for (int i = 0; i < players + enemies; i++)
+        for (int i = 0; i < numUnits; i++)
         {
             int index = -1;
+            Vector2Int pos;
             do
             {
-                index = UnityEngine.Random.Range(0, emptyPositions.Count);
-            } while (selectedPositionIndexes.Contains(index));
-            selectedPositionIndexes[i] = index;
-            var pos = emptyPositions[index];
-
-            if (i < players)
-                map[pos.x, pos.y] = 1;
-            else
-                map[pos.x, pos.y] = (byte)UnityEngine.Random.Range(3, 5); // randomly choose enemy type (3 or 4) on enemy spawn
+                index = UnityEngine.Random.Range(0, unitSpawnPoints.Count);
+                pos = unitSpawnPoints[index];
+            } while (selectedUnitSpawns.Contains(pos));
+            selectedUnitSpawns.Add(pos);
         }
+
+        //reset non-selected spawn positions to empty tile/byte indicators
+        for (int i = 0; i < unitSpawnPoints.Count; i++)
+        {
+            var gridPos = unitSpawnPoints[i];
+            if (selectedUnitSpawns.Contains(gridPos)) continue; //ignore selected spawn positions
+            map[gridPos.x, gridPos.y] = 0;
+        }
+    }
+    private void SidestepUnitSpawnerTileBasesOnFail(ref byte[,] map, int numUnits, List<Vector2Int> unitPositions, List<Vector2Int> emptyPositions, int unitIndicator)
+    {
+        int diff = numUnits - unitPositions.Count;
+        for (int i = 0; i < diff; i++)
+        {
+            Vector2Int tempPos;
+            do
+            {
+                UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
+                var rng = UnityEngine.Random.Range(0, emptyPositions.Count);
+                tempPos = emptyPositions[rng];
+            } while (unitPositions.Contains(tempPos));
+            unitPositions.Add(tempPos);
+            emptyPositions.Remove(tempPos);
+            map[tempPos.x, tempPos.y] = (byte)unitIndicator;
+        }
+        Debug.LogWarning("Unit spawner system failed. Likely due to \"byte\" tilemap containing less \"spawner\" tilebases than required units for this node. " +
+            "\n(Generally need at least 1 player spawn and at least 3 enemy spawns per map prefab)");
     }
 }

@@ -146,6 +146,8 @@ MonoBehaviour:
   _description: Shoot an explosive round that deals 3 damage to enemies within a
     short range of the target
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 3
   _range: 6
   _shopCost: 0
@@ -157,9 +159,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Shoot
-  _onRareUpgradeEffects: []
-  _onEpicUpgradeEffects: []
+  _attackAnimKey: 3
 --- !u!114 &871349067883048404
 MonoBehaviour:
   m_ObjectHideFlags: 0

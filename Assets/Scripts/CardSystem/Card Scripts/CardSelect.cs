@@ -62,21 +62,30 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null && !RewardsDisplayScript.IsRewarding)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
                 ToggleHighlightAndScale(true);
+            
+            int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
+            APDisplay.Instance?.ShowPreview(cost);
         }
         private void OnMouseExit()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null && !RewardsDisplayScript.IsRewarding)
+            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging &&
+                DeckAndHandManager.Instance.GetSelectedCard == null)
+            {
                 ToggleHighlightAndScale(false);
+                APDisplay.Instance?.ClearPreview();
+            }
         }
         private void OnMouseDown()
         {
-            if (CardShopManager.Instance != null) return;
-
+            // Block card interaction if tutorial is active and not on card step
+            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                return;
+            
             // Check for active cards
-            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn || RewardsDisplayScript.IsRewarding) return;
-            if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
+            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
 
             if (OptionsSettings.IsCardSelectOnClick) return;
 
@@ -100,12 +109,13 @@ namespace CardSystem
 
         private void OnMouseUp()
         {
-            if (CardShopManager.Instance != null) return;
-
-            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || RewardsDisplayScript.IsRewarding) return;
-            if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
-
+            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                return;
+            
+            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick) return;
             if (OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null) return;
+            if (CardShopManager.Instance != null) return;
 
             if (DeckAndHandManager.Instance == null)
             {
@@ -139,14 +149,16 @@ namespace CardSystem
         }
         private void OnMouseDrag()
         {
-            if (CardShopManager.Instance != null) return;
-
+            // Block card interaction if tutorial is active and not on card step
+            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                return;
+            
             //disable drag with click to select option enabled
             if (OptionsSettings.IsCardSelectOnClick) return;
 
-            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected || RewardsDisplayScript.IsRewarding)
+            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
                 return;
-            if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
 
             // Temporarily remove from hand management
             DeckAndHandManager.Instance.RemoveCard(_cfs.Card);
@@ -194,9 +206,11 @@ namespace CardSystem
             float scaleMultiplier = isHoveredOrSelected ? _hoverScaleMultiplier : 1;
             transform.DOScale(_originalScale * scaleMultiplier, _tweenDuration);
 
-            UpdateSortingOrders(isHoveredOrSelected ? DeckAndHandManager.Instance.CardsInHand.Count : 0);
+            // Was: DeckAndHandManager.Instance.CardsInHand.Count
+            // The boost must beat the highest possible cardIndex * 10
+            int hoverBoost = isHoveredOrSelected ? (DeckAndHandManager.Instance.CardsInHand.Count * 10) + 10 : 0;
+            UpdateSortingOrders(hoverBoost);
 
-            // Only update position if explicitly not dragging
             if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick)
                 CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
@@ -228,17 +242,20 @@ namespace CardSystem
             bool isShopActive = CardShopManager.Instance != null;
             int baseSortingValue = isShopActive ? 0 : CardSplineManager.Instance.GetCardSortingOrderBaseValue;
             int cardIndex = isShopActive ? 0 : DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
-             
-            // Set sorting by taking into account the BaseSortingValue, sorting boost param, and card index (index set to 0 during shop scene)
-            _spriteRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
-            
-            if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
 
-            // Update all TextMeshPro components sorting order
+            // Multiply cardIndex by 10 to give each card a safe range of sorting slots
+            int finalOrder = baseSortingValue + sortingBoost + (cardIndex * 10);
+
+            _spriteRenderer.sortingOrder = finalOrder;
+
+            if (_highlightRenderer != null)
+                _highlightRenderer.sortingOrder = finalOrder + 2;
+
             foreach (var text in GetComponentsInChildren<TextMeshPro>())
                 if (text != null)
-                    text.sortingOrder = baseSortingValue + sortingBoost + cardIndex;
+                    text.sortingOrder = finalOrder + 1;
+
+            GetComponent<CardVisualController>()?.UpdateSortingOrder(finalOrder);
         }
 
         // Return card to hand, clear selection, stop coroutines and tweens, then update card orders
@@ -279,6 +296,31 @@ namespace CardSystem
             }
 
             _cfs.OnPrefabCreation(card);
+            /*
+            // Get all TextMeshPro components (non-UI version)
+            TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
+
+            if (cardTextFields.Length >= 3)
+            {
+                // Update text content
+                cardTextFields[0].text = card.GetCardName;
+                cardTextFields[1].text = card.GetDescription;
+                cardTextFields[2].text = card.GetCardAbility.GetApCost.ToString();
+
+                // Make sure text components are properly attached and sorted
+                foreach (var textField in cardTextFields)
+                {
+                    // Ensure text is child of card and follows its transform
+                    textField.transform.SetParent(transform, true);
+
+                    // Set up sorting
+                    textField.sortingOrder = _spriteRenderer != null ?
+                        _spriteRenderer.sortingOrder + 1 : 1;
+                }
+            }
+            else
+                Debug.LogError("Card prefab is missing required TextMeshPro components");
+            */
             SetupVisuals();
         }
 
@@ -296,7 +338,7 @@ namespace CardSystem
 
             _startIndex = DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
 
-            UpdateSortingOrders();
+            UpdateSortingOrders(); // this already calls UpdateSortingOrder internally — no second call needed
         }
     }
 }

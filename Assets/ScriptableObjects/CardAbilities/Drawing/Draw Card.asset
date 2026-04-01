@@ -40,7 +40,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 1
+  _effectValue: 2
   input: 0
   effectVisuals: 0
   _action: 0
@@ -61,9 +61,9 @@ MonoBehaviour:
   - {fileID: 282906417093084810}
   - {fileID: -2584462224668346045}
   - {fileID: 5885419445873208339}
-  _description: Draw 1 Card
+  _description: Draw 2 Cards
   _abilitySFX: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
-  _apCost: 1
+  _apCost: 2
   _range: 0
   _shopCost: 15
   _shopWeight: 65
@@ -74,6 +74,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 
 --- !u!114 &282906417093084810
 MonoBehaviour:
   m_ObjectHideFlags: 0

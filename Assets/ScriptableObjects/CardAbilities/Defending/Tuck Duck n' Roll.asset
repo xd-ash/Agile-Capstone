@@ -184,12 +184,12 @@ MonoBehaviour:
   - {fileID: -5550744489948948604}
   - {fileID: -2470422592221940434}
   - {fileID: -3932625633257097676}
-  _description: Add 3 Block and draw 1 card
+  _description: Add 4 Block and draw 1 card
   _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
   _apCost: 3
   _range: 0
-  _shopCost: 35
-  _shopWeight: 20
+  _shopCost: 15
+  _shopWeight: 15
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -197,6 +197,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 
 --- !u!114 &833357395057102542
 MonoBehaviour:
   m_ObjectHideFlags: 0

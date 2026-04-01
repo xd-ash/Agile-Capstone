@@ -11,7 +11,8 @@ public static class IsoMetricConversions
 
     // z pos adjusted with y value to allow for easy layering of sprites
     // (.01f holds no significance, just used to keep value small)
-    private static float _spriteAdjustmentZDir = 0.01f;
+    private static float _spriteAdjustmentZDir = 0.1f;
+    public static float SpriteAdjustmentZDir => _spriteAdjustmentZDir;
 
     public static Vector3 ConvertToIsometricFromGrid(Vector2Int pos)
     {

@@ -21,6 +21,10 @@ namespace CardSystem
 		// based on connected targeting strategy port
         public void UseAbility(Unit user)
 		{
+			if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+				return;
+			
             if (_targetingStrategy == null)
                 _targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
 

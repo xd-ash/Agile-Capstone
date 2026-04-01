@@ -110,7 +110,6 @@ public class PauseMenu : MonoBehaviour
             _pauseMenuPanel.SetActive(true);
     }
 
-
     private void OnMasterChanged(float value)
     {
         AudioManager.Instance?.SetMasterVolume(value);

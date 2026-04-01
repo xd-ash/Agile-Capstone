@@ -47,6 +47,8 @@ public class CardFunctionScript : MonoBehaviour
 
             if (ShopConfirmPopup.Instance == null)
                 cancelAction();
+
+            return;
         }
 
         if (DeckAndHandManager.Instance.CardsInHand.IndexOf(Card) == -1) return;
@@ -108,6 +110,8 @@ public class CardFunctionScript : MonoBehaviour
         }
         else
             Debug.LogError("Card prefab is missing required TextMeshPro components");
+        
+        GetComponent<CardVisualController>()?.ApplyVisuals(card.GetCardAbility);
     }
 
     public void EnableShopMode()
@@ -116,7 +120,8 @@ public class CardFunctionScript : MonoBehaviour
 
         // If the prefab has a cost display (third TextMeshPro), update it.
         TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
-        if (cardTextFields.Length >= 3)
-            cardTextFields[2].text = cost.ToString();
+        //if (cardTextFields.Length >= 3)
+        //cardTextFields[2].text = cost.ToString();
+        Debug.Log("Cost replacing AP display is disabled. Displaying only the AP on shop card");
     }
 }

@@ -1,0 +1,593 @@
+fileFormatVersion: 2
+guid: 712d09490ec9c4bb6b4bc5dd11dbb598
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2675291269711569965
+    second: westernUI_0
+  - first:
+      213: 7852323691683159349
+    second: westernUI_1
+  - first:
+      213: -6642595051575481991
+    second: westernUI_2
+  - first:
+      213: -276010481193246283
+    second: westernUI_3
+  - first:
+      213: -965015526785471118
+    second: westernUI_4
+  - first:
+      213: -4786294823685476646
+    second: westernUI_5
+  - first:
+      213: 7466201827231068245
+    second: westernUI_6
+  - first:
+      213: 2338184098563678970
+    second: westernUI_7
+  - first:
+      213: -3149985952079285216
+    second: westernUI_8
+  - first:
+      213: 6382413175835736907
+    second: westernUI_9
+  - first:
+      213: 2189786516991588754
+    second: westernUI_10
+  - first:
+      213: -5134949104050298015
+    second: westernUI_11
+  - first:
+      213: 8319317059531765728
+    second: westernUI_12
+  - first:
+      213: -2691570781192385846
+    second: westernUI_13
+  - first:
+      213: 9183216950470712873
+    second: westernUI_14
+  - first:
+      213: -4414143890975456463
+    second: westernUI_15
+  - first:
+      213: -9117437556717441348
+    second: westernUI_16
+  - first:
+      213: 7312871709584172277
+    second: westernUI_17
+  - first:
+      213: 3767509646045461640
+    second: westernUI_18
+  - first:
+      213: -6495383788228592633
+    second: westernUI_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: westernUI_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1835
+        width: 331
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d24acd94c3b802520800000000000000
+      internalID: 2675291269711569965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_1
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 1417
+        width: 1036
+        height: 765
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53d98205bce09fc60800000000000000
+      internalID: 7852323691683159349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_2
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 1835
+        width: 331
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 979631c9ef2c0d3a0800000000000000
+      internalID: -6642595051575481991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_3
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 1450
+        width: 318
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b121320ee96b2cf0800000000000000
+      internalID: -276010481193246283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_4
+      rect:
+        serializedVersion: 2
+        x: 1499
+        y: 1450
+        width: 317
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27d2733cd739b92f0800000000000000
+      internalID: -965015526785471118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_5
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 1059
+        width: 834
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adeafeb773aa39db0800000000000000
+      internalID: -4786294823685476646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_6
+      rect:
+        serializedVersion: 2
+        x: 969
+        y: 1059
+        width: 828
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 550fa7511074d9760800000000000000
+      internalID: 7466201827231068245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 824
+        width: 1212
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af2ea56ac06e27020800000000000000
+      internalID: 2338184098563678970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_8
+      rect:
+        serializedVersion: 2
+        x: 1245
+        y: 709
+        width: 331
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 024f7d647700944d0800000000000000
+      internalID: -3149985952079285216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_9
+      rect:
+        serializedVersion: 2
+        x: 1649
+        y: 710
+        width: 316
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b367bc7f2e29850800000000000000
+      internalID: 6382413175835736907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_10
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 645
+        width: 1212
+        height: 142
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29939373c3fa36e10800000000000000
+      internalID: 2189786516991588754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_11
+      rect:
+        serializedVersion: 2
+        x: 1258
+        y: 452
+        width: 228
+        height: 242
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1632f59fefefcb8b0800000000000000
+      internalID: -5134949104050298015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_13
+      rect:
+        serializedVersion: 2
+        x: 1545
+        y: 430
+        width: 263
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aca053392ae95aad0800000000000000
+      internalID: -2691570781192385846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_14
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 466
+        width: 1212
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92e17246927517f70800000000000000
+      internalID: 9183216950470712873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_16
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 315
+        width: 1212
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbe2d0239da587180800000000000000
+      internalID: -9117437556717441348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_17
+      rect:
+        serializedVersion: 2
+        x: 1741
+        y: 201
+        width: 224
+        height: 231
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f4a4c9131a8c7560800000000000000
+      internalID: 7312871709584172277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_18
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 168
+        width: 70
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88cb56cdf02e84430800000000000000
+      internalID: 3767509646045461640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: westernUI_19
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 16
+        width: 1343
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70cbdcecbd2cbd5a0800000000000000
+      internalID: -6495383788228592633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ee7e33723fef54f018ad0e7142b0a97a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      westernUI_0: 2675291269711569965
+      westernUI_1: 7852323691683159349
+      westernUI_10: 2189786516991588754
+      westernUI_11: -5134949104050298015
+      westernUI_12: 8319317059531765728
+      westernUI_13: -2691570781192385846
+      westernUI_14: 9183216950470712873
+      westernUI_15: -4414143890975456463
+      westernUI_16: -9117437556717441348
+      westernUI_17: 7312871709584172277
+      westernUI_18: 3767509646045461640
+      westernUI_19: -6495383788228592633
+      westernUI_2: -6642595051575481991
+      westernUI_3: -276010481193246283
+      westernUI_4: -965015526785471118
+      westernUI_5: -4786294823685476646
+      westernUI_6: 7466201827231068245
+      westernUI_7: 2338184098563678970
+      westernUI_8: -3149985952079285216
+      westernUI_9: 6382413175835736907
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

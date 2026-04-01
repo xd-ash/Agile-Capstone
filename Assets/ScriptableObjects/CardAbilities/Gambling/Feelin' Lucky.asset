@@ -175,6 +175,8 @@ MonoBehaviour:
   _description: Deal 2 damage & flip a coin 10 times. For every heads, add 1 damage
     to the base effect
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 4
   _range: 5
   _shopCost: 0
@@ -186,7 +188,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Shoot
+  _attackAnimKey: 3
 --- !u!114 &5177323901749815731
 MonoBehaviour:
   m_ObjectHideFlags: 0

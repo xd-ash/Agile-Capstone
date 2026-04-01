@@ -8,6 +8,7 @@ public class NodeMapCreator : MonoBehaviour
     public enum NodeTypes { Combat, BountyBoard, Boss, Shop, Camp }
 
     private GameObject _nodePrefab;
+    private CustomTileMapSOLibrary _tilemapSOLibrary;
 
     private Dictionary<int, List<NodePlaceholder>> _nodeTiers = new();
 
@@ -32,6 +33,7 @@ public class NodeMapCreator : MonoBehaviour
         Instance = this;
 
         _nodePrefab = Resources.Load<GameObject>("TempNodeMap/NodePrefab");
+        _tilemapSOLibrary = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTileMapSOLibrary");
     }
 
     public Dictionary<int, List<NodeMapNode>> GenerateFullNodeMap(int seed)
@@ -41,6 +43,7 @@ public class NodeMapCreator : MonoBehaviour
         GeneratePlaceholderNodeMap();
         return PopulateNodeMap();
     }
+
     private void GeneratePlaceholderNodeMap()
     {
         UnityEngine.Random.InitState(_curSeed);
@@ -153,7 +156,9 @@ public class NodeMapCreator : MonoBehaviour
             foreach (var nextNode in nodePlaceholder.next)
                 tempNext.Add(trueNodeDict[nextNode.dictIndex.x][nextNode.dictIndex.y]);
 
-        trueNodeDict[dictIndex.x][dictIndex.y].InitNode(dictIndex, tempPrev, tempNext);
+        var node = trueNodeDict[dictIndex.x][dictIndex.y];
+        node.InitNode(dictIndex, tempPrev, tempNext);
+        (node as IUseCombatMapData)?.SetCombatData(_tilemapSOLibrary.GetTileMapSOsFromType(CombatMapType.NormalCombat));
     }
     private void ChooseNodeType(ref NodePlaceholder node)
     {
@@ -164,6 +169,11 @@ public class NodeMapCreator : MonoBehaviour
         if (node.dictIndex == Vector2Int.zero)
         {
             node.nodeType = NodeTypes.Combat;
+            return;
+        }
+        else if (node.dictIndex == new Vector2Int(_numberOfTiers - 1, 0)) // final node
+        {
+            node.nodeType = NodeTypes.Boss;
             return;
         }
 

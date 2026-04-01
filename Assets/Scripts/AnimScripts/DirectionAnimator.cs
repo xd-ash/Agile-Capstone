@@ -5,15 +5,23 @@ using UnityEngine;
 
 [System.Serializable]
 public class AttackAnimSet
-{
-    public string key;
-
+{ 
+    public AttackAnimKey key;
    //"4 directional animation clips: [0]=NE, [1]=NW, [2]=SE, [3]=SW
     public AnimationClip[] dirClips = new AnimationClip[4];
 }
 
+public enum AttackAnimKey
+{
+    None,
+    Slash,
+    Punch,
+    Shoot,
+    // add more as needed
+}
 public class DirectionAnimator : MonoBehaviour
 {
+    
     [SerializeField] private AnimationClip[] _idleStateAnims = new AnimationClip[4];
     [SerializeField] private AnimationClip[] _moveStateAnims = new AnimationClip[4];
 
@@ -27,7 +35,7 @@ public class DirectionAnimator : MonoBehaviour
     private int[] _idleHashes;
     private int[] _moveHashes;
 
-    private Dictionary<string, int[]> _attackHashLookup = new();
+    private Dictionary<AttackAnimKey, int[]> _attackHashLookup = new();
 
     private int _lastDir = 0;
     private bool _isMoving;
@@ -61,7 +69,7 @@ public class DirectionAnimator : MonoBehaviour
 
         foreach (var set in _attackAnimSets)
         {
-            if (string.IsNullOrEmpty(set.key) || set.dirClips == null) continue;
+            if (set.key == AttackAnimKey.None || set.dirClips == null) continue;
 
             int[] hashes = new int[4];
             for (int i = 0; i < 4; i++)
@@ -120,9 +128,9 @@ public class DirectionAnimator : MonoBehaviour
             PlayCurrentState();
     }
 
-    public void PlayAttack(string key, int dirIndex, Action onComplete)
+    public void PlayAttack(AttackAnimKey key, int dirIndex, Action onComplete)
     {
-        if (string.IsNullOrEmpty(key) || !_attackHashLookup.TryGetValue(key, out int[] hashes))
+        if (key == AttackAnimKey.None || !_attackHashLookup.TryGetValue(key, out int[] hashes))
         {
             onComplete?.Invoke();
             return;
