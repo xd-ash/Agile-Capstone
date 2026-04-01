@@ -76,7 +76,7 @@ public class CardFunctionScript : MonoBehaviour
         DeckAndHandManager.Instance?.SelectCard(Card);
         CardSplineManager.Instance?.ArrangeCardGOs();
 
-        Card.GetCardAbility.UseAility(currentUnit);
+        Card.UseAbility(currentUnit);
         return true;
     }
 

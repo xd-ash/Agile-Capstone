@@ -15,7 +15,7 @@ public class HealAction : GoapAction
     }
     public override void Perform()
     {
-        agent.healAbility.UseAility(agent.unit);
+        agent.healAbility.UseAbility(agent.unit);
         agent.healCharges--;
 
         agent.CompleteAction();

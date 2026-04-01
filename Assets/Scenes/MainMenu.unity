@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 55939985}
   - component: {fileID: 55939984}
   m_Layer: 5
-  m_Name: Deck Scrollview
+  m_Name: Pack Scrollview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 121452409}
   - component: {fileID: 121452408}
   m_Layer: 5
-  m_Name: DeckNameInputField
+  m_Name: PackNameInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: test
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1109,7 +1109,7 @@ GameObject:
   - component: {fileID: 146764121}
   - component: {fileID: 146764120}
   m_Layer: 5
-  m_Name: ViewDeckButton
+  m_Name: ViewPacksButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2261,7 +2261,7 @@ GameObject:
   - component: {fileID: 244337032}
   - component: {fileID: 244337031}
   m_Layer: 5
-  m_Name: DeleteDeckButton
+  m_Name: DeletePackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2603,7 +2603,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250287228}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -2616,7 +2616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter your amazing deck name here...
+  m_text: Enter your amazing pack name here...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4849,7 +4849,7 @@ GameObject:
   - component: {fileID: 468774269}
   - component: {fileID: 468774268}
   m_Layer: 5
-  m_Name: DeleteDeckConfirmPopup
+  m_Name: DeletePackConfirmPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6187,7 +6187,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: All Owned/Default Cards
+  m_text: All Cards
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
   m_sharedMaterial: {fileID: 3911338962612051114, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
@@ -6280,7 +6280,7 @@ GameObject:
   - component: {fileID: 596920565}
   - component: {fileID: 596920567}
   m_Layer: 5
-  m_Name: EnterDeckNamePopup
+  m_Name: EnterPackNamePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6610,7 +6610,7 @@ GameObject:
   - component: {fileID: 637393034}
   - component: {fileID: 637393033}
   m_Layer: 5
-  m_Name: DeckSelect
+  m_Name: PackSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6696,8 +6696,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 727692412}
-        m_TargetAssemblyTypeName: DeckSelector, Assembly-CSharp
-        m_MethodName: SwapCurrentDeck
+        m_TargetAssemblyTypeName: PackSelector, Assembly-CSharp
+        m_MethodName: SwapCurrentPack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7375,7 +7375,7 @@ GameObject:
   - component: {fileID: 727692411}
   - component: {fileID: 727692412}
   m_Layer: 5
-  m_Name: SelectDeckOnRunPopUp
+  m_Name: SelectPackOnRunPopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7417,7 +7417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbba1e6967cd0f4691fc1d3f69d1f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeckSelector
-  _deckDropdown: {fileID: 637393033}
+  _numberRandomPacks: 2
+  _packDropdown: {fileID: 637393033}
 --- !u!1 &738365358
 GameObject:
   m_ObjectHideFlags: 0
@@ -7517,7 +7518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DeckName
+  m_text: PackName
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
   m_sharedMaterial: {fileID: 3911338962612051114, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
@@ -7610,7 +7611,7 @@ GameObject:
   - component: {fileID: 775656046}
   - component: {fileID: 775656045}
   m_Layer: 5
-  m_Name: DeckSelect
+  m_Name: PackSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7689,15 +7690,15 @@ MonoBehaviour:
   m_MultiSelect: 0
   m_Options:
     m_Options:
-    - m_Text: DeckName
+    - m_Text: PackName
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 891331922}
-        m_TargetAssemblyTypeName: DeckBuilderScript, Assembly-CSharp
-        m_MethodName: SwapCurrentDeck
+        m_TargetAssemblyTypeName: PackBuilderScript, Assembly-CSharp
+        m_MethodName: SwapCurrentPack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7855,7 +7856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Build Deck
+  m_text: 'Build Packs
 
 '
   m_isRightToLeft: 0
@@ -8066,7 +8067,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 990717249}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8473,7 +8474,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 172874113}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.0964159
+  m_Size: 0.09641591
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9200,7 +9201,7 @@ GameObject:
   - component: {fileID: 882318408}
   - component: {fileID: 882318407}
   m_Layer: 5
-  m_Name: BuildDeckButton
+  m_Name: BuildPacksButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9343,7 +9344,7 @@ GameObject:
   - component: {fileID: 891331921}
   - component: {fileID: 891331922}
   m_Layer: 5
-  m_Name: DeckBuildMenu
+  m_Name: PackBuildMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9392,17 +9393,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866d89ea2ed3fce4d9dd01da746f28c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeckBuilderScript
-  _deckDropdown: {fileID: 775656045}
+  _packDropdown: {fileID: 775656045}
   _cardScrollView: {fileID: 151857007}
-  _deckScrollView: {fileID: 55939984}
+  _packScrollView: {fileID: 55939984}
   _confirmButton: {fileID: 246790075}
-  _deleteDeckButton: {fileID: 244337031}
+  _deletePackButton: {fileID: 244337031}
   _cardContentPrefab: {fileID: 4985146231728430279, guid: 2d22544fcfbc23f4faeb53f91702cceb, type: 3}
-  _deckContentPrefab: {fileID: 8033316633250990844, guid: 0cf015ebbb9fcd142a39506fb5348637, type: 3}
-  _currDeck:
-    _deckName: 
-    _cardsInDeck: []
-  _tempDeck: []
+  _packContentPrefab: {fileID: 8033316633250990844, guid: 0cf015ebbb9fcd142a39506fb5348637, type: 3}
+  _currPack:
+    _packName: 
+    _cardsInPack: []
+  _tempPack: []
 --- !u!1 &895186885
 GameObject:
   m_ObjectHideFlags: 0
@@ -9781,7 +9782,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da73b02a962005949b576e60900fe67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeckViewerScript
-  _deckDropdown: {fileID: 1050323619}
   _cardContentPrefab: {fileID: 4985146231728430279, guid: 2d22544fcfbc23f4faeb53f91702cceb, type: 3}
   _deckScrollView: {fileID: 401021415}
   _deckTitleText: {fileID: 851376896}
@@ -10119,7 +10119,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 648336615}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.000000059604645, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -10694,7 +10694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'View Deck
+  m_text: 'View Packs
 
 '
   m_isRightToLeft: 0
@@ -14292,8 +14292,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 891331922}
-        m_TargetAssemblyTypeName: DeckBuilderScript, Assembly-CSharp
-        m_MethodName: DeleteDeck
+        m_TargetAssemblyTypeName: PackBuilderScript, Assembly-CSharp
+        m_MethodName: DeletePack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17131,7 +17131,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "test\u200B"
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17935,7 +17935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter New Deck Name
+  m_text: Enter New Pack Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -16,6 +16,8 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
     {
         base.StartEffect(abilityData, onFinished, effectValueChange);
 
+        var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
         foreach (GameObject target in abilityData.Targets)
         {
             if (target == null) return;
@@ -40,7 +42,7 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
                         //add targets manually since targets was getting reset on this action store
                         abilityData.Targets = temp;
                         strat.StartEffect(abilityData, onFinished);
-                    }, _effectValue, Guid.NewGuid(), _tickOnStart, strat.name);
+                    }, adjustedEffectVal, Guid.NewGuid(), _tickOnStart, strat.name);
                 }
             }
             else

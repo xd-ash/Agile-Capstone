@@ -67,7 +67,7 @@ public class MapCreator : MonoBehaviour
             return null;
         }
 
-        var so = PlayerDataManager.Instance.GetCurrMapNodeData.selectedMap;
+        var so = PlayerDataManager.Instance.GetCurrCombatNodeData.selectedMap;
         if (so == null)
         {
             so = _tilemapSOLibrary.GetSOsInProject[0];
@@ -108,8 +108,8 @@ public class MapCreator : MonoBehaviour
             }
         }
 
-        int players = PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
-        int enemies = PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+        int players = PlayerDataManager.Instance.GetCurrCombatNodeData.maxPlayersAllowed;
+        int enemies = PlayerDataManager.Instance.GetCurrCombatNodeData.maxEnemiesAllowed;
 
         //check if tilemap prefab had enough spawners for the number of units and sidestep tilebase system if failed
         if (playerSpawnPositions.Count < players)

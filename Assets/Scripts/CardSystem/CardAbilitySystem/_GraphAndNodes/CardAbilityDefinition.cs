@@ -1,17 +1,12 @@
 using UnityEngine;
 using XNode;
 using System;
-using System.Collections.Generic;
 using CardSystem;
 
 namespace CardSystem
 {
-    public enum CardRarity
-    {
-        Common,
-        Rare,
-        Epic
-    }
+    public enum CardRarity { Common, Rare, Epic }
+    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling }
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
     {
@@ -19,6 +14,8 @@ namespace CardSystem
         [TextArea(1, 3)]
         [SerializeField] private string _description;
         [SerializeField] private AudioClip _abilitySFX;
+        [SerializeField] private CardCategory _cardCategory;
+        [SerializeField] private int _effectValue;
 
         [Header("Card Data")]
         [SerializeField] private int _apCost;
@@ -37,7 +34,8 @@ namespace CardSystem
         [SerializeField] private int _accuracyFlatBonus = 0;
 
         [Header("Attack Animation")]
-        [SerializeField] private string _attackAnimKey;
+        [SerializeField] private AttackAnimKey _attackAnimKey = AttackAnimKey.None;
+        public AttackAnimKey GetAttackAnimKey => _attackAnimKey;
 
         private AbilityRootNode _rootNode;
 
@@ -52,6 +50,8 @@ namespace CardSystem
         public int GetShopCost => _shopCost;
         public int GetShopWeight => _shopWeight;
         public AudioClip GetAbilitySFX => _abilitySFX;
+        public CardCategory GetCardCategory => _cardCategory;
+        public int GetEffectValue => _effectValue;
 
         public int GetBaseHitChance => _baseHitChance;
         public int GetMinHitChance => _minHitChance;
@@ -61,19 +61,14 @@ namespace CardSystem
         public int GetAccuracyFlatBonus => _accuracyFlatBonus;
         public bool GetIgnoreLOS => _ignoreLOS;
         
-        public string GetAttackAnimKey => _attackAnimKey;
-
         public CardRarity GetBaseCardRarity => _baseCardRarity;
-        public EffectUpgrade GetRareUpgradeEffect(EffectStrategy strat)
+
+        public EffectUpgrade GetUpgradeEffect(EffectStrategy strat, CardRarity rarity)
         {
-            foreach (var effect in _onRareUpgradeEffects)
-                if (effect.effectToUpgrade = strat)
-                    return effect;
-            return null;
-        }
-        public EffectUpgrade GetEpicUpgradeEffect(EffectStrategy strat)
-        {
-            foreach (var effect in _onEpicUpgradeEffects)
+            if (rarity == CardRarity.Common) return null;
+            var effectCollection = rarity == CardRarity.Rare ? _onRareUpgradeEffects : _onEpicUpgradeEffects;
+
+            foreach (var effect in effectCollection)
                 if (effect.effectToUpgrade = strat)
                     return effect;
             return null;
@@ -91,9 +86,9 @@ namespace CardSystem
             }
         }
 
-        public void UseAility(Unit user)
+        public void UseAbility(Unit user, CardRarity rartity = CardRarity.Common)
         {
-            RootNode?.UseAbility(user);
+            RootNode?.UseAbility(user, rartity);
         }
 
         public void EndEffects(Guid guid)

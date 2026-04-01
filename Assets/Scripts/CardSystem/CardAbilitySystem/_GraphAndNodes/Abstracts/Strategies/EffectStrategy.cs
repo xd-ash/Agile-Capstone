@@ -31,17 +31,25 @@ namespace CardSystem
 
             var dirAnimator = abilityData.GetUnit?.GetComponent<DirectionAnimator>();
             dirAnimator?.PlayAttack(def.GetAttackAnimKey, dirIndex, null);
-            DoEffect(abilityData);
+            //DoEffect(abilityData);
         }
         
-        protected virtual void DoEffect(AbilityData abilityData) { }
+        //protected virtual void DoEffect(AbilityData abilityData) { }
 
         protected void ResetValue(int initVal)
         {
             _effectValue = initVal;
         }
 
-        private int ComputeAttackDirection(AbilityData abilityData)
+        protected int GetRarityAdjustedEffectValue(CardRarity rarity)
+        {
+            var def = graph as CardAbilityDefinition;
+            var upgradeEffect = def.GetUpgradeEffect(this, rarity);
+            int valToAdd = upgradeEffect != null ? upgradeEffect.valueToAdd : 0;
+            return upgradeEffect.valueToAdd + _effectValue;
+        }
+
+        protected int ComputeAttackDirection(AbilityData abilityData)
         {
             if (abilityData == null || abilityData.GetUnit == null)
                 return 0;

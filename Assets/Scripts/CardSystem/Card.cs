@@ -49,7 +49,10 @@ namespace CardSystem
             _rarity = newRarity;
             //change decsriptions?
         }
-
+        public void UseAbility(Unit user)
+        {
+            _cardAbility.UseAbility(user, _rarity);
+        }
         public static string CreateNamingConventionString(Card card)
         {
             return $"{card.GetCardName}-{card.GetCardRarity.ToString()}";

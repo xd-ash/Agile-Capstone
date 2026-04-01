@@ -15,7 +15,9 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange);
 
-            var diceResult = RollDicePairForDoubles(abilityData.GetUnit, _effectValue);
+            var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
+            var diceResult = RollDicePairForDoubles(abilityData.GetUnit, adjustedEffectVal);
             abilityData.GetUnit.GetFloatingText?.SpawnFloatingText($"{diceResult.ToString()}", TextPresetType.CoinFlipPreset);
 
             //check each effect connected to node

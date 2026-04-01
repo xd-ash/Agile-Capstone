@@ -15,8 +15,10 @@ namespace CardSystem
             {
                 if (targetObj != null && targetObj.TryGetComponent<Unit>(out Unit unit))
                 {
-                    unit.AddShield(_effectValue);
-                    unit.GetFloatingText.SpawnFloatingText($"+{_effectValue}", TextPresetType.ShieldPreset);
+                    var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
+                    unit.AddShield(adjustedEffectVal);
+                    unit.GetFloatingText.SpawnFloatingText($"+{adjustedEffectVal}", TextPresetType.ShieldPreset);
                 }
             }
 

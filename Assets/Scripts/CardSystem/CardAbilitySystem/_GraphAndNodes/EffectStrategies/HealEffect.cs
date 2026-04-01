@@ -15,8 +15,10 @@ namespace CardSystem
             {
                 if (target != null && target.TryGetComponent<Unit>(out Unit unit))
                 {
-                    unit.ChangeHealth(_effectValue, true);
-                    unit.GetFloatingText.SpawnFloatingText($"+{_effectValue}", TextPresetType.HealPreset);
+                    var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
+                    unit.ChangeHealth(adjustedEffectVal, true);
+                    unit.GetFloatingText.SpawnFloatingText($"+{adjustedEffectVal}", TextPresetType.HealPreset);
                 }
             }
 
