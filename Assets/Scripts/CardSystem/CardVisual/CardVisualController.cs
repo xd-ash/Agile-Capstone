@@ -51,5 +51,10 @@ namespace CardSystem
             if (_categoryIcon != null)
                 _categoryIcon.sortingOrder = sortingOrder + 3; // above card body and text
         }
+
+        public void FillTextFields()
+        {
+
+        }
     }
 }

@@ -114,7 +114,7 @@ public class EffectUpgrade
     public CardAbilityDefinition cardDef;
     public string effectName;
 
-    public int valueToAdd;
+    public int valueToAdd = 0; 
     public EffectStrategy effectToUpgrade;
 
     public void SetCardDef(CardAbilityDefinition def)

@@ -2,8 +2,6 @@ using CardSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-using System.Linq;
 
 public class DeckViewerScript : MonoBehaviour
 {

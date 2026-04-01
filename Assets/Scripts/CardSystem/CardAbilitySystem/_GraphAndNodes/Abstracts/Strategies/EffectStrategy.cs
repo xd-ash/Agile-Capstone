@@ -46,7 +46,7 @@ namespace CardSystem
             var def = graph as CardAbilityDefinition;
             var upgradeEffect = def.GetUpgradeEffect(this, rarity);
             int valToAdd = upgradeEffect != null ? upgradeEffect.valueToAdd : 0;
-            return upgradeEffect.valueToAdd + _effectValue;
+            return valToAdd + _effectValue;
         }
 
         protected int ComputeAttackDirection(AbilityData abilityData)
