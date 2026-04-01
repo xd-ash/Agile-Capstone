@@ -255,8 +255,10 @@ MonoBehaviour:
   - {fileID: -1482107742155537984}
   - {fileID: 6539089504406997548}
   - {fileID: 2185319051913704253}
-  _description: Deal 1 damage and 2 damage each turn for 3 turns
+  _description: Deal 2 damage each turn for 3 turns
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 2
   _range: 1
   _shopCost: 0
