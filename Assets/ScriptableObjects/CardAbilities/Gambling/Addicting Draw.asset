@@ -222,6 +222,9 @@ MonoBehaviour:
   _description: flip a coin every turn for 3 turns, on heads gain 3 shield, on tails
     draw 2 cards
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 030000000200000004000000
+  _effectValue: 0
   _apCost: 3
   _range: 0
   _shopCost: 0
@@ -233,6 +236,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 0
 --- !u!114 &1408239652498209629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,3 +392,4 @@ MonoBehaviour:
   effectVisuals: 0
   effects: 0
   _doEffectAtStart: 1
+  _tickOnStart: 1

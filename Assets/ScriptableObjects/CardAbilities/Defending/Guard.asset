@@ -61,6 +61,9 @@ MonoBehaviour:
   - {fileID: 9152373504185057762}
   _description: Add 6 Block
   _abilitySFX: {fileID: 8300000, guid: 21903b282b0dd4d299cbd32c5c040a8e, type: 3}
+  _cardCategory: 0
+  _cardTags: 02000000
+  _effectValue: 0
   _apCost: 3
   _range: 0
   _shopCost: 10
@@ -72,7 +75,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 0
 --- !u!114 &833357395057102542
 MonoBehaviour:
   m_ObjectHideFlags: 0

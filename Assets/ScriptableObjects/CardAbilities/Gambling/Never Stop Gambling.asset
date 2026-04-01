@@ -139,6 +139,9 @@ MonoBehaviour:
   - {fileID: 2814463342058001882}
   _description: if your last flip was heads, draw 3 cards
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 0300000004000000
+  _effectValue: 0
   _apCost: 1
   _range: 0
   _shopCost: 15
@@ -150,7 +153,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 0
 --- !u!114 &2814463342058001882
 MonoBehaviour:
   m_ObjectHideFlags: 0

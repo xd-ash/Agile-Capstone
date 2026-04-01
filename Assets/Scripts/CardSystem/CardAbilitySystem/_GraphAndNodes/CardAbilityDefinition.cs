@@ -5,6 +5,8 @@ using System;
 namespace CardSystem
 {
     public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling }
+    public enum CardTag { Damage, Heal, Shield, Gambling, Draw, SelfDamage, Trap, Ranged, Melee, AOE}
+
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
     {
@@ -13,6 +15,7 @@ namespace CardSystem
         [SerializeField] private string _description;
         [SerializeField] private AudioClip _abilitySFX;
         [SerializeField] private CardCategory _cardCategory;
+        [SerializeField] private CardTag[] _cardTags;
         [SerializeField] private int _effectValue;
 
         [Header("Card Data")]

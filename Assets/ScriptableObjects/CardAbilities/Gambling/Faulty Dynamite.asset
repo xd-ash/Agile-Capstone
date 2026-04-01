@@ -260,6 +260,7 @@ MonoBehaviour:
   _description: Flip a coin, if heads, deal 7 AOE damage. If tails, deal 5.
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
   _cardCategory: 0
+  _cardTags: 000000000900000003000000
   _effectValue: 0
   _apCost: 5
   _range: 5
