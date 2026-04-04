@@ -4022,6 +4022,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 378797946}
+  - component: {fileID: 378797948}
   - component: {fileID: 378797947}
   m_Layer: 5
   m_Name: ChoicePanel
@@ -4069,6 +4070,14 @@ MonoBehaviour:
   _optionsContentParent: {fileID: 607066392}
   _confirmButton: {fileID: 433551542}
   _skipButton: {fileID: 1929408518}
+--- !u!222 &378797948
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378797945}
+  m_CullTransparentMesh: 1
 --- !u!1 &386062584
 GameObject:
   m_ObjectHideFlags: 0
@@ -9113,8 +9122,8 @@ RectTransform:
   - {fileID: 1145053366}
   - {fileID: 1294038624}
   - {fileID: 1622376036}
-  - {fileID: 378797946}
   - {fileID: 1665045624}
+  - {fileID: 378797946}
   m_Father: {fileID: 1808137416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13779,7 +13788,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.35532856, y: 0.18084332}
   m_AnchorMax: {x: 0.65367144, y: 0.29684335}
-  m_AnchoredPosition: {x: -84.038574, y: 15}
+  m_AnchoredPosition: {x: -84.038574, y: 15.000015}
   m_SizeDelta: {x: 42.13344, y: 19.015434}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1241981404
@@ -17070,7 +17079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.35532856, y: 0.18084332}
   m_AnchorMax: {x: 0.65367144, y: 0.29684335}
-  m_AnchoredPosition: {x: 89.56137, y: 15}
+  m_AnchoredPosition: {x: 89.56137, y: 15.000015}
   m_SizeDelta: {x: 42.133377, y: 19.015434}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551288319
@@ -19251,6 +19260,7 @@ GameObject:
   - component: {fileID: 1808137413}
   - component: {fileID: 1808137417}
   - component: {fileID: 1808137418}
+  - component: {fileID: 1808137419}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -19319,7 +19329,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 35
+  m_SortingOrder: 11
   m_TargetDisplay: 0
 --- !u!224 &1808137416
 RectTransform:
@@ -19376,6 +19386,18 @@ MonoBehaviour:
   _sfxSlider: {fileID: 224025548}
   _musicSlider: {fileID: 641039703}
   _cardSelectOnClickToggle: {fileID: 192708014}
+--- !u!114 &1808137419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808137412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4996195d52129468f13b39e166788f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanvasCameraSetter
 --- !u!1 &1810580132
 GameObject:
   m_ObjectHideFlags: 0

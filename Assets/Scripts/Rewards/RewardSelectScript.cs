@@ -74,7 +74,7 @@ public class RewardSelectScript : MonoBehaviour
             cfs.SetOnMouseDown(CardState.Rewards, () =>
             {
                 _confirmButton.interactable = true;
-                ClearHighlights();
+                ClearHighlights(optionHighlight.transform);
                 optionHighlight.gameObject.SetActive(true);
 
                 _onConfirm = null;
@@ -130,7 +130,7 @@ public class RewardSelectScript : MonoBehaviour
             contentButton.onClick.AddListener(() =>
             {
                 _confirmButton.interactable = true;
-                ClearHighlights();
+                ClearHighlights(optionHighlight.transform);
                 optionHighlight.gameObject.SetActive(true);
 
                 _onConfirm = null;
@@ -144,11 +144,18 @@ public class RewardSelectScript : MonoBehaviour
 
         _contentHighlights = contentHighlights.ToArray();
     }
-    private void ClearHighlights()
+    private void ClearHighlights(Transform thisCard)
     {
         if (_contentHighlights == null) return;
         foreach (var highlight in _contentHighlights)
+        {
+            if (thisCard.gameObject == highlight) continue;
             highlight.SetActive(false);
+            var cfs = highlight.GetComponentInParent<CardFunctionScript>();
+            var cs = highlight.GetComponentInParent<CardSelect>();
+            cs?.ToggleHighlightAndScale(false);
+            cfs?.ClearSelection(0f);
+        }
     }
     private void ClearContent()
     {

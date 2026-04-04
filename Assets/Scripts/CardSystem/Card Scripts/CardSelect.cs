@@ -131,7 +131,7 @@ namespace CardSystem
 
             transform.localPosition = target.localPosition;
         }
-        private void ToggleHighlightAndScale(bool isHoveredOrSelected)
+        public void ToggleHighlightAndScale(bool isHoveredOrSelected)
         {
             _cardHighlight?.SetActive(isHoveredOrSelected);
 

@@ -132,6 +132,8 @@ public class CardFunctionScript : MonoBehaviour
             Debug.Log($"State mismatch. Incoming: {state}, cur:{_state} ({name})");
             return;
         }
-        _onMouseDown = onclick;
+        _onMouseDown = null;
+        _onMouseDown += () => { IsSelected = true; };
+        _onMouseDown += onclick;
     }
 }
