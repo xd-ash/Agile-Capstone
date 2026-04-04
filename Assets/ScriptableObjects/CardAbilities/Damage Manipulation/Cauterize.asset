@@ -107,6 +107,9 @@ MonoBehaviour:
   - {fileID: -8030094250119851253}
   _description: Deal 6 damage to yourself and draw 3 cards
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 0400000003000000
+  _effectValue: 0
   _apCost: 3
   _range: 0
   _shopCost: 10
@@ -118,7 +121,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 0
 --- !u!114 &4399271552075898318
 MonoBehaviour:
   m_ObjectHideFlags: 0

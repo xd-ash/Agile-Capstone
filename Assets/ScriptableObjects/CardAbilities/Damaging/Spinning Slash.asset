@@ -139,9 +139,10 @@ MonoBehaviour:
   - {fileID: -2607912168574071115}
   - {fileID: 6895538949277949010}
   - {fileID: -2866850248734041623}
-  _description: Deal 3 damage to all enemies in a short range around you
+  _description: Deal 3 AOE damage
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
+  _cardTags: 0000000008000000
   _effectValue: 0
   _apCost: 2
   _range: 2

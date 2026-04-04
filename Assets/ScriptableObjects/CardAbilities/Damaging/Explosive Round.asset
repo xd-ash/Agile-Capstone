@@ -143,10 +143,10 @@ MonoBehaviour:
   - {fileID: 6235580115290871017}
   - {fileID: 1334558222712971326}
   - {fileID: 871349067883048404}
-  _description: Shoot an explosive round that deals 3 damage to enemies within a
-    short range of the target
+  _description: Deal 3 AOE damage
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
+  _cardTags: 0000000008000000
   _effectValue: 0
   _apCost: 3
   _range: 6

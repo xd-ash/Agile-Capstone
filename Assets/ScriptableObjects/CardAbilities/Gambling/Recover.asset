@@ -216,6 +216,9 @@ MonoBehaviour:
   - {fileID: -5101356667325056713}
   _description: 'If your last flip was tails: draw 1 card and get 1 AP back'
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 010000000300000004000000
+  _effectValue: 0
   _apCost: 2
   _range: 0
   _shopCost: 10
@@ -227,7 +230,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 0
 --- !u!114 &1839337159297336669
 MonoBehaviour:
   m_ObjectHideFlags: 0
