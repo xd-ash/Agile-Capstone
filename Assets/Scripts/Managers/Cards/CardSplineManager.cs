@@ -61,7 +61,8 @@ namespace CardSystem
                 var cs = tr?.GetComponent<CardSelect>();
                 if (tr != null)
                     UpdateTransformWithTween(tr, splinePosition, rotation, false);
-                cs?.UpdateSortingOrders();
+                //cs?.UpdateSortingOrders();
+                CardPrefabSetterUpper.SetCombatCardGOOrder();
             }
         }
 

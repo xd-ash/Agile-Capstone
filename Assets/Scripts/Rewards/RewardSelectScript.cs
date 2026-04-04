@@ -22,7 +22,7 @@ public class RewardSelectScript : MonoBehaviour
     {
         _displayScript = GetComponentInParent<RewardsDisplayScript>();
 
-        _cardOptionContent = Resources.Load<GameObject>("Rewards/CardOptionContent");
+        _cardOptionContent = Resources.Load<GameObject>("NewCardPrefab");
         _badgeOptionContent = Resources.Load<GameObject>("Rewards/BadgeOptionContent");
 
         _confirmButton?.onClick.RemoveAllListeners();
@@ -57,11 +57,7 @@ public class RewardSelectScript : MonoBehaviour
 
             GameObject content = Spawn(_cardOptionContent, _optionsContentParent);
 
-            TextMeshProUGUI[] cardTextFields = content.GetComponentsInChildren<TextMeshProUGUI>();
-            // Update text content
-            cardTextFields[0].text = card.GetCardName;
-            cardTextFields[1].text = card.GetDescription;
-            cardTextFields[2].text = card.GetApCost.ToString();
+            CardPrefabSetterUpper.SetupCardPrefab(content.transform, card, CardState.Rewards);
 
             Image optionHighlight = content.GetComponentInChildren<Image>(true);
             optionHighlight.gameObject.SetActive(false);

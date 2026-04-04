@@ -74,14 +74,14 @@ public class CardShopManager : MonoBehaviour
         if (entry == null) return;
 
         // Use same prefab path as CardManager
-        GameObject prefab = Resources.Load<GameObject>("CardTestPrefab");
+        GameObject prefab = Resources.Load<GameObject>("NewCardPrefab");
         if (prefab == null) return;
 
         Transform parent = _spawnParent != null ? _spawnParent : transform;
         if (parent == null) return;
 
         GameObject cardGO = Instantiate(prefab, parent);
-        cardGO.transform.localPosition = _localOffset;
+        cardGO.transform.localPosition = Vector3.zero;
 
         // Create runtime Card data
         Card card = new Card(entry, cardGO.transform);
@@ -92,6 +92,7 @@ public class CardShopManager : MonoBehaviour
         if (!cardGO.TryGetComponent(out CardFunctionScript cfs))
             cfs = cardGO.AddComponent<CardFunctionScript>();
 
+        cs.InitCardSelect(CardState.Shop);
         cs.OnPrefabCreation(card);
         cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
 
@@ -133,7 +134,7 @@ public class CardShopManager : MonoBehaviour
             // rotation z: tilt across the fan
             float tilt = Mathf.Lerp(-_maxTilt, _maxTilt, t);
 
-            Vector3 localPos = new Vector3(_localOffset.x + x, _localOffset.y + y, _localOffset.z);
+            Vector3 localPos = new Vector3(x, y, 0f);
             Quaternion localRot = Quaternion.Euler(0f, 0f, tilt);
 
             go.transform.localPosition = localPos;

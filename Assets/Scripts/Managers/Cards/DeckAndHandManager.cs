@@ -228,7 +228,8 @@ namespace CardSystem
             if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return null;
             var cardsInDeck = deck.GetCardsInDeck;
 
-            GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
+            //GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
+            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), transform);
 
             if (_topCardOfDeck >= cardsInDeck.Count) return null;
 
@@ -237,6 +238,7 @@ namespace CardSystem
 
             if (!cardGO.TryGetComponent(out CardSelect cs))
                 cs = cardGO.AddComponent<CardSelect>();
+            cs.InitCardSelect(CardState.Combat);
             cs.OnPrefabCreation(newCard);
 
             return newCard;

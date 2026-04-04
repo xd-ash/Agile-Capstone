@@ -49,11 +49,12 @@ public class DeckViewerScript : MonoBehaviour
 
             GameObject content = Instantiate(_cardContentPrefab, Vector3.zero, Quaternion.identity, _deckScrollView.content);
 
-            TextMeshProUGUI[] cardTextFieldsUI = content.GetComponentsInChildren<TextMeshProUGUI>();
+            /*TextMeshProUGUI[] cardTextFieldsUI = content.GetComponentsInChildren<TextMeshProUGUI>();
             // Update text content
             cardTextFieldsUI[0].text = cardAbility.GetCardName;
             cardTextFieldsUI[1].text = cardAbility.GetDescription;
-            cardTextFieldsUI[2].text = cardAbility.GetApCost.ToString();
+            cardTextFieldsUI[2].text = cardAbility.GetApCost.ToString();*/
+            CardPrefabSetterUpper.SetupCardPrefab(content.transform, card.GetCardAbility, CardState.DeckViewer);
 
             var addCardButton = content.GetComponentInChildren<Button>();
             if (addCardButton == null) continue;

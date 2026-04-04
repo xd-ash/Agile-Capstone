@@ -60,11 +60,12 @@ public class PackBuilderScript : MonoBehaviour
 
             GameObject content = Spawn(_cardContentPrefab, Vector3.zero, Quaternion.identity, _cardContentPrefab.transform.localScale, _cardScrollView.content);
 
-            TextMeshProUGUI[] cardTextFieldsUI = content.GetComponentsInChildren<TextMeshProUGUI>();
+            /*TextMeshProUGUI[] cardTextFieldsUI = content.GetComponentsInChildren<TextMeshProUGUI>();
             // Update text content
             cardTextFieldsUI[0].text = card.GetCardName;
             cardTextFieldsUI[1].text = card.GetDescription;
-            cardTextFieldsUI[2].text = card.GetApCost.ToString();
+            cardTextFieldsUI[2].text = card.GetApCost.ToString();*/
+            CardPrefabSetterUpper.SetupCardPrefab(content.transform, card, CardState.PackViewer);
 
             var addCardButton = content.GetComponentInChildren<Button>();
             if (addCardButton == null) continue;
