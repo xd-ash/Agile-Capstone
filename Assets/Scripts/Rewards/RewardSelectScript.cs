@@ -1,10 +1,11 @@
 using CardSystem;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static GameObjectPool;
-using System.Collections.Generic;
+using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class RewardSelectScript : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class RewardSelectScript : MonoBehaviour
         _skipButton.interactable = true;
     }
 
-    public void ShowRewardOptions(CardAbilityDefinition[] cardOptions)
+    public void ShowRewardOptions(Card[] cardOptions)
     {
         ClearContent();
 
@@ -57,11 +58,13 @@ public class RewardSelectScript : MonoBehaviour
 
         foreach (var card in cardOptions)
         {
-            if (card == null) continue;
+            if (card == null || card.GetCardAbility == null) continue;
 
             GameObject content = Spawn(_cardOptionContent, _optionsContentParent);
+
             var tmpCard = new Card(card, content.transform);
-            CardPrefabSetterUpper.SetupCardPrefab(content.transform, card, CardState.Rewards);
+
+            CardPrefabSetterUpper.SetupCardPrefab(tmpCard, CardState.Rewards);
 
             Image optionHighlight = content.GetComponentInChildren<Image>(true);
             optionHighlight.gameObject.SetActive(false);

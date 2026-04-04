@@ -12,7 +12,7 @@ public class Deck
     {
         _cardsInDeck.Clear();
         foreach (var cardAbility in cardAbilities)
-            AddCard(cardAbility);
+            AddCard(cardAbility, cardAbility.GetBaseCardRarity);
     }
     public Deck(List<Card> cards)
     {
@@ -25,10 +25,10 @@ public class Deck
         _cardsInDeck = deck._cardsInDeck;
     }
 
-    public bool AddCard(CardAbilityDefinition cardAbility, Transform cardTransform = null)
+    public bool AddCard(CardAbilityDefinition cardAbility, CardRarity rarity, Transform cardTransform = null)
     {
         if (cardAbility == null) return false;
-        _cardsInDeck.Add(new(cardAbility, cardTransform));
+        _cardsInDeck.Add(new(cardAbility, rarity, cardTransform));
         return true;
     }
     public bool AddCard(Card card)

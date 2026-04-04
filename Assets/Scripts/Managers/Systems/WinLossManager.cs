@@ -10,6 +10,7 @@ public class WinLossManager : MonoBehaviour
 
     [SerializeField] private float textDuration = 3f;
     private bool _didWin;
+    public bool IsGameComplete { get; private set; }
 
     [SerializeField] private List<Unit> _enemyUnits;
     public List<Unit> GetEnemyUnits => _enemyUnits;
@@ -34,7 +35,6 @@ public class WinLossManager : MonoBehaviour
         _rewardsPanel = FindAnyObjectByType<RewardsDisplayScript>(FindObjectsInactive.Include);
         _rewardsPanel.gameObject.SetActive(false);
     }
-
     private void OnDestroy()
     {
         TurnManager.OnGameStart -= GrabEnemyUnits;
@@ -43,6 +43,8 @@ public class WinLossManager : MonoBehaviour
 
     public void GrabEnemyUnits()
     {
+        IsGameComplete = false;
+
         List<Unit> enemies = new();
         foreach (Unit unit in TurnManager.GetUnitTurnOrder)
             if (unit != null && unit.GetTeam == Team.Enemy)
@@ -62,6 +64,7 @@ public class WinLossManager : MonoBehaviour
 
     public void OnGameDone(bool didWin)
     {
+        IsGameComplete = true;
         _didWin = didWin;
         CombatNodeCompleted?.Invoke();
         GameUIManager.instance.ToggleWinLossText(_didWin);
@@ -74,15 +77,6 @@ public class WinLossManager : MonoBehaviour
         {
             _rewardsPanel.gameObject.SetActive(true);
             return;
-
-            /*NodeMapManager.Instance.CompleteCurrentNode();
-            CombatNodeCompleted?.Invoke();
-
-            if (!NodeMapManager.Instance.GetIsNodeMapComplete)
-            {
-                NodeMapManager.Instance.ReturnToMap();
-                return;
-            }*/
         }
 
         GameReset?.Invoke();

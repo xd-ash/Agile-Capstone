@@ -84,7 +84,7 @@ public class CardShopManager : MonoBehaviour
         cardGO.transform.localPosition = Vector3.zero;
 
         // Create runtime Card data
-        Card card = new Card(entry, cardGO.transform);
+        Card card = new Card(entry, entry.GetBaseCardRarity, cardGO.transform);
 
         // Ensure the prefab has CardSelect and initialize it
         if (!cardGO.TryGetComponent(out CardSelect cs))

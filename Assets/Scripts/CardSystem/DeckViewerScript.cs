@@ -7,7 +7,6 @@ public class DeckViewerScript : MonoBehaviour
 {
     [SerializeField] private GameObject _cardContentPrefab;
     [SerializeField] private ScrollRect _deckScrollView;
-    [SerializeField] private TextMeshProUGUI _deckTitleText;
 
     public static DeckViewerScript Instance { get; private set; }
     private void Awake()
@@ -48,17 +47,12 @@ public class DeckViewerScript : MonoBehaviour
             var cardAbility = card.GetCardAbility;
 
             GameObject content = Instantiate(_cardContentPrefab, Vector3.zero, Quaternion.identity, _deckScrollView.content);
+            Card tempCard = new(card, content.transform); 
+            CardPrefabSetterUpper.SetupCardPrefab(tempCard, CardState.DeckViewer);
 
-            /*TextMeshProUGUI[] cardTextFieldsUI = content.GetComponentsInChildren<TextMeshProUGUI>();
-            // Update text content
-            cardTextFieldsUI[0].text = cardAbility.GetCardName;
-            cardTextFieldsUI[1].text = cardAbility.GetDescription;
-            cardTextFieldsUI[2].text = cardAbility.GetApCost.ToString();*/
-            CardPrefabSetterUpper.SetupCardPrefab(content.transform, card.GetCardAbility, CardState.DeckViewer);
-
-            var addCardButton = content.GetComponentInChildren<Button>();
-            if (addCardButton == null) continue;
-            addCardButton?.gameObject.SetActive(false);
+            //var addCardButton = content.GetComponentInChildren<Button>();
+            //if (addCardButton == null) continue;
+            //addCardButton?.gameObject.SetActive(false);
         }
     }
     private void ClearScrollviewContent(RectTransform contentTransform)

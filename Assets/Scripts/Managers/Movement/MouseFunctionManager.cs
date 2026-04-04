@@ -54,7 +54,7 @@ public class MouseFunctionManager : MonoBehaviour
                     DeckAndHandManager.Instance.OnCardAblityCancel?.Invoke();
                 }
 
-        if (PauseMenu.isPaused || !TrackMouse() || RewardsDisplayScript.IsRewarding) return;
+        if (PauseMenu.isPaused || !TrackMouse() || RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
         _highlightTile.SetActive(true);
         _highlightTile.transform.localPosition = ConvertToIsometricFromGrid((Vector2Int)_tilePos);
@@ -87,7 +87,10 @@ public class MouseFunctionManager : MonoBehaviour
         _tilePos = _tilemap.WorldToCell(worldMouse);
         _currTile = _tilemap.GetTile(_tilePos);
 
-        if (_currTile == null)
+        var bMap = ByteMapController.Instance.GetByteMap;
+        bool shouldHideHighlightTile = _currTile == null || _tilePos.x >= bMap.GetLength(0) || _tilePos.y >= bMap.GetLength(1) || 
+                                       bMap[_tilePos.x,_tilePos.y] == 2 || bMap[_tilePos.x,_tilePos.y] == 5; // hide higlight tile if out of map range or on obstacles
+        if (shouldHideHighlightTile)
         {
             _highlightTile.SetActive(false);
             MovementLine.Instance.ClearLine();

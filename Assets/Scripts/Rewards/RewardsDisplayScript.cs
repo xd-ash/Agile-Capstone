@@ -79,9 +79,9 @@ public class RewardsDisplayScript : MonoBehaviour
         if (cardPool != null && cardPool.Length > 0)
             CreateChoiceRewardContent(_cardImage, "Card Choices", () => _rewardSelectPanel.ShowRewardOptions(cardPool));
 
-        var badgePool = _curReward.GetBadgeReward;
-        if (badgePool != null && badgePool.Length > 0)
-            CreateChoiceRewardContent(_badgeImage, "Badge Choices", () => _rewardSelectPanel.ShowRewardOptions(badgePool));
+        //var badgePool = _curReward.GetBadgeReward;
+        //if (badgePool != null && badgePool.Length > 0)
+            //CreateChoiceRewardContent(_badgeImage, "Badge Choices", () => _rewardSelectPanel.ShowRewardOptions(badgePool));
     }
     private GameObject CreateSingleRewardContent(Sprite sprite, string name, int amount)
     {
@@ -120,7 +120,7 @@ public class RewardsDisplayScript : MonoBehaviour
         _pendingChoices++;
         return content;
     }
-    public void OnConfirmRewardChoice(CardAbilityDefinition chosenCard)
+    public void OnConfirmRewardChoice(Card chosenCard)
     {
         var newCardContent = CreateSingleRewardContent(_cardImage, chosenCard.GetCardName, -1);
 

@@ -55,7 +55,7 @@ public class CardFunctionScript : MonoBehaviour
         Card = card;
         transform.name = card.GetCardName;
 
-        CardPrefabSetterUpper.SetupCardPrefab(Card.GetCardTransform, Card.GetCardAbility, _state);
+        CardPrefabSetterUpper.SetupCardPrefab(Card, _state);
     }
 
     public void EnableShopMode()
@@ -114,6 +114,7 @@ public class CardFunctionScript : MonoBehaviour
             case CardState.Combat:
                 tmp = () =>
                 {
+                    if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
                     if (PauseMenu.isPaused || IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
                     if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
                     if (DeckAndHandManager.Instance.CardsInHand.IndexOf(Card) == -1) return;

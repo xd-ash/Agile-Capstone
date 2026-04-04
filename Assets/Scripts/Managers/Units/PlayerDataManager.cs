@@ -225,7 +225,7 @@ public class PlayerDataManager : MonoBehaviour
         foreach (var name in cardData.GetDeck)
         {
             var cardInfo = Card.ReadNamingConventionString(name);
-            Card newCard = new(_cardAndPackLibrary.GetCardFromName(cardInfo.Item2), null);
+            Card newCard = new(_cardAndPackLibrary.GetCardFromName(cardInfo.Item2), cardInfo.Item1, null);
             newCard.UpgradeCard(cardInfo.Item1);
             runCards.Add(newCard);
         }

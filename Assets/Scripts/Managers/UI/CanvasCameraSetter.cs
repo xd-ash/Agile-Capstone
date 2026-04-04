@@ -8,14 +8,19 @@ public class CanvasCameraSetter : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-
+        
         _canvas = GetComponent<Canvas>();
 
-        TransitionScene.SceneSwap += (x) => Invoke(nameof(SetCam), 1f);
+        TransitionScene.SceneSwap += SetConnector;
     }
     private void OnDestroy()
     {
-        TransitionScene.SceneSwap -= (x) => Invoke(nameof(SetCam), 1f);
+        TransitionScene.SceneSwap -= SetConnector;
+    }
+    //connector for setting cam. Ran into issues trying to just add a listener with a lambda experssion
+    private void SetConnector(string unused)
+    {
+        Invoke(nameof(SetCam), 1f);
     }
     private void SetCam()
     {

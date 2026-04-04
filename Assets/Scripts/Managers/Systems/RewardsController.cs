@@ -1,6 +1,7 @@
 using CardSystem;
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public enum RewardType
 {
@@ -34,11 +35,11 @@ public static class RewardsController
 
         Debug.Log("Cash Rewarded");
     }
-    public static void RewardCard(CardAbilityDefinition card)
+    public static void RewardCard(Card card)
     {
         if (DeckAndHandManager.Instance == null) return;
 
-        DeckAndHandManager.Instance?.AddCardToRuntimeDeck(new(card, null));
+        DeckAndHandManager.Instance?.AddCardToRuntimeDeck(card);
     }
     public static void RewardBadge(BadgeSO badge)
     {
@@ -81,7 +82,7 @@ public static class RewardsController
         var rewardTypes = DetermineRewardTypes(randomSeed);
 
         int currencyReward = GetCurrencyReward(mapCompleteRatio, randomSeed);
-        CardAbilityDefinition[] cardRewardPool = null;
+        Card[] cardRewardPool = null;
         BadgeSO[] badgeRewardPool = null;
 
         if (rewardTypes == RewardType.CardAndCurrency || rewardTypes == RewardType.All)
@@ -90,7 +91,7 @@ public static class RewardsController
         if (rewardTypes == RewardType.BadgeAndCurrency || rewardTypes == RewardType.All)
             badgeRewardPool = GetRewardPoolBadges(mapCompleteRatio, randomSeed);
 
-        return new Reward(rewardTypes, currencyReward, cardRewardPool, badgeRewardPool);
+        return new Reward(rewardTypes, currencyReward, cardRewardPool/*, badgeRewardPool*/);
     }
     private static int GetCurrencyReward(float mapCompleteRatio, int randomSeed)
     {
@@ -101,7 +102,7 @@ public static class RewardsController
 
         return Random.Range(1, maxCurrencyReward);
     }
-    private static CardAbilityDefinition[] GetRewardPoolCards(float mapCompleteRatio, int randomSeed)
+    private static Card[] GetRewardPoolCards(float mapCompleteRatio, int randomSeed)
     {
         var cardLibrary = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
         if (cardLibrary == null) return null;
@@ -109,8 +110,8 @@ public static class RewardsController
         int rewardPoolSize = (int)(_maxCardRewardPool * mapCompleteRatio);
         rewardPoolSize = Mathf.Clamp(rewardPoolSize, _minCardRewardPool, _maxCardRewardPool);
 
-        List<CardAbilityDefinition> cards = new();
-
+        List<CardAbilityDefinition> temp = new();
+        List<Card> cards = new();
         for (int i = 0; i < rewardPoolSize; i++)
         {
             CardAbilityDefinition randCard = null;
@@ -121,12 +122,30 @@ public static class RewardsController
                 int randIndex = Random.Range(0, cardLibrary.GetCardsInProject.Count);
                 randCard = cardLibrary.GetCardsInProject[randIndex];
                 c++;
-            } while (randCard == null || cards.Contains(randCard));
+            } while (randCard == null || temp.Contains(randCard));
 
-            cards.Add(randCard);
+            var rarity = RollRarity(randomSeed + i + c);
+            temp.Add(randCard);
+            cards.Add(new(randCard, rarity));
         }
 
         return cards.ToArray();
+    }
+    private static CardRarity RollRarity(int randomSeed)
+    {
+        Random.InitState(randomSeed);
+        int randIndex = Random.Range(0, 100);
+
+        switch (randIndex)
+        {
+            case < 65:
+                return CardRarity.Common;
+            case < 90:
+                return CardRarity.Rare;
+            case < 100:
+            default:
+                return CardRarity.Epic;
+        }
     }
     private static BadgeSO[] GetRewardPoolBadges(float mapCompleteRatio, int randomSeed)
     {

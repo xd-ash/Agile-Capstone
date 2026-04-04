@@ -83,6 +83,7 @@ public class TurnManager : MonoBehaviour
 
     private void SetTurn()
     {
+        if (WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
         _curUnit?.transform.Find("turnHighligher").gameObject.SetActive(false);
 
         _turnTracker++;

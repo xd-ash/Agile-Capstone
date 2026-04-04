@@ -9,72 +9,77 @@ public enum CardState { PackViewer, DeckViewer, Shop, Rewards, Combat }
 
 public static class CardPrefabSetterUpper
 {
-    private static float _combatScale = 1.44f; // scale value determined through in scene editing and lazily implemented
+    private static float _combatScale = 1.44f; // transform scale determined through in scene editing
 
-    public static bool SetupCardPrefab(Transform cardTrans, CardAbilityDefinition cardDef, CardState cardState = CardState.Combat)
+    public static bool SetupCardPrefab(Card card, CardState cardState = CardState.Combat)
     {
-        if (!FillTextFields(cardTrans, cardDef)) 
+        if (card == null || card.GetCardAbility == null || card.GetCardTransform == null)
+            return FailPrefabSetup($"(Null card data)");
+        if (!FillTextFields(card))
             return FailPrefabSetup($"(Text field fill failure.)");
+
+        SetRarityVisuals(card);
 
         switch (cardState)
         {
             case CardState.PackViewer:
-                return SetupPackViewerCard(cardTrans, cardDef);
+                return SetupPackViewerCard(card);
             case CardState.DeckViewer:
-                return SetupDeckViewerCard(cardTrans, cardDef);
+                return SetupDeckViewerCard(card);
             case CardState.Shop:
-                return SetupShopCard(cardTrans, cardDef);
+                return SetupShopCard(card);
             case CardState.Rewards:
-                return SetupRewardsCard(cardTrans, cardDef);
+                return SetupRewardsCard(card);
             default:
-                return SetupCombatCard(cardTrans, cardDef);
+                return SetupCombatCard(card);
         }
     }
-    private static bool SetupPackViewerCard(Transform cardTrans, CardAbilityDefinition cardDef)
+    private static bool SetupPackViewerCard(Card card)
     {
-        DisableBoxCollider(cardTrans);
-        SetCardState(cardTrans, CardState.PackViewer);
+        DisableBoxCollider(card.GetCardTransform);
+        SetCardState(card.GetCardTransform, CardState.PackViewer);
         return true;
     }
-    private static bool SetupDeckViewerCard(Transform cardTrans, CardAbilityDefinition cardDef)
+    private static bool SetupDeckViewerCard(Card card)
     {
-        DisableBoxCollider(cardTrans);
-        SetCardState(cardTrans, CardState.DeckViewer);
+        //DisableBoxCollider(card.GetCardTransform);
+        RemoveButton(card.GetCardTransform);
+        SetCardState(card.GetCardTransform, CardState.DeckViewer);
         return true;
     }
-    private static bool SetupShopCard(Transform cardTrans, CardAbilityDefinition cardDef)
+    private static bool SetupShopCard(Card card)
     {
-        RemoveButton(cardTrans);
-        SetCardState(cardTrans, CardState.Shop);
+        RemoveButton(card.GetCardTransform);
+        SetCardState(card.GetCardTransform, CardState.Shop);
         return true;
     }
-    private static bool SetupRewardsCard(Transform cardTrans, CardAbilityDefinition cardDef)
+    private static bool SetupRewardsCard(Card card)
     {
-        RemoveButton(cardTrans);
-        SetCardState(cardTrans, CardState.Rewards);
+        RemoveButton(card.GetCardTransform);
+        SetCardState(card.GetCardTransform, CardState.Rewards);
         return true;
     }
-    private static bool SetupCombatCard(Transform cardTrans, CardAbilityDefinition cardDef)
+    private static bool SetupCombatCard(Card card)
     {
-        cardTrans.localScale = Vector3.one * _combatScale;
-        RemoveButton(cardTrans);
-        SetCardState(cardTrans, CardState.Combat);
+        card.GetCardTransform.localScale = Vector3.one * _combatScale;
+        RemoveButton(card.GetCardTransform);
+        SetCardState(card.GetCardTransform, CardState.Combat);
         return true;
     }
 
-    private static bool FillTextFields(Transform cardTrans, CardAbilityDefinition cardDef)
+    private static bool FillTextFields(Card card)
     {
         // Get all TextMeshPro components (non-UI version)
-        TextMeshProUGUI[] cardTextFields = cardTrans.GetComponentsInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI[] cardTextFields = card.GetCardTransform.GetComponentsInChildren<TextMeshProUGUI>();
         foreach (var cardTextField in cardTextFields)
             if (cardTextField == null) return false;
 
         if (cardTextFields.Length >= 3)
         {
             // Update text content
-            cardTextFields[0].text = cardDef.GetCardName;
-            cardTextFields[1].text = cardDef.GetDescription;
-            cardTextFields[2].text = cardDef.GetApCost.ToString();
+            cardTextFields[0].text = card.GetCardAbility.GetCardName;
+            cardTextFields[1].text = card.GetCardAbility.GetDescription;
+            cardTextFields[2].text = card.GetCardAbility.GetApCost.ToString();
         }
         else
         {
@@ -82,9 +87,30 @@ public static class CardPrefabSetterUpper
             return false;
         }
 
-        if (!cardTrans.TryGetComponent(out DeckViewerCardVisuals visualsControl))
+        if (!card.GetCardTransform.TryGetComponent(out DeckViewerCardVisuals visualsControl))
             return false;
-        visualsControl?.ApplyVisuals(cardDef);
+        visualsControl?.ApplyVisuals(card.GetCardAbility);
+        return true;
+    }
+    private static bool SetRarityVisuals(Card card)
+    {
+        var rarityDiamond = card.GetCardTransform.Find("RarityDiamond")?.GetComponent<Image>();
+        if (rarityDiamond == null)
+            return FailPrefabSetup($"Rarity diamond null.");
+
+        Color rarityColor = Color.gray7;
+        switch (card.GetCardRarity)
+        {
+            case CardRarity.Epic:
+                rarityColor = Color.mediumPurple;
+                break;
+            case CardRarity.Rare:
+                rarityColor = Color.mediumBlue;
+                break;
+            default:
+                break;
+        }
+        rarityDiamond.color = rarityColor;
         return true;
     }
     private static bool RemoveButton(Transform cardTrans)

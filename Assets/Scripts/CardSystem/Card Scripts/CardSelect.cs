@@ -80,6 +80,8 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
+            if (_state == CardState.Combat && RewardsDisplayScript.IsRewarding) return;
+
             if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
                 ToggleHighlightAndScale(true);
 
@@ -91,8 +93,6 @@ namespace CardSystem
         {
             if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging)
             {
-                //if (DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
-
                 ToggleHighlightAndScale(false);
 
                 if (_state != CardState.Combat || DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
@@ -237,6 +237,8 @@ namespace CardSystem
                 case CardState.Combat:
                     tmp = () =>
                     {
+                        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
@@ -284,6 +286,8 @@ namespace CardSystem
                 case CardState.Combat:
                     tmp = () =>
                     {
+                        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
                             return;
@@ -342,6 +346,8 @@ namespace CardSystem
                 case CardState.Combat:
                     tmp = () =>
                     {
+                        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)

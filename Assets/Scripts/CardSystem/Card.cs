@@ -7,11 +7,19 @@ namespace CardSystem
     public class Card
     {
         //initial constructor uses AbilityDefinition param to grab card data
-        public Card(CardAbilityDefinition def, Transform cardTransform = null)
+        public Card(CardAbilityDefinition def, CardRarity rarity, Transform cardTransform = null)
         {
             GrabSOData(def);
+            _rarity = rarity;
             _cardTransform = cardTransform;
             _guid = Guid.NewGuid();
+        }
+        public Card(Card refCard, Transform cardTransform = null)
+        {
+            GrabSOData(refCard.GetCardAbility);
+            _rarity = refCard.GetCardRarity;
+            _cardTransform = cardTransform;
+            _guid = refCard.GetGuid;
         }
 
         [SerializeField] private CardAbilityDefinition _cardAbility;
