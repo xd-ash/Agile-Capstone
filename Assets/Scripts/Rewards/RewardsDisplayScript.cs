@@ -173,6 +173,8 @@ public class RewardsDisplayScript : MonoBehaviour
         NodeMapManager.Instance.CompleteCurrentNode();
         WinLossManager.CombatNodeCompleted?.Invoke();
 
+        IsRewarding = false;
+
         if (!NodeMapManager.Instance.GetIsNodeMapComplete)
         {
             NodeMapManager.Instance.ReturnToMap();

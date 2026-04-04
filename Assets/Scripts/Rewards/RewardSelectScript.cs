@@ -18,6 +18,8 @@ public class RewardSelectScript : MonoBehaviour
 
     private Action _onConfirm;
 
+    public static bool IsRewarding { get; private set; }
+
     private void Awake()
     {
         _displayScript = GetComponentInParent<RewardsDisplayScript>();
@@ -38,6 +40,8 @@ public class RewardSelectScript : MonoBehaviour
             _displayScript.OnSkipRewardChoice();
             gameObject.SetActive(false);
         });
+
+        IsRewarding = true;
     }
     private void OnEnable()
     {
@@ -56,14 +60,32 @@ public class RewardSelectScript : MonoBehaviour
             if (card == null) continue;
 
             GameObject content = Spawn(_cardOptionContent, _optionsContentParent);
-
+            var tmpCard = new Card(card, content.transform);
             CardPrefabSetterUpper.SetupCardPrefab(content.transform, card, CardState.Rewards);
 
             Image optionHighlight = content.GetComponentInChildren<Image>(true);
             optionHighlight.gameObject.SetActive(false);
             contentHighlights.Add(optionHighlight.gameObject);
 
-            Button contentButton = content.GetComponentInChildren<Button>(true);
+            var cs = content.GetComponent<CardSelect>();
+            cs.InitCardSelect(CardState.Rewards);
+            cs.OnPrefabCreation(tmpCard);
+            var cfs = content.GetComponent<CardFunctionScript>();
+            cfs.SetOnMouseDown(CardState.Rewards, () =>
+            {
+                _confirmButton.interactable = true;
+                ClearHighlights();
+                optionHighlight.gameObject.SetActive(true);
+
+                _onConfirm = null;
+                _onConfirm = () =>
+                {
+                    RewardsController.RewardCard(card);
+                    _displayScript.OnConfirmRewardChoice(card);
+                };
+            });
+
+            /*Button contentButton = content.GetComponentInChildren<Button>(true);
             contentButton.onClick.RemoveAllListeners();
             contentButton.onClick.AddListener(() =>
             {
@@ -77,7 +99,7 @@ public class RewardSelectScript : MonoBehaviour
                     RewardsController.RewardCard(card);
                     _displayScript.OnConfirmRewardChoice(card);
                 };
-            });
+            });*/
         }
 
         _contentHighlights = contentHighlights.ToArray();
@@ -124,6 +146,7 @@ public class RewardSelectScript : MonoBehaviour
     }
     private void ClearHighlights()
     {
+        if (_contentHighlights == null) return;
         foreach (var highlight in _contentHighlights)
             highlight.SetActive(false);
     }

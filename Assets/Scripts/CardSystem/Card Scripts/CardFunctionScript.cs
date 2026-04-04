@@ -18,7 +18,6 @@ public class CardFunctionScript : MonoBehaviour
     {
         _onMouseDown?.Invoke();
     }
-
     // Try activate a card, return true if successful, false if not
     public bool TryActivateCard()
     {
