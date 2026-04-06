@@ -133,7 +133,7 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 0
+  _doEffectOnApply: 1
   _tickOnStart: 1
 --- !u!114 &-380372070312746705
 MonoBehaviour:
@@ -194,15 +194,15 @@ MonoBehaviour:
   - {fileID: -380372070312746705}
   - {fileID: -726088336008812783}
   - {fileID: 4468958634529343221}
-  _description: Draw an additional card next turn and for 2 turn after
+  _description: Draw %3% cards each turn for %2% turns
   _abilitySFX: {fileID: 0}
   _cardCategory: 4
   _cardTags: 04000000
   _effectValue: 0
-  _apCost: 2
+  _apCost: 3
   _range: 0
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 20
+  _shopWeight: 15
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -211,6 +211,25 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -726088336008812783}
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 4468958634529343221}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -726088336008812783}
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 4468958634529343221}
 --- !u!114 &4468958634529343221
 MonoBehaviour:
   m_ObjectHideFlags: 0

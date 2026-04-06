@@ -67,7 +67,7 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 0
+  _doEffectOnApply: 1
   _tickOnStart: 1
 --- !u!114 &-919353082669517679
 MonoBehaviour:
@@ -255,15 +255,15 @@ MonoBehaviour:
   - {fileID: -1482107742155537984}
   - {fileID: 6539089504406997548}
   - {fileID: 2185319051913704253}
-  _description: Deal 2 damage each turn for 3 turns
+  _description: Deal %5% damage for %3% turns
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 00000000
   _effectValue: 0
-  _apCost: 2
-  _range: 1
-  _shopCost: 0
-  _shopWeight: 0
+  _apCost: 3
+  _range: 3
+  _shopCost: 15
+  _shopWeight: 15
   _baseHitChance: 100
   _minHitChance: 0
   _maxHitChance: 100
@@ -272,6 +272,25 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 6
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -1482107742155537984}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 2185319051913704253}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -1482107742155537984}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 2185319051913704253}
 --- !u!114 &2185319051913704253
 MonoBehaviour:
   m_ObjectHideFlags: 0

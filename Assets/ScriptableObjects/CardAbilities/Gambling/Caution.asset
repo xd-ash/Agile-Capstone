@@ -104,10 +104,7 @@ MonoBehaviour:
   - {fileID: -2652688260289560249}
   - {fileID: -714015060107290056}
   - {fileID: 1102946486807168034}
-  _description: 'Add 1 shield. Flip 2 coins: if 1 heads, add 3 more shield. If 2
-    heads, add 5
-
-'
+  _description: 'Add %2% shield. Flip a coin. If heads, gain %3% more '
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 0200000003000000
@@ -124,6 +121,25 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -714015060107290056}
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -2652688260289560249}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -714015060107290056}
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -2652688260289560249}
 --- !u!114 &1102946486807168034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +203,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectValue: 2
+  _effectValue: 1
   input: 0
   effectVisuals: 0
   effects: 0

@@ -110,7 +110,7 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 1
+  _doEffectOnApply: 1
   _tickOnStart: 0
 --- !u!114 &-1331944382575434075
 MonoBehaviour:
@@ -162,10 +162,10 @@ MonoBehaviour:
   - {fileID: -1331944382575434075}
   - {fileID: -3246242270819669926}
   - {fileID: -4515156667106017171}
-  _description: The target is frozen in fear and can't move for 2 turns
+  _description: The target is frozen in fear and can't move for %4% turns
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
-  _cardTags: 
+  _cardTags: 06000000
   _effectValue: 0
   _apCost: 3
   _range: 5
@@ -179,6 +179,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -3246242270819669926}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -3246242270819669926}
 --- !u!114 &2479098144400537614
 MonoBehaviour:
   m_ObjectHideFlags: 0

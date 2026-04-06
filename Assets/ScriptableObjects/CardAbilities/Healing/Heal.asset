@@ -23,8 +23,8 @@ MonoBehaviour:
   _effectValue: 0
   _apCost: 2
   _range: 0
-  _shopCost: 20
-  _shopWeight: 65
+  _shopCost: 10
+  _shopWeight: 30
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -33,6 +33,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Heal Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 2719676598115075082}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Heal Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: 2719676598115075082}
 --- !u!114 &1766287723113216939
 MonoBehaviour:
   m_ObjectHideFlags: 0

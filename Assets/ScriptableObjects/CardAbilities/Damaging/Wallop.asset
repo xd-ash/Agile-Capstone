@@ -196,13 +196,13 @@ MonoBehaviour:
   - {fileID: 290636062283579545}
   - {fileID: -5245546955941234475}
   - {fileID: -4916656435886294077}
-  _description: Deal 3 damage and 2 knockback
+  _description: Deal %3% damage and %4% knockback
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 00000000
   _effectValue: 0
   _apCost: 2
-  _range: 1
+  _range: 3
   _shopCost: 15
   _shopWeight: 15
   _baseHitChance: 100
@@ -213,6 +213,25 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 9
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -5245546955941234475}
+  - cardDef: {fileID: 11400000}
+    effectName: Knock Back Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -4916656435886294077}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -5245546955941234475}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -5245546955941234475}
 --- !u!114 &290636062283579545
 MonoBehaviour:
   m_ObjectHideFlags: 0

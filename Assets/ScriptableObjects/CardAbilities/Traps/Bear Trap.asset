@@ -241,11 +241,10 @@ MonoBehaviour:
   - {fileID: 8229596106003169867}
   - {fileID: -2483818144313059888}
   - {fileID: -2381621893422565370}
-  _description: Place a bear trap that deals 3 damage and roots any unit that steps
-    on it for 3 turns
+  _description: Place a trap that deals %6% damage and roots for %5% turns
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
-  _cardTags: 06000000
+  _cardTags: 0600000000000000
   _effectValue: 0
   _apCost: 3
   _range: 4
@@ -259,6 +258,25 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 8229596106003169867}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -2381621893422565370}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 8229596106003169867}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -2381621893422565370}
 --- !u!114 &3793682004127739578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,5 +455,5 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 1
+  _doEffectOnApply: 1
   _tickOnStart: 0

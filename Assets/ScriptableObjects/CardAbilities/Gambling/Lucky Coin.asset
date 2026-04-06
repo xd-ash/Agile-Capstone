@@ -172,7 +172,7 @@ MonoBehaviour:
   - {fileID: -1860727759273947384}
   - {fileID: 55771105022752719}
   - {fileID: -2250469497568542709}
-  _description: Deal 4 damage and flip coins until you get heads, then deal that
+  _description: Deal %4% damage and flip coins until you get heads, then deal that
     much more damage
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
@@ -180,8 +180,8 @@ MonoBehaviour:
   _effectValue: 0
   _apCost: 3
   _range: 4
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 15
+  _shopWeight: 15
   _baseHitChance: 100
   _minHitChance: 25
   _maxHitChance: 100
@@ -190,6 +190,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -2250469497568542709}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -2250469497568542709}
 --- !u!114 &55771105022752719
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -153,16 +153,15 @@ MonoBehaviour:
   - {fileID: -5809867982243863817}
   - {fileID: 215215104908119812}
   - {fileID: 5961324338003623009}
-  _description: Place an explosive trap that deals 5 damage any unit that steps on
-    it
+  _description: Place a trap that deals %4% damage
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 0000000006000000
   _effectValue: 0
   _apCost: 3
   _range: 4
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 15
+  _shopWeight: 25
   _baseHitChance: 100
   _minHitChance: 99
   _maxHitChance: 100
@@ -171,6 +170,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 5961324338003623009}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: 5961324338003623009}
 --- !u!114 &215215104908119812
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -84,13 +84,13 @@ MonoBehaviour:
   - {fileID: 8984668475923810513}
   - {fileID: -3038007230889526110}
   - {fileID: 3424977469569822914}
-  _description: Deal 2 ranged damage
+  _description: Deal %2% ranged damage
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
   _cardCategory: 0
-  _cardTags: 0000000006000000
+  _cardTags: 0000000007000000
   _effectValue: 0
-  _apCost: 3
-  _range: 7
+  _apCost: 1
+  _range: 10
   _shopCost: 10
   _shopWeight: 20
   _baseHitChance: 100
@@ -110,7 +110,7 @@ MonoBehaviour:
   _onEpicUpgradeEffects:
   - cardDef: {fileID: 11400000}
     effectName: Damage Effect
-    valueToAdd: 2
+    valueToAdd: 3
     effectToUpgrade: {fileID: 8984668475923810513}
 --- !u!114 &3424977469569822914
 MonoBehaviour:
