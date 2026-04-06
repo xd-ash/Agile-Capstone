@@ -137,6 +137,9 @@ MonoBehaviour:
   - {fileID: -5294775089455547180}
   _description: Pull the target 3 tiles closer to you
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 
+  _effectValue: 0
   _apCost: 1
   _range: 5
   _shopCost: 0
@@ -148,7 +151,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Punch
+  _attackAnimKey: 16
 --- !u!114 &7836528999936642096
 MonoBehaviour:
   m_ObjectHideFlags: 0

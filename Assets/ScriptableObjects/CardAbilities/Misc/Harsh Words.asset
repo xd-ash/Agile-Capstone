@@ -164,6 +164,9 @@ MonoBehaviour:
   - {fileID: -4515156667106017171}
   _description: The target is frozen in fear and can't move for 2 turns
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 
+  _effectValue: 0
   _apCost: 3
   _range: 5
   _shopCost: 0
@@ -175,6 +178,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 17
 --- !u!114 &2479098144400537614
 MonoBehaviour:
   m_ObjectHideFlags: 0

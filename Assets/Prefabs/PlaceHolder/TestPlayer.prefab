@@ -258,55 +258,49 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 2fd63fc0dc2e2b841a40b60a3e85005c, type: 2}
   - {fileID: 7400000, guid: 093505aa767859641a2c0e3bff1cef4d, type: 2}
   _attackAnimSets:
-  - key: 8
+  - key: 13
     dirClips:
     - {fileID: 7400000, guid: 258d9ef356d83854588dba05c59ef49a, type: 2}
     - {fileID: 7400000, guid: a3e9cb93ec13f364e96340291329aea9, type: 2}
     - {fileID: 7400000, guid: 624f10a5563d51145a34ef216ca465a3, type: 2}
     - {fileID: 7400000, guid: e84e93843dc78a344b2bd9934f500d2a, type: 2}
-  - key: 9
+  - key: 10
     dirClips:
     - {fileID: 7400000, guid: 838f019c585ee9a4ab7639d6b1f44f3f, type: 2}
     - {fileID: 7400000, guid: 95df7490569ae854494ae372b36d33a3, type: 2}
     - {fileID: 7400000, guid: 332eb41ff71c7144ca2e1cee448709ee, type: 2}
     - {fileID: 7400000, guid: eddef37145abec64f983014c5188636d, type: 2}
-  - key: 1
+  - key: 9
     dirClips:
     - {fileID: 7400000, guid: 16ab2c1b909b440adbad902993090a27, type: 2}
     - {fileID: 7400000, guid: 4922fa86f1be34f45bbfd6c60729c6bc, type: 2}
     - {fileID: 7400000, guid: 53b62b8a123804de0b952832f12fbd3e, type: 2}
     - {fileID: 7400000, guid: c0bd63306db934784a2c2c5fb01a4aff, type: 2}
-  - key: 2
-    dirClips:
-    - {fileID: 7400000, guid: a071f4583c97def4eb0d77cea0a96bed, type: 2}
-    - {fileID: 7400000, guid: 0040eaba7f6c8d842a8c5cc8b58dc7af, type: 2}
-    - {fileID: 7400000, guid: 68625f07024548546b7e6296cfcc0c06, type: 2}
-    - {fileID: 7400000, guid: 889b2becfe60b734fb21d244f0d03c95, type: 2}
-  - key: 5
+  - key: 1
     dirClips:
     - {fileID: 7400000, guid: ecb500cd2e63b3949ae6286badfbef54, type: 2}
     - {fileID: 7400000, guid: 4a37377ba60bf2d44a4e402e6006ea59, type: 2}
     - {fileID: 7400000, guid: df153ebb6312a9f468fb5c6483c8d368, type: 2}
     - {fileID: 7400000, guid: 865bef9b0e59f4c4db35a58bd834f8fc, type: 2}
-  - key: 10
+  - key: 2
     dirClips:
     - {fileID: 7400000, guid: 965ea6779de4ed94a874a0906e77c7e2, type: 2}
     - {fileID: 7400000, guid: 85b72ddea39f1f24ab8853f87fb634df, type: 2}
     - {fileID: 7400000, guid: 9a1a8e61dcac50744ac3958a7b9961bc, type: 2}
     - {fileID: 7400000, guid: 9c8c1b40ce6eb5143a6ec8804797e57e, type: 2}
-  - key: 17
+  - key: 3
     dirClips:
     - {fileID: 7400000, guid: ee72a2a11097c214d9686837c02d9030, type: 2}
     - {fileID: 7400000, guid: df62141a4c1cc054e94e78af5e4b8995, type: 2}
     - {fileID: 7400000, guid: ad70d02cb2d8ef64a8a776241b344037, type: 2}
     - {fileID: 7400000, guid: bd53f5fcadfc54c41a7bf8381fe051de, type: 2}
-  - key: 6
+  - key: 4
     dirClips:
     - {fileID: 7400000, guid: 53693e24bc1d02145ac492f852eaf071, type: 2}
     - {fileID: 7400000, guid: 35e43ecf1d771b34ca99fbd97f225997, type: 2}
     - {fileID: 7400000, guid: 76282feefd5e2fa4a98f7e0b88324908, type: 2}
     - {fileID: 7400000, guid: 392b67e3a54f93a468bf3ca30f646f9a, type: 2}
-  - key: 3
+  - key: 5
     dirClips:
     - {fileID: 7400000, guid: b7ffa673af878a2468726774f897860a, type: 2}
     - {fileID: 7400000, guid: 077a1538ae440bc48a976e9f28619db4, type: 2}
@@ -324,13 +318,13 @@ MonoBehaviour:
     - {fileID: 7400000, guid: bc46ecafed9dc684b8be828babcea95f, type: 2}
     - {fileID: 7400000, guid: a2a8af99c68c90e478e93779b57ff5c3, type: 2}
     - {fileID: 7400000, guid: 783255b792575df4286305a03237643f, type: 2}
-  - key: 11
+  - key: 8
     dirClips:
     - {fileID: 7400000, guid: 9228db001c12d214eafb6c37bb5b7b8e, type: 2}
     - {fileID: 7400000, guid: 0d70ad9540199704aa485b3724cdb675, type: 2}
     - {fileID: 7400000, guid: 6419a76677521ba4cad586d5a2a10503, type: 2}
     - {fileID: 7400000, guid: bd2d5df9187081047ada05a76bc954ff, type: 2}
-  - key: 13
+  - key: 11
     dirClips:
     - {fileID: 7400000, guid: aa9c0fb399f94f8409de04ed2c8e3aef, type: 2}
     - {fileID: 7400000, guid: 82301507bbf9aee40a20d0d5be984a17, type: 2}
@@ -348,19 +342,19 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 71cb4f9f813f7bd48a110cbedd870aae, type: 2}
     - {fileID: 7400000, guid: a8255813c15919c49b411678561d3342, type: 2}
     - {fileID: 7400000, guid: db0cbebb38fdac942b5dc01e621d40de, type: 2}
-  - key: 16
+  - key: 15
     dirClips:
     - {fileID: 7400000, guid: 7094dda09bb7b754884fddb7b3043e39, type: 2}
     - {fileID: 7400000, guid: 63125585ba7752d43878cf11b9d5e7e7, type: 2}
     - {fileID: 7400000, guid: 44b80031445b9a84dabd6f28d4ef8e17, type: 2}
     - {fileID: 7400000, guid: bee1b951d46eb7b488a67af66f9cd39c, type: 2}
-  - key: 15
+  - key: 16
     dirClips:
     - {fileID: 7400000, guid: a5c903809e7bf73479b664a002e80623, type: 2}
     - {fileID: 7400000, guid: fe18472e977fb28468589d684f3daf40, type: 2}
     - {fileID: 7400000, guid: 336b365cac4c80e44a75df964b41f1eb, type: 2}
     - {fileID: 7400000, guid: a02351c3c53a3b44394c67910784fd7b, type: 2}
-  - key: 18
+  - key: 17
     dirClips:
     - {fileID: 7400000, guid: 1bb245432494366438820c1822843bfe, type: 2}
     - {fileID: 7400000, guid: 2f28818b99cb72943b91ee80092561c9, type: 2}
