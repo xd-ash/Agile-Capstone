@@ -39,7 +39,8 @@ public class CardDefEditor : Editor
     private void DisplayNodeOptionsForDescriptions()
     {
         var c = (CardAbilityDefinition)target;
-        var optionsStrings = c.GetEffectStrings;
+        c.GetEffectOptions();
+        var optionsStrings = c.GetEffectOptionsStrings();
 
         _optionFoldout = EditorGUILayout.Foldout(_optionFoldout, "Effect Options & Indices:");
         if (_optionFoldout)

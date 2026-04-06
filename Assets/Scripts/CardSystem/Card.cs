@@ -71,14 +71,14 @@ namespace CardSystem
         {
             if (_cardAbility == null) return _description;
 
-            var effects = _cardAbility.GetEffects;
+            var effects = _cardAbility.GetEffectOptions();
 
             var splitDescription = _description.Split('%');
 
             for (int i = 0; i < splitDescription.Length; i++)
             {
                 if (i % 2 == 0) continue;
-                if (!int.TryParse(splitDescription[i], out int index))
+                if (!int.TryParse(splitDescription[i], out int index) || index > effects.Count - 1)
                 {
                     Debug.LogWarning($"{_cardName} failed to parse split string at index {i}.");
                     return _description;
