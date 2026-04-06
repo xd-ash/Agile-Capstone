@@ -257,7 +257,7 @@ MonoBehaviour:
   - {fileID: 5462576431810370091}
   - {fileID: -7892475943247170667}
   - {fileID: 7803874144529295915}
-  _description: Flip a coin, if heads, deal %7% AOE damage. If tails, deal %0%
+  _description: Flip a coin, if heads, deal %0% AOE damage. If tails, deal %1%
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
   _cardCategory: 0
   _cardTags: 000000000900000003000000
