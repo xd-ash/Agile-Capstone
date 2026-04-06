@@ -172,10 +172,10 @@ MonoBehaviour:
   - {fileID: -1860727759273947384}
   - {fileID: -2250469497568542709}
   - {fileID: 5177323901749815731}
-  _description: Deal 2 damage & flip a coin 10 times. For every heads, add 1 damage
-    to the base effect
+  _description: Deal 2 damage and flip a coin 10 times. Add a damage for each heads
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
+  _cardTags: 0300000000000000
   _effectValue: 0
   _apCost: 4
   _range: 5

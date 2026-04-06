@@ -232,8 +232,11 @@ MonoBehaviour:
   - {fileID: -3118992511039894974}
   - {fileID: 703545229451507110}
   - {fileID: 2993989942814108893}
-  _description: flip a coin, heads +5 health & +5 shield, tails only +3 health
+  _description: 'Flip a coin: heads +5 health and +5 shield, tails +3 health'
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 030000000100000002000000
+  _effectValue: 0
   _apCost: 3
   _range: 0
   _shopCost: 0
@@ -245,6 +248,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 0
 --- !u!114 &703545229451507110
 MonoBehaviour:
   m_ObjectHideFlags: 0
