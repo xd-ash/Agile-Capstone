@@ -14,9 +14,23 @@ public class AttackAnimSet
 public enum AttackAnimKey
 {
     None,
-    Slash,
+    Bat,
+    Crossbow,
+    Die,
+    Hammer,
+    KnifeSlash,
+    KnifeSwing,
+    Machete,
+    PumpShotgun,
     Punch,
-    Shoot,
+    Revolver,
+    Rifle,
+    SawedOff,
+    SemiAuto,
+    Sniper,
+    TakeDamage,
+    Throw,
+    Use
     // add more as needed
 }
 public class DirectionAnimator : MonoBehaviour
