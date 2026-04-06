@@ -4,6 +4,10 @@ using static AStarPathfinding.FindPathAStar;
 
 public class HealAction : GoapAction
 {
+    public HealAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (_agent.healCharges == 0 || !CheckCanDoAction(_agent.unit, _agent.GetHealAbility.GetApCost))

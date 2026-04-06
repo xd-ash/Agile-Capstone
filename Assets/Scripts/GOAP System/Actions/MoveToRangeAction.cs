@@ -9,6 +9,10 @@ public class MoveToRangeAction : GoapAction
 {
     private Vector2Int _movePos;
 
+    public MoveToRangeAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if(!CheckForAP(_agent.unit, ref beliefs)) return false;

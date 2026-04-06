@@ -122,7 +122,7 @@ public class GoapAgent : MonoBehaviour
             {
                 string tempStr2 = $"{name}({(_currentGoal == null ? "null" : _currentGoal.key)}) - Chosen Plan: ";
                 foreach (GoapAction a in _actionQueue)
-                    tempStr2 += $"{a.ToString()} > ";
+                    tempStr2 += $"{a.GetActionName} > ";
                 Debug.Log(tempStr2 + $"(Cost: {cheapestCost})");
             }
             //
@@ -160,7 +160,7 @@ public class GoapAgent : MonoBehaviour
             _currentAction = _actionQueue.Dequeue();
             if (_currentAction.PrePerform(ref _beliefs))
             {
-                Debug.Log($"Performing-{_currentAction.ToString()}");
+                Debug.Log($"Performing-{_currentAction.GetActionName}");
 
                 _currentAction.IsRunning = true;
 

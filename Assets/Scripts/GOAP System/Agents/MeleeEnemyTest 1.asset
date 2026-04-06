@@ -21,97 +21,107 @@ MonoBehaviour:
   - rid: 6877345560813109320
   - rid: 6877345560813109321
   - rid: 3457071418484719690
-  _goapActionsEnum: 1526
+  _goapActionsEnum: 3574
   _actions:
-  - rid: 3457071420558017175
-  - rid: 3457071420558017176
-  - rid: 3457071420558017177
-  - rid: 3457071420558017178
-  - rid: 3457071420558017179
-  - rid: 3457071420558017180
-  - rid: 3457071420558017181
-  - rid: 3457071420558017182
+  - rid: 97859988893466695
+  - rid: 97859988893466696
+  - rid: 97859988893466697
+  - rid: 97859988893466698
+  - rid: 97859988893466699
+  - rid: 97859988893466700
+  - rid: 97859988893466701
+  - rid: 97859988893466702
+  - rid: 97859988893466707
   references:
     version: 2
     RefIds:
+    - rid: 97859988893466695
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: PotShot
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 4418
+        _postConditionsFlags: 65536
+        _goalsFlags: 0
+    - rid: 97859988893466696
+      type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveOutOfLOSAction
+        _cost: 1
+        _costMultiplier: 75
+        _preConditionsFlags: 5122
+        _postConditionsFlags: 2048
+        _goalsFlags: 0
+    - rid: 97859988893466697
+      type: {class: HideAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HideAction
+        _cost: 1
+        _costMultiplier: 1.2
+        _preConditionsFlags: 6144
+        _postConditionsFlags: 0
+        _goalsFlags: 36
+    - rid: 97859988893466698
+      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveIntoLOSAction
+        _cost: 1
+        _costMultiplier: 75
+        _preConditionsFlags: 6146
+        _postConditionsFlags: 1024
+        _goalsFlags: 0
+    - rid: 97859988893466699
+      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: EndTurnAction
+        _cost: 10
+        _costMultiplier: 1
+        _preConditionsFlags: 4
+        _postConditionsFlags: 0
+        _goalsFlags: 16
+    - rid: 97859988893466700
+      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: ChooseTargetAction
+        _cost: 1
+        _costMultiplier: 0.75
+        _preConditionsFlags: 8194
+        _postConditionsFlags: 4096
+        _goalsFlags: 0
+    - rid: 97859988893466701
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: AttackAction
+        _cost: 1
+        _costMultiplier: 1.5
+        _preConditionsFlags: 5442
+        _postConditionsFlags: 4
+        _goalsFlags: 2
+    - rid: 97859988893466702
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveInRangeAction
+        _cost: 1
+        _costMultiplier: 75
+        _preConditionsFlags: 4226
+        _postConditionsFlags: 64
+        _goalsFlags: 0
+    - rid: 97859988893466707
+      type: {class: HideAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HideAfterPotShot
+        _cost: 1
+        _costMultiplier: 1.2
+        _preConditionsFlags: 69632
+        _postConditionsFlags: 0
+        _goalsFlags: 0
     - rid: 3457071418484719690
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: PeekAttack
         value: 1
         removeOnComplete: 1
-    - rid: 3457071420558017175
-      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
-    - rid: 3457071420558017176
-      type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
-    - rid: 3457071420558017177
-      type: {class: HideAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
-    - rid: 3457071420558017178
-      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
-    - rid: 3457071420558017179
-      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
-    - rid: 3457071420558017180
-      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
-    - rid: 3457071420558017181
-      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
-    - rid: 3457071420558017182
-      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: 
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 0
-        _postConditionsFlags: 0
-        _goalsFlags: 0
     - rid: 6877345560813109319
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:

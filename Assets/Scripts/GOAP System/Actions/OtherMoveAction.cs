@@ -5,6 +5,10 @@ public class OtherMoveAction : GoapAction
 {
     private UnitMovementController _unitMover;
 
+    public OtherMoveAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         _unitMover = _agent.GetComponent<UnitMovementController>();

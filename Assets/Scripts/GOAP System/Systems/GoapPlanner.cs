@@ -111,7 +111,7 @@ public class GoapPlanner
         {
             string tempStr2 = $"{_agent.name} - Possible Plan: ";
             foreach (GoapAction a in queue)
-                tempStr2 += $"{a.ToString()} > ";
+                tempStr2 += $"{a.GetActionName} > ";
             //string target = _agent.GetCurrentTarget == null ? "null" : _agent.GetCurrentTarget.name;
             Debug.Log(tempStr2 + $"(Cost: {cheapest.cost}, Target:{tempTarget?.name}, Goal: {goal?.ElementAt(0).Key})");
         }

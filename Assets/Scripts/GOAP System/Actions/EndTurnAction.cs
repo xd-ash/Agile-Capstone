@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class EndTurnAction : GoapAction
 {
+    public EndTurnAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         return true;

@@ -6,6 +6,10 @@ public class MoveInRangeAction : GoapAction
 {
     private UnitMovementController _unitMover;
 
+    public MoveInRangeAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString())) return false;

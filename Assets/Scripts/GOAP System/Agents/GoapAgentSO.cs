@@ -36,12 +36,12 @@ public class GoapAgentSO : ScriptableObject
                      actionsToString = new List<string>();
 
         foreach (var a in temp)
-            tempToString.Add(a.ToString());
+            tempToString.Add(a.GetActionName);
 
         if (_actions.Count > 0)
             foreach (var a in _actions)
                 if (a != null)
-                    actionsToString.Add(a.ToString());
+                    actionsToString.Add(a.GetActionName);
 
         for (int i = actionsToString.Count - 1; i >= 0; i--)
         {
@@ -66,7 +66,7 @@ public class GoapAgentSO : ScriptableObject
                 bool actionPresent = false;
 
                 foreach (var b in _actions)
-                    if (a.ToString() == b.ToString())
+                    if (a.GetActionName == b.GetActionName)
                     {
                         actionPresent = true;
                         break;

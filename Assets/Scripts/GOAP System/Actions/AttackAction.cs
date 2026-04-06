@@ -14,6 +14,10 @@ public class AttackAction : GoapAction
 
         return canDoAction;
     }
+    public AttackAction(string overrideName = "") : base(overrideName) 
+    {
+
+    }
     public override void Perform()
     {
         _agent.GetDamageAbility.UseAility(_agent.unit);

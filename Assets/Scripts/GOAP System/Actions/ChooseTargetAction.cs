@@ -7,6 +7,10 @@ using UnityEngine;
 
 public class ChooseTargetAction : GoapAction
 {
+    public ChooseTargetAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         var distancesToEnemies = GrabUnitDistances(Team.Friendly);

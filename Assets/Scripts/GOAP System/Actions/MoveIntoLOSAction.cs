@@ -7,6 +7,10 @@ public class MoveIntoLOSAction : GoapAction
 {
     private UnitMovementController _unitMover;
 
+    public MoveIntoLOSAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.HasLOS.ToString())) return false;

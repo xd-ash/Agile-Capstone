@@ -8,6 +8,11 @@ public class MoveOutOfLOSAction : GoapAction
     private UnitMovementController _unitMover;
     private Vector2Int _hidePos;
 
+    public MoveOutOfLOSAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
+
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (!CheckForAP(_agent.unit, ref beliefs)) return false;

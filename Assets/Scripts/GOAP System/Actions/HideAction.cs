@@ -2,6 +2,10 @@ using static GOAPDeterminationMethods;
 
 public class HideAction : GoapAction
 {
+    public HideAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         return !CheckIfInLOS(_agent, ref beliefs);
