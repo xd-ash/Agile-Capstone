@@ -213,7 +213,7 @@ public class PlayerDataManager : MonoBehaviour
     // reinitialize node data for proper node enabling on node map
     public void OnGameLoad(GameData data)
     {
-        var currencyData = data.GetCurrencyData;
+        var currencyData = data.GetCurrencyData; 
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
         var specialMechanicData = data.GetSpecialMechanicData;
@@ -226,7 +226,6 @@ public class PlayerDataManager : MonoBehaviour
         {
             var cardInfo = Card.ReadNamingConventionString(name);
             Card newCard = new(_cardAndPackLibrary.GetCardFromName(cardInfo.Item2), cardInfo.Item1, null);
-            newCard.UpgradeCard(cardInfo.Item1);
             runCards.Add(newCard);
         }
         var runDeck = new Deck(runCards);

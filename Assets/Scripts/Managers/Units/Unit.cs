@@ -143,6 +143,8 @@ public class Unit : MonoBehaviour, IDamagable
             else
             {
                 WinLossManager.Instance.GetEnemyUnits.Remove(this);
+                if (TurnManager.GetCurrentUnit == this)
+                    TurnManager.Instance.EndEnemyTurn();
                 if (WinLossManager.Instance.GetEnemyUnits.Count == 0)
                     GameOverEvents.OnGameWinOrLoss(true);
             }

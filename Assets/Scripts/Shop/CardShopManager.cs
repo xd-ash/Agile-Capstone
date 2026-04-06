@@ -85,6 +85,7 @@ public class CardShopManager : MonoBehaviour
 
         // Create runtime Card data
         Card card = new Card(entry, entry.GetBaseCardRarity, cardGO.transform);
+        CardPrefabSetterUpper.SetupCardPrefab(card, CardState.Shop);
 
         // Ensure the prefab has CardSelect and initialize it
         if (!cardGO.TryGetComponent(out CardSelect cs))
@@ -92,9 +93,9 @@ public class CardShopManager : MonoBehaviour
         if (!cardGO.TryGetComponent(out CardFunctionScript cfs))
             cfs = cardGO.AddComponent<CardFunctionScript>();
 
-        cs.InitCardSelect(CardState.Shop);
-        cs.OnPrefabCreation(card);
-        cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
+        //cs.InitCardSelect(CardState.Shop);
+        //cs.OnPrefabCreation(card);
+        //cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
 
         // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);

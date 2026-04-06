@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207232975}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 750659818}
+        m_TargetAssemblyTypeName: CampNodeController, Assembly-CSharp
+        m_MethodName: OnStartUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &207232975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 326.4, y: -70}
+  m_AnchoredPosition: {x: 326.4, y: -66.5}
   m_SizeDelta: {x: 340.85, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &598858573
@@ -437,7 +449,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -573,8 +585,9 @@ GameObject:
   - component: {fileID: 750659814}
   - component: {fileID: 750659816}
   - component: {fileID: 750659815}
+  - component: {fileID: 750659818}
   m_Layer: 5
-  m_Name: BountySelectPanel (1)
+  m_Name: CampPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -599,7 +612,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4.600006, y: 16}
+  m_AnchoredPosition: {x: 4.5999756, y: 16}
   m_SizeDelta: {x: -147.2, y: -90.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &750659815
@@ -615,7 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.48235294, g: 0.19215687, b: 0.08235294, a: 1}
+  m_Color: {r: 0.30980393, g: 0.21176471, b: 0.15294118, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -640,6 +653,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750659813}
   m_CullTransparentMesh: 1
+--- !u!114 &750659818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750659813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea38119efdca13439f771cf62d413de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CampNodeController
 --- !u!1 &902301939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1679,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1744637874}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 750659818}
+        m_TargetAssemblyTypeName: CampNodeController, Assembly-CSharp
+        m_MethodName: DoOtherUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1744637874
 MonoBehaviour:
   m_ObjectHideFlags: 0

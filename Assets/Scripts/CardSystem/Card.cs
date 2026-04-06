@@ -33,9 +33,10 @@ namespace CardSystem
 
         public CardAbilityDefinition GetCardAbility => _cardAbility;
         public CardRarity GetCardRarity => _rarity;
+        public CardRarity GetNextCardRarity => _rarity == CardRarity.Common ? CardRarity.Rare : CardRarity.Epic;
         public Guid GetGuid => _guid;
         public string GetCardName => _cardName;
-        public string GetDescription => _description;
+        public string GetDescription => GetDynamicDescription();
         public Transform GetCardTransform => _cardTransform;
         public int GetShopCost => _shopCost;
 
@@ -52,14 +53,40 @@ namespace CardSystem
         {
             _cardTransform = cardTransform;
         }
-        public void UpgradeCard(CardRarity newRarity)
+        public void UpgradeCard()
         {
-            _rarity = newRarity;
-            //change decsriptions?
+            if (_rarity == CardRarity.Epic)
+            {
+                Debug.LogWarning($"{_cardName} is max rarity (epic). Upgrade attempt failed.");
+                return;
+            }
+
+            _rarity = GetNextCardRarity;
         }
         public void UseAbility(Unit user)
         {
             _cardAbility.UseAbility(user, _rarity);
+        }
+        private string GetDynamicDescription()
+        {
+            if (_cardAbility == null) return _description;
+
+            var effects = _cardAbility.GetEffects;
+
+            var splitDescription = _description.Split('%');
+
+            for (int i = 0; i < splitDescription.Length; i++)
+            {
+                if (i % 2 == 0) continue;
+                if (!int.TryParse(splitDescription[i], out int index))
+                {
+                    Debug.LogWarning($"{_cardName} failed to parse split string at index {i}.");
+                    return _description;
+                }
+                var effectAtIndex = effects[index];
+                splitDescription[i] = effectAtIndex.GetRarityAdjustedEffectValue(_rarity).ToString();
+            }
+            return string.Join("", splitDescription);
         }
         public static string CreateNamingConventionString(Card card)
         {

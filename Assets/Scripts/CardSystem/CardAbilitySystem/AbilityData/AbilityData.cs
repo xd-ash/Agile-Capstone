@@ -41,6 +41,13 @@ namespace CardSystem
             _abilityTriggerPos = abilityTriggerPos;
             _rarity = rarity;
         }
+        public AbilityData(AbilityData refAbilityData)
+        {
+            _unit = refAbilityData.GetUnit;
+            _guid = refAbilityData.GetGUID;
+            _abilityTriggerPos = refAbilityData.AbilityTriggerPos;
+            _rarity = refAbilityData.GetCardRarity;
+        }
 
         // Adjust to keep list of active coroutines for easy stopping?
         // move to unit?

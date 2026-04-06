@@ -1,13 +1,14 @@
+using CardSystem;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using XNode;
-using System;
-using CardSystem;
 
 namespace CardSystem
 {
     public enum CardRarity { Common, Rare, Epic }
     public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling }
-    public enum CardTag { Damage, Heal, Shield, Gambling, Draw, SelfDamage, Trap, Ranged, Melee, AOE}
+    public enum CardTag { Damage, Heal, Shield, Gambling, Draw, SelfDamage, Trap, Ranged, Melee, AOE }
 
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
@@ -46,6 +47,12 @@ namespace CardSystem
         [SerializeField] private EffectUpgrade[] _onRareUpgradeEffects = new EffectUpgrade[0];
         [SerializeField] private EffectUpgrade[] _onEpicUpgradeEffects = new EffectUpgrade[0];
 
+        //prop drawer and enum stuff
+        List<EffectStrategy> _effectOptions = new();
+        string[] _effectOptionsStrings;
+        public EffectStrategy[] GetEffects => _effectOptions.ToArray();
+        public string[] GetEffectStrings => _effectOptionsStrings;
+
         public string GetCardName => this.name;
         public string GetDescription => _description;
         public int GetApCost => _apCost;
@@ -63,16 +70,15 @@ namespace CardSystem
         public float GetAccuracyMultiplier => _accuracyMultiplier;
         public int GetAccuracyFlatBonus => _accuracyFlatBonus;
         public bool GetIgnoreLOS => _ignoreLOS;
-        
+
         public CardRarity GetBaseCardRarity => _baseCardRarity;
 
         public EffectUpgrade GetUpgradeEffect(EffectStrategy strat, CardRarity rarity)
         {
             if (rarity == CardRarity.Common) return null;
             var effectCollection = rarity == CardRarity.Rare ? _onRareUpgradeEffects : _onEpicUpgradeEffects;
-
             foreach (var effect in effectCollection)
-                if (effect.effectToUpgrade = strat)
+                if (effect.effectToUpgrade == strat)
                     return effect;
             return null;
         }
@@ -104,10 +110,46 @@ namespace CardSystem
         }
         public void SetEffectDefForUpgradeCollections()
         {
-            foreach (var effect in _onRareUpgradeEffects)
-                effect.SetCardDef(this);
-            foreach (var effect in _onEpicUpgradeEffects)
-                effect.SetCardDef(this);
+            for (int i = 0; i < _onRareUpgradeEffects.Length; i++)
+                _onRareUpgradeEffects[i].SetCardDef(this);
+            for (int i = 0; i < _onEpicUpgradeEffects.Length; i++)
+                _onEpicUpgradeEffects[i].SetCardDef(this);
+        }
+
+        public List<EffectStrategy> GetEffectOptions()
+        {
+            // grab all valid effect nodes is card def graph
+            _effectOptions = new();
+            foreach (var node in nodes)
+                if (node is IUseEffectValue)
+                    _effectOptions.Add(node as EffectStrategy);
+            return _effectOptions;
+        }
+
+        public string[] GetEffectOptionsStrings()
+        {
+            if (_effectOptions == null || _effectOptions.Count == 0) return new string[0];
+            // create string array to use for popup content
+            _effectOptionsStrings = new string[_effectOptions.Count];
+            for (int i = 0; i < _effectOptions.Count; i++)
+            {
+                var node = _effectOptions[i];
+                _effectOptionsStrings[i] = $"{i}-{GetNodePath(node, string.Empty)}";
+            }
+            return _effectOptionsStrings;
+        }
+        private string GetNodePath(Node node, string curPath)
+        {
+            if (node == null || node is AbilityRootNode) return curPath;
+            Node parent = null;
+            curPath = node.name + (curPath == string.Empty ? "" : $">{curPath}");
+            foreach (var port in node.Inputs)
+            {
+                parent = port.Connection.node;
+                if (parent == null) continue;
+                break;
+            }
+            return GetNodePath(parent, curPath);
         }
     }
 }
@@ -117,7 +159,7 @@ public class EffectUpgrade
     public CardAbilityDefinition cardDef;
     public string effectName;
 
-    public int valueToAdd = 0; 
+    public int valueToAdd = 0;
     public EffectStrategy effectToUpgrade;
 
     public void SetCardDef(CardAbilityDefinition def)

@@ -1,4 +1,5 @@
 using CardSystem;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,8 @@ public class DeckViewerScript : MonoBehaviour
 {
     [SerializeField] private GameObject _cardContentPrefab;
     [SerializeField] private ScrollRect _deckScrollView;
+
+    private CardState _state;
 
     public static DeckViewerScript Instance { get; private set; }
     private void Awake()
@@ -19,15 +22,15 @@ public class DeckViewerScript : MonoBehaviour
 
     private void OnEnable()
     {
-        BuildDeckScrollViewContent();
+        //BuildDeckScrollViewContent();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && _state == CardState.DeckViewer)
             gameObject.SetActive(false);
     }
     //Create all card content in the card library scrollview
-    private void BuildDeckScrollViewContent()
+    public void BuildDeckScrollViewContent(CardState cardState = CardState.DeckViewer)
     {
         if (PlayerDataManager.Instance == null || _cardContentPrefab == null || _deckScrollView == null) return;
         if (PlayerDataManager.Instance.GetPlayerDeck == null || PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck == null)
@@ -35,29 +38,30 @@ public class DeckViewerScript : MonoBehaviour
             Debug.Log("Playerdata deck error");
             return;
         }
+        _state = cardState;
 
-        var deck = PlayerDataManager.Instance.GetPlayerDeck;       
+        var deck = PlayerDataManager.Instance.GetPlayerDeck;
         if (deck == null) return;
+        if (CardUpgradeController.Instance == null) return;
 
-        ClearScrollviewContent(_deckScrollView.content);
+        SetWindowVisualsUp(cardState);
 
-        foreach (var card in deck.GetCardsInDeck)
-        {
-            if (card == null) continue;
-            var cardAbility = card.GetCardAbility;
+        Action<Transform, Card> cardSelectAction = null;
+        if (cardState == CardState.UpgradeMenu)
+            cardSelectAction = (t, c) =>
+            {
+                CardUpgradeController.Instance.ShowUpgradePreview(c);
+            };
 
-            GameObject content = Instantiate(_cardContentPrefab, Vector3.zero, Quaternion.identity, _deckScrollView.content);
-            Card tempCard = new(card, content.transform); 
-            CardPrefabSetterUpper.SetupCardPrefab(tempCard, CardState.DeckViewer);
-
-            //var addCardButton = content.GetComponentInChildren<Button>();
-            //if (addCardButton == null) continue;
-            //addCardButton?.gameObject.SetActive(false);
-        }
+        CardScrollviewFiller.BuildScrollViewContent(_deckScrollView.content, _cardContentPrefab, deck.GetCardsInDeck.ToArray(), cardState, null, cardSelectAction);
     }
-    private void ClearScrollviewContent(RectTransform contentTransform)
+    private void SetWindowVisualsUp(CardState cardState)
     {
-        for (int i = contentTransform.childCount - 1; i >= 0; i--)
-            Destroy(contentTransform.GetChild(i).gameObject);
+        if (TryGetComponent(out TextMeshProUGUI titleText))
+            titleText.text = cardState == CardState.DeckViewer ? "Cards in Deck" : "Select Card to Upgrade";
+
+        GameObject closeWindowButton = transform.Find("CloseWindowButton").gameObject;
+        if (closeWindowButton == null) return;
+        closeWindowButton.SetActive(cardState == CardState.DeckViewer);
     }
 }

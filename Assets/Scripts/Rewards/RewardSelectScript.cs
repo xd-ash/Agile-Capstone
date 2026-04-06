@@ -62,19 +62,13 @@ public class RewardSelectScript : MonoBehaviour
 
             GameObject content = Spawn(_cardOptionContent, _optionsContentParent);
 
-            var tmpCard = new Card(card, content.transform);
-
-            CardPrefabSetterUpper.SetupCardPrefab(tmpCard, CardState.Rewards);
-
             Image optionHighlight = content.GetComponentInChildren<Image>(true);
             optionHighlight.gameObject.SetActive(false);
             contentHighlights.Add(optionHighlight.gameObject);
 
-            var cs = content.GetComponent<CardSelect>();
-            cs.InitCardSelect(CardState.Rewards);
-            cs.OnPrefabCreation(tmpCard);
-            var cfs = content.GetComponent<CardFunctionScript>();
-            cfs.SetOnMouseDown(CardState.Rewards, () =>
+            var tmpCard = new Card(card, content.transform);
+
+            CardPrefabSetterUpper.SetupCardPrefab(tmpCard, CardState.Rewards, () =>
             {
                 _confirmButton.interactable = true;
                 ClearHighlights(optionHighlight.transform);
@@ -87,22 +81,6 @@ public class RewardSelectScript : MonoBehaviour
                     _displayScript.OnConfirmRewardChoice(card);
                 };
             });
-
-            /*Button contentButton = content.GetComponentInChildren<Button>(true);
-            contentButton.onClick.RemoveAllListeners();
-            contentButton.onClick.AddListener(() =>
-            {
-                _confirmButton.interactable = true;
-                ClearHighlights();
-                optionHighlight.gameObject.SetActive(true);
-
-                _onConfirm = null;
-                _onConfirm = () =>
-                {
-                    RewardsController.RewardCard(card);
-                    _displayScript.OnConfirmRewardChoice(card);
-                };
-            });*/
         }
 
         _contentHighlights = contentHighlights.ToArray();

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using CardSystem;
-using static GameObjectPool;
+using System;
 
 public class PackBuilderScript : MonoBehaviour
 {
@@ -52,23 +52,17 @@ public class PackBuilderScript : MonoBehaviour
     {
         if (_currPack == null || _cardContentPrefab == null || _cardScrollView == null) return;
 
-        ClearScrollviewContent(_cardScrollView.content);
-
-        foreach (var card in _cardAndPackLibrary.GetCardsInProject)
+        //action to perform for each prefab created (t = content transform, c = card def)
+        Action<Transform, CardAbilityDefinition> onPrefabCreate = (t, c) =>
         {
-            if (card == null) continue;
+            var addCardButton = t.GetComponentInChildren<Button>();
+            if (addCardButton == null) return;
 
-            GameObject content = Spawn(_cardContentPrefab, Vector3.zero, Quaternion.identity, _cardContentPrefab.transform.localScale, _cardScrollView.content);
-
-            var tempCard = new Card(card, card.GetBaseCardRarity, content.transform);
-
-            CardPrefabSetterUpper.SetupCardPrefab(tempCard, CardState.PackViewer);
-
-            var addCardButton = content.GetComponentInChildren<Button>();
-            if (addCardButton == null) continue;
-            addCardButton?.onClick.AddListener(() => AddCardToTempPack(card));
+            addCardButton?.onClick.AddListener(() => AddCardToTempPack(c));
             addCardButton.interactable = _isCurrentPackEditable;
-        }
+        };
+
+        CardScrollviewFiller.BuildScrollViewContent(_cardScrollView.content, _cardContentPrefab, _cardAndPackLibrary.GetCardsInProject.ToArray(), CardState.PackViewer, onPrefabCreate);
     }
 
     //Create all pack content in the pack scrollview
@@ -76,26 +70,23 @@ public class PackBuilderScript : MonoBehaviour
     {
         if (_currPack == null || _packContentPrefab == null || _packScrollView == null) return;
 
-        ClearScrollviewContent(_packScrollView.content);
-
-        foreach (var card in _tempPack)
+        //action to perform for each prefab created (t = content transform, c = card def)
+        Action<Transform, CardAbilityDefinition> onPrefabCreate = (t,c) =>
         {
-            if (card == null) continue;
-            
-            GameObject content = GameObject.Instantiate(_packContentPrefab, Vector3.zero, Quaternion.identity, _packScrollView.content);
-            content.name = card.name;
-
-            var texts = content.GetComponentsInChildren<TextMeshProUGUI>();
-            if (texts == null || texts.Length < 2) continue;
-            texts[0].text = card.name;
+            var texts = t.GetComponentsInChildren<TextMeshProUGUI>();
+            if (texts == null || texts.Length < 2) return;
+            texts[0].text = c.name;
             //texts[1].text = GetCardAmountInCurrentDeck(card).ToString();
 
-            var removeCardButton = content.GetComponentInChildren<Button>();
-            if (removeCardButton == null) continue;
+            var removeCardButton = t.GetComponentInChildren<Button>();
+            if (removeCardButton == null) return;
 
-            removeCardButton?.onClick.AddListener(() => RemoveCardFromTempPack(card));
+            removeCardButton?.onClick.AddListener(() => RemoveCardFromTempPack(c));
             removeCardButton.gameObject.SetActive(_isCurrentPackEditable);
-        }
+        };
+
+        CardScrollviewFiller.BuildScrollViewContent(_packScrollView.content, _packContentPrefab, _tempPack.ToArray(), CardState.PackViewer, onPrefabCreate);
+
         ToggleConfirmbutton();
     }
     //toggle confirm button interable if temp pack differes from the actual pack
@@ -200,8 +191,6 @@ public class PackBuilderScript : MonoBehaviour
     //Swap current pack
     public void SwapCurrentPack()
     {
-        ClearScrollviewContent(_packScrollView.content);
-
         var temp = GetCurrentPackFromDropdown();
         if (temp == null) return;
         _currPack = temp;
@@ -287,10 +276,5 @@ public class PackBuilderScript : MonoBehaviour
                 break;
             }
         return true;
-    }
-    private void ClearScrollviewContent(RectTransform contentTransform)
-    {
-        for (int i = contentTransform.childCount - 1; i >= 0; i--)
-            Destroy(contentTransform.GetChild(i).gameObject);
     }
 }

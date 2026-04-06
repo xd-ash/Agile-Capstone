@@ -21,23 +21,15 @@ public class EffectUpgradePropDrawer : PropertyDrawer
         var dropdownRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
         var valueRect = new Rect(position.x, position.y + 20, position.width, EditorGUIUtility.singleLineHeight);
 
-        // grab all valid effect nodes is card def graph
-        List<EffectStrategy> effectOptions = new();
-        foreach (var node in target.cardDef.nodes)
-            if (node is IUseEffectValue)
-                effectOptions.Add(node as EffectStrategy);
+        // get all valid effect nodes is card def graph
+        var effectOptions = target.cardDef.GetEffectOptions();
 
-        // create string array to use for popup content
-        string[] optionStrings = new string[effectOptions.Count];
-        for (int i = 0; i < effectOptions.Count; i++)
-        {
-            var node  = effectOptions[i];
-            optionStrings[i] = GetNodePath(node, string.Empty);
-        }
-        
+        // get string array to use for popup content
+        var optionStrings = target.cardDef.GetEffectOptionsStrings();
+
         //grab current index of selected effect
         int currIndex = target.effectToUpgrade != null ? effectOptions.IndexOf(target.effectToUpgrade) : 0;
-
+        
         // create popup menu to select effects
         currIndex = EditorGUI.Popup(dropdownRect, currIndex, optionStrings);
 
@@ -55,18 +47,5 @@ public class EffectUpgradePropDrawer : PropertyDrawer
                             EditorGUIUtility.standardVerticalSpacing * (lineCount - 1);
 
         return totalHeight;
-    }
-    private string GetNodePath(Node node, string curPath)
-    {
-        if (node == null || node is AbilityRootNode) return curPath;
-        Node parent = null;
-        curPath = node.name + (curPath == string.Empty ? "" : $">{curPath}");
-        foreach (var port in node.Inputs)
-        {
-            parent = port.Connection.node;
-            if (parent == null) continue;
-            break;
-        }
-        return GetNodePath(parent, curPath);
     }
 }

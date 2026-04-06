@@ -35,7 +35,7 @@ namespace CardSystem
         private Vector3 _startPosition;
         private int _startIndex;
 
-        private Action _onMouseDown, _onMouseUp, _onMouseDrag;
+        private Action _onMouseDown, _onMouseUp, _onMouseDrag, _onMouseEnter, _onMouseExit;
 
         private void OnEnable()
         {
@@ -45,13 +45,13 @@ namespace CardSystem
         private void OnDestroy()
         {
             if (_state != CardState.Combat) return;
-
+            
             AbilityEvents.OnAbilityTargetingStopped -= ReturnCardToHand;
             if (TurnManager.Instance != null)
                 TurnManager.Instance.OnTurnEnd -= OnTurnEnd;
         }
 
-        public void InitCardSelect(CardState state)
+        public void InitCardSelect(Card card, CardState state, Action onCardClick = null)
         {
             _state = state;
 
@@ -63,7 +63,10 @@ namespace CardSystem
             SetOnMouseDown();
             SetOnMouseUp();
             SetOnMouseDrag();
+            SetOnMouseEnter();
+            SetOnMouseExit();
 
+            OnPrefabCreation(card, onCardClick);
             if (_state != CardState.Combat) return;
 
             AbilityEvents.OnAbilityTargetingStopped += ReturnCardToHand;
@@ -80,25 +83,29 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
-            if (_state == CardState.Combat && RewardsDisplayScript.IsRewarding) return;
+            _onMouseEnter?.Invoke();
+
+            /*if (_state == CardState.Combat && RewardsDisplayScript.IsRewarding) return;
 
             if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
                 ToggleHighlightAndScale(true);
 
             if (_state != CardState.Combat) return;
             int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
-            APDisplay.Instance?.ShowPreview(cost);
+            APDisplay.Instance?.ShowPreview(cost);*/
         }
         private void OnMouseExit()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging)
+            _onMouseExit?.Invoke();
+
+            /*if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging)
             {
                 ToggleHighlightAndScale(false);
 
                 if (_state != CardState.Combat || DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
 
                 APDisplay.Instance?.ClearPreview();
-            }
+            }*/
         }
         private void OnMouseDown()
         {
@@ -113,7 +120,7 @@ namespace CardSystem
             _onMouseDrag?.Invoke();
         }
 
-        //temp? card lerp to "active position" to fix cards covering playing grid
+        // card lerp to "active position" to fix cards covering playing grid
         private IEnumerator MoveCardToActivePos()
         {
             Transform target = DeckAndHandManager.Instance.CardActivePos;
@@ -193,7 +200,7 @@ namespace CardSystem
         }
 
         //Set initial text fields and initialize card object
-        public void OnPrefabCreation(Card card)
+        private void OnPrefabCreation(Card card, Action prefabButtonOnclick = null)
         {
             if (card == null)
             {
@@ -201,7 +208,7 @@ namespace CardSystem
                 return;
             }
 
-            _cfs.OnPrefabCreation(card, _state);
+            _cfs.OnPrefabCreation(card, _state, prefabButtonOnclick);
 
             SetupVisuals();
         }
@@ -233,6 +240,8 @@ namespace CardSystem
                 case CardState.Shop:
                     break;
                 case CardState.Rewards:
+                    break;
+                case CardState.UpgradeMenu:
                     break;
                 case CardState.Combat:
                     tmp = () =>
@@ -282,6 +291,8 @@ namespace CardSystem
                 case CardState.Shop:
                     break;
                 case CardState.Rewards:
+                    break;
+                case CardState.UpgradeMenu:
                     break;
                 case CardState.Combat:
                     tmp = () =>
@@ -343,6 +354,8 @@ namespace CardSystem
                     break;
                 case CardState.Rewards:
                     break;
+                case CardState.UpgradeMenu:
+                    break;
                 case CardState.Combat:
                     tmp = () =>
                     {
@@ -380,6 +393,87 @@ namespace CardSystem
                     break;
             }
             _onMouseDrag = tmp;
+        }
+        private void SetOnMouseEnter()
+        {
+            Action tmp = null;
+            switch (_state)
+            {
+                case CardState.Combat:
+                    tmp = () =>
+                    {
+                        if (RewardsDisplayScript.IsRewarding) return;
+
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused && DeckAndHandManager.Instance.GetSelectedCard == null)
+                            ToggleHighlightAndScale(true);
+
+                        int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
+                        APDisplay.Instance?.ShowPreview(cost);
+                    };
+                    break;
+                case CardState.PackViewer:
+                case CardState.DeckViewer:
+                case CardState.Shop:
+                case CardState.Rewards:
+                case CardState.UpgradeMenu:
+                    tmp = () =>
+                    {
+                        if (CardUpgradeController.IsPreviewingUpgrade) return;
+                        
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(true);
+                    };
+                    break;
+                default:
+                    tmp = () =>
+                    {
+                        if (!_cfs.IsSelected  && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(true);
+                    };
+                    break;
+            }
+            _onMouseEnter = tmp;
+        }
+        private void SetOnMouseExit()
+        {
+            Action tmp = null;
+            switch (_state)
+            {
+                case CardState.Combat:
+                    tmp = () =>
+                    {
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                        {
+                            ToggleHighlightAndScale(false);
+
+                            if (DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
+
+                            APDisplay.Instance?.ClearPreview();
+                        }
+                    };
+                    break;
+                case CardState.PackViewer:
+                case CardState.DeckViewer:
+                case CardState.Shop:
+                case CardState.Rewards:
+                case CardState.UpgradeMenu:
+                    tmp = () =>
+                    {
+                        if (CardUpgradeController.IsPreviewingUpgrade) return;
+
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(false);
+                    };
+                    break;
+                default:
+                    tmp = () =>
+                    {
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(false);
+                    };
+                    break;
+            }
+            _onMouseExit = tmp;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace CardSystem
             _effectValue = initVal;
         }
 
-        protected int GetRarityAdjustedEffectValue(CardRarity rarity)
+        public int GetRarityAdjustedEffectValue(CardRarity rarity)
         {
             var def = graph as CardAbilityDefinition;
             var upgradeEffect = def.GetUpgradeEffect(this, rarity);

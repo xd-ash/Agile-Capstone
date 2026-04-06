@@ -1,69 +1,77 @@
 using CardSystem;
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CardState { PackViewer, DeckViewer, Shop, Rewards, Combat }
+public enum CardState { PackViewer, DeckViewer, Shop, Rewards, Combat, UpgradeMenu }
 
 public static class CardPrefabSetterUpper
 {
     private static float _combatScale = 1.44f; // transform scale determined through in scene editing
 
-    public static bool SetupCardPrefab(Card card, CardState cardState = CardState.Combat)
+    public static bool SetupCardPrefab(Card card, CardState cardState = CardState.Combat, Action onClick = null)
     {
         if (card == null || card.GetCardAbility == null || card.GetCardTransform == null)
             return FailPrefabSetup($"(Null card data)");
         if (!FillTextFields(card))
             return FailPrefabSetup($"(Text field fill failure.)");
 
+        card.GetCardTransform.name = card.GetCardName;
+
         SetRarityVisuals(card);
 
         switch (cardState)
         {
             case CardState.PackViewer:
-                return SetupPackViewerCard(card);
+                return SetupPackViewerCard(card, onClick);
             case CardState.DeckViewer:
-                return SetupDeckViewerCard(card);
+                return SetupDeckViewerCard(card, onClick);
             case CardState.Shop:
-                return SetupShopCard(card);
+                return SetupShopCard(card, onClick);
             case CardState.Rewards:
-                return SetupRewardsCard(card);
+                return SetupRewardsCard(card, onClick);
+            case CardState.UpgradeMenu:
+                return SetupUpgradeMenuCard(card, onClick);
             default:
-                return SetupCombatCard(card);
+                return SetupCombatCard(card, onClick);
         }
     }
-    private static bool SetupPackViewerCard(Card card)
+    private static bool SetupPackViewerCard(Card card, Action onClick = null)
     {
         DisableBoxCollider(card.GetCardTransform);
-        SetCardState(card.GetCardTransform, CardState.PackViewer);
+        SetCardState(card, CardState.PackViewer, onClick);
         return true;
     }
-    private static bool SetupDeckViewerCard(Card card)
-    {
-        //DisableBoxCollider(card.GetCardTransform);
-        RemoveButton(card.GetCardTransform);
-        SetCardState(card.GetCardTransform, CardState.DeckViewer);
-        return true;
-    }
-    private static bool SetupShopCard(Card card)
+    private static bool SetupDeckViewerCard(Card card, Action onClick = null)
     {
         RemoveButton(card.GetCardTransform);
-        SetCardState(card.GetCardTransform, CardState.Shop);
+        SetCardState(card, CardState.DeckViewer, onClick);
         return true;
     }
-    private static bool SetupRewardsCard(Card card)
+    private static bool SetupShopCard(Card card, Action onClick = null)
     {
         RemoveButton(card.GetCardTransform);
-        SetCardState(card.GetCardTransform, CardState.Rewards);
+        SetCardState(card, CardState.Shop, onClick);
         return true;
     }
-    private static bool SetupCombatCard(Card card)
+    private static bool SetupRewardsCard(Card card, Action onClick = null)
+    {
+        RemoveButton(card.GetCardTransform);
+        SetCardState(card, CardState.Rewards, onClick);
+        return true;
+    }
+    private static bool SetupUpgradeMenuCard(Card card, Action onClick = null)
+    {
+        RemoveButton(card.GetCardTransform);
+        SetCardState(card, CardState.UpgradeMenu, onClick);
+        return true;
+    }
+    private static bool SetupCombatCard(Card card, Action onClick = null)
     {
         card.GetCardTransform.localScale = Vector3.one * _combatScale;
         RemoveButton(card.GetCardTransform);
-        SetCardState(card.GetCardTransform, CardState.Combat);
+        SetCardState(card, CardState.Combat, onClick);
         return true;
     }
 
@@ -78,7 +86,7 @@ public static class CardPrefabSetterUpper
         {
             // Update text content
             cardTextFields[0].text = card.GetCardAbility.GetCardName;
-            cardTextFields[1].text = card.GetCardAbility.GetDescription;
+            cardTextFields[1].text = card.GetDescription;
             cardTextFields[2].text = card.GetCardAbility.GetApCost.ToString();
         }
         else
@@ -135,10 +143,10 @@ public static class CardPrefabSetterUpper
         bc.enabled = false;
         return true;
     }
-    private static void SetCardState(Transform cardTrans, CardState state)
+    private static void SetCardState(Card card, CardState state, Action onClick = null)
     {
-        if (!cardTrans.TryGetComponent(out CardSelect cs)) return;
-        cs.InitCardSelect(state);
+        if (!card.GetCardTransform.TryGetComponent(out CardSelect cs)) return;
+        cs.InitCardSelect(card, state, onClick);
     }
     public static void SetCombatCardGOOrder(Transform bringThisForward = null)
     {
