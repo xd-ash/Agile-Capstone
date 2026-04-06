@@ -143,6 +143,7 @@ MonoBehaviour:
   _description: Deal 5 damage close range and draw one card
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
   _cardCategory: 0
+  _cardTags: 
   _effectValue: 0
   _apCost: 4
   _range: 1
@@ -155,7 +156,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 2
+  _attackAnimKey: 9
   _baseCardRarity: 1
   _onRareUpgradeEffects: []
   _onEpicUpgradeEffects: []

@@ -122,6 +122,9 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects: []
+  _onEpicUpgradeEffects: []
 --- !u!114 &4399271552075898318
 MonoBehaviour:
   m_ObjectHideFlags: 0
