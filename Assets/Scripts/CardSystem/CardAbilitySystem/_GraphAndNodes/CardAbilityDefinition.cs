@@ -4,7 +4,7 @@ using System;
 
 namespace CardSystem
 {
-    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling }
+    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling, Throwable }
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
     {

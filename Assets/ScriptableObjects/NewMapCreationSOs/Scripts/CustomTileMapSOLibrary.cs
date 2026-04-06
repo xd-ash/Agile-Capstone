@@ -1,5 +1,3 @@
-using CardSystem;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,5 +31,13 @@ public class CustomTileMapSOLibrary : ScriptableObject
             if (so.name == soName)
                 return so;
         return null;
+    }
+    public CustomTileMapSO[] GetTileMapSOsFromType(CombatMapType type)
+    {
+        List<CustomTileMapSO> temp = new();
+        foreach (var so in _customTileMapSOsInProject)
+            if (so.GetCombatMapType == type)
+                temp.Add(so);
+        return temp.ToArray();
     }
 }

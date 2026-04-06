@@ -7,17 +7,31 @@ using UnityEngine;
 public class AttackAnimSet
 { 
     public AttackAnimKey key;
-   //"4 directional animation clips: [0]=NE, [1]=NW, [2]=SE, [3]=SW
+   //4 directional animation clips: [0]=NE, [1]=NW, [2]=SE, [3]=SW
     public AnimationClip[] dirClips = new AnimationClip[4];
 }
 
 public enum AttackAnimKey
 {
     None,
-    Slash,
     Punch,
-    Shoot,
-    // add more as needed
+    Punch2,
+    KnifeSlash,
+    KnifeSwing,
+    Bat,
+    Hammer,
+    Machete,
+    SemiAuto,
+    Revolver,
+    Crossbow,
+    PumpShotgun,
+    SawedOff,
+    Rifle,
+    Sniper,
+    Throw,
+    TakeDamage,
+    Die,
+    Use
 }
 public class DirectionAnimator : MonoBehaviour
 {

@@ -17,7 +17,7 @@ MonoBehaviour:
     borderColor: {r: 1, g: 0.41228476, b: 0, a: 1}
     icon: {fileID: 21300000, guid: 49a49aa8c3cfc48938d744c0d216b936, type: 3}
   - category: 1
-    borderColor: {r: 0.7830189, g: 0.0071545276, b: 0, a: 1}
+    borderColor: {r: 1, g: 0.7012921, b: 0, a: 1}
     icon: {fileID: 21300000, guid: 11bf5cdba9e28411eac489e111e3ee14, type: 3}
   - category: 2
     borderColor: {r: 0.12346972, g: 0.6792453, b: 0, a: 1}
@@ -26,11 +26,14 @@ MonoBehaviour:
     borderColor: {r: 0, g: 0.20553756, b: 1, a: 1}
     icon: {fileID: 21300000, guid: e622a5da1355846558309df44e7b4617, type: 3}
   - category: 4
-    borderColor: {r: 1, g: 0.70822835, b: 0, a: 1}
+    borderColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
     icon: {fileID: 21300000, guid: a4038d48f48434020ac3c300cb6448a9, type: 3}
   - category: 5
-    borderColor: {r: 1, g: 0.70822835, b: 0, a: 1}
+    borderColor: {r: 0, g: 0, b: 0, a: 1}
     icon: {fileID: -6287795132945357763, guid: 84dca61eae5c64dcbb01d42f2c22aca8, type: 3}
   - category: 6
-    borderColor: {r: 1, g: 0.70822835, b: 0, a: 1}
+    borderColor: {r: 0.7152417, g: 0, b: 0.7924528, a: 1}
+    icon: {fileID: -6287795132945357763, guid: 84dca61eae5c64dcbb01d42f2c22aca8, type: 3}
+  - category: 7
+    borderColor: {r: 0.8113208, g: 0.08048924, b: 0, a: 1}
     icon: {fileID: -6287795132945357763, guid: 84dca61eae5c64dcbb01d42f2c22aca8, type: 3}

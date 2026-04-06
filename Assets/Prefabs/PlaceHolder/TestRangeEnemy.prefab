@@ -347,22 +347,76 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleStateAnims:
-  - {fileID: 7400000, guid: 59acd87f3cfdeee4dae4a43afb4b3cf5, type: 2}
-  - {fileID: 7400000, guid: c9f98599c4ca2764c81d1e3ed10c6ca4, type: 2}
-  - {fileID: 7400000, guid: 5186801ccd46a9f4bae1ffd5bbbd1aa7, type: 2}
-  - {fileID: 7400000, guid: 75121a8d56306fd47b3b003d74cb6a12, type: 2}
+  - {fileID: 7400000, guid: 1cc7c4f83511a3a4c8523bd1e430bda5, type: 2}
+  - {fileID: 7400000, guid: e62f4975524557649a4912dc7f85f185, type: 2}
+  - {fileID: 7400000, guid: 9974abbd23dc42f46b29408796043507, type: 2}
+  - {fileID: 7400000, guid: 2e0cf1969b2f1e148b5c105be1bd1dc7, type: 2}
   _moveStateAnims:
-  - {fileID: 7400000, guid: 470620acda9ac1b47bb0486d4c46226d, type: 2}
-  - {fileID: 7400000, guid: 660fa8eab07543f4b8d1e5a5b308fc90, type: 2}
-  - {fileID: 7400000, guid: 22e0f3de57289bf44b39c416322bbb62, type: 2}
-  - {fileID: 7400000, guid: 0c5cdee1a0b3e8044b1b31427bc6f98b, type: 2}
+  - {fileID: 7400000, guid: 6505ac99f4fcd6a43849403e5f03d6af, type: 2}
+  - {fileID: 7400000, guid: da14d740b334ab744b71426fcd27fe49, type: 2}
+  - {fileID: 7400000, guid: 71b08d84da8988a4da096503d4624ad0, type: 2}
+  - {fileID: 7400000, guid: a18739b502e576842b30456054dda3f3, type: 2}
   _attackAnimSets:
-  - key: 3
+  - key: 10
     dirClips:
-    - {fileID: 7400000, guid: 1dce9c8b8cc199c4292fa5180f4d3a17, type: 2}
-    - {fileID: 7400000, guid: 6aa01ea00caab4741ae83abd1fc30e3e, type: 2}
-    - {fileID: 7400000, guid: 8b81ebe819224bb49b85b9915837c2a8, type: 2}
-    - {fileID: 7400000, guid: c5952f6d4aa287a489ec362647a30181, type: 2}
+    - {fileID: 7400000, guid: ca9dd753684d23c45a29f00f060cf48b, type: 2}
+    - {fileID: 7400000, guid: 8f8b6a8de47e7634f8d0828284b2ed2f, type: 2}
+    - {fileID: 7400000, guid: 405c9b79fafae6f4fb927d243c4638b9, type: 2}
+    - {fileID: 7400000, guid: 03b9561e9f6d7934a880244fe7215eeb, type: 2}
+  - key: 17
+    dirClips:
+    - {fileID: 7400000, guid: 1da881d2984f1ed4e8d530d9171270ea, type: 2}
+    - {fileID: 7400000, guid: 650e2ebf91646f744970c628c400c326, type: 2}
+    - {fileID: 7400000, guid: 1da881d2984f1ed4e8d530d9171270ea, type: 2}
+    - {fileID: 7400000, guid: 5334823ae0805e2479e8bc6a4c2469ed, type: 2}
+  - key: 11
+    dirClips:
+    - {fileID: 7400000, guid: fb7b5689de199a540b8d5d032868d618, type: 2}
+    - {fileID: 7400000, guid: 8071bba0fbd7f22408e5e442c6edf50b, type: 2}
+    - {fileID: 7400000, guid: f7e73a61f964c58489376be31369ec5e, type: 2}
+    - {fileID: 7400000, guid: acaccc9b2b80fa84bad326731d4bdef8, type: 2}
+  - key: 9
+    dirClips:
+    - {fileID: 7400000, guid: b26170fd9bc1be5469e1a31a49a58e46, type: 2}
+    - {fileID: 7400000, guid: 955940c193b2265448ea1834c46f102e, type: 2}
+    - {fileID: 7400000, guid: 3545e3f78b1bb174782770822be0e8d3, type: 2}
+    - {fileID: 7400000, guid: 277afc890ddcdfc479a7cfa8aafe7983, type: 2}
+  - key: 13
+    dirClips:
+    - {fileID: 7400000, guid: 08788dff5c13b4949a47a230643cb345, type: 2}
+    - {fileID: 7400000, guid: 9ddf748289b7ef247bcec66e4c29476b, type: 2}
+    - {fileID: 7400000, guid: e05eb2c7ca185184bb6688cc3e818e52, type: 2}
+    - {fileID: 7400000, guid: 096ed4d6c7218c2478612a5e2c270031, type: 2}
+  - key: 12
+    dirClips:
+    - {fileID: 7400000, guid: 29fc80016592ce3428e73aa011a96f46, type: 2}
+    - {fileID: 7400000, guid: 2c802875c68eddd4192a00d2b26d8d93, type: 2}
+    - {fileID: 7400000, guid: 9fa6fd37996c24c4c9908e93f689b82d, type: 2}
+    - {fileID: 7400000, guid: f696049f1b61e6e4282abb46e4757b61, type: 2}
+  - key: 8
+    dirClips:
+    - {fileID: 7400000, guid: a771ac9e7968746439cac82e097b4779, type: 2}
+    - {fileID: 7400000, guid: 693ecb5ca7767604e982655cbde27dca, type: 2}
+    - {fileID: 7400000, guid: 476643ca017ecc64fa8c5ef9e0d6a5a9, type: 2}
+    - {fileID: 7400000, guid: 146d4f75414a45b45a492682696a817c, type: 2}
+  - key: 14
+    dirClips:
+    - {fileID: 7400000, guid: ca6173303ea4ac0498ab2877957f30ff, type: 2}
+    - {fileID: 7400000, guid: 20bf60fda8887f3469c06277420efce1, type: 2}
+    - {fileID: 7400000, guid: 13387e52700394b4d8249ea736fe6f13, type: 2}
+    - {fileID: 7400000, guid: 434b76bab2cc54a4899c991a8012919e, type: 2}
+  - key: 16
+    dirClips:
+    - {fileID: 7400000, guid: 69807a998459b59459e04eacc6eb9037, type: 2}
+    - {fileID: 7400000, guid: 8be5cf64c5a46654d9d14d00912aaea2, type: 2}
+    - {fileID: 7400000, guid: 6492da582efc855488bd76177314e868, type: 2}
+    - {fileID: 7400000, guid: 294cee898a7dcbc4da6c17fab1f429fa, type: 2}
+  - key: 18
+    dirClips:
+    - {fileID: 7400000, guid: c8b5d4a04adc3434b8cd61d19fcf330d, type: 2}
+    - {fileID: 7400000, guid: 020ff4c544084a74782eebd3d6244950, type: 2}
+    - {fileID: 7400000, guid: a7d906053b768ec479d31f56466b62e5, type: 2}
+    - {fileID: 7400000, guid: 5a9f7eda4d1f8414bbed4264679a8692, type: 2}
   _fade: 0.05
 --- !u!61 &5134102706713077211
 BoxCollider2D:
@@ -698,12 +752,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 5250438378151091228, guid: f2cf4927e5c58ea4da5be4120b91336f, type: 3}
+  m_Sprite: {fileID: -743770565, guid: 3e93f020ecc82dd4db2529599b5dfb7a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.2, y: 3.2}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -719,7 +773,7 @@ Animator:
   m_GameObject: {fileID: 5623386847225295029}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e89944b0df9078c45b423d453ba5a18c, type: 2}
+  m_Controller: {fileID: 9100000, guid: ff9b118a4c3168547bd0ca3c7ab69014, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

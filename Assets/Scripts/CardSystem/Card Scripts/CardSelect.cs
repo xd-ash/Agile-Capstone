@@ -115,6 +115,7 @@ namespace CardSystem
             
             if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick) return;
             if (OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null) return;
+            if (CardShopManager.Instance != null) return;
 
             if (DeckAndHandManager.Instance == null)
             {

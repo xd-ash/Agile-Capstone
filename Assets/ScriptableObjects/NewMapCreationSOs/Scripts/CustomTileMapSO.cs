@@ -4,6 +4,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public enum CombatMapType
+{
+    NormalCombat,
+    Tutorial,
+    // different "game mode" comabt (escort, protect npc)?
+    // special boss combat maps?
+}
 [CreateAssetMenu(fileName = "CustomTileMapSO", menuName = "Custom Map Creation/CustomTileMapSO")]
 public class CustomTileMapSO : ScriptableObject
 {
@@ -16,6 +23,8 @@ public class CustomTileMapSO : ScriptableObject
     private string _newIsoPrefabName = "IsoTileMap.prefab";
     private string _newBytePrefabName = "ByteTileMap.prefab";
 
+    [SerializeField] private CombatMapType _combatType = CombatMapType.NormalCombat;
+    [Space(10)]
     [SerializeField] private GameObject _mainIsoTileMapPrefab;
     [SerializeField] private GameObject _byteMapTileMapPrefab;
 
@@ -23,6 +32,7 @@ public class CustomTileMapSO : ScriptableObject
 
     private bool _didInit = false;
     public bool DidInit => _didInit;
+    public CombatMapType GetCombatMapType => _combatType;
 
     public GameObject GetMainTileMap => _mainIsoTileMapPrefab;
 

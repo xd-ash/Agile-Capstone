@@ -87,6 +87,8 @@ MonoBehaviour:
   - {fileID: 4878702565414180081}
   _description: Attack twice in a row for 2 damage each
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 3
   _range: 1
   _shopCost: 0
@@ -98,7 +100,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Slash
+  _attackAnimKey: 1
 --- !u!114 &4011390060207284742
 MonoBehaviour:
   m_ObjectHideFlags: 0

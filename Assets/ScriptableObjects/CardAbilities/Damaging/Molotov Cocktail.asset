@@ -178,10 +178,12 @@ MonoBehaviour:
   - {fileID: 5470382531709042956}
   _description: Deal 2 damage every turn for 3 turns to each enemy hit
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _effectValue: 0
   _apCost: 4
   _range: 7
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 10
+  _shopWeight: 10
   _baseHitChance: 100
   _minHitChance: 30
   _maxHitChance: 100
@@ -189,7 +191,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Punch
+  _attackAnimKey: 2
 --- !u!114 &1372939995386781130
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -170,7 +170,9 @@ MonoBehaviour:
   _description: Deal 2 damage and roll a pair of dice 3 times. If a double is rolled,
     double the damage. If snake eyes is rolled, quadruple the damage
   _abilitySFX: {fileID: 0}
-  _apCost: 4
+  _cardCategory: 0
+  _effectValue: 0
+  _apCost: 2
   _range: 3
   _shopCost: 0
   _shopWeight: 0
@@ -181,7 +183,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 35
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Shoot
+  _attackAnimKey: 3
 --- !u!114 &171456546891437306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +267,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 4
+  _effectValue: 6
   input: 0
   effectVisuals: 0
 --- !u!114 &3761187369929906445
@@ -308,7 +310,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 8
+  _effectValue: 10
   input: 0
   effectVisuals: 0
 --- !u!114 &7030038920973159512

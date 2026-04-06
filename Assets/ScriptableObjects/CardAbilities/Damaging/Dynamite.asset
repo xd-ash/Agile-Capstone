@@ -210,10 +210,12 @@ MonoBehaviour:
   - {fileID: -3503993893553348278}
   _description: Deal 5 damage to all enemies in a short range
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
-  _apCost: 6
+  _cardCategory: 0
+  _effectValue: 0
+  _apCost: 3
   _range: 5
-  _shopCost: 35
-  _shopWeight: 15
+  _shopCost: 10
+  _shopWeight: 20
   _baseHitChance: 100
   _minHitChance: 30
   _maxHitChance: 100
@@ -221,7 +223,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: Punch
+  _attackAnimKey: 2
 --- !u!114 &2272785073385819277
 MonoBehaviour:
   m_ObjectHideFlags: 0

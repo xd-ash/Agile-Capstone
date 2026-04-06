@@ -19,12 +19,10 @@ MonoBehaviour:
   - {fileID: 4110972424447529229}
   _description: Gain 2 shield every turn for for 5 turns
   _abilitySFX: {fileID: 0}
-  _cardCategory: 3
-  _effectValue: 0
   _apCost: 3
   _range: 0
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 25
+  _shopWeight: 10
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -32,7 +30,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 0
+  _attackAnimKey: 
 --- !u!114 &1719853233209040065
 MonoBehaviour:
   m_ObjectHideFlags: 0

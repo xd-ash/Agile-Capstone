@@ -161,12 +161,12 @@ MonoBehaviour:
   - {fileID: 142935633900439981}
   - {fileID: -1029605064391376226}
   - {fileID: 6522712238214303282}
-  _description: Flip a coin. On heads, restore 5 AP, on tails do nothing
-  _abilitySFX: {fileID: 0}
-  _apCost: 3
+  _description: Flip a coin. On heads, restore 10 AP, on tails do nothing
+  _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
+  _apCost: 4
   _range: 0
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 10
+  _shopWeight: 20
   _baseHitChance: 100
   _minHitChance: 70
   _maxHitChance: 100
@@ -174,6 +174,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
+  _attackAnimKey: 
 --- !u!114 &142935633900439981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +257,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 5
+  _effectValue: 10
   input: 0
   effectVisuals: 0
