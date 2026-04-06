@@ -51,7 +51,7 @@ public class GoapAgent : MonoBehaviour
     public bool showDebugMessages = false;
 
     public Goal GetCurrentGoal => _currentGoal;
-    public Unit GetCurrentTarget => _currentGoal != null && _currentGoal.key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget;
+    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget));
     public GoapAgentSO GetAgentSO => _agentSO;
 
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
@@ -112,7 +112,7 @@ public class GoapAgent : MonoBehaviour
                 if (element.Value.Item2 == null) continue;
 
                 var cost = element.Value.Item1;
-                if (cost >= cheapestCost) continue;
+                if (cost >= cheapestCost) continue; 
                 _actionQueue = element.Value.Item2;
                 _currentGoal = element.Key ?? new("null", 1, true);
                 cheapestCost = cost;
@@ -120,7 +120,7 @@ public class GoapAgent : MonoBehaviour
             //
             if (showDebugMessages && _actionQueue != null)
             {
-                string tempStr2 = $"{name} - Chosen Plan: ";
+                string tempStr2 = $"{name}({(_currentGoal == null ? "null" : _currentGoal.key)}) - Chosen Plan: ";
                 foreach (GoapAction a in _actionQueue)
                     tempStr2 += $"{a.ToString()} > ";
                 Debug.Log(tempStr2 + $"(Cost: {cheapestCost})");
@@ -165,7 +165,10 @@ public class GoapAgent : MonoBehaviour
                 _currentAction.IsRunning = true;
 
                 if (_currentAction is AttackAction || _currentAction is HealAction)
+                {
                     Invoke(nameof(ActionPerformDelay), _actionDelayTime);
+                    Debug.Log($"goal:{(GetCurrentGoal == null ? "null" : GetCurrentGoal.key)}, CurrAbility:{GetCurrentAbility}"); 
+                }
                 else
                     _currentAction.Perform();
             }
@@ -193,6 +196,7 @@ public class GoapAgent : MonoBehaviour
     public void ResetStates()
     {
         _weightedGoalsDict = new();
+        _currentGoal = null;
 
         string tempDebug = "weighted dict goals: ";
         // goal dict reset and creation from list in inspector
@@ -201,7 +205,7 @@ public class GoapAgent : MonoBehaviour
             _weightedGoalsDict.Add(g, g.value);
             tempDebug += g.key + ", ";
         }
-        //if (showDebugMessages)
+        //if (showDebugMessages) 
         //Debug.Log(temp);
 
         SetAgentGoalWeights();
@@ -213,13 +217,13 @@ public class GoapAgent : MonoBehaviour
 
         if (healCharges != 0)
             _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
-        //else
-           // _beliefs.ModifyState(GoapStates.CantHeal.ToString(), 1);
 
         CheckForAP(unit, ref _beliefs);
         CheckIfHealthy(unit, ref _beliefs);
 
         _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
+
+        //Debug.Log($"Goal:{(_currentGoal == null ? "null" : _currentGoal.key)}, target?:{(GetCurrentTarget == null ? "null" : GetCurrentTarget.name)}");
 
         if (GetCurrentTarget == null)
         {
@@ -234,7 +238,7 @@ public class GoapAgent : MonoBehaviour
         else
         {
             //CheckRange(this, _agentSO.GetDamageAbility.GetRange, ref _beliefs);
-            CheckRange(this, GetCurrentAbility.GetRange, ref _beliefs);
+            var b = CheckRange(this, GetCurrentAbility.GetRange, ref _beliefs);
             CheckIfInLOS(this, ref _beliefs);
         }
 

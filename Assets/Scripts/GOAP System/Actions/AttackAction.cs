@@ -32,7 +32,7 @@ public class AttackAction : GoapAction
     }
 
     public override float EvaluateCost(Unit tempTarget)
-    {
+    { 
         if (_agent == null || tempTarget == null) return _cost;
 
         var targetHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;

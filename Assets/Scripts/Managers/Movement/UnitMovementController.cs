@@ -57,7 +57,7 @@ public class UnitMovementController : MonoBehaviour
 
             var position = ConvertToGridFromIsometric(transform.localPosition);
             _truePath = FindPathAStar.CalculatePath(position, tilePos);
-                    
+            
             if (!_isKnockback)
             {
                 //Flip bool in pathmarker to indicate which tiles are within movement range

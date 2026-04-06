@@ -16,6 +16,7 @@ public enum GoapActions
     Hide = 128,
     MoveOutOfLOS = 256,
     MoveToRange = 512,
+    PotShot = 1024,
 }
 
 [Flags]
@@ -46,7 +47,8 @@ public enum GoapGoals
     KillPlayer = 2,
     StayAlive = 4,
     KeepAlliesAlive = 8,
-    EndTurn = 16
+    EndTurn = 16,
+    PeekAttack = 32,
 }
 
 public struct GOAPEnums
@@ -96,6 +98,9 @@ public struct GOAPEnums
                     break;
                 case 9://MoveToRange
                     actions.Add(new MoveToRangeAction());
+                    break;
+                case 10://Potshot
+                    actions.Add(new AttackAction());
                     break;
             }
         }

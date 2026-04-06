@@ -18,6 +18,9 @@ public class HideAction : GoapAction
     }
     public override float EvaluateCost(Unit tempTarget)
     {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        var agentHealthRatio = _agent.unit.GetHealth / (float)_agent.unit.GetMaxHealth;
         return _cost;
     }
 }

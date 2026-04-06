@@ -88,7 +88,7 @@ namespace AStarPathfinding
                 BeginSearch(startPos, endPos);
                 do
                 {
-                    Search(_lastPos);
+                    Search(_lastPos, ignoreUnits);
                 } while (!_isDone);
                 return GetPath();
             }

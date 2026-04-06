@@ -1,9 +1,7 @@
-using AStarPathfinding;
 using static IsoMetricConversions;
 using static CombatMath;
 using UnityEngine;
 using static AStarPathfinding.FindPathAStar;
-using static UnityEngine.GraphicsBuffer;
 
 public static class GOAPDeterminationMethods
 {
@@ -38,9 +36,10 @@ public static class GOAPDeterminationMethods
     {
         var unitMover = agent.GetComponent<UnitMovementController>();
         //int dmgAbilRange = agent.damageAbility.GetRange;
-
+         
         var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
         var tempPath = unitMover.CalculatePath(tarPos);
+       // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
         int distanceToTar = tempPath.Count;
 
         if (distanceToTar >= _atRangeThreshold)

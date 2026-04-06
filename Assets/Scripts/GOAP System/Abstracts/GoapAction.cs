@@ -24,10 +24,11 @@ public abstract class GoapAction
     public Dictionary<string, float> GetPreConditions => _preConditions;
     public Dictionary<string, float> GetPostConditions => _postConditions;
 
-    public GoapAction()
+    public GoapAction(string overrideName = "")
     {
-        _actionName = this.ToString();
+        _actionName = overrideName == string.Empty ? this.ToString() : overrideName;
     }
+
     public void SetAgent(GoapAgent agent)
     {
         _agent = agent;
