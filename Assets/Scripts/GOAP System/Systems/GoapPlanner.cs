@@ -46,13 +46,30 @@ public class GoapPlanner
             if (a.IsAchievable())
                 usableActions.Add(a);
 
+        //setup temp beliefs for planning
+        Unit tempTarget = null;
+        string curGoal = goal.ElementAt(0).Key;
+        //int i = curGoal == GoapGoals.KillPlayer.ToString() ? 0 : 1;
+        foreach (var ua in usableActions)
+            if (ua is ChooseTargetAction)
+            {
+                tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[0];
+                break;
+            }
+
+        var tempBeliefs = GoapAgent.GetTempBeliefsGivenGoal(_agent, curGoal, tempTarget, beliefStates);
+
         List<GOAPNode> leaves = new List<GOAPNode>();
-        GOAPNode start = new GOAPNode(null, 0, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
+        //GOAPNode start = new GOAPNode(null, 0, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
+        GOAPNode start = new GOAPNode(null, 0, tempBeliefs.GetStates, null); //null parent, no cost, & null action b/c it is start node
+
+
+        bool success = BuildGraph(start, leaves, usableActions, goal, tempTarget);
 
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr = _agent.name + " - Goal: ";
+            string tempStr = $"Agent: {_agent.name} Target: {tempTarget.name} - Goal: ";
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
             tempStr += $"\nBeliefs: ";
@@ -61,17 +78,6 @@ public class GoapPlanner
             Debug.Log(tempStr);
         }
         //
-
-        Unit tempTarget = null;
-        string curGoal = goal.ElementAt(0).Key;
-        int i = curGoal == GoapGoals.KillPlayer.ToString() ? 0 : 1;
-        foreach (var ua in usableActions)
-            if (ua is ChooseTargetAction)
-            {
-                tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
-                break;
-            }
-        bool success = BuildGraph(start, leaves, usableActions, goal, tempTarget);
 
         if (!success)
         {
@@ -120,13 +126,14 @@ public class GoapPlanner
         return new(cheapest.cost, queue);
     }
 
-    //recursive method for node graph building
+    //recursive method for node graph building 
     private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, float> goal, Unit tempTarget)
     {
         bool foundPath = false;
         foreach (GoapAction action in usableActions)
         {
-            if (!action.IsAchievableGiven(parent.state)) continue;
+            bool isStayAlive = goal.ElementAt(0).Key == GoapGoals.StayAlive.ToString();
+            if (!action.IsAchievableGiven(parent.state, isStayAlive)) continue;
             
             Dictionary<string, float> currentState = new Dictionary<string, float>(parent.state);
 

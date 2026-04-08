@@ -1,6 +1,5 @@
 using CardSystem;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -26,10 +25,10 @@ public class Goal
 public class GoapAgent : MonoBehaviour
 {
     [SerializeField] private GoapAgentSO _agentSO;
-    //private GoapAgentHueristics _agentHeuristics;
 
     [Tooltip("Number of times unit can heal per combat. (-1 for infinite heals)")]
     public int healCharges = 3;
+    public int attacksPerformedThisTurn = 0;
 
     private List<GoapAction> _actions = new();
     private GoapAction _currentAction;
@@ -198,6 +197,8 @@ public class GoapAgent : MonoBehaviour
         _weightedGoalsDict = new();
         _currentGoal = null;
 
+        attacksPerformedThisTurn = 0;
+
         string tempDebug = "weighted dict goals: ";
         // goal dict reset and creation from list in inspector
         foreach (var g in _goals)
@@ -246,6 +247,37 @@ public class GoapAgent : MonoBehaviour
         foreach (var belief in _beliefs.GetStates)
             beliefDebug += $"{belief.Key}, ";
         //Debug.Log(beliefDebug);
+    }
+    public static WorldStates GetTempBeliefsGivenGoal(GoapAgent agent, string tempGoal, Unit tempTarget, WorldStates referenceBeliefs)
+    {
+        Unit unit = agent.unit;
+
+        WorldStates tempBeliefs = new(referenceBeliefs);
+
+        tempBeliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
+
+        CheckForAP(unit, ref tempBeliefs);
+        CheckIfHealthy(unit, ref tempBeliefs);
+
+        tempBeliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
+
+        if (tempTarget == null)
+        {
+            tempBeliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
+            tempBeliefs.RemoveState(GoapStates.HasLOS.ToString());
+
+            tempBeliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+            tempBeliefs.RemoveState(GoapStates.InRange.ToString());
+
+            tempBeliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
+        }
+        else
+        {
+            var currAbility = tempTarget.GetTeam == unit.GetTeam ? agent.GetHealAbility : agent.GetDamageAbility;
+            var b = CheckRange(agent, tempTarget, currAbility.GetRange, ref tempBeliefs);
+            CheckIfInLOS(agent, tempTarget, ref tempBeliefs);
+        }
+        return tempBeliefs;
     }
     private void SetAgentGoalWeights()
     {

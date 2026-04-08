@@ -64,6 +64,38 @@ public static class GOAPDeterminationMethods
         beliefs.RemoveState(GoapStates.OutOfRange.ToString());
         return true;
     }
+    public static bool CheckRange(GoapAgent agent, Unit target, int abilityRange, ref WorldStates beliefs)
+    {
+        var unitMover = agent.GetComponent<UnitMovementController>();
+        //int dmgAbilRange = agent.damageAbility.GetRange;
+         
+        var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
+        var tempPath = unitMover.CalculatePath(tarPos);
+       // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
+        int distanceToTar = tempPath.Count;
+
+        if (distanceToTar >= _atRangeThreshold)
+        {
+            beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
+            beliefs.RemoveState(GoapStates.AtMelee.ToString());
+        }
+        else
+        {
+            beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
+            beliefs.RemoveState(GoapStates.AtRange.ToString());
+        }
+
+        if (distanceToTar > abilityRange)
+        {
+            beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+            beliefs.RemoveState(GoapStates.InRange.ToString());
+            return false;
+        }
+
+        beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
+        beliefs.RemoveState(GoapStates.OutOfRange.ToString());
+        return true;
+    }
     public static bool CheckIfHealthy(Unit unit, ref WorldStates beliefs)
     {
         if (unit == null) return false;
@@ -87,6 +119,25 @@ public static class GOAPDeterminationMethods
     {
         var agentPos = ConvertToGridFromIsometric(agent.transform.localPosition);
         var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
+
+        bool hasLOS = HasLineOfSight(agentPos, tarPos);
+
+        if (hasLOS)
+        {
+            beliefs.ModifyState(GoapStates.HasLOS.ToString(), 1);
+            beliefs.RemoveState(GoapStates.NoLOS.ToString());
+        }
+        else
+        {
+            beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
+            beliefs.RemoveState(GoapStates.HasLOS.ToString());
+        }
+        return hasLOS;
+    }
+    public static bool CheckIfInLOS(GoapAgent agent, Unit target, ref WorldStates beliefs)
+    {
+        var agentPos = ConvertToGridFromIsometric(agent.transform.localPosition);
+        var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
 
         bool hasLOS = HasLineOfSight(agentPos, tarPos);
 

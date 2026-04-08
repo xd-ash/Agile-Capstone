@@ -15,8 +15,6 @@ public enum GoapActions
     Hide = 128,
     MoveOutOfLOS = 256,
     MoveToRange = 512,
-    PotShot = 1024,
-    HideAfterPotShot = 2048,
 }
 
 [Flags]
@@ -39,7 +37,7 @@ public enum GoapStates
     NoTarget = 8192,
     AtRange = 16384,
     AtMelee = 32768,
-    IsPeeking = 65536
+    HasAttacked = 65536
 }
 [Flags]
 public enum GoapGoals
@@ -49,7 +47,6 @@ public enum GoapGoals
     StayAlive = 4,
     KeepAlliesAlive = 8,
     EndTurn = 16,
-    PeekAttack = 32,
 }
 
 public struct GOAPEnums
@@ -100,12 +97,12 @@ public struct GOAPEnums
                 case 9://MoveToRange
                     actions.Add(new MoveToRangeAction());
                     break;
-                case 10://Potshot
+                /*case 10://Potshot
                     actions.Add(new AttackAction("PotShot"));
                     break;
                 case 11://duckBehind
                     actions.Add(new HideAction("HideAfterPotShot"));
-                    break;
+                    break;*/
             }
         }
         return actions;

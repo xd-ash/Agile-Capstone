@@ -33,6 +33,8 @@ public class AttackAction : GoapAction
             beliefs.ModifyState(GoapGoals.KillPlayer.ToString(), 1);
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
         }
+
+        _agent.attacksPerformedThisTurn++;
     }
 
     public override float EvaluateCost(Unit tempTarget)

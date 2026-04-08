@@ -18,6 +18,12 @@ public class WorldStates
     {
         _states = new Dictionary<string, float>();
     }
+    public WorldStates(WorldStates beliefs)
+    {
+        _states = new();
+        foreach (var state in beliefs.GetStates)
+            _states.Add(state.Key, state.Value);
+    }
     public bool HasState(string key)
     {
         return _states.ContainsKey(key);

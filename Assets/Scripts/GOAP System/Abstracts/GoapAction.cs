@@ -99,7 +99,7 @@ public abstract class GoapAction
     {
         return true;
     }
-    public bool IsAchievableGiven(Dictionary<string, float> conditions)
+    public bool IsAchievableGiven(Dictionary<string, float> conditions, bool  showDebug = false)
     {
         /*/
         string debugmessagfe = "";
@@ -114,7 +114,13 @@ public abstract class GoapAction
 
         foreach (KeyValuePair<string, float> kvp in _preConditions)
             if (!conditions.ContainsKey(kvp.Key))
+            {
+                //if (showDebug)
+                    //Debug.Log($"{this} is not achievable given {string.Join(", ", conditions.Keys)}");
                 return false;
+            }
+        //if (showDebug)
+            //Debug.Log($"{this} is achievable given {string.Join(", ", conditions.Keys)}");
         return true;
     }
     public abstract bool PrePerform(ref WorldStates beliefs);
