@@ -49,11 +49,11 @@ public class GoapPlanner
         //setup temp beliefs for planning
         Unit tempTarget = null;
         string curGoal = goal.ElementAt(0).Key;
-        //int i = curGoal == GoapGoals.KillPlayer.ToString() ? 0 : 1;
+        int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() ? 1 : 0;
         foreach (var ua in usableActions)
             if (ua is ChooseTargetAction)
             {
-                tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[0];
+                tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
                 break;
             }
 
@@ -62,7 +62,6 @@ public class GoapPlanner
         List<GOAPNode> leaves = new List<GOAPNode>();
         //GOAPNode start = new GOAPNode(null, 0, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
         GOAPNode start = new GOAPNode(null, 0, tempBeliefs.GetStates, null); //null parent, no cost, & null action b/c it is start node
-
 
         bool success = BuildGraph(start, leaves, usableActions, goal, tempTarget);
 
@@ -129,11 +128,11 @@ public class GoapPlanner
     //recursive method for node graph building 
     private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, float> goal, Unit tempTarget)
     {
+        string curGoal = goal.ElementAt(0).Key;
         bool foundPath = false;
         foreach (GoapAction action in usableActions)
         {
-            bool isStayAlive = goal.ElementAt(0).Key == GoapGoals.StayAlive.ToString();
-            if (!action.IsAchievableGiven(parent.state, isStayAlive)) continue;
+            if (!action.IsAchievableGiven(parent.state)) continue;
             
             Dictionary<string, float> currentState = new Dictionary<string, float>(parent.state);
 
@@ -142,7 +141,7 @@ public class GoapPlanner
                     currentState.Add(eff.Key, eff.Value);
 
             // No belief param needed as worldstates are concatenated in
-            GOAPNode node = new GOAPNode(parent, parent.cost + action.EvaluateCost(tempTarget), currentState, action); //parent cost + action cost for accumulating costs as plan is created
+            GOAPNode node = new GOAPNode(parent, parent.cost + action.EvaluateCost(curGoal, tempTarget), currentState, action); //parent cost + action cost for accumulating costs as plan is created
             if(GoalAchieved(goal, currentState))
             {
                 leaves.Add(node);

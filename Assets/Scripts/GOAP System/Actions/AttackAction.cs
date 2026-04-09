@@ -34,16 +34,18 @@ public class AttackAction : GoapAction
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
         }
 
+        beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
         _agent.attacksPerformedThisTurn++;
     }
 
-    public override float EvaluateCost(Unit tempTarget)
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
     { 
         if (_agent == null || tempTarget == null) return _cost;
 
+        var attackAdjust = tempGoal == GoapGoals.KillPlayer.ToString() ? _agent.attacksPerformedThisTurn : 0; // count attacks performed only on kill player goal to allow for lower cost of attacks in stayalive goal
         var targetHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
         var dmgAbility = _agent.GetAgentSO.GetDamageAbility;
         var attackCostRatio = dmgAbility.GetApCost / (float)_agent.unit.GetMaxAP;
-        return _cost * (targetHealthRatio + attackCostRatio) * _costMultiplier;
+        return _cost * (targetHealthRatio + attackCostRatio + attackAdjust) * _costMultiplier;
     }
 }

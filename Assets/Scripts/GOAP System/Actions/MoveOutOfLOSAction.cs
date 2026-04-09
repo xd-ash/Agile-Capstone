@@ -37,18 +37,26 @@ public class MoveOutOfLOSAction : GoapAction
         if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
         var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
 
+        //Debug.Log($"Target: {target.name}, reachableTiles: {reachableTiles.Count}, targetTile: {targetTile}");
+
         var hidePos = -Vector2Int.one;
         int bestDistCount = int.MaxValue;
         foreach (var tile in reachableTiles)
         {
-            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile);
-            if (pathToTarget == null || pathToTarget.Count == 0) continue;
-            if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
+            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile, true);
+            //Debug.Log($"pathToTarCount: {pathToTarget.Count}");
 
+            if (pathToTarget == null || pathToTarget.Count == 0) continue;
+            //Debug.Log($"path is not null or length 0");
+            if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
+            //Debug.Log($"new tile does not has LOS");
             if (pathToTarget.Count >= bestDistCount) continue;
+            //Debug.Log($"path length is less than best dist, Tilepos: {tile}, bestDist: {bestDistCount}");
             hidePos = tile;
             bestDistCount = pathToTarget.Count;
         }
+
+        //Debug.Log($"hidePos:{hidePos}");
         return hidePos;
     }
     public override void Perform()
@@ -68,7 +76,7 @@ public class MoveOutOfLOSAction : GoapAction
         beliefs.RemoveState(GoapStates.HasLOS.ToString());
     }
 
-    public override float EvaluateCost(Unit tempTarget)
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
 

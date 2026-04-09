@@ -99,7 +99,7 @@ public abstract class GoapAction
     {
         return true;
     }
-    public bool IsAchievableGiven(Dictionary<string, float> conditions, bool  showDebug = false)
+    public bool IsAchievableGiven(Dictionary<string, float> conditions)
     {
         /*/
         string debugmessagfe = "";
@@ -126,5 +126,5 @@ public abstract class GoapAction
     public abstract bool PrePerform(ref WorldStates beliefs);
     public abstract void Perform();
     public abstract void PostPerform(ref WorldStates beliefs);
-    public abstract float EvaluateCost(Unit tempTarget = null);
+    public abstract float EvaluateCost(string tempGoal, Unit tempTarget = null);
 }

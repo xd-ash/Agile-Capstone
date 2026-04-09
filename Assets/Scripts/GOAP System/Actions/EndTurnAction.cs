@@ -22,7 +22,7 @@ public class EndTurnAction : GoapAction
         // do nothing?
     }
 
-    public override float EvaluateCost(Unit tempTarget)
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         return _cost;
     }

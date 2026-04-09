@@ -52,7 +52,7 @@ public class MoveIntoLOSAction : GoapAction
         CheckRange(_agent, _agent.GetCurrentAbility.GetRange, ref beliefs);
     }
 
-    public override float EvaluateCost(Unit tempTarget)
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
 

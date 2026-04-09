@@ -50,7 +50,7 @@ public class GoapAgent : MonoBehaviour
     public bool showDebugMessages = false;
 
     public Goal GetCurrentGoal => _currentGoal;
-    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget));
+    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget));
     public GoapAgentSO GetAgentSO => _agentSO;
 
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
@@ -166,7 +166,7 @@ public class GoapAgent : MonoBehaviour
                 if (_currentAction is AttackAction || _currentAction is HealAction)
                 {
                     Invoke(nameof(ActionPerformDelay), _actionDelayTime);
-                    Debug.Log($"goal:{(GetCurrentGoal == null ? "null" : GetCurrentGoal.key)}, CurrAbility:{GetCurrentAbility}"); 
+                    //Debug.Log($"goal:{(GetCurrentGoal == null ? "null" : GetCurrentGoal.key)}, CurrAbility:{GetCurrentAbility}"); 
                 }
                 else
                     _currentAction.Perform();
@@ -254,12 +254,12 @@ public class GoapAgent : MonoBehaviour
 
         WorldStates tempBeliefs = new(referenceBeliefs);
 
-        tempBeliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
+        //tempBeliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
 
-        CheckForAP(unit, ref tempBeliefs);
-        CheckIfHealthy(unit, ref tempBeliefs);
+        //CheckForAP(unit, ref tempBeliefs);
+        //CheckIfHealthy(unit, ref tempBeliefs);
 
-        tempBeliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
+        //tempBeliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
 
         if (tempTarget == null)
         {

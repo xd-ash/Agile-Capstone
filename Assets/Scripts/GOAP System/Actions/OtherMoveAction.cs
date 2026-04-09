@@ -39,7 +39,7 @@ public class OtherMoveAction : GoapAction
         beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
     }
 
-    public override float EvaluateCost(Unit tempTarget)
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
 

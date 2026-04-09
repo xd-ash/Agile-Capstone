@@ -65,7 +65,7 @@ public class ChooseTargetAction : GoapAction
         CheckIfInLOS(_agent, ref beliefs);
     }
 
-    public override float EvaluateCost(Unit tempTarget)
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         return _cost;
     }
