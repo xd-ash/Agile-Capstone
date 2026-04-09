@@ -127,16 +127,19 @@ public static class CombatMath
         if (attackerCell == targetCell)
             return true;
         else
-            return HasLineOfSight(attackerCell, targetCell);
+            return CalculateLOS(attackerCell, targetCell) && CalculateLOS(targetCell, attackerCell);
     }
 
     public static bool HasLineOfSight(Vector2Int startCell, Vector2Int endCell)
     {
+        return CalculateLOS(startCell, endCell) && CalculateLOS(endCell, startCell);
+    }
+
+    private static bool CalculateLOS(Vector2Int startCell, Vector2Int endCell)
+    {
         byte[,] map = ByteMapController.Instance.GetByteMap;
-        if (map == null)
-        {
-            return true;
-        }
+
+        if (map == null) return true;
 
         int startX = startCell.x;
         int startY = startCell.y;
