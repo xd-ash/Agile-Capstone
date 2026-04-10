@@ -393,7 +393,7 @@ MonoBehaviour:
   _health: 0
   _maxShield: 25
   _shield: 0
-  _maxAP: 6
+  _maxAP: 10
   _ap: 0
   _enemyHPBar: {fileID: 0}
   _hitChanceText: {fileID: 3870034944425325599}
@@ -425,6 +425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agentSO: {fileID: 11400000, guid: 862325fc6b536a344ae6217164532238, type: 2}
   healCharges: 2
+  attacksPerformedThisTurn: 0
   _actionDelayTime: 1
   unit: {fileID: 2517929088927519564}
   showDebugMessages: 1

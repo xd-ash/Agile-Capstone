@@ -39,13 +39,13 @@ MonoBehaviour:
       data:
         key: KillPlayer
         value: 1
-        removeOnComplete: 1
+        removeOnComplete: 0
     - rid: 6877345560813109320
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: StayAlive
         value: 1
-        removeOnComplete: 1
+        removeOnComplete: 0
     - rid: 6877345560813109321
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:

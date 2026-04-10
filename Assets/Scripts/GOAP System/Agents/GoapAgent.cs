@@ -31,6 +31,7 @@ public class GoapAgent : MonoBehaviour
     public int attacksPerformedThisTurn = 0;
 
     private List<GoapAction> _actions = new();
+    private GoapAction _prevAction;
     private GoapAction _currentAction;
     private Queue<GoapAction> _actionQueue;
 
@@ -48,6 +49,7 @@ public class GoapAgent : MonoBehaviour
     private Unit _allyTarget;
 
     public bool showDebugMessages = false;
+    private int _buildFailCounter = 0;
 
     public Goal GetCurrentGoal => _currentGoal;
     public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget));
@@ -64,8 +66,6 @@ public class GoapAgent : MonoBehaviour
             Debug.LogError($"No GOAP Agent SO Attached to ({gameObject.name})");
             return;
         }
-        //if (!TryGetComponent(out _agentHeuristics))
-            //Debug.LogError($"No Goap heuristics attached to agent ({name})");
 
         _actions = new(_agentSO.GetActions);
         foreach (var a in _actions)
@@ -87,6 +87,8 @@ public class GoapAgent : MonoBehaviour
         if (TurnManager.GetCurrentUnit != unit) return;
         if (_currentAction != null && _currentAction.IsRunning) return;
 
+        if (_isResetting) return;
+
         if (_planner == null || _actionQueue == null)
         {
             _planner = new GoapPlanner(this);
@@ -97,11 +99,22 @@ public class GoapAgent : MonoBehaviour
                               select entry;
 
             Dictionary<Goal, Tuple<float, Queue<GoapAction>>> goalQueues = new();
+
             //pick highest prio goal to plan for first
             foreach (KeyValuePair<Goal, float> g in sortedGoals)
             {
                 var tempPlan = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
-                if (tempPlan == null) continue;
+                if (tempPlan == null)
+                {
+                    _buildFailCounter++;
+
+                    if (_buildFailCounter >= 15)
+                    {
+                        SetBuildFailBeliefs();
+                        return;
+                    }
+                    continue;
+                }
                 goalQueues.Add(g.Key, tempPlan);
             }
 
@@ -156,13 +169,21 @@ public class GoapAgent : MonoBehaviour
         // actionqueue is not finished
         if (_actionQueue != null && _actionQueue.Count > 0)
         {
+            _prevAction = _currentAction;
             _currentAction = _actionQueue.Dequeue();
+
             if (_currentAction.PrePerform(ref _beliefs))
             {
-                Debug.Log($"Performing-{_currentAction.GetActionName}");
+                if (showDebugMessages)
+                    Debug.Log($"Performing-{_currentAction.GetActionName}");
 
                 _currentAction.IsRunning = true;
 
+                if (ShouldDelayAction())
+                    Invoke(nameof(ActionPerformDelay), _actionDelayTime);
+                else
+                    _currentAction.Perform();
+                /*
                 if (_currentAction is AttackAction || _currentAction is HealAction)
                 {
                     Invoke(nameof(ActionPerformDelay), _actionDelayTime);
@@ -170,12 +191,27 @@ public class GoapAgent : MonoBehaviour
                 }
                 else
                     _currentAction.Perform();
+                */
             }
             else
                 _actionQueue = null;
         }
     }
+    private bool ShouldDelayAction()
+    {
+        if (_currentAction is ChooseTargetAction || _currentAction is EndTurnAction || _currentAction is HideAction)
+            return false;
 
+        if (_prevAction == null || _prevAction is ChooseTargetAction || _prevAction is EndTurnAction || _prevAction is HideAction)
+            return false;
+
+        // movement action into movement action should no delay
+        if ((_prevAction is MoveInRangeAction || _prevAction is MoveIntoLOSAction || _prevAction is MoveOutOfLOSAction || _prevAction is MoveToRangeAction) &&
+            (_currentAction is MoveInRangeAction || _currentAction is MoveIntoLOSAction || _currentAction is MoveOutOfLOSAction || _currentAction is MoveToRangeAction))
+            return false;
+
+        return true;
+    }
     public void SetCurrentTargets(Unit enemyTarget, Unit allyTarget) 
     {
         _enemyTarget = enemyTarget;
@@ -183,8 +219,6 @@ public class GoapAgent : MonoBehaviour
     }
     public void CompleteAction()
     {
-        SetAgentGoalWeights();
-        
         _currentAction.IsRunning = false;
         _currentAction.PostPerform(ref _beliefs);
         GameUIManager.instance.UpdateApText();
@@ -192,8 +226,12 @@ public class GoapAgent : MonoBehaviour
             CheckForAP(unit, ref _beliefs);
     }
 
+    private bool _isResetting = false;
     public void ResetStates()
     {
+        _isResetting = true;
+        _buildFailCounter = 0;
+
         _weightedGoalsDict = new();
         _currentGoal = null;
 
@@ -208,8 +246,6 @@ public class GoapAgent : MonoBehaviour
         }
         //if (showDebugMessages) 
         //Debug.Log(temp);
-
-        SetAgentGoalWeights();
 
         if (unit == null) return;
 
@@ -247,19 +283,20 @@ public class GoapAgent : MonoBehaviour
         foreach (var belief in _beliefs.GetStates)
             beliefDebug += $"{belief.Key}, ";
         //Debug.Log(beliefDebug);
+
+        _isResetting = false;
+    }
+    public void SetBuildFailBeliefs()
+    {
+        _beliefs = new();
+        _beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+        Debug.LogWarning($"Excessive build failures. Defaulting to End Turn beliefs.");
     }
     public static WorldStates GetTempBeliefsGivenGoal(GoapAgent agent, string tempGoal, Unit tempTarget, WorldStates referenceBeliefs)
     {
         Unit unit = agent.unit;
 
         WorldStates tempBeliefs = new(referenceBeliefs);
-
-        //tempBeliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
-
-        //CheckForAP(unit, ref tempBeliefs);
-        //CheckIfHealthy(unit, ref tempBeliefs);
-
-        //tempBeliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
 
         if (tempTarget == null)
         {
@@ -278,14 +315,6 @@ public class GoapAgent : MonoBehaviour
             CheckIfInLOS(agent, tempTarget, ref tempBeliefs);
         }
         return tempBeliefs;
-    }
-    private void SetAgentGoalWeights()
-    {
-        for (int i = 0; i < _weightedGoalsDict.Count; i++)
-        {
-            var kvp = _weightedGoalsDict.ElementAt(i);
-            _weightedGoalsDict[kvp.Key] = kvp.Value;
-        }
     }
     private void ActionPerformDelay()
     {
