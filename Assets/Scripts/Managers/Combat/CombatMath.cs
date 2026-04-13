@@ -122,7 +122,8 @@ public static class CombatMath
         }
 
         Vector2Int attackerCell = ConvertToGridFromIsometric(attackerPos);
-        Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
+        Vector2Int targetCell = ByteMapController.Instance.GetPositionOfUnit(target);
+        //Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
 
         if (attackerCell == targetCell)
             return true;

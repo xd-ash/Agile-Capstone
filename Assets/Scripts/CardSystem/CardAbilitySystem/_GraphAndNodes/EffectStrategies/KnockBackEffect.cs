@@ -25,7 +25,8 @@ namespace CardSystem
                 }
 
                 Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
-                Vector2Int targetGridPos = ConvertToGridFromIsometric(target.transform.localPosition);
+                Vector2Int targetGridPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);
+                //Vector2Int targetGridPos = ConvertToGridFromIsometric(target.transform.localPosition);
 
                 Vector2Int knockbackDir = Vector2Int.zero;
 

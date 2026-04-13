@@ -47,7 +47,7 @@ public class ByteMapController : MonoBehaviour
         if (!_unitPositions.ContainsKey(unit))
             _unitPositions.Add(unit, startPos);
     }
-     
+    
     public void UpdateUnitPositionByteMap(Unit unit, Vector2Int startPos, Vector2Int endPos)
     {
         _map[startPos.x, startPos.y] = 0;

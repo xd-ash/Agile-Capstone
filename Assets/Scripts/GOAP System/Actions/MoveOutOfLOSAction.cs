@@ -35,7 +35,8 @@ public class MoveOutOfLOSAction : GoapAction
     {
         var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
         if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
-        var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
+        var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
+        //var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
 
         //Debug.Log($"Target: {target.name}, reachableTiles: {reachableTiles.Count}, targetTile: {targetTile}");
 

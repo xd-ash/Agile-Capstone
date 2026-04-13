@@ -28,7 +28,8 @@ public class MoveToRangeAction : GoapAction
     {
         var agentTile = ConvertToGridFromIsometric(_agent.transform.localPosition);
         if (target == null) return new(agentTile, 0);
-        var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
+        //var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
+        var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
         var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
 
         int furthestDist = 0;

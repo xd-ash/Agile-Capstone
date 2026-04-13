@@ -31,6 +31,9 @@ public class UnitMovementController : MonoBehaviour
 
     public void OnKnockback(Vector2Int targetPos)
     {
+        var curPos = ConvertToGridFromIsometric(transform.localPosition);
+        ByteMapController.Instance.UpdateUnitPositionByteMap(GetComponent<Unit>(), curPos, targetPos);
+
         StopAllCoroutines();
         _onMoveFinish?.Invoke();
 

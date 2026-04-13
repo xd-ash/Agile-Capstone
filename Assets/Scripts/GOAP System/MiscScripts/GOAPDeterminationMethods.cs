@@ -35,11 +35,10 @@ public static class GOAPDeterminationMethods
     public static bool CheckRange(GoapAgent agent, int abilityRange, ref WorldStates beliefs)
     {
         var unitMover = agent.GetComponent<UnitMovementController>();
-        //int dmgAbilRange = agent.damageAbility.GetRange;
-         
-        var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
+
+        var tarPos = ByteMapController.Instance.GetPositionOfUnit(agent.GetCurrentTarget);
+        //var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
         var tempPath = unitMover?.CalculatePath(tarPos);
-        if (tempPath == null) Debug.Log("temp path null");
         
         int distanceToTar = tempPath == null ? 0 : tempPath.Count;
 
@@ -68,11 +67,11 @@ public static class GOAPDeterminationMethods
     public static bool CheckRange(GoapAgent agent, Unit target, int abilityRange, ref WorldStates beliefs)
     {
         var unitMover = agent.GetComponent<UnitMovementController>();
-        //int dmgAbilRange = agent.damageAbility.GetRange;
         
-        var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
+        //var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
+        var tarPos = ByteMapController.Instance.GetPositionOfUnit(target);
+
         var tempPath = unitMover?.CalculatePath(tarPos);
-        //if (tempPath == null) Debug.Log("temp path null");
 
         int distanceToTar = tempPath == null ? 0 : tempPath.Count;
 
@@ -139,7 +138,8 @@ public static class GOAPDeterminationMethods
     public static bool CheckIfInLOS(GoapAgent agent, Unit target, ref WorldStates beliefs)
     {
         var agentPos = ConvertToGridFromIsometric(agent.transform.localPosition);
-        var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
+        var tarPos = ByteMapController.Instance.GetPositionOfUnit(target);
+        //var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
 
         bool hasLOS = HasLineOfSight(agentPos, tarPos);
 

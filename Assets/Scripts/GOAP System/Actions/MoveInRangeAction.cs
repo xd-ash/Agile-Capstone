@@ -1,7 +1,5 @@
-using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
-using static AStarPathfinding.FindPathAStar;
-using UnityEngine;
+using static IsoMetricConversions;
 
 public class MoveInRangeAction : GoapAction
 {
@@ -19,7 +17,8 @@ public class MoveInRangeAction : GoapAction
         Unit unit = _agent.unit;
         int dmgAbilRange = _agent.GetDamageAbility.GetRange;
 
-        var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
+        //var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
+        var tarPos = ByteMapController.Instance.GetPositionOfUnit(_agent.GetCurrentTarget);
         var tempPath = _unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
 

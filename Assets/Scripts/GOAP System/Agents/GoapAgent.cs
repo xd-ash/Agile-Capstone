@@ -205,7 +205,8 @@ public class GoapAgent : MonoBehaviour
         _currentAction.PostPerform(ref _beliefs);
         GameUIManager.instance.UpdateApText();
         PostActionChecks();
-        /*if (showDebugMessages)
+
+        if (showDebugMessages)
         {
             string tempStr = $"Agent: {name} Target: {GetCurrentTarget?.name}:";
             tempStr += $"\nPost Action Beliefs: ";
@@ -213,7 +214,7 @@ public class GoapAgent : MonoBehaviour
                 //foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
             Debug.Log(tempStr);
-        }*/
+        }
     }
 
     public void PostActionChecks()
