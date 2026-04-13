@@ -257,9 +257,10 @@ MonoBehaviour:
   - {fileID: 5462576431810370091}
   - {fileID: -7892475943247170667}
   - {fileID: 7803874144529295915}
-  _description: Flip a coin, if heads, deal 7 AOE damage. If tails, deal 5.
+  _description: Flip a coin, if heads, deal %0% AOE damage. If tails, deal %1%
   _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
   _cardCategory: 0
+  _cardTags: 000000000900000003000000
   _effectValue: 0
   _apCost: 5
   _range: 5
@@ -272,7 +273,26 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 2
+  _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -8393294752202084253}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -7892475943247170667}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -8393294752202084253}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -7892475943247170667}
 --- !u!114 &2272785073385819277
 MonoBehaviour:
   m_ObjectHideFlags: 0

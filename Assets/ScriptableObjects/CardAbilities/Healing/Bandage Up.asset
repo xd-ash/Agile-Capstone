@@ -67,7 +67,7 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 1
+  _doEffectOnApply: 1
   _tickOnStart: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -86,14 +86,15 @@ MonoBehaviour:
   - {fileID: 3134050998393430192}
   - {fileID: -7000941262347126393}
   - {fileID: 3814506347024606729}
-  _description: Heal for 2 every turn for 3 turns
+  _description: Heal %1% every turn for %0% turns
   _abilitySFX: {fileID: 0}
   _cardCategory: 2
+  _cardTags: 01000000
   _effectValue: 0
   _apCost: 2
   _range: 0
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 15
+  _shopWeight: 15
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -101,7 +102,26 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 0
+  _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -7000941262347126393}
+  - cardDef: {fileID: 11400000}
+    effectName: Heal Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 3814506347024606729}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Heal Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 3814506347024606729}
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -7000941262347126393}
 --- !u!114 &439481316846956790
 MonoBehaviour:
   m_ObjectHideFlags: 0

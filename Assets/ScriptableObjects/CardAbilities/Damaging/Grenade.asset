@@ -51,12 +51,13 @@ MonoBehaviour:
   - {fileID: -4453828333329661153}
   - {fileID: 4523088743040517801}
   - {fileID: 8680823233425288928}
-  _description: Deal 5 damage and knockback all enemies hit by 1 tile
+  _description: Deal %0% damage and %1% knockback
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
+  _cardTags: 00000000
   _effectValue: 0
   _apCost: 4
-  _range: 7
+  _range: 10
   _shopCost: 0
   _shopWeight: 0
   _baseHitChance: 100
@@ -66,7 +67,26 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 2
+  _attackAnimKey: 16
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 4523088743040517801}
+  - cardDef: {fileID: 11400000}
+    effectName: Knock Back Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 8680823233425288928}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 3
+    effectToUpgrade: {fileID: 4523088743040517801}
+  - cardDef: {fileID: 11400000}
+    effectName: Knock Back Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 8680823233425288928}
 --- !u!114 &209486274004273265
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -214,8 +214,11 @@ MonoBehaviour:
   - {fileID: -8745326763752087817}
   - {fileID: -7718154352750455304}
   - {fileID: -5101356667325056713}
-  _description: 'If your last flip was tails: draw 1 card and get 1 AP back'
+  _description: 'If your last flip was tails: draw %1% card and get %0% AP back'
   _abilitySFX: {fileID: 0}
+  _cardCategory: 0
+  _cardTags: 010000000300000004000000
+  _effectValue: 0
   _apCost: 2
   _range: 0
   _shopCost: 10
@@ -227,7 +230,26 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 
+  _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Restore AP Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -8745326763752087817}
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -5101356667325056713}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Restore AP Effect
+    valueToAdd: 3
+    effectToUpgrade: {fileID: -8745326763752087817}
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -5101356667325056713}
 --- !u!114 &1839337159297336669
 MonoBehaviour:
   m_ObjectHideFlags: 0

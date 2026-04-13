@@ -7,11 +7,17 @@ public class BountySelectPanelScript : MonoBehaviour
     private RectTransform _panelTransform;
 
     [SerializeField] private List<CombatMapData> _bountyOptions = new();
+    [SerializeField] private List<Reward> _rewardOptions;
+
     private Button[] _bountyButtons;
 
     public void InitBountyBoard(CombatMapData[] bountyOptions, Vector2Int nodeIndex)
     {
         _bountyOptions = new(bountyOptions);
+        _rewardOptions = new();
+        for (int i = 0; i < _bountyOptions.Count; i++)
+            _rewardOptions.Add(RewardsController.DetermineRewards(nodeIndex + new Vector2Int(i,i)));
+
         _bountyButtons = new Button[bountyOptions.Length];
         SpawnBountyButtons();
 
@@ -32,13 +38,16 @@ public class BountySelectPanelScript : MonoBehaviour
             GameObject buttonGO = Instantiate(Resources.Load<GameObject>("TempNodeMap/BountySelectButton"), transform);
             buttonGO.name = $"BountyOption ({i})";
             var option = _bountyOptions[i];
+            var reward = _rewardOptions[i];
 
             var image = buttonGO.GetComponent<Image>();
             image.sprite = Resources.Load<Sprite>($"TempNodeMap/Nodeicons/Bounty{option.maxEnemiesAllowed}");
 
             var button = buttonGO.GetComponent<Button>();
+            button?.onClick.RemoveAllListeners();
             button?.onClick.AddListener(() =>
             {
+                PlayerDataManager.Instance.SetCurrNodeReward(reward);
                 PlayerDataManager.Instance.SetCurrMapNodeData(option);
                 TransitionScene.Instance.StartTransition("Combat");//make better/dynamic?
             });

@@ -2,15 +2,20 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System;
 
 namespace CardSystem
 {
     public class CardSelect : MonoBehaviour
     {
-        private SpriteRenderer _spriteRenderer;
+        private Image _cardImage;
         private GameObject _cardHighlight;
         private SpriteRenderer _highlightRenderer;
         private CardFunctionScript _cfs;
+
+        private CardState _state;
 
         [Header("Visual Settings")]
         [SerializeField] private float _handAreaHeight = 2f; // Height of the hand area (add gizmo for editing?)
@@ -30,23 +35,44 @@ namespace CardSystem
         private Vector3 _startPosition;
         private int _startIndex;
 
+        private Action _onMouseDown, _onMouseUp, _onMouseDrag, _onMouseEnter, _onMouseExit;
+
         private void OnEnable()
         {
             _cfs = GetComponent<CardFunctionScript>();
-
-            SetupVisuals();
-            AbilityEvents.OnAbilityTargetingStopped += ReturnCardToHand;
-            if (TurnManager.Instance != null)
-                TurnManager.Instance.OnTurnEnd += OnTurnEnd;
         }
 
         private void OnDestroy()
         {
+            if (_state != CardState.Combat) return;
+            
             AbilityEvents.OnAbilityTargetingStopped -= ReturnCardToHand;
             if (TurnManager.Instance != null)
                 TurnManager.Instance.OnTurnEnd -= OnTurnEnd;
         }
 
+        public void InitCardSelect(Card card, CardState state, Action onCardClick = null)
+        {
+            _state = state;
+
+            SetupVisuals();
+
+            _originalScale = transform.localScale;
+            _originalColor = _cardImage.color;
+
+            SetOnMouseDown();
+            SetOnMouseUp();
+            SetOnMouseDrag();
+            SetOnMouseEnter();
+            SetOnMouseExit();
+
+            OnPrefabCreation(card, onCardClick);
+            if (_state != CardState.Combat) return;
+
+            AbilityEvents.OnAbilityTargetingStopped += ReturnCardToHand;
+            if (TurnManager.Instance != null)
+                TurnManager.Instance.OnTurnEnd += OnTurnEnd;
+        }
         //Bandaid fix for sawpping to OnTurnEnd action in turn manager
         private void OnTurnEnd(Unit unit)
         {
@@ -54,133 +80,47 @@ namespace CardSystem
 
             ReturnCardToHand();
         }
-        private void Start()
-        {
-            _originalScale = transform.localScale;
-            _originalColor = _spriteRenderer.color;
-        }
 
         private void OnMouseEnter()
         {
+            _onMouseEnter?.Invoke();
+
+            /*if (_state == CardState.Combat && RewardsDisplayScript.IsRewarding) return;
+
             if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
                 ToggleHighlightAndScale(true);
-            
+
+            if (_state != CardState.Combat) return;
             int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
-            APDisplay.Instance?.ShowPreview(cost);
+            APDisplay.Instance?.ShowPreview(cost);*/
         }
         private void OnMouseExit()
         {
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging &&
-                DeckAndHandManager.Instance.GetSelectedCard == null)
+            _onMouseExit?.Invoke();
+
+            /*if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging)
             {
                 ToggleHighlightAndScale(false);
+
+                if (_state != CardState.Combat || DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
+
                 APDisplay.Instance?.ClearPreview();
-            }
+            }*/
         }
         private void OnMouseDown()
         {
-            // Block card interaction if tutorial is active and not on card step
-            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
-                return;
-            
-            // Check for active cards
-            if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
-
-            if (OptionsSettings.IsCardSelectOnClick) return;
-
-            _isAboveHandArea = false;
-
-            _startPosition = transform.position;
-            _startIndex = DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
-            if (_startIndex == -1) return;
-
-            _dragOffset = transform.position - MouseFunctionManager.Instance.GetMouseWorldPosition();
-
-            // Stop any active animations
-            transform.DOKill();
-
-            // Visual feedback for picking up
-            transform.DOScale(_originalScale * _dragScaleMultiplier, _tweenDuration);
-            transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(-_rotationAmount, _rotationAmount)), _tweenDuration);
-
-            ToggleHighlightAndScale(true);
+            _onMouseDown?.Invoke();
         }
-
         private void OnMouseUp()
         {
-            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
-                return;
-            
-            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || TurnManager.IsEnemyTurn) return;
-            if (OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null) return;
-            if (CardShopManager.Instance != null) return;
-
-            if (DeckAndHandManager.Instance == null)
-            {
-                ReturnCardToHand();
-                return;
-            }
-            
-            if (OptionsSettings.IsCardSelectOnClick)
-            {
-                // Temporarily remove from hand management
-                DeckAndHandManager.Instance.RemoveCard(_cfs.Card);
-                DeckAndHandManager.Instance.SelectCard(_cfs.Card);
-
-                StartCoroutine(MoveCardToActivePos());
-            }
-            else
-            {
-                // If card is dropped above hand area, try to activate it
-                if (_isAboveHandArea)
-                    StartCoroutine(MoveCardToActivePos());
-                else
-                {
-                    ReturnCardToHand();
-                    return;
-                }
-            }
-
-            if (_cfs.TryActivateCard()) return;
-
-            ReturnCardToHand();
+            _onMouseUp?.Invoke();
         }
         private void OnMouseDrag()
         {
-            // Block card interaction if tutorial is active and not on card step
-            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
-                return;
-            
-            //disable drag with click to select option enabled
-            if (OptionsSettings.IsCardSelectOnClick || TurnManager.IsEnemyTurn) return;
-
-            if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
-                return;
-
-            // Temporarily remove from hand management
-            DeckAndHandManager.Instance.RemoveCard(_cfs.Card);
-            DeckAndHandManager.Instance.SelectCard(_cfs.Card);
-
-            transform.position = MouseFunctionManager.Instance.GetMouseWorldPosition() + _dragOffset;
-
-            // Track when card crosses the threshold
-            bool wasAboveHand = _isAboveHandArea;
-            _isAboveHandArea = transform.position.y > _handAreaHeight;
-            Color spriteColor = _isAboveHandArea ? _validDropColor : _originalColor;
-
-            // Only trigger changes when crossing the threshold
-            if (wasAboveHand != _isAboveHandArea)
-                _spriteRenderer.DOColor(spriteColor, _tweenDuration).SetUpdate(true);
-
-            // Only update order when in hand area
-            if (!_isAboveHandArea)
-                UpdateCardPrefabOrder(true);
+            _onMouseDrag?.Invoke();
         }
 
-        //temp? card lerp to "active position" to fix cards covering playing grid
+        // card lerp to "active position" to fix cards covering playing grid
         private IEnumerator MoveCardToActivePos()
         {
             Transform target = DeckAndHandManager.Instance.CardActivePos;
@@ -198,18 +138,16 @@ namespace CardSystem
 
             transform.localPosition = target.localPosition;
         }
-
-        private void ToggleHighlightAndScale(bool isHoveredOrSelected)
+        public void ToggleHighlightAndScale(bool isHoveredOrSelected)
         {
             _cardHighlight?.SetActive(isHoveredOrSelected);
 
             float scaleMultiplier = isHoveredOrSelected ? _hoverScaleMultiplier : 1;
             transform.DOScale(_originalScale * scaleMultiplier, _tweenDuration);
 
-            // Was: DeckAndHandManager.Instance.CardsInHand.Count
-            // The boost must beat the highest possible cardIndex * 10
-            int hoverBoost = isHoveredOrSelected ? (DeckAndHandManager.Instance.CardsInHand.Count * 10) + 10 : 0;
-            UpdateSortingOrders(hoverBoost);
+            if (_state != CardState.Combat) return;
+
+            CardPrefabSetterUpper.SetCombatCardGOOrder(isHoveredOrSelected ? transform : null);
 
             if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick)
                 CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
@@ -230,32 +168,7 @@ namespace CardSystem
             if (!isFinal) return;
             
             CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHovered);
-            UpdateSortingOrders(isHovered ? DeckAndHandManager.Instance.CardsInHand.Count : 0);
-        }
-
-        // set sorting order of sprites/texts based on card index
-        public void UpdateSortingOrders(int sortingBoost = 0)
-        {
-            if (_spriteRenderer == null) return;
-            if (_cfs.IsDragging) sortingBoost = DeckAndHandManager.Instance.CardsInHand.Count;
-
-            bool isShopActive = CardShopManager.Instance != null;
-            int baseSortingValue = isShopActive ? 0 : CardSplineManager.Instance.GetCardSortingOrderBaseValue;
-            int cardIndex = isShopActive ? 0 : DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
-
-            // Multiply cardIndex by 10 to give each card a safe range of sorting slots
-            int finalOrder = baseSortingValue + sortingBoost + (cardIndex * 10);
-
-            _spriteRenderer.sortingOrder = finalOrder;
-
-            if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = finalOrder + 2;
-
-            foreach (var text in GetComponentsInChildren<TextMeshPro>())
-                if (text != null)
-                    text.sortingOrder = finalOrder + 1;
-
-            GetComponent<CardVisualController>()?.UpdateSortingOrder(finalOrder);
+            CardPrefabSetterUpper.SetCombatCardGOOrder();
         }
 
         // Return card to hand, clear selection, stop coroutines and tweens, then update card orders
@@ -270,7 +183,7 @@ namespace CardSystem
 
             // Kill any active tweens
             transform.DOKill();
-            _spriteRenderer.DOKill();
+            _cardImage.DOKill();
 
             ToggleHighlightAndScale(false);
             DeckAndHandManager.Instance?.ClearSelection();
@@ -282,12 +195,12 @@ namespace CardSystem
             if (TurnManager.Instance.CurrTurn == TurnManager.Turn.Enemy) return;
 
             _cfs.ClearSelection(_tweenDuration);
-            _spriteRenderer.color = Color.white;
+            _cardImage.color = Color.white;
             _cardHighlight?.SetActive(false);
         }
 
         //Set initial text fields and initialize card object
-        public void OnPrefabCreation(Card card)
+        private void OnPrefabCreation(Card card, Action prefabButtonOnclick = null)
         {
             if (card == null)
             {
@@ -295,32 +208,8 @@ namespace CardSystem
                 return;
             }
 
-            _cfs.OnPrefabCreation(card);
-            /*
-            // Get all TextMeshPro components (non-UI version)
-            TextMeshPro[] cardTextFields = GetComponentsInChildren<TextMeshPro>();
+            _cfs.OnPrefabCreation(card, _state, prefabButtonOnclick);
 
-            if (cardTextFields.Length >= 3)
-            {
-                // Update text content
-                cardTextFields[0].text = card.GetCardName;
-                cardTextFields[1].text = card.GetDescription;
-                cardTextFields[2].text = card.GetCardAbility.GetApCost.ToString();
-
-                // Make sure text components are properly attached and sorted
-                foreach (var textField in cardTextFields)
-                {
-                    // Ensure text is child of card and follows its transform
-                    textField.transform.SetParent(transform, true);
-
-                    // Set up sorting
-                    textField.sortingOrder = _spriteRenderer != null ?
-                        _spriteRenderer.sortingOrder + 1 : 1;
-                }
-            }
-            else
-                Debug.LogError("Card prefab is missing required TextMeshPro components");
-            */
             SetupVisuals();
         }
 
@@ -330,15 +219,261 @@ namespace CardSystem
             _cardHighlight = transform.Find("CardHighlight")?.gameObject;
             _cardHighlight?.SetActive(false);
 
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _highlightRenderer = _cardHighlight?.GetComponent<SpriteRenderer>();
+            _cardImage = GetComponentInChildren<Image>();
 
-            if (_highlightRenderer != null)
-                _highlightRenderer.sortingOrder = _spriteRenderer.sortingOrder + 1;
+            if (_state != CardState.Combat) return;
+
+            CardPrefabSetterUpper.SetCombatCardGOOrder();
 
             _startIndex = DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
+        }
 
-            UpdateSortingOrders(); // this already calls UpdateSortingOrder internally — no second call needed
+        private void SetOnMouseDown()
+        {
+            Action tmp = null;
+            switch (_state)
+            {
+                case CardState.PackViewer:
+                    break;
+                case CardState.DeckViewer:
+                    break;
+                case CardState.Shop:
+                    break;
+                case CardState.Rewards:
+                    break;
+                case CardState.UpgradeMenu:
+                    break;
+                case CardState.Combat:
+                    tmp = () =>
+                    {
+                        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
+                        // Block card interaction if tutorial is active and not on card step
+                        if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            return;
+
+                        // Check for active cards
+                        if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
+
+                        if (OptionsSettings.IsCardSelectOnClick) return;
+
+                        _isAboveHandArea = false;
+
+                        _startPosition = transform.position;
+                        _startIndex = DeckAndHandManager.Instance.CardsInHand.IndexOf(_cfs.Card);
+                        if (_startIndex == -1) return;
+
+                        _dragOffset = transform.position - MouseFunctionManager.Instance.GetMouseWorldPosition();
+
+                        // Stop any active animations
+                        transform.DOKill();
+
+                        // Visual feedback for picking up
+                        transform.DOScale(_originalScale * _dragScaleMultiplier, _tweenDuration);
+                        transform.DORotate(new Vector3(0, 0, UnityEngine.Random.Range(-_rotationAmount, _rotationAmount)), _tweenDuration);
+
+                        ToggleHighlightAndScale(true);
+                    };
+                    break;
+            }
+            _onMouseDown = tmp;
+        }
+        private void SetOnMouseUp()
+        {
+            Action tmp = null;
+            switch (_state)
+            {
+                case CardState.PackViewer:
+                    break;
+                case CardState.DeckViewer:
+                    break;
+                case CardState.Shop:
+                    break;
+                case CardState.Rewards:
+                    break;
+                case CardState.UpgradeMenu:
+                    break;
+                case CardState.Combat:
+                    tmp = () =>
+                    {
+                        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
+                        if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            return;
+
+                        if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || 
+                            OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null || 
+                            CardShopManager.Instance != null) return;
+
+                        if (DeckAndHandManager.Instance == null)
+                        {
+                            ReturnCardToHand();
+                            return;
+                        }
+
+                        if (OptionsSettings.IsCardSelectOnClick)
+                        {
+                            // Temporarily remove from hand management
+                            DeckAndHandManager.Instance.RemoveCard(_cfs.Card);
+                            DeckAndHandManager.Instance.SelectCard(_cfs.Card);
+
+                            StartCoroutine(MoveCardToActivePos());
+                        }
+                        else
+                        {
+                            // If card is dropped above hand area, try to activate it
+                            if (_isAboveHandArea)
+                                StartCoroutine(MoveCardToActivePos());
+                            else
+                            {
+                                ReturnCardToHand();
+                                return;
+                            }
+                        }
+
+                        if (_cfs.TryActivateCard()) return;
+
+                        ReturnCardToHand();
+                    };
+                    break;
+            }
+            _onMouseUp = tmp;
+        }
+        private void SetOnMouseDrag()
+        {
+            Action tmp = null;
+            switch (_state)
+            {
+                case CardState.PackViewer:
+                    break;
+                case CardState.DeckViewer:
+                    break;
+                case CardState.Shop:
+                    break;
+                case CardState.Rewards:
+                    break;
+                case CardState.UpgradeMenu:
+                    break;
+                case CardState.Combat:
+                    tmp = () =>
+                    {
+                        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
+                        // Block card interaction if tutorial is active and not on card step
+                        if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            return;
+
+                        //disable drag with click to select option enabled
+                        if (OptionsSettings.IsCardSelectOnClick || !_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
+                            return;
+
+                        // Temporarily remove from hand management
+                        DeckAndHandManager.Instance.RemoveCard(_cfs.Card);
+                        DeckAndHandManager.Instance.SelectCard(_cfs.Card);
+
+                        transform.position = MouseFunctionManager.Instance.GetMouseWorldPosition() + _dragOffset;
+
+                        // Track when card crosses the threshold
+                        bool wasAboveHand = _isAboveHandArea;
+                        _isAboveHandArea = transform.position.y > _handAreaHeight;
+                        Color spriteColor = _isAboveHandArea ? _validDropColor : _originalColor;
+
+                        // Only trigger changes when crossing the threshold
+                        if (wasAboveHand != _isAboveHandArea)
+                            _cardImage.DOColor(spriteColor, _tweenDuration).SetUpdate(true);
+
+                        // Only update order when in hand area
+                        if (!_isAboveHandArea)
+                            UpdateCardPrefabOrder(true);
+
+                    };
+                    break;
+            }
+            _onMouseDrag = tmp;
+        }
+        private void SetOnMouseEnter()
+        {
+            Action tmp = null;
+            switch (_state)
+            {
+                case CardState.Combat:
+                    tmp = () =>
+                    {
+                        if (RewardsDisplayScript.IsRewarding) return;
+
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused && DeckAndHandManager.Instance.GetSelectedCard == null)
+                            ToggleHighlightAndScale(true);
+
+                        int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
+                        APDisplay.Instance?.ShowPreview(cost);
+                    };
+                    break;
+                case CardState.PackViewer:
+                case CardState.DeckViewer:
+                case CardState.Shop:
+                case CardState.Rewards:
+                case CardState.UpgradeMenu:
+                    tmp = () =>
+                    {
+                        if (CardUpgradeController.IsPreviewingUpgrade) return;
+                        
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(true);
+                    };
+                    break;
+                default:
+                    tmp = () =>
+                    {
+                        if (!_cfs.IsSelected  && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(true);
+                    };
+                    break;
+            }
+            _onMouseEnter = tmp;
+        }
+        private void SetOnMouseExit()
+        {
+            Action tmp = null;
+            switch (_state)
+            {
+                case CardState.Combat:
+                    tmp = () =>
+                    {
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                        {
+                            ToggleHighlightAndScale(false);
+
+                            if (DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
+
+                            APDisplay.Instance?.ClearPreview();
+                        }
+                    };
+                    break;
+                case CardState.PackViewer:
+                case CardState.DeckViewer:
+                case CardState.Shop:
+                case CardState.Rewards:
+                case CardState.UpgradeMenu:
+                    tmp = () =>
+                    {
+                        if (CardUpgradeController.IsPreviewingUpgrade) return;
+
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(false);
+                    };
+                    break;
+                default:
+                    tmp = () =>
+                    {
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(false);
+                    };
+                    break;
+            }
+            _onMouseExit = tmp;
         }
     }
 }

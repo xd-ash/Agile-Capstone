@@ -13,11 +13,11 @@ public class EnterDeckNamePopup : MonoBehaviour
     {
         if (_inputField.text == string.Empty)
         {
-            Debug.Log("Empty deck name attempt");
+            Debug.Log("Empty pack name attempt");
             return; //add other name string checks
         }
 
-        DeckBuilderScript.Instance?.CreateNewDeck(_inputField.text);
+        PackBuilderScript.Instance?.CreateNewPack(_inputField.text);
         gameObject.SetActive(false);
     }
 }

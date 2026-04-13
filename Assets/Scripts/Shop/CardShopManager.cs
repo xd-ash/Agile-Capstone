@@ -7,7 +7,7 @@ public class CardShopManager : MonoBehaviour
     private const string LOG_PREFIX = "[CardShopSpawner]";
 
     [Header("Pool (assign in inspector)")]
-    [SerializeField] private Deck _pool;
+    [SerializeField] private List<CardAbilityDefinition> _pool;
 
     [Header("Auto Spawn Settings")]
     [Tooltip("If true, the spawner will populate the shop on scene start")]
@@ -38,7 +38,7 @@ public class CardShopManager : MonoBehaviour
     public static CardShopManager Instance { get; private set; }
     private void Awake()
     {
-        _pool = Resources.Load<CardAndDeckLibrary>("Libraries/CardAndDeckLibrary").GetShopPool;
+        _pool = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary").GetCardsInProject;
 
         if (Instance != null && Instance != this)
         {
@@ -74,17 +74,18 @@ public class CardShopManager : MonoBehaviour
         if (entry == null) return;
 
         // Use same prefab path as CardManager
-        GameObject prefab = Resources.Load<GameObject>("CardTestPrefab");
+        GameObject prefab = Resources.Load<GameObject>("NewCardPrefab");
         if (prefab == null) return;
 
         Transform parent = _spawnParent != null ? _spawnParent : transform;
         if (parent == null) return;
 
         GameObject cardGO = Instantiate(prefab, parent);
-        cardGO.transform.localPosition = _localOffset;
+        cardGO.transform.localPosition = Vector3.zero;
 
         // Create runtime Card data
-        Card card = new Card(entry, cardGO.transform);
+        Card card = new Card(entry, entry.GetBaseCardRarity, cardGO.transform);
+        CardPrefabSetterUpper.SetupCardPrefab(card, CardState.Shop);
 
         // Ensure the prefab has CardSelect and initialize it
         if (!cardGO.TryGetComponent(out CardSelect cs))
@@ -92,8 +93,9 @@ public class CardShopManager : MonoBehaviour
         if (!cardGO.TryGetComponent(out CardFunctionScript cfs))
             cfs = cardGO.AddComponent<CardFunctionScript>();
 
-        cs.OnPrefabCreation(card);
-        cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
+        //cs.InitCardSelect(CardState.Shop);
+        //cs.OnPrefabCreation(card);
+        //cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
 
         // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);
@@ -133,7 +135,7 @@ public class CardShopManager : MonoBehaviour
             // rotation z: tilt across the fan
             float tilt = Mathf.Lerp(-_maxTilt, _maxTilt, t);
 
-            Vector3 localPos = new Vector3(_localOffset.x + x, _localOffset.y + y, _localOffset.z);
+            Vector3 localPos = new Vector3(x, y, 0f);
             Quaternion localRot = Quaternion.Euler(0f, 0f, tilt);
 
             go.transform.localPosition = localPos;
@@ -204,22 +206,21 @@ public class CardShopManager : MonoBehaviour
     private CardAbilityDefinition PickRandomEntry()
     {
         //ShopEntry defaultEntry = default;
-        if (_pool == null || _pool.GetCardsInDeck.Count == 0) return null;
-        var poolDeck = _pool.GetCardsInDeck;
+        if (_pool == null || _pool.Count == 0) return null;
 
         float total = 0f;
-        foreach (var e in poolDeck) total += Mathf.Max(0f, e.GetShopWeight);
+        foreach (var e in _pool) total += Mathf.Max(0f, e.GetShopWeight);
 
-        if (total <= 0f) return poolDeck[0];
+        if (total <= 0f) return _pool[0];
 
         float r = UnityEngine.Random.Range(0f, total);
         float acc = 0f;
-        foreach (var e in poolDeck)
+        foreach (var e in _pool)
         {
             acc += Mathf.Max(0f, e.GetShopWeight);
             if (r <= acc) return e;
         }
 
-        return poolDeck[poolDeck.Count - 1];
+        return _pool[_pool.Count - 1];
     }
 }

@@ -17,13 +17,15 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange);
 
-            var flipResults = CoinFlip.FlipCoin(abilityData.GetUnit, _desiredCoinOutcome, _effectValue);
+            var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
+            var flipResults = CoinFlip.FlipCoin(abilityData.GetUnit, _desiredCoinOutcome, adjustedEffectVal);
 
             int undesiredCount = 0;
             foreach (var flipResult in flipResults)
-                if (flipResult != _desiredCoinOutcome)
+                if (flipResult != _desiredCoinOutcome) 
                     undesiredCount++;
-            undesiredCount = Math.Min(undesiredCount, _effectValue);
+            undesiredCount = Math.Min(undesiredCount, adjustedEffectVal);
             abilityData.GetUnit?.GetFloatingText?.SpawnFloatingText($"{undesiredCount} {(_desiredCoinOutcome == false ? "Heads" : "Tails")}", TextPresetType.CoinFlipPreset);
 
             //Do each effect connected to node

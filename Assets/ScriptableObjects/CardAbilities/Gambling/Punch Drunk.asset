@@ -67,7 +67,7 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 1
+  _doEffectOnApply: 1
   _tickOnStart: 0
 --- !u!114 &-6787235425892309938
 MonoBehaviour:
@@ -165,15 +165,16 @@ MonoBehaviour:
   - {fileID: 5112593775415790980}
   - {fileID: -7754723141899338433}
   - {fileID: 8436440025065565984}
-  _description: Deal 2 damage and knockback 2 tiles. Roll a dice and root the enemy
+  _description: Deal %1% damage and %0% knockback. Roll a dice and root the enemy
     for that many turns
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
+  _cardTags: 0000000003000000
   _effectValue: 0
   _apCost: 4
   _range: 1
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 20
+  _shopWeight: 10
   _baseHitChance: 100
   _minHitChance: 0
   _maxHitChance: 100
@@ -181,7 +182,34 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 2
+  _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Knock Back Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 8498493256321527834}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -4175963823779969307}
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -7754723141899338433}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Knock Back Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 8498493256321527834}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -4175963823779969307}
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -7754723141899338433}
 --- !u!114 &171456546891437306
 MonoBehaviour:
   m_ObjectHideFlags: 0

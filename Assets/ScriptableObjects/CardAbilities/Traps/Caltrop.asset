@@ -197,9 +197,10 @@ MonoBehaviour:
   - {fileID: 215215104908119812}
   - {fileID: 5961324338003623009}
   - {fileID: -7998303595264660776}
-  _description: Deal 2 damage to an enemy and stun their movement when stepped on
+  _description: Spawn a trap that deals %0% damage and roots
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
+  _cardTags: 0600000000000000
   _effectValue: 0
   _apCost: 2
   _range: 4
@@ -212,7 +213,18 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 2
+  _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 5961324338003623009}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 5961324338003623009}
 --- !u!114 &215215104908119812
 MonoBehaviour:
   m_ObjectHideFlags: 0

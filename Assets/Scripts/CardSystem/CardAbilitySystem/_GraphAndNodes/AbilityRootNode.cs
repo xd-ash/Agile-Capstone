@@ -19,7 +19,7 @@ namespace CardSystem
 
 		// check if user (Unit) is able to use abailty with AP, start targeting
 		// based on connected targeting strategy port
-        public void UseAbility(Unit user)
+        public void UseAbility(Unit user, CardRarity rarity = CardRarity.Common)
 		{
 			if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
 			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
@@ -30,7 +30,7 @@ namespace CardSystem
 
 			if (!user.SpendAP(_cardDefinition.GetApCost, false)) return; // simply check if ap can be spent
 
-            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user));
+            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user), rarity);
             Action onFinished = () =>
             {
                 // Method sent through to be called after targeting strategy finishes

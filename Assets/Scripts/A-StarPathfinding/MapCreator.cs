@@ -67,7 +67,7 @@ public class MapCreator : MonoBehaviour
             return null;
         }
 
-        var so = PlayerDataManager.Instance.GetCurrMapNodeData.selectedMap;
+        var so = PlayerDataManager.Instance.GetCurrCombatNodeData.selectedMap;
         if (so == null)
         {
             so = _tilemapSOLibrary.GetSOsInProject[0];
@@ -79,8 +79,6 @@ public class MapCreator : MonoBehaviour
         }
         var tilemap = SetUpTileMapPrefab(so);
         TileBase[,] tileBaseMap = so.GenerateTileBaseMap(_mapSize);
-
-        tilemap.CompressBounds();
 
         var playerSpawnPositions = new List<Vector2Int>();
         var enemySpawnPositions = new List<Vector2Int>();
@@ -101,25 +99,25 @@ public class MapCreator : MonoBehaviour
 
                 if (map[x, y] == 1)
                     playerSpawnPositions.Add(gridPos);
-                else if (map[x, y] == 3)
+                else if (map[x, y] == 3 || map[x, y] == 6 || map[x, y] == 7)
                     enemySpawnPositions.Add(gridPos);
                 else if (map[x, y] == 0)
                     emptyPositions.Add(gridPos);
             }
         }
 
-        int players = PlayerDataManager.Instance.GetCurrMapNodeData.maxPlayersAllowed;
-        int enemies = PlayerDataManager.Instance.GetCurrMapNodeData.maxEnemiesAllowed;
+        int players = PlayerDataManager.Instance.GetCurrCombatNodeData.maxPlayersAllowed;
+        int enemies = PlayerDataManager.Instance.GetCurrCombatNodeData.maxEnemiesAllowed;
 
         //check if tilemap prefab had enough spawners for the number of units and sidestep tilebase system if failed
         if (playerSpawnPositions.Count < players)
             SidestepUnitSpawnerTileBasesOnFail(ref map, players, playerSpawnPositions, emptyPositions, 1);
         if (enemySpawnPositions.Count < enemies)
             SidestepUnitSpawnerTileBasesOnFail(ref map, enemies, enemySpawnPositions, emptyPositions, 3);
-        
+
         GenerateUnitPositions(ref map, players, playerSpawnPositions);
         GenerateUnitPositions(ref map, enemies, enemySpawnPositions);
-
+        
         for (int x = 0; x < map.GetLength(0); x++)
         {
             for (int y = 0; y < map.GetLength(1); y++)
@@ -156,7 +154,8 @@ public class MapCreator : MonoBehaviour
     }
     private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {
-        if (byteIndicator != 3 && byteIndicator != 1) return; //quick fix for WFC removal. Only spawn units
+        if (byteIndicator == 2 || byteIndicator == 5 || byteIndicator == 0) return; // quick fix for WFC removal. 2 & 5 are obstacle tiles (2 is full cover,
+                                                                                    // 5 is half-cover which isn't really implemented yet)
 
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
         GameObject[] objs = _tileLibrary.GetGOFromIndicator(byteIndicator);
@@ -176,6 +175,8 @@ public class MapCreator : MonoBehaviour
                 Debug.LogError($"No Prefab found for byte indicator: {byteIndicator}");
             return;
         }
+        if (byteIndicator == 6 || byteIndicator == 7)// range or melee specific spawn tiles
+            map[mapPos.x, mapPos.y] = 3; //swap byte indicator back to a general enemy for map control purposes
 
         GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
         newObj.transform.localPosition = truePos;

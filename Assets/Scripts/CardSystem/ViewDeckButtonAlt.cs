@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class ViewDeckButtonAlt : MonoBehaviour
 {
-    GameObject _deckViewWindow;
+    DeckViewerScript _deckViewWindow;
 
     private void OnEnable()
     {
-        _deckViewWindow = FindObjectsByType<DeckViewerScript>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0].gameObject;
+        _deckViewWindow = FindObjectsByType<DeckViewerScript>(FindObjectsInactive.Include, FindObjectsSortMode.None)[0];
     }
     public void OnCLick()
     {
         _deckViewWindow?.gameObject?.SetActive(true);
+        _deckViewWindow.BuildDeckScrollViewContent();
     }
 }

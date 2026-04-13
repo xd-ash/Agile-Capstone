@@ -172,15 +172,16 @@ MonoBehaviour:
   - {fileID: -1860727759273947384}
   - {fileID: -2250469497568542709}
   - {fileID: 5177323901749815731}
-  _description: Deal 2 damage & flip a coin 10 times. For every heads, add 1 damage
-    to the base effect
+  _description: Deal %0% damage and flip a coin %1% times. Add a damage for each
+    heads
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
+  _cardTags: 0300000000000000
   _effectValue: 0
   _apCost: 4
   _range: 5
-  _shopCost: 0
-  _shopWeight: 0
+  _shopCost: 15
+  _shopWeight: 15
   _baseHitChance: 100
   _minHitChance: 25
   _maxHitChance: 100
@@ -188,7 +189,26 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 3
+  _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -2250469497568542709}
+  - cardDef: {fileID: 11400000}
+    effectName: Multiple Coin Flip
+    valueToAdd: 5
+    effectToUpgrade: {fileID: 5177323901749815731}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -2250469497568542709}
+  - cardDef: {fileID: 11400000}
+    effectName: Multiple Coin Flip
+    valueToAdd: 10
+    effectToUpgrade: {fileID: 5177323901749815731}
 --- !u!114 &5177323901749815731
 MonoBehaviour:
   m_ObjectHideFlags: 0

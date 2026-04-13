@@ -64,8 +64,9 @@ namespace CardSystem
                     Debug.LogError($"Knockback dir is vector2int.zero.");
                     return;
                 }
+                var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
 
-                Vector2Int newPos = targetGridPos + knockbackDir * _effectValue;
+                Vector2Int newPos = targetGridPos + knockbackDir * adjustedEffectVal;
 
                 var mapSize = MapCreator.Instance.GetMapSize;
                 newPos.x = Mathf.Clamp(newPos.x, 0, mapSize.x - 1);
@@ -78,9 +79,9 @@ namespace CardSystem
 
                 // check for obstacles along path and adjust resulting tile position if any are found
                 var lastValidPos = targetGridPos;
-                for (int i = 1; i <= Mathf.Abs(_effectValue); i++)
+                for (int i = 1; i <= Mathf.Abs(adjustedEffectVal); i++)
                 {
-                    var tilePos = targetGridPos + knockbackDir * i * (_effectValue < 0 ? -1 : 1);
+                    var tilePos = targetGridPos + knockbackDir * i * (adjustedEffectVal < 0 ? -1 : 1);
                     tilePos.x = Mathf.Clamp(tilePos.x, 0, mapSize.x - 1);
                     tilePos.y = Mathf.Clamp(tilePos.y, 0, mapSize.y - 1);
 
@@ -92,7 +93,7 @@ namespace CardSystem
 
                 unitMover.OnKnockback(lastValidPos);
 
-                if (_effectValue < 0)
+                if (adjustedEffectVal < 0)
                     abilityData.GetUnit.GetFloatingText.SpawnFloatingText("GET OVER HERE!");
             }
 

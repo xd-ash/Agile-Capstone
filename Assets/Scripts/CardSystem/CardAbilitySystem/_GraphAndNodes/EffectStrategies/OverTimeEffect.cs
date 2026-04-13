@@ -9,17 +9,19 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
 {
     [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 
-    [SerializeField] private bool _doEffectAtStart = true;
+    [SerializeField] private bool _doEffectOnApply = true;
     [SerializeField] private bool _tickOnStart = true;
 
     public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
     {
         base.StartEffect(abilityData, onFinished, effectValueChange);
 
+        var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
         foreach (GameObject target in abilityData.Targets)
         {
             if (target == null) return;
-
+            
             if (target.TryGetComponent(out ActiveEffectsTracker eTracker))
             {
                 foreach (NodePort port in Outputs)
@@ -29,18 +31,15 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
 
                     EffectStrategy strat = port.Connection.node as EffectStrategy;
 
-                    List<GameObject> temp = new(0);
-                    foreach (var t in abilityData.Targets)
-                        temp.Add(t);
+                    AbilityData tmp = new(abilityData);
+                    tmp.Targets = new [] { target };
 
-                    if (_doEffectAtStart)
-                        strat.StartEffect(abilityData, onFinished);//initial effect trigger before store
+                    if (_doEffectOnApply)
+                        strat.StartEffect(tmp, onFinished);//initial effect trigger before store
                     eTracker.AddEffect(() => 
                     {
-                        //add targets manually since targets was getting reset on this action store
-                        abilityData.Targets = temp;
-                        strat.StartEffect(abilityData, onFinished);
-                    }, _effectValue, Guid.NewGuid(), _tickOnStart, strat.name);
+                        strat.StartEffect(tmp, onFinished);
+                    }, adjustedEffectVal, Guid.NewGuid(), _tickOnStart, strat.name);
                 }
             }
             else

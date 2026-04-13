@@ -13,6 +13,8 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange);
 
+            var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
             //check each effect connected to node
             foreach (NodePort port in Outputs)
             {
@@ -20,7 +22,7 @@ namespace CardSystem
                     continue;
                 EffectStrategy curEffect = port.Connection.node as EffectStrategy;
 
-                for (int i = 0; i < _effectValue; i++)
+                for (int i = 0; i < adjustedEffectVal; i++)
                     curEffect.StartEffect(abilityData, onFinished);
             }
 

@@ -11,9 +11,11 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange);
 
+            var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
             foreach (GameObject target in abilityData.Targets)
                 if (target != null && target.TryGetComponent(out Unit targetUnit))
-                    targetUnit.RestoreAP(_effectValue + (graph as CardAbilityDefinition).GetApCost);
+                    targetUnit.RestoreAP(adjustedEffectVal + (graph as CardAbilityDefinition).GetApCost);
 
             _onFinished?.Invoke();
         }

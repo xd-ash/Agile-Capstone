@@ -15,14 +15,16 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange);
 
-            var multiflipResults = CoinFlip.FlipCoin(abilityData.GetUnit, _effectValue); //why do I have to do this
+            var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+
+            var multiflipResults = CoinFlip.FlipCoin(abilityData.GetUnit, adjustedEffectVal); //why do I have to do this
 
             int count = 0;
             foreach (var flipResult in multiflipResults)
                 if (flipResult == _desiredCoinSide)
                     count++;
 
-            count = Math.Min(count, _effectValue);
+            count = Math.Min(count, adjustedEffectVal);
             abilityData.GetUnit?.GetFloatingText?.SpawnFloatingText($"{count} {(_desiredCoinSide ? "Heads" : "Tails")}", TextPresetType.CoinFlipPreset);
 
             //Do each effect connected to node

@@ -10,7 +10,10 @@ public class ProceduralTileLibrary : ScriptableObject
     {
         TileData tile = GetTileFromLibrary(tileName);
         if (tile == null)
+        {
+            Debug.Log($"Tile null: ({tileName})");
             return 0;
+        }
 
         return tile.GetByteIndicator;
     }
@@ -18,7 +21,10 @@ public class ProceduralTileLibrary : ScriptableObject
     {
         TileData tile = GetTileFromLibrary(indicator);
         if (tile == null)
+        {
+            Debug.Log("Tile null");
             return null;
+        }
 
         return tile.GetTileContentPrefab;
     }
