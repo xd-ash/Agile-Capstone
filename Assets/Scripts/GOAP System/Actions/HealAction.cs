@@ -20,7 +20,7 @@ public class HealAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.GetHealAbility.UseAility(_agent.unit);
+        _agent.GetHealAbility.UseAbility(_agent.unit);
         if (_agent.healCharges > 0)
             _agent.healCharges--;
 

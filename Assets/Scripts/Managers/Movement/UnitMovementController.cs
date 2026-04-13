@@ -15,7 +15,7 @@ public class UnitMovementController : MonoBehaviour
     public bool GetIsMoving => _isMoving;
     public bool _isKnockback = false;
 
-    [SerializeField] private float _unitMoveSpeed;
+    [SerializeField] private float _unitMoveSpeed = 0.2f;
     [SerializeField] private int _moveCostPerTile = 1;
 
     //temp? variable to track last position during movement coro to be used for trap knockbacks
@@ -96,9 +96,6 @@ public class UnitMovementController : MonoBehaviour
         //
 
         if (_truePath.Count == 0 || _truePath == null) yield break;
-
-        if (!_isKnockback)
-            Debug.Log($"final true path loc: {_truePath[0].location.ToVector()}");
 
         _isMoving = true;
 

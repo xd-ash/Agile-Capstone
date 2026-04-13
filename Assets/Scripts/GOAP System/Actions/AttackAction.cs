@@ -20,7 +20,7 @@ public class AttackAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.GetDamageAbility.UseAility(_agent.unit);
+        _agent.GetDamageAbility.UseAbility(_agent.unit);
 
         _agent.CompleteAction();
     }

@@ -175,7 +175,8 @@ public class MapCreator : MonoBehaviour
                 Debug.LogError($"No Prefab found for byte indicator: {byteIndicator}");
             return;
         }
-        if (byteIndicator == 6 || byteIndicator == 7)// range or melee specific spawn tiles
+        //if (byteIndicator == 6 || byteIndicator == 7)// range or melee specific spawn tiles
+        if (byteIndicator != 1)// non player unit tiles (specific enemy tiles)
             map[mapPos.x, mapPos.y] = 3; //swap byte indicator back to a general enemy for map control purposes
 
         GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
