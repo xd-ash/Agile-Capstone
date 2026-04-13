@@ -61,13 +61,6 @@ public class GoapPlanner
         var targets = ChooseTargetAction.GetCurrentTargets(curGoal, _agent);
         tempTarget = targets[i];
 
-        /*foreach (var ua in usableActions)
-            if (ua is ChooseTargetAction)
-            {
-                tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
-                break;
-            }*/
-
         var tempBeliefs = _agent.GetTempBeliefsGivenGoal(curGoal, tempTarget, beliefStates);
 
         List<GOAPNode> leaves = new();
@@ -135,7 +128,6 @@ public class GoapPlanner
         //
 
         var plan = new Plan() { cheapestCost = cheapest.cost, actionQueue = queue, targets = targets };
-        //return new(cheapest.cost, queue);
         return plan;
     }
 

@@ -44,6 +44,7 @@ public class UnitMovementController : MonoBehaviour
             Debug.Log("truepath null");
             return;
         }
+
         OnStartUnitMove(() => _isKnockback = false);
     }
 
@@ -92,6 +93,9 @@ public class UnitMovementController : MonoBehaviour
         //
 
         if (_truePath.Count == 0 || _truePath == null) yield break;
+
+        if (!_isKnockback)
+            Debug.Log($"final true path loc: {_truePath[0].location.ToVector()}");
 
         _isMoving = true;
 
@@ -144,9 +148,9 @@ public class UnitMovementController : MonoBehaviour
             {
                 _unit.SpendAP(_moveCostPerTile);
                 GameUIManager.instance.UpdateApText();
+                ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, prev, next);
             }
 
-            ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, prev, next);
 
             // tile enter event for trap check (make this better?)
             PrevPosOnMove = prev;

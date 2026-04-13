@@ -2,6 +2,7 @@ using AStarPathfinding;
 using System;
 using UnityEngine;
 using static IsoMetricConversions;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace CardSystem
 {

@@ -205,8 +205,15 @@ public class GoapAgent : MonoBehaviour
         _currentAction.PostPerform(ref _beliefs);
         GameUIManager.instance.UpdateApText();
         PostActionChecks();
-        //if (!_beliefs.GetStates.ContainsKey(GoapGoals.KillPlayer.ToString()))
-        //CheckForAP(unit, ref _beliefs);
+        /*if (showDebugMessages)
+        {
+            string tempStr = $"Agent: {name} Target: {GetCurrentTarget?.name}:";
+            tempStr += $"\nPost Action Beliefs: ";
+            foreach (var b in _beliefs.GetStates)
+                //foreach (var b in beliefStates.GetStates)
+                tempStr += b.Key + ", ";
+            Debug.Log(tempStr);
+        }*/
     }
 
     public void PostActionChecks()
@@ -318,7 +325,7 @@ public class GoapAgent : MonoBehaviour
             tempBeliefs.RemoveState(GoapStates.NoTarget.ToString());
 
             var currAbility = tempTarget.GetTeam == unit.GetTeam ? GetHealAbility : GetDamageAbility;
-            var b = CheckRange(this, tempTarget, currAbility.GetRange, ref tempBeliefs);
+            CheckRange(this, tempTarget, currAbility.GetRange, ref tempBeliefs);
             CheckIfInLOS(this, tempTarget, ref tempBeliefs);
         }
         return tempBeliefs;

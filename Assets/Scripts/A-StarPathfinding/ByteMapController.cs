@@ -47,11 +47,13 @@ public class ByteMapController : MonoBehaviour
         if (!_unitPositions.ContainsKey(unit))
             _unitPositions.Add(unit, startPos);
     }
-
+     
     public void UpdateUnitPositionByteMap(Unit unit, Vector2Int startPos, Vector2Int endPos)
     {
         _map[startPos.x, startPos.y] = 0;
         _map[endPos.x, endPos.y] = unit.GetTeam == Team.Friendly ? (byte)1 : (byte)3;
+
+        //Debug.Log($"Unit:{unit.name}, endPos:{endPos}\nstartpos: {startPos}, byte @ pos after move: {_map[startPos.x, startPos.y]}");
 
         if (!_unitPositions.ContainsKey(unit))
             _unitPositions.Add(unit, endPos);

@@ -22,7 +22,6 @@ public class MoveInRangeAction : GoapAction
         var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
         var tempPath = _unitMover.CalculatePath(tarPos);
         int distanceToTar = tempPath.Count;
-        //Debug.Log($"tarPos: {tarPos} | distancetoTar: {distanceToTar}");
 
         if (_agent.GetDamageAbility == null)
             return false;
@@ -34,7 +33,7 @@ public class MoveInRangeAction : GoapAction
         int inRangeTileIndex = dmgAbilRange;
 
         // calc new path to tile just within ability range
-        _unitMover.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
+        _unitMover.CalculatePath(tempPath[inRangeTileIndex].location.ToVector()); 
 
         return true;
     }

@@ -39,7 +39,8 @@ public static class GOAPDeterminationMethods
          
         var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
         var tempPath = unitMover?.CalculatePath(tarPos);
-        // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
+        if (tempPath == null) Debug.Log("temp path null");
+        
         int distanceToTar = tempPath == null ? 0 : tempPath.Count;
 
         if (distanceToTar >= _atRangeThreshold)
@@ -71,7 +72,8 @@ public static class GOAPDeterminationMethods
         
         var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
         var tempPath = unitMover?.CalculatePath(tarPos);
-        // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
+        //if (tempPath == null) Debug.Log("temp path null");
+
         int distanceToTar = tempPath == null ? 0 : tempPath.Count;
 
         if (distanceToTar >= _atRangeThreshold)
