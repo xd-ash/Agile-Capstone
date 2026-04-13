@@ -71,8 +71,9 @@ public class GoapPlanner
             string tempStr = $"Agent: {_agent.name} Target: {tempTarget.name} - Goal: ";
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
-            tempStr += $"\nBeliefs: ";
-            foreach (var b in beliefStates.GetStates)
+            tempStr += $"\ntempBeliefs: ";
+            foreach (var b in tempBeliefs.GetStates)
+            //foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
             Debug.Log(tempStr);
         }

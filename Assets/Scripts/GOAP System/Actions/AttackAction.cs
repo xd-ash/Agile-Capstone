@@ -9,7 +9,7 @@ public class AttackAction : GoapAction
         if (!canDoAction)
         {
             beliefs.RemoveState(GoapStates.CanAttack.ToString());
-            beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+            //beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
         }
 
         return canDoAction;

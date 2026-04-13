@@ -87,34 +87,26 @@ public class GoapAgent : MonoBehaviour
         if (TurnManager.GetCurrentUnit != unit) return;
         if (_currentAction != null && _currentAction.IsRunning) return;
 
-        if (_isResetting) return;
+        //if (_isResetting) return;
 
         if (_planner == null || _actionQueue == null)
         {
             _planner = new GoapPlanner(this);
 
             //sort goals based on weight/prio
-            var sortedGoals = from entry in _weightedGoalsDict
+            /*var sortedGoals = from entry in _weightedGoalsDict
                               orderby entry.Value descending
-                              select entry;
+                              select entry;*/
 
             Dictionary<Goal, Tuple<float, Queue<GoapAction>>> goalQueues = new();
 
             //pick highest prio goal to plan for first
-            foreach (KeyValuePair<Goal, float> g in sortedGoals)
+            //foreach (KeyValuePair<Goal, float> g in sortedGoals)
+            foreach (KeyValuePair<Goal, float> g in _weightedGoalsDict)
             {
                 var tempPlan = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
                 if (tempPlan == null)
-                {
-                    _buildFailCounter++;
-
-                    if (_buildFailCounter >= 15)
-                    {
-                        SetBuildFailBeliefs();
-                        return;
-                    }
                     continue;
-                }
                 goalQueues.Add(g.Key, tempPlan);
             }
 
@@ -144,11 +136,16 @@ public class GoapAgent : MonoBehaviour
         {
             CheckForAP(unit, ref _beliefs);
 
-            if (!CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost) && !CheckCanDoAction(unit, _agentSO.GetHealAbility.GetApCost))
+            if (!CheckCanDoAction(unit, _agentSO.GetHealAbility.GetApCost))
+                _beliefs.RemoveState(GoapStates.CanHeal.ToString());
+            if (!CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost))
+                _beliefs.RemoveState(GoapStates.CanAttack.ToString());
+
+            /*if (!CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost) && !CheckCanDoAction(unit, _agentSO.GetHealAbility.GetApCost))
             {
                 _beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
                 _beliefs.RemoveState(GoapStates.HasAP.ToString());
-            }
+            }*/
         }
 
         // actionqueue is finished
@@ -226,10 +223,8 @@ public class GoapAgent : MonoBehaviour
             CheckForAP(unit, ref _beliefs);
     }
 
-    private bool _isResetting = false;
     public void ResetStates()
     {
-        _isResetting = true;
         _buildFailCounter = 0;
 
         _weightedGoalsDict = new();
@@ -282,9 +277,8 @@ public class GoapAgent : MonoBehaviour
         string beliefDebug = "Beliefs: ";
         foreach (var belief in _beliefs.GetStates)
             beliefDebug += $"{belief.Key}, ";
-        //Debug.Log(beliefDebug);
-
-        _isResetting = false;
+        if (showDebugMessages)
+            Debug.Log(beliefDebug);
     }
     public void SetBuildFailBeliefs()
     {
