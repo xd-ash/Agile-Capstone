@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
-  m_Name: RangeEnemyTest
+  m_Name: PyroEnemy
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
   _damageAbility: {fileID: 11400000, guid: 3806d31e083fc7b4ebfc88e021e474fe, type: 2}
   _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}

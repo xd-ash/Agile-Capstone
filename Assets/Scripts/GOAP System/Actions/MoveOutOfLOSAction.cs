@@ -44,14 +44,10 @@ public class MoveOutOfLOSAction : GoapAction
         foreach (var tile in reachableTiles)
         {
             var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile, true);
-            //Debug.Log($"pathToTarCount: {pathToTarget.Count}");
 
             if (pathToTarget == null || pathToTarget.Count == 0) continue;
-            //Debug.Log($"path is not null or length 0");
             if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
-            //Debug.Log($"new tile does not has LOS");
             if (pathToTarget.Count >= bestDistCount) continue;
-            //Debug.Log($"path length is less than best dist, Tilepos: {tile}, bestDist: {bestDistCount}");
             hidePos = tile;
             bestDistCount = pathToTarget.Count;
         }
