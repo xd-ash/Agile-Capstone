@@ -38,9 +38,9 @@ public static class GOAPDeterminationMethods
         //int dmgAbilRange = agent.damageAbility.GetRange;
          
         var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
-        var tempPath = unitMover.CalculatePath(tarPos);
-       // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
-        int distanceToTar = tempPath.Count;
+        var tempPath = unitMover?.CalculatePath(tarPos);
+        // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
+        int distanceToTar = tempPath == null ? 0 : tempPath.Count;
 
         if (distanceToTar >= _atRangeThreshold)
         {
@@ -68,11 +68,11 @@ public static class GOAPDeterminationMethods
     {
         var unitMover = agent.GetComponent<UnitMovementController>();
         //int dmgAbilRange = agent.damageAbility.GetRange;
-         
+        
         var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
-        var tempPath = unitMover.CalculatePath(tarPos);
-       // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
-        int distanceToTar = tempPath.Count;
+        var tempPath = unitMover?.CalculatePath(tarPos);
+        // Debug.Log($"pathCount range: {tempPath.Count}, abilRange: {abilityRange}");
+        int distanceToTar = tempPath == null ? 0 : tempPath.Count;
 
         if (distanceToTar >= _atRangeThreshold)
         {

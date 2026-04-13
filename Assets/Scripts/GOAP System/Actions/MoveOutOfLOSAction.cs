@@ -72,12 +72,22 @@ public class MoveOutOfLOSAction : GoapAction
         beliefs.RemoveState(GoapStates.HasLOS.ToString());
     }
 
+    private Unit _tempTarget;
+    private Vector2Int _tempHidePos;
+
     public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
 
+        if (_tempTarget != tempTarget)
+        {
+            _tempHidePos = DetermineHidePos(tempTarget);
+            _tempTarget = tempTarget;
+        }
+
         var agentPos = ConvertToGridFromIsometric(_agent.transform.localPosition);
-        var distRatio = GetAdjustedMovementDistRatio(agentPos, DetermineHidePos(tempTarget), _agent.unit);
+        var distRatio = GetAdjustedMovementDistRatio(agentPos, _tempHidePos, _agent.unit);
+        //var distRatio = GetAdjustedMovementDistRatio(_agent.transform, tempTarget.transform);
         return _cost * distRatio * _costMultiplier;
     }
 }

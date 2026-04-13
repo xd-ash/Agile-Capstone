@@ -25,6 +25,6 @@ public class HideAction : GoapAction
         if (_agent == null || tempTarget == null) return _cost;
 
         var agentHealthRatio = _agent.unit.GetHealth / (float)_agent.unit.GetMaxHealth;
-        return _cost;
+        return _cost * agentHealthRatio;
     }
 }

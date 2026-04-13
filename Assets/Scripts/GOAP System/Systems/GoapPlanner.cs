@@ -33,7 +33,7 @@ public class Plan
 {
     public float cheapestCost;
     public Queue<GoapAction> actionQueue;
-    public Unit target;
+    public Unit[] targets;
 }
 
 public class GoapPlanner
@@ -58,16 +58,19 @@ public class GoapPlanner
         Unit tempTarget = null;
         string curGoal = goal.ElementAt(0).Key;
         int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() || curGoal == GoapGoals.StayAlive.ToString() ? 1 : 0;
-        foreach (var ua in usableActions)
+        var targets = ChooseTargetAction.GetCurrentTargets(curGoal, _agent);
+        tempTarget = targets[i];
+
+        /*foreach (var ua in usableActions)
             if (ua is ChooseTargetAction)
             {
                 tempTarget = (ua as ChooseTargetAction).GetCurrentTargets(curGoal)[i];
                 break;
-            }
+            }*/
 
-        var tempBeliefs = GoapAgent.GetTempBeliefsGivenGoal(_agent, curGoal, tempTarget, beliefStates);
+        var tempBeliefs = _agent.GetTempBeliefsGivenGoal(curGoal, tempTarget, beliefStates);
 
-        List<GOAPNode> leaves = new List<GOAPNode>();
+        List<GOAPNode> leaves = new();
         //GOAPNode start = new GOAPNode(null, 0, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
         GOAPNode start = new GOAPNode(null, 0, tempBeliefs.GetStates, null); //null parent, no cost, & null action b/c it is start node
 
@@ -131,7 +134,7 @@ public class GoapPlanner
         }
         //
 
-        var plan = new Plan() { cheapestCost = cheapest.cost, actionQueue = queue, target = tempTarget };
+        var plan = new Plan() { cheapestCost = cheapest.cost, actionQueue = queue, targets = targets };
         //return new(cheapest.cost, queue);
         return plan;
     }

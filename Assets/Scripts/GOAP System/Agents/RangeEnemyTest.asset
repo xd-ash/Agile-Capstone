@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RangeEnemyTest
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
   _damageAbility: {fileID: 11400000, guid: 3806d31e083fc7b4ebfc88e021e474fe, type: 2}
-  _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
-  _totalHealCharges: 3
+  _healAbility: {fileID: 11400000, guid: e021387c05a3f6c4fa7b632e3aa0ef39, type: 2}
+  _totalHealCharges: 2
   _goalsEnum: 22
   _goals:
   - rid: 6877345560813109319
@@ -101,7 +101,7 @@ MonoBehaviour:
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: EndTurnAction
-        _cost: 10
+        _cost: 15
         _costMultiplier: 1
         _preConditionsFlags: 4
         _postConditionsFlags: 0

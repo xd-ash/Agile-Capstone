@@ -39,7 +39,7 @@ MonoBehaviour:
       data:
         key: StayAlive
         value: 1
-        removeOnComplete: 1
+        removeOnComplete: 0
     - rid: 3253435652315021392
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
@@ -72,7 +72,7 @@ MonoBehaviour:
       data:
         _actionName: HideAction
         _cost: 2
-        _costMultiplier: 1.2
+        _costMultiplier: 1
         _preConditionsFlags: 6144
         _postConditionsFlags: 0
         _goalsFlags: 4
@@ -89,9 +89,9 @@ MonoBehaviour:
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: EndTurnAction
-        _cost: 10
+        _cost: 15
         _costMultiplier: 1
-        _preConditionsFlags: 4
+        _preConditionsFlags: 0
         _postConditionsFlags: 0
         _goalsFlags: 16
     - rid: 6877345709834109007
@@ -110,13 +110,13 @@ MonoBehaviour:
         _cost: 2
         _costMultiplier: 1
         _preConditionsFlags: 5698
-        _postConditionsFlags: 12
+        _postConditionsFlags: 0
         _goalsFlags: 12
     - rid: 6877345709834109009
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: AttackAction
-        _cost: 6
+        _cost: 12
         _costMultiplier: 1.5
         _preConditionsFlags: 5442
         _postConditionsFlags: 4

@@ -13,28 +13,28 @@ public class ChooseTargetAction : GoapAction
     }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        var distancesToEnemies = GrabUnitDistances(Team.Friendly);
+        var distancesToEnemies = GrabUnitDistances(Team.Friendly, _agent);
         return distancesToEnemies.Count > 0 ? true : false; // change this
     }
-    private Dictionary<int, Unit> GrabUnitDistances(Team team)
+    private static Dictionary<int, Unit> GrabUnitDistances(Team team, GoapAgent agent)
     {
         Dictionary<int, Unit> distToUnits = new();
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
             if (u == null || u.GetTeam != team) continue;
-            if (u == _agent.unit) continue;
+            if (u == agent.unit) continue;
 
-            var tempPath = CalculatePath(_agent.transform, u.transform);
+            var tempPath = CalculatePath(agent.transform, u.transform);
             distToUnits.Add(tempPath.Count, u);
         }
         return distToUnits;
     }
-    public Unit[] GetCurrentTargets(string curGoal)
+    public static Unit[] GetCurrentTargets(string curGoal, GoapAgent agent)
     {
-        var enemiesDists = GrabUnitDistances(Team.Friendly);
-        var allyDists = GrabUnitDistances(Team.Enemy);
-        Unit minIndexEnemy = null, minIndexAlly = _agent.unit;
+        var enemiesDists = GrabUnitDistances(Team.Friendly, agent);
+        var allyDists = GrabUnitDistances(Team.Enemy, agent);
+        Unit minIndexEnemy = null, minIndexAlly = agent.unit;
         int minIndex = 0;
        
         minIndex = enemiesDists.Min(x => x.Key);
@@ -51,7 +51,7 @@ public class ChooseTargetAction : GoapAction
     public override void Perform()
     {
         var curGoal = _agent.GetCurrentGoal.key;
-        var targets = GetCurrentTargets(curGoal);
+        var targets = GetCurrentTargets(curGoal, _agent);
         _agent.SetCurrentTargets(targets[0], targets[1]);
 
         _agent.CompleteAction();
