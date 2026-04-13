@@ -49,10 +49,10 @@ public class GoapAgent : MonoBehaviour
     private Unit _allyTarget;
 
     public bool showDebugMessages = false;
-    private int _buildFailCounter = 0;
+    //private int _buildFailCounter = 0;
 
     public Goal GetCurrentGoal => _currentGoal;
-    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget));
+    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget));
     public GoapAgentSO GetAgentSO => _agentSO;
 
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
@@ -92,13 +92,17 @@ public class GoapAgent : MonoBehaviour
         if (_planner == null || _actionQueue == null)
         {
             _planner = new GoapPlanner(this);
-
+            _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1); //manually reset target after each action
+            
             //sort goals based on weight/prio
             /*var sortedGoals = from entry in _weightedGoalsDict
                               orderby entry.Value descending
                               select entry;*/
 
-            Dictionary<Goal, Tuple<float, Queue<GoapAction>>> goalQueues = new();
+            //Dictionary<Goal, Tuple<float, Queue<GoapAction>>> goalQueues = new();
+            Dictionary<Goal, Plan> goalQueues = new();
+            _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
+            _beliefs.RemoveState(GoapStates.HasTarget.ToString());
 
             //pick highest prio goal to plan for first
             //foreach (KeyValuePair<Goal, float> g in sortedGoals)
@@ -113,12 +117,16 @@ public class GoapAgent : MonoBehaviour
             float cheapestCost = float.MaxValue;
             foreach (var element in goalQueues)
             {
-                if (element.Value.Item2 == null) continue;
+                if (element.Value.actionQueue == null) continue;
 
-                var cost = element.Value.Item1;
-                if (cost >= cheapestCost) continue; 
-                _actionQueue = element.Value.Item2;
+                var cost = element.Value.cheapestCost;
+                if (cost >= cheapestCost) continue;
+                _actionQueue = element.Value.actionQueue;
                 _currentGoal = element.Key ?? new("null", 1, true);
+                //if (_currentGoal.key == GoapGoals.KillPlayer.ToString())
+                    //_enemyTarget = element.Value.target;
+                //else
+                    //_allyTarget = element.Value.target;
                 cheapestCost = cost;
             }
             //
@@ -176,10 +184,14 @@ public class GoapAgent : MonoBehaviour
 
                 _currentAction.IsRunning = true;
 
+                //Invoke(nameof(ActionPerformDelay), _actionDelayTime);
+
                 if (ShouldDelayAction())
-                    Invoke(nameof(ActionPerformDelay), _actionDelayTime);
+                    Invoke(nameof(PerformAction), _actionDelayTime);
                 else
-                    _currentAction.Perform();
+                    PerformAction();
+                    //Invoke(nameof(PerformAction), 0.2f);
+
                 /*
                 if (_currentAction is AttackAction || _currentAction is HealAction)
                 {
@@ -196,13 +208,13 @@ public class GoapAgent : MonoBehaviour
     }
     private bool ShouldDelayAction()
     {
-        if (_currentAction is ChooseTargetAction || _currentAction is EndTurnAction || _currentAction is HideAction)
+        if (_currentAction is ChooseTargetAction /*|| _currentAction is EndTurnAction */ || _currentAction is HideAction)
             return false;
 
         if (_prevAction == null || _prevAction is ChooseTargetAction || _prevAction is EndTurnAction || _prevAction is HideAction)
             return false;
 
-        // movement action into movement action should no delay
+        // movement action into movement action should have no delay
         if ((_prevAction is MoveInRangeAction || _prevAction is MoveIntoLOSAction || _prevAction is MoveOutOfLOSAction || _prevAction is MoveToRangeAction) &&
             (_currentAction is MoveInRangeAction || _currentAction is MoveIntoLOSAction || _currentAction is MoveOutOfLOSAction || _currentAction is MoveToRangeAction))
             return false;
@@ -225,7 +237,7 @@ public class GoapAgent : MonoBehaviour
 
     public void ResetStates()
     {
-        _buildFailCounter = 0;
+        //_buildFailCounter = 0;
 
         _weightedGoalsDict = new();
         _currentGoal = null;
@@ -304,13 +316,16 @@ public class GoapAgent : MonoBehaviour
         }
         else
         {
+            tempBeliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
+            tempBeliefs.RemoveState(GoapStates.NoTarget.ToString());
+
             var currAbility = tempTarget.GetTeam == unit.GetTeam ? agent.GetHealAbility : agent.GetDamageAbility;
             var b = CheckRange(agent, tempTarget, currAbility.GetRange, ref tempBeliefs);
             CheckIfInLOS(agent, tempTarget, ref tempBeliefs);
         }
         return tempBeliefs;
     }
-    private void ActionPerformDelay()
+    private void PerformAction()
     {
         _currentAction.Perform();
     }

@@ -1,6 +1,7 @@
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
 using static AStarPathfinding.FindPathAStar;
+using UnityEngine;
 
 public class MoveInRangeAction : GoapAction
 {
@@ -12,8 +13,8 @@ public class MoveInRangeAction : GoapAction
     }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString())) return false;
-
+        if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString()) || _agent.GetCurrentTarget == null) return false;
+        
         _unitMover = _agent.GetComponent<UnitMovementController>();
         Unit unit = _agent.unit;
         int dmgAbilRange = _agent.GetDamageAbility.GetRange;

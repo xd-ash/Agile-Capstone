@@ -12,8 +12,8 @@ public class HideAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.ClearPlanner();
         TurnManager.Instance.EndEnemyTurn();
+        _agent.ClearPlanner();
         _agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)

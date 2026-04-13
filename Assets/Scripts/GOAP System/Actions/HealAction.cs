@@ -28,7 +28,7 @@ public class HealAction : GoapAction
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        if (!CheckIfHealthy(_agent.unit, ref beliefs)) return;
+        if (!CheckIfHealthy(_agent.GetCurrentTarget, ref beliefs)) return;
 
         if (_agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
             beliefs.ModifyState(GoapGoals.StayAlive.ToString(), 1);

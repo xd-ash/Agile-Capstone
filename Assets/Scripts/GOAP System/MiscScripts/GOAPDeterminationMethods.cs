@@ -155,20 +155,20 @@ public static class GOAPDeterminationMethods
     }
     public static float GetAdjustedMovementDistRatio(Transform agent, Transform target)
     {
-        if (!agent.TryGetComponent(out Unit unit)) return 0f;
+        if (!agent.TryGetComponent(out Unit unit)) return int.MaxValue;
 
         var distToTar = CalculatePath(agent, target).Count;
         int maxAP = unit.GetAP;
-        float distRatio = (maxAP - distToTar) / (float)maxAP;
-        return Mathf.Clamp(distRatio, 0, 1);
+        float distRatio = distToTar / (float)maxAP;
+        return distRatio;//Mathf.Clamp(distRatio, 0, 1);
     }
     public static float GetAdjustedMovementDistRatio(Vector2Int agentPos, Vector2Int targetPos, Unit unit)
     {
-        if (unit == null) return 0f;
+        if (unit == null) return int.MaxValue;
 
         var distToTar = CalculatePath(agentPos, targetPos).Count;
         int maxAP = unit.GetAP;
         float distRatio = distToTar / (float)maxAP;
-        return Mathf.Clamp(distRatio, 0, 1);
+        return distRatio;//Mathf.Clamp(distRatio, 0, 1);
     }
 }

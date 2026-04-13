@@ -13,7 +13,7 @@ public class MoveIntoLOSAction : GoapAction
     }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (beliefs.GetStates.ContainsKey(GoapStates.HasLOS.ToString())) return false;
+        if (beliefs.GetStates.ContainsKey(GoapStates.HasLOS.ToString()) || _agent.GetCurrentTarget == null) return false;
 
         _unitMover = _agent.GetComponent<UnitMovementController>();
         Unit unit = _agent.unit;

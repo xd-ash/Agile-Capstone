@@ -113,7 +113,7 @@ namespace CardSystem
                 TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
                 return;
             
-            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick) return;
+            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || TurnManager.IsEnemyTurn) return;
             if (OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null) return;
             if (CardShopManager.Instance != null) return;
 
@@ -155,7 +155,7 @@ namespace CardSystem
                 return;
             
             //disable drag with click to select option enabled
-            if (OptionsSettings.IsCardSelectOnClick) return;
+            if (OptionsSettings.IsCardSelectOnClick || TurnManager.IsEnemyTurn) return;
 
             if (!_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
                 return;

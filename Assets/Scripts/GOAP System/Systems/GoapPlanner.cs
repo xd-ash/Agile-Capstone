@@ -29,6 +29,13 @@ public class GOAPNode
     }
 }
 
+public class Plan
+{
+    public float cheapestCost;
+    public Queue<GoapAction> actionQueue;
+    public Unit target;
+}
+
 public class GoapPlanner
 {
     // temp solution for grabbing a debug bool
@@ -39,7 +46,8 @@ public class GoapPlanner
     private GoapAgent _agent;
     //
 
-    public Tuple<float, Queue<GoapAction>> Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
+    //public Tuple<float, Queue<GoapAction>> Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
+    public Plan Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
     {
         List<GoapAction> usableActions = new List<GoapAction>();
         foreach (GoapAction a in actions)
@@ -49,7 +57,7 @@ public class GoapPlanner
         //setup temp beliefs for planning
         Unit tempTarget = null;
         string curGoal = goal.ElementAt(0).Key;
-        int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() ? 1 : 0;
+        int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() || curGoal == GoapGoals.StayAlive.ToString() ? 1 : 0;
         foreach (var ua in usableActions)
             if (ua is ChooseTargetAction)
             {
@@ -123,7 +131,9 @@ public class GoapPlanner
         }
         //
 
-        return new(cheapest.cost, queue);
+        var plan = new Plan() { cheapestCost = cheapest.cost, actionQueue = queue, target = tempTarget };
+        //return new(cheapest.cost, queue);
+        return plan;
     }
 
     //recursive method for node graph building 

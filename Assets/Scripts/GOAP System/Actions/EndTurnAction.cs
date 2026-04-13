@@ -12,14 +12,13 @@ public class EndTurnAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.ClearPlanner();
         TurnManager.Instance.EndEnemyTurn();
-        //Debug.Log($"End turn Perform");
+        _agent.ClearPlanner();
         _agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        // do nothing?
+        
     }
 
     public override float EvaluateCost(string tempGoal, Unit tempTarget)

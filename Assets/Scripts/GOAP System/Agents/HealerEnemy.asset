@@ -57,7 +57,7 @@ MonoBehaviour:
       data:
         key: KeepAlliesAlive
         value: 1
-        removeOnComplete: 0
+        removeOnComplete: 1
     - rid: 6877345709834109003
       type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
       data:
