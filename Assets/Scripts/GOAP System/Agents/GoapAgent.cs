@@ -54,12 +54,15 @@ public class GoapAgent : MonoBehaviour
     [SerializeField] private int _buildFailCounter = 0;
 
     public Goal GetCurrentGoal => _currentGoal;
-    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KillPlayer.ToString() ? _enemyTarget : _allyTarget));
+    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget ));
+    public Unit GetAllyTarget => _allyTarget;
+    public Unit GetEnemyTarget => _enemyTarget;
+
     public GoapAgentSO GetAgentSO => _agentSO;
 
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
     public CardAbilityDefinition GetHealAbility => _agentSO?.GetHealAbility;
-    public CardAbilityDefinition GetCurrentAbility => _currentGoal != null && _currentGoal.key == GoapGoals.KillPlayer.ToString() ? _agentSO.GetDamageAbility : _agentSO.GetHealAbility;
+    public CardAbilityDefinition GetCurrentAbility => _currentGoal != null && _currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ?  _agentSO.GetHealAbility : _agentSO.GetDamageAbility;
 
     private void Awake()
     {

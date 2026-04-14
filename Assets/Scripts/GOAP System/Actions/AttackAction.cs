@@ -39,7 +39,7 @@ public class AttackAction : GoapAction
     }
 
     public override float EvaluateCost(string tempGoal, Unit tempTarget)
-    { 
+    {
         if (_agent == null || tempTarget == null) return _cost;
 
         var attackAdjust = tempGoal == GoapGoals.KillPlayer.ToString() ? _agent.attacksPerformedThisTurn : 0; // count attacks performed only on kill player goal to allow for lower cost of attacks in stayalive goal

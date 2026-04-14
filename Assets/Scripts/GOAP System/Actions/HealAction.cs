@@ -40,6 +40,9 @@ public class HealAction : GoapAction
     {
         if (_agent == null || tempTarget == null) return _cost;
 
+        if (tempGoal == GoapGoals.StayAlive.ToString())
+            tempTarget = _agent.unit;
+
         float tarHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
         float healCostRatio = _agent.GetHealAbility.GetApCost / (float)_agent.unit.GetMaxAP;
         return _cost * (tarHealthRatio + healCostRatio) * _costMultiplier;
