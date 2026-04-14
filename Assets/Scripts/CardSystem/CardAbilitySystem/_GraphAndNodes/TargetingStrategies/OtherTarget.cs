@@ -5,6 +5,7 @@ using static IsoMetricConversions;
 using static CombatMath;
 using static AStarPathfinding.FindPathAStar;
 using UnityEngine;
+using System.Linq;
 
 namespace CardSystem
 {
@@ -33,13 +34,14 @@ namespace CardSystem
             }
         }
         //goap agent grabbing nearby tile for use in throwing AOE bombs & stuff (allows for "targetting" units out of LOS but within AOE radius)
-        public void GetNearbyTileInLOS(ref AbilityData abilityData, Vector2Int targetUnitPos, Vector2Int agentPos)
+        public Vector2Int GetNearbyTileInLOS(ref AbilityData abilityData, Vector2Int targetUnitPos, Vector2Int agentPos)
         {
             var map = ByteMapController.Instance.GetByteMap;
             var cellsInRangeOfTarget = ComputeCellsInRange(targetUnitPos, _aoeStrat.GetAOERange);
 
             List<Vector2Int> validTiles = new();
-            foreach( var cell in cellsInRangeOfTarget)
+            
+            foreach (var cell in cellsInRangeOfTarget)
             {
                 if (!HasLineOfSight(agentPos, cell) || !HasLineOfSight(targetUnitPos, cell)) continue;
                 var pathToTile = CalculatePath(agentPos, cell);
@@ -48,7 +50,15 @@ namespace CardSystem
                 break;
             }
 
+            if (validTiles.Count == 0)
+            {
+                Debug.LogWarning($"0 valid tiles for GetNearbyTileInLOS. (TargetPos:{targetUnitPos}, AgentPos:{agentPos})");
+                return agentPos;
+            }
+
+            return;
         }
+
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
             Unit hoveredUnit = null;
@@ -90,7 +100,7 @@ namespace CardSystem
                         yield return null;
                         continue;
                     }
-                    
+
                     if (!tempTargets.Contains(temp))
                         tempTargets.Add(temp);
                     abilityData.Targets = tempTargets;
@@ -123,14 +133,18 @@ namespace CardSystem
             if (!_tilesInRange.Contains(tilePos))
                 return null;
 
-            GameObject empty = new("empty");
-            empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
-            empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
+            var empty = SpawnTargettingEmpty(tilePos);
 
             abilityData.AbilityTriggerPos = tilePos;
             return empty;
         }
-
+        private GameObject SpawnTargettingEmpty(Vector2Int tilePos)
+        {
+            GameObject empty = new("empty");
+            empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
+            empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
+            return empty;
+        }
         private Unit GetUnitUnderMouse()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -144,7 +158,7 @@ namespace CardSystem
 
         private GameObject TargetOnMouse()
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), 
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition),
                 Vector2.zero, Mathf.Infinity);
             if (hit.collider != null && hit.collider.GetComponent<Unit>())
                 return hit.collider.gameObject;
