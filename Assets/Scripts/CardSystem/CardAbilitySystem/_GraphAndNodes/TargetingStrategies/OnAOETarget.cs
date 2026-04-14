@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 using static IsoMetricConversions;
-using static UnityEditor.PlayerSettings;
 
 namespace CardSystem
 {
@@ -17,6 +16,8 @@ namespace CardSystem
         private Vector2Int _currTilePos;
 
         TargetingStrategy _targetingStrat;
+
+        public int GetAOERange => _range;
 
         public void InitNode()
         {

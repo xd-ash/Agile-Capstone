@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using static IsoMetricConversions;
+using static CombatMath;
+using static AStarPathfinding.FindPathAStar;
 using UnityEngine;
 
 namespace CardSystem
@@ -34,7 +36,18 @@ namespace CardSystem
         public void GetNearbyTileInLOS(ref AbilityData abilityData, Vector2Int targetUnitPos, Vector2Int agentPos)
         {
             var map = ByteMapController.Instance.GetByteMap;
-            
+            var cellsInRangeOfTarget = ComputeCellsInRange(targetUnitPos, _aoeStrat.GetAOERange);
+
+            List<Vector2Int> validTiles = new();
+            foreach( var cell in cellsInRangeOfTarget)
+            {
+                if (!HasLineOfSight(agentPos, cell) || !HasLineOfSight(targetUnitPos, cell)) continue;
+                var pathToTile = CalculatePath(agentPos, cell);
+                if (pathToTile.Count > (graph as CardAbilityDefinition).GetRange) continue;
+                validTiles.Add(cell);
+                break;
+            }
+
         }
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
         {
