@@ -15,7 +15,10 @@ namespace CardSystem
                 if (target != null && target.TryGetComponent(out Unit targetUnit))
                 {
                     var def = graph as CardAbilityDefinition;
-                    bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
+                    var abilityPos = abilityData.AbilityTriggerPos == -Vector2Int.one ? 
+                        ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
+                    bool hit = CombatMath.RollHit(abilityPos, targetUnit, def);
+                    //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
 
                     _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
 

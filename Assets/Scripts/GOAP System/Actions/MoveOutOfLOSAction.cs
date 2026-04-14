@@ -2,6 +2,7 @@ using AStarPathfinding;
 using UnityEngine;
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
+using System.Collections.Generic;
 
 public class MoveOutOfLOSAction : GoapAction
 {
@@ -31,20 +32,20 @@ public class MoveOutOfLOSAction : GoapAction
         }
         return true;
     }
+
+    private HashSet<Vector2Int> _reachableCells = null;
     private Vector2Int DetermineHidePos(Unit target)
     {
-        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
+        if (_reachableCells == null) 
+            _reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
         if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
         var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
-        //var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
-
-        //Debug.Log($"Target: {target.name}, reachableTiles: {reachableTiles.Count}, targetTile: {targetTile}");
 
         var hidePos = -Vector2Int.one;
         int bestDistCount = int.MaxValue;
-        foreach (var tile in reachableTiles)
+        foreach (var tile in _reachableCells)
         {
-            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile, true);
+            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile);
 
             if (pathToTarget == null || pathToTarget.Count == 0) continue;
             if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
@@ -69,6 +70,8 @@ public class MoveOutOfLOSAction : GoapAction
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
+        _reachableCells = null;
+
         beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
         beliefs.RemoveState(GoapStates.HasLOS.ToString());
     }

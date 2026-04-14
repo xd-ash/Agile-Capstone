@@ -83,8 +83,8 @@ MonoBehaviour:
       type: {class: HideAction, ns: , asm: Assembly-CSharp}
       data:
         _actionName: HideAction
-        _cost: 2
-        _costMultiplier: 1.5
+        _cost: 3
+        _costMultiplier: 2
         _preConditionsFlags: 6144
         _postConditionsFlags: 0
         _goalsFlags: 4

@@ -57,7 +57,7 @@ public class GoapPlanner
         //setup temp beliefs for planning
         Unit tempTarget = null;
         string curGoal = goal.ElementAt(0).Key;
-        int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() || curGoal == GoapGoals.StayAlive.ToString() ? 1 : 0;
+        int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() ? 1 : 0;
         var targets = ChooseTargetAction.GetCurrentTargets(curGoal, _agent);
         tempTarget = targets[i];
 

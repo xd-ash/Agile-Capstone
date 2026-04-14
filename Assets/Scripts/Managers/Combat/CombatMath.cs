@@ -14,13 +14,13 @@ public static class CombatMath
     private const int _defaultGlobalFlatBonus = 0;
 
     // New: Card-based overloads
-    public static int GetHitChance(Vector3 attackerPos, Unit target, CardAbilityDefinition cardDef)
+    public static int GetHitChance(Vector2Int attackerPos, Unit target, CardAbilityDefinition cardDef)
     {
         int range = cardDef != null ? cardDef.GetRange : 1;
         return GetHitChance(attackerPos, target, range, cardDef);
     }
 
-    public static bool RollHit(Vector3 attackerPos, Unit target, CardAbilityDefinition cardDef)
+    public static bool RollHit(Vector2Int attackerPos, Unit target, CardAbilityDefinition cardDef)
     {
         //quick exit added as a fix for traps
         if (cardDef == null && cardDef.GetIgnoreLOS)
@@ -65,9 +65,9 @@ public static class CombatMath
         return result;
     }*/
 
-    private static int GetHitChance(Vector3 attackerPos, Unit target, int abilityRange, CardAbilityDefinition cardDef)
+    private static int GetHitChance(Vector2Int attackerCell, Unit target, int abilityRange, CardAbilityDefinition cardDef)
     {
-        if (target == null || !HasLineOfSight(attackerPos, target))
+        if (target == null || !HasLineOfSight(attackerCell, ByteMapController.Instance.GetPositionOfUnit(target)))
         {
             return 0;
         }
@@ -84,7 +84,7 @@ public static class CombatMath
         float multiplier = cardDef != null ? cardDef.GetAccuracyMultiplier : _defaultGlobalMultiplier;
         int flatBonus = cardDef != null ? cardDef.GetAccuracyFlatBonus : _defaultGlobalFlatBonus;
 
-        Vector2Int attackerCell = ConvertToGridFromIsometric(attackerPos);
+        //Vector2Int attackerCell = ConvertToGridFromIsometric(attackerPos);
         Vector2Int targetCell = ConvertToGridFromIsometric(target.transform.localPosition);
 
         int distance = Mathf.Abs(attackerCell.x - targetCell.x) + Mathf.Abs(attackerCell.y - targetCell.y); // Manhattan
@@ -109,6 +109,7 @@ public static class CombatMath
         final = Mathf.Clamp(final, minHitChance, maxHitChance);
         return final;
     }
+
     public static bool HasLineOfSight(Vector3 attackerPos, Unit target)
     {
         if (target == null)

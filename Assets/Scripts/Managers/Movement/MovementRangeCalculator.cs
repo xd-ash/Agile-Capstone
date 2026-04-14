@@ -116,7 +116,7 @@ public class MovementRangeCalculator : MonoBehaviour
             return;
         }
         var reachable = ComputeReachableCells(_currentUnit);
-        TileHighlighter.ApplyHighlights(reachable, _currentUnit.GetGuid, _reachableColor);
+        TileHighlighter.ApplyHighlights(reachable, _currentUnit.GetGuid, _reachableColor, false);
     }
 
     public void ClearHighlightsForCurrentUnit()

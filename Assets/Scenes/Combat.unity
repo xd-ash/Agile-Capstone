@@ -1116,7 +1116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39a42f2fefb7bd439235a65536db21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mouseTileColor: {r: 0.4009434, g: 0.9703864, b: 1, a: 0.54509807}
+  _mouseTileColor: {r: 0.39999998, g: 1, b: 0.8753824, a: 0.54509807}
 --- !u!1 &807850592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3155,7 +3155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf97e861b29af54bace6c3e52774837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _reachableColor: {r: 0, g: 0.45678997, b: 1, a: 0.6745098}
+  _reachableColor: {r: 0.1254902, g: 0.6421203, b: 0.9137255, a: 0.6745098}
 --- !u!1 &1430616791
 GameObject:
   m_ObjectHideFlags: 0
@@ -3410,7 +3410,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.05
+  m_fontSize: 22.1
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4217,7 +4217,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.15
+  m_fontSize: 51.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

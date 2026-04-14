@@ -119,7 +119,8 @@ public static class GOAPDeterminationMethods
     public static bool CheckIfInLOS(GoapAgent agent, ref WorldStates beliefs)
     {
         var agentPos = ConvertToGridFromIsometric(agent.transform.localPosition);
-        var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
+        //var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
+        var tarPos = ByteMapController.Instance.GetPositionOfUnit(agent.GetCurrentTarget);
 
         bool hasLOS = HasLineOfSight(agentPos, tarPos);
 
