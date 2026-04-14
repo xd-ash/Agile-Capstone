@@ -1,8 +1,5 @@
-using AStarPathfinding;
 using System;
 using UnityEngine;
-using static IsoMetricConversions;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 namespace CardSystem
 {
@@ -23,6 +20,15 @@ namespace CardSystem
                     Debug.LogError($"Knockback failed. No AStar and/or Unit script on gameobject ({target.name})");
                     return;
                 }
+                var def = graph as CardAbilityDefinition;
+                var abilityPos = abilityData.AbilityTriggerPos == -Vector2Int.one ?
+                    ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
+                bool hit = CombatMath.RollHit(abilityPos, targetUnit, def, false);
+                //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
+
+                _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
+
+                if (!hit) continue;
 
                 Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
                 Vector2Int targetGridPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);

@@ -20,7 +20,7 @@ public static class CombatMath
         return GetHitChance(attackerPos, target, range, cardDef);
     }
 
-    public static bool RollHit(Vector2Int attackerPos, Unit target, CardAbilityDefinition cardDef)
+    public static bool RollHit(Vector2Int attackerPos, Unit target, CardAbilityDefinition cardDef, bool sendMissText = true)
     {
         //quick exit added as a fix for traps
         if (cardDef == null && cardDef.GetIgnoreLOS)
@@ -39,7 +39,7 @@ public static class CombatMath
        
         int roll = (int)Random.Range(0f, 100f);
         bool result = roll <= hitChance;
-        if (!result)
+        if (!result && sendMissText)
             target.GetFloatingText?.SpawnFloatingText("MISS", TextPresetType.MissTextPreset);
         return result;
     }
