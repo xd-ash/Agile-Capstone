@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 2725796073088159668}
   - component: {fileID: 355945360564793161}
   m_Layer: 6
-  m_Name: TestTankEnemy
+  m_Name: MeleeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d0cde7cf413194195d7b661b976dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAbility: {fileID: 11400000, guid: 4fcf9b60a10d99d44814b30619840312, type: 2}
+  damageAbility: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
   healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
   healCharges: 2
   _goapActionsEnum: 126
@@ -547,53 +547,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleStateAnims:
-  - {fileID: 7400000, guid: a797548cf1a35024e883cc0395ab68a4, type: 2}
-  - {fileID: 7400000, guid: dbe5a2c4e2906dd4c91fd1230c6baac1, type: 2}
-  - {fileID: 7400000, guid: 9a65864eb5266054aac72f4cdc99bcca, type: 2}
-  - {fileID: 7400000, guid: 891d94774acbaca4da346a314ecd2733, type: 2}
+  - {fileID: 7400000, guid: 3b226dd7035ca564690095f53150bbfe, type: 2}
+  - {fileID: 7400000, guid: 47c8f69db0b2f724f98627d7421c1c87, type: 2}
+  - {fileID: 7400000, guid: 72c612485e6d09540bee52794b219536, type: 2}
+  - {fileID: 7400000, guid: e7ba1470aabae67479c128189687e629, type: 2}
   _moveStateAnims:
-  - {fileID: 7400000, guid: a289f6dd04ace964c887fa86a24f9ee9, type: 2}
-  - {fileID: 7400000, guid: 5d93482389693df4e878498f8cf1118a, type: 2}
-  - {fileID: 7400000, guid: 0156427125e909d42b6a59197994f189, type: 2}
-  - {fileID: 7400000, guid: 60f5b93f2e9601e449a261eca1f40b2f, type: 2}
+  - {fileID: 7400000, guid: d7573834168716a4e8faaa1c284dc1ce, type: 2}
+  - {fileID: 7400000, guid: f9ee016813301084fa0e0992de618ade, type: 2}
+  - {fileID: 7400000, guid: fa1357bd891c5754c98374a10478c03d, type: 2}
+  - {fileID: 7400000, guid: 0b6ec62b6a1432f448e090d935074d09, type: 2}
   _attackAnimSets:
   - key: 1
     dirClips:
-    - {fileID: 7400000, guid: ceae82753d6aa484f9ed1daaf2e9f41b, type: 2}
-    - {fileID: 7400000, guid: 61508609f5b9a304dac91508e5abadba, type: 2}
-    - {fileID: 7400000, guid: c6d18d4933ecea642a220e56f6f6bb88, type: 2}
-    - {fileID: 7400000, guid: 9ab9d1be6acf1c249a72f96c9dca7e18, type: 2}
+    - {fileID: 7400000, guid: a0210dd618efd074c97ed9e253bd6572, type: 2}
+    - {fileID: 7400000, guid: 79b2c6095ab0960458172589a810e8a1, type: 2}
+    - {fileID: 7400000, guid: 2e0e93ec1dead3e4f90bdb0858f9f137, type: 2}
+    - {fileID: 7400000, guid: d2efadbd66afdcf43b1002f4d69d2e66, type: 2}
   - key: 3
     dirClips:
-    - {fileID: 7400000, guid: 7629d84b6179a0744b8ec1c63d71e038, type: 2}
-    - {fileID: 7400000, guid: 88494a910ba09b6428f56fbe5426f57a, type: 2}
-    - {fileID: 7400000, guid: a7ffa41afe645284482966985d71de98, type: 2}
-    - {fileID: 7400000, guid: ffe1a5061ed38b747ae829c6933b3755, type: 2}
+    - {fileID: 7400000, guid: af117805438544f4fa730b6c4fb50343, type: 2}
+    - {fileID: 7400000, guid: 07c72ae449f052d45bb904a07bf87ffe, type: 2}
+    - {fileID: 7400000, guid: 5236f6ebeca952f43aa773adc24cc921, type: 2}
+    - {fileID: 7400000, guid: 7ee372f53e316054daf55d3bf8761e54, type: 2}
   - key: 4
     dirClips:
-    - {fileID: 7400000, guid: d3406fa9a36c332438a1ed032aea2a9b, type: 2}
-    - {fileID: 7400000, guid: 888e119889007bb499fbfa944081f6be, type: 2}
-    - {fileID: 7400000, guid: b0983c5af36fbe04fa3ccc9b7188aae5, type: 2}
-    - {fileID: 7400000, guid: b2bab81ad61fd724487c844ef9bebe69, type: 2}
+    - {fileID: 7400000, guid: b80893f9337863840b54474f8ff40aa6, type: 2}
+    - {fileID: 7400000, guid: 7be55a8d50096994598db80aa0db604e, type: 2}
+    - {fileID: 7400000, guid: 1314fc7c97b4f3e4483863a853d57e32, type: 2}
+    - {fileID: 7400000, guid: 2127e754e0d93ce43aee00e19c814083, type: 2}
+  - key: 5
+    dirClips:
+    - {fileID: 7400000, guid: 9132aec3953904643bfa59de0c2f7690, type: 2}
+    - {fileID: 7400000, guid: 2d5585e1cf4707f49960a6ce91b9bee5, type: 2}
+    - {fileID: 7400000, guid: a8811818f181cf14e9010b1cf8aaf5c4, type: 2}
+    - {fileID: 7400000, guid: b0580eda547775e47a12647f2585a2d4, type: 2}
+  - key: 6
+    dirClips:
+    - {fileID: 7400000, guid: 24ba248abee4d5b468e6b999785ac6c1, type: 2}
+    - {fileID: 7400000, guid: 9de9baf79d22b27438215ada039013ec, type: 2}
+    - {fileID: 7400000, guid: e9a6116619b6f5f46bf9d9c6e5246476, type: 2}
+    - {fileID: 7400000, guid: 1c3584d685392204382c72078d776122, type: 2}
+  - key: 7
+    dirClips:
+    - {fileID: 7400000, guid: e2c3c186b38a7f04f98345b4edcd26e7, type: 2}
+    - {fileID: 7400000, guid: 7556cff0d09c31340b1b0cb6a13c0cab, type: 2}
+    - {fileID: 7400000, guid: ce99188786f8e0840bc0b547d938e86e, type: 2}
+    - {fileID: 7400000, guid: e92e9df9136aa504fa103d8f7bfb9ed3, type: 2}
   - key: 9
     dirClips:
-    - {fileID: 7400000, guid: a7f55790902074949bb65cfb6acf1bf3, type: 2}
-    - {fileID: 7400000, guid: 3733df9b0ee8d3648bdbc5da85faa9dd, type: 2}
-    - {fileID: 7400000, guid: 46caafc673ef6ce41adde083b46854fd, type: 2}
-    - {fileID: 7400000, guid: 058b582e5f1d5ce4db9ed1d5a32734b4, type: 2}
+    - {fileID: 7400000, guid: 4fca9343bb59baa40bd26e2451527b0f, type: 2}
+    - {fileID: 7400000, guid: e8139e61f15717c4f916a33e2e7ea62d, type: 2}
+    - {fileID: 7400000, guid: 40b2877dd247dfc4fa196c29663d1c26, type: 2}
+    - {fileID: 7400000, guid: 8d101335eb2d84a4893c5c117fbd4d93, type: 2}
   - key: 15
     dirClips:
-    - {fileID: 7400000, guid: 5b1f9567d984155498569871c6a4285c, type: 2}
-    - {fileID: 7400000, guid: eef809edd8242c142b9aec29e5666019, type: 2}
-    - {fileID: 7400000, guid: 14256b67f47f87d4dbb69cc1242fd677, type: 2}
-    - {fileID: 7400000, guid: 79e4bcd5444414646b600d7bd14cae65, type: 2}
+    - {fileID: 7400000, guid: 175c5298763c78a4f98339c2473f5905, type: 2}
+    - {fileID: 7400000, guid: f3d6b2bb3764ec7448873af10ffa5c56, type: 2}
+    - {fileID: 7400000, guid: 4d19d119fd924504aa52283345375f39, type: 2}
+    - {fileID: 7400000, guid: 57dbb8add9d3e164aa8cf416a2fbd648, type: 2}
   - key: 17
     dirClips:
-    - {fileID: 7400000, guid: 0786d0e8e8f5050438be25cf791121d4, type: 2}
-    - {fileID: 7400000, guid: fddd54bd0b226944590623a4c158b26b, type: 2}
-    - {fileID: 7400000, guid: 261732da12ac891458e82b8d60df5e9f, type: 2}
-    - {fileID: 7400000, guid: be7af46c4d21aa44ea197dfbfa471433, type: 2}
-  _fade: 0.22
+    - {fileID: 7400000, guid: 1ff653416fcb234468150f655c4b2687, type: 2}
+    - {fileID: 7400000, guid: 39045cc169de01947b9c70d61283b837, type: 2}
+    - {fileID: 7400000, guid: 2ad5f07926e60004bb80a6f967ba1970, type: 2}
+    - {fileID: 7400000, guid: 30331960727d8b74fbc81f9b605d7e4b, type: 2}
+  _fade: 0.05
 --- !u!61 &355945360564793161
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -628,7 +646,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.3}
+  m_Offset: {x: 0.06255305, y: 0.20474887}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -638,7 +656,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.63, y: 0.9111111}
+  m_Size: {x: 0.4594009, y: 0.8002217}
   m_EdgeRadius: 0
 --- !u!1 &6721888437333699417
 GameObject:
@@ -720,7 +738,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 1977343679, guid: 0edcb4a14857d304a81225a5b8bbdf75, type: 3}
+  m_Sprite: {fileID: 642496276000286482, guid: a3477597720effb4b854bc9edf1b1aa9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -741,7 +759,7 @@ Animator:
   m_GameObject: {fileID: 6721888437333699417}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d1f261cee6a065f429362dadbeb2eb34, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0df60e79dddc0a8439bf83e72ca77948, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
