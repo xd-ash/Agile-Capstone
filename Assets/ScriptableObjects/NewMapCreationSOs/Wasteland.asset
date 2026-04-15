@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35a899351c03d54cb6a58cc88890972, type: 3}
+  m_Name: Wasteland
+  m_EditorClassIdentifier: Assembly-CSharp::CustomTileMapSO
+  _gridSize: {x: 9, y: 9}
+  _combatType: 0
+  _mainIsoTileMapPrefab: {fileID: 1874900230627164488, guid: 5fbab9cc00d28e3479f24598c4e623db, type: 3}
+  _byteMapTileMapPrefab: {fileID: 6186530481912963328, guid: 273621bdd483eae43ad621bce6bfc456, type: 3}
