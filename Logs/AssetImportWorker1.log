@@ -1,9 +1,9 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
 Built from '6000.2/staging' branch; Version is '6000.2.15f1 (0707b6d1e918) revision 460726'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-ALeas" at "2026-04-15T12:45:50.7839798Z"
 OS: 'Windows 11  (10.0.26200) 64bit Professional' Language: 'en' Physical Memory: 16319 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
-Date: 2026-04-15T12:28:46Z
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-ALeas" at "2026-04-15T12:28:46.6953768Z"
+Date: 2026-04-15T12:45:50Z
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\6000.2.15f1\Editor\Unity.exe
@@ -17,7 +17,7 @@ C:/Users/ALeas/OneDrive/Documents/GitHub/Agile-Capstone
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-54328
+57641
 -licensingIpc
 LicenseClient-ALeas
 -job-worker-count
@@ -65,12 +65,12 @@ C:/Users/ALeas/OneDrive/Documents/GitHub/Agile-Capstone
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [8304]  Target information:
+Player connection [8472]  Target information:
 
-Player connection [8304]  * "[IP] 192.168.86.23 [Port] 0 [Flags] 2 [Guid] 2169894445 [EditorId] 2169894445 [Version] 1048832 [Id] WindowsEditor(7,AdamsPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [8472]  * "[IP] 192.168.86.23 [Port] 0 [Flags] 2 [Guid] 617665700 [EditorId] 617665700 [Version] 1048832 [Id] WindowsEditor(7,AdamsPC) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [8304] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [8304] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [8472] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [8472] Host joined alternative multi-casting on [225.0.0.222:34997]...
 JobSystem: Creating JobQueue using job-worker-count value 3
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
@@ -82,7 +82,7 @@ Library Redirect Path: Library/
 [Physics::Module] SDK Version: 4.1.2
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
-Refreshing native plugins compatible for Editor in 3.60 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 4.06 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 6000.2.15f1 (0707b6d1e918)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.2.15f1/Editor/Data/Resources/UnitySubsystems
@@ -98,58 +98,58 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.2.15f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.2.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.2.15f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56672
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56668
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.2.15f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.2.15f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002389 seconds.
-- Loaded All Assemblies, in  0.406 seconds
+Registered in 0.004075 seconds.
+- Loaded All Assemblies, in  0.778 seconds
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.351 seconds
-Domain Reload Profiling: 754ms
-	BeginReloadAssembly (133ms)
+- Finished resetting the current domain, in  0.455 seconds
+Domain Reload Profiling: 1228ms
+	BeginReloadAssembly (194ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (40ms)
-	RebuildNativeTypeToScriptingClass (13ms)
-	initialDomainReloadingComplete (49ms)
-	LoadAllAssembliesAndSetupDomain (167ms)
-		LoadAssemblies (130ms)
+	RebuildCommonClasses (53ms)
+	RebuildNativeTypeToScriptingClass (15ms)
+	initialDomainReloadingComplete (87ms)
+	LoadAllAssembliesAndSetupDomain (424ms)
+		LoadAssemblies (190ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (165ms)
-			TypeCache.Refresh (163ms)
-				TypeCache.ScanAssembly (150ms)
+		AnalyzeDomain (419ms)
+			TypeCache.Refresh (418ms)
+				TypeCache.ScanAssembly (397ms)
 			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (352ms)
+	FinalizeReload (456ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (316ms)
+		SetupLoadedEditorAssemblies (396ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (58ms)
+			InitializePlatformSupportModulesInManaged (64ms)
 			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (67ms)
-			ProcessInitializeOnLoadAttributes (131ms)
-			ProcessInitializeOnLoadMethodAttributes (57ms)
+			BeforeProcessingInitializeOnLoad (92ms)
+			ProcessInitializeOnLoadAttributes (171ms)
+			ProcessInitializeOnLoadMethodAttributes (64ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (0ms)
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.17.4+4293ba1
-  Session Id:              bf4920e149ed4cae96d5417a310c3e07
+  Session Id:              08070d23f9ed4bdd8fece1bff232ac77
   Correlation Id:          2cacbbc0f050cd4dd899b0036eee2489
-  External correlation Id: 3534556469760429696
+  External correlation Id: 9051175945916115578
   Machine Id:              R/ksep36mM1Ju+mFAHs+eT74Zaw=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-ALeas" (connect: 0.00s, validation: 0.00s, handshake: 1.12s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-ALeas-notifications" at "2026-04-15T12:28:47.8132021Z"
-[Licensing::Module] Licensing Background thread has ended after 1.12s
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-ALeas" (connect: 0.00s, validation: 0.00s, handshake: 1.76s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-ALeas-notifications" at "2026-04-15T12:45:52.5426078Z"
+[Licensing::Module] Licensing Background thread has ended after 1.76s
 ========================================================================
 Worker process is ready to serve import requests
 Import Worker Mode flag is 0x00
@@ -160,8 +160,8 @@ Begin MonoManager ReloadAssembly
   Product: Unity Personal
   Type: Assigned
   Expiration: Unlimited
-- Loaded All Assemblies, in  0.855 seconds
-Refreshing native plugins compatible for Editor in 1.51 ms, found 4 plugins.
+- Loaded All Assemblies, in  1.129 seconds
+Refreshing native plugins compatible for Editor in 1.75 ms, found 4 plugins.
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
 Package Manager log level set to [2]
@@ -169,212 +169,156 @@ Package Manager log level set to [2]
 [Package Manager] Unable to send message (not connected to server process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.930 seconds
-Domain Reload Profiling: 1778ms
-	BeginReloadAssembly (173ms)
+- Finished resetting the current domain, in  1.034 seconds
+Domain Reload Profiling: 2154ms
+	BeginReloadAssembly (227ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (7ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (27ms)
-	RebuildCommonClasses (36ms)
+		CreateAndSetChildDomain (31ms)
+	RebuildCommonClasses (42ms)
 	RebuildNativeTypeToScriptingClass (13ms)
-	initialDomainReloadingComplete (39ms)
-	LoadAllAssembliesAndSetupDomain (587ms)
-		LoadAssemblies (393ms)
+	initialDomainReloadingComplete (48ms)
+	LoadAllAssembliesAndSetupDomain (789ms)
+		LoadAssemblies (596ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (289ms)
-			TypeCache.Refresh (205ms)
-				TypeCache.ScanAssembly (190ms)
-			BuildScriptInfoCaches (66ms)
+		AnalyzeDomain (330ms)
+			TypeCache.Refresh (240ms)
+				TypeCache.ScanAssembly (221ms)
+			BuildScriptInfoCaches (73ms)
 			ResolveRequiredComponents (13ms)
-	FinalizeReload (931ms)
+	FinalizeReload (1035ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (792ms)
+		SetupLoadedEditorAssemblies (880ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (2ms)
 			SetLoadedEditorAssemblies (4ms)
-			BeforeProcessingInitializeOnLoad (136ms)
-			ProcessInitializeOnLoadAttributes (385ms)
-			ProcessInitializeOnLoadMethodAttributes (259ms)
+			BeforeProcessingInitializeOnLoad (156ms)
+			ProcessInitializeOnLoadAttributes (431ms)
+			ProcessInitializeOnLoadMethodAttributes (280ms)
 			AfterProcessingInitializeOnLoad (6ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (6ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.01 seconds
-Refreshing native plugins compatible for Editor in 1.70 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.78 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 14 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 7588 unused Assets / (5.5 MB). Loaded Objects now: 7890.
-Memory consumption went from 157.6 MB to 152.1 MB.
-Total: 9.432400 ms (FindLiveObjects: 0.697600 ms CreateObjectMapping: 1.183700 ms MarkObjects: 4.520800 ms  DeleteObjects: 3.029300 ms)
+Unloading 7588 unused Assets / (5.3 MB). Loaded Objects now: 7888.
+Memory consumption went from 157.4 MB to 152.1 MB.
+Total: 11.200800 ms (FindLiveObjects: 0.741800 ms CreateObjectMapping: 1.261200 ms MarkObjects: 4.896300 ms  DeleteObjects: 4.300700 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1253.321727 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/MedicEnemySpawnTile.asset
-  artifactKey: Guid(5e6f8a97abce88848834e1b68962179b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/MedicEnemySpawnTile.asset using Guid(5e6f8a97abce88848834e1b68962179b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'acbc0e4588d0e0e2a3dba82a8ea52378') in 0.0717153 seconds
+  Time since last request: 2278.608850 seconds.
+  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/EnemySpawnTile.asset
+  artifactKey: Guid(6abcabfa61863ac4682f622b82a4a845) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/EnemySpawnTile.asset using Guid(6abcabfa61863ac4682f622b82a4a845) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '0e435966f49e6177e08a4c56f0222abb') in 0.111252 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_4.asset
-  artifactKey: Guid(f50fbd27f56a18f46bb6fd88eef197c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_4.asset using Guid(f50fbd27f56a18f46bb6fd88eef197c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '3ffb08fc79340402ad47ee3526dfb8e8') in 0.0090409 seconds
+  Time since last request: 0.000023 seconds.
+  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/ProcGenPalette.prefab
+  artifactKey: Guid(487ae59a051c1cb4d961922c7905225d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/ProcGenPalette.prefab using Guid(487ae59a051c1cb4d961922c7905225d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'dbd92384a4b4351536f0830d56f7bcb0') in 0.3907267 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 29
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000041 seconds.
+  path: Assets/TempAssets/RarityDiamondBlank.png
+  artifactKey: Guid(27931433fbac56f489560fa26ea1377c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TempAssets/RarityDiamondBlank.png using Guid(27931433fbac56f489560fa26ea1377c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'e8760b0f52d50e1162cf2ba9f9c7f7bf') in 0.0265102 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000012 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/PyroEnemySpawnTile.asset
-  artifactKey: Guid(691ee71671295024580a676559d942fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/PyroEnemySpawnTile.asset using Guid(691ee71671295024580a676559d942fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'dbb99b05663c5da7b1e93cbef466ff4c') in 0.0090974 seconds
+  Time since last request: 0.000022 seconds.
+  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TankEnemySpawnTile.asset
+  artifactKey: Guid(b73fe92b2d464fe418ef5997b396d686) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TankEnemySpawnTile.asset using Guid(b73fe92b2d464fe418ef5997b396d686) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '7d9914267c41b143d2fd1cc5b365a9c1') in 0.0198005 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000012 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/FullCoverObstacle.asset
-  artifactKey: Guid(7727bab759f5e2f48a11d21a08170c50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/FullCoverObstacle.asset using Guid(7727bab759f5e2f48a11d21a08170c50) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '1df42da1d059cf79cff33873aa003064') in 0.0041083 seconds
+  Time since last request: 0.000020 seconds.
+  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/RangeEnemySpawnTile.asset
+  artifactKey: Guid(ee5769bf3ec700341906851854d6f77e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/RangeEnemySpawnTile.asset using Guid(ee5769bf3ec700341906851854d6f77e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'b1ec0f0c0228f96d55698ef7ce1dede7') in 0.0140256 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_5.asset
+  artifactKey: Guid(508d85687176b2b40a2a9aeeca2fb3af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_5.asset using Guid(508d85687176b2b40a2a9aeeca2fb3af) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ef971a802a50196eea43f5398a8d6579') in 0.0093701 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/TempAssets/TableBGTest.png
+  artifactKey: Guid(fc13b52f622596648bf0c8db1076e2e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TempAssets/TableBGTest.png using Guid(fc13b52f622596648bf0c8db1076e2e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'd2ad9c483d9459c1065b116fe11c22e1') in 0.0242678 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/MeleeEnemySpawnTile.asset
+  artifactKey: Guid(bd38342c167899d4daafb9e197fc42f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/MeleeEnemySpawnTile.asset using Guid(bd38342c167899d4daafb9e197fc42f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '1829a1caedda45c0b90fdfb823abdc37') in 0.0095078 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/TempAssets/WhiteCube.png
+  artifactKey: Guid(673f9dfe66edc98458b4176e8b87955f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TempAssets/WhiteCube.png using Guid(673f9dfe66edc98458b4176e8b87955f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '55215b22e960b0b5275f1a4e6dfe99a6') in 0.0121101 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.896155 seconds.
+  path: Assets/Resources/CardLibraryContent.prefab
+  artifactKey: Guid(2d22544fcfbc23f4faeb53f91702cceb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardLibraryContent.prefab using Guid(2d22544fcfbc23f4faeb53f91702cceb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '735c6cb585ef7956a67abdd77830f664') in 0.0362241 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 64
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Resources/NewCardPrefab.prefab
+  artifactKey: Guid(70ccb4d7cd2e76243bb63c9cfa132429) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/NewCardPrefab.prefab using Guid(70ccb4d7cd2e76243bb63c9cfa132429) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '45ba929661fbcd6eef9356137cb99e53') in 0.0235281 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 76
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Resources/CardPackContent.prefab
+  artifactKey: Guid(0cf015ebbb9fcd142a39506fb5348637) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/CardPackContent.prefab using Guid(0cf015ebbb9fcd142a39506fb5348637) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'd896e3b6291571c1adf74693c4140ce8') in 0.0224873 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 39
 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000019 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC.png
-  artifactKey: Guid(bbb792f2e6297f8448fb55575fb6a802) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC.png using Guid(bbb792f2e6297f8448fb55575fb6a802) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '9410864be5e0b667d7e231fcf1b295d1') in 0.0444997 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 15
+  path: Assets/Resources/TutorialDeckConfig.asset
+  artifactKey: Guid(7e09320ce0e7d7142a0ad1272b140c4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/TutorialDeckConfig.asset using Guid(7e09320ce0e7d7142a0ad1272b140c4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ac152ddc765d73db8b11f3f19ee6dd64') in 0.0055066 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 48
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TankEnemySpawnTile.asset
-  artifactKey: Guid(b73fe92b2d464fe418ef5997b396d686) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TankEnemySpawnTile.asset using Guid(b73fe92b2d464fe418ef5997b396d686) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '7d9914267c41b143d2fd1cc5b365a9c1') in 0.0044831 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/RangeEnemySpawnTile.asset
-  artifactKey: Guid(ee5769bf3ec700341906851854d6f77e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/RangeEnemySpawnTile.asset using Guid(ee5769bf3ec700341906851854d6f77e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'b1ec0f0c0228f96d55698ef7ce1dede7') in 0.0090573 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000014 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_1.asset
-  artifactKey: Guid(d155c6d93279d4b4d836d32649f7e409) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_1.asset using Guid(d155c6d93279d4b4d836d32649f7e409) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'b5c12a0b9981607c9e459f53acfd6a6f') in 0.0091971 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000013 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_5.asset
-  artifactKey: Guid(508d85687176b2b40a2a9aeeca2fb3af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/TestSpriteSheetProcGenDC_5.asset using Guid(508d85687176b2b40a2a9aeeca2fb3af) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ef971a802a50196eea43f5398a8d6579') in 0.0087373 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/MeleeEnemySpawnTile.asset
-  artifactKey: Guid(bd38342c167899d4daafb9e197fc42f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/MeleeEnemySpawnTile.asset using Guid(bd38342c167899d4daafb9e197fc42f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '1829a1caedda45c0b90fdfb823abdc37') in 0.009137 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000012 seconds.
-  path: Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/HalfCoverObstacle.asset
-  artifactKey: Guid(fa9c1323e0b87834e9f916fabbf6875b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/WFCTilePrefabMaps/WFC Key Tile Palletes/HalfCoverObstacle.asset using Guid(fa9c1323e0b87834e9f916fabbf6875b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '54ee37670f464d1ea3041e6c5d9f1a4f') in 0.0041919 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.522750 seconds.
-  path: Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/CustomMap1/IsoTileMap.prefab
-  artifactKey: Guid(8c16f2310ea60cf428bf8801e4e0342c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/CustomMap1/IsoTileMap.prefab using Guid(8c16f2310ea60cf428bf8801e4e0342c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '9293cd2bee3401cc182e270c76b482b3') in 0.3548337 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 105
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.185494 seconds.
-  path: Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/CustomMap3/IsoTileMap.prefab
-  artifactKey: Guid(3820692bb1068064c9a24208f79c1875) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/CustomMap3/IsoTileMap.prefab using Guid(3820692bb1068064c9a24208f79c1875) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '562ac61913a5a60e6c3ae4075c412d66') in 0.0068379 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 15
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.166519 seconds.
-  path: Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/Forge/IsoTileMap.prefab
-  artifactKey: Guid(51ed329c8db1a5e4a9cb682683c95cd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/Forge/IsoTileMap.prefab using Guid(51ed329c8db1a5e4a9cb682683c95cd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '0d309ea01afe84a0fe9f938beda56cf8') in 0.0240469 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 102
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.394991 seconds.
-  path: Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/Graveyard/IsoTileMap.prefab
-  artifactKey: Guid(26715a54c2b3c9547b3cabc72b6badc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/Graveyard/IsoTileMap.prefab using Guid(26715a54c2b3c9547b3cabc72b6badc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'd4d3c312f70451d008a6172360c56648') in 0.0186411 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 123
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.897181 seconds.
-  path: Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/Inside/IsoTileMap.prefab
-  artifactKey: Guid(2d8c645f48e5d344ba4306e4273ed63e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/ScriptableObjects/NewMapCreationSOs/TileMapPrefabs/Inside/IsoTileMap.prefab using Guid(2d8c645f48e5d344ba4306e4273ed63e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '8f3326dd00e6f84b2b7f84b4b0ebccf4') in 0.020945 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 125
-
-========================================================================
-Received Import Request.
-  Time since last request: 26.474366 seconds.
-  path: Assets/Resources/Libraries/BadgeLibrary.asset
-  artifactKey: Guid(8742b6b58aa7395438677e3d3001ce70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Libraries/BadgeLibrary.asset using Guid(8742b6b58aa7395438677e3d3001ce70) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '24dae8da11c907670d8061ba5e195372') in 0.001065 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Resources/Libraries/CustomTileMapSOLibrary.asset
-  artifactKey: Guid(748840bc0af9e2a4cb75a65b4b045af6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Libraries/CustomTileMapSOLibrary.asset using Guid(748840bc0af9e2a4cb75a65b4b045af6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '4c3d19a942ad8df4b1287538d7bf9072') in 0.0139705 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 293
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/Resources/Libraries/FloatingTextSettingsLibrary.asset
-  artifactKey: Guid(32f1be70a3c39f64faee05e131fdfae9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Libraries/FloatingTextSettingsLibrary.asset using Guid(32f1be70a3c39f64faee05e131fdfae9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '854478f13266094da35429f958cd0b21') in 0.0011967 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 14.172675 seconds.
-  path: Assets/Resources/Rewards/CardOptionContent.prefab
-  artifactKey: Guid(2b75d218536080448a38ea2797549563) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Rewards/CardOptionContent.prefab using Guid(2b75d218536080448a38ea2797549563) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '255c1244848088a03faf7f29fb7c7f47') in 0.0259989 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 40
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/Resources/Rewards/ChoiceRewardContent.prefab
-  artifactKey: Guid(b67bc5a886c68244399e12e01f28193c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Rewards/ChoiceRewardContent.prefab using Guid(b67bc5a886c68244399e12e01f28193c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '42d0a6414ebfa0ecea74e45b9e98b1c1') in 0.0119208 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 25
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/HighlightTile.prefab
+  artifactKey: Guid(e35b91b514b53a641af80a383521a205) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/HighlightTile.prefab using Guid(e35b91b514b53a641af80a383521a205) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '96ad0f6813b1f1c72eca817950006ef6') in 0.0149453 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 9
 
