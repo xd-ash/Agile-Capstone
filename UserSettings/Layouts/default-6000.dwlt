@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 394
     width: 228
     height: 197
-  m_MinSize: {x: 225, y: 300}
-  m_MaxSize: {x: 225.1, y: 300.1}
+  m_MinSize: {x: 226, y: 326}
+  m_MaxSize: {x: 226.1, y: 326.1}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 167
+  controlID: 48
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 150}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 0
-  controlID: 44
+  controlID: 77
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 150}
   m_MaxSize: {x: 16192, y: 24288}
   vertical: 1
-  controlID: 45
+  controlID: 78
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 46
+  controlID: 69
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -244,8 +244,8 @@ MonoBehaviour:
     y: 0
     width: 228
     height: 394
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 226}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -325,8 +325,8 @@ MonoBehaviour:
     y: 0
     width: 444
     height: 933
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -865,9 +865,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0.71121174, y: -1.1785102, z: -0.033626184}
+    m_Target: {x: 0.3347263, y: -0.17798615, z: 0.027594179}
     speed: 2
-    m_Value: {x: 0.71121174, y: -1.1785102, z: -0.033626184}
+    m_Value: {x: -0.000015258789, y: 0, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -917,9 +917,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 13.362601
+    m_Target: 7.2405634
     speed: 2
-    m_Value: 13.362601
+    m_Value: 162.45
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -994,7 +994,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 00fbffff0ccc0000
+      m_ExpandedIDs: 00fbffff70c800000ccc0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1314,7 +1314,7 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: rewar
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -1324,26 +1324,26 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/PlaceHolder
+    - Assets/Resources/TempAuras
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
-    m_OriginalText: 
+    m_OriginalText: rewar
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/PlaceHolder
+  - Assets/Resources/TempAuras
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\ALeas\OneDrive\Documents\GitHub\Agile-Capstone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 152}
-    m_SelectedIDs: a0e50000
-    m_LastClickedID: 58784
-    m_ExpandedIDs: 00000000c4e20000c6e20000c8e20000cae20000cce20000cee20000d0e20000d2e20000d4e20000d6e20000eee5000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 120}
+    m_SelectedIDs: bee50000
+    m_LastClickedID: 58814
+    m_ExpandedIDs: 00000000cae20000cce20000cee20000d0e20000d2e20000d4e20000d6e20000d8e20000dae20000dce2000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1372,7 +1372,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c4e20000c6e20000c8e20000cae20000cce20000cee20000d0e20000d2e20000d4e20000d6e20000
+    m_ExpandedIDs: 00000000cae20000cce20000cee20000d0e20000d2e20000d4e20000d6e20000d8e20000dae20000dce20000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
