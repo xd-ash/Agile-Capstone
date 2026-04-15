@@ -1,7 +1,6 @@
-using CardSystem;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using CardSystem;
 
 public class CardShopManager : MonoBehaviour
 {
@@ -97,36 +96,9 @@ public class CardShopManager : MonoBehaviour
         //cs.InitCardSelect(CardState.Shop);
         //cs.OnPrefabCreation(card);
         //cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
-        CreatePriceText(entry, cardGO);
+
         // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);
-    }
-    private void CreatePriceText(CardAbilityDefinition entry, GameObject cardGO)
-    {
-        if (entry == null || cardGO == null) return;
-
-        GameObject textGO = new GameObject("PriceText");
-        textGO.transform.SetParent(cardGO.transform, false);
-
-        // MUST be UI component (NOT world TMP)
-        TextMeshProUGUI tmp = textGO.AddComponent<TextMeshProUGUI>();
-
-        tmp.text = $"${entry.GetShopCost}";
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.fontSize = 24; // UI size (NOT 5 or 6)
-        tmp.color = Color.yellow;
-
-        RectTransform rt = tmp.rectTransform;
-
-        // Force it BELOW center of card
-        rt.anchorMin = new Vector2(0.5f, 0f);
-        rt.anchorMax = new Vector2(0.5f, 0f);
-        rt.pivot = new Vector2(0.5f, 1f);
-
-        rt.anchoredPosition = new Vector2(0f, 40f);
-
-        // IMPORTANT: prevent layout groups from overriding it
-        rt.localScale = Vector3.one;
     }
 
     // Arrange spawned cards in a centered fan (local coordinates relative to parent)

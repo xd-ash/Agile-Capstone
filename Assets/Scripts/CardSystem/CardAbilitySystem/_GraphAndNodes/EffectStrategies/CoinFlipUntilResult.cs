@@ -6,16 +6,16 @@ namespace CardSystem
 {
     // Flip coin until the desired outcome and affect the following effects by the number of undesired outcome flipped
     [CreateNodeMenu("Gambling Effects/Coin Flip Unitl Result")]
-    public class CoinFlipUntilResult : EffectStrategy, IUseEffectValue
+    public class CoinFlipUntilResult : EffectStrategy, IUseEffectValue, IFlipCoins
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 
         [Tooltip("Heads - True, Tails - False")]
         [SerializeField] private bool _desiredCoinOutcome = false;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
 

@@ -197,13 +197,12 @@ MonoBehaviour:
   - {fileID: -5245546955941234475}
   - {fileID: -4916656435886294077}
   _description: Deal %0% damage and %1% knockback
-  _cardImage: {fileID: 21300000, guid: fb4c036423b780248937fcd6d034eb2d, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 00000000
   _effectValue: 0
   _apCost: 2
-  _range: 3
+  _range: 1
   _shopCost: 15
   _shopWeight: 15
   _baseHitChance: 100

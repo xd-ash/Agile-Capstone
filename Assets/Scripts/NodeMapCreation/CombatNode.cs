@@ -20,17 +20,10 @@ public class CombatNode : NodeMapNode, IUseCombatMapData
 
     public void SetCombatData(CustomTileMapSO[] mapPool)
     {
-        // Filter out tutorial maps from the normal combat pool
-        var filtered = System.Array.FindAll(mapPool, m => m.GetCombatMapType != CombatMapType.Tutorial);
-        if (filtered.Length == 0)
-        {
-            Debug.LogError("CombatNode: No non-tutorial maps available in pool.");
-            return;
-        }
-
+        //filter map pool by type?
         Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
-        int rngMap = Random.Range(0, filtered.Length);
-        var so = filtered[rngMap];
+        int rngMap = Random.Range(0, mapPool.Length);
+        var so = mapPool[rngMap];
         if (so == null)
         {
             Debug.LogError("tileMap SO Null");
@@ -42,14 +35,14 @@ public class CombatNode : NodeMapNode, IUseCombatMapData
             if (OptionsSettings.ShouldRunTutorial)
             {
                 var library = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTileMapSOLibrary");
-                so = library.GetTileMapSOsFromType(CombatMapType.Tutorial)[0];
+                so = library.GetTileMapSOsFromType(CombatMapType.Tutorial)[0]; //change to be random if multiple?
             }
 
             _combatData = new CombatMapData { maxEnemiesAllowed = 1, maxPlayersAllowed = 1, selectedMap = so };
         }
         else
         {
-            Random.InitState(PlayerDataManager.Instance.GetNodeMapSeed + (int)transform.localPosition.x + (int)transform.localPosition.y);
+            Random.InitState(PlayerDataManager.Instance.GetNodeMapSeed + (int)transform.localPosition.x + (int)transform.localPosition.y); // adding variation in seed based on node position
             _combatData = new CombatMapData() { maxEnemiesAllowed = Random.Range(1, 4), maxPlayersAllowed = 1, selectedMap = so };
         }
 

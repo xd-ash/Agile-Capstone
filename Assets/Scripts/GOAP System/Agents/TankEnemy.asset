@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
+  m_Name: TankEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
+  _damageAbility: {fileID: 11400000, guid: 962876e3ccf8efd47a7eb416ba03904a, type: 2}
+  _healAbility: {fileID: 11400000, guid: e04cbe7bf1cb5634d856e7a51ef870a4, type: 2}
+  _totalHealCharges: 2
+  _goalsEnum: 22
+  _goals:
+  - rid: 3457071463569817679
+  - rid: 3457071463569817681
+  - rid: 97860132904370176
+  _goapActionsEnum: 46
+  _actions:
+  - rid: 97859988893466699
+  - rid: 97859988893466701
+  - rid: 97859988893466702
+  - rid: 97860136773091399
+  references:
+    version: 2
+    RefIds:
+    - rid: 97859988893466699
+      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: EndTurnAction
+        _cost: 15
+        _costMultiplier: 1
+        _preConditionsFlags: 0
+        _postConditionsFlags: 0
+        _goalsFlags: 16
+    - rid: 97859988893466701
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: AttackAction
+        _cost: 1
+        _costMultiplier: 1.25
+        _preConditionsFlags: 5442
+        _postConditionsFlags: 65536
+        _goalsFlags: 2
+    - rid: 97859988893466702
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveInRangeAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 4226
+        _postConditionsFlags: 1088
+        _goalsFlags: 0
+    - rid: 97860132904370176
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAlive
+        value: 1
+        removeOnComplete: 1
+    - rid: 97860136773091399
+      type: {class: HealAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HealAction
+        _cost: 2
+        _costMultiplier: 1
+        _preConditionsFlags: 530
+        _postConditionsFlags: 0
+        _goalsFlags: 4
+    - rid: 3457071463569817679
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KillPlayer
+        value: 1
+        removeOnComplete: 1
+    - rid: 3457071463569817681
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 1
+        removeOnComplete: 0

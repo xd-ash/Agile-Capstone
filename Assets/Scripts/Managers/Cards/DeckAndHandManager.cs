@@ -17,7 +17,7 @@ namespace CardSystem
             else
                 Destroy(this.gameObject);
         }
-
+        
         private int _topCardOfDeck = 0;
         //private int _nextCardInHandIndex = 0; //Removed since it was unused, kept in comments in case its needed later
         [SerializeField] private int _maxCards = 100;
@@ -92,9 +92,11 @@ namespace CardSystem
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
         public void DrawStartingHand(bool force = false)
         {
+            _startingHandDrawn = true;
+
             if (!force && _startingHandDrawn) return;
             _startingHandDrawn = true;
-    
+            
             if (_startingHandSize <= 0) return;
 
             DiscardAll();
@@ -128,8 +130,7 @@ namespace CardSystem
 
             // Block cards if tutorial is active and not in card step
             if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
-                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
                 return;
 
             if (_selectedCard != card)
@@ -231,7 +232,8 @@ namespace CardSystem
 
             if (_topCardOfDeck >= cardsInDeck.Count) return null;
 
-            Card newCard = new Card(cardsInDeck[_topCardOfDeck], cardGO.transform);
+            Card newCard = cardsInDeck[_topCardOfDeck];
+            newCard.OnPrefabCreation(cardGO.transform);
             CardPrefabSetterUpper.SetupCardPrefab(newCard, CardState.Combat);
 
             return newCard;

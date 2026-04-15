@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using CardSystem;
 
+// Drives the tutorial step-by-step using events already present in the codebase.
+// Attach to a GameObject in TutorialScene alongside a TutorialUI component.
 public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
@@ -10,18 +12,17 @@ public class TutorialManager : MonoBehaviour
     public static TutorialInputMode CurrentInputMode { get; private set; } = TutorialInputMode.None;
 
     private int _currentStep = 0;
-    private bool _stepWaiting = false;
-    private CardCategory _expectedCategory;
-
+    private bool _stepWaiting = false; // guard to avoid advancing multiple times per step
+    
     public enum TutorialInputMode
     {
-        None,
-        MoveOnly,
-        CardsOnly,
-        MoveAndCards,
-        EndTurnOnly
+        None,         // tutorial inactive, allow everything
+        MoveOnly,     // step 1
+        NoInput,      // step 2 (just a message, auto-advances)
+        CardsOnly,    // step 3
+        EndTurnOnly   // step 4
     }
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -38,9 +39,12 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
+        // Force pause menu off on tutorial load
         PauseMenu.isPaused = false;
         var pauseMenu = GameObject.Find("PauseMenu");
         if (pauseMenu != null) pauseMenu.SetActive(false);
+
+        TransitionScene.ResetTutorialFlag();
     }
 
     private void Start()
@@ -50,111 +54,32 @@ public class TutorialManager : MonoBehaviour
 
     private void AdvanceStep()
     {
-        CleanUpCardState();
         _stepWaiting = false;
         _currentStep++;
 
         switch (_currentStep)
         {
-            // --- Round 1: Move + Ranged ---
             case 1:
                 CurrentInputMode = TutorialInputMode.MoveOnly;
-                _tutorialUI.Show("Click a tile to move your unit.");
+                _tutorialUI.Show("Click a tile to move.");
                 ByteMapController.TileEntered += OnTileEntered;
                 break;
 
             case 2:
-                CurrentInputMode = TutorialInputMode.MoveAndCards;
-                _tutorialUI.Show("Select a ranged card and attack the enemy.");
-                _expectedCategory = CardCategory.Ranged;
-                AbilityEvents.OnAbilityUsedDetailed += OnAbilityUsedExpecting;
+                CurrentInputMode = TutorialInputMode.CardsOnly;
+                _tutorialUI.Show("Play a card to attack.");
+                AbilityEvents.OnAbilityUsed += OnAbilityUsed;
                 break;
 
             case 3:
                 CurrentInputMode = TutorialInputMode.EndTurnOnly;
                 _tutorialUI.Show("End your turn.");
-                TurnManager.Instance.OnTurnEnd += OnFriendlyTurnEnd;
+                TurnManager.Instance.OnTurnEnd += OnTurnEnd;
                 break;
 
             case 4:
                 CurrentInputMode = TutorialInputMode.None;
                 _tutorialUI.Show("The enemy takes their turn. Watch out!");
-                TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
-                break;
-
-            // --- Round 2: Melee ---
-            case 5:
-                CurrentInputMode = TutorialInputMode.MoveAndCards;
-                _tutorialUI.Show("Now use a melee card on the enemy.");
-                _expectedCategory = CardCategory.Melee;
-                AbilityEvents.OnAbilityUsedDetailed += OnAbilityUsedExpecting;
-                break;
-
-            case 6:
-                CurrentInputMode = TutorialInputMode.EndTurnOnly;
-                _tutorialUI.Show("End your turn.");
-                TurnManager.Instance.OnTurnEnd += OnFriendlyTurnEnd;
-                break;
-
-            case 7:
-                CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("The enemy takes their turn.");
-                TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
-                break;
-
-            // --- Round 3: Heal ---
-            case 8:
-                CurrentInputMode = TutorialInputMode.MoveAndCards;
-                _tutorialUI.Show("Heal yourself with a heal card.");
-                _expectedCategory = CardCategory.Heal;
-                AbilityEvents.OnAbilityUsedDetailed += OnAbilityUsedExpecting;
-                break;
-
-            case 9:
-                CurrentInputMode = TutorialInputMode.EndTurnOnly;
-                _tutorialUI.Show("End your turn.");
-                TurnManager.Instance.OnTurnEnd += OnFriendlyTurnEnd;
-                break;
-
-            case 10:
-                CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("The enemy takes their turn.");
-                TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
-                break;
-
-            // --- Round 4: Shield ---
-            case 11:
-                CurrentInputMode = TutorialInputMode.MoveAndCards;
-                _tutorialUI.Show("Use a shield card to protect yourself.");
-                _expectedCategory = CardCategory.Shield;
-                AbilityEvents.OnAbilityUsedDetailed += OnAbilityUsedExpecting;
-                break;
-
-            case 12:
-                CurrentInputMode = TutorialInputMode.EndTurnOnly;
-                _tutorialUI.Show("End your turn.");
-                TurnManager.Instance.OnTurnEnd += OnFriendlyTurnEnd;
-                break;
-
-            case 13:
-                CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("The enemy takes their turn.");
-                TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
-                break;
-
-            // --- Free play: finish the enemy ---
-            case 14:
-                CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("Now finish off the enemy!");
-                GameOverEvents.OnGameOver += OnGameOver;
-                break;
-
-            // --- Done ---
-            case 15:
-                CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("Tutorial complete!");
-                TransitionScene.ResetTutorialFlag();
-                Invoke(nameof(ReturnToMainMenu), 3f);
                 break;
 
             default:
@@ -176,73 +101,50 @@ public class TutorialManager : MonoBehaviour
         AdvanceStep();
     }
 
-    private void OnAbilityUsedExpecting(Team team, CardCategory category)
+    private void SubscribeToFriendlyAPChange()
     {
-        if (!_stepWaiting || team != Team.Friendly) return;
-        if (category != _expectedCategory) return;
-
-        AbilityEvents.OnAbilityUsedDetailed -= OnAbilityUsedExpecting;
-        AdvanceStep();
+        // Find the friendly unit in scene and subscribe to its AP changed event
+        foreach (Unit unit in FindObjectsByType<Unit>(FindObjectsSortMode.None))
+        {
+            if (unit.GetTeam == Team.Friendly)
+            {
+                unit.OnApChanged += OnFriendlyAPChanged;
+                break;
+            }
+        }
     }
 
-    private void OnFriendlyTurnEnd(Unit unit)
-    {
-        if (!_stepWaiting || unit.GetTeam != Team.Friendly) return;
-
-        TurnManager.Instance.OnTurnEnd -= OnFriendlyTurnEnd;
-        AdvanceStep();
-    }
-
-    private void OnEnemyTurnEnd(Unit unit)
-    {
-        if (!_stepWaiting || unit.GetTeam != Team.Enemy) return;
-
-        TurnManager.Instance.OnTurnEnd -= OnEnemyTurnEnd;
-        AdvanceStep();
-    }
-
-    private void OnGameOver(bool didWin)
+    private void OnFriendlyAPChanged(Unit unit)
     {
         if (!_stepWaiting) return;
 
-        GameOverEvents.OnGameOver -= OnGameOver;
-
-        if (didWin)
-            AdvanceStep();
+        unit.OnApChanged -= OnFriendlyAPChanged;
+        AdvanceStep();
     }
 
-    private void ReturnToMainMenu()
+    private void OnAbilityUsed(Team team)
     {
-        TransitionScene.Instance.StartTransition("MainMenu");
+        if (!_stepWaiting || team != Team.Friendly) return;
+
+        AbilityEvents.OnAbilityUsed -= OnAbilityUsed;
+        AdvanceStep();
+    }
+
+    private void OnTurnEnd(Unit unit)
+    {
+        if (!_stepWaiting || unit.GetTeam != Team.Friendly) return;
+
+        TurnManager.Instance.OnTurnEnd -= OnTurnEnd;
+        AdvanceStep();
     }
 
     private void OnDestroy()
     {
+        // Safety cleanup in case TutorialManager is destroyed mid-tutorial
         ByteMapController.TileEntered -= OnTileEntered;
-        AbilityEvents.OnAbilityUsedDetailed -= OnAbilityUsedExpecting;
-        GameOverEvents.OnGameOver -= OnGameOver;
+        AbilityEvents.OnAbilityUsed -= OnAbilityUsed;
 
         if (TurnManager.Instance != null)
-        {
-            TurnManager.Instance.OnTurnEnd -= OnFriendlyTurnEnd;
-            TurnManager.Instance.OnTurnEnd -= OnEnemyTurnEnd;
-        }
-    }
-    
-    private void CleanUpCardState()
-    {
-        if (DeckAndHandManager.Instance == null) return;
-
-        var selectedCard = DeckAndHandManager.Instance.GetSelectedCard;
-        if (selectedCard != null && selectedCard.GetCardTransform != null)
-        {
-            var cardSelect = selectedCard.GetCardTransform.GetComponent<CardSelect>();
-            cardSelect?.ReturnCardToHand();
-        }
-
-        if (AbilityEvents.IsTargeting)
-            AbilityEvents.TargetingStopped();
-
-        CardSplineManager.Instance?.ArrangeCardGOs();
+            TurnManager.Instance.OnTurnEnd -= OnTurnEnd;
     }
 }
