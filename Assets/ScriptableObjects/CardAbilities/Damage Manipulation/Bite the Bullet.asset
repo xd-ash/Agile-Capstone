@@ -106,6 +106,7 @@ MonoBehaviour:
   - {fileID: 4660106898515325862}
   - {fileID: -8030094250119851253}
   _description: Deal %0% damage to yourself and draw %1% cards
+  _cardImage: {fileID: 0}
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 0500000004000000
@@ -121,7 +122,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 0
+  _attackAnimKey: 17
   _baseCardRarity: 0
   _onRareUpgradeEffects:
   - cardDef: {fileID: 11400000}
