@@ -144,6 +144,7 @@ MonoBehaviour:
   - {fileID: 1334558222712971326}
   - {fileID: 871349067883048404}
   _description: Deal 3 AOE damage
+  _cardImage: {fileID: 21300000, guid: 4161743e08ae792419fa9a6da970b43b, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 0000000008000000
@@ -160,6 +161,9 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 13
+  _baseCardRarity: 0
+  _onRareUpgradeEffects: []
+  _onEpicUpgradeEffects: []
 --- !u!114 &871349067883048404
 MonoBehaviour:
   m_ObjectHideFlags: 0
