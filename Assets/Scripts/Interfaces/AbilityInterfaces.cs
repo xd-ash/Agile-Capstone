@@ -13,6 +13,3 @@ public interface IPassSpawnedObjs
 {
     void PassObject(AbilityData abilityData, SpawnObjectTracker tracker);
 }
-public interface IFlipCoins { }
-
-public interface IRollDice { }

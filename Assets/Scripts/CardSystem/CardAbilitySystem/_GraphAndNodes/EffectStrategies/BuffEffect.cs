@@ -7,9 +7,9 @@ namespace CardSystem
     [CreateNodeMenu("Helpful Effects/Buff")]
     public class BuffEffect : EffectStrategy, IUseEffectValue
     {
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             foreach (GameObject targetObj in abilityData.Targets)
             {

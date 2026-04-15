@@ -7,9 +7,9 @@ namespace CardSystem
     [CreateNodeMenu("Harmful Effects/Debuff")]
     public class DebuffEffect : EffectStrategy, IUseEffectValue
     {
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             foreach (GameObject target in abilityData.Targets)
             {

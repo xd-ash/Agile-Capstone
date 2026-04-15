@@ -37,6 +37,18 @@ public class TurnManager : MonoBehaviour
         }
         Instance = this;
     }
+    
+    private void OnEnable()
+    {
+        OnTurnStart += SubscribeAutoEndTurn;
+        OnTurnEnd += UnsubscribeAutoEndTurn;
+    }
+
+    private void OnDisable()
+    {
+        OnTurnStart -= SubscribeAutoEndTurn;
+        OnTurnEnd -= UnsubscribeAutoEndTurn;
+    }
 
     private void Start()
     {
@@ -122,7 +134,7 @@ public class TurnManager : MonoBehaviour
     public void EndPlayerTurn()
     {
         if (CurrTurn != Turn.Player) return; // avoid turn end spam
-        if (_curUnit != null && _curUnit.TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving) return; 
+        if (_curUnit != null && _curUnit.TryGetComponent(out FindPathAStar aStar) && aStar.GetIsMoving) return; 
         // Block end turn if tutorial is active and not on end turn step
         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.EndTurnOnly)
@@ -139,5 +151,27 @@ public class TurnManager : MonoBehaviour
 
         //OnPlayerTurnEnd?.Invoke();
         //OnTurnEnd?.Invoke(_curUnit);
+    }
+    
+    private void SubscribeAutoEndTurn(Unit unit)
+    {
+        if (unit != null && unit.GetTeam == Team.Friendly)
+            unit.OnApChanged += CheckAutoEndTurn;
+    }
+
+    private void UnsubscribeAutoEndTurn(Unit unit)
+    {
+        if (unit != null && unit.GetTeam == Team.Friendly)
+            unit.OnApChanged -= CheckAutoEndTurn;
+    }
+
+    private void CheckAutoEndTurn(Unit unit)
+    {
+        if (!OptionsSettings.AutoEndTurn) return;
+        if (CurrTurn != Turn.Player) return;
+        if (unit == null || unit.GetAP > 0) return;
+        if (unit.GetIsMoving) return; // wait until movement coroutine finishes
+
+        EndPlayerTurn();
     }
 }

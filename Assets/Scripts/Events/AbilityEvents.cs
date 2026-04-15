@@ -1,11 +1,13 @@
 using System;
 using System.Diagnostics;
+using CardSystem;
 
 public static class AbilityEvents
 {
     public static event Action OnAbilityTargetingStarted;
     public static event Action OnAbilityTargetingStopped;
     public static event Action<Team> OnAbilityUsed;
+    public static event Action<Team, CardCategory> OnAbilityUsedDetailed;
 
     public static bool IsTargeting { get; private set; }
 
@@ -21,10 +23,11 @@ public static class AbilityEvents
         OnAbilityTargetingStopped?.Invoke();
     }
 
-    public static void AbilityUsed(Team unitTeam)
+    public static void AbilityUsed(Team unitTeam, CardCategory category = CardCategory.Melee)
     {
         IsTargeting = false;
         OnAbilityUsed?.Invoke(unitTeam);
+        OnAbilityUsedDetailed?.Invoke(unitTeam, category);
         if (unitTeam == Team.Friendly)
             TargetingStopped();
     }

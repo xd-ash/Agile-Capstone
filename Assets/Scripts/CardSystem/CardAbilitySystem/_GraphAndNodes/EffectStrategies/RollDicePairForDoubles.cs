@@ -5,15 +5,15 @@ using static DiceRoll;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/Dice Rolls Doubles Effect")]
-    public class RollDicePairForDoubles : EffectStrategy, IUseEffectValue, IRollDice
+    public class RollDicePairForDoubles : EffectStrategy, IUseEffectValue
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onDoubles;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onSnakeEyes;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onNone;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
 

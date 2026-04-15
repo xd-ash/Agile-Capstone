@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using XNode;
 
@@ -21,7 +22,8 @@ namespace CardSystem
         public void UseAbility(Unit user, CardRarity rarity = CardRarity.Common)
 		{
 			if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
 				return;
 			
             if (_targetingStrategy == null)
@@ -70,24 +72,18 @@ namespace CardSystem
 					continue;
 
 				EffectStrategy curEffect = port.Connection.node as EffectStrategy;
-				curEffect.StartEffect(abilityData, () => OnEffectFinished(abilityData));
+				curEffect.StartEffect(abilityData, () => OnEffectFinished());
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
-            AbilityEvents.AbilityUsed(abilityData.GetUnit.GetTeam); //moved here to avoid early card removal/delete on multi effect cards
+            AbilityEvents.AbilityUsed(abilityData.GetUnit.GetTeam, _cardDefinition.GetCardCategory); //moved here to avoid early card removal/delete on multi effect cards
         }
 
         // Unused method for now, kept just for reminder of tutorial system setup
-        private void OnEffectFinished(AbilityData abilityData)
+        private void OnEffectFinished()
 		{
-            /*List<GameObject> emptyTargets = new();
-            foreach(var target in abilityData.Targets)
-                if (target.GetComponent<TargetingEmptyIdentifier>() != null)
-                    emptyTargets.Add(target);
-
-            for (int i = emptyTargets.Count - 1; i >= 0; i--)
-                Destroy(emptyTargets[i]);*/
-        }
+            
+		}
 
         /*/ Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯
 		// I think this is just grabbing each port's data identifier type

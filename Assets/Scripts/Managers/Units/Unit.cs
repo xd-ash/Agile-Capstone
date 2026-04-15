@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using CardSystem;
 using AStarPathfinding;
 
-public enum Team {Friendly, Enemy, None, All}
+public enum Team {Friendly, Enemy}
 public class Unit : MonoBehaviour, IDamagable
 {
     [Header("Team and stats")] 
@@ -24,7 +24,6 @@ public class Unit : MonoBehaviour, IDamagable
 
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
-    [SerializeField] private Slider _enemyShieldBar;
     [SerializeField] private TextMeshProUGUI _hitChanceText;
 
     [Header("Misc")]
@@ -37,18 +36,16 @@ public class Unit : MonoBehaviour, IDamagable
     public Team GetTeam => _team;
     public int GetMaxHealth => _maxHealth;
     public int GetHealth => _health;
-    public int GetMaxShield => _maxShield;
-    public int GetShield => _shield;
-    public int GetEffectiveHealth => _health + _shield;
-    public int GetMaxEffectiveHealth => _maxHealth + _maxShield;
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
     public bool GetCanMove => _canMove;
-    public bool GetIsMoving => TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving;
+    public bool GetIsMoving => TryGetComponent(out FindPathAStar astar) && astar.GetIsMoving;
     public Guid GetGuid => _unitGuid;
 
     public event Action<Unit> OnApChanged;
+    
+    public void RaiseApChanged() => OnApChanged?.Invoke(this);
 
     private void Awake()
     {
@@ -64,8 +61,8 @@ public class Unit : MonoBehaviour, IDamagable
             ShieldEvents.RaisePlayerShieldChanged(_shield);
         else
         {
+            _enemyHPBar = GetComponentInChildren<Slider>();
             //_enemyHPBar.gameObject.SetActive(false); // commented this out so enemy HP bar show from start
-            _enemyShieldBar.gameObject.SetActive(false);
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
         }
     }
@@ -162,7 +159,7 @@ public class Unit : MonoBehaviour, IDamagable
 
         //Placeholder enemy healthbar updating
         if (_team == Team.Enemy)
-            UpdateEnemyUIBars();
+            UpdateHealthBar();
 
         RaiseHealthEvent();
     }
@@ -170,7 +167,7 @@ public class Unit : MonoBehaviour, IDamagable
     /// <summary>
     /// Add shield amount. If duration > 0, shield amount will be removed after duration seconds.
     /// </summary>
-    public void AddShield(int amount)
+    public void AddShield(int amount, float duration = 0f)
     {
         if (amount <= 0) return;
         _shield += amount;
@@ -184,8 +181,10 @@ public class Unit : MonoBehaviour, IDamagable
         else
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
 
-        if (_team == Team.Enemy)
-            UpdateEnemyUIBars();
+        if (duration > 0f)
+        {
+            StartCoroutine(RemoveShieldAfter(duration, amount));
+        }
     }
 
     /// <summary>
@@ -205,21 +204,30 @@ public class Unit : MonoBehaviour, IDamagable
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
     }
 
-    //placeholder enemy healthbar stuff
-    public void UpdateEnemyUIBars()
+    private IEnumerator RemoveShieldAfter(float seconds, int amount)
     {
-        if (_enemyHPBar == null || _enemyShieldBar == null) return;
+        yield return new WaitForSeconds(seconds);
+        RemoveShield(amount);
+    }
 
+    // Optional accessor if needed by UI
+    public int GetShield() => _shield;
+
+    //placeholder enemy damage dealing
+    public void DealDamage(Unit target, int damage = 2)
+    {
+        if (_team == Team.Enemy && target != null)
+            target.ChangeHealth(damage, false);
+    }
+    //placeholder enemy healthbar stuff
+    public void UpdateHealthBar()
+    {
+        if (_enemyHPBar == null) return;
         if (_enemyHPBar.maxValue != _maxHealth) _enemyHPBar.maxValue = _maxHealth;
-        if (_enemyShieldBar.maxValue != _maxShield) _enemyShieldBar.maxValue = _maxShield;
-
         _enemyHPBar.value = Mathf.Clamp(_health, 0, _maxHealth);
-        _enemyShieldBar.value = Mathf.Clamp(_shield, 0, _maxShield);
 
-        //if (_enemyHPBar.value != _enemyHPBar.maxValue && !_enemyHPBar.gameObject.activeInHierarchy)
-            //_enemyHPBar.gameObject.SetActive(true);
-        //if (_enemyShieldBar.value != _enemyShieldBar.maxValue && !_enemyShieldBar.gameObject.activeInHierarchy)
-        _enemyShieldBar.gameObject.SetActive(_enemyShieldBar.value > 0);
+        if (_enemyHPBar.value != _enemyHPBar.maxValue && !_enemyHPBar.gameObject.activeInHierarchy)
+            _enemyHPBar.gameObject.SetActive(true); // Adam added 10-5, enemy bar hidden by default, show once dmg taken
     }
     private void RaiseHealthEvent()
     {
@@ -290,4 +298,19 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _targetingCoroutine = StartCoroutine(targetingCoro);
     }
+    public void AddAP(int amount)
+    {
+        if (amount == 0) return;
+
+        _ap = Mathf.Clamp(_ap + amount, 0, _maxAP);
+        OnApChanged?.Invoke(this);
+    }
+
+    
+    public void AddHealthDelta(int delta)
+    {
+        if (delta == 0) return;
+        ChangeHealth(Mathf.Abs(delta), isGain: delta > 0);
+    }
+
 }

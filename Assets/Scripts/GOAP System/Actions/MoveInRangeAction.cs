@@ -1,62 +1,45 @@
+using AStarPathfinding;
 using CardSystem;
 using UnityEngine;
-using static GOAPDeterminationMethods;
 using static IsoMetricConversions;
-using static AStarPathfinding.FindPathAStar;
+using static GOAPDeterminationMethods;
 
 public class MoveInRangeAction : GoapAction
 {
-    private UnitMovementController _unitMover;
+    private FindPathAStar aStar;
 
-    public MoveInRangeAction(string overrideName = "") : base(overrideName)
-    {
-
-    }
-    public MoveInRangeAction(GoapAction refAction) : base(refAction)
-    {
-
-    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString()) || _agent.GetDamageAbility == null || _agent.GetHealAbility == null) return false;
-        
-        _unitMover = _agent.GetComponent<UnitMovementController>();
+        if (beliefs.states.ContainsKey(GoapStates.InRange.ToString())) return false;
 
-        bool isAttacking = _agent.GetCurrentGoal.key == GoapGoals.KillPlayer.ToString();
-        int abilityRange = isAttacking ? _agent.GetDamageAbility.GetRange : _agent.GetHealAbility.GetRange;
-        Unit curTar = isAttacking ? _agent.GetEnemyTarget : _agent.GetAllyTarget;
-        if (curTar == _agent.unit) return false;
+        aStar = agent.GetComponent<FindPathAStar>();
+        Unit unit = agent.unit;
+        int dmgAbilRange = agent.damageAbility.GetRange;
 
-        var tarPos = ByteMapController.Instance.GetPositionOfUnit(curTar);
-        var agentPos = ByteMapController.Instance.GetPositionOfUnit(_agent.unit);
+        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
+        var tempPath = aStar.CalculatePath(tarPos);
+        int distanceToTar = tempPath.Count;
+        //Debug.Log($"tarPos: {tarPos} | distancetoTar: {distanceToTar}");
 
-        var closestTile = GetClosestInRangeTile(curTar, tarPos, agentPos, abilityRange);
+        if (agent.damageAbility == null)
+            return false;
 
-        _unitMover.CalculatePath(closestTile);
+        //return true if unit cannot get into ability range and calc path to closest tile
+        if ((distanceToTar - dmgAbilRange) > unit.GetAP)
+            return true;
+
+        int inRangeTileIndex = dmgAbilRange;
+
+        // calc new path to tile just within ability range
+        aStar.CalculatePath(tempPath[inRangeTileIndex].location.ToVector());
+
         return true;
-    }
-
-    private Vector2Int GetClosestInRangeTile(Unit target, Vector2Int tarPos, Vector2Int agentPos, int range)
-    {
-        var validInRangeTiles = TargetingStrategy.ComputeCellsInAbilityRange(tarPos, range, true);
-
-        Vector2Int closestTile = tarPos;
-        int closestDist = int.MaxValue;
-        foreach (var tile in validInRangeTiles)
-        {
-            if (tile == tarPos) continue;
-            var distToTile = CalculatePath(agentPos, tile).Count;
-            if (distToTile >= closestDist) continue;
-            closestDist = distToTile;
-            closestTile = tile;
-        }
-        return closestTile;
     }
     public override void Perform()
     {
-        _unitMover.OnStartUnitMove(() =>
+        aStar.OnStartUnitMove(() =>
         {
-            _agent.CompleteAction();
+            agent.CompleteAction();
         });
     }
 
@@ -65,25 +48,6 @@ public class MoveInRangeAction : GoapAction
         beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
         beliefs.RemoveState(GoapStates.OutOfRange.ToString());
 
-        CheckIfInLOS(_agent, ref beliefs);
-    }
-
-    public override float EvaluateCost(string tempGoal, Unit tempTarget)
-    {
-        if (_agent == null || tempTarget == null) return _cost;
-
-
-        var tarPos = ByteMapController.Instance.GetPositionOfUnit(tempTarget);
-        var agentPos = ByteMapController.Instance.GetPositionOfUnit(_agent.unit);
-        var ability = tempGoal == GoapGoals.KillPlayer.ToString() ? _agent.GetDamageAbility : _agent.GetHealAbility;
-        var closestTile = GetClosestInRangeTile(tempTarget, tarPos, agentPos, ability.GetRange);
-
-        var distRatio = GetAdjustedMovementDistRatio(agentPos, closestTile, _agent.unit);
-
-        //bandaid fix, if target is this unit make moving into range cost a lot so it isn't chosen in plan
-        bool isStayingAlive = tempGoal == GoapGoals.StayAlive.ToString();
-        if (isStayingAlive) 
-            distRatio = float.MaxValue;
-        return _cost * distRatio * _costMultiplier;
+        CheckIfInLOS(agent, ref beliefs);
     }
 }

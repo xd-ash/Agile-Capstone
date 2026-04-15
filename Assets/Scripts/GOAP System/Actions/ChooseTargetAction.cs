@@ -1,76 +1,46 @@
+using AStarPathfinding;
 using System.Collections.Generic;
 using System.Linq;
 using static IsoMetricConversions;
 using static GOAPDeterminationMethods;
-using static AStarPathfinding.FindPathAStar;
-using UnityEngine;
 
 public class ChooseTargetAction : GoapAction
 {
-    public ChooseTargetAction(string overrideName = "") : base(overrideName)
-    {
+    private Dictionary<int, Unit> distancesToUnits;
 
-    }
-    public ChooseTargetAction(GoapAction refAction) : base(refAction)
-    {
-
-    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        var distancesToEnemies = GrabUnitDistances(Team.Friendly, _agent);
-        return distancesToEnemies.Count > 0 ? true : false; // change this
-    }
-    private static Dictionary<int, Unit> GrabUnitDistances(Team team, GoapAgent agent)
-    {
-        Dictionary<int, Unit> distToUnits = new();
+        distancesToUnits = new();
+        FindPathAStar aStar = agent.GetComponent<FindPathAStar>();
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
-            if (u == null || u.GetTeam != team) continue;
-            if (u == agent.unit) continue;
+            if (u == null || u.GetTeam == agent.unit.GetTeam) continue;
+            //Debug.Log($"Unit: {u.name} - Pos {u.transform.localPosition}");
 
-            var tempPath = CalculatePath(agent.transform, u.transform);
-            distToUnits.Add(tempPath.Count, u);
-        }
-        return distToUnits;
-    }
-    public static Unit[] GetCurrentTargets(string curGoal, GoapAgent agent)
-    {
-        var enemiesDists = GrabUnitDistances(Team.Friendly, agent);
-        var allyDists = GrabUnitDistances(Team.Enemy, agent);
-        Unit minIndexEnemy = null, minIndexAlly = agent.unit;
-        int minIndex = 0;
-       
-        minIndex = enemiesDists.Min(x => x.Key);
-        minIndexEnemy = enemiesDists[minIndex];
+            var tarPos = ConvertToGridFromIsometric(u.transform.localPosition); 
+            var tempPath = aStar.CalculatePath(tarPos);
 
-        if (curGoal == GoapGoals.KeepAlliesAlive.ToString() && allyDists.Count > 0)
-        {
-            minIndex = allyDists.Min(x => x.Key);
-            minIndexAlly = allyDists[minIndex];
+            distancesToUnits.Add(tempPath.Count, u);
         }
 
-        return new Unit[2] { minIndexEnemy, minIndexAlly };
+        return distancesToUnits.Count > 0 ? true : false;
     }
     public override void Perform()
     {
-        var curGoal = _agent.GetCurrentGoal.key;
-        var targets = GetCurrentTargets(curGoal, _agent);
-        _agent.SetCurrentTargets(targets[0], targets[1]);
+        int min = distancesToUnits.Min(x => x.Key);
+        agent.curtarget = distancesToUnits[min];
 
-        _agent.CompleteAction();
+        //Debug.Log($"target: {(agent.curtarget != null ? agent.curtarget.name : "null")}");
+
+        agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
         beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
         beliefs.RemoveState(GoapStates.NoTarget.ToString());
 
-        CheckRange(_agent, _agent.GetCurrentAbility.GetRange, ref beliefs);
-        CheckIfInLOS(_agent, ref beliefs);
-    }
-
-    public override float EvaluateCost(string tempGoal, Unit tempTarget)
-    {
-        return _cost;
+        CheckIfInRange(agent, agent.damageAbility.GetRange, ref beliefs);
+        CheckIfInLOS(agent, ref beliefs);
     }
 }

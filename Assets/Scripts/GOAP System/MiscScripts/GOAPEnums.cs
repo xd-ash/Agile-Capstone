@@ -1,5 +1,7 @@
+using CardSystem;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Flags]
 public enum GoapActions
@@ -12,9 +14,7 @@ public enum GoapActions
     ChooseTarget = 16,
     EndTurn = 32,
     MoveIntoLOS = 64,
-    Hide = 128,
-    MoveOutOfLOS = 256,
-    MoveToRange = 512,
+    OtherMove = 128,
 }
 
 [Flags]
@@ -23,141 +23,81 @@ public enum GoapStates
     None = 0,
     //All = -1,
     HasAP = 2,
-    OutOfAP = 4,
-    IsHealthy = 8,
-    IsHurt = 16,
-    IsBadlyHurt = 32,
-    InRange = 64,
-    OutOfRange = 128,
-    CanAttack = 256,
-    CanHeal = 512,
-    HasLOS = 1024,
-    NoLOS = 2048,
-    HasTarget = 4096,
-    NoTarget = 8192,
-    AtRange = 16384,
-    AtMelee = 32768,
-    HasAttacked = 65536
-}
-[Flags]
-public enum GoapGoals
-{
-    None = 0,
-    KillPlayer = 2,
-    StayAlive = 4,
-    KeepAlliesAlive = 8,
-    EndTurn = 16,
+    IsHurt = 4,
+    InRange = 8,
+    IsHealthy = 16,
+    OutOfRange = 32,
+    OutOfAP = 64,
+    AttackPlayer = 128,
+    HealSelf = 256,
+    HasAttacked = 512,
+    HasHealed = 1024,
+    HasTarget = 2048,
+    HasLOS = 4096,
+    NoLOS = 8192,
+    NoTarget = 16384,
+    CanHeal = 32768,
 }
 
 public struct GOAPEnums
 {
     // Create and return a list of all goap actions determined by the given enum flag.
-    public static List<GoapAction> GetAllActionsFromFlags(GoapActions actionsEnum)
+    public static List<GoapAction> GetAllActionsFromFlags(GoapAgent agent, GoapActions actionsEnum)
     {
         List<GoapAction> actions = new List<GoapAction>();
 
-        int enumCount = typeof(GoapActions).GetEnumNames().Length;
         // Convert enum flag to binary.
-        string binaryEnum = Convert.ToString((int)actionsEnum, 2).PadLeft(enumCount, '0');
+        string binaryEnum = Convert.ToString((int)actionsEnum, 2).PadLeft(8, '0');
 
         // Loop through each character in the binaryEnum string and add relevant
         // GOAP Actions to the list.
-        for (int i = binaryEnum.Length - 1; i >= 0; i--)
+        for (int i = 0; i < binaryEnum.Length; i++)
         {
-            int index = binaryEnum.Length - 1 - i;
-            if (binaryEnum[index] == '0') continue;
             switch (i)
             {
-                case 0://None
+                case 0://Other Move
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new OtherMoveAction() { agent = agent });
                     break;
-                case 1://Move
-                    actions.Add(new MoveInRangeAction());
+                case 1://MoveIntoLOS
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new MoveIntoLOSAction() { agent = agent });
                     break;
-                case 2://Attack
-                    actions.Add(new AttackAction());
+                case 2://EndTurn
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new EndTurnAction() { agent = agent });
                     break;
-                case 3://Heal
-                    actions.Add(new HealAction());
+                case 3://Choose Target
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new ChooseTargetAction() { agent = agent });
                     break;
-                case 4://Choose Target
-                    actions.Add(new ChooseTargetAction());
+                case 4://Heal
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new HealAction() { agent = agent });
                     break;
-                case 5://EndTurn
-                    actions.Add(new EndTurnAction());
+                case 5://Attack
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new AttackAction() { agent = agent });
                     break;
-                case 6://MoveIntoLOS
-                    actions.Add(new MoveIntoLOSAction());
+                case 6://Move
+                    if (binaryEnum[i] == '1')
+                        actions.Add(new MoveInRangeAction() { agent = agent });
                     break;
-                case 7://Hide
-                    actions.Add(new HideAction());
+                case 7://None
                     break;
-                case 8://MoveOutOfLOS
-                    actions.Add(new MoveOutOfLOSAction());
-                    break;
-                case 9://MoveToRange
-                    actions.Add(new MoveToRangeAction());
-                    break;
-                /*case 10://Potshot
-                    actions.Add(new AttackAction("PotShot"));
-                    break;
-                case 11://duckBehind
-                    actions.Add(new HideAction("HideAfterPotShot"));
-                    break;*/
             }
         }
         return actions;
-    }
-    public static List<WorldState> GetAllStatesFromFlags(GoapStates statesEnum, GoapGoals goalsEnum)
-    {
-        List<WorldState> states = new List<WorldState>();
-
-        string[] statesStrings = statesEnum.ToString().Split(", ");
-        string[] goalsStrings = goalsEnum.ToString().Split(", ");
-
-        if ((int)statesEnum == -1)
-            statesStrings = typeof(GoapStates).GetEnumNames();
-        if ((int)goalsEnum == -1)
-            goalsStrings = typeof(GoapStates).GetEnumNames();
-
-        foreach (string s in statesStrings)
-        {
-            if (s == null || s == "None") continue;
-            states.Add(new WorldState() { key = s });
-        }
-        foreach (string s in goalsStrings)
-        {
-            if (s == null || s == "None") continue;
-            states.Add(new WorldState() { key = s });
-        }
-
-        return states;
-    }
-    public static List<WorldState> GetAllStatesFromFlags(GoapGoals goalsEnum)
-    {
-        List<WorldState> states = new List<WorldState>();
-
-        string[] goalsStrings = goalsEnum.ToString().Split(", ");
-        if ((int)goalsEnum == -1)
-            goalsStrings = typeof(GoapGoals).GetEnumNames();
-
-        foreach (string s in goalsStrings)
-        {
-            if (s == null || s == "None") continue;
-            states.Add(new WorldState() { key = s });
-        }
-        return states;
     }
     public static List<WorldState> GetAllStatesFromFlags(GoapStates statesEnum)
     {
         List<WorldState> states = new List<WorldState>();
 
-        string[] enumStrings = statesEnum.ToString().Split(", ");
-        if ((int)statesEnum == -1)
-            enumStrings = typeof(GoapStates).GetEnumNames();
+        string[] enumStrings =  statesEnum.ToString().Split(", ");
 
         foreach (string s in enumStrings)
         {
-            if (s == null || s == "None") continue;
+            if (s != null && s != "None")
             states.Add(new WorldState() { key = s });
         }
         return states;

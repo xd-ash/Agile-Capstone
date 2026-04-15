@@ -5,7 +5,6 @@ using UnityEngine;
 using XNode;
 using static IsoMetricConversions;
 using static TileHighlighter;
-using static CombatMath;
 
 namespace CardSystem
 {
@@ -37,8 +36,8 @@ namespace CardSystem
 
             int range = (graph as CardAbilityDefinition).GetRange;
             Vector2Int unitPos = ConvertToGridFromIsometric(abilityData.GetUnit.transform.localPosition);
-            _tilesInRange = ComputeCellsInAbilityRange(unitPos, range);
-            ApplyHighlights(_tilesInRange, abilityData.GetUnit.GetGuid, Color.softRed * new Color(1,1,1,0.5f), false, 1); // set up general unit ability range tiles
+            _tilesInRange = ComputeCellsInRange(unitPos, range);
+            ApplyHighlights(_tilesInRange, abilityData.GetUnit.GetGuid, Color.softRed * new Color(1,1,1,0.65f), 1); // set up general unit ability range tiles
 
             AbilityEvents.OnAbilityTargetingStopped += () => ClearHighlights(abilityData.GetGUID);
             onFinished += () =>
@@ -50,7 +49,7 @@ namespace CardSystem
 
         public abstract IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished);
 
-        public static HashSet<Vector2Int> ComputeCellsInAbilityRange(Vector2Int tilePos, int range, bool avoidUnits = false)// Team ignoreUnitTeam = Team.None)
+        public virtual HashSet<Vector2Int> ComputeCellsInRange(Vector2Int tilePos, int range)
         {
             var result = new HashSet<Vector2Int>();
 
@@ -87,11 +86,8 @@ namespace CardSystem
                     if (next.x < 0 || next.y < 0 || next.x >= width || next.y >= height || visited.Contains(next))
                         continue;
 
-                    if (map[next.x, next.y] == 2 || map[next.x, next.y] == 5 ||
-                        avoidUnits && map[next.x, next.y] != 0)
+                    if (map[next.x, next.y] == 2)
                         continue;
-
-                    if (!HasLineOfSight(tilePos, next)) continue;
 
                     visited.Add(next);
                     queue.Enqueue((next, dist + 1));

@@ -20,11 +20,11 @@ namespace CardSystem
         // Optional: whether to log results to console (useful for initial testing)
         [SerializeField] private bool _logResults = true;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
             if (abilityData.GetUnit.GetTeam != Team.Friendly) return;
 
-            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             // Defensive checks
             if (DeckAndHandManager.Instance == null)

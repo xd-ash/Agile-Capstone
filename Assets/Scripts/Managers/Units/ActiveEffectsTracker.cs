@@ -29,14 +29,8 @@ public class ActiveEffectsTracker : MonoBehaviour
     {
         Effect newEffect = new(ref effect, totalDuration, guid, tickOnStart, effectName);
 
-        if (!_effects.Contains(newEffect))//list will probably never contain a duplicate since new GUID is created for each effect
-        {
-            //replace same effects to avoid stacking dots/hots
-            for (int i = _effects.Count - 1; i >= 0; i--)
-                if (_effects[i].effectName == newEffect.effectName)
-                    _effects.RemoveAt(i);
+        if (!_effects.Contains(newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
             _effects.Add(newEffect);
-        }
     }
 
     private void OnThisUnitEffectsTick(Unit unit, bool isStartOfTurn)

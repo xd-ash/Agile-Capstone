@@ -13,7 +13,7 @@ namespace CardSystem
         protected EffectVisualsStrategy _visualsStrategy;
         [Output(connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public long effectVisuals;
 
-        public virtual void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
+        public virtual void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
             var def = this.graph as CardAbilityDefinition;
             AudioManager.Instance?.SetPendingUseSfx(def.GetAbilitySFX);
@@ -29,12 +29,8 @@ namespace CardSystem
 
             int dirIndex = ComputeAttackDirection(abilityData);
 
-            if (playAnimation)
-            {
-                var dirAnimator = abilityData.GetUnit?.GetComponent<DirectionAnimator>();
-                dirAnimator?.PlayAttack(def.GetAttackAnimKey, dirIndex, null);
-            }
-
+            var dirAnimator = abilityData.GetUnit?.GetComponent<DirectionAnimator>();
+            dirAnimator?.PlayAttack(def.GetAttackAnimKey, dirIndex, null);
             //DoEffect(abilityData);
         }
         

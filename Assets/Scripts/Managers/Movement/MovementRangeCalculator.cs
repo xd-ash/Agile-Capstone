@@ -116,7 +116,7 @@ public class MovementRangeCalculator : MonoBehaviour
             return;
         }
         var reachable = ComputeReachableCells(_currentUnit);
-        TileHighlighter.ApplyHighlights(reachable, _currentUnit.GetGuid, _reachableColor, false);
+        TileHighlighter.ApplyHighlights(reachable, _currentUnit.GetGuid, _reachableColor);
     }
 
     public void ClearHighlightsForCurrentUnit()
@@ -125,7 +125,7 @@ public class MovementRangeCalculator : MonoBehaviour
             TileHighlighter.ClearHighlights(_currentUnit.GetGuid);
     }
 
-    public static HashSet<Vector2Int> ComputeReachableCells(Unit unit)
+    private HashSet<Vector2Int> ComputeReachableCells(Unit unit)
     {
         var result = new HashSet<Vector2Int>();
         

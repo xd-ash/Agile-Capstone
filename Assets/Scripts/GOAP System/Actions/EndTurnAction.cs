@@ -2,31 +2,19 @@ using UnityEngine;
 
 public class EndTurnAction : GoapAction
 {
-    public EndTurnAction(string overrideName = "") : base(overrideName)
-    {
-
-    }
-    public EndTurnAction(GoapAction refAction) : base(refAction)
-    {
-
-    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         return true;
     }
     public override void Perform()
     {
+        agent.ClearPlanner();
         TurnManager.Instance.EndEnemyTurn();
-        _agent.ClearPlanner();
-        _agent.CompleteAction();
+        //Debug.Log($"End turn Perform");
+        agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        
-    }
-
-    public override float EvaluateCost(string tempGoal, Unit tempTarget)
-    {
-        return _cost;
+        // do nothing?
     }
 }

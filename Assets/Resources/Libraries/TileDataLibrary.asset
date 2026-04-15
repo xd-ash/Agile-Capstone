@@ -22,9 +22,17 @@ MonoBehaviour:
     _tileBase: {fileID: 11400000, guid: 6abcabfa61863ac4682f622b82a4a845, type: 2}
     _byteIndicator: 3
     _tileContentPrefabs:
-    - {fileID: 5893557019395072273, guid: dc34917306d4cd44faabf434c629c44f, type: 3}
+    - {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
     - {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
-    - {fileID: 5893557019395072273, guid: aa297b81f882ab24db816441e1105f62, type: 3}
+  - _tileName: RangeEnemySpawnTile
+    _tileBase: {fileID: 11400000, guid: ee5769bf3ec700341906851854d6f77e, type: 2}
+    _byteIndicator: 6
+    _tileContentPrefabs:
+    - {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
+  - _tileName: MeleeEnemySpawnTile
+    _tileBase: {fileID: 11400000, guid: bd38342c167899d4daafb9e197fc42f2, type: 2}
+    _byteIndicator: 7
+    _tileContentPrefabs:
     - {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
   - _tileName: FullCoverObstacle
     _tileBase: {fileID: 11400000, guid: 7727bab759f5e2f48a11d21a08170c50, type: 2}
@@ -36,23 +44,3 @@ MonoBehaviour:
     _byteIndicator: 5
     _tileContentPrefabs:
     - {fileID: 6626558593374184628, guid: cafa7df722d111b4f831b944d9a2a18b, type: 3}
-  - _tileName: MeleeEnemySpawnTile
-    _tileBase: {fileID: 11400000, guid: bd38342c167899d4daafb9e197fc42f2, type: 2}
-    _byteIndicator: 6
-    _tileContentPrefabs:
-    - {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
-  - _tileName: RangeEnemySpawnTile
-    _tileBase: {fileID: 11400000, guid: ee5769bf3ec700341906851854d6f77e, type: 2}
-    _byteIndicator: 7
-    _tileContentPrefabs:
-    - {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
-  - _tileName: MedicEnemySpawnTile
-    _tileBase: {fileID: 11400000, guid: 5e6f8a97abce88848834e1b68962179b, type: 2}
-    _byteIndicator: 8
-    _tileContentPrefabs:
-    - {fileID: 5893557019395072273, guid: e3587813b70f1c741bdf4e328b0e5825, type: 3}
-  - _tileName: TankEnemySpawnTile
-    _tileBase: {fileID: 11400000, guid: b73fe92b2d464fe418ef5997b396d686, type: 2}
-    _byteIndicator: 9
-    _tileContentPrefabs:
-    - {fileID: 5893557019395072273, guid: dc34917306d4cd44faabf434c629c44f, type: 3}

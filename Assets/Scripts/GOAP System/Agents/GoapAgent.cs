@@ -1,20 +1,20 @@
-using CardSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEditor;
+using static GOAPEnums;
 using static GOAPDeterminationMethods;
+using CardSystem;
 
 [System.Serializable]
 public class Goal
 {
     [SerializeField, HideInInspector] public string key = "";
-    public float value = 0;
+    public int value = 0;
     public bool removeOnComplete = false; //removes goal once completed
-    public Dictionary<string, float> GetGoal => new Dictionary<string, float>() { { key, value } };
+    public Dictionary<string, int> GetGoal => new Dictionary<string, int>() { { key, value } };
 
-    public Goal(string s, float i, bool r)
+    public Goal(string s, int i, bool r)
     {
         key = s;
         value = i;
@@ -24,22 +24,20 @@ public class Goal
 
 public class GoapAgent : MonoBehaviour
 {
-    [SerializeField] private GoapAgentSO _agentSO;
-
-    [Tooltip("Number of times unit can heal per combat. (-1 for infinite heals)")]
+    [Header("Temp Enemy Abilities")]
+    public CardAbilityDefinition damageAbility; 
+    public CardAbilityDefinition healAbility;
     public int healCharges = 3;
-    public int attacksPerformedThisTurn = 0;
+    [Space(15)]
 
-    private List<GoapAction> _actions = new();
-    private GoapAction _prevAction;
+    [SerializeField] private GoapActions _goapActionsEnum;
+    [SerializeReference] private List<GoapAction> _actions = new();
     private GoapAction _currentAction;
     private Queue<GoapAction> _actionQueue;
 
-    private List<Goal> _goals = new();
-
-    //private Dictionary<Goal, float> _weightedGoalsDict = new();
-    private Dictionary<Goal, Plan> _goalsDict = new();
-
+    [SerializeField] private GoapStates _goalsEnum;
+    [SerializeReference] private List<Goal> _goals = new();// find better way? used for setting weight/values & remove bool
+    private Dictionary<Goal, int> _weightedGoalsDict = new();
     private Goal _currentGoal;
 
     [SerializeField] private float _actionDelayTime = 1.5f;
@@ -47,306 +45,230 @@ public class GoapAgent : MonoBehaviour
     private WorldStates _beliefs = new WorldStates(); //make public or getter/setter if actions needed
     private GoapPlanner _planner;
     [HideInInspector] public Unit unit;
-    private Unit _enemyTarget;
-    private Unit _allyTarget;
+    public Unit curtarget;
 
     public bool showDebugMessages = false;
-    [SerializeField] private int _buildFailCounter = 0;
 
-    public Goal GetCurrentGoal => _currentGoal;
-    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget ));
-    public Unit GetAllyTarget => _allyTarget;
-    public Unit GetEnemyTarget => _enemyTarget;
+    public List<GoapAction> GetActions => _actions;
 
-    public GoapAgentSO GetAgentSO => _agentSO;
-
-    public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
-    public CardAbilityDefinition GetHealAbility => _agentSO?.GetHealAbility;
-    public CardAbilityDefinition GetCurrentAbility => _currentGoal != null && _currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ?  _agentSO.GetHealAbility : _agentSO.GetDamageAbility;
-    public bool CheckForState(GoapStates state)
-    {
-        return _beliefs.GetStates.ContainsKey(state.ToString());
-    }
     private void Awake()
     {
-        if (_agentSO == null)
-        {
-            Debug.LogError($"No GOAP Agent SO Attached to ({gameObject.name})");
-            return;
-        }
+        GrabActionsFromEnum();
+        GrabGoalsFromEnum();
 
-        //_actions = new(_agentSO.GetActions);
-        _actions = new();
-        foreach (var action in _agentSO.GetActions)
-        {
-            var clonedAction = action.Clone();
-            _actions.Add(clonedAction);
-            clonedAction.SetAgent(this);
-            clonedAction.GrabConditionsFromEnums();
-        }
-        /*foreach (var a in _actions)
-        {
-            a.SetAgent(this);
-            a.GrabConditionsFromEnums();
-        }*/
-        _goals = new(_agentSO.GetGoals);
-        healCharges = _agentSO.GetTotalHealCharges;
+        foreach (var a in _actions)
+            a?.GrabConditionsFromEnums();
 
-        TurnManager.OnGameStart += ResetStates;
+        ResetStates();
     }
-    private void OnDestroy()
+
+    // INCOMPLETE make more secure with deleting null actions or actions added in inpsector by hitting +
+    #region OnInspectorMethods
+    public void GrabActionsFromEnum()
     {
-        TurnManager.OnGameStart -= ResetStates;
+        if (unit == null) unit = gameObject.GetComponent<Unit>();
+
+        var temp = GetAllActionsFromFlags(this, _goapActionsEnum);
+        List<string> tempToString = new List<string>(),
+                     actionsToString = new List<string>();
+
+        foreach (var a in temp)
+            tempToString.Add(a.ToString());
+
+        if (_actions.Count > 0)
+            foreach (var a in _actions)
+                if (a != null)
+                    actionsToString.Add(a.ToString());
+
+        for (int i = actionsToString.Count - 1; i >= 0 ; i--)
+        {
+            if (actionsToString[i] == null)
+            {
+                _actions.RemoveAt(i);
+                continue;
+            }
+
+            if (!tempToString.Contains(actionsToString[i]) || 
+                actionsToString[i] == string.Empty)
+                _actions.RemoveAt(i);
+        }
+
+        if (_actions.Count == 0)
+            foreach (var a in temp)
+                _actions.Add(a);
+        else
+        {
+            foreach (var a in temp)
+            {
+                bool actionPresent = false;
+
+                foreach (var b in _actions)
+                    if (a.ToString() == b.ToString())
+                    {
+                        actionPresent = true;
+                        break;
+                    }
+
+                if (!actionPresent)
+                    _actions.Add(a);
+            }
+        }
     }
+    public void GrabGoalsFromEnum()
+    {
+        var temp = GetAllStatesFromFlags(_goalsEnum);
+        List<string> tempToString = new List<string>();
+                     //goalsToString = new List<string>();
+
+        foreach (var s in temp)
+            tempToString.Add(s.key);
+
+        for (int i = _goals.Count - 1; i >= 0; i--)
+        {
+            if (_goals[i] == null)
+            {
+                _goals.RemoveAt(i);
+                continue;
+            }
+
+            if (!tempToString.Contains(_goals[i].key) || _goals[i].key == string.Empty)
+                _goals.RemoveAt(i);
+        }
+
+        if (_goals.Count == 0)
+            foreach (var s in temp)
+                _goals.Add(new Goal(s.key, s.value, false));
+        else
+        {
+            foreach (var s in temp)
+            {
+                bool goalPresent = false;
+
+                foreach (var g in _goals)
+                    if (s.key == g.key)
+                    {
+                        goalPresent = true;
+                        break;
+                    }
+
+                if (!goalPresent)
+                    _goals.Add(new Goal(s.key, s.value, false));
+            }
+        }
+    }
+    #endregion
+    //
+
+    public void CompleteAction()
+    {
+        _currentAction.running = false;
+        _currentAction.PostPerform(ref _beliefs);
+        GameUIManager.instance.UpdateApText();
+        if (!_beliefs.states.ContainsKey(GoapStates.HasAttacked.ToString()))
+            CheckForAP(unit, ref _beliefs);
+    }
+
+    public void ResetStates() 
+    {
+        _weightedGoalsDict = new();
+
+        string temp = "weighted dict goals: ";
+        // goal dict reset and creation from list in inspector
+        foreach (var g in _goals)
+        {
+            _weightedGoalsDict.Add(g, g.value);
+            temp += g.key + ", ";
+        }
+        //Debug.Log(temp);
+
+        if (unit != null)
+        {
+            _beliefs = new();
+
+            _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
+
+            if (healCharges > 0)
+                _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
+
+            CheckForAP(unit, ref _beliefs);
+            CheckIfHealthy(unit, ref _beliefs);
+
+            if (curtarget == null)
+            {
+                _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
+                _beliefs.RemoveState(GoapStates.HasLOS.ToString());
+
+                _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
+                _beliefs.RemoveState(GoapStates.InRange.ToString());
+            }
+            else
+            {
+                CheckIfInRange(this, damageAbility.GetRange, ref _beliefs);
+                CheckIfInLOS(this, ref _beliefs);
+            }
+        }
+        /*
+        string tempStr = "Beliefs on reset: ";
+        foreach (var b in _beliefs.GetStates())
+            tempStr += b.Key + ", ";
+        Debug.Log(tempStr);
+        */
+    }
+
     void LateUpdate()
     {
         if (TurnManager.GetCurrentUnit != unit) return;
-        if (_currentAction != null && _currentAction.IsRunning) return;
-
-        //if (_isResetting) return;
-
+        if (_currentAction != null && _currentAction.running) return;
+        
         if (_planner == null || _actionQueue == null)
         {
-            if (_buildFailCounter > 15)
-                SetBuildFailBeliefs();
+            _planner = new GoapPlanner(this);
+            var sortedGoals = from entry in _weightedGoalsDict
+                              orderby entry.Value descending
+                              select entry;
+            //Debug.Log($"weightGoals count: {_weightedGoalsDict.Count}");
 
-            PlanForGoals();
-
-            float cheapestCost = float.MaxValue;
-            foreach (var element in _goalsDict)
+            foreach (KeyValuePair<Goal, int> g in sortedGoals)
             {
-                if (element.Value == null || element.Value.actionQueue == null) continue;
-
-                var cost = element.Value.cheapestCost;
-                if (cost >= cheapestCost || element.Value.actionQueue.Count == 0) continue;
-                _actionQueue = element.Value.actionQueue;
-                _currentGoal = element.Key ?? new("null", 1, true);
-                cheapestCost = cost;
-                SetCurrentTargets(element.Value.targets[0], element.Value.targets[1]);
-            }
-
-            if (_actionQueue == null || _actionQueue.Count == 0)
-                _buildFailCounter++;
-
-            if (showDebugMessages && _actionQueue != null)
-            {
-                string tempStr2 = $"{name} ({(_currentGoal == null ? "null" : _currentGoal.key)}) - Chosen Plan: ";
-                foreach (GoapAction a in _actionQueue)
-                    tempStr2 += $"{a.GetActionName} > ";
-                Debug.Log(tempStr2 + $"(Cost: {cheapestCost})");
+                //Debug.Log($"Action (post count): {_actions[0].ToString()}({_actions[0].postConditions.Count})");
+                _actionQueue = _planner.Plan(_actions, g.Key.GetGoal, _beliefs);
+                if (_actionQueue != null)
+                {
+                    _currentGoal = g.Key;
+                    break;
+                }
             }
         }
 
-        if (_actionQueue == null)
-        {
-            CheckForAP(unit, ref _beliefs);
-
-            if (!CheckCanDoAction(unit, _agentSO.GetHealAbility.GetApCost))
-                _beliefs.RemoveState(GoapStates.CanHeal.ToString());
-            if (!CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost))
-                _beliefs.RemoveState(GoapStates.CanAttack.ToString());
-        }
-
-        // actionqueue is finished
         if (_actionQueue != null && _actionQueue.Count == 0)
         {
-            if (_beliefs.GetStates.ContainsKey(_currentGoal.key) && _currentGoal.removeOnComplete)
-                for (int i = _goalsDict.Count - 1; i >= 0; i--)
-                {
-                    var goal = _goalsDict.ElementAt(i).Key;
-                    if (goal.key != _currentGoal.key) continue;
-
-                    _goalsDict.Remove(_goalsDict.ElementAt(i).Key);
-                }
+            if (_beliefs.states.ContainsKey(_currentGoal.key) && _currentGoal.removeOnComplete)
+                for (int i = _weightedGoalsDict.Count - 1; i >= 0; i--)
+                    if (_weightedGoalsDict.ElementAt(i).Key.key == _currentGoal.key)
+                        _weightedGoalsDict.Remove(_weightedGoalsDict.ElementAt(i).Key);
 
             _planner = null;
         }
 
-        // actionqueue is not finished
         if (_actionQueue != null && _actionQueue.Count > 0)
-        { 
-            _prevAction = _currentAction;
+        {
             _currentAction = _actionQueue.Dequeue();
-            
             if (_currentAction.PrePerform(ref _beliefs))
             {
-                if (showDebugMessages)
-                    Debug.Log($"Performing-{_currentAction.GetActionName}");
+                _currentAction.running = true;
 
-                _currentAction.IsRunning = true;
-
-                if (ShouldDelayAction())
-                    Invoke(nameof(PerformAction), _actionDelayTime);
+                if (_currentAction is AttackAction || _currentAction is HealAction)
+                    Invoke("ActionPerformDelay", _actionDelayTime);
                 else
-                    PerformAction();
+                    _currentAction.Perform();
             }
             else
             {
-                _buildFailCounter++;
                 _actionQueue = null;
             }
         }
     }
-    private bool ShouldDelayAction()
-    {
-        if (_currentAction is ChooseTargetAction /*|| _currentAction is EndTurnAction */ || _currentAction is HideAction)
-            return false;
-
-        if (_prevAction == null || _prevAction is ChooseTargetAction || _prevAction is EndTurnAction || _prevAction is HideAction)
-            return false;
-
-        // movement action into movement action should have no delay
-        if ((_prevAction is MoveInRangeAction || _prevAction is MoveIntoLOSAction || _prevAction is MoveOutOfLOSAction || _prevAction is MoveToRangeAction) &&
-            (_currentAction is MoveInRangeAction || _currentAction is MoveIntoLOSAction || _currentAction is MoveOutOfLOSAction || _currentAction is MoveToRangeAction || _currentAction is EndTurnAction))
-            return false;
-
-        return true;
-    }
-    public void SetCurrentTargets(Unit enemyTarget, Unit allyTarget) 
-    {
-        _enemyTarget = enemyTarget;
-        _allyTarget = allyTarget;
-
-        _beliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
-        _beliefs.RemoveState(GoapStates.NoTarget.ToString());
-    }
-    public void CompleteAction()
-    {
-        _currentAction.IsRunning = false;
-        _currentAction.PostPerform(ref _beliefs);
-        GameUIManager.instance.UpdateApText();
-        PostActionChecks();
-
-        if (showDebugMessages)
-        {
-            string tempStr = $"Agent: {name} Target: {GetCurrentTarget?.name}:";
-            tempStr += $"\nPost Action Beliefs: ";
-            foreach (var b in _beliefs.GetStates)
-                //foreach (var b in beliefStates.GetStates)
-                tempStr += b.Key + ", ";
-            //Debug.Log(tempStr);
-        }
-    }
-
-    public void PostActionChecks()
-    {
-        if (!CheckCanDoAction(unit, _agentSO.GetHealAbility.GetApCost) || healCharges == 0)
-            _beliefs.RemoveState(GoapStates.CanHeal.ToString());
-        if (!CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost))
-            _beliefs.RemoveState(GoapStates.CanAttack.ToString());
-
-        CheckForAP(unit, ref _beliefs);
-        CheckIfHealthy(unit, ref _beliefs);
-
-        if (GetCurrentTarget != null)
-        {
-            CheckIfInLOS(this, ref _beliefs);
-
-            if (GetCurrentAbility != null)
-                CheckRange(this, GetCurrentAbility.GetRange, ref _beliefs);
-        }
-    }
-    public void ResetStates()
-    {
-        _buildFailCounter = 0;
-
-        _goalsDict = new();
-        _currentGoal = null;
-        _planner = null;
-
-        attacksPerformedThisTurn = 0;
-
-        foreach (var g in _goals)
-            _goalsDict.Add(g, null);
-
-        if (unit == null) return;
-
-        _beliefs = new();
-        _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
-
-        if (healCharges != 0)
-            _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
-
-        CheckForAP(unit, ref _beliefs);
-        CheckIfHealthy(unit, ref _beliefs);
-
-        _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
-
-        //PlanForGoals();
-
-        if (GetCurrentTarget == null)
-        {
-            _beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
-            _beliefs.RemoveState(GoapStates.HasLOS.ToString());
-
-            _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-            _beliefs.RemoveState(GoapStates.InRange.ToString());
-
-            //_beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
-        }
-        else
-        {
-            //CheckRange(this, _agentSO.GetDamageAbility.GetRange, ref _beliefs);
-            var b = CheckRange(this, GetCurrentAbility.GetRange, ref _beliefs);
-            CheckIfInLOS(this, ref _beliefs);
-        }
-
-        string beliefDebug = "Beliefs: ";
-        foreach (var belief in _beliefs.GetStates)
-            beliefDebug += $"{belief.Key}, ";
-        if (showDebugMessages)
-            Debug.Log(beliefDebug);
-    }
-    private void PlanForGoals()
-    {
-        _planner = new(this);
-
-        _goalsDict = new();
-        foreach (var g in _goals)
-            _goalsDict.Add(g, null);
-
-        for (int i = 0; i < _goalsDict.Count; i++)
-        {
-            var e = _goalsDict.ElementAt(i);
-            var tempPlan = _planner.Plan(_actions, e.Key.GetGoal, _beliefs);
-            if (tempPlan == null)
-                continue;
-            _goalsDict[e.Key] = tempPlan;
-        }
-    }
-    public void SetBuildFailBeliefs()
-    {
-        _beliefs = new();
-        _beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
-        Debug.LogWarning($"Excessive build failures. Defaulting to End Turn beliefs.");
-        _buildFailCounter = 0;
-    }
-    public WorldStates GetTempBeliefsGivenGoal(string tempGoal, Unit tempTarget, WorldStates referenceBeliefs)
-    {
-        WorldStates tempBeliefs = new(referenceBeliefs);
-
-        if (tempTarget == null)
-        {
-            tempBeliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
-            tempBeliefs.RemoveState(GoapStates.HasLOS.ToString());
-
-            tempBeliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-            tempBeliefs.RemoveState(GoapStates.InRange.ToString());
-
-            //tempBeliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
-        }
-        else
-        {
-            tempBeliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
-            tempBeliefs.RemoveState(GoapStates.NoTarget.ToString());
-
-            var currAbility = tempTarget.GetTeam == unit.GetTeam ? GetHealAbility : GetDamageAbility;
-            CheckRange(this, tempTarget, currAbility.GetRange, ref tempBeliefs);
-            CheckIfInLOS(this, tempTarget, ref tempBeliefs);
-        }
-        return tempBeliefs;
-    }
-    private void PerformAction()
+    private void ActionPerformDelay()
     {
         _currentAction.Perform();
     }

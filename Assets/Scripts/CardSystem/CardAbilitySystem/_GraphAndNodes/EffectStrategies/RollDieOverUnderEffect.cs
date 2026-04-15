@@ -6,16 +6,16 @@ using static DiceRoll;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/Dice Over Under Effect")]
-    public class RollDieOverUnderEffect : EffectStrategy, IRollDice
+    public class RollDieOverUnderEffect : EffectStrategy
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onOver;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onUnder;
 
         [SerializeField] private int _desiredMinRoll;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             //check each effect connected to node
             foreach (NodePort port in Outputs)

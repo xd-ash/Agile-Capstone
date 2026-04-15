@@ -24,7 +24,7 @@ public class OnTouched : AbilityNodeBase, IAcceptSpawnObjs, IPassSpawnedObjs
             {
                 abilityData.Targets = new List<GameObject>() { unit.gameObject };
                 
-                (port.Connection.node as EffectStrategy).StartEffect(abilityData, null, 0, false);
+                (port.Connection.node as EffectStrategy).StartEffect(abilityData, null);
                 Destroy(tracker.gameObject);
             });
         }

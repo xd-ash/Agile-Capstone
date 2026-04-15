@@ -34,7 +34,7 @@ public class MouseFunctionManager : MonoBehaviour
     private void InitializeTileHighlight()
     {
         var highlightObjectParent = FindAnyObjectByType<Grid>().transform.Find("HighlightObjParent");
-        _highlightTile = Instantiate(Resources.Load<GameObject>("HighlightTileFilled"), highlightObjectParent);
+        _highlightTile = Instantiate(Resources.Load<GameObject>("HighlightTile"), highlightObjectParent);
         _highlightTile.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         _highlightTile.transform.localScale = Vector3.one;
         var sr = _highlightTile.GetComponentInChildren<SpriteRenderer>();
@@ -66,13 +66,13 @@ public class MouseFunctionManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && _shouldMove)
             {
-                // Block movement if tutorial is active and not in move step
                 if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveOnly)
-                    return; // skip to next frame, don't move
+                    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveOnly &&
+                    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                    return;
                 
-                var unitmover = TurnManager.GetCurrentUnit.GetComponent<UnitMovementController>();
-                unitmover?.OnStartUnitMove();
+                var unitAStar = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>();
+                unitAStar?.OnStartUnitMove();
             }
         }
     }

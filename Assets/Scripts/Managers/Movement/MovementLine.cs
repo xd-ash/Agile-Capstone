@@ -37,8 +37,8 @@ public class MovementLine : MonoBehaviour
             return false;
 
         Unit unit = TurnManager.GetCurrentUnit;
-        var unitMover = unit.GetComponent<UnitMovementController>();
-        List<PathMarker> path = unitMover.CalculatePath((Vector2Int)tilePos);
+        var unitAStar = unit.GetComponent<FindPathAStar>();
+        List<PathMarker> path = unitAStar.CalculatePath((Vector2Int)tilePos);
         if (path == null || path.Count == 0)
             return false;
 

@@ -5,14 +5,14 @@ using XNode;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/On Last Coin Flip")]
-    public class OnLastCoinFlipEffect : EffectStrategy, IFlipCoins
+    public class OnLastCoinFlipEffect : EffectStrategy
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onHeads;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onTails;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
+            base.StartEffect(abilityData, onFinished, effectValueChange);
 
             bool lastCoinFlip = SpecialMechanicsManager.Instance.GetLastCoinFlipOutcome(abilityData.GetUnit);
 

@@ -1,47 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3487186123822588090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae5b2b3ff173d174db191a65eea079e3, type: 3}
-  m_Name: Self Target
-  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.SelfTarget
-  graph: {fileID: 11400000}
-  position: {x: -67, y: -155}
-  ports:
-    keys:
-    - abilityRoot
-    - aoeStrat
-    values:
-    - _fieldName: abilityRoot
-      _node: {fileID: -3487186123822588090}
-      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: targeting
-        node: {fileID: 5779656427768055481}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: aoeStrat
-      _node: {fileID: -3487186123822588090}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  abilityRoot: 0
-  aoeStrat: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,18 +13,18 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: 
   nodes:
+  - {fileID: 1766287723113216939}
   - {fileID: 5779656427768055481}
   - {fileID: 2719676598115075082}
-  - {fileID: -3487186123822588090}
-  _description: Heal 4 HP
+  _description: Heal %0% HP
   _abilitySFX: {fileID: 8300000, guid: d9b4b2149cd9459458292b65c4a4d216, type: 3}
-  _cardCategory: 0
-  _cardTags: 
+  _cardCategory: 2
+  _cardTags: 01000000
   _effectValue: 0
   _apCost: 2
-  _range: 1
-  _shopCost: 20
-  _shopWeight: 65
+  _range: 0
+  _shopCost: 10
+  _shopWeight: 30
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -74,10 +32,60 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 0
+  _attackAnimKey: 17
   _baseCardRarity: 0
-  _onRareUpgradeEffects: []
-  _onEpicUpgradeEffects: []
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Heal Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 2719676598115075082}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Heal Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: 2719676598115075082}
+--- !u!114 &1766287723113216939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5b2b3ff173d174db191a65eea079e3, type: 3}
+  m_Name: Self Target
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -72, y: -216}
+  ports:
+    keys:
+    - abilityRoot
+    - aoeStrat
+    values:
+    - _fieldName: abilityRoot
+      _node: {fileID: 1766287723113216939}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: targeting
+        node: {fileID: 5779656427768055481}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: 1766287723113216939}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
 --- !u!114 &2719676598115075082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +156,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: abilityRoot
-        node: {fileID: -3487186123822588090}
+        node: {fileID: 1766287723113216939}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
