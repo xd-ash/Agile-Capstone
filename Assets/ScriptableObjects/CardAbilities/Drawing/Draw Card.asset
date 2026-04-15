@@ -61,15 +61,15 @@ MonoBehaviour:
   - {fileID: 282906417093084810}
   - {fileID: -2584462224668346045}
   - {fileID: 5885419445873208339}
-  _description: Draw 2 Cards
+  _description: Draw %0% cards
   _abilitySFX: {fileID: 8300000, guid: 84d89edba7bdb4328ae3e28916cd8b6b, type: 3}
-  _cardCategory: 0
+  _cardCategory: 4
   _cardTags: 04000000
   _effectValue: 0
-  _apCost: 2
+  _apCost: 3
   _range: 0
   _shopCost: 15
-  _shopWeight: 65
+  _shopWeight: 30
   _baseHitChance: 80
   _minHitChance: 10
   _maxHitChance: 95
@@ -78,6 +78,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -2584462224668346045}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -2584462224668346045}
 --- !u!114 &282906417093084810
 MonoBehaviour:
   m_ObjectHideFlags: 0

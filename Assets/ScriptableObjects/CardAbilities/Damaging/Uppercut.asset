@@ -140,13 +140,14 @@ MonoBehaviour:
   - {fileID: 8242178612725973563}
   - {fileID: 5214614789712125746}
   - {fileID: 1749214265357291714}
-  _description: Deal 5 melee damage and draw one card
+  _description: Deal %0% melee damage and draw %1% card
+  _cardImage: {fileID: 21300000, guid: fb4c036423b780248937fcd6d034eb2d, type: 3}
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
   _cardCategory: 0
   _cardTags: 0000000004000000
   _effectValue: 0
   _apCost: 4
-  _range: 1
+  _range: 3
   _shopCost: 20
   _shopWeight: 35
   _baseHitChance: 100
@@ -156,7 +157,26 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 9
+  _attackAnimKey: 2
+  _baseCardRarity: 1
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -3802151944912286412}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -3802151944912286412}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -3802151944912286412}
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -3802151944912286412}
 --- !u!114 &1749214265357291714
 MonoBehaviour:
   m_ObjectHideFlags: 0

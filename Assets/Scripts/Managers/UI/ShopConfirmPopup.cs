@@ -33,8 +33,11 @@ public class ShopConfirmPopup : MonoBehaviour
             _canvasGroup.gameObject.SetActive(false);
         }
 
-        if (_confirmButton != null) _confirmButton.onClick.AddListener(OnConfirmPressed);
-        if (_cancelButton != null) _cancelButton.onClick.AddListener(OnCancelPressed);
+        _confirmButton?.onClick.RemoveAllListeners();
+        _confirmButton?.onClick.AddListener(OnConfirmPressed);
+
+        _cancelButton?.onClick.RemoveAllListeners();
+        _cancelButton?.onClick.AddListener(OnCancelPressed);
     }
 
     /// <summary>

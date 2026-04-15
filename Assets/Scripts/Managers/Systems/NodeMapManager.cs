@@ -34,7 +34,6 @@ public class NodeMapManager : MonoBehaviour
         }
 
         Instance = this;
-        //_bountySelectPanel = FindFirstObjectByType<BountySelectPanelScript>(FindObjectsInactive.Include);
     }
     private void Start()
     {

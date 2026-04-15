@@ -19,10 +19,11 @@ namespace CardSystem
 
 		// check if user (Unit) is able to use abailty with AP, start targeting
 		// based on connected targeting strategy port
-        public void UseAbility(Unit user)
+        public void UseAbility(Unit user, CardRarity rarity = CardRarity.Common)
 		{
 			if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
 				return;
 			
             if (_targetingStrategy == null)
@@ -30,7 +31,7 @@ namespace CardSystem
 
 			if (!user.SpendAP(_cardDefinition.GetApCost, false)) return; // simply check if ap can be spent
 
-            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user));
+            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user), rarity);
             Action onFinished = () =>
             {
                 // Method sent through to be called after targeting strategy finishes
@@ -75,7 +76,7 @@ namespace CardSystem
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
-            AbilityEvents.AbilityUsed(abilityData.GetUnit.GetTeam); //moved here to avoid early card removal/delete on multi effect cards
+            AbilityEvents.AbilityUsed(abilityData.GetUnit.GetTeam, _cardDefinition.GetCardCategory); //moved here to avoid early card removal/delete on multi effect cards
         }
 
         // Unused method for now, kept just for reminder of tutorial system setup

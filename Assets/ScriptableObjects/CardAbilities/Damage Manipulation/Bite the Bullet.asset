@@ -105,10 +105,10 @@ MonoBehaviour:
   - {fileID: 4399271552075898318}
   - {fileID: 4660106898515325862}
   - {fileID: -8030094250119851253}
-  _description: Deal 3 damage to yourself and draw 2 cards
+  _description: Deal %0% damage to yourself and draw %1% cards
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
-  _cardTags: 0300000004000000
+  _cardTags: 0500000004000000
   _effectValue: 0
   _apCost: 1
   _range: 0
@@ -121,7 +121,26 @@ MonoBehaviour:
   _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 17
+  _attackAnimKey: 0
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -3293600778629019179}
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: -8030094250119851253}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -3293600778629019179}
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -8030094250119851253}
 --- !u!114 &4399271552075898318
 MonoBehaviour:
   m_ObjectHideFlags: 0

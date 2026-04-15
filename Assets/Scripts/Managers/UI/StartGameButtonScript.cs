@@ -37,8 +37,12 @@ public class StartGameButtonScript : MonoBehaviour
     public void LaunchGame()
     {
         if (_isNewGame)
+        {
             SaveLoadScript.CreateNewGame?.Invoke();
-        SaveLoadScript.LoadGame?.Invoke();
+            PlayerDataManager.Instance.CreatePlayerDeckFromPacks(); //inital deck creation
+        }
+        else
+            SaveLoadScript.LoadGame?.Invoke();
         TransitionScene.Instance.StartTransition(_targetScene);
     }
 }

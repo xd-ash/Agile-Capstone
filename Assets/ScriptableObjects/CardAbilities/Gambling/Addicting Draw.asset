@@ -219,13 +219,13 @@ MonoBehaviour:
   - {fileID: -2107084117080994363}
   - {fileID: -2958339069064852565}
   - {fileID: 1502323548779038394}
-  _description: Flip a coin every turn for 3 turns. If heads get 3 shield, if tails
-    draw 2
+  _description: Flip a coin every turn for %0% turns. If heads get %1% shield, if
+    tails draw %2%
   _abilitySFX: {fileID: 0}
-  _cardCategory: 0
+  _cardCategory: 6
   _cardTags: 030000000200000004000000
   _effectValue: 0
-  _apCost: 3
+  _apCost: 4
   _range: 0
   _shopCost: 0
   _shopWeight: 0
@@ -237,6 +237,33 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 8484646456406289281}
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -2958339069064852565}
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 1502323548779038394}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 8484646456406289281}
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 8484646456406289281}
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 8484646456406289281}
 --- !u!114 &1408239652498209629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,5 +418,5 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 1
+  _doEffectOnApply: 1
   _tickOnStart: 1

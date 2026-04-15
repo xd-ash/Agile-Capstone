@@ -208,9 +208,9 @@ MonoBehaviour:
   - {fileID: -2651332736042962349}
   - {fileID: 2272785073385819277}
   - {fileID: -3503993893553348278}
-  _description: Deal 5 damage to all enemies in a short range
+  _description: Deal %0% AOE damage
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
-  _cardCategory: 0
+  _cardCategory: 5
   _cardTags: 0000000008000000
   _effectValue: 0
   _apCost: 3
@@ -224,7 +224,18 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 16
+  _attackAnimKey: 2
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -8393294752202084253}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -8393294752202084253}
 --- !u!114 &2272785073385819277
 MonoBehaviour:
   m_ObjectHideFlags: 0

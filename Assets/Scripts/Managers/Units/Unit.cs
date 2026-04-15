@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using CardSystem;
+using AStarPathfinding;
 
 public enum Team {Friendly, Enemy}
 public class Unit : MonoBehaviour, IDamagable
@@ -39,9 +40,12 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
     public bool GetCanMove => _canMove;
+    public bool GetIsMoving => TryGetComponent(out FindPathAStar astar) && astar.GetIsMoving;
     public Guid GetGuid => _unitGuid;
 
     public event Action<Unit> OnApChanged;
+    
+    public void RaiseApChanged() => OnApChanged?.Invoke(this);
 
     private void Awake()
     {
@@ -141,6 +145,8 @@ public class Unit : MonoBehaviour, IDamagable
             else
             {
                 WinLossManager.Instance.GetEnemyUnits.Remove(this);
+                if (TurnManager.GetCurrentUnit == this)
+                    TurnManager.Instance.EndEnemyTurn();
                 if (WinLossManager.Instance.GetEnemyUnits.Count == 0)
                     GameOverEvents.OnGameWinOrLoss(true);
             }
@@ -292,4 +298,19 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _targetingCoroutine = StartCoroutine(targetingCoro);
     }
+    public void AddAP(int amount)
+    {
+        if (amount == 0) return;
+
+        _ap = Mathf.Clamp(_ap + amount, 0, _maxAP);
+        OnApChanged?.Invoke(this);
+    }
+
+    
+    public void AddHealthDelta(int delta)
+    {
+        if (delta == 0) return;
+        ChangeHealth(Mathf.Abs(delta), isGain: delta > 0);
+    }
+
 }

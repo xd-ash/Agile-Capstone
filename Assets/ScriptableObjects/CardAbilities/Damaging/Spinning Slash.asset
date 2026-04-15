@@ -139,15 +139,16 @@ MonoBehaviour:
   - {fileID: -2607912168574071115}
   - {fileID: 6895538949277949010}
   - {fileID: -2866850248734041623}
-  _description: Deal 3 AOE damage
+  _description: Deal %0% AOE damage
+  _cardImage: {fileID: 21300000, guid: 0ca5c8cbe4fa6e0478b142088d28e2ed, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
   _cardTags: 0000000008000000
   _effectValue: 0
   _apCost: 2
-  _range: 2
-  _shopCost: 0
-  _shopWeight: 0
+  _range: 5
+  _shopCost: 10
+  _shopWeight: 15
   _baseHitChance: 100
   _minHitChance: 0
   _maxHitChance: 100
@@ -156,6 +157,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 5
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: -2866850248734041623}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Damage Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: -2866850248734041623}
 --- !u!114 &5292118119354859995
 MonoBehaviour:
   m_ObjectHideFlags: 0

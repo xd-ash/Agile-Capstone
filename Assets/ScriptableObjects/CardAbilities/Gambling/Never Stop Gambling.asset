@@ -137,9 +137,9 @@ MonoBehaviour:
   - {fileID: -6479177534551180764}
   - {fileID: -8670283676976407989}
   - {fileID: 2814463342058001882}
-  _description: If your last flip was heads, draw 3 cards
+  _description: If your last flip was heads, draw %0% cards
   _abilitySFX: {fileID: 0}
-  _cardCategory: 0
+  _cardCategory: 6
   _cardTags: 0300000004000000
   _effectValue: 0
   _apCost: 1
@@ -154,6 +154,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 2814463342058001882}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 2814463342058001882}
 --- !u!114 &2814463342058001882
 MonoBehaviour:
   m_ObjectHideFlags: 0

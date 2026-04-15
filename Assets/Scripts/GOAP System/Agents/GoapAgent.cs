@@ -60,14 +60,6 @@ public class GoapAgent : MonoBehaviour
             a?.GrabConditionsFromEnums();
 
         ResetStates();
-        /*
-        _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
-        CheckForAP(unit, ref _beliefs);
-        
-        // Init goal dict creation from list in inspector
-        foreach (var g in _goals)
-            _weightedGoalsDict.Add(g, g.value);
-        */
     }
 
     // INCOMPLETE make more secure with deleting null actions or actions added in inpsector by hitting +
@@ -171,7 +163,6 @@ public class GoapAgent : MonoBehaviour
     {
         _currentAction.running = false;
         _currentAction.PostPerform(ref _beliefs);
-        //TurnManager.Instance.UpdateApText();
         GameUIManager.instance.UpdateApText();
         if (!_beliefs.states.ContainsKey(GoapStates.HasAttacked.ToString()))
             CheckForAP(unit, ref _beliefs);
@@ -228,7 +219,7 @@ public class GoapAgent : MonoBehaviour
     {
         if (TurnManager.GetCurrentUnit != unit) return;
         if (_currentAction != null && _currentAction.running) return;
-
+        
         if (_planner == null || _actionQueue == null)
         {
             _planner = new GoapPlanner(this);

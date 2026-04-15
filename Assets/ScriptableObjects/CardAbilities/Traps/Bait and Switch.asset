@@ -153,9 +153,9 @@ MonoBehaviour:
   - {fileID: -5809867982243863817}
   - {fileID: 215215104908119812}
   - {fileID: 3932998406960985764}
-  _description: 'Place a trap: when an enemy steps on it draw 1 card'
+  _description: 'Place a trap: when an enemy steps on it draw %0% card'
   _abilitySFX: {fileID: 0}
-  _cardCategory: 0
+  _cardCategory: 5
   _cardTags: 0600000004000000
   _effectValue: 0
   _apCost: 2
@@ -170,6 +170,17 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 3932998406960985764}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Deck Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 3932998406960985764}
 --- !u!114 &215215104908119812
 MonoBehaviour:
   m_ObjectHideFlags: 0

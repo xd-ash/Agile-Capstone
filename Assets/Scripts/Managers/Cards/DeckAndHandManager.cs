@@ -28,7 +28,7 @@ namespace CardSystem
         private Card _selectedCard = null;
 
         // runtime deck support
-        private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
+        //private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         public bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
         //public Deck GetDeck => _deck;
@@ -36,7 +36,7 @@ namespace CardSystem
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
-        public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
+        //public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
 
         public Action OnCardAblityCancel;
 
@@ -52,7 +52,7 @@ namespace CardSystem
         public void DrawCard(int count = 1)
         {
             AudioManager.Instance?.PlayDrawCardSfx();
-            var deck = PlayerDataManager.Instance.GetActiveDeck;
+            var deck = PlayerDataManager.Instance.GetPlayerDeck;
 
             if (count <= 0) return;
             for (int i = 0; i < count; i++)
@@ -60,29 +60,23 @@ namespace CardSystem
                 if (_cardsInHand.Count >= _maxCards) return;
                 if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
 
-                if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
+                /*if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
                 {
                     // build fallback minimal runtime list from _deck if necessary
                     if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
                     _runtimeDeckList = new List<CardAbilityDefinition>(deck.GetCardsInDeck);
-                }
+                }*/
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
-                if (_topCardOfDeck >= _runtimeDeckList.Count)
+                if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
                 {
                     ShuffleDeck();
                     _topCardOfDeck = 0;
                 }
 
-                /*Card newCard = null;
-                if (_topCardOfDeck < _runtimeDeckList.Count)
-                    newCard = new Card(_runtimeDeckList[_topCardOfDeck]); // This creates the card with SO data
-                if (newCard == null) return;
-                */
                 _cardsInHand.Add(CreateCardAndPrefab());
 
                 _topCardOfDeck++;
-                //_nextCardInHandIndex++;
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
                 if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
@@ -98,11 +92,9 @@ namespace CardSystem
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
         public void DrawStartingHand(bool force = false)
         {
-            _startingHandDrawn = true;
-
             if (!force && _startingHandDrawn) return;
             _startingHandDrawn = true;
-            
+    
             if (_startingHandSize <= 0) return;
 
             DiscardAll();
@@ -136,7 +128,8 @@ namespace CardSystem
 
             // Block cards if tutorial is active and not in card step
             if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                 return;
 
             if (_selectedCard != card)
@@ -184,75 +177,62 @@ namespace CardSystem
             CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
-        public void AddDefinitionToRuntimeDeck(CardAbilityDefinition def)
+        public void AddCardToRuntimeDeck(Card card)
         {
-            if (def == null) return;
+            if (card == null) return;
 
-            //PlayerCardCollection.instance.Add(def);
-            PlayerDataManager.Instance.UpdateCardData(def);
+            PlayerDataManager.Instance.UpdateCardData(card);
             ShuffleDeck();
         }
 
         private void ShuffleDeck()
         {
-            _runtimeDeckList.Clear();
-            var deck = PlayerDataManager.Instance.GetActiveDeck;
-
-            if (deck != null && deck.GetCardsInDeck != null)
-                _runtimeDeckList.AddRange(deck.GetCardsInDeck);
-
             if (PlayerDataManager.Instance == null) return;
 
-            // include any persisted/purchased cards into the runtime deck
-            foreach (var def in PlayerDataManager.Instance.GetOwnedCards)
-                if (def != null)
-                    _runtimeDeckList.Add(def);
-
-            if (_runtimeDeckList == null || _runtimeDeckList.Count <= 1) return;
+            var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
+            if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count <= 1) return;
+            var cardsInDeck = deck.GetCardsInDeck;
 
             // Fisher-Yates shuffle algorithm on runtime list
-            for (int i = _runtimeDeckList.Count - 1; i > 0; i--)
+            for (int i = cardsInDeck.Count - 1; i > 0; i--)
             {
                 int randomIndex = UnityEngine.Random.Range(0, i + 1);
-                var temp = _runtimeDeckList[i];
-                _runtimeDeckList[i] = _runtimeDeckList[randomIndex];
-                _runtimeDeckList[randomIndex] = temp;
+                var temp = cardsInDeck[i];
+                cardsInDeck[i] = cardsInDeck[randomIndex];
+                cardsInDeck[randomIndex] = temp;
             }
 
             _topCardOfDeck = 0;
         }
 
-        public CardAbilityDefinition[] PeekTopDefinitions(int count)
+        public Card[] PeekTopCards(int count)
         {
-            var deck = PlayerDataManager.Instance.GetActiveDeck;
+            if (count <= 0) return Array.Empty<Card>();
 
-            if ((_runtimeDeckList == null || _runtimeDeckList.Count == 0) && (deck == null || deck.GetCardsInDeck == null))
-                return Array.Empty<CardAbilityDefinition>();
+            var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
+            if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return Array.Empty<Card>();
+            var cardsInDeck = deck.GetCardsInDeck;
 
-            var source = (_runtimeDeckList != null && _runtimeDeckList.Count > 0)
-                ? _runtimeDeckList : new List<CardAbilityDefinition>(deck.GetCardsInDeck);
+            int available = Math.Max(0, Math.Min(count, cardsInDeck.Count - _topCardOfDeck));
+            if (available == 0) return Array.Empty<Card>();
 
-            if (count <= 0) return Array.Empty<CardAbilityDefinition>();
-
-            int available = Math.Max(0, Math.Min(count, source.Count - _topCardOfDeck));
-            if (available == 0) return Array.Empty<CardAbilityDefinition>();
-
-            CardAbilityDefinition[] result = new CardAbilityDefinition[available];
-            source.CopyTo(_topCardOfDeck, result, 0, available);
+            Card[] result = new Card[available];
+            cardsInDeck.CopyTo(_topCardOfDeck, result, 0, available);
             return result;
         }
 
-        public Card CreateCardAndPrefab(/*Card card*/)
+        public Card CreateCardAndPrefab()
         {
-            GameObject cardGO = Instantiate(Resources.Load<GameObject>("CardTestPrefab"), transform);
+            var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
+            if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return null;
+            var cardsInDeck = deck.GetCardsInDeck;
 
-            Card newCard = null;
-            if (_topCardOfDeck < _runtimeDeckList.Count)
-                newCard = new Card(_runtimeDeckList[_topCardOfDeck], cardGO.transform); // This creates the card with SO data
+            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), transform);
 
-            if (!cardGO.TryGetComponent(out CardSelect cs))
-                cs = cardGO.AddComponent<CardSelect>();
-            cs.OnPrefabCreation(newCard);
+            if (_topCardOfDeck >= cardsInDeck.Count) return null;
+
+            Card newCard = new Card(cardsInDeck[_topCardOfDeck], cardGO.transform);
+            CardPrefabSetterUpper.SetupCardPrefab(newCard, CardState.Combat);
 
             return newCard;
         }
@@ -281,11 +261,13 @@ namespace CardSystem
         /// </summary>
         public void LogRuntimeDeck()
         {
-            var defs = GetRuntimeDeck;
-            Debug.Log($"[CardManager] Runtime deck contains {defs.Length} definitions.");
-            for (int i = 0; i < defs.Length; i++)
+            if (PlayerDataManager.Instance == null) return;
+            var cardsInDeck = PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck;
+
+            Debug.Log($"[CardManager] Runtime deck contains {cardsInDeck.Count} definitions.");
+            for (int i = 0; i < cardsInDeck.Count; i++)
             {
-                var d = defs[i];
+                var d = cardsInDeck[i];
                 Debug.Log($"[CardManager] #{i}: {(d != null ? d.GetCardName : "<null>")}");
             }
         }

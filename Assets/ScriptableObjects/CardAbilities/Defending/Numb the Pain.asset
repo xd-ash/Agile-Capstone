@@ -17,9 +17,9 @@ MonoBehaviour:
   - {fileID: 1719853233209040065}
   - {fileID: 5891076385349709056}
   - {fileID: 4110972424447529229}
-  _description: Gain 2 shield every turn for for 5 turns
+  _description: Gain %1% shield every turn for %0% turns
   _abilitySFX: {fileID: 0}
-  _cardCategory: 0
+  _cardCategory: 3
   _cardTags: 02000000
   _effectValue: 0
   _apCost: 3
@@ -34,6 +34,25 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 17
+  _baseCardRarity: 0
+  _onRareUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 1
+    effectToUpgrade: {fileID: 5891076385349709056}
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 4110972424447529229}
+  _onEpicUpgradeEffects:
+  - cardDef: {fileID: 11400000}
+    effectName: Over Time Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 5891076385349709056}
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 4
+    effectToUpgrade: {fileID: 4110972424447529229}
 --- !u!114 &1719853233209040065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,5 +271,5 @@ MonoBehaviour:
   input: 0
   effectVisuals: 0
   effects: 0
-  _doEffectAtStart: 1
+  _doEffectOnApply: 1
   _tickOnStart: 1

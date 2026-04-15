@@ -686,13 +686,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pool:
-    _deckName: 
-    _cardsInDeck: []
+  - {fileID: 0}
+  - {fileID: 0}
   _spawnOnStart: 1
   _initialSpawnCount: 5
   _spawnParent: {fileID: 1373974064}
-  _localOffset: {x: 0, y: 0, z: 0}
-  _fanWidth: 15
+  _localOffset: {x: 50, y: 0, z: 0}
+  _fanWidth: 600
   _arcHeight: 0
   _maxTilt: 0
   _refreshCost: 10
@@ -704,12 +704,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238584678}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 959.2745, y: 532.5094, z: 4.0642953}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1373974064}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &244644486
@@ -1679,12 +1678,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373974063}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -959.73, y: -533.01, z: 0}
-  m_LocalScale: {x: 0.65529, y: 0.65529, z: 0.65529}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -25.8, z: -4051.7368}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 238584680}
+  m_Father: {fileID: 1808137416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1707283557
 GameObject:
@@ -1891,8 +1890,8 @@ Canvas:
   m_GameObject: {fileID: 1808137412}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 2104982743}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1921,8 +1920,9 @@ RectTransform:
   - {fileID: 234590223}
   - {fileID: 622945341}
   - {fileID: 29458808}
-  - {fileID: 513064778}
   - {fileID: 1046733941}
+  - {fileID: 1373974064}
+  - {fileID: 513064778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2918,9 +2918,9 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2061576945}
   - {fileID: 635392080}
   - {fileID: 2104982744}
-  - {fileID: 1808137416}
-  - {fileID: 2061576945}
   - {fileID: 238584680}
+  - {fileID: 1808137416}
   - {fileID: 1874359708}

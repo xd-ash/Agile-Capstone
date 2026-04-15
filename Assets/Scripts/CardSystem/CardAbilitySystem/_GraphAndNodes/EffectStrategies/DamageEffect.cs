@@ -20,9 +20,9 @@ namespace CardSystem
                     _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
 
                     if (!hit) continue;
-
-                    targetUnit.ChangeHealth(_effectValue, false);
-                    targetUnit.GetFloatingText.SpawnFloatingText($"-{_effectValue}", TextPresetType.DamagePreset);
+                    var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+                    targetUnit.ChangeHealth(adjustedEffectVal, false);
+                    targetUnit.GetFloatingText.SpawnFloatingText($"-{adjustedEffectVal}", TextPresetType.DamagePreset);
                 }
             }
             
