@@ -18,7 +18,7 @@ namespace CardSystem
         private CardState _state;
 
         [Header("Visual Settings")]
-        [SerializeField] private float _handAreaHeight = 2f; // Height of the hand area (add gizmo for editing?)
+        [SerializeField] private float _handAreaHeight = -1.5f; // Height of the hand area (add gizmo for editing?)
         private bool _isAboveHandArea = false;
 
         [Header("Visual Feedback")]
