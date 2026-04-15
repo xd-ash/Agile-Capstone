@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5e7c01cb370d74cb6a1281704bb656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.CardSelect
-  _handAreaHeight: 2
+  _handAreaHeight: -1.2
   _hoverScaleMultiplier: 1.2
   _dragScaleMultiplier: 1.4
   _tweenDuration: 0.2
