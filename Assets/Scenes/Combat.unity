@@ -3318,7 +3318,7 @@ Transform:
   m_GameObject: {fileID: 1430616791}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -431, y: -0.49, z: 0}
+  m_LocalPosition: {x: -396, y: -41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3768,6 +3768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63c42569c9ac04bae120522d983e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardParentOnCanvas: {fileID: 0}
   _maxCards: 10
   _startingHandSize: 5
   _cardsInHand: []
@@ -3779,19 +3780,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691110205}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.82730085, y: 0.82730085, z: 0.82730085}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1430616792}
-  m_Father: {fileID: 1895713566}
+  m_Father: {fileID: 1937536020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 399.99997, y: 225.02585}
+  m_SizeDelta: {x: 967, y: 544}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1691110208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4569,7 +4570,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1865530329}
-  - {fileID: 1691110207}
   - {fileID: 1278766396}
   - {fileID: 752325241}
   - {fileID: 1395463653}
@@ -4763,6 +4763,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 713631041}
+  - {fileID: 1691110207}
   - {fileID: 1169428974}
   - {fileID: 861581365}
   - {fileID: 2086809831}
