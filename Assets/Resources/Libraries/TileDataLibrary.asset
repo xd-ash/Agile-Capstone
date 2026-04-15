@@ -24,13 +24,13 @@ MonoBehaviour:
     _tileContentPrefabs:
     - {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
     - {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
-  - _tileName: TestSpriteSheetProcGenDC_7
-    _tileBase: {fileID: 11400000, guid: 70ea7ea0d05bd9143b11baa30010a743, type: 2}
+  - _tileName: RangeEnemySpawnTile
+    _tileBase: {fileID: 11400000, guid: ee5769bf3ec700341906851854d6f77e, type: 2}
     _byteIndicator: 6
     _tileContentPrefabs:
     - {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
-  - _tileName: TestSpriteSheetProcGenDC_8
-    _tileBase: {fileID: 11400000, guid: 8b3769260551c0c4dbb2fbad92eeaaf9, type: 2}
+  - _tileName: MeleeEnemySpawnTile
+    _tileBase: {fileID: 11400000, guid: bd38342c167899d4daafb9e197fc42f2, type: 2}
     _byteIndicator: 7
     _tileContentPrefabs:
     - {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
