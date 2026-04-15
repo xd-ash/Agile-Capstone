@@ -82,7 +82,7 @@ public class GameData
 
         if (newGameData)
         {
-            _mapNodeData = new(null, new(0,0), -1, -1);
+            _mapNodeData = new(null, new(0, 0), -1, -1);
             _currencyData = new(100);
             _cardData = new(null, pdm.GetInitialCardPacks, pdm.GetAllPlayerPacks);
             _specialMechanicData = new(new bool[0], new int[0]);
@@ -129,7 +129,7 @@ public class GameData
         [SerializeField] private int _x;
         [SerializeField] private int _y;
 
-        public Vector2Int GetVector2Int => new(_x,_y);
+        public Vector2Int GetVector2Int => new(_x, _y);
 
         public Vector2IntToken(int x, int y)
         {
@@ -234,12 +234,27 @@ public class SettingsData
     public class OptionsSettingsToken
     {
         [SerializeField] private bool _isCardSelectOnClick;
+        [SerializeField] private int _targetFrameRate;
+        [SerializeField] private bool _autoEndTurn;
+        [SerializeField] private int _resolutionWidth;
+        [SerializeField] private int _resolutionHeight;
+        [SerializeField] private int _fullscreenModeIndex;
 
         public bool IsCardSelectOnClick => _isCardSelectOnClick;
+        public int TargetFrameRate => _targetFrameRate;
+        public bool AutoEndTurn => _autoEndTurn;
+        public int ResolutionWidth => _resolutionWidth;
+        public int ResolutionHeight => _resolutionHeight;
+        public int FullscreenModeIndex => _fullscreenModeIndex;
 
         public OptionsSettingsToken()
         {
             _isCardSelectOnClick = OptionsSettings.IsCardSelectOnClick;
+            _targetFrameRate = OptionsSettings.TargetFrameRate;
+            _autoEndTurn = OptionsSettings.AutoEndTurn;
+            _resolutionWidth = OptionsSettings.ResolutionWidth;
+            _resolutionHeight = OptionsSettings.ResolutionHeight;
+            _fullscreenModeIndex = OptionsSettings.FullscreenModeIndex;
         }
     }
 

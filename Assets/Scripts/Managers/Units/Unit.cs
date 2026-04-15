@@ -236,9 +236,9 @@ public class Unit : MonoBehaviour, IDamagable
     }
     public void RestoreAP(int amount)
     {
-        _ap += amount;
-        if (_ap >= _maxAP)
-            _ap = _maxAP;
+        if (amount == 0) return;
+
+        _ap = Mathf.Clamp(_ap + amount, 0, _maxAP);
         OnApChanged?.Invoke(this);
     }
 
@@ -289,5 +289,11 @@ public class Unit : MonoBehaviour, IDamagable
     public void StartTargetingCoroutine(IEnumerator targetingCoro)
     {
         _targetingCoroutine = StartCoroutine(targetingCoro);
+    }
+
+    public void AddHealthDelta(int delta)
+    {
+        if (delta == 0) return;
+        ChangeHealth(Mathf.Abs(delta), isGain: delta > 0);
     }
 }

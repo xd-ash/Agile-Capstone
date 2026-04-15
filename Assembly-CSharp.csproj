@@ -77,6 +77,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\OverTimeEffect.cs" />
     <Compile Include="Assets\Scripts\Managers\Movement\MovementRangeCalculator.cs" />
+    <Compile Include="Assets\Scripts\GOAP System\Agents\GoapAgentPriorityController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\AttackAction.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\CanvasCameraSetter.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\ShopConfirmPopup.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Scripts\NodeMapCreation\NodeMapCreator.cs" />
     <Compile Include="Assets\Scripts\Interfaces\AbilityInterfaces.cs" />
     <Compile Include="Assets\SceneTransitioner.cs" />
+    <Compile Include="Assets\Scripts\GOAP System\Actions\MoveToRangeAction.cs" />
     <Compile Include="Assets\Scripts\Managers\Tutorial\TutorialManager.cs" />
     <Compile Include="Assets\Scripts\NodeMapCreation\BossNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="Assets\Scripts\AnimScripts\DirectionAnimator.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\OtherMoveAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\CommentedOut\AbilityController.cs" />
+    <Compile Include="Assets\Scripts\GOAP System\Actions\HideAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\RollDieDirectEffect.cs" />
     <Compile Include="Assets\Scripts\NodeMapCreation\CampNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Assets\Scripts\BountyBoard\BountyButton.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\Scripts\Rewards\Reward.cs" />
+    <Compile Include="Assets\Scripts\GOAP System\Agents\GoapAgentSO.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\SpawnObjectTracker.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\APDisplay.cs" />
     <Compile Include="Assets\Scripts\CardSystem\DeckViewerScript.cs" />
@@ -144,6 +148,7 @@
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\SingleCoinFlip.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\FloatingTextController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
+    <Compile Include="Assets\Scripts\GOAP System\Actions\MoveOutOfLOSAction.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\ScriptableObjects\NewMapCreationSOs\Scripts\TileMapObjRepositioner.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\SpawnObjectEffect.cs" />
@@ -168,6 +173,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Managers\Systems\WinLossManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Movement\TileHighlighter.cs" />
+    <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\TargetingStrategies\TargetingEmptyIdentifier.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\CurrencyDisplay.cs" />
     <Compile Include="Assets\Scripts\Rewards\RewardSelectScript.cs" />
     <Compile Include="Assets\Scripts\WFC\TileModule.cs" />
@@ -218,6 +224,7 @@
     <Compile Include="Assets\Scripts\GOAP System\Actions\--CopyMe--.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\WFC\ProceduralTileLibrary.cs" />
+    <Compile Include="Assets\Scripts\Managers\Movement\UnitMovementController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\EndTurnAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\SO Bases\CardAndDeckLibrary.cs" />
     <Compile Include="Assets\Scripts\CardSystem\EnterDeckNamePopup.cs" />

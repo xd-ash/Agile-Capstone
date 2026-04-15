@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\TileDataLbraryEditor.cs" />
+    <Compile Include="Assets\Editor\GOAPAgentSOEditor.cs" />
     <Compile Include="Assets\Editor\BadgeSOEditor.cs" />
     <Compile Include="Assets\Editor\CustomTileMapSOEditor.cs" />
     <Compile Include="Assets\Editor\TileModuleGenerator_Editor.cs" />
