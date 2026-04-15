@@ -506,8 +506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb899aadf58085646b35cfdce150217a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardUpgradeController
-  _upgradePreviewPanel: {fileID: 0}
-  _cardPrefabParent: {fileID: 0}
+  _upgradePreviewPanel: {fileID: 2091037443}
+  _cardPrefabParent: {fileID: 793952192}
   _selectedCard:
     _cardAbility: {fileID: 0}
     _rarity: 0
@@ -9555,7 +9555,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6.84, y: -0.0000019073486}
+  m_AnchoredPosition: {x: -6.840004, y: -0.0000019073486}
   m_SizeDelta: {x: -42.47, y: -6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &763930537
@@ -15453,7 +15453,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -16.4, y: -0.0000042915}
+  m_AnchoredPosition: {x: -16.400002, y: -0.0000042915}
   m_SizeDelta: {x: 14.57, y: 7.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1220975299
