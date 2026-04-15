@@ -11,6 +11,10 @@ public class MoveIntoLOSAction : GoapAction
     {
 
     }
+    public MoveIntoLOSAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.HasLOS.ToString()) || _agent.GetCurrentTarget == null) return false;

@@ -9,6 +9,10 @@ public class OtherMoveAction : GoapAction
     {
 
     }
+    public OtherMoveAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         _unitMover = _agent.GetComponent<UnitMovementController>();

@@ -32,10 +32,12 @@ public class UnitMovementController : MonoBehaviour
     public void OnKnockback(Vector2Int targetPos)
     {
         var curPos = ConvertToGridFromIsometric(transform.localPosition);
-        ByteMapController.Instance.UpdateUnitPositionByteMap(GetComponent<Unit>(), curPos, targetPos);
+        ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, curPos, targetPos);
 
         StopAllCoroutines();
         _onMoveFinish?.Invoke();
+
+        if (curPos == targetPos) return;
 
         _isKnockback = true;
         _isMoving = false;
@@ -95,7 +97,7 @@ public class UnitMovementController : MonoBehaviour
         _onMoveFinish = onFinished;
         //
 
-        if (_truePath.Count == 0 || _truePath == null) yield break;
+        if (_truePath == null || _truePath.Count == 0) yield break;
 
         _isMoving = true;
 
@@ -150,7 +152,6 @@ public class UnitMovementController : MonoBehaviour
                 GameUIManager.instance.UpdateApText();
                 ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, prev, next);
             }
-
 
             // tile enter event for trap check (make this better?)
             PrevPosOnMove = prev;

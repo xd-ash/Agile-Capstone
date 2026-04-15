@@ -12,9 +12,9 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
     [SerializeField] private bool _doEffectOnApply = true;
     [SerializeField] private bool _tickOnStart = true;
 
-    public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+    public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
     {
-        base.StartEffect(abilityData, onFinished, effectValueChange);
+        base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
         var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
 
@@ -43,11 +43,11 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
                     tmp.Targets = new [] { target };
                     
                     if (_doEffectOnApply)
-                        strat.StartEffect(tmp, onFinished);//initial effect trigger before store
+                        strat.StartEffect(tmp, onFinished, 0, false);//initial effect trigger before store
                     eTracker.AddEffect(() => 
                     {
                         tmp.AbilityTriggerPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit); //set ability trigger pos to target's pos before effect start
-                        strat.StartEffect(tmp, onFinished);
+                        strat.StartEffect(tmp, onFinished, 0, false);
                     }, adjustedEffectVal, Guid.NewGuid(), _tickOnStart, strat.name);
                 }
             }

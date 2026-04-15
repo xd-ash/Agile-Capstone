@@ -22,12 +22,59 @@ public abstract class GoapAction
     [SerializeField] protected GoapGoals _goalsFlags;
 
     public string GetActionName => _actionName;
+    public float GetCost => _cost;
+    public float GetCostMultiplier => _costMultiplier;
+    public GoapAgent GetAgent => _agent;
     public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
     public Dictionary<string, float> GetPreConditions => _preConditions;
     public Dictionary<string, float> GetPostConditions => _postConditions;
+    public GoapStates GetPreConditionFlagsEnum => _preConditionsFlags;
+    public GoapStates GetPostConditionFlagsEnum => _postConditionsFlags;
+    public GoapGoals GetGoalFlagsEnum => _goalsFlags;
+
     public GoapAction(string overrideName = "")
     {
         _actionName = overrideName == string.Empty ? this.ToString() : overrideName;
+    }
+    public GoapAction(GoapAction refAction)
+    {
+        _actionName = refAction.GetActionName;
+        _cost = refAction.GetCost;
+        _costMultiplier = refAction.GetCostMultiplier;
+        _agent = refAction.GetAgent;
+        //foreach (var kvp in refAction.GetPreConditions)
+            //_preConditions.Add(kvp.Key, kvp.Value);
+        //foreach (var kvp in refAction.GetPostConditions)
+            //_postConditions.Add(kvp.Key, kvp.Value);
+        _preConditionsFlags = refAction.GetPreConditionFlagsEnum;
+        _postConditionsFlags = refAction.GetPostConditionFlagsEnum;
+        _goalsFlags = refAction.GetGoalFlagsEnum;
+    }
+    public GoapAction Clone()
+    {
+        if (this is OtherMoveAction)
+            return new OtherMoveAction(this);
+        else if (this is MoveToRangeAction)
+            return new MoveToRangeAction(this);
+        else if (this is MoveOutOfLOSAction)
+            return new MoveOutOfLOSAction(this);
+        else if (this is MoveIntoLOSAction)
+            return new MoveIntoLOSAction(this);
+        else if (this is MoveInRangeAction)
+            return new MoveInRangeAction(this);
+        else if (this is HideAction)
+            return new HideAction(this);
+        else if (this is HealAction)
+            return new HealAction(this);
+        else if (this is EndTurnAction)
+            return new EndTurnAction(this);
+        else if (this is ChooseTargetAction)
+            return new ChooseTargetAction(this);
+        else if (this is AttackAction)
+            return new AttackAction(this);
+
+        Debug.Log($"Null action clone");
+        return null;
     }
 
     public void SetAgent(GoapAgent agent)
@@ -45,8 +92,8 @@ public abstract class GoapAction
         foreach (var c in tempPostCond)
             if (_postConditions != null && !_postConditions.ContainsKey(c.key))
                 _postConditions.Add(c.key, c.value);
-        
-        List<string> tempPreToString = new List<string>(), 
+
+        List<string> tempPreToString = new List<string>(),
                      tempPostToString = new List<string>();
 
         foreach (var s in tempPreCond)
@@ -101,26 +148,15 @@ public abstract class GoapAction
     }
     public bool IsAchievableGiven(Dictionary<string, float> conditions)
     {
-        /*/
-        string debugmessagfe = "";
-        foreach (var s in conditions)
-            debugmessagfe += $"{s.Key}, ";
-        Debug.Log($"Conditions Param: " + debugmessagfe);
-        string debugqweqwmessagfe = "";
-        foreach (var p in preConditions)
-            debugqweqwmessagfe += $"{p.Key}, ";
-        Debug.Log($"preconds: " + debugqweqwmessagfe);
-        /*/
-
         foreach (KeyValuePair<string, float> kvp in _preConditions)
             if (!conditions.ContainsKey(kvp.Key))
             {
                 //if (showDebug)
-                    //Debug.Log($"{this} is not achievable given {string.Join(", ", conditions.Keys)}");
+                //Debug.Log($"{this} is not achievable given {string.Join(", ", conditions.Keys)}");
                 return false;
             }
         //if (showDebug)
-            //Debug.Log($"{this} is achievable given {string.Join(", ", conditions.Keys)}");
+        //Debug.Log($"{this} is achievable given {string.Join(", ", conditions.Keys)}");
         return true;
     }
     public abstract bool PrePerform(ref WorldStates beliefs);

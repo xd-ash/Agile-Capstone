@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
-  m_Name: MeleeEnemyTest
+  m_Name: MeleeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
   _damageAbility: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
   _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
@@ -20,13 +20,11 @@ MonoBehaviour:
   - rid: 3457071463569817679
   - rid: 3457071463569817680
   - rid: 3457071463569817681
-  _goapActionsEnum: 502
+  _goapActionsEnum: 422
   _actions:
   - rid: 97859988893466696
   - rid: 97859988893466697
-  - rid: 97859988893466698
   - rid: 97859988893466699
-  - rid: 97859988893466700
   - rid: 97859988893466701
   - rid: 97859988893466702
   references:
@@ -50,15 +48,6 @@ MonoBehaviour:
         _preConditionsFlags: 67584
         _postConditionsFlags: 0
         _goalsFlags: 4
-    - rid: 97859988893466698
-      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: MoveIntoLOSAction
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 6146
-        _postConditionsFlags: 1024
-        _goalsFlags: 0
     - rid: 97859988893466699
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
@@ -68,15 +57,6 @@ MonoBehaviour:
         _preConditionsFlags: 0
         _postConditionsFlags: 0
         _goalsFlags: 16
-    - rid: 97859988893466700
-      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: ChooseTargetAction
-        _cost: 0
-        _costMultiplier: 0
-        _preConditionsFlags: 8194
-        _postConditionsFlags: 4096
-        _goalsFlags: 0
     - rid: 97859988893466701
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
@@ -93,7 +73,7 @@ MonoBehaviour:
         _cost: 1
         _costMultiplier: 1
         _preConditionsFlags: 4226
-        _postConditionsFlags: 64
+        _postConditionsFlags: 1088
         _goalsFlags: 0
     - rid: 3457071463569817679
       type: {class: Goal, ns: , asm: Assembly-CSharp}

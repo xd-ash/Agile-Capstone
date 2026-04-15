@@ -63,7 +63,10 @@ public class GoapAgent : MonoBehaviour
     public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
     public CardAbilityDefinition GetHealAbility => _agentSO?.GetHealAbility;
     public CardAbilityDefinition GetCurrentAbility => _currentGoal != null && _currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ?  _agentSO.GetHealAbility : _agentSO.GetDamageAbility;
-
+    public bool CheckForState(GoapStates state)
+    {
+        return _beliefs.GetStates.ContainsKey(state.ToString());
+    }
     private void Awake()
     {
         if (_agentSO == null)
@@ -72,12 +75,20 @@ public class GoapAgent : MonoBehaviour
             return;
         }
 
-        _actions = new(_agentSO.GetActions);
-        foreach (var a in _actions)
+        //_actions = new(_agentSO.GetActions);
+        _actions = new();
+        foreach (var action in _agentSO.GetActions)
+        {
+            var clonedAction = action.Clone();
+            _actions.Add(clonedAction);
+            clonedAction.SetAgent(this);
+            clonedAction.GrabConditionsFromEnums();
+        }
+        /*foreach (var a in _actions)
         {
             a.SetAgent(this);
             a.GrabConditionsFromEnums();
-        }
+        }*/
         _goals = new(_agentSO.GetGoals);
         healCharges = _agentSO.GetTotalHealCharges;
 
@@ -114,15 +125,12 @@ public class GoapAgent : MonoBehaviour
                 SetCurrentTargets(element.Value.targets[0], element.Value.targets[1]);
             }
 
-            //if (GetCurrentTarget != null && GetCurrentAbility != null)
-                //CheckRange(this, GetCurrentAbility.GetRange, ref _beliefs);
-
             if (_actionQueue == null || _actionQueue.Count == 0)
                 _buildFailCounter++;
 
             if (showDebugMessages && _actionQueue != null)
             {
-                string tempStr2 = $"{name}({(_currentGoal == null ? "null" : _currentGoal.key)}) - Chosen Plan: ";
+                string tempStr2 = $"{name} ({(_currentGoal == null ? "null" : _currentGoal.key)}) - Chosen Plan: ";
                 foreach (GoapAction a in _actionQueue)
                     tempStr2 += $"{a.GetActionName} > ";
                 Debug.Log(tempStr2 + $"(Cost: {cheapestCost})");
@@ -159,7 +167,7 @@ public class GoapAgent : MonoBehaviour
         { 
             _prevAction = _currentAction;
             _currentAction = _actionQueue.Dequeue();
-
+            
             if (_currentAction.PrePerform(ref _beliefs))
             {
                 if (showDebugMessages)
@@ -189,7 +197,7 @@ public class GoapAgent : MonoBehaviour
 
         // movement action into movement action should have no delay
         if ((_prevAction is MoveInRangeAction || _prevAction is MoveIntoLOSAction || _prevAction is MoveOutOfLOSAction || _prevAction is MoveToRangeAction) &&
-            (_currentAction is MoveInRangeAction || _currentAction is MoveIntoLOSAction || _currentAction is MoveOutOfLOSAction || _currentAction is MoveToRangeAction))
+            (_currentAction is MoveInRangeAction || _currentAction is MoveIntoLOSAction || _currentAction is MoveOutOfLOSAction || _currentAction is MoveToRangeAction || _currentAction is EndTurnAction))
             return false;
 
         return true;
@@ -216,7 +224,7 @@ public class GoapAgent : MonoBehaviour
             foreach (var b in _beliefs.GetStates)
                 //foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
-            Debug.Log(tempStr);
+            //Debug.Log(tempStr);
         }
     }
 
@@ -293,6 +301,10 @@ public class GoapAgent : MonoBehaviour
     {
         _planner = new(this);
 
+        _goalsDict = new();
+        foreach (var g in _goals)
+            _goalsDict.Add(g, null);
+
         for (int i = 0; i < _goalsDict.Count; i++)
         {
             var e = _goalsDict.ElementAt(i);
@@ -321,7 +333,7 @@ public class GoapAgent : MonoBehaviour
             tempBeliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
             tempBeliefs.RemoveState(GoapStates.InRange.ToString());
 
-            tempBeliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
+            //tempBeliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
         }
         else
         {

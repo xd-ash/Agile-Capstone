@@ -13,6 +13,10 @@ public class MoveToRangeAction : GoapAction
     {
 
     }
+    public MoveToRangeAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if(!CheckForAP(_agent.unit, ref beliefs)) return false;

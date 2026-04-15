@@ -24,7 +24,7 @@ namespace CardSystem
             _currTilePos = new Vector2Int(-1, -1);
         }
 
-        public void GrabTargetsInRange(ref AbilityData abilityData, Vector2Int targettingPos)
+        public void GrabTargetsInRange(ref AbilityData abilityData, Vector2Int targettingPos, bool showHighlights = true)
         {
             if (_targetingStrat == null)
                 foreach (NodePort port in Inputs)
@@ -42,7 +42,7 @@ namespace CardSystem
             ByteMapController bmc = ByteMapController.Instance;
             byte[,] map = bmc.GetByteMap;
 
-            var cellsInRange = _targetingStrat.ComputeCellsInRange(startingCell, _range);
+            var cellsInRange = TargetingStrategy.ComputeCellsInAbilityRange(startingCell, _range);
             if (startingCell.x >= 0 && startingCell.y >= 0 && startingCell.x < map.GetLength(0) && startingCell.y < map.GetLength(1))
                 cellsInRange.Add(startingCell);
 
@@ -57,6 +57,7 @@ namespace CardSystem
             }
             abilityData.Targets = tempTargets;
 
+            if (!showHighlights) return;
             TileHighlighter.ClearHighlights(abilityData.GetGUID);
             TileHighlighter.ApplyHighlights(cellsInRange, abilityData.GetGUID, _aoeHighlightColor, true);
         }

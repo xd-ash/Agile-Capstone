@@ -6,6 +6,10 @@ public class EndTurnAction : GoapAction
     {
 
     }
+    public EndTurnAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         return true;

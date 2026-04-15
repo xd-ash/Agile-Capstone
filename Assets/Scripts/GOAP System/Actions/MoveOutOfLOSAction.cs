@@ -13,6 +13,10 @@ public class MoveOutOfLOSAction : GoapAction
     {
 
     }
+    public MoveOutOfLOSAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
@@ -21,6 +25,7 @@ public class MoveOutOfLOSAction : GoapAction
         var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
         _unitMover = _agent.GetComponent<UnitMovementController>();
         var target = _agent.GetCurrentTarget;
+        
         if (target == null) return false;
         _hidePos = DetermineHidePos(target);
 
@@ -33,23 +38,21 @@ public class MoveOutOfLOSAction : GoapAction
         return true;
     }
 
-    private HashSet<Vector2Int> _reachableCells = null;
     private Vector2Int DetermineHidePos(Unit target)
     {
-        if (_reachableCells == null) 
-            _reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
+        var reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
         if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
         var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
 
         var hidePos = -Vector2Int.one;
         int bestDistCount = int.MaxValue;
-        foreach (var tile in _reachableCells)
+        foreach (var tile in reachableCells)
         {
             var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile);
 
             if (pathToTarget == null || pathToTarget.Count == 0) continue;
-            if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
             if (pathToTarget.Count >= bestDistCount) continue;
+            if (CombatMath.HasLineOfSight(tile, targetTile)) continue;
             hidePos = tile;
             bestDistCount = pathToTarget.Count;
         }
@@ -70,28 +73,22 @@ public class MoveOutOfLOSAction : GoapAction
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
-        _reachableCells = null;
-
         beliefs.ModifyState(GoapStates.NoLOS.ToString(), 1);
         beliefs.RemoveState(GoapStates.HasLOS.ToString());
     }
-
-    private Unit _tempTarget;
-    private Vector2Int _tempHidePos;
 
     public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
 
-        if (_tempTarget != tempTarget)
-        {
-            _tempHidePos = DetermineHidePos(tempTarget);
-            _tempTarget = tempTarget;
-        }
+        bool isOutOfLOS = _agent.CheckForState(GoapStates.NoLOS);
 
-        var agentPos = ConvertToGridFromIsometric(_agent.transform.localPosition);
-        var distRatio = GetAdjustedMovementDistRatio(agentPos, _tempHidePos, _agent.unit);
-        //var distRatio = GetAdjustedMovementDistRatio(_agent.transform, tempTarget.transform);
+        float distRatio = 1f;
+        if (!isOutOfLOS)
+        {
+            var agentPos = ConvertToGridFromIsometric(_agent.transform.localPosition);
+            distRatio = GetAdjustedMovementDistRatio(agentPos, DetermineHidePos(tempTarget), _agent.unit);
+        }
         return _cost * distRatio * _costMultiplier;
     }
 }

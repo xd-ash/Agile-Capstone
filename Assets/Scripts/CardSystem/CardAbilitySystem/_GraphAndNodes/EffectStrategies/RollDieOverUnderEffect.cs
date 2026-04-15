@@ -13,9 +13,9 @@ namespace CardSystem
 
         [SerializeField] private int _desiredMinRoll;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             //check each effect connected to node
             foreach (NodePort port in Outputs)

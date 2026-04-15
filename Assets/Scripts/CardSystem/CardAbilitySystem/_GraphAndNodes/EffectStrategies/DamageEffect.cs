@@ -6,9 +6,9 @@ namespace CardSystem
     [CreateNodeMenu("Harmful Effects/Damage")]
     public class DamageEffect : EffectStrategy, IUseEffectValue
     {
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             foreach (GameObject target in abilityData.Targets)
             {

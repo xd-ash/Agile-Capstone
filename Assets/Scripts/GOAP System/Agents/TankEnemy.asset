@@ -20,26 +20,15 @@ MonoBehaviour:
   - rid: 3457071463569817679
   - rid: 3457071463569817681
   - rid: 97860132904370176
-  _goapActionsEnum: 126
+  _goapActionsEnum: 46
   _actions:
-  - rid: 97859988893466698
   - rid: 97859988893466699
-  - rid: 97859988893466700
   - rid: 97859988893466701
   - rid: 97859988893466702
   - rid: 97860136773091399
   references:
     version: 2
     RefIds:
-    - rid: 97859988893466698
-      type: {class: MoveIntoLOSAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: MoveIntoLOSAction
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 6146
-        _postConditionsFlags: 1024
-        _goalsFlags: 0
     - rid: 97859988893466699
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
@@ -49,15 +38,6 @@ MonoBehaviour:
         _preConditionsFlags: 0
         _postConditionsFlags: 0
         _goalsFlags: 16
-    - rid: 97859988893466700
-      type: {class: ChooseTargetAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: ChooseTargetAction
-        _cost: 0
-        _costMultiplier: 1
-        _preConditionsFlags: 8194
-        _postConditionsFlags: 4096
-        _goalsFlags: 0
     - rid: 97859988893466701
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
@@ -74,7 +54,7 @@ MonoBehaviour:
         _cost: 1
         _costMultiplier: 1
         _preConditionsFlags: 4226
-        _postConditionsFlags: 64
+        _postConditionsFlags: 1088
         _goalsFlags: 0
     - rid: 97860132904370176
       type: {class: Goal, ns: , asm: Assembly-CSharp}

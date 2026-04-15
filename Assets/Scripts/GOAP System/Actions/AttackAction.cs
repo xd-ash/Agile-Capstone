@@ -3,20 +3,18 @@ using static GOAPDeterminationMethods;
 
 public class AttackAction : GoapAction
 {
+    public AttackAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
+    public AttackAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
+
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        bool canDoAction = CheckCanDoAction(_agent.unit, _agent.GetDamageAbility.GetApCost);
-        if (!canDoAction)
-        {
-            beliefs.RemoveState(GoapStates.CanAttack.ToString());
-            //beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
-        }
-
-        return canDoAction;
-    }
-    public AttackAction(string overrideName = "") : base(overrideName) 
-    {
-
+        return beliefs.HasState(GoapStates.CanAttack.ToString());
     }
     public override void Perform()
     {
@@ -30,8 +28,9 @@ public class AttackAction : GoapAction
         //if agent can no longer attack, then modify states
         if (!CheckCanDoAction(_agent.unit, _agent.GetDamageAbility.GetApCost))
         {
-            beliefs.ModifyState(GoapGoals.KillPlayer.ToString(), 1);
-            beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+            //beliefs.ModifyState(GoapGoals.KillPlayer.ToString(), 1);
+            //beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+            beliefs.RemoveState(GoapStates.CanAttack.ToString());
         }
 
         beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);

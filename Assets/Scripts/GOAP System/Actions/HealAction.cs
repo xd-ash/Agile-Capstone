@@ -8,6 +8,10 @@ public class HealAction : GoapAction
     {
 
     }
+    public HealAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (_agent.healCharges == 0 || !CheckCanDoAction(_agent.unit, _agent.GetHealAbility.GetApCost))
@@ -30,10 +34,10 @@ public class HealAction : GoapAction
     {
         if (!CheckIfHealthy(_agent.GetCurrentTarget, ref beliefs)) return;
 
-        if (_agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
+        /*if (_agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
             beliefs.ModifyState(GoapGoals.StayAlive.ToString(), 1);
         else if (_agent.GetCurrentGoal.key == GoapGoals.KeepAlliesAlive.ToString())
-            beliefs.ModifyState(GoapGoals.KeepAlliesAlive.ToString(), 1);
+            beliefs.ModifyState(GoapGoals.KeepAlliesAlive.ToString(), 1);*/
     }
 
     public override float EvaluateCost(string tempGoal, Unit tempTarget)

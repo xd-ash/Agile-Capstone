@@ -11,6 +11,10 @@ public class ChooseTargetAction : GoapAction
     {
 
     }
+    public ChooseTargetAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
         var distancesToEnemies = GrabUnitDistances(Team.Friendly, _agent);

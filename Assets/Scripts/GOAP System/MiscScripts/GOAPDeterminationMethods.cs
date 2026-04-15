@@ -2,6 +2,7 @@ using static IsoMetricConversions;
 using static CombatMath;
 using UnityEngine;
 using static AStarPathfinding.FindPathAStar;
+using CardSystem;
 
 public static class GOAPDeterminationMethods
 {
@@ -37,11 +38,13 @@ public static class GOAPDeterminationMethods
         var unitMover = agent.GetComponent<UnitMovementController>();
 
         var tarPos = ByteMapController.Instance.GetPositionOfUnit(agent.GetCurrentTarget);
-        //var tarPos = ConvertToGridFromIsometric(agent.GetCurrentTarget.transform.localPosition);
-        var tempPath = unitMover?.CalculatePath(tarPos);
-        
-        int distanceToTar = tempPath == null ? 0 : tempPath.Count;
+        var agentPos = ByteMapController.Instance.GetPositionOfUnit(agent.unit);
 
+        var validTiles = TargetingStrategy.ComputeCellsInAbilityRange(tarPos, abilityRange);
+        var pathToTar = CalculatePath(agentPos, tarPos, true);
+        int distanceToTar = pathToTar == null ? int.MaxValue : pathToTar.Count;
+        
+        //if (distanceToTar >= _atRangeThreshold)
         if (distanceToTar >= _atRangeThreshold)
         {
             beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
@@ -53,7 +56,8 @@ public static class GOAPDeterminationMethods
             beliefs.RemoveState(GoapStates.AtRange.ToString());
         }
 
-        if (distanceToTar > abilityRange)
+        //if (distanceToTar > abilityRange)
+        if (!validTiles.Contains(agentPos))
         {
             beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
             beliefs.RemoveState(GoapStates.InRange.ToString());
@@ -68,12 +72,12 @@ public static class GOAPDeterminationMethods
     {
         var unitMover = agent.GetComponent<UnitMovementController>();
         
-        //var tarPos = ConvertToGridFromIsometric(target.transform.localPosition);
         var tarPos = ByteMapController.Instance.GetPositionOfUnit(target);
+        var agentPos = ByteMapController.Instance.GetPositionOfUnit(agent.unit);
 
-        var tempPath = unitMover?.CalculatePath(tarPos);
-
-        int distanceToTar = tempPath == null ? 0 : tempPath.Count;
+        var validTiles = TargetingStrategy.ComputeCellsInAbilityRange(tarPos, abilityRange);
+        var pathToTar = CalculatePath(agentPos, tarPos);
+        int distanceToTar = pathToTar == null ? int.MaxValue : pathToTar.Count;
 
         if (distanceToTar >= _atRangeThreshold)
         {
@@ -86,7 +90,7 @@ public static class GOAPDeterminationMethods
             beliefs.RemoveState(GoapStates.AtRange.ToString());
         }
 
-        if (distanceToTar > abilityRange)
+        if (!validTiles.Contains(agentPos))
         {
             beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
             beliefs.RemoveState(GoapStates.InRange.ToString());

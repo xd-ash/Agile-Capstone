@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateNodeMenu("Misc Effects/Stop Movement Effect")]
 public class StopMovementEffect : EffectStrategy
 {
-    public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+    public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
     {
-        base.StartEffect(abilityData, onFinished, effectValueChange);
+        base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
         foreach (GameObject target in abilityData.Targets)
         {

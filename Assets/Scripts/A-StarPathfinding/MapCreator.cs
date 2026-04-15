@@ -117,7 +117,8 @@ public class MapCreator : MonoBehaviour
 
         GenerateUnitPositions(ref map, players, playerSpawnPositions);
         GenerateUnitPositions(ref map, enemies, enemySpawnPositions);
-        
+        _enemiesSpawned = 0; //temp ?
+
         for (int x = 0; x < map.GetLength(0); x++)
         {
             for (int y = 0; y < map.GetLength(1); y++)
@@ -152,6 +153,7 @@ public class MapCreator : MonoBehaviour
 
         return tilemap;
     }
+    private int _enemiesSpawned = 0;
     private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {
         if (byteIndicator == 2 || byteIndicator == 5 || byteIndicator == 0) return; // quick fix for WFC removal. 2 & 5 are obstacle tiles (2 is full cover,
@@ -177,14 +179,21 @@ public class MapCreator : MonoBehaviour
         }
         //if (byteIndicator == 6 || byteIndicator == 7)// range or melee specific spawn tiles
         if (byteIndicator != 1)// non player unit tiles (specific enemy tiles)
+        {
+            _enemiesSpawned++;
             map[mapPos.x, mapPos.y] = 3; //swap byte indicator back to a general enemy for map control purposes
-
+        }
         GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
         newObj.transform.localPosition = truePos;
+        newObj.name = $"{newObj.name.Split('(')[0]}";
+
+        if (byteIndicator != 1)
+            newObj.name += $" {_enemiesSpawned}";
 
         if (newObj.TryGetComponent(out Unit unit))
             ByteMapController.Instance.InitUnitPosition(unit, mapPos);
     }
+
     private void GenerateUnitPositions(ref byte[,] map, int numUnits, List<Vector2Int> unitSpawnPoints)
     {
         List<Vector2Int> selectedUnitSpawns = new();

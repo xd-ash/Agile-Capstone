@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using static IsoMetricConversions;
-using static CombatMath;
-using static AStarPathfinding.FindPathAStar;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
+using static AStarPathfinding.FindPathAStar;
+using static CombatMath;
+using static IsoMetricConversions;
+using static UnityEngine.GraphicsBuffer;
 
 namespace CardSystem
 {
@@ -25,38 +26,65 @@ namespace CardSystem
                     abilityData.GetUnit.StartTargetingCoroutine(TargetingCoro(abilityData, onFinished));
                     break;
                 case Team.Enemy:
-                    GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
+                    if (!abilityData.GetUnit.TryGetComponent(out GoapAgent agent)) 
+                        return;
+
+                    GameObject target = null;
+                    Vector2Int closestValidTile = -Vector2Int.one;
                     if (agent.GetCurrentTarget != null)
-                        abilityData.Targets = new List<GameObject>() { agent.GetCurrentTarget.gameObject };
-                    _aoeStrat?.GrabTargetsInRange(ref abilityData, ByteMapController.Instance.GetPositionOfUnit(agent.GetCurrentTarget));
+                    {
+                        target = agent.GetCurrentTarget.gameObject;
+
+                        // if ability targets tiles, grab closest tile around target unit location
+                        if (_targetTilesNotUnits)
+                        {
+                            closestValidTile = GetNearbyTileInLOS(agent.GetCurrentTarget, agent.unit);
+                            target = SpawnTargettingEmpty(closestValidTile);
+                            abilityData.AbilityTriggerPos = closestValidTile;
+                        }
+                    }
+
+                    //band aid fix for medic heal targetting
+                    if (agent.name.Contains("Medic") && agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
+                        target = agent.gameObject;
+                    //
+
+                    abilityData.Targets = new List<GameObject>() { target };
+                    if (target != null)
+                        _aoeStrat?.GrabTargetsInRange(ref abilityData, closestValidTile == -Vector2Int.one ? 
+                            ConvertToGridFromIsometric(target.transform.localPosition) : closestValidTile, false);
                     onFinished?.Invoke();
                     break;
             }
         }
         //goap agent grabbing nearby tile for use in throwing AOE bombs & stuff (allows for "targetting" units out of LOS but within AOE radius)
-        public Vector2Int GetNearbyTileInLOS(ref AbilityData abilityData, Vector2Int targetUnitPos, Vector2Int agentPos)
+        public Vector2Int GetNearbyTileInLOS(Unit targetUnit, Unit agentUnit)
         {
-            var map = ByteMapController.Instance.GetByteMap;
-            var cellsInRangeOfTarget = ComputeCellsInRange(targetUnitPos, _aoeStrat.GetAOERange);
+            var targetUnitPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);
+            var agentPos = ByteMapController.Instance.GetPositionOfUnit(agentUnit);
 
-            List<Vector2Int> validTiles = new();
-            
-            foreach (var cell in cellsInRangeOfTarget)
+            var map = ByteMapController.Instance.GetByteMap;
+            var tilesInRangeOfTarget = ComputeCellsInAbilityRange(targetUnitPos, _aoeStrat.GetAOERange);
+
+            Vector2Int closestValidTile = -Vector2Int.one;
+            int closestDistance = int.MaxValue;
+            foreach (var tile in tilesInRangeOfTarget)
             {
-                if (!HasLineOfSight(agentPos, cell) || !HasLineOfSight(targetUnitPos, cell)) continue;
-                var pathToTile = CalculatePath(agentPos, cell);
-                if (pathToTile.Count > (graph as CardAbilityDefinition).GetRange) continue;
-                validTiles.Add(cell);
-                break;
+                if (!HasLineOfSight(agentPos, tile) || !HasLineOfSight(targetUnitPos, tile)) continue;
+                var distToTile = CalculatePath(agentPos, tile).Count;
+                if (distToTile > (graph as CardAbilityDefinition).GetRange) continue;
+                if (distToTile >= closestDistance) continue;
+                closestValidTile = tile;
+                closestDistance = distToTile;
             }
 
-            if (validTiles.Count == 0)
+            if (closestValidTile == -Vector2Int.one)
             {
                 Debug.LogWarning($"0 valid tiles for GetNearbyTileInLOS. (TargetPos:{targetUnitPos}, AgentPos:{agentPos})");
                 return agentPos;
             }
 
-            return;
+            return closestValidTile;
         }
 
         public override IEnumerator TargetingCoro(AbilityData abilityData, Action onFinished)
@@ -143,6 +171,7 @@ namespace CardSystem
             GameObject empty = new("empty");
             empty.transform.parent = FindFirstObjectByType<MapCreator>().transform;
             empty.transform.localPosition = ConvertToIsometricFromGrid(tilePos);
+            empty.AddComponent<TargetingEmptyIdentifier>();
             return empty;
         }
         private Unit GetUnitUnderMouse()
