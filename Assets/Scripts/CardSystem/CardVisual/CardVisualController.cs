@@ -4,6 +4,7 @@ namespace CardSystem
 {
     public class CardVisualController : MonoBehaviour
     {
+        [SerializeField] private SpriteRenderer _cardImage;
         [SerializeField] private SpriteRenderer _categoryBorder;
         [SerializeField] private SpriteRenderer _categoryIcon;
         [SerializeField] private SpriteRenderer _apSymbol;
@@ -38,6 +39,12 @@ namespace CardSystem
                 _categoryIcon.sprite = visual.icon;
                 _categoryIcon.gameObject.SetActive(visual.icon != null);
             }
+            
+            if (_cardImage != null)
+            {
+                _cardImage.sprite = def.GetCardImage;
+                _cardImage.gameObject.SetActive(def.GetCardImage != null);
+            }
         }
         
         public void UpdateSortingOrder(int sortingOrder)
@@ -50,6 +57,9 @@ namespace CardSystem
 
             if (_categoryIcon != null)
                 _categoryIcon.sortingOrder = sortingOrder + 3; // above card body and text
+            
+            if (_cardImage != null)
+                _cardImage.sortingOrder = sortingOrder + 1;
         }
 
         public void FillTextFields()

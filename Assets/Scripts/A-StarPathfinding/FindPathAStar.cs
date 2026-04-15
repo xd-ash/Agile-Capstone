@@ -354,9 +354,11 @@ namespace AStarPathfinding
 
             _dirAnimator?.SetMoving(false);
             _isMoving = false;
+            
 
             // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
             onFinished?.Invoke();
+            _unit.RaiseApChanged();            
             
             // rebuild highlights for player right after movement is fully done
             //if (_unit.GetTeam == Team.Friendly)

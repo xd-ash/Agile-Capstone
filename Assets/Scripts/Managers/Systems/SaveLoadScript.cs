@@ -234,12 +234,27 @@ public class SettingsData
     public class OptionsSettingsToken
     {
         [SerializeField] private bool _isCardSelectOnClick;
+        [SerializeField] private int _targetFrameRate;
+        [SerializeField] private bool _autoEndTurn;
+        [SerializeField] private int _resolutionWidth;
+        [SerializeField] private int _resolutionHeight;
+        [SerializeField] private int _fullscreenModeIndex;
 
         public bool IsCardSelectOnClick => _isCardSelectOnClick;
+        public int TargetFrameRate => _targetFrameRate;
+        public bool AutoEndTurn => _autoEndTurn;
+        public int ResolutionWidth => _resolutionWidth;
+        public int ResolutionHeight => _resolutionHeight;
+        public int FullscreenModeIndex => _fullscreenModeIndex;
 
         public OptionsSettingsToken()
         {
             _isCardSelectOnClick = OptionsSettings.IsCardSelectOnClick;
+            _targetFrameRate = OptionsSettings.TargetFrameRate;
+            _autoEndTurn = OptionsSettings.AutoEndTurn;
+            _resolutionWidth = OptionsSettings.ResolutionWidth;
+            _resolutionHeight = OptionsSettings.ResolutionHeight;
+            _fullscreenModeIndex = OptionsSettings.FullscreenModeIndex;
         }
     }
 

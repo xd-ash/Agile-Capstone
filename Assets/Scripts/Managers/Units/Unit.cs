@@ -44,6 +44,8 @@ public class Unit : MonoBehaviour, IDamagable
     public Guid GetGuid => _unitGuid;
 
     public event Action<Unit> OnApChanged;
+    
+    public void RaiseApChanged() => OnApChanged?.Invoke(this);
 
     private void Awake()
     {
@@ -296,4 +298,19 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _targetingCoroutine = StartCoroutine(targetingCoro);
     }
+    public void AddAP(int amount)
+    {
+        if (amount == 0) return;
+
+        _ap = Mathf.Clamp(_ap + amount, 0, _maxAP);
+        OnApChanged?.Invoke(this);
+    }
+
+    
+    public void AddHealthDelta(int delta)
+    {
+        if (delta == 0) return;
+        ChangeHealth(Mathf.Abs(delta), isGain: delta > 0);
+    }
+
 }

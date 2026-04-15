@@ -250,9 +250,10 @@ namespace CardSystem
 
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
-
+                        
                         // Check for active cards
                         if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
 
@@ -300,7 +301,8 @@ namespace CardSystem
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
 
                         if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || 
@@ -363,7 +365,8 @@ namespace CardSystem
 
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
 
                         //disable drag with click to select option enabled
