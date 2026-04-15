@@ -66,10 +66,5 @@ namespace CardSystem
         {
 
         }
-
-        public void FillTextFields()
-        {
-
-        }
     }
 }
