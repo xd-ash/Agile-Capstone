@@ -75,7 +75,7 @@ public class WinLossManager : MonoBehaviour
     {
         if (_didWin)
         {
-            _rewardsPanel?.gameObject?.SetActive(true);
+            _rewardsPanel.gameObject.SetActive(true);
             return;
         }
 

@@ -7,7 +7,7 @@ using XNode;
 namespace CardSystem
 {
     public enum CardRarity { Common, Rare, Epic }
-    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Throwable, Gambling }
+    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Trap, Gambling }
     public enum CardTag { Damage, Heal, Shield, Gambling, Draw, SelfDamage, Trap, Ranged, Melee, AOE }
 
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
@@ -16,7 +16,6 @@ namespace CardSystem
         [Header("Card Info")]
         [TextArea(1, 3)]
         [SerializeField] private string _description;
-        [SerializeField] private Sprite _cardImage;
         [SerializeField] private AudioClip _abilitySFX;
         [SerializeField] private CardCategory _cardCategory;
         [SerializeField] private CardTag[] _cardTags;
@@ -56,7 +55,6 @@ namespace CardSystem
 
         public string GetCardName => this.name;
         public string GetDescription => _description;
-        public Sprite GetCardImage => _cardImage;
         public int GetApCost => _apCost;
         public int GetRange => _range;
         public int GetShopCost => _shopCost;

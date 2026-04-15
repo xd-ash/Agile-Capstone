@@ -1,35 +1,43 @@
-using AStarPathfinding;
 using System;
 using UnityEngine;
-using static IsoMetricConversions;
 
 namespace CardSystem
 {
     [CreateNodeMenu("Misc Effects/Knockback")]
     public class KnockBackEffect : EffectStrategy, IUseEffectValue
     {
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             foreach (GameObject target in abilityData.Targets)
             {
                 if (target == null) return;
-                var aStar = target.GetComponent<FindPathAStar>();
+                var unitMover = target.GetComponent<UnitMovementController>();
                 var targetUnit = target.GetComponent<Unit>();
-                if (aStar == null || targetUnit == null)
+                if (unitMover == null || targetUnit == null)
                 {
                     Debug.LogError($"Knockback failed. No AStar and/or Unit script on gameobject ({target.name})");
                     return;
                 }
+                var def = graph as CardAbilityDefinition;
+                var abilityPos = abilityData.AbilityTriggerPos == -Vector2Int.one ?
+                    ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
+                bool hit = CombatMath.RollHit(abilityPos, targetUnit, def, false);
+                //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
+
+                _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
+
+                if (!hit) continue;
 
                 Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
-                Vector2Int targetGridPos = ConvertToGridFromIsometric(target.transform.localPosition);
+                Vector2Int targetGridPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);
+                //Vector2Int targetGridPos = ConvertToGridFromIsometric(target.transform.localPosition);
 
                 Vector2Int knockbackDir = Vector2Int.zero;
 
                 if (casterGridPos == targetGridPos)
-                    knockbackDir = target.GetComponent<FindPathAStar>().PrevPosOnMove - casterGridPos;
+                    knockbackDir = unitMover.PrevPosOnMove - casterGridPos;
                 else
                 {
                     Vector2Int rawDir = targetGridPos - casterGridPos;
@@ -89,7 +97,7 @@ namespace CardSystem
                 }
                 //Debug.Log($"lastValidPos: ({lastValidPos.x},{lastValidPos.y})");
 
-                aStar.OnKnockback(lastValidPos);
+                unitMover.OnKnockback(lastValidPos);
 
                 if (adjustedEffectVal < 0)
                     abilityData.GetUnit.GetFloatingText.SpawnFloatingText("GET OVER HERE!");

@@ -111,7 +111,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pyro_Melee_SE
+  m_Name: Pyro_Punch_SE
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -319,7 +319,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pyro_Melee_SW
+  m_Name: Pyro_Punch_SW
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -371,7 +371,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pyro_Melee_NW
+  m_Name: Pyro_Punch_NW
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -924,7 +924,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pyro_Melee_NE
+  m_Name: Pyro_Punch_NE
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

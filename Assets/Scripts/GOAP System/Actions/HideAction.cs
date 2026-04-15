@@ -1,0 +1,35 @@
+using static GOAPDeterminationMethods;
+
+public class HideAction : GoapAction
+{
+    public HideAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
+    public HideAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
+    public override bool PrePerform(ref WorldStates beliefs)
+    {
+        return !CheckIfInLOS(_agent, ref beliefs);
+    }
+    public override void Perform()
+    {
+        TurnManager.Instance.EndEnemyTurn();
+        _agent.ClearPlanner();
+        _agent.CompleteAction();
+    }
+    public override void PostPerform(ref WorldStates beliefs)
+    {
+        
+    }
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
+    {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        var distRatio = GetAdjustedMovementDistRatio(_agent.transform, tempTarget.transform);
+        var agentHealthRatio = _agent.unit.GetHealth / (float)_agent.unit.GetMaxHealth;
+        return _cost * (distRatio + agentHealthRatio) * _costMultiplier;
+    }
+}

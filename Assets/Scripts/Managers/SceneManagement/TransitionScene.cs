@@ -43,33 +43,12 @@ public class TransitionScene : MonoBehaviour
     
     public void StartTutorial()
     {
-        // Load tutorial map
-        var library = Resources.Load<CustomTileMapSOLibrary>("Libraries/CustomTileMapSOLibrary");
-        var tutorialMaps = library.GetTileMapSOsFromType(CombatMapType.Tutorial);
-
-        CustomTileMapSO tutorialMap = null;
-        if (tutorialMaps != null && tutorialMaps.Length > 0)
-            tutorialMap = tutorialMaps[0];
-        else
-            Debug.LogError("TransitionScene: No tutorial maps found in library.");
-
-        // Load tutorial deck
-        var deckConfig = Resources.Load<TutorialDeckConfig>("TutorialDeckConfig");
-        if (deckConfig != null && deckConfig.GetTutorialCards.Count > 0)
-        {
-            var tutorialDeck = new Deck(deckConfig.GetTutorialCards);
-            PlayerDataManager.Instance.UpdateCardData(tutorialDeck);
-        }
-        else
-            Debug.LogError("TransitionScene: TutorialDeckConfig not found or empty.");
-
         PlayerDataManager.Instance.SetCurrMapNodeData(new CombatMapData 
         { 
             maxPlayersAllowed = 1, 
-            maxEnemiesAllowed = 1,
-            selectedMap = tutorialMap
+            maxEnemiesAllowed = 1 
         });
-    
+        
         IsTutorial = true;
         StartTransition("Tutorial");
     }

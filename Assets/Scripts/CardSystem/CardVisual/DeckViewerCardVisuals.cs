@@ -6,7 +6,6 @@ namespace CardSystem
     public class DeckViewerCardVisuals : MonoBehaviour
     {
         [SerializeField] private Image _categoryBorder;
-        [SerializeField] private Image _cardImage;
         [SerializeField] private Image _categoryIcon;
 
         public void ApplyVisuals(CardAbilityDefinition def)
@@ -29,12 +28,6 @@ namespace CardSystem
             {
                 _categoryIcon.sprite = visual.icon;
                 _categoryIcon.gameObject.SetActive(visual.icon != null);
-            }
-            
-            if (_cardImage != null)
-            {
-                _cardImage.sprite = def.GetCardImage;
-                _cardImage.gameObject.SetActive(def.GetCardImage != null);
             }
         }
     }

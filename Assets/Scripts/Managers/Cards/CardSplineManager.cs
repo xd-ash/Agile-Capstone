@@ -28,14 +28,8 @@ namespace CardSystem
 
         public void ArrangeCardGOs()
         {
-            var cardsInHand = DeckAndHandManager.Instance.CardsInHand;
-
-            // Remove any cards whose GameObjects have been destroyed
-            for (int i = cardsInHand.Count - 1; i >= 0; i--)
-                if (cardsInHand[i] == null || cardsInHand[i].GetCardTransform == null)
-                    cardsInHand.RemoveAt(i);
-
             int handSize = DeckAndHandManager.Instance.GetCurrentHandSize;
+            var cardsInHand = DeckAndHandManager.Instance.CardsInHand;
 
             if (handSize == 0) return;
             if (_splineContainer.Spline == null)
@@ -43,8 +37,6 @@ namespace CardSystem
                 Debug.LogWarning("CardManager: SplineContainer or Spline is not assigned.");
                 return;
             }
-
-            // ... rest of the method stays the same from "int count = ..." onward
 
             int count = Mathf.Min(handSize, cardsInHand.Count);
             int slots = Mathf.Max(1, count);

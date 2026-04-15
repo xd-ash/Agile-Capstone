@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using CardSystem;
 
 public class CardShopManager : MonoBehaviour
@@ -11,25 +10,32 @@ public class CardShopManager : MonoBehaviour
     [SerializeField] private List<CardAbilityDefinition> _pool;
 
     [Header("Auto Spawn Settings")]
+    [Tooltip("If true, the spawner will populate the shop on scene start")]
     [SerializeField] private bool _spawnOnStart = true;
+    [Tooltip("How many cards to spawn when the scene starts")]
     [SerializeField] private int _initialSpawnCount = 5;
 
     [Header("Spawn")]
-    [SerializeField] private Transform _spawnParent;
+    [SerializeField] private Transform _spawnParent; // parent for spawned card GOs (optional)
     [SerializeField] private Vector3 _localOffset = Vector3.zero;
 
     [Header("Layout (fan settings)")]
+    [Tooltip("Total horizontal span of the fan in local units")]
     [SerializeField] private float _fanWidth = 15f;
+    [Tooltip("Vertical height of the fan (peak at center)")]
     [SerializeField] private float _arcHeight = 0f;
+    [Tooltip("Max card tilt (degrees) at the edges")]
     [SerializeField] private float _maxTilt = 0f;
 
     [Header("Refresh Settings")]
+    [Tooltip("Cost to refresh the shop (0 = free)")]
     [SerializeField] private int _refreshCost = 10;
 
+    // runtime tracking of active spawned shop cards
     private readonly List<GameObject> activeSpawnedCards = new List<GameObject>();
 
+    // singleton instance for easy access from other components (e.g. CardSelect when a card is bought)
     public static CardShopManager Instance { get; private set; }
-
     private void Awake()
     {
         _pool = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary").GetCardsInProject;
@@ -42,12 +48,14 @@ public class CardShopManager : MonoBehaviour
         Instance = this;
     }
 
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (_spawnOnStart && _initialSpawnCount > 0)
             SpawnMultiple(_initialSpawnCount);
     }
 
+    // Convenience: spawn `count` cards (call this multiple times to populate shop)
     public void SpawnMultiple(int count)
     {
         Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
@@ -55,67 +63,45 @@ public class CardShopManager : MonoBehaviour
         for (int i = 0; i < count; i++)
             SpawnRandomCard();
 
+        // arrange all active cards (new + existing)
         ArrangeSpawnedCards(activeSpawnedCards);
     }
 
+    // Spawns a single card chosen from `pool` using weighted random selection.
     public void SpawnRandomCard()
     {
         var entry = PickRandomEntry();
         if (entry == null) return;
 
+        // Use same prefab path as CardManager
         GameObject prefab = Resources.Load<GameObject>("NewCardPrefab");
         if (prefab == null) return;
 
         Transform parent = _spawnParent != null ? _spawnParent : transform;
+        if (parent == null) return;
 
         GameObject cardGO = Instantiate(prefab, parent);
         cardGO.transform.localPosition = Vector3.zero;
 
+        // Create runtime Card data
         Card card = new Card(entry, entry.GetBaseCardRarity, cardGO.transform);
         CardPrefabSetterUpper.SetupCardPrefab(card, CardState.Shop);
 
+        // Ensure the prefab has CardSelect and initialize it
         if (!cardGO.TryGetComponent(out CardSelect cs))
             cs = cardGO.AddComponent<CardSelect>();
-
         if (!cardGO.TryGetComponent(out CardFunctionScript cfs))
             cfs = cardGO.AddComponent<CardFunctionScript>();
 
-     
-        CreatePriceText(entry, cardGO);
+        //cs.InitCardSelect(CardState.Shop);
+        //cs.OnPrefabCreation(card);
+        //cfs.EnableShopMode();// Enable shop behaviour on the card's CardSelect
 
+        // track in active list for later deletion / refresh / layout
         activeSpawnedCards.Add(cardGO);
     }
 
-
-    private void CreatePriceText(CardAbilityDefinition entry, GameObject cardGO)
-    {
-        if (entry == null || cardGO == null) return;
-
-        GameObject textGO = new GameObject("PriceText");
-        textGO.transform.SetParent(cardGO.transform, false);
-
-        // MUST be UI component (NOT world TMP)
-        TextMeshProUGUI tmp = textGO.AddComponent<TextMeshProUGUI>();
-
-        tmp.text = $"${entry.GetShopCost}";
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.fontSize = 24; // UI size (NOT 5 or 6)
-        tmp.color = Color.yellow;
-
-        RectTransform rt = tmp.rectTransform;
-
-        // Force it BELOW center of card
-        rt.anchorMin = new Vector2(0.5f, 0f);
-        rt.anchorMax = new Vector2(0.5f, 0f);
-        rt.pivot = new Vector2(0.5f, 1f);
-
-        rt.anchoredPosition = new Vector2(0f, 40f);
-
-        // IMPORTANT: prevent layout groups from overriding it
-        rt.localScale = Vector3.one;
-    }
-
-
+    // Arrange spawned cards in a centered fan (local coordinates relative to parent)
     public void ArrangeSpawnedCards(List<GameObject> spawnedCards)
     {
         if (spawnedCards == null || spawnedCards.Count == 0)
@@ -123,6 +109,7 @@ public class CardShopManager : MonoBehaviour
 
         int count = spawnedCards.Count;
 
+        // Single card -> center
         if (count == 1)
         {
             var single = spawnedCards[0];
@@ -135,23 +122,29 @@ public class CardShopManager : MonoBehaviour
         }
 
         float span = Mathf.Max(0.001f, _fanWidth);
-
         for (int i = 0; i < count; i++)
         {
             var go = spawnedCards[i];
             if (go == null) continue;
 
-            float t = i / (float)(count - 1);
-
+            float t = (count == 1) ? 0.5f : (i / (float)(count - 1)); // 0..1
+            // x: evenly spaced across span centered at 0
             float x = -span * 0.5f + t * span;
+            // y: parabola peak at center -> gives a nice "hand" arc
             float y = -4f * _arcHeight * Mathf.Pow(t - 0.5f, 2f) + _arcHeight;
+            // rotation z: tilt across the fan
             float tilt = Mathf.Lerp(-_maxTilt, _maxTilt, t);
 
-            go.transform.localPosition = new Vector3(x, y, 0f);
-            go.transform.localRotation = Quaternion.Euler(0f, 0f, tilt);
+            Vector3 localPos = new Vector3(x, y, 0f);
+            Quaternion localRot = Quaternion.Euler(0f, 0f, tilt);
+
+            go.transform.localPosition = localPos;
+            go.transform.localRotation = localRot;
         }
     }
 
+    // Called to remove a specific card GameObject from the shop (e.g. after purchase).
+    // If the card belongs to the shop, it is removed from tracking and destroyed. Layout is updated.
     public void DeleteCard(GameObject cardGO)
     {
         if (cardGO == null) return;
@@ -163,12 +156,15 @@ public class CardShopManager : MonoBehaviour
         }
         else
         {
+            // Not in tracked list - still destroy if desired
             Destroy(cardGO);
         }
     }
 
+    // Remove all current shop options and spawn `count` new ones (uses initialSpawnCount if count <= 0)
     public void RefreshShop(int count = -1)
     {
+        // Check refresh cost first (0 or negative means free)
         if (_refreshCost > 0)
         {
             if (CurrencyManager.Instance == null)
@@ -177,43 +173,48 @@ public class CardShopManager : MonoBehaviour
                 return;
             }
 
+            // TrySpend will deduct the amount if player has enough; returns false if insufficient funds
             bool charged = CurrencyManager.Instance.TrySpend(_refreshCost);
             if (!charged)
             {
                 Debug.Log(LOG_PREFIX + " Not enough currency to refresh shop.");
+                // Optionally show a UI popup here if you have one for insufficient currency:
+                // OutOfApPopup.Instance?.Show(); // or create/replace with an OutOfCurrency popup
                 return;
             }
         }
 
         PlayerDataManager.Instance.GenerateGeneralSeed();
 
+        // destroy existing cards
         for (int i = activeSpawnedCards.Count - 1; i >= 0; i--)
         {
             var go = activeSpawnedCards[i];
             if (go != null) Destroy(go);
         }
-
         activeSpawnedCards.Clear();
 
+        // default to initialSpawnCount if caller didn't pass a count
         int spawnCount = (count <= 0) ? _initialSpawnCount : count;
-
         if (spawnCount > 0)
+        {
             SpawnMultiple(spawnCount);
+        }
     }
 
+    // Weighted random pick from `pool` returning the full ShopEntry
     private CardAbilityDefinition PickRandomEntry()
     {
+        //ShopEntry defaultEntry = default;
         if (_pool == null || _pool.Count == 0) return null;
 
         float total = 0f;
-        foreach (var e in _pool)
-            total += Mathf.Max(0f, e.GetShopWeight);
+        foreach (var e in _pool) total += Mathf.Max(0f, e.GetShopWeight);
 
         if (total <= 0f) return _pool[0];
 
         float r = UnityEngine.Random.Range(0f, total);
         float acc = 0f;
-
         foreach (var e in _pool)
         {
             acc += Mathf.Max(0f, e.GetShopWeight);

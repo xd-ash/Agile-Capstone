@@ -9,9 +9,9 @@ namespace CardSystem
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte doubledEffects;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
 

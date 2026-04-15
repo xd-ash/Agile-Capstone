@@ -1,11 +1,11 @@
 using UnityEditor;
 
-[CustomEditor(typeof(GoapAgent), true), CanEditMultipleObjects]
+//[CustomEditor(typeof(GoapAgent), true), CanEditMultipleObjects]
 public class GOAPAgentEditor : Editor 
 {
     public override void OnInspectorGUI()
     {
-        serializedObject.UpdateIfRequiredOrScript();
+        /*serializedObject.UpdateIfRequiredOrScript();
 
         GoapAgent agent = (GoapAgent)target;
         agent.GrabActionsFromEnum();
@@ -17,5 +17,6 @@ public class GOAPAgentEditor : Editor
         base.OnInspectorGUI();
 
         serializedObject.ApplyModifiedProperties();
+        */
     }
 }

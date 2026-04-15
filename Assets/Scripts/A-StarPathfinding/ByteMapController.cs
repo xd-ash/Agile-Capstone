@@ -31,7 +31,7 @@ public class ByteMapController : MonoBehaviour
     }
 
     public byte GetByteAtPosition(Vector2Int pos) => _map[pos.x, pos.y];
-    public Vector2Int GetPositionOfUnit(Unit unit) => _unitPositions.ContainsKey(unit) ? _unitPositions[unit] : new Vector2Int(-1, -1);
+    public Vector2Int GetPositionOfUnit(Unit unit) => unit != null && _unitPositions.ContainsKey(unit) ? _unitPositions[unit] : new Vector2Int(-1, -1);
     public Unit GetUnitAtPosition(Vector2Int pos)
     {
         if (!_unitPositions.ContainsValue(pos))
@@ -47,11 +47,15 @@ public class ByteMapController : MonoBehaviour
         if (!_unitPositions.ContainsKey(unit))
             _unitPositions.Add(unit, startPos);
     }
-
+    
     public void UpdateUnitPositionByteMap(Unit unit, Vector2Int startPos, Vector2Int endPos)
     {
+        if (startPos == endPos) return;
+
         _map[startPos.x, startPos.y] = 0;
         _map[endPos.x, endPos.y] = unit.GetTeam == Team.Friendly ? (byte)1 : (byte)3;
+
+        //Debug.Log($"Unit:{unit.name}, endPos:{endPos}\nstartpos: {startPos}, byte @ pos after move: {_map[startPos.x, startPos.y]}");
 
         if (!_unitPositions.ContainsKey(unit))
             _unitPositions.Add(unit, endPos);

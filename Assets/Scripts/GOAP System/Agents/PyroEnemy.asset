@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
+  m_Name: PyroEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
+  _damageAbility: {fileID: 11400000, guid: 45efe6c92ba20bd40be576f4d3db7455, type: 2}
+  _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
+  _totalHealCharges: 0
+  _goalsEnum: 22
+  _goals:
+  - rid: 6877345560813109319
+  - rid: 97860169654337608
+  - rid: 6877345560813109321
+  _goapActionsEnum: 934
+  _actions:
+  - rid: 6877345560813109323
+  - rid: 6877345560813109322
+  - rid: 6877345560813109327
+  - rid: 6877345702617808967
+  - rid: 6877345702617808990
+  - rid: 97860169654337607
+  references:
+    version: 2
+    RefIds:
+    - rid: 97860169654337607
+      type: {class: HideAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HideAction
+        _cost: 3
+        _costMultiplier: 2
+        _preConditionsFlags: 6144
+        _postConditionsFlags: 0
+        _goalsFlags: 4
+    - rid: 97860169654337608
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAlive
+        value: 1
+        removeOnComplete: 1
+    - rid: 6877345560813109319
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KillPlayer
+        value: 1
+        removeOnComplete: 1
+    - rid: 6877345560813109321
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 1
+        removeOnComplete: 0
+    - rid: 6877345560813109322
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveInRangeAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 4226
+        _postConditionsFlags: 1088
+        _goalsFlags: 0
+    - rid: 6877345560813109323
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: AttackAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 20802
+        _postConditionsFlags: 65540
+        _goalsFlags: 2
+    - rid: 6877345560813109327
+      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: EndTurnAction
+        _cost: 15
+        _costMultiplier: 1
+        _preConditionsFlags: 4
+        _postConditionsFlags: 0
+        _goalsFlags: 16
+    - rid: 6877345702617808967
+      type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveOutOfLOSAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 5122
+        _postConditionsFlags: 2048
+        _goalsFlags: 0
+    - rid: 6877345702617808990
+      type: {class: MoveToRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveToRangeAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 5442
+        _postConditionsFlags: 16384
+        _goalsFlags: 0

@@ -4,14 +4,14 @@ using XNode;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/Single Coin Flip")]
-    public class SingleCoinFlip : EffectStrategy
+    public class SingleCoinFlip : EffectStrategy, IFlipCoins
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onHeads;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onTails;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             bool coinflip = CoinFlip.FlipCoin(abilityData.GetUnit)[0];
             abilityData.GetUnit.GetFloatingText?.SpawnFloatingText($"{(coinflip ? "Heads" : "Tails")}", TextPresetType.CoinFlipPreset);
