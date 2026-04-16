@@ -29,7 +29,7 @@ namespace CardSystem
 
 			if (!user.SpendAP(_cardDefinition.GetApCost, false)) return; // simply check if ap can be spent
 
-            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user), rarity);
+            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), -Vector2Int.one, rarity);
             Action onFinished = () =>
             {
                 // Method sent through to be called after targeting strategy finishes

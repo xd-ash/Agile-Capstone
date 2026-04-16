@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\cardvisual\\cardvisualcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardvisual\\cardvisualcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\effectvisualstrategies\\explosioneffectvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\effectvisualstrategies\\explosioneffectvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\cardabilitydefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\cardabilitydefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\effectvisualstrategies\\meleeeffectvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\effectvisualstrategies\\meleeeffectvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\effectvisualstrategies\\bulleteffectvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\effectvisualstrategies\\bulleteffectvisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\abstracts\\strategies\\effectvisualsstrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\abstracts\\strategies\\effectvisualsstrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,33 +26,57 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CardAbilityDefinition.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
-              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
-              "ViewState": "AgIAAIgAAAAAAAAAAAAYwK8AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ExplosionEffectVisual.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\ExplosionEffectVisual.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\ExplosionEffectVisual.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\ExplosionEffectVisual.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\ExplosionEffectVisual.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T22:44:47.466Z",
+              "WhenOpened": "2026-04-16T20:46:22.784Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CardVisualController.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualController.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualController.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualController.cs",
-              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "MeleeEffectVisual.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\MeleeEffectVisual.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\MeleeEffectVisual.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\MeleeEffectVisual.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\MeleeEffectVisual.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-15T22:32:17.784Z",
+              "WhenOpened": "2026-04-16T20:30:45.584Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EffectVisualsStrategy.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\Abstracts\\Strategies\\EffectVisualsStrategy.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\Abstracts\\Strategies\\EffectVisualsStrategy.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\Abstracts\\Strategies\\EffectVisualsStrategy.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\Abstracts\\Strategies\\EffectVisualsStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T20:30:36.784Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BulletEffectVisual.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\BulletEffectVisual.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\BulletEffectVisual.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\BulletEffectVisual.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\EffectVisualStrategies\\BulletEffectVisual.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwB4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T20:29:20.105Z"
             }
           ]
         }

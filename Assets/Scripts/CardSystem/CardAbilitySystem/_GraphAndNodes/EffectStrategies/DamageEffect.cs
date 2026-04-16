@@ -20,7 +20,7 @@ namespace CardSystem
                     bool hit = CombatMath.RollHit(abilityPos, targetUnit, def);
                     //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
 
-                    _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
+                    _visualsStrategy?.CreateVisualEffect(abilityData, target); //do effect visuals
 
                     if (!hit) continue;
                     var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);

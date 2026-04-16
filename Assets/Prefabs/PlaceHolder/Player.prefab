@@ -204,6 +204,7 @@ MonoBehaviour:
   _maxAP: 10
   _ap: 0
   _enemyHPBar: {fileID: 0}
+  _enemyShieldBar: {fileID: 0}
   _hitChanceText: {fileID: 0}
   _canMove: 1
 --- !u!114 &2355032549085744803
@@ -242,18 +243,50 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 2fd63fc0dc2e2b841a40b60a3e85005c, type: 2}
   - {fileID: 7400000, guid: 093505aa767859641a2c0e3bff1cef4d, type: 2}
   _attackAnimSets:
-  - key: 3
+  - key: 10
     dirClips:
     - {fileID: 7400000, guid: 838f019c585ee9a4ab7639d6b1f44f3f, type: 2}
     - {fileID: 7400000, guid: 95df7490569ae854494ae372b36d33a3, type: 2}
     - {fileID: 7400000, guid: 332eb41ff71c7144ca2e1cee448709ee, type: 2}
     - {fileID: 7400000, guid: eddef37145abec64f983014c5188636d, type: 2}
-  - key: 2
+  - key: 9
     dirClips:
     - {fileID: 7400000, guid: 16ab2c1b909b440adbad902993090a27, type: 2}
     - {fileID: 7400000, guid: 4922fa86f1be34f45bbfd6c60729c6bc, type: 2}
     - {fileID: 7400000, guid: 53b62b8a123804de0b952832f12fbd3e, type: 2}
     - {fileID: 7400000, guid: c0bd63306db934784a2c2c5fb01a4aff, type: 2}
+  - key: 14
+    dirClips:
+    - {fileID: 7400000, guid: aa9c0fb399f94f8409de04ed2c8e3aef, type: 2}
+    - {fileID: 7400000, guid: 82301507bbf9aee40a20d0d5be984a17, type: 2}
+    - {fileID: 7400000, guid: 6563775f97422df4bb44af80b7c0b360, type: 2}
+    - {fileID: 7400000, guid: 0fcf35d16e9f5bb43907531bb11bd9ec, type: 2}
+  - key: 16
+    dirClips:
+    - {fileID: 7400000, guid: a5c903809e7bf73479b664a002e80623, type: 2}
+    - {fileID: 7400000, guid: fe18472e977fb28468589d684f3daf40, type: 2}
+    - {fileID: 7400000, guid: 336b365cac4c80e44a75df964b41f1eb, type: 2}
+    - {fileID: 7400000, guid: a02351c3c53a3b44394c67910784fd7b, type: 2}
+  - key: 5
+    dirClips:
+    - {fileID: 7400000, guid: b7ffa673af878a2468726774f897860a, type: 2}
+    - {fileID: 7400000, guid: 077a1538ae440bc48a976e9f28619db4, type: 2}
+    - {fileID: 7400000, guid: 15cf756bde22efa48a48f73bdce088a3, type: 2}
+    - {fileID: 7400000, guid: 5f51f984090a078499d23216e57ec310, type: 2}
+  - key: 6
+    dirClips:
+    - {fileID: 7400000, guid: a9c0c62a5c28d1d4b8922767bbd37459, type: 2}
+    - {fileID: 7400000, guid: 18aeada3a90093743acdf7b43ccea523, type: 2}
+    - {fileID: 7400000, guid: 6a9e9a9e0a5acaa4b945c1090c07756c, type: 2}
+    - {fileID: 7400000, guid: 8bedc4ec4874d64459baac16f30305f9, type: 2}
+  - key: 17
+    dirClips:
+    - {fileID: 7400000, guid: 1bb245432494366438820c1822843bfe, type: 2}
+    - {fileID: 7400000, guid: 2f28818b99cb72943b91ee80092561c9, type: 2}
+    - {fileID: 7400000, guid: cc5b14978c7c06241a6ae85a4bc10a90, type: 2}
+    - {fileID: 7400000, guid: 6c15a3f823eb5f64f85a5b153c5be343, type: 2}
+  - key: 17
+    dirClips: []
   _fade: 0.05
 --- !u!114 &8203402467600379750
 MonoBehaviour:

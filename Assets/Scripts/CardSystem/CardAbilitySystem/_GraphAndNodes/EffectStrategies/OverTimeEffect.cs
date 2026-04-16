@@ -33,7 +33,7 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
                         ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
                     bool hit = CombatMath.RollHit(abilityPos, targetUnit, graph as CardAbilityDefinition, false);
                     //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
-                    _visualsStrategy?.CreateVisualEffect(abilityData, targetUnit); //do effect visuals
+                    _visualsStrategy?.CreateVisualEffect(abilityData, target); //do effect visuals
 
                     if (!hit) continue;
 
