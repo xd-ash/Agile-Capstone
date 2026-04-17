@@ -20,9 +20,9 @@ public class ChooseTargetAction : GoapAction
         var distancesToEnemies = GrabUnitDistances(Team.Friendly, _agent);
         return distancesToEnemies.Count > 0 ? true : false; // change this
     }
-    private static Dictionary<int, Unit> GrabUnitDistances(Team team, GoapAgent agent)
+    private static Dictionary<Unit, int> GrabUnitDistances(Team team, GoapAgent agent)
     {
-        Dictionary<int, Unit> distToUnits = new();
+        Dictionary<Unit, int> distToUnits = new();
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
@@ -30,7 +30,9 @@ public class ChooseTargetAction : GoapAction
             if (u == agent.unit) continue;
 
             var tempPath = CalculatePath(agent.transform, u.transform);
-            distToUnits.Add(tempPath.Count, u);
+
+            if (!distToUnits.ContainsKey(u))
+                distToUnits.Add(u, tempPath.Count);
         }
         return distToUnits;
     }
@@ -38,19 +40,32 @@ public class ChooseTargetAction : GoapAction
     {
         var enemiesDists = GrabUnitDistances(Team.Friendly, agent);
         var allyDists = GrabUnitDistances(Team.Enemy, agent);
-        Unit minIndexEnemy = null, minIndexAlly = agent.unit;
-        int minIndex = 0;
-       
-        minIndex = enemiesDists.Min(x => x.Key);
-        minIndexEnemy = enemiesDists[minIndex];
+        Unit minDistEnemy = null, minDistAlly = agent.unit;
+        int minDist = int.MaxValue;
 
+        for (int i = 0; i < enemiesDists.Count; i++)
+        {
+            var kvp = enemiesDists.ElementAt(i);
+            if (kvp.Value >= minDist) continue;
+            minDist = kvp.Value;
+            minDistEnemy = kvp.Key;
+        }
+        //minIndex = enemiesDists.Min(x => x.Value);
+        //minIndexEnemy = enemiesDists[minIndex];
+
+        minDist = int.MaxValue;
         if (curGoal == GoapGoals.KeepAlliesAlive.ToString() && allyDists.Count > 0)
         {
-            minIndex = allyDists.Min(x => x.Key);
-            minIndexAlly = allyDists[minIndex];
+            for (int i = 0; i < allyDists.Count; i++)
+            {
+                var kvp = allyDists.ElementAt(i);
+                if (kvp.Value >= minDist) continue;
+                minDist = kvp.Value;
+                minDistAlly = kvp.Key;
+            }
         }
 
-        return new Unit[2] { minIndexEnemy, minIndexAlly };
+        return new Unit[2] { minDistEnemy, minDistAlly };
     }
     public override void Perform()
     {

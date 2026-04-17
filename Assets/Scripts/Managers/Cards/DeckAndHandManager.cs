@@ -126,6 +126,17 @@ namespace CardSystem
             CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
+        //disable non hovered card cox colliders to avoid overlap issues
+        public void ToggleCollidersOnHover(Transform triggeredCard, bool disableOtherCards)
+        {
+            for (int i = 0; i < _cardsInHand.Count; i++)
+            {
+                var cardTrans = _cardsInHand[i]?.GetCardTransform;
+                var bc = cardTrans?.GetComponent<BoxCollider2D>();
+                if (cardTrans == triggeredCard || cardTrans == null || bc == null) continue;
+                bc.enabled = !disableOtherCards;
+            }
+        }
         public void SelectCard(Card card)
         {
             if (PauseMenu.isPaused || card == null) return;
@@ -236,6 +247,13 @@ namespace CardSystem
             if (_topCardOfDeck >= cardsInDeck.Count) return null;
 
             Card newCard = cardsInDeck[_topCardOfDeck];
+
+            while (_cardsInHand.Contains(newCard))
+            {
+                _topCardOfDeck++;
+                newCard = cardsInDeck[_topCardOfDeck];
+            }
+
             newCard.OnPrefabCreation(cardGO.transform);
             CardPrefabSetterUpper.SetupCardPrefab(newCard, CardState.Combat);
 

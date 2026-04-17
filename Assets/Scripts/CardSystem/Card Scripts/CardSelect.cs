@@ -142,6 +142,7 @@ namespace CardSystem
         public void ToggleHighlightAndScale(bool isHoveredOrSelected)
         {
             _cardHighlight?.SetActive(isHoveredOrSelected);
+            transform.localPosition += isHoveredOrSelected ? Vector3.forward : Vector3.back;
 
             float scaleMultiplier = isHoveredOrSelected ? _hoverScaleMultiplier : 1;
             transform.DOScale(_originalScale * scaleMultiplier, _tweenDuration);
@@ -315,6 +316,7 @@ namespace CardSystem
                             ReturnCardToHand();
                             return;
                         }
+                        DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
 
                         if (OptionsSettings.IsCardSelectOnClick)
                         {
@@ -377,6 +379,7 @@ namespace CardSystem
                         // Temporarily remove from hand management
                         DeckAndHandManager.Instance.RemoveCard(_cfs.Card);
                         DeckAndHandManager.Instance.SelectCard(_cfs.Card);
+                        DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
 
                         transform.position = MouseFunctionManager.Instance.GetMouseWorldPosition() + _dragOffset;
 
@@ -398,6 +401,7 @@ namespace CardSystem
             }
             _onMouseDrag = tmp;
         }
+      
         private void SetOnMouseEnter()
         {
             Action tmp = null;
@@ -409,8 +413,10 @@ namespace CardSystem
                         if (RewardsDisplayScript.IsRewarding) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused && DeckAndHandManager.Instance.GetSelectedCard == null)
+                        {
                             ToggleHighlightAndScale(true);
-
+                            DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, true);
+                        }
                         int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
                         APDisplay.Instance?.ShowPreview(cost);
                     };
@@ -449,6 +455,7 @@ namespace CardSystem
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                         {
                             ToggleHighlightAndScale(false);
+                            DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
 
                             if (DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
 
