@@ -15,6 +15,7 @@ public class HandPositionController : MonoBehaviour
     private GameObject _arrowDown, _arrowUp;
 
     [SerializeField] private float _handMoveSpeed = 1f;
+    [SerializeField] private float _onStartHandLowerDelay = 1.5f;
 
     private bool _isHandUp = true;
 
@@ -36,7 +37,14 @@ public class HandPositionController : MonoBehaviour
     }
     private void Start()
     {
-        ToggleHandPosition(); // toggle to lower position to start
+        // toggle to lower position to start
+        StartCoroutine(DelayedStartHandLower());
+    }
+
+    private IEnumerator DelayedStartHandLower()
+    {
+        yield return new WaitForSeconds(_onStartHandLowerDelay);
+        ToggleHandPosition();
     }
     public void ToggleHandPosition()
     {
