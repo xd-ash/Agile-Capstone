@@ -307,6 +307,8 @@ namespace CardSystem
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
 
+                        if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
+
                         if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || 
                             OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null || 
                             CardShopManager.Instance != null) return;
