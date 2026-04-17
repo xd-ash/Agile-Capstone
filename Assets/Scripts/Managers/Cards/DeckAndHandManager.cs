@@ -17,7 +17,9 @@ namespace CardSystem
             else
                 Destroy(this.gameObject);
         }
-        
+
+        [SerializeField] private Transform _cardHandParent;
+
         private int _topCardOfDeck = 0;
         //private int _nextCardInHandIndex = 0; //Removed since it was unused, kept in comments in case its needed later
         [SerializeField] private int _maxCards = 100;
@@ -130,7 +132,8 @@ namespace CardSystem
 
             // Block cards if tutorial is active and not in card step
             if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                 return;
 
             if (_selectedCard != card)
@@ -228,7 +231,7 @@ namespace CardSystem
             if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return null;
             var cardsInDeck = deck.GetCardsInDeck;
 
-            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), transform);
+            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), _cardHandParent);
 
             if (_topCardOfDeck >= cardsInDeck.Count) return null;
 

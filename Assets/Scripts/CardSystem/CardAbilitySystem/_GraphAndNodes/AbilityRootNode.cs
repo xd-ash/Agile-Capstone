@@ -20,10 +20,11 @@ namespace CardSystem
 		// based on connected targeting strategy port
         public void UseAbility(Unit user, CardRarity rarity = CardRarity.Common)
 		{
-			if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
-				return;
-			
+            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                return;
+
             if (_targetingStrategy == null)
                 _targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
 
@@ -74,7 +75,7 @@ namespace CardSystem
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
-            AbilityEvents.AbilityUsed(abilityData.GetUnit.GetTeam); //moved here to avoid early card removal/delete on multi effect cards
+            AbilityEvents.AbilityUsed(abilityData.GetUnit.GetTeam, _cardDefinition.GetCardCategory); //moved here to avoid early card removal/delete on multi effect cards
         }
 
         // Unused method for now, kept just for reminder of tutorial system setup

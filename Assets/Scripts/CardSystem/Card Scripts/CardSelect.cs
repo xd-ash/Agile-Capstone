@@ -124,6 +124,7 @@ namespace CardSystem
         private IEnumerator MoveCardToActivePos()
         {
             Transform target = DeckAndHandManager.Instance.CardActivePos;
+            Vector3 targetPos = target.transform.localPosition + Vector3.up * HandPositionController.Instance.GetCardActivePosYAdjustment;
             Vector3 initCardPos = transform.localPosition;
             Quaternion initCardRot = transform.localRotation;
 
@@ -131,12 +132,12 @@ namespace CardSystem
             for (float timer = 0f; timer < _tweenDuration; timer += Time.deltaTime)
             {
                 float lerpRatio = timer / _tweenDuration;
-                transform.localPosition = Vector3.Lerp(initCardPos, target.transform.localPosition, lerpRatio);
+                transform.localPosition = Vector3.Lerp(initCardPos, targetPos, lerpRatio);
                 transform.localRotation = Quaternion.Lerp(initCardRot, target.transform.localRotation, lerpRatio);
                 yield return null;
             }
 
-            transform.localPosition = target.localPosition;
+            transform.localPosition = targetPos;
         }
         public void ToggleHighlightAndScale(bool isHoveredOrSelected)
         {
@@ -149,7 +150,7 @@ namespace CardSystem
 
             CardPrefabSetterUpper.SetCombatCardGOOrder(isHoveredOrSelected ? transform : null);
 
-            if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick)
+            if (!_cfs.IsDragging)
                 CardSplineManager.Instance?.UpdateCardHoverPosition(_cfs.Card, isHoveredOrSelected);
         }
 
@@ -250,7 +251,8 @@ namespace CardSystem
 
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
 
                         // Check for active cards
@@ -300,7 +302,8 @@ namespace CardSystem
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
 
                         if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || 
@@ -363,7 +366,8 @@ namespace CardSystem
 
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly)
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
 
                         //disable drag with click to select option enabled

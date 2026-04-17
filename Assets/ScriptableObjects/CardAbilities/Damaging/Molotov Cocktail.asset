@@ -78,6 +78,38 @@ MonoBehaviour:
   abilityRoot: 0
   aoeStrat: 0
   _targetTilesNotUnits: 1
+--- !u!114 &-5514663307128632686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc08c4c12a34a847a4c50972ba67a1b, type: 3}
+  m_Name: Explosion Effect Visual
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffectVisual
+  graph: {fileID: 11400000}
+  position: {x: 200, y: 168}
+  ports:
+    keys:
+    - input
+    values:
+    - _fieldName: input
+      _node: {fileID: -5514663307128632686}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effectVisuals
+        node: {fileID: 1372939995386781130}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+  input: 0
+  _explosionEffect: {fileID: 7456636758858463242, guid: 7663deb757c5c534c8c28f7540b88910, type: 3}
 --- !u!114 &-1752522101947364209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +208,7 @@ MonoBehaviour:
   - {fileID: -9205815861979033098}
   - {fileID: 1372939995386781130}
   - {fileID: 5470382531709042956}
+  - {fileID: -5514663307128632686}
   _description: Deal %1% damage every turn for %0% turns to each target
   _cardImage: {fileID: 21300000, guid: 5ce6ec021a1a17647b27080f84486dd0, type: 3}
   _abilitySFX: {fileID: 0}
@@ -255,7 +288,10 @@ MonoBehaviour:
       _node: {fileID: 1372939995386781130}
       _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: input
+        node: {fileID: -5514663307128632686}
+        reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2

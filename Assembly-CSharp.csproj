@@ -266,6 +266,7 @@
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\TargetingStrategies\OnTouched.cs" />
     <Compile Include="Assets\Scripts\Events\DamageEvents.cs" />
     <Compile Include="Assets\Scripts\Managers\Movement\MovementLine.cs" />
+    <Compile Include="Assets\Scripts\Managers\Cards\HandPositionController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\RestoreAPEffect.cs" />
   </ItemGroup>
   <ItemGroup>
