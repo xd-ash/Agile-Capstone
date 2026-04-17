@@ -97,7 +97,8 @@ namespace CardSystem
                 }
                 //Debug.Log($"lastValidPos: ({lastValidPos.x},{lastValidPos.y})");
 
-                unitMover.OnKnockback(lastValidPos);
+                if (targetUnit.GetCanMove)
+                    unitMover.OnKnockback(lastValidPos);
 
                 if (adjustedEffectVal < 0)
                     abilityData.GetUnit.GetFloatingText.SpawnFloatingText("GET OVER HERE!");

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 432}
   m_MaxSize: {x: 10000, y: 10000}
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -298,14 +298,14 @@ MonoBehaviour:
     y: 590
     width: 1476
     height: 343
-  m_MinSize: {x: 231, y: 276}
-  m_MaxSize: {x: 10001, y: 10026}
-  m_ActualView: {fileID: 19}
+  m_MinSize: {x: 101, y: 126}
+  m_MaxSize: {x: 4001, y: 4026}
+  m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 19}
   - {fileID: 20}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -474,9 +474,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: ec460000
       m_LastClickedID: 0
-      m_ExpandedIDs: 26c5fffff2c6ffff80dcfffffeddffff8ef3ffffccf6ffff00fbffffd4e800002ae900006af10000361501008c1501003039010086390100
+      m_ExpandedIDs: 00fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1324,7 +1324,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Managers/Cards
+    - Assets/Scripts/CardSystem/CardAbilitySystem/_GraphAndNodes/EffectStrategies
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1334,16 +1334,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Managers/Cards
+  - Assets/Scripts/CardSystem/CardAbilitySystem/_GraphAndNodes/EffectStrategies
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\ALeas\OneDrive\Documents\GitHub\Agile-Capstone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 919}
-    m_SelectedIDs: 58ea0000
-    m_LastClickedID: 59992
-    m_ExpandedIDs: 0000000054e3000056e3000058e300005ae300005ce300005ee3000060e3000062e3000064e3000066e3000068e300006ae300006ce300006ee3000070e3000072e3000074e30000b0e6000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 799}
+    m_SelectedIDs: 80e60000
+    m_LastClickedID: 59008
+    m_ExpandedIDs: 0000000054e3000056e3000058e300005ae300005ce300005ee3000060e3000062e3000064e3000066e3000068e300006ae300006ce300006ee3000070e3000072e3000074e300009ee6000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1398,8 +1398,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: ec460000
+    m_LastClickedInstanceID: 18156
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c62300001ebf00009cb5000054c800000ab800008e1effff5eb4000022bd0000a8f5feff86f50000d07200003aa2fcfffef2ffff1484ffff2c7600004ceaffffbc750000c4730000000000004af0010096740000e674000004c1000006210100fcc80000bc2efeff56d100008076000060760000646c01007cd40000c8d100004c79000094da0000a6ca0000b0e8000070810000ac820000f87900003c0c010050dd00004c000100589a0100bc780000fcdb06006acb000056cb00009eda00009cda000092da0000eacf0000f4ce00000ecf0000ea7c0000f2ce0000f89e0000fa9e0000fc9e0000fe9e0000009f000014fc0000029f00003685010084a00000
     m_RenameOverlay:
@@ -1453,7 +1453,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 669
-    width: 983
+    width: 1475
     height: 317
   m_SerializedDataModeController:
     m_DataMode: 0
