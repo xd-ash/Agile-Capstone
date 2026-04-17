@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 432}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 150}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 0
-  controlID: 122294
+  controlID: 71
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 150}
   m_MaxSize: {x: 16192, y: 24288}
   vertical: 1
-  controlID: 122295
+  controlID: 72
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 122296
+  controlID: 73
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 122248
+  controlID: 24
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -325,8 +325,8 @@ MonoBehaviour:
     y: 0
     width: 444
     height: 933
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -476,7 +476,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 82e2f9ffc4f4f9ffeaf4f9ff6a4afaff284cfafff04cfaffe04dfaffec9dfaff7ca1faff22bcfaff96cffaff1ed1faffdceefaff02f2fafff0f2faff2205fbfff005fbff6e0efbffea12fbff7a14fbff0c1afbffb01bfbffea2afbfff22cfbff3e3afbffbc3bfbff7a49fbff1c4bfbffca62fbff6e71fbff167efbffc482fbff8083fbffa888fbff6aeefbffceeffbffb605fcff580dfcff2624fcff4427fcff1035fcfff236fcffba3ffcff3e44fcffb646fcfffc53fcff3a55fcffee61fcffbe68fcff3073fcff0878fcff1282fcff088cfcffac90fcffd493fcffa494fcff1097fcffa4a4fcff10aefcff68bbfcfff4befcff5eeafcff24f1fcff7c1afdff262cfdffa02efdfffc46fdffea68fdffbe6afdfff677fdff567ffdff2c88fdffdc8cfdffde9ffdff46acfdfff8b0fdff56c3fdff4ec5fdffb6cffdff92d0fdff02defdff74e3fdff96e5fdff56effdfff6fffdff2c26feff9a3efeff9a97feff3699feff18abfeff4eacfeff2eadfeffdcf5feffbaadffff9abeffff96f3ffffe6ef000070f00000eaf00000a0f1000026f2000066f200006cf200008cf200001af30000acf300007af50000c4f50000eef5000022f6000034f600000ef70000341e010076280100ccad0100e0b001007ab40100c8b40100aab5010038b60100deb6010072f9010064fb0100c4150200ce150200061c0200381f0200a01f0200ee1f0200d0200200b8220200b0390200b43a02000a3b0200f83b0200623d0200b83d0200404c0200a457020076590200fa590200525a020092750200e875020042a2020098a202006eb00200c4b0020066d10200bcd10200d2e90200dce90200b0ea0200fcea020006eb02005e2e0300682e03003c2f0300922f0300c04603009e470300f44703007a67030058680300ae68030016850300f48503004a860300c6870300a4880300fa88030034a0030012a1030068a10300e2a20300c0a3030016a40300ecbc03001ad40300f8d403004ed5030016e70300f4e703004ae80300c4e90300a2ea0300f8ea0300040304005a030400d0190400261a040096380400ec380400de8b0400348c040062a20400b8a20400aaad040000ae040082b90400a8c70400b2c7040016e004007cf804007a4405001448050062480500444905003856050062580500108205005c83050066830500748505008c85050096850500aaa80500fefe050088030600160a0600b00d0600fe0d0600e00e0600ae7f06001e960600
+      m_ExpandedIDs: 00fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1324,7 +1324,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Managers/Cards
+    - Assets/Scenes
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1334,16 +1334,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Managers/Cards
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\ALeas\OneDrive\Documents\GitHub\Agile-Capstone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 1047}
-    m_SelectedIDs: 68b70100
-    m_LastClickedID: 112488
-    m_ExpandedIDs: 00000000a2fa0000a4fa0000a6fa0000a8fa0000aafa0000acfa0000aefa0000b0fa0000b2fa0000b4fa0000b6fa0000b8fa0000bafa0000bcfa0000c0fa0000c2fa000006fd000036fd000046fd000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 267}
+    m_SelectedIDs: 40e60000
+    m_LastClickedID: 58944
+    m_ExpandedIDs: 0000000056e3000058e300005ae300005ce300005ee3000060e3000062e3000064e3000066e3000068e300006ae300006ce300006ee3000070e3000072e3000074e3000076e30000b0e6000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1372,7 +1372,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a2fa0000a4fa0000a6fa0000a8fa0000aafa0000acfa0000aefa0000b0fa0000b2fa0000b4fa0000b6fa0000b8fa0000bafa0000bcfa0000c0fa0000c2fa000046fd000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000056e3000058e300005ae300005ce300005ee3000060e3000062e3000064e3000066e3000068e300006ae300006ce300006ee3000070e3000072e3000074e3000076e30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
