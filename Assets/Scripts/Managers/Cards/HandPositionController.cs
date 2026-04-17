@@ -34,6 +34,10 @@ public class HandPositionController : MonoBehaviour
 
         _splineContainer = FindFirstObjectByType<SplineContainer>();
     }
+    private void Start()
+    {
+        ToggleHandPosition(); // toggle to lower position to start
+    }
     public void ToggleHandPosition()
     {
         _isHandUp = !_isHandUp;

@@ -15,7 +15,7 @@ public class BountyBoardNode : NodeMapNode, IUseCombatMapData
 
     public override void OnClick()
     {
-        _bountySelectPanel?.gameObject.SetActive(true);
+        _bountySelectPanel?.transform?.parent?.gameObject?.SetActive(true);
         _bountySelectPanel?.InitBountyBoard(_combatData.ToArray(), _nodeIndex);
     }
 

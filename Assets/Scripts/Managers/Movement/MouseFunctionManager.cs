@@ -81,6 +81,11 @@ public class MouseFunctionManager : MonoBehaviour
     // return true if mouse is over valid tile
     private bool TrackMouse()
     {
+        //rough check for any disabled card boxcolliders in hand, indicating a card is being hovered over. This stops movement when selecting cards that overlap tilemap
+        foreach (var card in DeckAndHandManager.Instance.CardsInHand)
+            if (card != null && card.GetCardTransform != null && card.GetCardTransform.TryGetComponent(out BoxCollider2D bc))
+                if (!bc.enabled) return false;
+
         if (_tilemap == null)
             _tilemap = FindAnyObjectByType<Tilemap>();
 
