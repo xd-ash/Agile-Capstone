@@ -227,6 +227,12 @@ public class SettingsData
     [SerializeField] private AudioSettingsToken _audioSettings;
     [SerializeField] private OptionsSettingsToken _optionsSettings;
 
+    public SettingsData()
+    {
+        _audioSettings = new();
+        _optionsSettings = new();
+    }
+
     public AudioSettingsToken GetAudioSettings => _audioSettings;
     public OptionsSettingsToken GetOptionsSettings => _optionsSettings;
 

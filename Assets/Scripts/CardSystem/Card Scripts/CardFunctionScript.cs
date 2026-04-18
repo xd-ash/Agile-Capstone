@@ -1,8 +1,5 @@
 using CardSystem;
-using DG.Tweening;
 using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardFunctionScript : MonoBehaviour
@@ -123,6 +120,12 @@ public class CardFunctionScript : MonoBehaviour
                         if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
                         if (DeckAndHandManager.Instance.CardsInHand.IndexOf(Card) == -1) return;
                         if (OptionsSettings.IsCardSelectOnClick) return;
+                        // Block card interaction if tutorial is active and not on card step
+                        if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                            return;
+                        if (Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory) return;
 
                         IsDragging = true;
                     };

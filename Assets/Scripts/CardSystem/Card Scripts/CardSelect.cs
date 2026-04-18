@@ -84,28 +84,10 @@ namespace CardSystem
         private void OnMouseEnter()
         {
             _onMouseEnter?.Invoke();
-
-            /*if (_state == CardState.Combat && RewardsDisplayScript.IsRewarding) return;
-
-            if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging && DeckAndHandManager.Instance.GetSelectedCard == null)
-                ToggleHighlightAndScale(true);
-
-            if (_state != CardState.Combat) return;
-            int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
-            APDisplay.Instance?.ShowPreview(cost);*/
         }
         private void OnMouseExit()
         {
             _onMouseExit?.Invoke();
-
-            /*if (!_cfs.IsSelected && !PauseMenu.isPaused && !_cfs.IsDragging)
-            {
-                ToggleHighlightAndScale(false);
-
-                if (_state != CardState.Combat || DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
-
-                APDisplay.Instance?.ClearPreview();
-            }*/
         }
         private void OnMouseDown()
         {
@@ -254,7 +236,13 @@ namespace CardSystem
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                        {
+                            ToggleHighlightAndScale(false);
+                            DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
+                            ReturnCardToHand();
                             return;
+                        }
+                        if (_cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
 
                         // Check for active cards
                         if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
@@ -305,9 +293,15 @@ namespace CardSystem
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                        {
+                            ToggleHighlightAndScale(false);
+                            DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
+                            ReturnCardToHand();
                             return;
+                        }
+                        if (_cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
 
-                        if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
+                        if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || TurnManager.IsEnemyTurn) return;
 
                         if (!_cfs.IsDragging && !OptionsSettings.IsCardSelectOnClick || 
                             OptionsSettings.IsCardSelectOnClick && DeckAndHandManager.Instance.GetSelectedCard != null || 
@@ -319,6 +313,7 @@ namespace CardSystem
                             return;
                         }
                         DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
+
 
                         if (OptionsSettings.IsCardSelectOnClick)
                         {
@@ -372,7 +367,13 @@ namespace CardSystem
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                        {
+                            ToggleHighlightAndScale(false);
+                            DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
+                            ReturnCardToHand();
                             return;
+                        }
+                        if (_cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
 
                         //disable drag with click to select option enabled
                         if (OptionsSettings.IsCardSelectOnClick || !_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)

@@ -13,6 +13,8 @@ public class TutorialManager : MonoBehaviour
     private bool _stepWaiting = false;
     private CardCategory _expectedCategory;
 
+    public CardCategory GetExpectedCatagory => _expectedCategory;
+
     public enum TutorialInputMode
     {
         None,

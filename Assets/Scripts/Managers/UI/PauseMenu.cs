@@ -42,8 +42,6 @@ public class PauseMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        _cardSelectOnClickToggle.isOn = OptionsSettings.IsCardSelectOnClick;
-        _autoEndTurnToggle.isOn = OptionsSettings.AutoEndTurn;
     }
 
     private void Start()
@@ -67,6 +65,8 @@ public class PauseMenu : MonoBehaviour
         _musicSlider?.onValueChanged.AddListener(OnMusicChanged);
 
         // Toggles
+        _cardSelectOnClickToggle.isOn = OptionsSettings.IsCardSelectOnClick;
+        _autoEndTurnToggle.isOn = OptionsSettings.AutoEndTurn;
         _cardSelectOnClickToggle.onValueChanged.AddListener(OptionsSettings.UpdateCardSelect);
         _autoEndTurnToggle?.onValueChanged.AddListener(OptionsSettings.UpdateAutoEndTurn);
 
