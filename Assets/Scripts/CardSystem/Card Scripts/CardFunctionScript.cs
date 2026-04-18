@@ -125,7 +125,7 @@ public class CardFunctionScript : MonoBehaviour
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
-                        if (Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory) return;
+                        if (TransitionScene.IsTutorial && Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
 
                         IsDragging = true;
                     };

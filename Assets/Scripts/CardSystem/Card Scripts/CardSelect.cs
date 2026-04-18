@@ -242,7 +242,7 @@ namespace CardSystem
                             ReturnCardToHand();
                             return;
                         }
-                        if (_cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
+                        if (TransitionScene.IsTutorial && _cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
 
                         // Check for active cards
                         if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || DeckAndHandManager.Instance.GetSelectedCard != null || TurnManager.IsEnemyTurn) return;
@@ -299,7 +299,7 @@ namespace CardSystem
                             ReturnCardToHand();
                             return;
                         }
-                        if (_cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
+                        if (TransitionScene.IsTutorial && _cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
 
                         if (PauseMenu.isPaused || _cfs.IsSelected || DeckAndHandManager.Instance == null || TurnManager.IsEnemyTurn) return;
 
@@ -373,7 +373,7 @@ namespace CardSystem
                             ReturnCardToHand();
                             return;
                         }
-                        if (_cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
+                        if (TransitionScene.IsTutorial && _cfs.Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
 
                         //disable drag with click to select option enabled
                         if (OptionsSettings.IsCardSelectOnClick || !_cfs.IsDragging || PauseMenu.isPaused || CardShopManager.Instance != null || DeckAndHandManager.Instance == null || _cfs.IsSelected)
