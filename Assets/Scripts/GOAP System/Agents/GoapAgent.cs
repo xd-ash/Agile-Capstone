@@ -1,8 +1,6 @@
 using CardSystem;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using static GOAPDeterminationMethods;
 
@@ -37,7 +35,6 @@ public class GoapAgent : MonoBehaviour
 
     private List<Goal> _goals = new();
 
-    //private Dictionary<Goal, float> _weightedGoalsDict = new();
     private Dictionary<Goal, Plan> _goalsDict = new();
 
     private Goal _currentGoal;
@@ -52,6 +49,8 @@ public class GoapAgent : MonoBehaviour
 
     public bool showDebugMessages = false;
     [SerializeField] private int _buildFailCounter = 0;
+
+    private bool _canAct = true;
 
     public Goal GetCurrentGoal => _currentGoal;
     public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget ));
@@ -75,7 +74,6 @@ public class GoapAgent : MonoBehaviour
             return;
         }
 
-        //_actions = new(_agentSO.GetActions);
         _actions = new();
         foreach (var action in _agentSO.GetActions)
         {
@@ -84,11 +82,7 @@ public class GoapAgent : MonoBehaviour
             clonedAction.SetAgent(this);
             clonedAction.GrabConditionsFromEnums();
         }
-        /*foreach (var a in _actions)
-        {
-            a.SetAgent(this);
-            a.GrabConditionsFromEnums();
-        }*/
+
         _goals = new(_agentSO.GetGoals);
         healCharges = _agentSO.GetTotalHealCharges;
 
@@ -100,10 +94,9 @@ public class GoapAgent : MonoBehaviour
     }
     void LateUpdate()
     {
+        if (!_canAct) return;
         if (TurnManager.GetCurrentUnit != unit) return;
         if (_currentAction != null && _currentAction.IsRunning) return;
-
-        //if (_isResetting) return;
 
         if (_planner == null || _actionQueue == null)
         {
@@ -222,7 +215,6 @@ public class GoapAgent : MonoBehaviour
             string tempStr = $"Agent: {name} Target: {GetCurrentTarget?.name}:";
             tempStr += $"\nPost Action Beliefs: ";
             foreach (var b in _beliefs.GetStates)
-                //foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
             //Debug.Log(tempStr);
         }
@@ -270,9 +262,8 @@ public class GoapAgent : MonoBehaviour
         CheckForAP(unit, ref _beliefs);
         CheckIfHealthy(unit, ref _beliefs);
 
-        _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
-
-        //PlanForGoals();
+        if(CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost))
+            _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
 
         if (GetCurrentTarget == null)
         {
@@ -281,12 +272,9 @@ public class GoapAgent : MonoBehaviour
 
             _beliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
             _beliefs.RemoveState(GoapStates.InRange.ToString());
-
-            //_beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
         }
         else
         {
-            //CheckRange(this, _agentSO.GetDamageAbility.GetRange, ref _beliefs);
             var b = CheckRange(this, GetCurrentAbility.GetRange, ref _beliefs);
             CheckIfInLOS(this, ref _beliefs);
         }
@@ -314,6 +302,16 @@ public class GoapAgent : MonoBehaviour
             _goalsDict[e.Key] = tempPlan;
         }
     }
+    public void StopPlanning()
+    {
+        _canAct = false;
+    }
+    public void Resume()
+    {
+        ResetStates();
+        _canAct = true;
+    }
+
     public void SetBuildFailBeliefs()
     {
         _beliefs = new();
@@ -332,8 +330,6 @@ public class GoapAgent : MonoBehaviour
 
             tempBeliefs.ModifyState(GoapStates.OutOfRange.ToString(), 1);
             tempBeliefs.RemoveState(GoapStates.InRange.ToString());
-
-            //tempBeliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
         }
         else
         {

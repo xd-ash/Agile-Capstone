@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static IsoMetricConversions;
 
 namespace CardSystem
 {
@@ -30,9 +31,10 @@ namespace CardSystem
 
                 if (!hit) continue;
 
-                Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
                 Vector2Int targetGridPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);
-                //Vector2Int targetGridPos = ConvertToGridFromIsometric(target.transform.localPosition);
+                Vector2Int casterGridPos = ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit);
+                if (abilityData.AbilityTriggerPos != -Vector2Int.one)
+                    casterGridPos = abilityData.AbilityTriggerPos;
 
                 Vector2Int knockbackDir = Vector2Int.zero;
 
