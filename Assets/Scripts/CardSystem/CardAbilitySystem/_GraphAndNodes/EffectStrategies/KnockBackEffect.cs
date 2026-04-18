@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static IsoMetricConversions;
 
 namespace CardSystem
 {
@@ -24,13 +25,16 @@ namespace CardSystem
                 var abilityPos = abilityData.AbilityTriggerPos == -Vector2Int.one ?
                     ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
                 bool hit = CombatMath.RollHit(abilityPos, targetUnit, def, false);
+                //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
 
                 _visualsStrategy?.CreateVisualEffect(abilityData, target); //do effect visuals
 
                 if (!hit) continue;
 
-                Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
                 Vector2Int targetGridPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);
+                Vector2Int casterGridPos = ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit);
+                if (abilityData.AbilityTriggerPos != -Vector2Int.one)
+                    casterGridPos = abilityData.AbilityTriggerPos;
 
                 Vector2Int knockbackDir = Vector2Int.zero;
 
