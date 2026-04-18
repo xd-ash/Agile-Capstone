@@ -24,7 +24,6 @@ namespace CardSystem
                 var abilityPos = abilityData.AbilityTriggerPos == -Vector2Int.one ?
                     ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
                 bool hit = CombatMath.RollHit(abilityPos, targetUnit, def, false);
-                //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
 
                 _visualsStrategy?.CreateVisualEffect(abilityData, target); //do effect visuals
 
@@ -32,7 +31,6 @@ namespace CardSystem
 
                 Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
                 Vector2Int targetGridPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);
-                //Vector2Int targetGridPos = ConvertToGridFromIsometric(target.transform.localPosition);
 
                 Vector2Int knockbackDir = Vector2Int.zero;
 

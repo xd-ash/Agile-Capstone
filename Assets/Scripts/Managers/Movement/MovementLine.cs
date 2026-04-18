@@ -92,6 +92,7 @@ public class MovementLine : MonoBehaviour
     }
     public void ClearLine()
     {
+        if (_line.positionCount == 0) return;
         _line.positionCount = 0;
         APHoverIndicator.Instance?.Hide();
         APDisplay.Instance.ClearPreview();
