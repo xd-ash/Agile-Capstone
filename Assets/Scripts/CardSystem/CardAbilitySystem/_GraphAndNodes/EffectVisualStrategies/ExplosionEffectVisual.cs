@@ -11,7 +11,7 @@ public class ExplosionEffectVisual : EffectVisualsStrategy
     {
         if (target == null || _explosionEffect == null) return;
 
-        float aoeRange = 0.5f;
+        int aoeRange = 0;
         foreach (var node in (graph as CardAbilityDefinition).nodes)
         {
             if (node is not OnAOETarget) continue;

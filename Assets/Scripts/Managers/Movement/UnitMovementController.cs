@@ -31,9 +31,6 @@ public class UnitMovementController : MonoBehaviour
 
     public void OnKnockback(Vector2Int targetPos)
     {
-        if (TryGetComponent(out GoapAgent agent))
-            agent.StopPlanning();
-
         var curPos = ConvertToGridFromIsometric(transform.localPosition);
         ByteMapController.Instance.UpdateUnitPositionByteMap(_unit, curPos, targetPos);
 
@@ -53,14 +50,7 @@ public class UnitMovementController : MonoBehaviour
             return;
         }
 
-
-        OnStartUnitMove(() =>
-        {
-            _isKnockback = false;
-
-            if (agent != null)
-                agent.Resume();
-        });
+        OnStartUnitMove(() => _isKnockback = false);
     }
 
     //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
@@ -73,7 +63,7 @@ public class UnitMovementController : MonoBehaviour
 
             var position = ConvertToGridFromIsometric(transform.localPosition);
             _truePath = FindPathAStar.CalculatePath(position, tilePos);
-
+            
             if (!_isKnockback)
             {
                 //Flip bool in pathmarker to indicate which tiles are within movement range
@@ -178,6 +168,6 @@ public class UnitMovementController : MonoBehaviour
 
         // rebuild highlights for player right after movement is fully done
         //if (_unit.GetTeam == Team.Friendly)
-        //MovementRangeCalculator.Instance.RebuildForCurrentUnit();
+            //MovementRangeCalculator.Instance.RebuildForCurrentUnit();
     }
 }

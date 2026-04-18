@@ -19,7 +19,7 @@ public class MoveInRangeAction : GoapAction
     public override bool PrePerform(ref WorldStates beliefs)
     {
         if (beliefs.GetStates.ContainsKey(GoapStates.InRange.ToString()) || _agent.GetDamageAbility == null || _agent.GetHealAbility == null) return false;
-
+        
         _unitMover = _agent.GetComponent<UnitMovementController>();
 
         bool isAttacking = _agent.GetCurrentGoal.key == GoapGoals.KillPlayer.ToString();
