@@ -5324,7 +5324,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3317375961305430365, guid: 97e2867e6e1445743aa1e7bc388dd0bb, type: 3}
+  m_Sprite: {fileID: 3317375961305430365, guid: 21d463081223fb045b9eca9b05380318, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5351,10 +5351,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1691389974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb1c76a86ea28845af3e594309e3848, type: 3}
+  m_Script: {fileID: 11500000, guid: 11122acaaa87d9d4eac07e387a4ccab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrawCardButton
-  _drawAbility: {fileID: 11400000, guid: b9a4a2d4ffe54d1448aef2e92c42c80a, type: 2}
+  _drawAbility: {fileID: 11400000, guid: 1a8d5e7b17ae2b341ba7a3b7c6a3a032, type: 2}
 --- !u!1 &1697675594
 GameObject:
   m_ObjectHideFlags: 0
