@@ -20,13 +20,15 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 70a56b6917d07874ba1e4f6f58eed2c0, type: 2}
     - {fileID: 11400000, guid: af0c4c98a1f00384cbfa3972dbd55600, type: 2}
     - {fileID: 11400000, guid: 3f6feeb102282cc4a84f833e39eef5a2, type: 2}
+    - {fileID: 11400000, guid: 176bb99cc174d414dacdf4a30e00a4fc, type: 2}
   - _packName: Basic Pack 2
     _cardsInPack:
     - {fileID: 11400000, guid: b50b36088f8e5fd4d8a10ce8411903f8, type: 2}
     - {fileID: 11400000, guid: e021387c05a3f6c4fa7b632e3aa0ef39, type: 2}
-    - {fileID: 11400000, guid: efc2a43b9bb88ed4aa9447587c970967, type: 2}
-    - {fileID: 11400000, guid: 78914f7d1cbcc544e8625908a4b3cde2, type: 2}
+    - {fileID: 11400000, guid: 45efe6c92ba20bd40be576f4d3db7455, type: 2}
+    - {fileID: 11400000, guid: 3cc4959569ee6ac459a899506a31b8f6, type: 2}
     - {fileID: 11400000, guid: 1f3bc92e6eceaef43a876d2d5b3ae803, type: 2}
+    - {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
   - _packName: Gambler Pack 1
     _cardsInPack:
     - {fileID: 11400000, guid: e3005e35529b7dd43b6af43d957fa4a7, type: 2}
@@ -37,10 +39,18 @@ MonoBehaviour:
   - _packName: Traps Pack 1
     _cardsInPack:
     - {fileID: 11400000, guid: efc2a43b9bb88ed4aa9447587c970967, type: 2}
-    - {fileID: 11400000, guid: 35342d85781bfa248b4c5959cdf28cce, type: 2}
+    - {fileID: 11400000, guid: e021387c05a3f6c4fa7b632e3aa0ef39, type: 2}
     - {fileID: 11400000, guid: afd4a0fee03b7b8429f17dcf20ddebf8, type: 2}
-    - {fileID: 11400000, guid: 962876e3ccf8efd47a7eb416ba03904a, type: 2}
-    - {fileID: 11400000, guid: 9e4209eaa84ac9c4a8d44e2caa03349a, type: 2}
+    - {fileID: 11400000, guid: 9a01c0cf69822dc4b87b7e5ceae8c875, type: 2}
+    - {fileID: 11400000, guid: fe972ee06ead6544cacc7ab207020669, type: 2}
+    - {fileID: 11400000, guid: a5005cf3229a72543948e13a9c456d6e, type: 2}
+  - _packName: Gambler Pack 2
+    _cardsInPack:
+    - {fileID: 11400000, guid: 309c56f4e54edcf4f8165e9b49183870, type: 2}
+    - {fileID: 11400000, guid: 1932c7f32c41dfe4f9909c62e8af7a34, type: 2}
+    - {fileID: 11400000, guid: e04e4be8d4a83b543ac2e699bd58eaf8, type: 2}
+    - {fileID: 11400000, guid: 210961553e5f4944eac47faa00cb5ddc, type: 2}
+    - {fileID: 11400000, guid: 73bb2126a50ee1347bea74a88f1d4d17, type: 2}
   _cardsInProject:
   - {fileID: 11400000, guid: 3e42398b251649d4e882a7c379292b53, type: 2}
   - {fileID: 11400000, guid: 383fcb1d98a15c5448eb4030d4991491, type: 2}
