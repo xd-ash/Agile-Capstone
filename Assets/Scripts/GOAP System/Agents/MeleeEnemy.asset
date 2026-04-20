@@ -12,14 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
   m_Name: MeleeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
-  _damageAbility: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
-  _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
-  _totalHealCharges: 0
-  _goalsEnum: 22
+  _harmfulAbilities:
+  - abilityName: Quick Jab
+    ability: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
+    cooldownInTurns: 0
+    maxUses: -1
+  - abilityName: Strong Attack
+    ability: {fileID: 11400000, guid: 0b936985b9726cf4388147e388cdc5f2, type: 2}
+    cooldownInTurns: 2
+    maxUses: -1
+  _helpfulAbilities: []
+  _goalsEnum: 38
   _goals:
   - rid: 3457071463569817679
-  - rid: 3457071463569817680
-  - rid: 3457071463569817681
+  - rid: 3457071735035396174
+  - rid: 3457071735035396182
   _goapActionsEnum: 422
   _actions:
   - rid: 97859988893466696
@@ -56,7 +63,7 @@ MonoBehaviour:
         _costMultiplier: 1
         _preConditionsFlags: 0
         _postConditionsFlags: 0
-        _goalsFlags: 16
+        _goalsFlags: 32
     - rid: 97859988893466701
       type: {class: AttackAction, ns: , asm: Assembly-CSharp}
       data:
@@ -81,15 +88,15 @@ MonoBehaviour:
         key: KillPlayer
         value: 1
         removeOnComplete: 1
-    - rid: 3457071463569817680
+    - rid: 3457071735035396174
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
-        key: StayAlive
-        value: 1
+        key: StayAliveEnemyFocus
+        value: 0
         removeOnComplete: 1
-    - rid: 3457071463569817681
+    - rid: 3457071735035396182
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: EndTurn
-        value: 1
+        value: 0
         removeOnComplete: 0

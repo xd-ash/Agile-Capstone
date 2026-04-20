@@ -27,10 +27,10 @@ public class MoveInRangeAction : GoapAction
         if (ability == null) return false;
 
         Unit curTar = isAttacking ? _agent.GetEnemyTarget : _agent.GetAllyTarget;
-        if (curTar == _agent.unit) return false;
+        if (curTar == _agent.GetUnit) return false;
 
         var tarPos = ByteMapController.Instance.GetPositionOfUnit(curTar);
-        var agentPos = ByteMapController.Instance.GetPositionOfUnit(_agent.unit);
+        var agentPos = ByteMapController.Instance.GetPositionOfUnit(_agent.GetUnit);
 
         var closestTile = GetClosestInRangeTile(curTar, tarPos, agentPos, ability.GetRange);
 
@@ -76,16 +76,16 @@ public class MoveInRangeAction : GoapAction
 
 
         var tarPos = ByteMapController.Instance.GetPositionOfUnit(tempTarget);
-        var agentPos = ByteMapController.Instance.GetPositionOfUnit(_agent.unit);
+        var agentPos = ByteMapController.Instance.GetPositionOfUnit(_agent.GetUnit);
         var ability = tempGoal == GoapGoals.KillPlayer.ToString() ? _agent.GetHarmfulAbility : _agent.GetHelpfulAbility;
         if (ability == null) return float.MaxValue;
 
         var closestTile = GetClosestInRangeTile(tempTarget, tarPos, agentPos, ability.GetRange);
 
-        var distRatio = GetAdjustedMovementDistRatio(agentPos, closestTile, _agent.unit);
+        var distRatio = GetAdjustedMovementDistRatio(agentPos, closestTile, _agent.GetUnit);
 
         //bandaid fix, if target is this unit make moving into range cost a lot so it isn't chosen in plan
-        bool isStayingAlive = tempGoal == GoapGoals.StayAlive.ToString();
+        bool isStayingAlive = tempGoal == GoapGoals.StayAliveSelfFocus.ToString();
         if (isStayingAlive) 
             distRatio = float.MaxValue;
         return _cost * distRatio * _costMultiplier;

@@ -27,9 +27,7 @@ public class GoapAgent : MonoBehaviour
     [SerializeField] private GoapAgentSO _agentSO;
     [SerializeField] private GoapAgentAbilityController _abilityController;
 
-    [Tooltip("Number of times unit can heal per combat. (-1 for infinite heals)")]
-    //public int healCharges = 3;
-    public int attacksPerformedThisTurn = 0;
+    public int AttacksPerformedThisTurn { get; set; } = 0;
 
     private List<GoapAction> _actions = new();
     private GoapAction _prevAction;
@@ -46,7 +44,7 @@ public class GoapAgent : MonoBehaviour
 
     private WorldStates _beliefs = new WorldStates(); //make public or getter/setter if actions needed
     private GoapPlanner _planner;
-    [HideInInspector] public Unit unit;
+    public Unit _unit;
     private Unit _enemyTarget;
     private Unit _allyTarget;
 
@@ -54,14 +52,12 @@ public class GoapAgent : MonoBehaviour
     [SerializeField] private int _buildFailCounter = 0;
 
     public Goal GetCurrentGoal => _currentGoal;
-    public Unit GetCurrentTarget => (_currentGoal == null ? null : (_currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? _allyTarget : _enemyTarget ));
+    public Unit GetCurrentTarget => DetermineCurrentTarget();
     public Unit GetAllyTarget => _allyTarget;
     public Unit GetEnemyTarget => _enemyTarget;
 
     public GoapAgentSO GetAgentSO => _agentSO;
-
-    //public CardAbilityDefinition GetDamageAbility => _agentSO?.GetDamageAbility;
-    //public CardAbilityDefinition GetHealAbility => _agentSO?.GetHealAbility;
+    public Unit GetUnit => _unit;
     public CardAbilityDefinition GetHarmfulAbility => _abilityController?.GetHarmfulAbility;
     public CardAbilityDefinition GetHelpfulAbility => _abilityController?.GetHelpfulAbility;
     public CardAbilityDefinition GetCurrentAbility => _currentGoal != null && _currentGoal.key == GoapGoals.KeepAlliesAlive.ToString() ? GetHelpfulAbility : GetHarmfulAbility;
@@ -70,6 +66,17 @@ public class GoapAgent : MonoBehaviour
     public bool CheckForState(GoapStates state)
     {
         return _beliefs.GetStates.ContainsKey(state.ToString());
+    }
+    private Unit DetermineCurrentTarget()
+    {
+        if (_currentGoal == null) return null;
+        if (_currentGoal.key == GoapGoals.KillPlayer.ToString() ||
+            _currentGoal.key == GoapGoals.StayAliveEnemyFocus.ToString())
+            return GetEnemyTarget;
+        else if (_currentGoal.key == GoapGoals.StayAliveSelfFocus.ToString())
+            return _unit;
+        else
+            return _allyTarget;
     }
     private void Awake()
     {
@@ -87,6 +94,8 @@ public class GoapAgent : MonoBehaviour
         }
         _abilityController.InitAbilities(_agentSO);
 
+        _unit = GetComponent<Unit>();
+
         _actions = new();
         foreach (var action in _agentSO.GetActions)
         {
@@ -97,7 +106,6 @@ public class GoapAgent : MonoBehaviour
         }
 
         _goals = new(_agentSO.GetGoals);
-        //healCharges = _agentSO.GetTotalHealCharges;
 
         TurnManager.OnGameStart += ResetStates;
     }
@@ -107,7 +115,7 @@ public class GoapAgent : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (TurnManager.GetCurrentUnit != unit) return;
+        if (TurnManager.GetCurrentUnit != _unit) return;
         if (_currentAction != null && _currentAction.IsRunning) return;
 
         if (_planner == null || _actionQueue == null)
@@ -144,16 +152,12 @@ public class GoapAgent : MonoBehaviour
 
         if (_actionQueue == null)
         {
-            CheckForAP(unit, ref _beliefs);
+            CheckForAP(_unit, ref _beliefs);
 
-            if (_abilityController.GetHelpfulAbility == null || !CheckCanDoAction(unit, _abilityController.GetHelpfulAbility.GetApCost))
+            if (_abilityController.GetHelpfulAbility == null || !CheckCanDoAction(_unit, _abilityController.GetHelpfulAbility.GetApCost))
                 _beliefs.RemoveState(GoapStates.CanHeal.ToString());
-            if (_abilityController.GetHarmfulAbility == null || !CheckCanDoAction(unit, _abilityController.GetHarmfulAbility.GetApCost))
+            if (_abilityController.GetHarmfulAbility == null || !CheckCanDoAction(_unit, _abilityController.GetHarmfulAbility.GetApCost))
                 _beliefs.RemoveState(GoapStates.CanAttack.ToString());
-            /*if (!CheckCanDoAction(unit, _agentSO.GetHealAbility.GetApCost))
-                _beliefs.RemoveState(GoapStates.CanHeal.ToString());
-            if (!CheckCanDoAction(unit, _agentSO.GetDamageAbility.GetApCost))
-                _beliefs.RemoveState(GoapStates.CanAttack.ToString());*/
         }
 
         // actionqueue is finished
@@ -247,13 +251,13 @@ public class GoapAgent : MonoBehaviour
 
     public void PostActionChecks()
     {
-        if (_abilityController.GetHelpfulAbility == null || !CheckCanDoAction(unit, _abilityController.GetHelpfulAbility.GetApCost) || !_abilityController.CheckCanUseHeal)
+        if (_abilityController.GetHelpfulAbility == null || !CheckCanDoAction(_unit, _abilityController.GetHelpfulAbility.GetApCost) || !_abilityController.CheckCanUseHeal)
             _beliefs.RemoveState(GoapStates.CanHeal.ToString());
-        if (_abilityController.GetHarmfulAbility == null || !CheckCanDoAction(unit, _abilityController.GetHarmfulAbility.GetApCost) || !_abilityController.CheckCanUseAttack)
+        if (_abilityController.GetHarmfulAbility == null || !CheckCanDoAction(_unit, _abilityController.GetHarmfulAbility.GetApCost) || !_abilityController.CheckCanUseAttack)
             _beliefs.RemoveState(GoapStates.CanAttack.ToString());
 
-        CheckForAP(unit, ref _beliefs);
-        CheckIfHealthy(unit, ref _beliefs);
+        CheckForAP(_unit, ref _beliefs);
+        CheckIfHealthy(_unit, ref _beliefs);
 
         if (GetCurrentTarget != null)
         {
@@ -271,12 +275,12 @@ public class GoapAgent : MonoBehaviour
         _currentGoal = null;
         _planner = null;
 
-        attacksPerformedThisTurn = 0;
+        AttacksPerformedThisTurn = 0;
 
         foreach (var g in _goals)
             _goalsDict.Add(g, null);
 
-        if (unit == null) return;
+        if (_unit == null) return;
 
         _beliefs = new();
         _beliefs.ModifyState(GoapStates.NoTarget.ToString(), 1);
@@ -284,8 +288,8 @@ public class GoapAgent : MonoBehaviour
         if (_abilityController.CheckCanUseHeal)
             _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
 
-        CheckForAP(unit, ref _beliefs);
-        CheckIfHealthy(unit, ref _beliefs);
+        CheckForAP(_unit, ref _beliefs);
+        CheckIfHealthy(_unit, ref _beliefs);
 
         _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
 
@@ -350,7 +354,7 @@ public class GoapAgent : MonoBehaviour
             tempBeliefs.ModifyState(GoapStates.HasTarget.ToString(), 1);
             tempBeliefs.RemoveState(GoapStates.NoTarget.ToString());
 
-            var currAbility = tempTarget.GetTeam == unit.GetTeam ? _abilityController.GetHelpfulAbility : _abilityController.GetHarmfulAbility;
+            var currAbility = tempTarget.GetTeam == _unit.GetTeam ? _abilityController.GetHelpfulAbility : _abilityController.GetHarmfulAbility;
             if (currAbility != null)
             {
                 CheckRange(this, tempTarget, currAbility.GetRange, ref tempBeliefs);

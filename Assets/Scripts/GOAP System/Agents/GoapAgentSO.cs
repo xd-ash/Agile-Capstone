@@ -33,10 +33,6 @@ public class GoapAgentAbility
 public class GoapAgentSO : ScriptableObject
 {
     [Header("Agent Card Abilities")]
-    //[SerializeField] private CardAbilityDefinition _damageAbility; //swap to array?
-    //[SerializeField] private CardAbilityDefinition _healAbility; //swap to array?
-    //[SerializeField] private int _totalHealCharges = 3; //make better
-
     [SerializeField] private GoapAgentAbility[] _harmfulAbilities;
     [SerializeField] private GoapAgentAbility[] _helpfulAbilities;
 
@@ -46,27 +42,30 @@ public class GoapAgentSO : ScriptableObject
     [SerializeField] private GoapActions _goapActionsEnum;
     [SerializeReference] private List<GoapAction> _actions = new();
 
-    //public CardAbilityDefinition GetDamageAbility => _damageAbility;
-    //public CardAbilityDefinition GetHealAbility => _healAbility;
-    //public int GetTotalHealCharges => _totalHealCharges;
-
     public List<Goal> GetGoals => _goals;
     public List<GoapAction> GetActions => _actions;
     public GoapAgentAbility[] GetHarmfulAbilities => _harmfulAbilities;
     public GoapAgentAbility[] GetHelpfulAbilities => _helpfulAbilities;
     public void SetAbilityNames()
     {
-        for (int i = 0; i < _harmfulAbilities.Length; i++)
+        if (_harmfulAbilities != null)
         {
-            var ability = _harmfulAbilities[i].ability;
-            if (ability == null || _harmfulAbilities[i].abilityName == ability.name) continue;
-            _harmfulAbilities[i].abilityName = ability.name;
+            for (int i = 0; i < _harmfulAbilities.Length; i++)
+            {
+                var ability = _harmfulAbilities[i].ability;
+                if (ability == null || _harmfulAbilities[i].abilityName == ability.name) continue;
+                _harmfulAbilities[i].abilityName = ability.name;
+            }
         }
-        for (int i = 0; i < _helpfulAbilities.Length; i++)
+
+        if (_helpfulAbilities != null)
         {
-            var ability = _helpfulAbilities[i].ability;
-            if (ability == null || _helpfulAbilities[i].abilityName == ability.name) continue;
-            _helpfulAbilities[i].abilityName = ability.name;
+            for (int i = 0; i < _helpfulAbilities.Length; i++)
+            {
+                var ability = _helpfulAbilities[i].ability;
+                if (ability == null || _helpfulAbilities[i].abilityName == ability.name) continue;
+                _helpfulAbilities[i].abilityName = ability.name;
+            }
         }
     }
 

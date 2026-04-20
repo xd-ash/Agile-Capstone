@@ -101,17 +101,4 @@ public class GoapAgentAbilityController : MonoBehaviour
         var tracker = dict[ability];
         return tracker[0] <= 0 && (ability.maxUses == -1 || tracker[1] < ability.maxUses);
     }
-
-    /*/ struct for tracking ability uses and cooldowns
-    private struct AbilityTracker
-    {
-        public int cdRemaining;
-        public int totalUses;
-
-        public AbilityTracker(int cdRemaining = 0, int totalUses = 0)
-        {
-            this.cdRemaining = cdRemaining;
-            this.totalUses = totalUses;
-        }
-    }*/
 }

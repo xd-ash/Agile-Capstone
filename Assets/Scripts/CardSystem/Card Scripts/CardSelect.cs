@@ -1,10 +1,10 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace CardSystem
 {
@@ -83,6 +83,9 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             _onMouseEnter?.Invoke();
         }
         private void OnMouseExit()

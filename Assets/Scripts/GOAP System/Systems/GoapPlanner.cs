@@ -45,7 +45,6 @@ public class GoapPlanner
     private GoapAgent _agent;
     private Dictionary<GoapAction, float> _actionCosts = new();
 
-    //public Tuple<float, Queue<GoapAction>> Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
     public Plan Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
     {
         List<GoapAction> usableActions = new List<GoapAction>();
@@ -58,12 +57,11 @@ public class GoapPlanner
         string curGoal = goal.ElementAt(0).Key;
         int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() ? 1 : 0;
         var targets = ChooseTargetAction.GetCurrentTargets(curGoal, _agent);
-        tempTarget = targets[i];
+        tempTarget = curGoal == GoapGoals.StayAliveSelfFocus.ToString() ? _agent.GetUnit : targets[i];
 
         var tempBeliefs = _agent.GetTempBeliefsGivenGoal(curGoal, tempTarget, beliefStates);
 
         List<GOAPNode> leaves = new();
-        //GOAPNode start = new GOAPNode(null, 0, beliefStates.GetStates, null); //null parent, no cost, & null action b/c it is start node
         GOAPNode start = new GOAPNode(null, 0, tempBeliefs.GetStates, null); //null parent, no cost, & null action b/c it is start node
 
         EvaluateActionCosts(usableActions, curGoal, tempTarget);
@@ -72,12 +70,11 @@ public class GoapPlanner
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr = $"Agent: {_agent.name} Target: {tempTarget.name} - Goal: ";
+            string tempStr = $"Agent: {_agent.name} Target: {(tempTarget == null ? "null" : tempTarget.name)} - Goal: ";
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
             tempStr += $"\ntempBeliefs: ";
             foreach (var b in tempBeliefs.GetStates)
-            //foreach (var b in beliefStates.GetStates)
                 tempStr += b.Key + ", ";
             Debug.Log(tempStr);
         }

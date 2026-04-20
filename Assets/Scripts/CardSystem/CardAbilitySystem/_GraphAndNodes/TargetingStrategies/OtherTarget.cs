@@ -32,19 +32,21 @@ namespace CardSystem
                     if (agent.GetCurrentTarget != null)
                     {
                         target = agent.GetCurrentTarget.gameObject;
+                       // if (agent.GetCurrentTarget.GetTeam == Team.Enemy && agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
+                            //target = agent.gameObject;
 
                         // if ability targets tiles, grab closest tile around target unit location
                         if (_targetTilesNotUnits)
                         {
-                            closestValidTile = GetNearbyTileInLOS(agent.GetCurrentTarget, agent.unit);
+                            closestValidTile = GetNearbyTileInLOS(agent.GetCurrentTarget, agent.GetUnit);
                             target = SpawnTargettingEmpty(closestValidTile);
                             abilityData.AbilityTriggerPos = closestValidTile;
                         }
                     }
 
                     //band aid fix for medic heal targetting
-                    if (agent.name.Contains("Medic") && agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
-                        target = agent.gameObject;
+                    //if (agent.name.Contains("Medic") && agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
+                        //target = agent.gameObject;
                     //
 
                     abilityData.Targets = new List<GameObject>() { target };

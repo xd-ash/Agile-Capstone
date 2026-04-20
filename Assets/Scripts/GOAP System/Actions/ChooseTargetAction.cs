@@ -26,8 +26,13 @@ public class ChooseTargetAction : GoapAction
 
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
-            if (u == null || u.GetTeam != team) continue;
-            if (u == agent.unit) continue;
+            if (u == null) continue;
+            Debug.Log($"unit name: {u.name}, team: {u.GetTeam}, expectedTeam: {team.ToString()}, agent unit name: {agent.GetUnit?.name}");
+
+            if (u.GetTeam != team) continue;
+            Debug.Log("Test");
+            if (u == agent.GetUnit) continue;
+            Debug.Log("Test2");
 
             var tempPath = CalculatePath(agent.transform, u.transform);
 
@@ -40,9 +45,10 @@ public class ChooseTargetAction : GoapAction
     {
         var enemiesDists = GrabUnitDistances(Team.Friendly, agent);
         var allyDists = GrabUnitDistances(Team.Enemy, agent);
-        Unit minDistEnemy = null, minDistAlly = agent.unit;
+        Unit minDistEnemy = null, minDistAlly = agent.GetUnit;
         int minDist = int.MaxValue;
 
+        Debug.Log($"enemy count: {enemiesDists.Count}");
         for (int i = 0; i < enemiesDists.Count; i++)
         {
             var kvp = enemiesDists.ElementAt(i);
@@ -50,8 +56,6 @@ public class ChooseTargetAction : GoapAction
             minDist = kvp.Value;
             minDistEnemy = kvp.Key;
         }
-        //minIndex = enemiesDists.Min(x => x.Value);
-        //minIndexEnemy = enemiesDists[minIndex];
 
         minDist = int.MaxValue;
         if (curGoal == GoapGoals.KeepAlliesAlive.ToString() && allyDists.Count > 0)

@@ -12,14 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
   m_Name: PyroEnemy
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
-  _damageAbility: {fileID: 11400000, guid: 45efe6c92ba20bd40be576f4d3db7455, type: 2}
-  _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
-  _totalHealCharges: 0
-  _goalsEnum: 22
+  _harmfulAbilities:
+  - abilityName: FireCracker
+    ability: {fileID: 11400000, guid: 45efe6c92ba20bd40be576f4d3db7455, type: 2}
+    cooldownInTurns: 0
+    maxUses: -1
+  - abilityName: Molotov Cocktail
+    ability: {fileID: 11400000, guid: 3f6feeb102282cc4a84f833e39eef5a2, type: 2}
+    cooldownInTurns: 5
+    maxUses: -1
+  _helpfulAbilities: []
+  _goalsEnum: 38
   _goals:
   - rid: 6877345560813109319
-  - rid: 97860169654337608
-  - rid: 6877345560813109321
+  - rid: 3457071735035396179
+  - rid: 3457071735035396184
   _goapActionsEnum: 934
   _actions:
   - rid: 6877345560813109323
@@ -40,24 +47,24 @@ MonoBehaviour:
         _preConditionsFlags: 6144
         _postConditionsFlags: 0
         _goalsFlags: 4
-    - rid: 97860169654337608
+    - rid: 3457071735035396179
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
-        key: StayAlive
-        value: 1
+        key: StayAliveEnemyFocus
+        value: 0
         removeOnComplete: 1
+    - rid: 3457071735035396184
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 0
+        removeOnComplete: 0
     - rid: 6877345560813109319
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: KillPlayer
         value: 1
         removeOnComplete: 1
-    - rid: 6877345560813109321
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: EndTurn
-        value: 1
-        removeOnComplete: 0
     - rid: 6877345560813109322
       type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
       data:
@@ -84,7 +91,7 @@ MonoBehaviour:
         _costMultiplier: 1
         _preConditionsFlags: 4
         _postConditionsFlags: 0
-        _goalsFlags: 16
+        _goalsFlags: 32
     - rid: 6877345702617808967
       type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
       data:

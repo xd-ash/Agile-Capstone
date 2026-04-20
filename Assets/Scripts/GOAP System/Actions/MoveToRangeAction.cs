@@ -20,7 +20,7 @@ public class MoveToRangeAction : GoapAction
     public override bool PrePerform(ref WorldStates beliefs)
     {
         Debug.Log($"test");
-        if(!CheckForAP(_agent.unit, ref beliefs)) return false;
+        if(!CheckForAP(_agent.GetUnit, ref beliefs)) return false;
         var target = _agent.GetCurrentTarget;
         if (target == null)
         {
@@ -40,7 +40,7 @@ public class MoveToRangeAction : GoapAction
         if (target == null) return new(agentTile, 0);
         //var targetTile = ConvertToGridFromIsometric(target.transform.localPosition);
         var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
-        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
+        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.GetUnit);
 
         int furthestDist = 0;
         Vector2Int movePos = agentTile;
@@ -75,7 +75,7 @@ public class MoveToRangeAction : GoapAction
         if (_agent == null || tempTarget == null) return _cost;
         var moveTuple = DetermineMovePos(tempTarget);
         var agentTile = ConvertToGridFromIsometric(_agent.transform.localPosition);
-        var distRatio = GetAdjustedMovementDistRatio(agentTile, moveTuple.Item1, _agent.unit);
+        var distRatio = GetAdjustedMovementDistRatio(agentTile, moveTuple.Item1, _agent.GetUnit);
         return _cost * distRatio * _costMultiplier;
     }
 }

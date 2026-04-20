@@ -20,9 +20,9 @@ public class MoveOutOfLOSAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (!CheckForAP(_agent.unit, ref beliefs)) return false;
+        if (!CheckForAP(_agent.GetUnit, ref beliefs)) return false;
 
-        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
+        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.GetUnit);
         _unitMover = _agent.GetComponent<UnitMovementController>();
         var target = _agent.GetCurrentTarget;
         
@@ -40,7 +40,7 @@ public class MoveOutOfLOSAction : GoapAction
 
     private Vector2Int DetermineHidePos(Unit target)
     {
-        var reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
+        var reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.GetUnit);
         if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
         var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
 
@@ -87,7 +87,7 @@ public class MoveOutOfLOSAction : GoapAction
         if (!isOutOfLOS)
         {
             var agentPos = ConvertToGridFromIsometric(_agent.transform.localPosition);
-            distRatio = GetAdjustedMovementDistRatio(agentPos, DetermineHidePos(tempTarget), _agent.unit);
+            distRatio = GetAdjustedMovementDistRatio(agentPos, DetermineHidePos(tempTarget), _agent.GetUnit);
         }
         return _cost * distRatio * _costMultiplier;
     }

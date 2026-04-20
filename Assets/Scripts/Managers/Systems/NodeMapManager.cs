@@ -6,7 +6,6 @@ using UnityEngine;
 public class NodeMapManager : MonoBehaviour
 {
     private NodeMapCreator _nodeMapCreator;
-    //[SerializeField] private BountySelectPanelScript _bountySelectPanel;
 
     [SerializeField] private Color _completedNodeColor, _lockedNodeColor;
 
