@@ -19,9 +19,15 @@ public class MoveToRangeAction : GoapAction
     }
     public override bool PrePerform(ref WorldStates beliefs)
     {
+        Debug.Log($"test");
         if(!CheckForAP(_agent.unit, ref beliefs)) return false;
         var target = _agent.GetCurrentTarget;
-        if (target == null) return false;
+        if (target == null)
+        {
+            Debug.Log($"test2");
+            return false;
+        }
+        Debug.Log($"test3");
 
         var tmp = DetermineMovePos(target);
         _movePos = tmp.Item1;

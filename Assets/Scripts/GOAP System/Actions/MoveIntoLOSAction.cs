@@ -21,7 +21,7 @@ public class MoveIntoLOSAction : GoapAction
 
         _unitMover = _agent.GetComponent<UnitMovementController>();
         Unit unit = _agent.unit;
-        int dmgAbilRange = _agent.GetDamageAbility.GetRange;
+        int dmgAbilRange = _agent.GetHarmfulAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
         var tempPath = _unitMover.CalculatePath(tarPos);

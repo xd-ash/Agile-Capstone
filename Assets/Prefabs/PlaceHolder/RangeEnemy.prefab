@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 5489418204435330}
   - component: {fileID: 1680429232163789991}
   - component: {fileID: 6670463243099223024}
+  - component: {fileID: 3673335985599236549}
   - component: {fileID: 112770222690940186}
   - component: {fileID: 5529296334198480914}
   - component: {fileID: 5134102706713077211}
@@ -226,12 +227,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agentSO: {fileID: 11400000, guid: 803bd38344057e646b867f32017c125e, type: 2}
-  healCharges: 2
+  _abilityController: {fileID: 0}
   attacksPerformedThisTurn: 0
   _actionDelayTime: 1
   unit: {fileID: 5489418204435330}
   showDebugMessages: 1
   _buildFailCounter: 0
+--- !u!114 &3673335985599236549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552371556891506583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5d899a22ce6074cb3c6e76c66f683f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentAbilityController
 --- !u!114 &112770222690940186
 MonoBehaviour:
   m_ObjectHideFlags: 0

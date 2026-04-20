@@ -17,7 +17,7 @@ public class OtherMoveAction : GoapAction
     {
         _unitMover = _agent.GetComponent<UnitMovementController>();
 
-        if (_agent.GetDamageAbility.GetRange > 1)
+        if (_agent.GetHarmfulAbility.GetRange > 1)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             return false;

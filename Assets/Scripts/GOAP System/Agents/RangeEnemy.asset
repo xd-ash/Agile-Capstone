@@ -12,9 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
   m_Name: RangeEnemy
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
-  _damageAbility: {fileID: 11400000, guid: 3806d31e083fc7b4ebfc88e021e474fe, type: 2}
-  _healAbility: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
-  _totalHealCharges: 2
+  _harmfulAbilities:
+  - abilityName: Hip Fire
+    ability: {fileID: 11400000, guid: 3806d31e083fc7b4ebfc88e021e474fe, type: 2}
+    cooldownInTurns: 0
+    maxUses: -1
+  - abilityName: Feelin' Lucky
+    ability: {fileID: 11400000, guid: e3005e35529b7dd43b6af43d957fa4a7, type: 2}
+    cooldownInTurns: 2
+    maxUses: -1
+  _helpfulAbilities:
+  - abilityName: Heal
+    ability: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
+    cooldownInTurns: 0
+    maxUses: 3
   _goalsEnum: 22
   _goals:
   - rid: 6877345560813109319

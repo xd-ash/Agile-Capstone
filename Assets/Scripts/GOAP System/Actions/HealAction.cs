@@ -14,7 +14,7 @@ public class HealAction : GoapAction
     }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (_agent.healCharges == 0 || !CheckCanDoAction(_agent.unit, _agent.GetHealAbility.GetApCost))
+        if (!_agent.CheckCanUseHeal || !CheckCanDoAction(_agent.unit, _agent.GetHelpfulAbility.GetApCost))
         {
             beliefs.RemoveState(GoapStates.CanHeal.ToString());
             return false;
@@ -24,9 +24,8 @@ public class HealAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.GetHealAbility.UseAbility(_agent.unit);
-        if (_agent.healCharges > 0)
-            _agent.healCharges--;
+        _agent.GetHelpfulAbility?.UseAbility(_agent.unit);
+        _agent.OnUseAbility(_agent.GetHelpfulAbility);
 
         _agent.CompleteAction();
     }
@@ -48,7 +47,7 @@ public class HealAction : GoapAction
             tempTarget = _agent.unit;
 
         float tarHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
-        float healCostRatio = _agent.GetHealAbility.GetApCost / (float)_agent.unit.GetMaxAP;
+        float healCostRatio = _agent.GetHelpfulAbility == null ? float.MaxValue : _agent.GetHelpfulAbility.GetApCost / (float)_agent.unit.GetMaxAP;
         return _cost * (tarHealthRatio + healCostRatio) * _costMultiplier;
     }
 }

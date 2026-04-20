@@ -14,6 +14,8 @@ public class GOAPAgentSOEditor : Editor
         foreach (var a in t.GetActions)
             a?.GrabConditionsFromEnums();
 
+        t.SetAbilityNames();
+
         base.OnInspectorGUI();
 
         serializedObject.ApplyModifiedProperties();
