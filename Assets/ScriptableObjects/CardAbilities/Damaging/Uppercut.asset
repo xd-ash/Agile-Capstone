@@ -158,7 +158,7 @@ MonoBehaviour:
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
   _attackAnimKey: 9
-  _baseCardRarity: 1
+  _baseCardRarity: 0
   _onRareUpgradeEffects:
   - cardDef: {fileID: 11400000}
     effectName: Damage Effect

@@ -1073,6 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63c42569c9ac04bae120522d983e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cardHandParent: {fileID: 0}
   _maxCards: 100
   _startingHandSize: 5
   _cardsInHand: []
