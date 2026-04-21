@@ -36,17 +36,11 @@ namespace CardSystem
                         // if ability targets tiles, grab closest tile around target unit location
                         if (_targetTilesNotUnits)
                         {
-                            closestValidTile = GetNearbyTileInLOS(agent.GetCurrentTarget, agent.unit);
+                            closestValidTile = GetNearbyTileInLOS(agent.GetCurrentTarget, agent.GetUnit);
                             target = SpawnTargettingEmpty(closestValidTile);
                             abilityData.AbilityTriggerPos = closestValidTile;
                         }
                     }
-
-                    //band aid fix for medic heal targetting
-                    if (agent.name.Contains("Medic") && agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
-                        target = agent.gameObject;
-                    //
-
                     abilityData.Targets = new List<GameObject>() { target };
                     if (target != null)
                         _aoeStrat?.GrabTargetsInRange(ref abilityData, closestValidTile == -Vector2Int.one ? 

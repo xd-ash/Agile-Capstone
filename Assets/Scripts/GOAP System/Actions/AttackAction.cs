@@ -18,33 +18,28 @@ public class AttackAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.GetDamageAbility.UseAbility(_agent.unit);
-
+        _agent.GetHarmfulAbility.UseAbility(_agent.GetUnit);
+        _agent.OnUseAbility(_agent.GetHarmfulAbility);
         _agent.CompleteAction();
     }
 
     public override void PostPerform(ref WorldStates beliefs)
     {
-        //if agent can no longer attack, then modify states
-        if (!CheckCanDoAction(_agent.unit, _agent.GetDamageAbility.GetApCost))
-        {
-            //beliefs.ModifyState(GoapGoals.KillPlayer.ToString(), 1);
-            //beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+        //if agent can no longer attack, then modify state
+        if (!CheckCanDoAction(_agent.GetUnit, _agent.GetHarmfulAbility.GetApCost))
             beliefs.RemoveState(GoapStates.CanAttack.ToString());
-        }
 
         beliefs.ModifyState(GoapStates.HasAttacked.ToString(), 1);
-        _agent.attacksPerformedThisTurn++;
+        _agent.AttacksPerformedThisTurn++;
     }
 
     public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
 
-        var attackAdjust = tempGoal == GoapGoals.KillPlayer.ToString() ? _agent.attacksPerformedThisTurn : 0; // count attacks performed only on kill player goal to allow for lower cost of attacks in stayalive goal
+        var attackAdjust = tempGoal == GoapGoals.KillPlayer.ToString() ? _agent.AttacksPerformedThisTurn : 0; // count attacks performed only on kill player goal to allow for lower cost of attacks in stayalive goal
         var targetHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
-        var dmgAbility = _agent.GetAgentSO.GetDamageAbility;
-        var attackCostRatio = dmgAbility.GetApCost / (float)_agent.unit.GetMaxAP;
+        var attackCostRatio = _agent.GetHarmfulAbility == null ? int.MaxValue : _agent.GetHarmfulAbility.GetApCost / (float)_agent.GetUnit.GetMaxAP;
         return _cost * (targetHealthRatio + attackCostRatio + attackAdjust) * _costMultiplier;
     }
 }

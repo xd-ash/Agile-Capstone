@@ -10,51 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
-  m_Name: MeleeEnemy
+  m_Name: MeleeBossEnemy
   m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
   _harmfulAbilities:
-  - abilityName: Quick Jab
-    ability: {fileID: 11400000, guid: d8bfcc21620868b418a12abb6ccafdb0, type: 2}
+  - abilityName: Uppercut
+    ability: {fileID: 11400000, guid: af0c4c98a1f00384cbfa3972dbd55600, type: 2}
     cooldownInTurns: 0
     maxUses: -1
-  - abilityName: Strong Attack
-    ability: {fileID: 11400000, guid: 0b936985b9726cf4388147e388cdc5f2, type: 2}
+  - abilityName: ChainHookMeleeBoss
+    ability: {fileID: 11400000, guid: 4939d7ce7941b8e4d8c06169480abb9d, type: 2}
+    cooldownInTurns: 4
+    maxUses: -1
+  - abilityName: Wallop
+    ability: {fileID: 11400000, guid: 962876e3ccf8efd47a7eb416ba03904a, type: 2}
     cooldownInTurns: 2
     maxUses: -1
-  _helpfulAbilities: []
-  _goalsEnum: 38
+  _helpfulAbilities:
+  - abilityName: AOEBossShield
+    ability: {fileID: 11400000, guid: 591d5614821a1e7479ff2fa272f76c26, type: 2}
+    cooldownInTurns: 3
+    maxUses: -1
+  _goalsEnum: 58
   _goals:
   - rid: 3457071463569817679
-  - rid: 3457071735035396174
+  - rid: 97860308277657611
+  - rid: 97860308277657612
   - rid: 3457071735035396182
-  _goapActionsEnum: 422
+  _goapActionsEnum: 46
   _actions:
-  - rid: 97859988893466696
-  - rid: 97859988893466697
   - rid: 97859988893466699
   - rid: 97859988893466701
   - rid: 97859988893466702
+  - rid: 97860308277657613
   references:
     version: 2
     RefIds:
-    - rid: 97859988893466696
-      type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: MoveOutOfLOSAction
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 70674
-        _postConditionsFlags: 2048
-        _goalsFlags: 0
-    - rid: 97859988893466697
-      type: {class: HideAction, ns: , asm: Assembly-CSharp}
-      data:
-        _actionName: HideAction
-        _cost: 1
-        _costMultiplier: 1
-        _preConditionsFlags: 67584
-        _postConditionsFlags: 0
-        _goalsFlags: 4
     - rid: 97859988893466699
       type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
       data:
@@ -82,17 +72,32 @@ MonoBehaviour:
         _preConditionsFlags: 4226
         _postConditionsFlags: 1088
         _goalsFlags: 0
+    - rid: 97860308277657611
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAliveSelfFocus
+        value: 0
+        removeOnComplete: 1
+    - rid: 97860308277657612
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KeepAlliesAlive
+        value: 0
+        removeOnComplete: 1
+    - rid: 97860308277657613
+      type: {class: HealAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HealAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 594
+        _postConditionsFlags: 0
+        _goalsFlags: 12
     - rid: 3457071463569817679
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: KillPlayer
         value: 1
-        removeOnComplete: 1
-    - rid: 3457071735035396174
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: StayAliveEnemyFocus
-        value: 0
         removeOnComplete: 1
     - rid: 3457071735035396182
       type: {class: Goal, ns: , asm: Assembly-CSharp}

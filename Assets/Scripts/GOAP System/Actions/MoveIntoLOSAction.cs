@@ -20,8 +20,8 @@ public class MoveIntoLOSAction : GoapAction
         if (beliefs.GetStates.ContainsKey(GoapStates.HasLOS.ToString()) || _agent.GetCurrentTarget == null) return false;
 
         _unitMover = _agent.GetComponent<UnitMovementController>();
-        Unit unit = _agent.unit;
-        int dmgAbilRange = _agent.GetDamageAbility.GetRange;
+        Unit unit = _agent.GetUnit;
+        int dmgAbilRange = _agent.GetHarmfulAbility.GetRange;
 
         var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
         var tempPath = _unitMover.CalculatePath(tarPos);

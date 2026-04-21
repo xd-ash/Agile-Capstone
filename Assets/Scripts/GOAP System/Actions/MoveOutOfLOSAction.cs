@@ -20,9 +20,9 @@ public class MoveOutOfLOSAction : GoapAction
 
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (!CheckForAP(_agent.unit, ref beliefs)) return false;
+        if (!CheckForAP(_agent.GetUnit, ref beliefs)) return false;
 
-        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
+        var reachableTiles = MovementRangeCalculator.ComputeReachableCells(_agent.GetUnit);
         _unitMover = _agent.GetComponent<UnitMovementController>();
         var target = _agent.GetCurrentTarget;
         
@@ -40,15 +40,16 @@ public class MoveOutOfLOSAction : GoapAction
 
     private Vector2Int DetermineHidePos(Unit target)
     {
-        var reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.unit);
-        if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
+        var reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.GetUnit);
+        var agentTile = ByteMapController.Instance.GetPositionOfUnit(_agent.GetUnit);
+        if (target == null) return agentTile;
         var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
 
         var hidePos = -Vector2Int.one;
         int bestDistCount = int.MaxValue;
         foreach (var tile in reachableCells)
         {
-            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile);
+            var pathToTarget = FindPathAStar.CalculatePath(tile, agentTile);
 
             if (pathToTarget == null || pathToTarget.Count == 0) continue;
             if (pathToTarget.Count >= bestDistCount) continue;
@@ -64,7 +65,6 @@ public class MoveOutOfLOSAction : GoapAction
     {
         if (_hidePos == -Vector2Int.one || _agent == null) return;
         _unitMover.CalculatePath(_hidePos);
-        //Debug.Log($"hidePos: {_hidePos}");
 
         _unitMover.OnStartUnitMove(() =>
         {
@@ -87,7 +87,7 @@ public class MoveOutOfLOSAction : GoapAction
         if (!isOutOfLOS)
         {
             var agentPos = ConvertToGridFromIsometric(_agent.transform.localPosition);
-            distRatio = GetAdjustedMovementDistRatio(agentPos, DetermineHidePos(tempTarget), _agent.unit);
+            distRatio = GetAdjustedMovementDistRatio(agentPos, DetermineHidePos(tempTarget), _agent.GetUnit);
         }
         return _cost * distRatio * _costMultiplier;
     }

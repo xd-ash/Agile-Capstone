@@ -14,7 +14,7 @@ public class HealAction : GoapAction
     }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        if (_agent.healCharges == 0 || !CheckCanDoAction(_agent.unit, _agent.GetHealAbility.GetApCost))
+        if (!_agent.CheckCanUseHeal || !CheckCanDoAction(_agent.GetUnit, _agent.GetHelpfulAbility.GetApCost))
         {
             beliefs.RemoveState(GoapStates.CanHeal.ToString());
             return false;
@@ -24,31 +24,24 @@ public class HealAction : GoapAction
     }
     public override void Perform()
     {
-        _agent.GetHealAbility.UseAbility(_agent.unit);
-        if (_agent.healCharges > 0)
-            _agent.healCharges--;
+        _agent.GetHelpfulAbility?.UseAbility(_agent.GetUnit);
+        _agent.OnUseAbility(_agent.GetHelpfulAbility);
 
         _agent.CompleteAction();
     }
     public override void PostPerform(ref WorldStates beliefs)
     {
         if (!CheckIfHealthy(_agent.GetCurrentTarget, ref beliefs)) return;
-
-        /*if (_agent.GetCurrentGoal.key == GoapGoals.StayAlive.ToString())
-            beliefs.ModifyState(GoapGoals.StayAlive.ToString(), 1);
-        else if (_agent.GetCurrentGoal.key == GoapGoals.KeepAlliesAlive.ToString())
-            beliefs.ModifyState(GoapGoals.KeepAlliesAlive.ToString(), 1);*/
     }
 
     public override float EvaluateCost(string tempGoal, Unit tempTarget)
     {
         if (_agent == null || tempTarget == null) return _cost;
 
-        if (tempGoal == GoapGoals.StayAlive.ToString())
-            tempTarget = _agent.unit;
-
         float tarHealthRatio = tempTarget.GetHealth / (float)tempTarget.GetMaxHealth;
-        float healCostRatio = _agent.GetHealAbility.GetApCost / (float)_agent.unit.GetMaxAP;
+        if (tarHealthRatio == 1)
+            tarHealthRatio = float.MaxValue;
+        float healCostRatio = _agent.GetHelpfulAbility == null ? float.MaxValue : _agent.GetHelpfulAbility.GetApCost / (float)_agent.GetUnit.GetMaxAP;
         return _cost * (tarHealthRatio + healCostRatio) * _costMultiplier;
     }
 }

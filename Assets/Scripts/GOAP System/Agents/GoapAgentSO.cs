@@ -1,18 +1,40 @@
 using CardSystem;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static GOAPEnums;
+
+[System.Serializable]
+public class GoapAgentAbility
+{
+    [HideInInspector] public string abilityName;
+    public CardAbilityDefinition ability;
+    public int cooldownInTurns = 0;
+    [Tooltip("Max number of times the abilty can be used per combat. (-1 for unlimited use)")]
+    public int maxUses = -1;
+
+    public int GetRange => ability == null ? 0 : ability.GetRange;
+    public int GetCost => ability == null ? 0 : ability.GetApCost;
+
+    public GoapAgentAbility()
+    {
+        cooldownInTurns = 0;
+        maxUses = -1;
+    }
+    public GoapAgentAbility(GoapAgentAbility refAbility)
+    {
+        ability = refAbility.ability;
+        cooldownInTurns = refAbility.cooldownInTurns;
+        maxUses = refAbility.maxUses;
+    }
+}
 
 [CreateAssetMenu(fileName = "GoapAgentSO", menuName = "GOAP SOs/Goap Agent SO")]
 public class GoapAgentSO : ScriptableObject
 {
     [Header("Agent Card Abilities")]
-    [SerializeField] private CardAbilityDefinition _damageAbility; //swap to array?
-    [SerializeField] private CardAbilityDefinition _healAbility; //swap to array?
-    [SerializeField] private int _totalHealCharges = 3; //make better
-
-    //private CardAbilityDefinition[] _damageAbilities;
-    //private CardAbilityDefinition[] _healAbilities;
+    [SerializeField] private GoapAgentAbility[] _harmfulAbilities;
+    [SerializeField] private GoapAgentAbility[] _helpfulAbilities;
 
     [Header("Goap Goals & Actions")]
     [SerializeField] private GoapGoals _goalsEnum;
@@ -20,12 +42,32 @@ public class GoapAgentSO : ScriptableObject
     [SerializeField] private GoapActions _goapActionsEnum;
     [SerializeReference] private List<GoapAction> _actions = new();
 
-    public CardAbilityDefinition GetDamageAbility => _damageAbility;
-    public CardAbilityDefinition GetHealAbility => _healAbility;
-    public int GetTotalHealCharges => _totalHealCharges;
-
     public List<Goal> GetGoals => _goals;
     public List<GoapAction> GetActions => _actions;
+    public GoapAgentAbility[] GetHarmfulAbilities => _harmfulAbilities;
+    public GoapAgentAbility[] GetHelpfulAbilities => _helpfulAbilities;
+    public void SetAbilityNames()
+    {
+        if (_harmfulAbilities != null)
+        {
+            for (int i = 0; i < _harmfulAbilities.Length; i++)
+            {
+                var ability = _harmfulAbilities[i].ability;
+                if (ability == null || _harmfulAbilities[i].abilityName == ability.name) continue;
+                _harmfulAbilities[i].abilityName = ability.name;
+            }
+        }
+
+        if (_helpfulAbilities != null)
+        {
+            for (int i = 0; i < _helpfulAbilities.Length; i++)
+            {
+                var ability = _helpfulAbilities[i].ability;
+                if (ability == null || _helpfulAbilities[i].abilityName == ability.name) continue;
+                _helpfulAbilities[i].abilityName = ability.name;
+            }
+        }
+    }
 
     // Make more secure with deleting null actions or actions added in inpsector by hitting +
     #region OnInspectorMethods

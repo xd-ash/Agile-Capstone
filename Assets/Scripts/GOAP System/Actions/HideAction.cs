@@ -29,7 +29,7 @@ public class HideAction : GoapAction
         if (_agent == null || tempTarget == null) return _cost;
 
         var distRatio = GetAdjustedMovementDistRatio(_agent.transform, tempTarget.transform);
-        var agentHealthRatio = _agent.unit.GetHealth / (float)_agent.unit.GetMaxHealth;
+        var agentHealthRatio = _agent.GetUnit.GetHealth / (float)_agent.GetUnit.GetMaxHealth;
         return _cost * (distRatio + agentHealthRatio) * _costMultiplier;
     }
 }

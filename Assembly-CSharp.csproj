@@ -77,7 +77,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\OverTimeEffect.cs" />
     <Compile Include="Assets\Scripts\Managers\Movement\MovementRangeCalculator.cs" />
-    <Compile Include="Assets\Scripts\GOAP System\Agents\GoapAgentPriorityController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\AttackAction.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\CanvasCameraSetter.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\ShopConfirmPopup.cs" />
@@ -200,6 +199,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\FloatingTextSettingsLibrary.cs" />
     <Compile Include="Assets\Scripts\Shop\ShopCard.cs" />
+    <Compile Include="Assets\Scripts\GOAP System\Agents\GoapAgentAbilityController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\DrawCardButton.cs" />
     <Compile Include="Assets\Scripts\CardSystem\Deck.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardPack.cs" />

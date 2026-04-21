@@ -44,9 +44,10 @@ public enum GoapGoals
 {
     None = 0,
     KillPlayer = 2,
-    StayAlive = 4,
-    KeepAlliesAlive = 8,
-    EndTurn = 16,
+    StayAliveEnemyFocus = 4,
+    StayAliveSelfFocus = 8,
+    KeepAlliesAlive = 16,
+    EndTurn = 32,
 }
 
 public struct GOAPEnums

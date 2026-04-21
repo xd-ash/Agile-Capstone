@@ -38,7 +38,7 @@ public static class GOAPDeterminationMethods
         var unitMover = agent.GetComponent<UnitMovementController>();
 
         var tarPos = ByteMapController.Instance.GetPositionOfUnit(agent.GetCurrentTarget);
-        var agentPos = ByteMapController.Instance.GetPositionOfUnit(agent.unit);
+        var agentPos = ByteMapController.Instance.GetPositionOfUnit(agent.GetUnit);
 
         var validTiles = TargetingStrategy.ComputeCellsInAbilityRange(tarPos, abilityRange);
         var pathToTar = CalculatePath(agentPos, tarPos, true);
@@ -70,10 +70,19 @@ public static class GOAPDeterminationMethods
     }
     public static bool CheckRange(GoapAgent agent, Unit target, int abilityRange, ref WorldStates beliefs)
     {
+        if (agent.GetUnit == target)
+        {
+            beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
+            beliefs.RemoveState(GoapStates.OutOfRange.ToString());
+
+            beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
+            beliefs.RemoveState(GoapStates.AtRange.ToString());
+            return true;
+        }
         var unitMover = agent.GetComponent<UnitMovementController>();
         
         var tarPos = ByteMapController.Instance.GetPositionOfUnit(target);
-        var agentPos = ByteMapController.Instance.GetPositionOfUnit(agent.unit);
+        var agentPos = ByteMapController.Instance.GetPositionOfUnit(agent.GetUnit);
 
         var validTiles = TargetingStrategy.ComputeCellsInAbilityRange(tarPos, abilityRange);
         var pathToTar = CalculatePath(agentPos, tarPos);

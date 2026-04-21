@@ -190,7 +190,7 @@ MonoBehaviour:
   _hitPenaltyPerTile: 10
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 17
+  _attackAnimKey: 14
   _baseCardRarity: 0
   _onRareUpgradeEffects:
   - cardDef: {fileID: 11400000}
@@ -273,7 +273,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
-  _effectValue: 10
+  _effectValue: 5
   input: 0
   effectVisuals: 0
   effects: 0
