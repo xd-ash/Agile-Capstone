@@ -3,15 +3,10 @@ using UnityEngine;
 
 public class SpecialMechanicsManager : MonoBehaviour
 {
-    Dictionary<RestOptions, int> _buffsThisRun = new();
+    //Dictionary<RestOptions, int> _buffsThisRun = new();
 
     Dictionary<Unit, List<bool>> _coinFlipsByUnitThisCombat = new();
     Dictionary<Unit, List<int>> _dieRollsByUnitThisCombat = new();
-
-    public Dictionary<RestOptions, int> GetBuffsThisRun => _buffsThisRun;
-    public int GetMaxAPBuff => _buffsThisRun.ContainsKey(RestOptions.AP) ? _buffsThisRun[RestOptions.AP] : 0;
-    public int GetMaxHealthBuff => _buffsThisRun.ContainsKey(RestOptions.MaxHealth) ? _buffsThisRun[RestOptions.MaxHealth] : 0;
-    public int GetHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.HandSize) ? _buffsThisRun[RestOptions.HandSize] : 0;
 
     public static SpecialMechanicsManager Instance { get; private set; }
     private void Awake()
@@ -35,26 +30,6 @@ public class SpecialMechanicsManager : MonoBehaviour
         WinLossManager.CombatNodeCompleted -= ClearCombatCoinFlips;
         WinLossManager.CombatNodeCompleted -= ClearCombatDieRolls;
     }
-
-    #region RestBuffMethods
-    public void AddBuffOnRest(RestOptions option, int buffAmount)
-    {
-        if (_buffsThisRun.ContainsKey(option))
-            _buffsThisRun[option] += buffAmount;
-        else
-            _buffsThisRun.Add(option, buffAmount);
-    }
-    public void ClearOptionBuffFromDict(RestOptions option)
-    {
-        if (!_buffsThisRun.ContainsKey(option)) return;
-        _buffsThisRun.Remove(option);
-    }
-    public void ClearBuffsOnRunEnd()
-    {
-        _buffsThisRun.Clear();
-    }
-    #endregion
-    #region GamblingMethods
     public bool GetLastCoinFlipOutcome(Unit unit) => !_coinFlipsByUnitThisCombat.ContainsKey(unit) ||
                                                         _coinFlipsByUnitThisCombat[unit].Count == 0 ? false : _coinFlipsByUnitThisCombat[unit][^1];
     public int GetNumHeadsThisCombat(Unit unit) => GrabNumOfCoinSides(unit, true);
@@ -111,5 +86,4 @@ public class SpecialMechanicsManager : MonoBehaviour
     {
         _dieRollsByUnitThisCombat.Remove(unit);
     }
-    #endregion
 }

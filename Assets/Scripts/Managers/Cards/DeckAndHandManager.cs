@@ -43,7 +43,7 @@ namespace CardSystem
             ShuffleDeck(); // Add shuffle before any cards are drawn
             CardActivePos = transform.Find("CardActivePos");
 
-            _maxCards += SpecialMechanicsManager.Instance.GetHandSizeBuff;
+            _maxCards += PlayerDataManager.Instance.GetHandSizeBuff;
         }
 
         //draws cards based on count param, which is default 1

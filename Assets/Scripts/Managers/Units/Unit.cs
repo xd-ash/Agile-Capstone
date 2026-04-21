@@ -9,20 +9,20 @@ using AStarPathfinding;
 public enum Team {Friendly, Enemy, None, All}
 public class Unit : MonoBehaviour, IDamagable
 {
-    [SerializeField] private UnitSO _unitSO;
+    [SerializeField, HideInInspector] private UnitSO _unitSO;
 
     [Header("Team and stats")] 
-    [Space(10), SerializeField] private Team _team;
-    [SerializeField] private int _maxHealth;
-    [SerializeField] private int _health;
+    [Space(10), SerializeField, HideInInspector] private Team _team;
+    [SerializeField, HideInInspector] private int _maxHealth;
+    [SerializeField, HideInInspector] private int _health;
 
     [Header("Shield")]
-    [SerializeField] private int _maxShield = 25;
-    [SerializeField] private int _shield = 0; // current shield amount (absorb damage before health)
+    [SerializeField, HideInInspector] private int _maxShield = 25;
+    [SerializeField, HideInInspector] private int _shield = 0; // current shield amount (absorb damage before health)
 
     [Header("Action Points")]
-    [SerializeField] private int _maxAP;
-    [SerializeField] private int _ap;
+    [SerializeField, HideInInspector] private int _maxAP;
+    [SerializeField, HideInInspector] private int _ap;
 
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
@@ -79,6 +79,7 @@ public class Unit : MonoBehaviour, IDamagable
         _maxHealth = _unitSO.GetMaxHealth;
         _maxShield = _unitSO.GetMaxShield;
         _maxAP = _unitSO.GetMaxAP;
+        _team = _unitSO.GetTeam;
 
         GrabRunBuffs();
 
@@ -88,10 +89,10 @@ public class Unit : MonoBehaviour, IDamagable
     }
     private void GrabRunBuffs()
     {
-        var smm = SpecialMechanicsManager.Instance;
-        if (smm == null) return;
-        _maxHealth += smm.GetMaxHealthBuff;
-        _maxAP += smm.GetMaxAPBuff;
+        var pdm = PlayerDataManager.Instance;
+        if (pdm == null) return;
+        _maxHealth += pdm.GetMaxHealthBuff;
+        _maxAP += pdm.GetMaxAPBuff;
     }
     public void IncreaseStat(RestOptions stat)
     {

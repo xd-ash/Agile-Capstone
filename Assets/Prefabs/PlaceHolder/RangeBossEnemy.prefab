@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2afb597f7551f4c81009e6bbed1c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitSO: {fileID: 11400000, guid: 79fd08d783b10334c8e23e1ade9d015e, type: 2}
   _team: 1
   _maxHealth: 35
   _health: 0
@@ -230,7 +231,6 @@ MonoBehaviour:
   _agentSO: {fileID: 11400000, guid: 73e96e06120e5bf4ab93199ad83b8cdd, type: 2}
   _actionDelayTime: 1
   showDebugMessages: 0
-  _buildFailCounter: 0
 --- !u!114 &3673335985599236549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,7 +339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ed6d83b007cd74fbfe2e7577d218bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UnitMovementController
-  _isKnockback: 0
   _unitMoveSpeed: 0.2
   _moveCostPerTile: 1
 --- !u!61 &5134102706713077211

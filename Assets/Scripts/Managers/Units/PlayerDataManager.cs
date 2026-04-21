@@ -8,6 +8,8 @@ public class PlayerDataManager : MonoBehaviour
 {
     private CardAndPackLibrary _cardAndPackLibrary;
 
+    Dictionary<RestOptions, int> _buffsThisRun = new();
+
     private int _balance = 0;
 
     private Vector2Int[] _completedNodes;
@@ -23,6 +25,12 @@ public class PlayerDataManager : MonoBehaviour
 
     [SerializeField] private List<bool> _coinFlipsThisRun = new();
     [SerializeField] private List<int> _dieRollsThisRun = new();
+
+    public Dictionary<RestOptions, int> GetBuffsThisRun => _buffsThisRun;
+    public int GetMaxAPBuff => _buffsThisRun.ContainsKey(RestOptions.AP) ? _buffsThisRun[RestOptions.AP] : 0;
+    public int GetMaxHealthBuff => _buffsThisRun.ContainsKey(RestOptions.MaxHealth) ? _buffsThisRun[RestOptions.MaxHealth] : 0;
+    public int GetHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.HandSize) ? _buffsThisRun[RestOptions.HandSize] : 0;
+    public int[] GetAllBuffs => new int[3] { GetMaxAPBuff, GetMaxHealthBuff, GetHandSizeBuff };
 
     public int GetBalance => _balance;
 
@@ -88,6 +96,23 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // Data update methods for setting values
+    public void UpdateBuff(RestOptions option, int buffAmount)
+    {
+        if (_buffsThisRun.ContainsKey(option))
+            _buffsThisRun[option] += buffAmount;
+        else
+            _buffsThisRun.Add(option, buffAmount);
+    }
+    public void ClearOptionBuffFromDict(RestOptions option)
+    {
+        if (!_buffsThisRun.ContainsKey(option)) return;
+        _buffsThisRun.Remove(option);
+    }
+    public void ClearBuffsOnRunEnd()
+    {
+        _buffsThisRun.Clear();
+    }
+
     public void UpdateCurrencyData(int currentBalance)
     {
         _balance = currentBalance;
@@ -229,6 +254,10 @@ public class PlayerDataManager : MonoBehaviour
             runCards.Add(newCard);
         }
         var runDeck = new Deck(runCards);
+
+        _buffsThisRun.Clear();
+        for (var i = 0; i < specialMechanicData.GetBuffsCurrentRun.Length; i++)
+            UpdateBuff((RestOptions)i, specialMechanicData.GetBuffsCurrentRun[i]);
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetCompletedNodes, nodeData.GetCurrentNodeIndex, nodeData.GetGeneralSeed, nodeData.GetNodeMapSeed);

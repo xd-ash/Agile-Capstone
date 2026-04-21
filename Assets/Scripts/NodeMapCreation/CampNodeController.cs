@@ -55,7 +55,8 @@ public class CampNodeController : MonoBehaviour
             return;
 
         RestOptions option = (RestOptions)restOption;
-        SpecialMechanicsManager.Instance?.AddBuffOnRest(option, GetRestOptionVal(option));
+
+        PlayerDataManager.Instance?.UpdateBuff(option, GetRestOptionVal(option));
 
         _restOptionsPanel.SetActive(false);
         gameObject?.SetActive(false);
