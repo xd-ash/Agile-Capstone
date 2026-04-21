@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: Explosion Effect Visual
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffectVisual
   graph: {fileID: 11400000}
-  position: {x: 200, y: 168}
+  position: {x: 184, y: 312}
   ports:
     keys:
     - input
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Name: Over Time Effect
   m_EditorClassIdentifier: Assembly-CSharp::OverTimeEffect
   graph: {fileID: 11400000}
-  position: {x: -136, y: 184}
+  position: {x: -136, y: 296}
   ports:
     keys:
     - effects
@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DamageEffect
   graph: {fileID: 11400000}
-  position: {x: 184, y: 328}
+  position: {x: 184, y: 408}
   ports:
     keys:
     - input
