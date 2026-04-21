@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stop Movement Effect
   m_EditorClassIdentifier: Assembly-CSharp::StopMovementEffect
   graph: {fileID: 11400000}
-  position: {x: 296, y: 232}
+  position: {x: 632, y: 248}
   ports:
     keys:
     - input
@@ -24,8 +24,8 @@ MonoBehaviour:
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: effects 1
-        node: {fileID: 215215104908119812}
+      - fieldName: effects 0
+        node: {fileID: 6301487038986836510}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
@@ -197,6 +197,7 @@ MonoBehaviour:
   - {fileID: 215215104908119812}
   - {fileID: 5961324338003623009}
   - {fileID: -7998303595264660776}
+  - {fileID: 6301487038986836510}
   _description: Spawn a trap that deals %0% damage and roots
   _cardImage: {fileID: 21300000, guid: fb4c036423b780248937fcd6d034eb2d, type: 3}
   _abilitySFX: {fileID: 0}
@@ -286,7 +287,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: -7998303595264660776}
+        node: {fileID: 6301487038986836510}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -307,7 +308,7 @@ MonoBehaviour:
   m_Name: Damage Effect
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DamageEffect
   graph: {fileID: 11400000}
-  position: {x: 296, y: 104}
+  position: {x: 360, y: 56}
   ports:
     keys:
     - input
@@ -337,6 +338,75 @@ MonoBehaviour:
   _effectValue: 2
   input: 0
   effectVisuals: 0
+--- !u!114 &6301487038986836510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed69c3a059d5cf49bc2e795524bc5e3, type: 3}
+  m_Name: Over Time Effect
+  m_EditorClassIdentifier: Assembly-CSharp::OverTimeEffect
+  graph: {fileID: 11400000}
+  position: {x: 376, y: 184}
+  ports:
+    keys:
+    - effects
+    - input
+    - effectVisuals
+    - effects 0
+    values:
+    - _fieldName: effects
+      _node: {fileID: 6301487038986836510}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: 6301487038986836510}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: effects 1
+        node: {fileID: 215215104908119812}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effectVisuals
+      _node: {fileID: 6301487038986836510}
+      _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 0
+    - _fieldName: effects 0
+      _node: {fileID: 6301487038986836510}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -7998303595264660776}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+  _effectValue: 1
+  input: 0
+  effectVisuals: 0
+  effects: 0
+  _doEffectOnApply: 1
+  _tickOnStart: 1
 --- !u!114 &6388884134802078426
 MonoBehaviour:
   m_ObjectHideFlags: 0
