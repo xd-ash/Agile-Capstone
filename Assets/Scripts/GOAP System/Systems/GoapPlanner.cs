@@ -70,7 +70,7 @@ public class GoapPlanner
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr = $"Agent: {_agent.name} Target: {(tempTarget == null ? "null" : tempTarget.name)} - Goal: ";
+            string tempStr = $"Agent: {_agent.name} (Target: {(tempTarget == null ? "null" : tempTarget.name)}) - Goal: ";
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
             tempStr += $"\ntempBeliefs: ";

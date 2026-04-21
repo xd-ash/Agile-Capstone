@@ -588,9 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agentSO: {fileID: 11400000, guid: 2d5135a023c69f2448ec7bfec2408bd2, type: 2}
-  _abilityController: {fileID: 0}
   _actionDelayTime: 1
-  unit: {fileID: 2517929088927519564}
   showDebugMessages: 1
   _buildFailCounter: 0
 --- !u!114 &5203928755197963070

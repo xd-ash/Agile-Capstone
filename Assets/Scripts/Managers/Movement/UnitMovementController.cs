@@ -13,7 +13,7 @@ public class UnitMovementController : MonoBehaviour
     private List<PathMarker> _truePath;
     private bool _isMoving = false;
     public bool GetIsMoving => _isMoving;
-    public bool _isKnockback = false;
+    private bool _isKnockback = false;
 
     [SerializeField] private float _unitMoveSpeed = 0.2f;
     [SerializeField] private int _moveCostPerTile = 1;

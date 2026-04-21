@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Over Time Effect
   m_EditorClassIdentifier: Assembly-CSharp::OverTimeEffect
   graph: {fileID: 11400000}
-  position: {x: -88, y: 168}
+  position: {x: -104, y: 168}
   ports:
     keys:
     - effects
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: Ability Root
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.AbilityRootNode
   graph: {fileID: 11400000}
-  position: {x: -456, y: 40}
+  position: {x: -456, y: 24}
   ports:
     keys:
     - targeting
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: Heal Effect
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.HealEffect
   graph: {fileID: 11400000}
-  position: {x: 264, y: 264}
+  position: {x: 168, y: 264}
   ports:
     keys:
     - input

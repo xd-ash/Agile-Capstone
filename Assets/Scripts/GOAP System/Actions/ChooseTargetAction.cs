@@ -27,12 +27,8 @@ public class ChooseTargetAction : GoapAction
         foreach (var u in TurnManager.GetUnitTurnOrder)
         {
             if (u == null) continue;
-            Debug.Log($"unit name: {u.name}, team: {u.GetTeam}, expectedTeam: {team.ToString()}, agent unit name: {agent.GetUnit?.name}");
-
             if (u.GetTeam != team) continue;
-            Debug.Log("Test");
             if (u == agent.GetUnit) continue;
-            Debug.Log("Test2");
 
             var tempPath = CalculatePath(agent.transform, u.transform);
 
@@ -48,7 +44,6 @@ public class ChooseTargetAction : GoapAction
         Unit minDistEnemy = null, minDistAlly = agent.GetUnit;
         int minDist = int.MaxValue;
 
-        Debug.Log($"enemy count: {enemiesDists.Count}");
         for (int i = 0; i < enemiesDists.Count; i++)
         {
             var kvp = enemiesDists.ElementAt(i);

@@ -29,16 +29,15 @@ namespace CardSystem
 
                 if (!hit) continue;
 
-                Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
+                //Vector2Int casterGridPos = abilityData.AbilityTriggerPos;
                 Vector2Int targetGridPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit);
 
                 Vector2Int knockbackDir = Vector2Int.zero;
-
-                if (casterGridPos == targetGridPos)
-                    knockbackDir = unitMover.PrevPosOnMove - casterGridPos;
+                if (abilityPos == targetGridPos)
+                    knockbackDir = unitMover.PrevPosOnMove - abilityPos;
                 else
                 {
-                    Vector2Int rawDir = targetGridPos - casterGridPos;
+                    Vector2Int rawDir = targetGridPos - abilityPos;
                     Vector2Int absDir = new Vector2Int(Mathf.Abs(rawDir.x), Mathf.Abs(rawDir.y));
 
                     if (absDir == Vector2Int.one)
@@ -71,11 +70,10 @@ namespace CardSystem
                 var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
 
                 Vector2Int newPos = targetGridPos + knockbackDir * adjustedEffectVal;
-
                 var mapSize = MapCreator.Instance.GetMapSize;
                 newPos.x = Mathf.Clamp(newPos.x, 0, mapSize.x - 1);
                 newPos.y = Mathf.Clamp(newPos.y, 0, mapSize.y - 1);
-                //Debug.Log($"newPos: ({newPos.x},{newPos.y})");
+                //Debug.Log($"newPos: {newPos}");
 
                 //if target is already against obstacle/boundary just return
                 if (newPos == targetGridPos)
@@ -98,7 +96,7 @@ namespace CardSystem
                 if (targetUnit.GetCanMove)
                     unitMover.OnKnockback(lastValidPos);
 
-                if (adjustedEffectVal < 0)
+                if (adjustedEffectVal < 0 && lastValidPos != targetGridPos)
                     abilityData.GetUnit.GetFloatingText.SpawnFloatingText("GET OVER HERE!");
             }
 

@@ -28,7 +28,7 @@ namespace CardSystem
                     break;
                 case Team.Enemy:
                     GoapAgent agent = abilityData.GetUnit.GetComponent<GoapAgent>();
-                    _aoeStrat?.GrabTargetsInRange(ref abilityData, ByteMapController.Instance.GetPositionOfUnit(agent.GetCurrentTarget));
+                    _aoeStrat?.GrabTargetsInRange(ref abilityData, ByteMapController.Instance.GetPositionOfUnit(agent.GetCurrentTarget), false);
                     onFinished();
                     break;
             }

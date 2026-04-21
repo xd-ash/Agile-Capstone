@@ -41,14 +41,15 @@ public class MoveOutOfLOSAction : GoapAction
     private Vector2Int DetermineHidePos(Unit target)
     {
         var reachableCells = MovementRangeCalculator.ComputeReachableCells(_agent.GetUnit);
-        if (target == null) return ConvertToGridFromIsometric(_agent.transform.localPosition);
+        var agentTile = ByteMapController.Instance.GetPositionOfUnit(_agent.GetUnit);
+        if (target == null) return agentTile;
         var targetTile = ByteMapController.Instance.GetPositionOfUnit(target);
 
         var hidePos = -Vector2Int.one;
         int bestDistCount = int.MaxValue;
         foreach (var tile in reachableCells)
         {
-            var pathToTarget = FindPathAStar.CalculatePath(tile, targetTile);
+            var pathToTarget = FindPathAStar.CalculatePath(tile, agentTile);
 
             if (pathToTarget == null || pathToTarget.Count == 0) continue;
             if (pathToTarget.Count >= bestDistCount) continue;
@@ -64,7 +65,6 @@ public class MoveOutOfLOSAction : GoapAction
     {
         if (_hidePos == -Vector2Int.one || _agent == null) return;
         _unitMover.CalculatePath(_hidePos);
-        //Debug.Log($"hidePos: {_hidePos}");
 
         _unitMover.OnStartUnitMove(() =>
         {

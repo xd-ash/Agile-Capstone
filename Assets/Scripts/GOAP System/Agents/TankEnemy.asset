@@ -24,7 +24,7 @@ MonoBehaviour:
   _helpfulAbilities:
   - abilityName: Guard
     ability: {fileID: 11400000, guid: e04cbe7bf1cb5634d856e7a51ef870a4, type: 2}
-    cooldownInTurns: 1
+    cooldownInTurns: 3
     maxUses: -1
   _goalsEnum: 42
   _goals:

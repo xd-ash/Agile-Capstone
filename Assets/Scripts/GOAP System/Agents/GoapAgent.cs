@@ -25,7 +25,7 @@ public class Goal
 public class GoapAgent : MonoBehaviour
 {
     [SerializeField] private GoapAgentSO _agentSO;
-    [SerializeField] private GoapAgentAbilityController _abilityController;
+    private GoapAgentAbilityController _abilityController;
 
     public int AttacksPerformedThisTurn { get; set; } = 0;
 
@@ -44,12 +44,12 @@ public class GoapAgent : MonoBehaviour
 
     private WorldStates _beliefs = new WorldStates(); //make public or getter/setter if actions needed
     private GoapPlanner _planner;
-    public Unit _unit;
+    private Unit _unit;
     private Unit _enemyTarget;
     private Unit _allyTarget;
 
     public bool showDebugMessages = false;
-    [SerializeField] private int _buildFailCounter = 0;
+    private int _buildFailCounter = 0;
 
     public Goal GetCurrentGoal => _currentGoal;
     public Unit GetCurrentTarget => DetermineCurrentTarget();

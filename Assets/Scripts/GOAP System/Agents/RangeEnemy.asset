@@ -26,12 +26,12 @@ MonoBehaviour:
     ability: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
     cooldownInTurns: 0
     maxUses: 3
-  _goalsEnum: 30
+  _goalsEnum: 46
   _goals:
   - rid: 6877345560813109319
   - rid: 3457071735035396167
-  - rid: 3457071735035396168
   - rid: 3457071735035396171
+  - rid: 97860308277657685
   _goapActionsEnum: 942
   _actions:
   - rid: 6877345560813109323
@@ -44,18 +44,18 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 97860308277657685
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 0
+        removeOnComplete: 0
     - rid: 3457071735035396167
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
         key: StayAliveEnemyFocus
         value: 0
         removeOnComplete: 1
-    - rid: 3457071735035396168
-      type: {class: Goal, ns: , asm: Assembly-CSharp}
-      data:
-        key: KeepAlliesAlive
-        value: 0
-        removeOnComplete: 0
     - rid: 3457071735035396171
       type: {class: Goal, ns: , asm: Assembly-CSharp}
       data:
