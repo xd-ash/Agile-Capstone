@@ -9,8 +9,10 @@ using AStarPathfinding;
 public enum Team {Friendly, Enemy, None, All}
 public class Unit : MonoBehaviour, IDamagable
 {
+    [SerializeField] private UnitSO _unitSO;
+
     [Header("Team and stats")] 
-    [SerializeField] private Team _team;
+    [Space(10), SerializeField] private Team _team;
     [SerializeField] private int _maxHealth;
     [SerializeField] private int _health;
 
@@ -54,8 +56,10 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _floatingText = GetComponentInChildren<FloatingTextController>();
 
-        _health = _maxHealth;
-        _ap = _maxAP;
+        //_health = _maxHealth;
+        //_ap = _maxAP;
+        GrabSOData();
+
         RaiseHealthEvent();
         HideHitChance();
 
@@ -67,6 +71,36 @@ public class Unit : MonoBehaviour, IDamagable
             //_enemyHPBar.gameObject.SetActive(false); // commented this out so enemy HP bar show from start
             _enemyShieldBar.gameObject.SetActive(false);
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
+        }
+    }
+
+    private void GrabSOData()
+    {
+        _maxHealth = _unitSO.GetMaxHealth;
+        _maxShield = _unitSO.GetMaxShield;
+        _maxAP = _unitSO.GetMaxAP;
+
+        GrabRunBuffs();
+
+        _health = _maxHealth;
+        _shield = 0;
+        _ap = _maxAP;
+    }
+    private void GrabRunBuffs()
+    {
+        var smm = SpecialMechanicsManager.Instance;
+        if (smm == null) return;
+        _maxHealth += smm.GetMaxHealthBuff;
+        _maxAP += smm.GetMaxAPBuff;
+    }
+    public void IncreaseStat(RestOptions stat)
+    {
+        switch (stat)
+        {
+            case RestOptions.AP:
+                break;
+            case RestOptions.MaxHealth:
+                break;
         }
     }
     private void Start()

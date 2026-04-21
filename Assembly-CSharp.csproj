@@ -229,6 +229,7 @@
     <Compile Include="Assets\Scripts\Managers\Movement\UnitMovementController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\EndTurnAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\SO Bases\CardAndDeckLibrary.cs" />
+    <Compile Include="Assets\Scripts\Managers\Units\UnitSO.cs" />
     <Compile Include="Assets\Scripts\CardSystem\EnterDeckNamePopup.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\DecideOrientationAction.cs" />
     <Compile Include="Assets\Scripts\AnimScripts\AbilityEffectDestroyer.cs" />
