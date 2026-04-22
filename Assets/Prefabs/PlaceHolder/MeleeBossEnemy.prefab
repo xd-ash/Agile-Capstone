@@ -730,70 +730,76 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleStateAnims:
-  - {fileID: 7400000, guid: 3b226dd7035ca564690095f53150bbfe, type: 2}
-  - {fileID: 7400000, guid: 47c8f69db0b2f724f98627d7421c1c87, type: 2}
-  - {fileID: 7400000, guid: 72c612485e6d09540bee52794b219536, type: 2}
-  - {fileID: 7400000, guid: e7ba1470aabae67479c128189687e629, type: 2}
+  - {fileID: 7400000, guid: bd8b584cd059c4748905153010ec77aa, type: 2}
+  - {fileID: 7400000, guid: 9dcdc87651b2b614b8b6e789d60f8e5a, type: 2}
+  - {fileID: 7400000, guid: 40c06620c59d0a648841fa4e55d7e3ee, type: 2}
+  - {fileID: 7400000, guid: 09a5f941fda6b544d9a0bbea29245c53, type: 2}
   _moveStateAnims:
-  - {fileID: 7400000, guid: d7573834168716a4e8faaa1c284dc1ce, type: 2}
-  - {fileID: 7400000, guid: f9ee016813301084fa0e0992de618ade, type: 2}
-  - {fileID: 7400000, guid: fa1357bd891c5754c98374a10478c03d, type: 2}
-  - {fileID: 7400000, guid: 0b6ec62b6a1432f448e090d935074d09, type: 2}
+  - {fileID: 7400000, guid: b6e53a7ca969f6c4eb40a8c1f2d60662, type: 2}
+  - {fileID: 7400000, guid: d45d4a847ec4baa44986fd86fe57a106, type: 2}
+  - {fileID: 7400000, guid: 742b52814aeab0640a9e1d74d2c719d5, type: 2}
+  - {fileID: 7400000, guid: 5604206026043e3448202a32e6e60146, type: 2}
   _attackAnimSets:
   - key: 1
     dirClips:
-    - {fileID: 7400000, guid: a0210dd618efd074c97ed9e253bd6572, type: 2}
-    - {fileID: 7400000, guid: 79b2c6095ab0960458172589a810e8a1, type: 2}
-    - {fileID: 7400000, guid: 2e0e93ec1dead3e4f90bdb0858f9f137, type: 2}
-    - {fileID: 7400000, guid: d2efadbd66afdcf43b1002f4d69d2e66, type: 2}
+    - {fileID: 7400000, guid: 253eddf7417691e4492b06a4c76032df, type: 2}
+    - {fileID: 7400000, guid: b3b405468a2137d40a3e16e4fd2816ec, type: 2}
+    - {fileID: 7400000, guid: 950df28e751bf1b40a9e5b7f5a6b6120, type: 2}
+    - {fileID: 7400000, guid: a6bb719dc63cce3488adc6fc8bddb529, type: 2}
   - key: 3
     dirClips:
-    - {fileID: 7400000, guid: af117805438544f4fa730b6c4fb50343, type: 2}
-    - {fileID: 7400000, guid: 07c72ae449f052d45bb904a07bf87ffe, type: 2}
-    - {fileID: 7400000, guid: 5236f6ebeca952f43aa773adc24cc921, type: 2}
-    - {fileID: 7400000, guid: 7ee372f53e316054daf55d3bf8761e54, type: 2}
+    - {fileID: 7400000, guid: 8b565b736ddf7c1418efac2f446b5b32, type: 2}
+    - {fileID: 7400000, guid: 67b640598303123499c615473c6352eb, type: 2}
+    - {fileID: 7400000, guid: 60dc06bee95501e45ac9f2e20a0443bc, type: 2}
+    - {fileID: 7400000, guid: 67b640598303123499c615473c6352eb, type: 2}
   - key: 4
     dirClips:
-    - {fileID: 7400000, guid: b80893f9337863840b54474f8ff40aa6, type: 2}
-    - {fileID: 7400000, guid: 7be55a8d50096994598db80aa0db604e, type: 2}
-    - {fileID: 7400000, guid: 1314fc7c97b4f3e4483863a853d57e32, type: 2}
-    - {fileID: 7400000, guid: 2127e754e0d93ce43aee00e19c814083, type: 2}
+    - {fileID: 7400000, guid: ec84861f810c783489bce20701de296b, type: 2}
+    - {fileID: 7400000, guid: 23961ca2899ba6740b3d0851e0cc874e, type: 2}
+    - {fileID: 7400000, guid: 43ad9d26d1003e840aefd83aefe72b44, type: 2}
+    - {fileID: 7400000, guid: bfd2cc41948597d4dbc75cf1ae4f7cbe, type: 2}
   - key: 5
     dirClips:
-    - {fileID: 7400000, guid: 9132aec3953904643bfa59de0c2f7690, type: 2}
-    - {fileID: 7400000, guid: 2d5585e1cf4707f49960a6ce91b9bee5, type: 2}
-    - {fileID: 7400000, guid: a8811818f181cf14e9010b1cf8aaf5c4, type: 2}
-    - {fileID: 7400000, guid: b0580eda547775e47a12647f2585a2d4, type: 2}
+    - {fileID: 7400000, guid: f2adaa1e0b5467a4ba54fadedab44cff, type: 2}
+    - {fileID: 7400000, guid: cf550f3cd14e30844aaa33b67fa347cf, type: 2}
+    - {fileID: 7400000, guid: f9cad6db65f3fb14e900c94d70870f99, type: 2}
+    - {fileID: 7400000, guid: 3241e2a5ab9d12047bb1fd80f7c187e2, type: 2}
   - key: 6
     dirClips:
-    - {fileID: 7400000, guid: 24ba248abee4d5b468e6b999785ac6c1, type: 2}
-    - {fileID: 7400000, guid: 9de9baf79d22b27438215ada039013ec, type: 2}
-    - {fileID: 7400000, guid: e9a6116619b6f5f46bf9d9c6e5246476, type: 2}
-    - {fileID: 7400000, guid: 1c3584d685392204382c72078d776122, type: 2}
+    - {fileID: 7400000, guid: 005256edf71d9fe409a6fa272a330f04, type: 2}
+    - {fileID: 7400000, guid: de078fdf94c3d6347951672676814cd0, type: 2}
+    - {fileID: 7400000, guid: 2ac8eb5c085e0db479c797045a62e0e8, type: 2}
+    - {fileID: 7400000, guid: 3c94288b30337f14ea3a891f0a0ec450, type: 2}
   - key: 7
     dirClips:
-    - {fileID: 7400000, guid: e2c3c186b38a7f04f98345b4edcd26e7, type: 2}
-    - {fileID: 7400000, guid: 7556cff0d09c31340b1b0cb6a13c0cab, type: 2}
-    - {fileID: 7400000, guid: ce99188786f8e0840bc0b547d938e86e, type: 2}
-    - {fileID: 7400000, guid: e92e9df9136aa504fa103d8f7bfb9ed3, type: 2}
+    - {fileID: 7400000, guid: 497161085a4edc442871226c2d57a4e1, type: 2}
+    - {fileID: 7400000, guid: 2d0c82bf5f5689e44aad0f53d5c86448, type: 2}
+    - {fileID: 7400000, guid: 94f7cc8d8f4b8094fac10cb2b9e2cfa3, type: 2}
+    - {fileID: 7400000, guid: b0c7350d23bca88458b21438f25c2536, type: 2}
   - key: 9
     dirClips:
-    - {fileID: 7400000, guid: 4fca9343bb59baa40bd26e2451527b0f, type: 2}
-    - {fileID: 7400000, guid: e8139e61f15717c4f916a33e2e7ea62d, type: 2}
-    - {fileID: 7400000, guid: 40b2877dd247dfc4fa196c29663d1c26, type: 2}
-    - {fileID: 7400000, guid: 8d101335eb2d84a4893c5c117fbd4d93, type: 2}
+    - {fileID: 7400000, guid: 371d0fa3df32ee04e873bcb0f8ddd1ae, type: 2}
+    - {fileID: 7400000, guid: c9d277b01d1052c49a66707f98810a25, type: 2}
+    - {fileID: 7400000, guid: 474d27f5c1ba351459b352a3fbc8758c, type: 2}
+    - {fileID: 7400000, guid: 88986262bc5e55a4c9f0068d79543556, type: 2}
   - key: 15
     dirClips:
-    - {fileID: 7400000, guid: 175c5298763c78a4f98339c2473f5905, type: 2}
-    - {fileID: 7400000, guid: f3d6b2bb3764ec7448873af10ffa5c56, type: 2}
-    - {fileID: 7400000, guid: 4d19d119fd924504aa52283345375f39, type: 2}
-    - {fileID: 7400000, guid: 57dbb8add9d3e164aa8cf416a2fbd648, type: 2}
+    - {fileID: 7400000, guid: 429a590c67a09e640b28505ecac8082e, type: 2}
+    - {fileID: 7400000, guid: dc7e0f1a45f81074790f3c3a4ee98acd, type: 2}
+    - {fileID: 7400000, guid: 24f44060edc16c746859a3161fb48218, type: 2}
+    - {fileID: 7400000, guid: 71a2f7406e294da4eba449fde56a2d0d, type: 2}
   - key: 17
     dirClips:
-    - {fileID: 7400000, guid: 1ff653416fcb234468150f655c4b2687, type: 2}
-    - {fileID: 7400000, guid: 39045cc169de01947b9c70d61283b837, type: 2}
-    - {fileID: 7400000, guid: 2ad5f07926e60004bb80a6f967ba1970, type: 2}
-    - {fileID: 7400000, guid: 30331960727d8b74fbc81f9b605d7e4b, type: 2}
+    - {fileID: 7400000, guid: 4d069bae45b6ad14c88b5121f2d02216, type: 2}
+    - {fileID: 7400000, guid: 1a7c190b6d4c8fa48ae6618418970caf, type: 2}
+    - {fileID: 7400000, guid: cfa6aeb945f395b4392156b8b6d2e757, type: 2}
+    - {fileID: 7400000, guid: d9038b41533ab1445b37a2919b4fa7b8, type: 2}
+  - key: 16
+    dirClips:
+    - {fileID: 7400000, guid: ec18b3c463f8c4b4dac77373fb92a27e, type: 2}
+    - {fileID: 7400000, guid: 170e249d6f256f542b20a033d8e46e90, type: 2}
+    - {fileID: 7400000, guid: c60a5a0216b982b4bba7d20d9e1bce97, type: 2}
+    - {fileID: 7400000, guid: c34527c297920a64e8edfea531a470b5, type: 2}
   _fade: 0.05
 --- !u!114 &8401737389858039758
 MonoBehaviour:
@@ -935,8 +941,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 642496276000286482, guid: a3477597720effb4b854bc9edf1b1aa9, type: 3}
-  m_Color: {r: 0.6415094, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 1215508238, guid: 38eca3ced326f4662abb87b1214dbe73, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -956,7 +962,7 @@ Animator:
   m_GameObject: {fileID: 6721888437333699417}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0df60e79dddc0a8439bf83e72ca77948, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8fd0969180426a7459b518a761fa5497, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
