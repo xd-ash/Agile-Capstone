@@ -83,9 +83,6 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             _onMouseEnter?.Invoke();
         }
         private void OnMouseExit()
@@ -417,6 +414,9 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (RewardsDisplayScript.IsRewarding) return;
+
+                        if (EventSystem.current.IsPointerOverGameObject())
+                            return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused && DeckAndHandManager.Instance.GetSelectedCard == null)
                         {

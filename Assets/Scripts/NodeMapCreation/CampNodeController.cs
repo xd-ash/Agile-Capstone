@@ -23,13 +23,6 @@ public class CampNodeController : MonoBehaviour
         _deckViewPanel = FindFirstObjectByType<DeckViewerScript>(FindObjectsInactive.Include);
     }
 
-    public void DoOtherUpgrade()
-    {
-        Debug.Log("Non-CardUpgrade chosen.");
-        gameObject?.SetActive(false);
-        _onComplete?.Invoke();
-    }
-
     public void OnStartRest()
     {
         _restOptionsPanel.SetActive(true);
@@ -45,11 +38,16 @@ public class CampNodeController : MonoBehaviour
 
         _deckViewPanel?.gameObject?.SetActive(true);
         _deckViewPanel.BuildDeckScrollViewContent(CardState.UpgradeMenu);
-        CardUpgradeController.Instance?.InitUpgradeController(_onComplete);
 
-        gameObject?.SetActive(false);
+        Action onUpgradeComplete = () =>
+        {
+            _onComplete?.Invoke();
+            gameObject.SetActive(false);
+        };
+        CardUpgradeController.Instance?.InitUpgradeController(onUpgradeComplete);
     }
-    public void OnOptionChosen(int restOption)
+
+    public void OnRestOptionChosen(int restOption)
     {
         if (restOption >= Enum.GetNames(typeof(RestOptions)).Length)
             return;
@@ -62,6 +60,7 @@ public class CampNodeController : MonoBehaviour
         gameObject?.SetActive(false);
         _onComplete?.Invoke();
     }
+
     private int GetRestOptionVal(RestOptions option)
     {
         switch (option)
