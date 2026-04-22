@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 150}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 0
-  controlID: 63
+  controlID: 123
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 150}
   m_MaxSize: {x: 16192, y: 24288}
   vertical: 1
-  controlID: 64
+  controlID: 62
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 65
+  controlID: 63
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 18
+  controlID: 39
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -270,8 +270,8 @@ MonoBehaviour:
     y: 0
     width: 1196
     height: 569
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -473,21 +473,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0e93feffd295feffee5bffffa26dffff989cffff3ed2ffff30d4ffff1edeffffc4ecffffaeeefffff0fafffff4ffffff9ec5000082dd00006ee7000098e700002eed0000c8f0000016f10000f8f100001e02010048020100b40a01007a4f0100a8610100486b0100966b0100786c01006eb70100
+      m_ExpandedIDs: 8457fdffb25bfdff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: BountyBoardPanel
-        m_OriginalName: BountyBoardPanel
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 50670
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
         m_ClientGUIView: {fileID: 9}
@@ -1141,9 +1141,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -1.2656021, y: -1.8699915, z: -1.9691666}
+    m_Target: {x: -1.3488674, y: -2.9107873, z: -1.9691666}
     speed: 2
-    m_Value: {x: -1.2656021, y: -1.8699915, z: -1.9691666}
+    m_Value: {x: -1.3488674, y: -2.9107873, z: -1.9691666}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1266,7 +1266,7 @@ MonoBehaviour:
     m_ContainerData: []
     m_OverlaysVisible: 1
   m_SearchFilter:
-    m_NameFilter: cardse
+    m_NameFilter: 
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -1276,26 +1276,26 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Managers/Audio
+    - Assets/Shaders
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
-    m_OriginalText: cardse
+    m_OriginalText: 
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Managers/Audio
+  - Assets/Shaders
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\ALeas\OneDrive\Documents\GitHub\Agile-Capstone
+  m_LastProjectPath: C:\Users\Lab Folders\Documents\GitHub\Agile-Capstone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 6}
-    m_SelectedIDs: 0e610100
-    m_LastClickedID: 90382
-    m_ExpandedIDs: 00000000fec7000000c8000002c8000004c8000006c8000008c800000ac800000cc800000ec8000010c8000012c8000014c8000016c8000018c800001ac800001cc8000098c80000cac8000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: ce6f0100
+    m_LastClickedID: 94158
+    m_ExpandedIDs: 000000008459010000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1324,7 +1324,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fec7000000c8000002c8000004c8000006c8000008c800000ac800000cc800000ec8000010c8000012c8000014c8000016c8000018c800001ac800001cc80000
+    m_ExpandedIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
