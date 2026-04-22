@@ -21,7 +21,7 @@ namespace CardSystem
         [SerializeField] private Transform _cardHandParent;
 
         private int _topCardOfDeck = 0;
-        [SerializeField] private int _maxCards = 7;
+        [SerializeField] private int _maxCards = 10;
         [SerializeField] public int _startingHandSize = 5; // draw this many cards at start of player turn
 
         [SerializeField] private List<Card> _cardsInHand = new();
@@ -33,6 +33,8 @@ namespace CardSystem
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
+        public int GetMaxHandSize => _maxCards;
+        public bool CanDrawCard => _cardsInHand.Count < _maxCards;
 
         public Action OnCardAblityCancel;
 
@@ -84,6 +86,7 @@ namespace CardSystem
                 }
             }
 
+            HandPositionController.Instance?.AdjustSplineKnotsOnHandSize();
             CardSplineManager.Instance?.ArrangeCardGOs();
         }
 

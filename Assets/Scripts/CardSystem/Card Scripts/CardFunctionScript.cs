@@ -1,6 +1,7 @@
 using CardSystem;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CardFunctionScript : MonoBehaviour
 {
@@ -79,6 +80,13 @@ public class CardFunctionScript : MonoBehaviour
                     onclick = () =>
                     {
                         if (PauseMenu.isPaused || IsSelected) return;
+
+                        if (ToggleHandPosButton.Instance != null && !ToggleHandPosButton.Instance.IsHovered) return;
+
+                        //if (EventSystem.current.IsPointerOverGameObject())
+                        //return;
+
+                        Debug.Log("mousedown cfs");
 
                         int price = Card.GetShopCost;
                         string cardName = Card?.GetCardName ?? "Card";
