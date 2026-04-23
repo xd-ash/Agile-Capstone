@@ -17,7 +17,9 @@ public class EnterDeckNamePopup : MonoBehaviour
             return; //add other name string checks
         }
 
-        PackBuilderScript.Instance?.CreateNewPack(_inputField.text);
-        gameObject.SetActive(false);
+        Debug.LogWarning("THIS AHS BEEN DISABLED");
+
+        //PackBuilderScript.Instance?.CreateNewPack(_inputField.text);
+        //gameObject.SetActive(false);
     }
 }

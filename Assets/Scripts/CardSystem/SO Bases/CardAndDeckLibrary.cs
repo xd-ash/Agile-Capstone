@@ -6,13 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardAndPackLibrary", menuName = "Libraries/New Card & Pack Library")]
 public class CardAndPackLibrary : ScriptableObject
 {
-    [SerializeField] private List<CardPack> _packsInProject = new();
-    //[SerializeField] private List<CardAbilityDefinition> _shopPool;
-
     [SerializeField] private List<CardAbilityDefinition> _cardsInProject = new();
 
     public List<CardAbilityDefinition> GetCardsInProject => _cardsInProject;
-    public List<CardPack> GetPacksInProject => _packsInProject;
+    public CardAbilityDefinition[] GetAllCommonCards => GetCardsOfRarity(CardRarity.Common);
+    public CardAbilityDefinition[] GetAllRareCards => GetCardsOfRarity(CardRarity.Rare);
+    public CardAbilityDefinition[] GetAllEpicCards => GetCardsOfRarity(CardRarity.Epic);
 
     public static Action GrabAssets;
 
@@ -25,9 +24,6 @@ public class CardAndPackLibrary : ScriptableObject
     }
     public void CleanUpLists()
     {
-        for (int i = _packsInProject.Count - 1; i >= 0; i--)
-            if (_packsInProject[i] == null)
-                _packsInProject.RemoveAt(i);
         for (int i = _cardsInProject.Count - 1; i >= 0; i--)
             if (_cardsInProject[i] == null)
                 _cardsInProject.RemoveAt(i);
@@ -45,21 +41,13 @@ public class CardAndPackLibrary : ScriptableObject
         Debug.LogWarning($"No matching card definition found in library for \"{cardName}\"");
         return null;
     }
-    public CardPack GetPackFromName(string packName, bool sendDebugOnFail = true)
+    public CardAbilityDefinition[] GetCardsOfRarity(CardRarity rarity)
     {
-        //check library starter decks
-        foreach (var pack in _packsInProject)
-            if (pack.GetPackName == packName)
-                return pack;
+        List<CardAbilityDefinition> temp = new();
 
-        //Check player decks
-        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.GetAllPlayerPacks != null)
-            foreach (var pack in PlayerDataManager.Instance.GetAllPlayerPacks)
-                if (pack.GetPackName == packName)
-                    return pack;
-
-        if (sendDebugOnFail)
-            Debug.LogError($"No matching card pack found in library for \"{packName}\"");
-        return null;
+        foreach (var card in _cardsInProject)
+            if (card != null && card.GetBaseCardRarity == rarity)
+                temp.Add(card);
+        return temp.ToArray();
     }
 }

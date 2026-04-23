@@ -19,8 +19,6 @@ public class PlayerDataManager : MonoBehaviour
     private CombatMapData _currCombatNodeData;
     private Reward _currNodeReward;
 
-    [SerializeField] private List<CardPack> _createdPacks = new();
-    [SerializeField] private List<CardPack> _initialCardPacksThisRun = new();
     [SerializeField] private Deck _deck;
 
     [SerializeField] private List<bool> _coinFlipsThisRun = new();
@@ -44,8 +42,6 @@ public class PlayerDataManager : MonoBehaviour
     public Reward GetCurrNodeReward => _currNodeReward;
 
     public Deck GetPlayerDeck => _deck;
-    public List<CardPack> GetInitialCardPacks => _initialCardPacksThisRun;
-    public List<CardPack> GetAllPlayerPacks => _createdPacks;
 
     public bool[] GetAllCoinFlipsThisRun => _coinFlipsThisRun.ToArray();
     public int GetNumHeadsThisRun => _coinFlipsThisRun.FindAll(x => true).Count;
@@ -140,17 +136,6 @@ public class PlayerDataManager : MonoBehaviour
     {
         _deck = deck;
     }
-    public void UpdateCardData(Deck deck, List<CardPack> createdPacks)
-    {
-        _deck = deck;
-        _createdPacks = createdPacks;
-    }
-    public void UpdateCardData(Deck deck, List<CardPack> initialPacks, List<CardPack> createdPacks)
-    {
-        _deck = deck;
-        _initialCardPacksThisRun = initialPacks;
-        _createdPacks = createdPacks;
-    }
     public void UpdateCardData(Card card, bool isAddition = true)
     {
         if (card == null) return;
@@ -161,39 +146,6 @@ public class PlayerDataManager : MonoBehaviour
             if (_deck.Contains(card))
                 _deck.RemoveCard(card);
     }
-    public void SetInitialPacks(CardPack[] packs)
-    {
-        if (packs == null || packs.Length == 0) return;
-        _initialCardPacksThisRun.Clear();
-        _initialCardPacksThisRun.AddRange(packs);
-    }
-    public void CreatePlayerDeckFromPacks()
-    {
-        var tempCards = new List<CardAbilityDefinition>();
-
-        foreach (var pack in _initialCardPacksThisRun)
-            tempCards.AddRange(pack.GetCardsInPack);
-        
-        _deck = new Deck(tempCards);
-    }
-    public void CreateOrAdjustPack(CardPack pack)
-    {
-        if (pack == null) return;
-        for (int i = _createdPacks.Count - 1; i >= 0; i--)
-            if (_createdPacks[i].GetPackName == pack.GetPackName)
-                _createdPacks.RemoveAt(i);
-        _createdPacks.Add(pack);
-        SaveLoadScript.SaveGame?.Invoke();
-    }
-    public void DeletePack(CardPack pack)
-    {
-        if (pack == null) return;
-        for (int i = _createdPacks.Count - 1; i >= 0; i--)
-            if (_createdPacks[i].GetPackName == pack.GetPackName)
-                _createdPacks.RemoveAt(i);
-        SaveLoadScript.SaveGame?.Invoke();
-    }
-
     public void SetCurrMapNodeData(CombatMapData currMapNodeData)
     {
         _currCombatNodeData = currMapNodeData;
@@ -243,9 +195,6 @@ public class PlayerDataManager : MonoBehaviour
         var cardData = data.GetCardData;
         var specialMechanicData = data.GetSpecialMechanicData;
 
-        List<CardPack> initialPacksThisRun = CreatePacksFromNames(cardData.GetInitialPacksThisRun);
-        List<CardPack> createdPacks = CreatePacksFromNames(cardData.GetPlayerPacks);
-
         List<Card> runCards = new();
         foreach (var name in cardData.GetDeck)
         {
@@ -261,7 +210,7 @@ public class PlayerDataManager : MonoBehaviour
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetCompletedNodes, nodeData.GetCurrentNodeIndex, nodeData.GetGeneralSeed, nodeData.GetNodeMapSeed);
-        UpdateCardData(runDeck, initialPacksThisRun, createdPacks);
+        UpdateCardData(runDeck);
 
         _coinFlipsThisRun = new();
         AddCoinFlip(specialMechanicData.GetCoinFlipsCurrentRun);

@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 150}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 0
-  controlID: 121
+  controlID: 62
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 150}
   m_MaxSize: {x: 16192, y: 24288}
   vertical: 1
-  controlID: 59
+  controlID: 63
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 60
+  controlID: 64
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -324,8 +324,8 @@ MonoBehaviour:
     y: 0
     width: 436
     height: 933
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -1039,9 +1039,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -1.0892956, y: 0.40576565, z: 741.563}
+    m_Target: {x: 0.0028270222, y: -0.12941377, z: 1251.6853}
     speed: 2
-    m_Value: {x: -1.0892956, y: 0.40576565, z: 741.563}
+    m_Value: {x: 0.0028270222, y: -0.12941377, z: 1251.6853}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1091,9 +1091,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 3.8780963
+    m_Target: 6.2554255
     speed: 2
-    m_Value: 3.8780963
+    m_Value: 6.2554255
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1168,7 +1168,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 78d4f7ffbe43fdffb244fdff8e45fdff4a46fdff1a48fdff884cfdfff4ffffff4eaa0200feab02006aae0200c8af020080b0020064b10200aab102000ab2020024b502002cb5020012b60200
+      m_ExpandedIDs: 1c9efeff8ac2fffffcfafffff4ffffff88cb00004ecd000034140100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1341,7 +1341,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources
+    - Assets/Scripts/Managers/UI
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1351,16 +1351,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources
+  - Assets/Scripts/Managers/UI
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Lab Folders\Documents\GitHub\Agile-Capstone
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 84770200
-    m_LastClickedID: 161668
-    m_ExpandedIDs: 00000000506501008a7b0100764c020084770200bc77020008830200648d020000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 575}
+    m_SelectedIDs: d4dd0000
+    m_LastClickedID: 56788
+    m_ExpandedIDs: 0000000098d300009ad300009cd300009ed30000a0d30000a2d300004ad4000052d4000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1389,7 +1389,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 0000000098d300009ad300009cd300009ed30000a0d30000a2d30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

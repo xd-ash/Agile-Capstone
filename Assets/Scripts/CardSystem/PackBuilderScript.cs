@@ -7,7 +7,7 @@ using System;
 
 public class PackBuilderScript : MonoBehaviour
 {
-    private CardAndPackLibrary _cardAndPackLibrary;
+    /*private CardAndPackLibrary _cardAndPackLibrary;
 
     [SerializeField] private TMP_Dropdown _packDropdown;
     [SerializeField] private ScrollRect _cardScrollView;
@@ -276,5 +276,5 @@ public class PackBuilderScript : MonoBehaviour
                 break;
             }
         return true;
-    }
+    }*/
 }

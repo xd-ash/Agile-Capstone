@@ -141,7 +141,6 @@
     <Compile Include="Assets\Scripts\Managers\Units\SpecialMechanicsManager.cs" />
     <Compile Include="Assets\Scripts\Rewards\RewardsDisplayScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-    <Compile Include="Assets\Scripts\CardSystem\PackSelector.cs" />
     <Compile Include="Assets\Scripts\Rewards\CardPrefabSetterUpper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\SingleCoinFlip.cs" />
@@ -167,6 +166,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\Abstracts\AbilityNodeBase.cs" />
     <Compile Include="Assets\Scripts\Rewards\CardScrollviewFiller.cs" />
+    <Compile Include="Assets\Scripts\CardSystem\DeckInitializer.cs" />
     <Compile Include="Assets\Scripts\A-StarPathfinding\FindPathAStar.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\EndEffect.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\FilteringStrategies\LayerFilter.cs" />
