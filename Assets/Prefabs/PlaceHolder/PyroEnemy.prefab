@@ -590,7 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agentSO: {fileID: 11400000, guid: 621995e6bb7c4e04f8e980bac52b0838, type: 2}
   _actionDelayTime: 1
-  showDebugMessages: 1
+  showDebugMessages: 0
 --- !u!114 &8196521138584185925
 MonoBehaviour:
   m_ObjectHideFlags: 0

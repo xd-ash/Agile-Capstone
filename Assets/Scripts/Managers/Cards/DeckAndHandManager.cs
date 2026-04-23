@@ -102,7 +102,6 @@ namespace CardSystem
 
             _startingHandSize += PlayerDataManager.Instance.GetStartingHandSizeBuff;
 
-            Debug.Log($"starting hand sicze: {_startingHandSize}");
             int toDraw = Mathf.Min(_startingHandSize, _maxCards);
             DrawCard(toDraw);
         }
