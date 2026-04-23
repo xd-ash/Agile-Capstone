@@ -198,11 +198,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitSO: {fileID: 11400000, guid: 737f348fd4d0492408a87cee9da571bd, type: 2}
   _team: 0
-  _maxHealth: 200
+  _maxHealth: 0
   _health: 0
-  _maxShield: 25
+  _maxShield: 0
   _shield: 0
-  _maxAP: 10
+  _maxAP: 0
   _ap: 0
   _enemyHPBar: {fileID: 0}
   _enemyShieldBar: {fileID: 0}

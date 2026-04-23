@@ -13,15 +13,15 @@ public class Unit : MonoBehaviour, IDamagable
 
     [Header("Team and stats")] 
     [Space(10), SerializeField, HideInInspector] private Team _team;
-    [SerializeField, HideInInspector] private int _maxHealth;
-    [SerializeField, HideInInspector] private int _health;
+    [SerializeField, HideInInspector] private int _maxHealth = 0;
+    [SerializeField, HideInInspector] private int _health = 0;
 
     [Header("Shield")]
-    [SerializeField, HideInInspector] private int _maxShield = 25;
+    [SerializeField, HideInInspector] private int _maxShield = 0;
     [SerializeField, HideInInspector] private int _shield = 0; // current shield amount (absorb damage before health)
 
     [Header("Action Points")]
-    [SerializeField, HideInInspector] private int _maxAP;
+    [SerializeField, HideInInspector] private int _maxAP = 0;
     [SerializeField, HideInInspector] private int _ap;
 
     [Header("Placeholder Stuff")]
@@ -36,6 +36,7 @@ public class Unit : MonoBehaviour, IDamagable
     private Coroutine _targetingCoroutine;
     private Guid _unitGuid = new();
 
+    public UnitSO GetUnitSO => _unitSO;
     public Team GetTeam => _team;
     public int GetMaxHealth => _maxHealth;
     public int GetHealth => _health;

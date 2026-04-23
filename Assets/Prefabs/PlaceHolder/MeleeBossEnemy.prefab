@@ -667,11 +667,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitSO: {fileID: 11400000, guid: a001207f657f7b74081b8d248fe36f08, type: 2}
   _team: 1
-  _maxHealth: 40
+  _maxHealth: 0
   _health: 0
-  _maxShield: 25
+  _maxShield: 0
   _shield: 0
-  _maxAP: 10
+  _maxAP: 0
   _ap: 0
   _enemyHPBar: {fileID: 938553109806044764}
   _enemyShieldBar: {fileID: 364212826672256681}

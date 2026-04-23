@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Unit))]
+[CustomEditor(typeof(Unit)), CanEditMultipleObjects]
 public class UnitEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -25,7 +25,7 @@ public class UnitEditor : Editor
             GUILayout.Space(10f);
             GUILayout.Label($" | ");
             GUILayout.Space(10f);
-            GUILayout.Label($"Max Health: {u.GetMaxHealth}");
+            GUILayout.Label($"Max Health: {u.GetMaxHealth} ({u.GetUnitSO?.GetMaxHealth})");
             GUILayout.FlexibleSpace();
         }
         GUILayout.Space(5f);
@@ -35,7 +35,7 @@ public class UnitEditor : Editor
             GUILayout.Space(10f);
             GUILayout.Label($" | ");
             GUILayout.Space(10f);
-            GUILayout.Label($"Max Shield: {u.GetMaxShield}");
+            GUILayout.Label($"Max Shield: {u.GetMaxShield} ({u.GetUnitSO?.GetMaxShield})");
             GUILayout.FlexibleSpace();
         }
         GUILayout.Space(5f);
@@ -45,7 +45,7 @@ public class UnitEditor : Editor
             GUILayout.Space(30f);
             GUILayout.Label($" | ");
             GUILayout.Space(10f);
-            GUILayout.Label($"Max AP: {u.GetMaxAP}");
+            GUILayout.Label($"Max AP: {u.GetMaxAP} ({u.GetUnitSO?.GetMaxAP})");
             GUILayout.FlexibleSpace();
         }
 
