@@ -102,23 +102,39 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetRarityVisuals(Card card)
     {
-        var rarityDiamond = card.GetCardTransform.Find("RarityDiamond")?.GetComponent<Image>();
-        if (rarityDiamond == null)
-            return FailPrefabSetup($"Rarity diamond null.");
+        var rarityContainer = card.GetCardTransform.Find("RarityContainer");
+        if (rarityContainer == null)
+            return FailPrefabSetup("RarityContainer not found.");
 
+        // Determine gem count: Common = 1, Rare = 2, Epic = 3
+        int gemCount = 1;
         Color rarityColor = Color.gray7;
+
         switch (card.GetCardRarity)
         {
-            case CardRarity.Epic:
-                rarityColor = Color.mediumPurple;
-                break;
             case CardRarity.Rare:
-                rarityColor = Color.mediumBlue;
+                gemCount = 2;
+                rarityColor = new Color(0.2f, 0.7f, 0.3f, 1f);  // muted green
                 break;
-            default:
+            case CardRarity.Epic:
+                gemCount = 3;
+                rarityColor = new Color(0.2f, 0.4f, 0.9f, 1f);   // medium blue
                 break;
         }
-        rarityDiamond.color = rarityColor;
+
+        // Enable/disable and color each gem child
+        for (int i = 0; i < rarityContainer.childCount; i++)
+        {
+            var gemImage = rarityContainer.GetChild(i).GetComponent<Image>();
+            if (gemImage == null) continue;
+
+            bool active = i < gemCount;
+            gemImage.gameObject.SetActive(active);
+
+            if (active)
+                gemImage.color = rarityColor;
+        }
+
         return true;
     }
     private static bool RemoveButton(Transform cardTrans)
