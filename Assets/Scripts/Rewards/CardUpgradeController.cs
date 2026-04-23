@@ -80,7 +80,7 @@ public class CardUpgradeController : MonoBehaviour
     }
     public void CloseUpgradePreview()
     {
-        ClearSelection(_selectedCard.GetCardTransform);
+        ClearSelection(_selectedCard?.GetCardTransform);
         _selectedCard = null;
         for (int i = _cardPrefabParent.childCount - 1; i >= 0; i--)
             Destroy(_cardPrefabParent.GetChild(i).gameObject);

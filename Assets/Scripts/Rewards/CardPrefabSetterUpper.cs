@@ -71,10 +71,18 @@ public static class CardPrefabSetterUpper
     {
         card.GetCardTransform.localScale = Vector3.one * _combatScale;
         RemoveButton(card.GetCardTransform);
+        ToggleExtendedBoxCollider(card.GetCardTransform, true);
         SetCardState(card, CardState.Combat, onClick);
         return true;
     }
+    private static void ToggleExtendedBoxCollider(Transform cardTrans, bool enable)
+    {
+        var boxColliders = cardTrans.GetComponents<BoxCollider2D>();
 
+        if (boxColliders.Length <= 1) return;
+
+        boxColliders[1].enabled = enable;
+    }
     private static bool FillTextFields(Card card)
     {
         // Get all TextMeshPro components (non-UI version)
