@@ -440,7 +440,8 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (CardUpgradeController.IsPreviewingUpgrade) return;
-                        
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
+
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(true);
                     };
@@ -484,6 +485,7 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (CardUpgradeController.IsPreviewingUpgrade) return;
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(false);

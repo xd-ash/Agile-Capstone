@@ -80,6 +80,7 @@ public class CardFunctionScript : MonoBehaviour
                     onclick = () =>
                     {
                         if (PauseMenu.isPaused || IsSelected) return;
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         int price = Card.GetShopCost;
                         string cardName = Card?.GetCardName ?? "Card";
@@ -96,10 +97,15 @@ public class CardFunctionScript : MonoBehaviour
                                 OutOfApPopup.Instance?.Show();
                         };
 
+                        var cs = GetComponent<CardSelect>();
+
                         Action cancelAction = () =>
                         {
+                            cs?.ToggleHighlightAndScale(false);
+
                             // no-op; popup will just close
-                            Debug.LogWarning("Shop confirm popup is null. Fallback confirm action called.");
+                            if (ShopConfirmPopup.Instance == null)
+                                Debug.LogWarning("Shop confirm popup is null. Fallback confirm action called.");
                         };
 
                         ShopConfirmPopup.Instance?.Show(price, cardName, confirmAction, cancelAction);
