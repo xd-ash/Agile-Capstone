@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TransitionScene : MonoBehaviour
 {
-    private GameObject mainMenu, pauseMenu, rewardsMenu;
+    private GameObject mainMenu;//, pauseMenu, rewardsMenu, deckViewMenu;
     private string _currScene = "MainMenu";
 
     public static Action<string> SceneSwap;
@@ -28,10 +28,16 @@ public class TransitionScene : MonoBehaviour
             mainMenu = mainMenuTransform.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'MainMenu' child not found under " + name);
-
+        /*
         var pauseMenuTransform = transform.Find("PauseMenu");
         if (pauseMenuTransform != null)
             pauseMenu = pauseMenuTransform?.gameObject;
+        else
+            Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
+
+        var deckViewMenuTransform = transform.Find("DeckViewMenu");
+        if (deckViewMenuTransform != null)
+            deckViewMenu = deckViewMenuTransform?.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
 
@@ -40,8 +46,17 @@ public class TransitionScene : MonoBehaviour
             rewardsMenu = rewardsMenuTransform?.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'RewardsMenu' child not found under " + name);
+        */
     }
-    
+    private void ResetMenusOnMainMenu()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i)?.gameObject;
+            if (child == null || child.name == "MainMenu") continue;
+            child.SetActive(false);
+        }
+    }
     public void StartTutorial()
     {
         // Load tutorial map
@@ -95,8 +110,11 @@ public class TransitionScene : MonoBehaviour
 
         if (targetScene == "MainMenu")
         {
-            pauseMenu?.SetActive(false);
-            rewardsMenu?.SetActive(false);
+            ResetMenusOnMainMenu();
+            SaveLoadScript.LoadGame?.Invoke();
+
+            //pauseMenu?.SetActive(false);
+            //rewardsMenu?.SetActive(false);
         }
 
         mainMenu?.SetActive(targetScene == "MainMenu");

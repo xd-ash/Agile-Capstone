@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CardState { PackViewer, DeckViewer, Shop, Rewards, Combat, UpgradeMenu }
+public enum CardState { PackViewer, DeckViewer, Shop, Rewards, Combat, UpgradeMenu, Inactive }
 
 public static class CardPrefabSetterUpper
 {
@@ -39,24 +39,28 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetupPackViewerCard(Card card, Action onClick = null)
     {
+        RemoveCostText(card);
         DisableBoxCollider(card.GetCardTransform);
         SetCardState(card, CardState.PackViewer, onClick);
         return true;
     }
     private static bool SetupDeckViewerCard(Card card, Action onClick = null)
     {
+        RemoveCostText(card);
         RemoveButton(card.GetCardTransform);
         SetCardState(card, CardState.DeckViewer, onClick);
         return true;
     }
     private static bool SetupShopCard(Card card, Action onClick = null)
     {
+        SetCostText(card);
         RemoveButton(card.GetCardTransform);
         SetCardState(card, CardState.Shop, onClick);
         return true;
     }
     private static bool SetupRewardsCard(Card card, Action onClick = null)
     {
+        RemoveCostText(card);
         RemoveButton(card.GetCardTransform);
         SetCardState(card, CardState.Rewards, onClick);
         return true;
@@ -64,13 +68,18 @@ public static class CardPrefabSetterUpper
     private static bool SetupUpgradeMenuCard(Card card, Action onClick = null)
     {
         RemoveButton(card.GetCardTransform);
-        SetCardState(card, CardState.UpgradeMenu, onClick);
+        SetCostText(card);
+        bool canUpgrade = card.GetCardRarity != CardRarity.Epic && card.GetShopCost <= PlayerDataManager.Instance.GetBalance && CardUpgradeController.IsAbleToUpgrade;
+        SetCardState(card, canUpgrade ? CardState.UpgradeMenu : CardState.Inactive, onClick);
+        if (!canUpgrade)
+            EnableInactiveVisuals(card.GetCardTransform);
         return true;
     }
     private static bool SetupCombatCard(Card card, Action onClick = null)
     {
         card.GetCardTransform.localScale = Vector3.one * _combatScale;
         RemoveButton(card.GetCardTransform);
+        RemoveCostText(card);
         ToggleExtendedBoxCollider(card.GetCardTransform, true);
         SetCardState(card, CardState.Combat, onClick);
         return true;
@@ -152,6 +161,20 @@ public static class CardPrefabSetterUpper
         button.gameObject.SetActive(false);
         return true;
     }
+    private static bool SetCostText(Card card)
+    {
+        var costText = card.GetCardTransform?.Find("CostTextBG")?.GetComponentInChildren<TextMeshProUGUI>();
+        if (costText == null) return false;
+        costText.text = $"{card.GetShopCost} Chips";
+        return true;
+    }
+    private static bool RemoveCostText(Card card)
+    {
+        var costText = card.GetCardTransform?.Find("CostTextBG");
+        if (costText == null) return false;
+        costText.gameObject.SetActive(false);
+        return true;
+    }
     private static bool SetButtonFunc(Transform cardTrans, Action buttonFunc)
     {
         var button = cardTrans.GetComponentInChildren<Button>();
@@ -166,6 +189,12 @@ public static class CardPrefabSetterUpper
             return false;
         bc.enabled = false;
         return true;
+    }
+    private static void EnableInactiveVisuals(Transform cardTrans)
+    {
+        var inactiveOverlay = cardTrans.Find("InactiveOverlay")?.gameObject;
+        if (inactiveOverlay == null) return;
+        inactiveOverlay?.SetActive(true);
     }
     private static void SetCardState(Card card, CardState state, Action onClick = null)
     {

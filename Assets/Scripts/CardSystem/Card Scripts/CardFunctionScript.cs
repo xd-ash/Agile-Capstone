@@ -14,6 +14,7 @@ public class CardFunctionScript : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (PauseMenu.isPaused || IsSelected) return;
         if (CardUpgradeController.IsPreviewingUpgrade) return;
 
         _onMouseDown?.Invoke();
@@ -52,6 +53,7 @@ public class CardFunctionScript : MonoBehaviour
         _state = state;
         Card = card;
 
+        if (_state == CardState.Inactive) return;
         SetOnMouseDown(prefabButtonOnClick);
     }
 
@@ -80,6 +82,7 @@ public class CardFunctionScript : MonoBehaviour
                     onclick = () =>
                     {
                         if (PauseMenu.isPaused || IsSelected) return;
+
                         if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         int price = Card.GetShopCost;
@@ -137,6 +140,8 @@ public class CardFunctionScript : MonoBehaviour
 
                         IsDragging = true;
                     };
+                    break;
+                case CardState.Inactive:
                     break;
             }
         }

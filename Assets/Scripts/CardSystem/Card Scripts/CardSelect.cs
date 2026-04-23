@@ -3,8 +3,6 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 namespace CardSystem
 {
@@ -269,6 +267,8 @@ namespace CardSystem
                         ToggleHighlightAndScale(true);
                     };
                     break;
+                case CardState.Inactive:
+                    break;
             }
             _onMouseDown = tmp;
         }
@@ -344,6 +344,8 @@ namespace CardSystem
                         ReturnCardToHand();
                     };
                     break;
+                case CardState.Inactive:
+                    break;
             }
             _onMouseUp = tmp;
         }
@@ -407,6 +409,8 @@ namespace CardSystem
 
                     };
                     break;
+                case CardState.Inactive:
+                    break;
             }
             _onMouseDrag = tmp;
         }
@@ -445,6 +449,8 @@ namespace CardSystem
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(true);
                     };
+                    break;
+                case CardState.Inactive:
                     break;
                 default:
                     tmp = () =>
@@ -490,6 +496,8 @@ namespace CardSystem
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(false);
                     };
+                    break;
+                case CardState.Inactive:
                     break;
                 default:
                     tmp = () =>
