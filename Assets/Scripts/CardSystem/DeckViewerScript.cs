@@ -60,8 +60,8 @@ public class DeckViewerScript : MonoBehaviour
         if (TryGetComponent(out TextMeshProUGUI titleText))
             titleText.text = cardState == CardState.DeckViewer ? "Cards in Deck" : "Select Card to Upgrade";
 
-        /*GameObject closeWindowButton = transform.Find("CloseWindowButton").gameObject;
-        if (closeWindowButton == null) return;
-        closeWindowButton.SetActive(cardState == CardState.DeckViewer);*/
+        GameObject chipsBalanceUI = transform.Find("CurrencyBalance").gameObject;
+        if (chipsBalanceUI == null) return;
+        chipsBalanceUI.SetActive(cardState == CardState.UpgradeMenu);
     }
 }

@@ -1,5 +1,6 @@
 using CardSystem;
 using System;
+using TMPro;
 using UnityEngine;
 
 public class CardUpgradeController : MonoBehaviour
@@ -7,8 +8,9 @@ public class CardUpgradeController : MonoBehaviour
     private DeckViewerScript _deckViewPanel;
     [SerializeField] private GameObject _upgradePreviewPanel;
     [SerializeField] private Transform _cardPrefabParent;
+    [SerializeField] private TextMeshProUGUI _chipsBalanceText;
 
-    [Space(10), SerializeField] private Card _selectedCard;
+    [SerializeField] private Card _selectedCard;
 
     public static bool IsPreviewingUpgrade { get; private set; } = false;
 
@@ -27,8 +29,7 @@ public class CardUpgradeController : MonoBehaviour
         _onComplete = onComplete;
 
         _deckViewPanel = FindFirstObjectByType<DeckViewerScript>(FindObjectsInactive.Include);
-        _upgradePreviewPanel = _deckViewPanel.transform.Find("CardUpgradePreview").gameObject;
-        _cardPrefabParent = _upgradePreviewPanel.transform.Find("CardParent");
+        _chipsBalanceText.text = $"Chips: {PlayerDataManager.Instance.GetBalance}";
     }
 
     public void ShowUpgradePreview(Card cardToUpgrade)
@@ -65,7 +66,16 @@ public class CardUpgradeController : MonoBehaviour
             Debug.LogWarning("Selected card was null on upgrade attempt");
             return;
         }
+
         _selectedCard.UpgradeCard();
+
+        if (!CurrencyManager.Instance.TrySpend(_selectedCard.GetShopCost))
+        {
+            Debug.LogWarning($"Not enough chips to upgrade.");
+            return;
+        }
+
+        _chipsBalanceText.text = $"Chips: {PlayerDataManager.Instance.GetBalance}";
         CloseUpgradePreview();
 
         var deckViewWindow = DeckViewerScript.Instance;
@@ -78,6 +88,7 @@ public class CardUpgradeController : MonoBehaviour
         deckViewWindow?.gameObject?.SetActive(false);
         _onComplete?.Invoke();
     }
+
     public void CloseUpgradePreview()
     {
         ClearSelection(_selectedCard?.GetCardTransform);
