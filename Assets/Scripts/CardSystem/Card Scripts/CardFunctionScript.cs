@@ -81,13 +81,6 @@ public class CardFunctionScript : MonoBehaviour
                     {
                         if (PauseMenu.isPaused || IsSelected) return;
 
-                        if (ToggleHandPosButton.Instance != null && !ToggleHandPosButton.Instance.IsHovered) return;
-
-                        //if (EventSystem.current.IsPointerOverGameObject())
-                        //return;
-
-                        Debug.Log("mousedown cfs");
-
                         int price = Card.GetShopCost;
                         string cardName = Card?.GetCardName ?? "Card";
 
@@ -134,6 +127,7 @@ public class CardFunctionScript : MonoBehaviour
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                             return;
                         if (TransitionScene.IsTutorial && Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         IsDragging = true;
                     };

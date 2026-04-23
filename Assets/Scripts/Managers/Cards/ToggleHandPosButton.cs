@@ -19,6 +19,8 @@ public class ToggleHandPosButton : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         IsHovered = true;
 
+        DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false); //sending this transform so all button will enable BCs
+
         foreach (var card in DeckAndHandManager.Instance.CardsInHand)
         {
             if (!card.GetCardTransform.TryGetComponent(out CardSelect cs) ||
@@ -27,7 +29,6 @@ public class ToggleHandPosButton : MonoBehaviour, IPointerEnterHandler, IPointer
             if (!cfs.IsSelected && !cfs.IsDragging && !PauseMenu.isPaused)
             {
                 cs.ToggleHighlightAndScale(false);
-                DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
 
                 if (DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
 

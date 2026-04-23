@@ -44,8 +44,6 @@ namespace CardSystem
 
             ShuffleDeck(); // Add shuffle before any cards are drawn
             CardActivePos = transform.Find("CardActivePos");
-
-            _maxCards += PlayerDataManager.Instance.GetHandSizeBuff;
         }
 
         //draws cards based on count param, which is default 1
@@ -102,6 +100,9 @@ namespace CardSystem
 
             DiscardAll();
 
+            _startingHandSize += PlayerDataManager.Instance.GetStartingHandSizeBuff;
+
+            Debug.Log($"starting hand sicze: {_startingHandSize}");
             int toDraw = Mathf.Min(_startingHandSize, _maxCards);
             DrawCard(toDraw);
         }

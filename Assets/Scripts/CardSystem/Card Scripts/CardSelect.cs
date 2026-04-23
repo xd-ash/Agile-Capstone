@@ -232,10 +232,7 @@ namespace CardSystem
                     {
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
-                        if (ToggleHandPosButton.Instance != null && !ToggleHandPosButton.Instance.IsHovered) return;
-
-                        //if (EventSystem.current.IsPointerOverGameObject())
-                        //return;
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
@@ -295,10 +292,7 @@ namespace CardSystem
                     {
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
-                        if (ToggleHandPosButton.Instance != null && !ToggleHandPosButton.Instance.IsHovered) return;
-
-                        //if (EventSystem.current.IsPointerOverGameObject())
-                            //return;
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
@@ -373,10 +367,7 @@ namespace CardSystem
                     {
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
-                        if (ToggleHandPosButton.Instance != null && !ToggleHandPosButton.Instance.IsHovered) return;
-
-                        //if (EventSystem.current.IsPointerOverGameObject())
-                        //return;
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
@@ -430,10 +421,7 @@ namespace CardSystem
                     {
                         if (RewardsDisplayScript.IsRewarding) return;
 
-                        if (ToggleHandPosButton.Instance != null && !ToggleHandPosButton.Instance.IsHovered) return;
-
-                        //if (EventSystem.current.IsPointerOverGameObject())
-                        //return;
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused && DeckAndHandManager.Instance.GetSelectedCard == null)
                         {
@@ -475,10 +463,7 @@ namespace CardSystem
                 case CardState.Combat:
                     tmp = () =>
                     {
-                        if (ToggleHandPosButton.Instance != null && !ToggleHandPosButton.Instance.IsHovered) return;
-
-                        //if (EventSystem.current.IsPointerOverGameObject())
-                        //return;
+                        //if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                         {

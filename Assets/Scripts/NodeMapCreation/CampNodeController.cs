@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-public enum RestOptions { AP = 0, MaxHealth = 1, HandSize = 2 }
+public enum RestOptions { AP = 0, MaxHealth = 1, StartingHandSize = 2 }
 
 public class CampNodeController : MonoBehaviour
 {
@@ -10,9 +9,9 @@ public class CampNodeController : MonoBehaviour
     private DeckViewerScript _deckViewPanel;
 
     // buff values, make better &/or random?
-    [SerializeField] private int _apIncrease = 2,
+    [SerializeField] private int _apIncrease = 1,
                                  _maxHealthIncrease = 5,
-                                 _handSizeIncrease = 1;
+                                 _startingHandSizeIncrease = 1;
 
     private Action _onComplete;
 
@@ -69,8 +68,8 @@ public class CampNodeController : MonoBehaviour
                 return _apIncrease;
             case RestOptions.MaxHealth:
                 return _maxHealthIncrease;
-            case RestOptions.HandSize:
-                return _handSizeIncrease;
+            case RestOptions.StartingHandSize:
+                return _startingHandSizeIncrease;
         }
         return 0;
     }

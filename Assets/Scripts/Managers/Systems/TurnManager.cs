@@ -38,15 +38,7 @@ public class TurnManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        //if (PlayerDataManager.Instance == null)
-           // Instantiate(Resources.Load<GameObject>("SaveDataManager"));
-        //_unitTurnOrder = GrabUnits();
-
-        //OnGameStart?.Invoke();
-        //SetTurn();
-    }
+    //called once bytemap is finished setting up and placing units
     public void LateStartInits()
     {
         _unitTurnOrder = GrabUnits();
@@ -71,15 +63,6 @@ public class TurnManager : MonoBehaviour
 
         return sortedList;
     }
-
-    /*public void UpdateApText(Team unitTeam = Team.Friendly)
-    {
-        if (_apText == null) return;
-        if (currTurn == Turn.Player && _curUnit != null)
-            _apText.text = $"Player AP:\n{_curUnit.GetAP}/{_curUnit.GetMaxAP}";
-        else if (currTurn == Turn.Enemy && _curUnit != null)
-            _apText.text = $"Enemy AP:\n{_curUnit.GetAP}/{_curUnit.GetMaxAP}";
-    }*/
 
     private void SetTurn()
     {

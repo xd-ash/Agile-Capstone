@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "+1 \nMax Card Hand Size"
+  m_text: "+1 \nStarting Hand Size"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
   m_sharedMaterial: {fileID: 3911338962612051114, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
@@ -1461,9 +1461,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CampNodeController
   _restOptionsPanel: {fileID: 567933814}
-  _apIncrease: 2
+  _apIncrease: 1
   _maxHealthIncrease: 5
-  _handSizeIncrease: 1
+  _startingHandSizeIncrease: 1
 --- !u!1 &902301939
 GameObject:
   m_ObjectHideFlags: 0
@@ -3398,7 +3398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '+2
+  m_text: '+1
 
     Max AP'
   m_isRightToLeft: 0

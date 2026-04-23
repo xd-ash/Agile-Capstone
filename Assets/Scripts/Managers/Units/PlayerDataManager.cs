@@ -29,8 +29,8 @@ public class PlayerDataManager : MonoBehaviour
     public Dictionary<RestOptions, int> GetBuffsThisRun => _buffsThisRun;
     public int GetMaxAPBuff => _buffsThisRun.ContainsKey(RestOptions.AP) ? _buffsThisRun[RestOptions.AP] : 0;
     public int GetMaxHealthBuff => _buffsThisRun.ContainsKey(RestOptions.MaxHealth) ? _buffsThisRun[RestOptions.MaxHealth] : 0;
-    public int GetHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.HandSize) ? _buffsThisRun[RestOptions.HandSize] : 0;
-    public int[] GetAllBuffs => new int[3] { GetMaxAPBuff, GetMaxHealthBuff, GetHandSizeBuff };
+    public int GetStartingHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.StartingHandSize) ? _buffsThisRun[RestOptions.StartingHandSize] : 0;
+    public int[] GetAllBuffs => new int[3] { GetMaxAPBuff, GetMaxHealthBuff, GetStartingHandSizeBuff };
 
     public int GetBalance => _balance;
 
