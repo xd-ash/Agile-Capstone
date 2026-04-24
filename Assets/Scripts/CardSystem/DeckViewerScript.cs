@@ -6,9 +6,14 @@ using UnityEngine.UI;
 
 public class DeckViewerScript : MonoBehaviour
 {
-    private GameObject _backButton;
+    [SerializeField] private GameObject _backButton;
+    [SerializeField] private Button _continueButton;
+
     [SerializeField] private GameObject _cardContentPrefab;
     [SerializeField] private ScrollRect _deckScrollView;
+    [SerializeField] private TextMeshProUGUI _titleText;
+    [SerializeField] private TextMeshProUGUI _chipsBalanceText;
+    [SerializeField] private TextMeshProUGUI _allowedUpgradeCount;
 
     private CardState _state;
 
@@ -20,7 +25,6 @@ public class DeckViewerScript : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        _backButton = transform.Find("CloseWindowButton").gameObject;
         ToggleBackButton(true);
     }
 
@@ -29,6 +33,7 @@ public class DeckViewerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && _state == CardState.DeckViewer)
             gameObject.SetActive(false);
     }
+
     //Create all card content in the card library scrollview
     public void BuildDeckScrollViewContent(CardState cardState = CardState.DeckViewer)
     {
@@ -61,16 +66,37 @@ public class DeckViewerScript : MonoBehaviour
     }
     private void SetWindowVisualsUp(CardState cardState)
     {
-        if (TryGetComponent(out TextMeshProUGUI titleText))
-            titleText.text = cardState == CardState.DeckViewer ? "Cards in Deck" : "Select Card to Upgrade";
+        string titleText = "Cards in Deck";
 
-        GameObject chipsBalanceUI = transform.Find("CurrencyBalance").gameObject;
-        GameObject upgradeCounterUI = transform.Find("AllowUpgradesCounter").gameObject;
-        chipsBalanceUI?.SetActive(cardState == CardState.UpgradeMenu);
-        upgradeCounterUI?.SetActive(cardState == CardState.UpgradeMenu);
+        switch (cardState)
+        {
+            case CardState.DeckViewer:
+                _chipsBalanceText?.gameObject?.SetActive(false);
+                break;
+            case CardState.UpgradeMenu:
+                titleText = "Select Card to Upgrade";
+                _allowedUpgradeCount?.gameObject?.SetActive(true);
+                break;
+            case CardState.DeckEdit:
+                titleText = "Select Card to Remove";
+                break;
+        }
+
+        _titleText.text = titleText;
     }
-    public void ToggleBackButton(bool isActive)
+    public void UpdateChipsBalance()
     {
-        _backButton?.SetActive(isActive);
+        if (_chipsBalanceText == null) return;
+        _chipsBalanceText.text = $"Chips: {PlayerDataManager.Instance.GetBalance}";
+    }
+    public void UpdateUpgradeAmountRemaining(int numRemaining)
+    {
+        if (_allowedUpgradeCount == null) return;
+        _allowedUpgradeCount.text = $"{numRemaining}";
+    }
+    public void ToggleBackButton(bool isBackButtonActive)
+    {
+        _backButton?.SetActive(isBackButtonActive);
+        _continueButton?.gameObject?.SetActive(!isBackButtonActive);
     }
 }

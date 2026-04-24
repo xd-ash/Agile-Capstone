@@ -51,7 +51,7 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetupShopCard(Card card, Action onClick = null)
     {
-        EnableCostText(card);
+        SetActiveCostTextGO(card);
         SetCostText(card);
         SetCardState(card, CardState.Shop, onClick);
         return true;
@@ -63,12 +63,12 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetupUpgradeMenuCard(Card card, Action onClick = null)
     {
-        EnableCostText(card);
+        SetActiveCostTextGO(card);
         SetCostText(card);
         bool canUpgrade = card.GetCardRarity != CardRarity.Epic && card.GetShopCost <= PlayerDataManager.Instance.GetBalance && CardUpgradeController.IsAbleToUpgrade;
         SetCardState(card, canUpgrade ? CardState.UpgradeMenu : CardState.Inactive, onClick);
         if (!canUpgrade)
-            EnableInactiveVisuals(card.GetCardTransform);
+            SetInactiveVisuals(card.GetCardTransform);
         return true;
     }
     private static bool SetupCombatCard(Card card, Action onClick = null)
@@ -148,16 +148,6 @@ public static class CardPrefabSetterUpper
 
         return true;
     }
-    /*private static bool EnableButton(Transform cardTrans, string text)
-    {
-        var button = cardTrans.GetComponentInChildren<Button>(true);
-        var buttonText = button?.GetComponentInChildren<TextMeshProUGUI>();
-        if (button == null) return false;
-        if (buttonText != null)
-            buttonText.text = text;
-        button.gameObject.SetActive(true);
-        return true;
-    }*/
     private static bool SetCostText(Card card)
     {
         var costText = card.GetCardTransform?.Find("CostTextBG")?.GetComponentInChildren<TextMeshProUGUI>();
@@ -165,11 +155,11 @@ public static class CardPrefabSetterUpper
         costText.text = $"{card.GetShopCost} Chips";
         return true;
     }
-    private static bool EnableCostText(Card card)
+    public static bool SetActiveCostTextGO(Card card, bool enable = true)
     {
         var costText = card.GetCardTransform?.Find("CostTextBG");
         if (costText == null) return false;
-        costText.gameObject.SetActive(true);
+        costText.gameObject.SetActive(enable);
         return true;
     }
     private static bool SetButtonFunc(Transform cardTrans, Action buttonFunc)
@@ -187,11 +177,11 @@ public static class CardPrefabSetterUpper
         bc.enabled = false;
         return true;
     }
-    private static void EnableInactiveVisuals(Transform cardTrans)
+    public static void SetInactiveVisuals(Transform cardTrans, bool enable = true)
     {
         var inactiveOverlay = cardTrans.Find("InactiveOverlay")?.gameObject;
         if (inactiveOverlay == null) return;
-        inactiveOverlay?.SetActive(true);
+        inactiveOverlay?.SetActive(enable);
     }
     private static void SetCardState(Card card, CardState state, Action onClick = null)
     {

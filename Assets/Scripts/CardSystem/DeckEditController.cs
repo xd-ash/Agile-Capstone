@@ -2,19 +2,21 @@ using CardSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class DeckEditController : MonoBehaviour
 {
-    private DeckViewerScript _deckViewPanel;
     private Button _continueButton;
 
-    [SerializeField] private GameObject _upgradePreviewPanel;
+    [SerializeField] private GameObject _removalPreviewPanel;
     [SerializeField] private Transform _cardPrefabParent;
     [SerializeField] private TextMeshProUGUI _chipsBalanceText;
 
     private Card _selectedCard;
 
     public static bool IsPreviewingRemoval { get; private set; } = false;
+
+    private Action _onComplete;
 
     public static DeckEditController Instance { get; private set; }
     private void Awake()
@@ -25,9 +27,14 @@ public class DeckEditController : MonoBehaviour
             Destroy(this.gameObject);
     }
 
-    public void InitDeckEditing()
+    public void InitDeckEditing(Action onComplete)
     {
+        IsPreviewingRemoval = false;
+        _selectedCard = null;
 
+        _onComplete = onComplete;
+
+        DeckViewerScript.Instance?.UpdateChipsBalance();
     }
 
     public void ShowRemoveCardConfirmPopUp(Card selectedCard)
@@ -39,12 +46,12 @@ public class DeckEditController : MonoBehaviour
         if (selectedCard.GetCardRarity == CardRarity.Epic)
         {
             Debug.LogWarning($"{selectedCard.GetCardName} is max rarity (epic). Upgrade preview failed.)");
-            CloseUpgradePreview();
+            CloseRemovalPreview();
             return;
         }
 
-        _upgradePreviewPanel?.SetActive(true);
-        var previewTitle = _upgradePreviewPanel?.transform.GetComponentInChildren<TextMeshProUGUI>();
+        _removalPreviewPanel?.SetActive(true);
+        var previewTitle = _removalPreviewPanel?.transform.GetComponentInChildren<TextMeshProUGUI>();
         if (previewTitle != null)
             previewTitle.text = $"Remove {selectedCard.GetCardName} for {selectedCard.GetShopCost} Chips?";
 
@@ -82,19 +89,19 @@ public class DeckEditController : MonoBehaviour
             return;
         }
 
-        CloseUpgradePreview();
+        CloseRemovalPreview();
 
         //rebuild to show upgrades
         DeckViewerScript.Instance.BuildDeckScrollViewContent(CardState.DeckEdit);
     }
 
-    public void CloseUpgradePreview()
+    public void CloseRemovalPreview()
     {
         ClearSelection(_selectedCard?.GetCardTransform);
         _selectedCard = null;
         for (int i = _cardPrefabParent.childCount - 1; i >= 0; i--)
             Destroy(_cardPrefabParent.GetChild(i).gameObject);
-        _upgradePreviewPanel.SetActive(false);
+        _removalPreviewPanel.SetActive(false);
         IsPreviewingRemoval = false;
     }
     private void ClearSelection(Transform cardTransform)
