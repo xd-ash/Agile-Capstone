@@ -215,16 +215,6 @@ namespace CardSystem
             Action tmp = null;
             switch (_state)
             {
-                case CardState.PackViewer:
-                    break;
-                case CardState.DeckViewer:
-                    break;
-                case CardState.Shop:
-                    break;
-                case CardState.Rewards:
-                    break;
-                case CardState.UpgradeMenu:
-                    break;
                 case CardState.Combat:
                     tmp = () =>
                     {
@@ -267,7 +257,7 @@ namespace CardSystem
                         ToggleHighlightAndScale(true);
                     };
                     break;
-                case CardState.Inactive:
+                default:
                     break;
             }
             _onMouseDown = tmp;
@@ -277,16 +267,6 @@ namespace CardSystem
             Action tmp = null;
             switch (_state)
             {
-                case CardState.PackViewer:
-                    break;
-                case CardState.DeckViewer:
-                    break;
-                case CardState.Shop:
-                    break;
-                case CardState.Rewards:
-                    break;
-                case CardState.UpgradeMenu:
-                    break;
                 case CardState.Combat:
                     tmp = () =>
                     {
@@ -344,7 +324,7 @@ namespace CardSystem
                         ReturnCardToHand();
                     };
                     break;
-                case CardState.Inactive:
+                default:
                     break;
             }
             _onMouseUp = tmp;
@@ -354,16 +334,6 @@ namespace CardSystem
             Action tmp = null;
             switch (_state)
             {
-                case CardState.PackViewer:
-                    break;
-                case CardState.DeckViewer:
-                    break;
-                case CardState.Shop:
-                    break;
-                case CardState.Rewards:
-                    break;
-                case CardState.UpgradeMenu:
-                    break;
                 case CardState.Combat:
                     tmp = () =>
                     {
@@ -409,7 +379,7 @@ namespace CardSystem
 
                     };
                     break;
-                case CardState.Inactive:
+                default:
                     break;
             }
             _onMouseDrag = tmp;
@@ -436,10 +406,7 @@ namespace CardSystem
                         APDisplay.Instance?.ShowPreview(cost);
                     };
                     break;
-                case CardState.PackViewer:
                 case CardState.DeckViewer:
-                case CardState.Shop:
-                case CardState.Rewards:
                 case CardState.UpgradeMenu:
                     tmp = () =>
                     {
@@ -470,8 +437,6 @@ namespace CardSystem
                 case CardState.Combat:
                     tmp = () =>
                     {
-                        //if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
-
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                         {
                             ToggleHighlightAndScale(false);
@@ -483,10 +448,7 @@ namespace CardSystem
                         }
                     };
                     break;
-                case CardState.PackViewer:
                 case CardState.DeckViewer:
-                case CardState.Shop:
-                case CardState.Rewards:
                 case CardState.UpgradeMenu:
                     tmp = () =>
                     {

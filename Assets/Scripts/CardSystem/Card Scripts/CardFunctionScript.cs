@@ -74,7 +74,7 @@ public class CardFunctionScript : MonoBehaviour
         {
             switch (_state)
             {
-                case CardState.PackViewer:
+                case CardState.DeckEdit:
                     break;
                 case CardState.DeckViewer:
                     break;

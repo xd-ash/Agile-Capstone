@@ -52,7 +52,11 @@ public class DeckViewerScript : MonoBehaviour
             {
                 CardUpgradeController.Instance.ShowUpgradePreview(c);
             };
+        else if (cardState == CardState.DeckEdit)
+        {
 
+        }
+        
         CardScrollviewFiller.BuildScrollViewContent(_deckScrollView.content, _cardContentPrefab, deck.GetCardsInDeck.ToArray(), cardState, null, cardSelectAction);
     }
     private void SetWindowVisualsUp(CardState cardState)
