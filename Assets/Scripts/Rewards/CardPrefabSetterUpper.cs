@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CardState { CardRemoval, DeckViewer, Shop, Rewards, Combat, UpgradeMenu, Inactive }
+public enum CardState { CardRemoval, DeckViewer, Shop, Rewards, Combat, UpgradeMenu, Inactive, CardSwap }
 
 public static class CardPrefabSetterUpper
 {

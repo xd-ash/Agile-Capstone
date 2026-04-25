@@ -19,7 +19,12 @@ public class DeckEditingController : MonoBehaviour
     [SerializeField] private GameObject _removalPreviewPanel;
     [SerializeField] private Transform _removalCardPrefabParent;
     [SerializeField] private int _removalCost = 15;
-    
+
+    [Header("Card Swap")]
+    [SerializeField] private GameObject _swapPreviewPanel;
+    [SerializeField] private Transform _swapCardPrefabParent;
+    [SerializeField] private Card _cardToSwapIn = null;
+
     private int _numEditsRemaining = 0;
 
     private Transform PrefabParent => DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu ? _upgradeCardPrefabParent : _removalCardPrefabParent;
@@ -100,7 +105,7 @@ public class DeckEditingController : MonoBehaviour
             GameObject tempUpgradeCard = Instantiate(cardPrefab, PrefabParent);
             Card tempUpgrade = new(selectedCard.GetCardAbility, upgradedRarity, tempUpgradeCard.transform);
 
-            CardPrefabSetterUpper.SetupCardPrefab(tempUpgrade, CardState.UpgradeMenu);
+            CardPrefabSetterUpper.SetupCardPrefab(tempUpgrade, state);
             CardPrefabSetterUpper.SetInactiveVisuals(tempUpgradeCard.transform, false);
             CardPrefabSetterUpper.SetCostTextGO(tempUpgrade, false);
         }
@@ -165,7 +170,6 @@ public class DeckEditingController : MonoBehaviour
     {
         _canGoBack = false;
 
-        //DeckViewerScript.Instance.ToggleBackButton(false);
         _continueButton?.onClick.RemoveAllListeners();
         _continueButton?.onClick.AddListener(OnCompleteEdits);
     }
@@ -175,7 +179,6 @@ public class DeckEditingController : MonoBehaviour
 
         CloseEditPreview();
 
-        //DeckViewerScript.Instance?.ToggleBackButton(true);
         DeckViewerScript.Instance?.gameObject?.SetActive(false);
 
         _onComplete?.Invoke(_numEditsRemaining);
