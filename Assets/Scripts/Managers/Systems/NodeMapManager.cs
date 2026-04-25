@@ -102,6 +102,8 @@ public class NodeMapManager : MonoBehaviour
         RefreshNodeVisuals?.Invoke();
 
         _isNodeMapComplete = curNodeIndex.x == _nodeMapCreator.GetNumberOfTiers - 1;
+
+        SaveLoadScript.SaveGame?.Invoke();
     }
 
     public void ReturnToMap()

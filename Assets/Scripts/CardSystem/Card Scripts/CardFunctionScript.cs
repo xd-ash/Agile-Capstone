@@ -15,7 +15,7 @@ public class CardFunctionScript : MonoBehaviour
     private void OnMouseDown()
     {
         if (PauseMenu.isPaused || IsSelected) return;
-        if (CardUpgradeController.IsPreviewingUpgrade) return;
+        if (DeckEditingController.IsPreviewingEdit) return;
 
         _onMouseDown?.Invoke();
     }
@@ -74,7 +74,7 @@ public class CardFunctionScript : MonoBehaviour
         {
             switch (_state)
             {
-                case CardState.DeckEdit:
+                case CardState.CardRemoval:
                     break;
                 case CardState.DeckViewer:
                     break;

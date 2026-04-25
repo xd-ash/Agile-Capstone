@@ -146,6 +146,7 @@ public class PlayerDataManager : MonoBehaviour
             if (_deck.Contains(card))
                 _deck.RemoveCard(card);
     }
+
     public void SetCurrMapNodeData(CombatMapData currMapNodeData)
     {
         _currCombatNodeData = currMapNodeData;

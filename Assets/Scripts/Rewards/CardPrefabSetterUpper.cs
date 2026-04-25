@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CardState { DeckEdit, DeckViewer, Shop, Rewards, Combat, UpgradeMenu, Inactive }
+public enum CardState { CardRemoval, DeckViewer, Shop, Rewards, Combat, UpgradeMenu, Inactive }
 
 public static class CardPrefabSetterUpper
 {
@@ -23,8 +23,8 @@ public static class CardPrefabSetterUpper
 
         switch (cardState)
         {
-            case CardState.DeckEdit:
-                return SetupDeckEditCard(card, onClick);
+            case CardState.CardRemoval:
+                return SetupCardRemovalCard(card, onClick);
             case CardState.DeckViewer:
                 return SetupDeckViewerCard(card, onClick);
             case CardState.Shop:
@@ -37,11 +37,13 @@ public static class CardPrefabSetterUpper
                 return SetupCombatCard(card, onClick);
         }
     }
-    private static bool SetupDeckEditCard(Card card, Action onClick = null)
+    private static bool SetupCardRemovalCard(Card card, Action onClick = null)
     {
-        //EnableButton(card.GetCardTransform, "Remove");
-        DisableBoxCollider(card.GetCardTransform);
-        SetCardState(card, CardState.DeckEdit, onClick);
+        SetCardState(card, CardState.CardRemoval, onClick);
+        bool canRemove = PlayerDataManager.Instance.GetBalance >= DeckEditingController.Instance.GetRemovalCost && DeckEditingController.IsAbleToEdit;
+        SetCardState(card, canRemove ? CardState.CardRemoval : CardState.Inactive, onClick);
+        if (!canRemove)
+            SetInactiveVisuals(card.GetCardTransform);
         return true;
     }
     private static bool SetupDeckViewerCard(Card card, Action onClick = null)
@@ -51,7 +53,7 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetupShopCard(Card card, Action onClick = null)
     {
-        SetActiveCostTextGO(card);
+        SetCostTextGO(card);
         SetCostText(card);
         SetCardState(card, CardState.Shop, onClick);
         return true;
@@ -63,9 +65,9 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetupUpgradeMenuCard(Card card, Action onClick = null)
     {
-        SetActiveCostTextGO(card);
+        SetCostTextGO(card);
         SetCostText(card);
-        bool canUpgrade = card.GetCardRarity != CardRarity.Epic && card.GetShopCost <= PlayerDataManager.Instance.GetBalance && CardUpgradeController.IsAbleToUpgrade;
+        bool canUpgrade = card.GetCardRarity != CardRarity.Epic && card.GetShopCost <= PlayerDataManager.Instance.GetBalance && DeckEditingController.IsAbleToEdit;
         SetCardState(card, canUpgrade ? CardState.UpgradeMenu : CardState.Inactive, onClick);
         if (!canUpgrade)
             SetInactiveVisuals(card.GetCardTransform);
@@ -155,7 +157,7 @@ public static class CardPrefabSetterUpper
         costText.text = $"{card.GetShopCost} Chips";
         return true;
     }
-    public static bool SetActiveCostTextGO(Card card, bool enable = true)
+    public static bool SetCostTextGO(Card card, bool enable = true)
     {
         var costText = card.GetCardTransform?.Find("CostTextBG");
         if (costText == null) return false;

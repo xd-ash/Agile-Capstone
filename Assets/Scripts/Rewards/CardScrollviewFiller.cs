@@ -24,25 +24,6 @@ public static class CardScrollviewFiller
             CardPrefabSetterUpper.SetupCardPrefab(tempCard, cardState);
         }
     }
-    public static void BuildScrollViewContent(Transform contentParent, GameObject contentPrefab, Card[] cardCollection, CardState cardState, Action<Transform, Card> onCreationAction = null)
-    {
-        bool isFullCard = contentPrefab.TryGetComponent(out CardSelect cs);
-
-        ClearScrollViewContent(contentParent);
-
-        foreach (var card in cardCollection)
-        {
-            if (card == null) continue;
-
-            GameObject content = Spawn(contentPrefab, Vector3.zero, Quaternion.identity, contentPrefab.transform.localScale, contentParent);
-            onCreationAction?.Invoke(content.transform, card);
-
-            if (!isFullCard) continue;
-
-            var tempCard = new Card(card, content.transform);
-            CardPrefabSetterUpper.SetupCardPrefab(tempCard, cardState);
-        }
-    }
     public static void BuildScrollViewContent(Transform contentParent, GameObject contentPrefab, Card[] cardCollection, CardState cardState, Action<Transform, Card> onCreationAction = null, Action<Transform, Card> onClickAction = null)
     {
         bool isFullCard = contentPrefab.TryGetComponent(out CardSelect cs);

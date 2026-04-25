@@ -407,10 +407,11 @@ namespace CardSystem
                     };
                     break;
                 case CardState.DeckViewer:
+                case CardState.CardRemoval:
                 case CardState.UpgradeMenu:
                     tmp = () =>
                     {
-                        if (CardUpgradeController.IsPreviewingUpgrade) return;
+                        if (DeckEditingController.IsPreviewingEdit) return;
                         if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
@@ -449,10 +450,11 @@ namespace CardSystem
                     };
                     break;
                 case CardState.DeckViewer:
+                case CardState.CardRemoval:
                 case CardState.UpgradeMenu:
                     tmp = () =>
                     {
-                        if (CardUpgradeController.IsPreviewingUpgrade) return;
+                        if (DeckEditingController.IsPreviewingEdit) return;
                         if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)

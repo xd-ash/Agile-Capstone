@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Events\ShieldEvents.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\TargetingStrategies\SelfTarget.cs" />
-    <Compile Include="Assets\Scripts\CardSystem\DeckEditController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\Abstracts\Strategies\FilterStrategy.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Managers\Movement\APHoverIndicator.cs" />
@@ -98,7 +97,6 @@
     <Compile Include="Assets\Scripts\NodeMapCreation\ShopNode.cs" />
     <Compile Include="Assets\Scripts\WFC\TileModuleGenerator.cs" />
     <Compile Include="Assets\Scripts\CardSystem\PackBuilderScript.cs" />
-    <Compile Include="Assets\Scripts\Rewards\CardUpgradeController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\DebugEffect.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\MoveInRangeAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\OnLastCoinFlipEffect.cs" />
@@ -205,6 +203,7 @@
     <Compile Include="Assets\Scripts\CardSystem\DrawCardButton.cs" />
     <Compile Include="Assets\Scripts\Managers\Audio\NonMainMenuButtonScript.cs" />
     <Compile Include="Assets\Scripts\CardSystem\Deck.cs" />
+    <Compile Include="Assets\Scripts\Rewards\DeckEditingController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardPack.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
