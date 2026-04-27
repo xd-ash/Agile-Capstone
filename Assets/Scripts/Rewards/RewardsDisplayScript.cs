@@ -12,7 +12,7 @@ public class RewardsDisplayScript : MonoBehaviour
 
     private Reward _curReward;
 
-    [SerializeField] private Sprite _currencyImage, _cardImage, _badgeImage;
+    [SerializeField] private Sprite _currencyImage, _cardImage;
     [SerializeField] private GameObject _rewardsContentParent;
 
     private GameObject _singleRewardPrefab, _choiceRewardPrefab;
