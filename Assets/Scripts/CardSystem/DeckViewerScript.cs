@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DeckViewerScript : MonoBehaviour
 {
+    private GameObject _backButton;
     [SerializeField] private GameObject _cardContentPrefab;
     [SerializeField] private ScrollRect _deckScrollView;
 
@@ -18,12 +19,11 @@ public class DeckViewerScript : MonoBehaviour
             Instance = this;
         else
             Destroy(this.gameObject);
+
+        _backButton = transform.Find("CloseWindowButton").gameObject;
+        ToggleBackButton(true);
     }
 
-    private void OnEnable()
-    {
-        //BuildDeckScrollViewContent();
-    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && _state == CardState.DeckViewer)
@@ -60,8 +60,13 @@ public class DeckViewerScript : MonoBehaviour
         if (TryGetComponent(out TextMeshProUGUI titleText))
             titleText.text = cardState == CardState.DeckViewer ? "Cards in Deck" : "Select Card to Upgrade";
 
-        GameObject closeWindowButton = transform.Find("CloseWindowButton").gameObject;
-        if (closeWindowButton == null) return;
-        closeWindowButton.SetActive(cardState == CardState.DeckViewer);
+        GameObject chipsBalanceUI = transform.Find("CurrencyBalance").gameObject;
+        GameObject upgradeCounterUI = transform.Find("AllowUpgradesCounter").gameObject;
+        chipsBalanceUI?.SetActive(cardState == CardState.UpgradeMenu);
+        upgradeCounterUI?.SetActive(cardState == CardState.UpgradeMenu);
+    }
+    public void ToggleBackButton(bool isActive)
+    {
+        _backButton?.SetActive(isActive);
     }
 }

@@ -21,24 +21,20 @@ namespace CardSystem
         [SerializeField] private Transform _cardHandParent;
 
         private int _topCardOfDeck = 0;
-        //private int _nextCardInHandIndex = 0; //Removed since it was unused, kept in comments in case its needed later
-        [SerializeField] private int _maxCards = 100;
+        [SerializeField] private int _maxCards = 10;
         [SerializeField] public int _startingHandSize = 5; // draw this many cards at start of player turn
 
-        //[SerializeField] private Deck _deck;
         [SerializeField] private List<Card> _cardsInHand = new();
         private Card _selectedCard = null;
 
-        // runtime deck support
-        //private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         public bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
-        //public Deck GetDeck => _deck;
         public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
-        //public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
+        public int GetMaxHandSize => _maxCards;
+        public bool CanDrawCard => _cardsInHand.Count < _maxCards;
 
         public Action OnCardAblityCancel;
 
@@ -88,6 +84,7 @@ namespace CardSystem
                 }
             }
 
+            HandPositionController.Instance?.AdjustSplineKnotsOnHandSize();
             CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
@@ -102,6 +99,8 @@ namespace CardSystem
             if (_startingHandSize <= 0) return;
 
             DiscardAll();
+
+            _startingHandSize += PlayerDataManager.Instance.GetStartingHandSizeBuff;
 
             int toDraw = Mathf.Min(_startingHandSize, _maxCards);
             DrawCard(toDraw);

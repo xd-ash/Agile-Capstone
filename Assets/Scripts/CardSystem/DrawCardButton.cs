@@ -33,6 +33,7 @@ public class DrawCardButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void DrawCardWithButton()
     {
         if (_player == null && !GrabPlayerUnit()) return;
+        if (!DeckAndHandManager.Instance.CanDrawCard) return;
 
         _drawAbility?.UseAbility(_player);
     }

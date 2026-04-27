@@ -159,6 +159,7 @@
     <Compile Include="Assets\Scripts\CardSystem\SO Bases\TutorialDeckConfig.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Systems\WorldStates.cs" />
     <Compile Include="Assets\Scripts\Badges\BadgeLibrary.cs" />
+    <Compile Include="Assets\Scripts\Managers\Cards\ToggleHandPosButton.cs" />
     <Compile Include="Assets\Scripts\WFC\TileSet.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\FilteringStrategies\TagFilter.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\Abstracts\Strategies\EffectStrategy.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Assets\Scripts\Shop\ShopCard.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Agents\GoapAgentAbilityController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\DrawCardButton.cs" />
+    <Compile Include="Assets\Scripts\Managers\Audio\NonMainMenuButtonScript.cs" />
     <Compile Include="Assets\Scripts\CardSystem\Deck.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardPack.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="Assets\Scripts\Managers\Movement\UnitMovementController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\EndTurnAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\SO Bases\CardAndDeckLibrary.cs" />
+    <Compile Include="Assets\Scripts\Managers\Units\UnitSO.cs" />
     <Compile Include="Assets\Scripts\CardSystem\EnterDeckNamePopup.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\DecideOrientationAction.cs" />
     <Compile Include="Assets\Scripts\AnimScripts\AbilityEffectDestroyer.cs" />

@@ -10,6 +10,8 @@ public class ViewDeckButtonAlt : MonoBehaviour
     }
     public void OnCLick()
     {
+        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
+
         _deckViewWindow?.gameObject?.SetActive(true);
         _deckViewWindow.BuildDeckScrollViewContent();
     }

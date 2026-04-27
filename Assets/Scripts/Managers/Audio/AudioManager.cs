@@ -28,7 +28,7 @@ public class AudioManager : MonoBehaviour
     public float GetMasterVolume => _masterVolume;
     public float GetSFXVolume => _sfxVolume;
     public float GetMusicVolume => _musicVolume;
-    
+
     // Queued clip to play when AbilityEvents.AbilityUsed() fires
     private AudioClip _pendingUseClip;
 

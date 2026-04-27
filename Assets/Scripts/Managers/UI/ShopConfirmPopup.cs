@@ -38,6 +38,8 @@ public class ShopConfirmPopup : MonoBehaviour
 
         _cancelButton?.onClick.RemoveAllListeners();
         _cancelButton?.onClick.AddListener(OnCancelPressed);
+
+        gameObject.SetActive(false);
     }
 
     /// <summary>

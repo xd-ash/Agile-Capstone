@@ -3,8 +3,6 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 namespace CardSystem
 {
@@ -83,9 +81,6 @@ namespace CardSystem
 
         private void OnMouseEnter()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             _onMouseEnter?.Invoke();
         }
         private void OnMouseExit()
@@ -235,6 +230,8 @@ namespace CardSystem
                     {
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
+
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
@@ -270,6 +267,8 @@ namespace CardSystem
                         ToggleHighlightAndScale(true);
                     };
                     break;
+                case CardState.Inactive:
+                    break;
             }
             _onMouseDown = tmp;
         }
@@ -292,6 +291,8 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                             TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
@@ -343,6 +344,8 @@ namespace CardSystem
                         ReturnCardToHand();
                     };
                     break;
+                case CardState.Inactive:
+                    break;
             }
             _onMouseUp = tmp;
         }
@@ -365,6 +368,8 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
+
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         // Block card interaction if tutorial is active and not on card step
                         if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
@@ -404,6 +409,8 @@ namespace CardSystem
 
                     };
                     break;
+                case CardState.Inactive:
+                    break;
             }
             _onMouseDrag = tmp;
         }
@@ -417,6 +424,8 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (RewardsDisplayScript.IsRewarding) return;
+
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused && DeckAndHandManager.Instance.GetSelectedCard == null)
                         {
@@ -435,10 +444,13 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (CardUpgradeController.IsPreviewingUpgrade) return;
-                        
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
+
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(true);
                     };
+                    break;
+                case CardState.Inactive:
                     break;
                 default:
                     tmp = () =>
@@ -458,6 +470,8 @@ namespace CardSystem
                 case CardState.Combat:
                     tmp = () =>
                     {
+                        //if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
+
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                         {
                             ToggleHighlightAndScale(false);
@@ -477,10 +491,13 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (CardUpgradeController.IsPreviewingUpgrade) return;
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(false);
                     };
+                    break;
+                case CardState.Inactive:
                     break;
                 default:
                     tmp = () =>

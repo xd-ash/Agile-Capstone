@@ -9,18 +9,20 @@ using AStarPathfinding;
 public enum Team {Friendly, Enemy, None, All}
 public class Unit : MonoBehaviour, IDamagable
 {
+    [SerializeField, HideInInspector] private UnitSO _unitSO;
+
     [Header("Team and stats")] 
-    [SerializeField] private Team _team;
-    [SerializeField] private int _maxHealth;
-    [SerializeField] private int _health;
+    [Space(10), SerializeField, HideInInspector] private Team _team;
+    [SerializeField, HideInInspector] private int _maxHealth = 0;
+    [SerializeField, HideInInspector] private int _health = 0;
 
     [Header("Shield")]
-    [SerializeField] private int _maxShield = 25;
-    [SerializeField] private int _shield = 0; // current shield amount (absorb damage before health)
+    [SerializeField, HideInInspector] private int _maxShield = 0;
+    [SerializeField, HideInInspector] private int _shield = 0; // current shield amount (absorb damage before health)
 
     [Header("Action Points")]
-    [SerializeField] private int _maxAP;
-    [SerializeField] private int _ap;
+    [SerializeField, HideInInspector] private int _maxAP = 0;
+    [SerializeField, HideInInspector] private int _ap;
 
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
@@ -34,6 +36,7 @@ public class Unit : MonoBehaviour, IDamagable
     private Coroutine _targetingCoroutine;
     private Guid _unitGuid = new();
 
+    public UnitSO GetUnitSO => _unitSO;
     public Team GetTeam => _team;
     public int GetMaxHealth => _maxHealth;
     public int GetHealth => _health;
@@ -54,8 +57,10 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _floatingText = GetComponentInChildren<FloatingTextController>();
 
-        _health = _maxHealth;
-        _ap = _maxAP;
+        //_health = _maxHealth;
+        //_ap = _maxAP;
+        GrabSOData();
+
         RaiseHealthEvent();
         HideHitChance();
 
@@ -67,6 +72,37 @@ public class Unit : MonoBehaviour, IDamagable
             //_enemyHPBar.gameObject.SetActive(false); // commented this out so enemy HP bar show from start
             _enemyShieldBar.gameObject.SetActive(false);
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
+        }
+    }
+
+    private void GrabSOData()
+    {
+        _maxHealth = _unitSO.GetMaxHealth;
+        _maxShield = _unitSO.GetMaxShield;
+        _maxAP = _unitSO.GetMaxAP;
+        _team = _unitSO.GetTeam;
+
+        GrabRunBuffs();
+
+        _health = _maxHealth;
+        _shield = 0;
+        _ap = _maxAP;
+    }
+    private void GrabRunBuffs()
+    {
+        var pdm = PlayerDataManager.Instance;
+        if (pdm == null) return;
+        _maxHealth += pdm.GetMaxHealthBuff;
+        _maxAP += pdm.GetMaxAPBuff;
+    }
+    public void IncreaseStat(RestOptions stat)
+    {
+        switch (stat)
+        {
+            case RestOptions.AP:
+                break;
+            case RestOptions.MaxHealth:
+                break;
         }
     }
     private void Start()

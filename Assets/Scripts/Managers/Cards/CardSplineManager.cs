@@ -7,7 +7,7 @@ namespace CardSystem
 {
     public class CardSplineManager : MonoBehaviour
     {
-        private SplineContainer _splineContainer;
+        [SerializeField] private SplineContainer _splineContainer;
 
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
@@ -24,7 +24,7 @@ namespace CardSystem
             else
                 Destroy(this.gameObject);
 
-            _splineContainer = FindFirstObjectByType<SplineContainer>();
+            //_splineContainer = FindFirstObjectByType<SplineContainer>();
         }
 
         public void ArrangeCardGOs()
