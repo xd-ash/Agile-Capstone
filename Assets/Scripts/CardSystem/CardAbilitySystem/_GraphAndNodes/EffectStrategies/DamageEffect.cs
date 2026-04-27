@@ -10,25 +10,32 @@ namespace CardSystem
         {
             base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
+            var def = graph as CardAbilityDefinition;
+            var abilityPos = abilityData.AbilityTriggerPos == -Vector2Int.one ?
+                ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
+
             foreach (GameObject target in abilityData.Targets)
             {
-                if (target != null && target.TryGetComponent(out Unit targetUnit))
-                {
-                    var def = graph as CardAbilityDefinition;
-                    var abilityPos = abilityData.AbilityTriggerPos == -Vector2Int.one ? 
-                        ByteMapController.Instance.GetPositionOfUnit(abilityData.GetUnit) : abilityData.AbilityTriggerPos;
-                    bool hit = CombatMath.RollHit(abilityPos, targetUnit, def);
-                    //bool hit = CombatMath.RollHit(abilityData.GetUnit.transform.localPosition, targetUnit, def);
+                if (target == null) continue;
+                if (!target.TryGetComponent(out Unit targetUnit)) continue;
 
-                    _visualsStrategy?.CreateVisualEffect(abilityData, target); //do effect visuals
+                if (targetUnit.IsDead) continue;
 
-                    if (!hit) continue;
-                    var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
-                    targetUnit.ChangeHealth(adjustedEffectVal, false);
-                    targetUnit.GetFloatingText.SpawnFloatingText($"-{adjustedEffectVal}", TextPresetType.DamagePreset);
-                }
+                bool hit = CombatMath.RollHit(abilityPos, targetUnit, def);
+
+                _visualsStrategy?.CreateVisualEffect(abilityData, target);
+
+                if (!hit) continue;
+
+                var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
+                
+                targetUnit.ChangeHealth(adjustedEffectVal, false);
+                targetUnit.GetFloatingText?.SpawnFloatingText($"-{adjustedEffectVal}", TextPresetType.DamagePreset);
+
+                if (playAnimation && !targetUnit.IsDead)
+                    targetUnit.PlayFlinchAnim(abilityPos);
             }
-            
+
             _onFinished?.Invoke();
         }
     }

@@ -27,56 +27,41 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private TMP_Dropdown _fullscreenDropdown;
     [SerializeField] private TMP_Dropdown _frameRateDropdown;
 
-    // cached resolution list after filtering duplicates
     private List<Vector2Int> _availableResolutions = new();
-
-    // frame rate presets
     private readonly int[] _frameRateOptions = { 30, 60, 120, 144, -1 };
     private readonly string[] _frameRateLabels = { "30", "60", "120", "144", "Unlimited" };
 
     private void Awake()
     {
         isPaused = false;
-        Time.timeScale = 1f; // IMPORTANT: reset global timeScale on scene load
+        Time.timeScale = 1f;
     }
 
-    private void OnEnable()
-    {
-    }
+    private void OnEnable() { }
 
     private void Start()
     {
-        // Audio sliders
         if (AudioManager.Instance != null)
         {
             if (_masterSlider != null)
                 _masterSlider.value = AudioManager.Instance.GetMasterVolume;
-
             if (_sfxSlider != null)
                 _sfxSlider.value = AudioManager.Instance.GetSFXVolume;
-
             if (_musicSlider != null)
                 _musicSlider.value = AudioManager.Instance.GetMusicVolume;
         }
 
-        // Hook up audio listeners
         _masterSlider?.onValueChanged.AddListener(OnMasterChanged);
         _sfxSlider?.onValueChanged.AddListener(OnSfxChanged);
         _musicSlider?.onValueChanged.AddListener(OnMusicChanged);
 
-        // Toggles
         _cardSelectOnClickToggle.isOn = OptionsSettings.IsCardSelectOnClick;
         _autoEndTurnToggle.isOn = OptionsSettings.AutoEndTurn;
         _cardSelectOnClickToggle.onValueChanged.AddListener(OptionsSettings.UpdateCardSelect);
         _autoEndTurnToggle?.onValueChanged.AddListener(OptionsSettings.UpdateAutoEndTurn);
 
-        // Resolution dropdown
         PopulateResolutionDropdown();
-
-        // Fullscreen dropdown
         PopulateFullscreenDropdown();
-
-        // Frame rate dropdown
         PopulateFrameRateDropdown();
     }
 
@@ -84,7 +69,6 @@ public class PauseMenu : MonoBehaviour
     {
         if (_resolutionDropdown == null) return;
 
-        // Get distinct width/height pairs, sorted descending
         _availableResolutions = Screen.resolutions
             .Select(r => new Vector2Int(r.width, r.height))
             .Distinct()
@@ -93,12 +77,9 @@ public class PauseMenu : MonoBehaviour
             .ToList();
 
         _resolutionDropdown.ClearOptions();
-        List<string> options = _availableResolutions
-            .Select(r => $"{r.x} x {r.y}")
-            .ToList();
+        List<string> options = _availableResolutions.Select(r => $"{r.x} x {r.y}").ToList();
         _resolutionDropdown.AddOptions(options);
 
-        // Set current selection
         int currentIndex = _availableResolutions.FindIndex(
             r => r.x == OptionsSettings.ResolutionWidth && r.y == OptionsSettings.ResolutionHeight);
         if (currentIndex >= 0)
@@ -114,10 +95,7 @@ public class PauseMenu : MonoBehaviour
         _fullscreenDropdown.ClearOptions();
         _fullscreenDropdown.AddOptions(new List<string>
         {
-            "Exclusive Fullscreen",
-            "Borderless Window",
-            "Maximized Window",
-            "Windowed"
+            "Exclusive Fullscreen", "Borderless Window", "Maximized Window", "Windowed"
         });
 
         _fullscreenDropdown.SetValueWithoutNotify(OptionsSettings.FullscreenModeIndex);
@@ -145,10 +123,7 @@ public class PauseMenu : MonoBehaviour
         OptionsSettings.UpdateResolution(res.x, res.y);
     }
 
-    private void OnFullscreenChanged(int index)
-    {
-        OptionsSettings.UpdateFullscreenMode(index);
-    }
+    private void OnFullscreenChanged(int index) => OptionsSettings.UpdateFullscreenMode(index);
 
     private void OnFrameRateChanged(int index)
     {
@@ -158,10 +133,8 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        // Esc will toggle pause & back out of any settings menu instantly to unpause
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // No real pause menu on main menu, so just exit out of settings when Esc is pressed
             if (TransitionScene.Instance.GetCurrentScene == "MainMenu")
             {
                 _settingsPanel.SetActive(false);
@@ -186,12 +159,18 @@ public class PauseMenu : MonoBehaviour
         }
 
         if (isPaused)
-            Time.timeScale = 0f; // Pause the game
+        {
+            Time.timeScale = 0f;
+            AudioManager.Instance?.DuckMusic();
+        }
         else
-            Time.timeScale = 1f; // Resume the game
+        {
+            Time.timeScale = 1f;
+            AudioManager.Instance?.UnduckMusic();
+        }
 
         _pauseMenuPanel?.SetActive(isPaused);
-        _settingsPanel?.SetActive(false); // close settings menu 
+        _settingsPanel?.SetActive(false);
     }
 
     private void OnDestroy()
@@ -220,18 +199,7 @@ public class PauseMenu : MonoBehaviour
             _pauseMenuPanel.SetActive(true);
     }
 
-    private void OnMasterChanged(float value)
-    {
-        AudioManager.Instance?.SetMasterVolume(value);
-    }
-
-    private void OnSfxChanged(float value)
-    {
-        AudioManager.Instance?.SetSfxVolume(value);
-    }
-
-    private void OnMusicChanged(float value)
-    {
-        AudioManager.Instance?.SetMusicVolume(value);
-    }
+    private void OnMasterChanged(float value) => AudioManager.Instance?.SetMasterVolume(value);
+    private void OnSfxChanged(float value) => AudioManager.Instance?.SetSfxVolume(value);
+    private void OnMusicChanged(float value) => AudioManager.Instance?.SetMusicVolume(value);
 }
