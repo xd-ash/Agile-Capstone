@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ShopConfirmPopup : MonoBehaviour
 {
     public static ShopConfirmPopup Instance { get; private set; }
+    [SerializeField] private CardRemovalButton _cardRemoveButton;
 
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private TextMeshProUGUI _titleText;
@@ -72,6 +73,7 @@ public class ShopConfirmPopup : MonoBehaviour
     private void OnConfirmPressed()
     {
         _onConfirm?.Invoke();
+        _cardRemoveButton?.ToggleInteractable();
         Hide();
     }
 

@@ -17,6 +17,8 @@ public class ToggleHandPosButton : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (RewardsDisplayScript.IsRewarding) return;
+
         IsHovered = true;
 
         DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false); //sending this transform so all button will enable BCs
@@ -39,6 +41,8 @@ public class ToggleHandPosButton : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (RewardsDisplayScript.IsRewarding) return;
+
         IsHovered = false;
     }
 }

@@ -5,11 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static GameObjectPool;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class RewardSelectScript : MonoBehaviour
 {
     private RewardsDisplayScript _displayScript;
+    private TextMeshProUGUI _titleText;
 
     [SerializeField] private Transform _optionsContentParent;
     [SerializeField] private Button _confirmButton, _skipButton;
@@ -24,6 +24,7 @@ public class RewardSelectScript : MonoBehaviour
     private void Awake()
     {
         _displayScript = GetComponentInParent<RewardsDisplayScript>();
+        _titleText = GetComponentInChildren<TextMeshProUGUI>();
 
         _cardOptionContent = Resources.Load<GameObject>("NewCardPrefab");
         _badgeOptionContent = Resources.Load<GameObject>("Rewards/BadgeOptionContent");
@@ -50,7 +51,7 @@ public class RewardSelectScript : MonoBehaviour
         _skipButton.interactable = true;
     }
 
-    public void ShowRewardOptions(Card[] cardOptions)
+    public void ShowRewardOptions(Card[] cardOptions, RewardType rewardType)
     {
         ClearContent();
 
@@ -68,66 +69,58 @@ public class RewardSelectScript : MonoBehaviour
 
             var tmpCard = new Card(card, content.transform);
 
-            CardPrefabSetterUpper.SetupCardPrefab(tmpCard, CardState.Rewards, () =>
-            {
-                _confirmButton.interactable = true;
-                ClearHighlights(optionHighlight.transform);
-                optionHighlight.gameObject.SetActive(true);
-
-                _onConfirm = null;
-                _onConfirm = () =>
-                {
-                    RewardsController.RewardCard(card);
-                    _displayScript.OnConfirmRewardChoice(card);
-                };
-            });
+            CardPrefabSetterUpper.SetupCardPrefab(tmpCard, CardState.Rewards, OnSelectCard(rewardType, card, optionHighlight));
         }
 
         _contentHighlights = contentHighlights.ToArray();
     }
-    public void ShowRewardOptions(BadgeSO[] badgeOptions)
+    private Action OnSelectCard(RewardType rewardType, Card card, Image optionHighlight)
     {
-        ClearContent();
-
-        List<GameObject> contentHighlights = new();
-
-        foreach (var badge in badgeOptions)
+        switch (rewardType)
         {
-            if (badge == null) continue;
-
-            GameObject content = Spawn(_badgeOptionContent, _optionsContentParent);
-
-            TextMeshProUGUI[] badgeTextFields = content.GetComponentsInChildren<TextMeshProUGUI>();
-            // Update text content
-            badgeTextFields[0].text = badge.name;
-            badgeTextFields[1].text = badge.GetDescription;
-
-            Image optionHighlight = content.GetComponentInChildren<Image>(true);
-            optionHighlight.gameObject.SetActive(false);
-            contentHighlights.Add(optionHighlight.gameObject);
-
-            Button contentButton = content.GetComponentInChildren<Button>(true);
-            contentButton.onClick.RemoveAllListeners();
-            contentButton.onClick.AddListener(() =>
-            {
-                _confirmButton.interactable = true;
-                ClearHighlights(optionHighlight.transform);
-                optionHighlight.gameObject.SetActive(true);
-
-                _onConfirm = null;
-                _onConfirm = () => 
+            case RewardType.NewCard:
+                return () =>
                 {
-                    RewardsController.RewardBadge(badge);
-                    Debug.LogError("Badge rewarding not fully implemented yet"); 
-                };
-            });
-        }
+                    _confirmButton.interactable = true;
+                    ClearHighlights(optionHighlight?.transform);
+                    optionHighlight?.gameObject.SetActive(true);
 
-        _contentHighlights = contentHighlights.ToArray();
+                    _onConfirm = null;
+                    _onConfirm = () =>
+                    {
+                        RewardsController.RewardCard(card);
+                        _displayScript.OnConfirmRewardChoice(card);
+                    };
+                };
+            case RewardType.SwapCard:
+                return () =>
+                {
+                    _confirmButton.interactable = true;
+                    ClearHighlights(optionHighlight?.transform);
+                    optionHighlight?.gameObject.SetActive(true);
+
+                    var deckViewer = FindFirstObjectByType<DeckViewerScript>(FindObjectsInactive.Include);
+                    var deckEditingController = FindFirstObjectByType<DeckEditingController>(FindObjectsInactive.Include);
+
+                    _onConfirm = null;
+                    _onConfirm = () =>
+                    {
+                        deckViewer?.gameObject?.SetActive(true);
+                        deckViewer?.InitDeckViewer((x) =>
+                        {
+                            RewardsController.RewardCard(card);
+                            _displayScript.OnConfirmRewardChoice(card);
+                        }, CardState.CardSwap);
+                        deckEditingController?.SetCardSwap(card);
+                    };
+                };
+            default:
+                return null;
+        }
     }
     private void ClearHighlights(Transform thisCard)
     {
-        if (_contentHighlights == null) return;
+        if (_contentHighlights == null || thisCard == null) return;
         foreach (var highlight in _contentHighlights)
         {
             if (thisCard.gameObject == highlight) continue;

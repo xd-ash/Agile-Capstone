@@ -18,7 +18,7 @@ public class DeckEditingController : MonoBehaviour
     [Header("Card Removal")]
     [SerializeField] private GameObject _removalPreviewPanel;
     [SerializeField] private Transform _removalCardPrefabParent;
-    [SerializeField] private int _removalCost = 15;
+    [SerializeField] private int _baseRemovalCost = 15;
 
     [Header("Card Swap")]
     [SerializeField] private GameObject _swapPreviewPanel;
@@ -27,10 +27,39 @@ public class DeckEditingController : MonoBehaviour
 
     private int _numEditsRemaining = 0;
 
-    private Transform PrefabParent => DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu ? _upgradeCardPrefabParent : _removalCardPrefabParent;
-    private GameObject PreviewPanel => DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu ? _upgradePreviewPanel : _removalPreviewPanel;
+    private Transform PrefabParent => GetPrefabParent();
+    private GameObject PreviewPanel => GetPreviewPanel();
 
-    public int GetRemovalCost => _removalCost;
+    private Transform GetPrefabParent()
+    {
+        switch (DeckViewerScript.Instance.ViewerState)
+        {
+            case CardState.UpgradeMenu:
+                return _upgradeCardPrefabParent;
+            case CardState.CardRemoval:
+                return _removalCardPrefabParent;
+            case CardState.CardSwap:
+                return _swapCardPrefabParent;
+            default:
+                return null;
+        }
+    }
+    private GameObject GetPreviewPanel()
+    {
+        switch (DeckViewerScript.Instance.ViewerState)
+        {
+            case CardState.UpgradeMenu:
+                return _upgradePreviewPanel;
+            case CardState.CardRemoval:
+                return _removalPreviewPanel;
+            case CardState.CardSwap:
+                return _swapPreviewPanel;
+            default: 
+                return null;
+        }
+    }
+
+    public int GetRemovalCost => CardShopManager.Instance == null ? _baseRemovalCost : CardShopManager.Instance.GetRemovalCost;
 
     public static bool IsAbleToEdit { get; private set; } = true;
     public static bool IsPreviewingEdit { get; private set; } = false;
@@ -58,14 +87,23 @@ public class DeckEditingController : MonoBehaviour
     {
         var state = DeckViewerScript.Instance.ViewerState;
 
-        _numEditsRemaining = state == CardState.UpgradeMenu ? CampNodeController.RemainingUpgrades : CampNodeController.RemainingRemovals;
+        if (NodeMapManager.Instance == null || !NodeMapManager.Instance.gameObject.activeInHierarchy)
+            _numEditsRemaining = 1;
+        else
+            _numEditsRemaining = state == CardState.UpgradeMenu ? CampNodeController.RemainingUpgrades : CampNodeController.RemainingRemovals;
         IsAbleToEdit = true;
         _canGoBack = true;
         _selectedCard = null;
+        _cardToSwapIn = null;
 
         _onComplete = onComplete;
 
         UpdateUI();
+    }
+
+    public void SetCardSwap(Card cardToSwapIn)
+    {
+        _cardToSwapIn = cardToSwapIn;
     }
 
     public void ShowPreview(Card selectedCard)
@@ -86,8 +124,20 @@ public class DeckEditingController : MonoBehaviour
         PreviewPanel?.SetActive(true);
         var previewTitle = PreviewPanel?.transform.GetComponentInChildren<TextMeshProUGUI>();
         if (previewTitle != null)
-            previewTitle.text = state == CardState.UpgradeMenu ? $"Upgrade {selectedCard.GetCardName} for {selectedCard.GetShopCost} Chips?" :
-                                                                 $"Remove {selectedCard.GetCardName} for {_removalCost} Chips?";
+        {
+            switch (state)
+            {
+                case CardState.UpgradeMenu:
+                    previewTitle.text = $"Upgrade {selectedCard.GetCardName} for {selectedCard.GetShopCost} Chips?";
+                    break;
+                case CardState.CardRemoval:
+                    previewTitle.text = $"Remove {selectedCard.GetCardName} for {GetRemovalCost} Chips?";
+                    break;
+                case CardState.CardSwap:
+                    previewTitle.text = $"Swap {selectedCard.GetCardName} for {_cardToSwapIn.GetCardName}?";
+                    break;
+            }
+        }
 
         GameObject cardPrefab = Resources.Load<GameObject>("NewCardPrefab");
 
@@ -95,8 +145,11 @@ public class DeckEditingController : MonoBehaviour
         Card tempCard = new(selectedCard, selectedCardGO.transform);
 
         CardPrefabSetterUpper.SetupCardPrefab(tempCard, state);
-        CardPrefabSetterUpper.SetInactiveVisuals(selectedCardGO.transform, false);
-        CardPrefabSetterUpper.SetCostTextGO(tempCard, false);
+        if (state != CardState.CardSwap)
+        {
+            CardPrefabSetterUpper.SetInactiveVisuals(selectedCardGO.transform, false);
+            CardPrefabSetterUpper.SetCostTextGO(tempCard, false);
+        }
 
         if (state == CardState.UpgradeMenu)
         {
@@ -108,6 +161,13 @@ public class DeckEditingController : MonoBehaviour
             CardPrefabSetterUpper.SetupCardPrefab(tempUpgrade, state);
             CardPrefabSetterUpper.SetInactiveVisuals(tempUpgradeCard.transform, false);
             CardPrefabSetterUpper.SetCostTextGO(tempUpgrade, false);
+        }
+        else if (state == CardState.CardSwap && _cardToSwapIn != null)
+        {
+            GameObject cardToSwapInGO = Instantiate(cardPrefab, PrefabParent);
+            _cardToSwapIn.OnPrefabCreation(cardToSwapInGO.transform);
+
+            CardPrefabSetterUpper.SetupCardPrefab(_cardToSwapIn, state);
         }
 
         IsPreviewingEdit = true;
@@ -123,7 +183,7 @@ public class DeckEditingController : MonoBehaviour
 
         MakeEdit();
 
-        var editCost = DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu ? _selectedCard.GetShopCost : _removalCost;
+        var editCost = DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu ? _selectedCard.GetShopCost : _baseRemovalCost;
         if (!CurrencyManager.Instance.TrySpend(editCost))
         {
             Debug.LogWarning($"Not enough chips to edit.");
@@ -132,6 +192,12 @@ public class DeckEditingController : MonoBehaviour
 
         _numEditsRemaining--;
         IsAbleToEdit = _numEditsRemaining > 0;
+
+        if (!IsAbleToEdit)
+        {
+            OnCompleteEdits();
+            return;
+        }
 
         UpdateUI();
         CloseEditPreview();
@@ -149,6 +215,11 @@ public class DeckEditingController : MonoBehaviour
             _selectedCard.UpgradeCard();
         else if (DeckViewerScript.Instance.ViewerState == CardState.CardRemoval)
             PlayerDataManager.Instance.UpdateCardData(_selectedCard, false);
+        else if (DeckViewerScript.Instance.ViewerState == CardState.CardSwap)
+        {
+            PlayerDataManager.Instance.UpdateCardData(_selectedCard, false);
+            OnCompleteEdits();
+        }
     }
 
     private void UpdateUI()
@@ -161,8 +232,11 @@ public class DeckEditingController : MonoBehaviour
     {
         ClearSelection(_selectedCard?.GetCardTransform);
         _selectedCard = null;
-        for (int i = PrefabParent.childCount - 1; i >= 0; i--)
-            Destroy(PrefabParent.GetChild(i).gameObject);
+        if (PrefabParent != null)
+        {
+            for (int i = PrefabParent.childCount - 1; i >= 0; i--)
+                Destroy(PrefabParent.GetChild(i).gameObject);
+        }
         PreviewPanel?.SetActive(false);
         IsPreviewingEdit = false;
     }

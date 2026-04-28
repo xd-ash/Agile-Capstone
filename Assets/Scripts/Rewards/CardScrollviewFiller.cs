@@ -1,7 +1,7 @@
 using CardSystem;
 using System;
 using UnityEngine;
-using static GameObjectPool;
+//using static GameObjectPool;
 
 public static class CardScrollviewFiller
 {
@@ -15,7 +15,8 @@ public static class CardScrollviewFiller
         {
             if (card == null) continue;
 
-            GameObject content = Spawn(contentPrefab, Vector3.zero, Quaternion.identity, contentPrefab.transform.localScale, contentParent);
+            GameObject content = GameObject.Instantiate(contentPrefab, Vector3.zero, Quaternion.identity, contentParent);
+            content.transform.localScale = contentPrefab.transform.localScale;
             onCreationAction?.Invoke(content.transform, card);
 
             if (!isFullCard) continue;
@@ -34,7 +35,8 @@ public static class CardScrollviewFiller
         {
             if (card == null) continue;
 
-            GameObject content = Spawn(contentPrefab, Vector3.zero, Quaternion.identity, contentPrefab.transform.localScale, contentParent);
+            GameObject content = GameObject.Instantiate(contentPrefab, Vector3.zero, Quaternion.identity, contentParent);
+            content.transform.localScale = contentPrefab.transform.localScale;
             onCreationAction?.Invoke(content.transform, card);
 
             if (!isFullCard) continue;

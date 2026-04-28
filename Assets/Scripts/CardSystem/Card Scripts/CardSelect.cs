@@ -190,7 +190,7 @@ namespace CardSystem
                 return;
             }
 
-            _cfs.OnPrefabCreation(card, _state, prefabButtonOnclick);
+            _cfs?.OnPrefabCreation(card, _state, prefabButtonOnclick);
 
             SetupVisuals();
         }
@@ -408,6 +408,7 @@ namespace CardSystem
                     break;
                 case CardState.DeckViewer:
                 case CardState.CardRemoval:
+                case CardState.CardSwap:
                 case CardState.UpgradeMenu:
                     tmp = () =>
                     {
@@ -419,6 +420,15 @@ namespace CardSystem
                     };
                     break;
                 case CardState.Inactive:
+                    break;
+                case CardState.Shop:
+                    tmp = () =>
+                    {
+                        if (DeckViewerScript.Instance != null && DeckViewerScript.Instance.gameObject.activeInHierarchy) return;
+
+                        if (!_cfs.IsSelected  && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(true);
+                    };
                     break;
                 default:
                     tmp = () =>
@@ -438,6 +448,8 @@ namespace CardSystem
                 case CardState.Combat:
                     tmp = () =>
                     {
+                        if (RewardsDisplayScript.IsRewarding) return;
+
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                         {
                             ToggleHighlightAndScale(false);
@@ -451,6 +463,7 @@ namespace CardSystem
                     break;
                 case CardState.DeckViewer:
                 case CardState.CardRemoval:
+                case CardState.CardSwap:
                 case CardState.UpgradeMenu:
                     tmp = () =>
                     {
@@ -462,6 +475,15 @@ namespace CardSystem
                     };
                     break;
                 case CardState.Inactive:
+                    break;
+                case CardState.Shop:
+                    tmp = () =>
+                    {
+                        if (DeckViewerScript.Instance != null && DeckViewerScript.Instance.gameObject.activeInHierarchy) return;
+
+                        if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
+                            ToggleHighlightAndScale(false);
+                    };
                     break;
                 default:
                     tmp = () =>

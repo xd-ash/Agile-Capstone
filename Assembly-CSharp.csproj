@@ -130,6 +130,7 @@
     <Compile Include="Assets\Scripts\CardSystem\ViewDeckButtonAlt.cs" />
     <Compile Include="Assets\Scripts\NodeMapCreation\CombatNode.cs" />
     <Compile Include="Assets\Scripts\Managers\Systems\TurnManager.cs" />
+    <Compile Include="Assets\Scripts\Shop\CardRemovalButton.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\CommentedOut\DelayAbilityController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\HealAction.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />

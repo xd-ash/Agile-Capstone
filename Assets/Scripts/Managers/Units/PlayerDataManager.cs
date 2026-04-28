@@ -65,7 +65,6 @@ public class PlayerDataManager : MonoBehaviour
 
     #if UNITY_EDITOR
         CardAndPackLibrary.GrabAssets?.Invoke();
-        BadgeLibrary.GrabAssets?.Invoke();
     #endif
 
         if (SaveLoadScript.CheckForSaveGame)

@@ -1,14 +1,12 @@
 using CardSystem;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public enum RewardType
 {
     Currency,
-    CardAndCurrency,
-    BadgeAndCurrency,
-    All
+    NewCard,
+    SwapCard,
 }
 public static class RewardsController
 {
@@ -17,7 +15,6 @@ public static class RewardsController
     private static int _maxBadgeReward = 3;
     private static int _minCurrencyReward = 10;
     private static int _minCardRewardPool = 2;
-    //private static int _minBadgeReward = 1;
 
     public static int GetMaxCurrencyReward => _maxCurrencyReward;
     public static int GetMaxCardRewardPool => _maxCardRewardPool;
@@ -29,23 +26,11 @@ public static class RewardsController
 
         PlayerDataManager.Instance.AddChips(amount);
     }
-    public static void RewardCash(int amount)
-    {
-        if (PlayerDataManager.Instance == null) return;
-
-        Debug.Log("Cash Rewarded");
-    }
     public static void RewardCard(Card card)
     {
         if (DeckAndHandManager.Instance == null) return;
 
         DeckAndHandManager.Instance?.AddCardToRuntimeDeck(card);
-    }
-    public static void RewardBadge(BadgeSO badge)
-    {
-        if (PlayerDataManager.Instance == null) return;
-
-        Debug.Log("Badge Rewarded");
     }
 
     //Randomly determine reward types
@@ -54,16 +39,13 @@ public static class RewardsController
         Random.InitState(randomSeed);
         int result = Random.Range(0, 100);
 
+        Debug.Log($"Reward weights are mainly swaps");
         switch (result)
         {
-            case < 10:
-                return RewardType.Currency;
-            case < 70:
-                return RewardType.CardAndCurrency;
+            case < 5:
+                return RewardType.NewCard;
             case < 90:
-                return RewardType.BadgeAndCurrency;
-            case < 100:
-                return RewardType.All;
+                return RewardType.SwapCard;
             default:
                 return RewardType.Currency;
         }
@@ -83,15 +65,11 @@ public static class RewardsController
 
         int currencyReward = GetCurrencyReward(mapCompleteRatio, randomSeed);
         Card[] cardRewardPool = null;
-        BadgeSO[] badgeRewardPool = null;
 
-        if (rewardTypes == RewardType.CardAndCurrency || rewardTypes == RewardType.All)
+        if (rewardTypes != RewardType.Currency)
             cardRewardPool = GetRewardPoolCards(mapCompleteRatio, randomSeed);
 
-        if (rewardTypes == RewardType.BadgeAndCurrency || rewardTypes == RewardType.All)
-            badgeRewardPool = GetRewardPoolBadges(mapCompleteRatio, randomSeed);
-
-        return new Reward(rewardTypes, currencyReward, cardRewardPool/*, badgeRewardPool*/);
+        return new Reward(rewardTypes, currencyReward, cardRewardPool);
     }
     private static int GetCurrencyReward(float mapCompleteRatio, int randomSeed)
     {
@@ -146,10 +124,5 @@ public static class RewardsController
             default:
                 return CardRarity.Epic;
         }
-    }
-    private static BadgeSO[] GetRewardPoolBadges(float mapCompleteRatio, int randomSeed)
-    {
-        //Debug.LogError("Badge SO reward method not implemented");
-        return null;
     }
 }

@@ -81,7 +81,7 @@ public class CardFunctionScript : MonoBehaviour
                 case CardState.Shop:
                     onclick = () =>
                     {
-                        if (PauseMenu.isPaused || IsSelected) return;
+                        if (PauseMenu.isPaused || IsSelected || DeckViewerScript.Instance != null && DeckViewerScript.Instance.gameObject.activeInHierarchy) return;
 
                         if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 

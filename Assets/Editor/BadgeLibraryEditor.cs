@@ -1,6 +1,6 @@
 using UnityEditor;
 
-[CustomEditor(typeof(BadgeLibrary))]
+/*[CustomEditor(typeof(BadgeLibrary))]
 public class BadgeLibraryEditor : Editor
 {
     private BadgeLibrary _library;
@@ -48,3 +48,4 @@ public class BadgeLibraryEditor : Editor
         return tmp;
     }
 }
+*/

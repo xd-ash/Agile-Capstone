@@ -77,11 +77,7 @@ public class RewardsDisplayScript : MonoBehaviour
 
         var cardPool = _curReward.GetCardReward;
         if (cardPool != null && cardPool.Length > 0)
-            CreateChoiceRewardContent(_cardImage, "Card Choices", () => _rewardSelectPanel.ShowRewardOptions(cardPool));
-
-        //var badgePool = _curReward.GetBadgeReward;
-        //if (badgePool != null && badgePool.Length > 0)
-            //CreateChoiceRewardContent(_badgeImage, "Badge Choices", () => _rewardSelectPanel.ShowRewardOptions(badgePool));
+            CreateChoiceRewardContent(_cardImage, () => _rewardSelectPanel.ShowRewardOptions(cardPool, _curReward.GetRewardType));
     }
     private GameObject CreateSingleRewardContent(Sprite sprite, string name, int amount)
     {
@@ -97,60 +93,59 @@ public class RewardsDisplayScript : MonoBehaviour
 
         return content;
     }
-    private GameObject CreateChoiceRewardContent(Sprite sprite, string name, Action onClick)
+    private GameObject CreateChoiceRewardContent(Sprite sprite, Action onClick)
     {
+        string name = _curReward.GetRewardType == RewardType.NewCard ? "New Card" : "Swap Card";
+
         GameObject content = Spawn(_choiceRewardPrefab, _rewardsContentParent.transform);
         content.name = name;
 
         var image = content.GetComponentInChildren<Image>();
         image.sprite = sprite;
 
-        var text = content.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = name;
-
-        var button = content.GetComponentInChildren<Button>();
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() =>
+        var buttons = content.GetComponentsInChildren<Button>();
+        buttons[0].onClick.RemoveAllListeners();
+        buttons[0].onClick.AddListener(() =>
         {
             _rewardSelectPanel.gameObject.SetActive(true);
             _pendingChoiceContent = content;
             onClick?.Invoke();
         });
+        var text = buttons[0].GetComponentInChildren<TextMeshProUGUI>();
+        text.text = name;
+
+        buttons[1].onClick.RemoveAllListeners();
+        buttons[1].onClick.AddListener(() =>
+        {
+            _pendingChoiceContent = content;
+            var deckViewer = FindFirstObjectByType<DeckViewerScript>(FindObjectsInactive.Include);
+            deckViewer?.gameObject.SetActive(true);
+            deckViewer.InitDeckViewer((x) =>
+            {
+                OnConfirmRewardChoice();
+            }, CardState.CardRemoval);
+        });
 
         _pendingChoices++;
         return content;
     }
-    public void OnConfirmRewardChoice(Card chosenCard)
+    public void OnConfirmRewardChoice(Card chosenCard = null)
     {
-        var newCardContent = CreateSingleRewardContent(_cardImage, chosenCard.GetCardName, -1);
+        GameObject newCardContent = null;
+        if (chosenCard != null)
+            newCardContent = CreateSingleRewardContent(_cardImage, chosenCard.GetCardName, -1);
 
         for (int i = _rewardsContentParent.transform.childCount - 1; i >= 0; i--)
         {
             if (_rewardsContentParent.transform.GetChild(i).gameObject == _pendingChoiceContent)
             {
-                newCardContent.transform.SetSiblingIndex(i);
+                newCardContent?.transform.SetSiblingIndex(i);
                 Remove(_pendingChoiceContent);
                 break;
             }
         }
 
         _pendingChoices--;
-        _pendingChoiceContent = null;
-    }
-    public void OnConfirmRewardChoice(BadgeSO chosenBadge)
-    {
-        var newBadgeContent = CreateSingleRewardContent(_badgeImage, chosenBadge.name, 1);
-
-        for (int i = _rewardsContentParent.transform.childCount - 1; i >= 0; i--)
-        {
-            if (_rewardsContentParent.transform.GetChild(i).gameObject == _pendingChoiceContent)
-            {
-                newBadgeContent.transform.SetSiblingIndex(i);
-                Remove(_pendingChoiceContent);
-                break;
-            }
-        }
-
         _pendingChoiceContent = null;
     }
     public void OnSkipRewardChoice()

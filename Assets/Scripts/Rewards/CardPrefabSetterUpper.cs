@@ -25,6 +25,8 @@ public static class CardPrefabSetterUpper
         {
             case CardState.CardRemoval:
                 return SetupCardRemovalCard(card, onClick);
+            case CardState.CardSwap:
+                return SetupCardSwapCard(card, onClick);
             case CardState.DeckViewer:
                 return SetupDeckViewerCard(card, onClick);
             case CardState.Shop:
@@ -39,11 +41,16 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetupCardRemovalCard(Card card, Action onClick = null)
     {
-        SetCardState(card, CardState.CardRemoval, onClick);
+        //SetCardState(card, CardState.CardRemoval, onClick);
         bool canRemove = PlayerDataManager.Instance.GetBalance >= DeckEditingController.Instance.GetRemovalCost && DeckEditingController.IsAbleToEdit;
         SetCardState(card, canRemove ? CardState.CardRemoval : CardState.Inactive, onClick);
         if (!canRemove)
             SetInactiveVisuals(card.GetCardTransform);
+        return true;
+    }
+    private static bool SetupCardSwapCard(Card card, Action onClick = null)
+    {
+        SetCardState(card, CardState.CardSwap, onClick);
         return true;
     }
     private static bool SetupDeckViewerCard(Card card, Action onClick = null)
@@ -164,14 +171,6 @@ public static class CardPrefabSetterUpper
         costText.gameObject.SetActive(enable);
         return true;
     }
-    private static bool SetButtonFunc(Transform cardTrans, Action buttonFunc)
-    {
-        var button = cardTrans.GetComponentInChildren<Button>();
-        if (button == null) return false;
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => buttonFunc?.Invoke());
-        return true;
-    }
     private static bool DisableBoxCollider(Transform cardTrans)
     {
         if (!cardTrans.TryGetComponent(out BoxCollider2D bc))
@@ -179,6 +178,7 @@ public static class CardPrefabSetterUpper
         bc.enabled = false;
         return true;
     }
+
     public static void SetInactiveVisuals(Transform cardTrans, bool enable = true)
     {
         var inactiveOverlay = cardTrans.Find("InactiveOverlay")?.gameObject;

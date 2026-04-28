@@ -33,8 +33,6 @@ public class DeckViewerScript : MonoBehaviour
             Instance = this;
         else
             Destroy(this.gameObject);
-
-        //_deckEditingController = GetComponent<DeckEditingController>();
     }
 
     private void Update()
@@ -48,9 +46,10 @@ public class DeckViewerScript : MonoBehaviour
         ViewerState = cardState;
 
         ToggleEditUIElements(false);
-        ToggleBackButton(cardState == CardState.DeckViewer);
+        bool isCardRemoveReward = NodeMapManager.Instance == null || !NodeMapManager.Instance.gameObject.activeInHierarchy;
+        ToggleBackButton(cardState == CardState.DeckViewer || cardState == CardState.CardSwap || isCardRemoveReward);
 
-        if (cardState == CardState.UpgradeMenu || cardState == CardState.CardRemoval)
+        if (cardState == CardState.UpgradeMenu || cardState == CardState.CardRemoval || cardState == CardState.CardSwap)
             DeckEditingController.Instance.InitEditingController(onComplete);
 
         BuildDeckScrollViewContent();
@@ -73,7 +72,7 @@ public class DeckViewerScript : MonoBehaviour
         SetWindowVisualsUp(ViewerState);
 
         Action<Transform, Card> cardSelectAction = null;
-        if (ViewerState == CardState.UpgradeMenu || ViewerState == CardState.CardRemoval)
+        if (ViewerState == CardState.UpgradeMenu || ViewerState == CardState.CardRemoval || ViewerState == CardState.CardSwap)
             cardSelectAction = (t, c) =>
             {
                 DeckEditingController.Instance.ShowPreview(c);
@@ -96,6 +95,9 @@ public class DeckViewerScript : MonoBehaviour
             case CardState.CardRemoval:
                 titleText = "Select Card to Remove";
                 ToggleEditUIElements(true);
+                break;
+            case CardState.CardSwap:
+                titleText = "Select Card to Swap Out";
                 break;
         }
 
