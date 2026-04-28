@@ -133,6 +133,7 @@
     <Compile Include="Assets\Scripts\Managers\Systems\TurnManager.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\CommentedOut\DelayAbilityController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\HealAction.cs" />
+    <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectVisualStrategies\ThrowableEffectVisual.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\AnimScripts\MainMenuBackgroundAnimScript.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\MoveIntoLOSAction.cs" />

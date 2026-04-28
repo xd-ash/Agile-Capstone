@@ -17,7 +17,7 @@ public class BulletEffectVisual : EffectVisualsStrategy
         // normalized dir from unit to target
         Vector3 dirToTarget = (target.transform.position - unit.transform.position).normalized;
 
-        // Gun smoke isntantiation
+        // Gun smoke instantiation
         if (_smokeEffect != null)
         {
             GameObject smoke = Instantiate(_smokeEffect);
