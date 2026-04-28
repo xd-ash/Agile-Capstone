@@ -35,8 +35,10 @@ public class DeckEditingController : MonoBehaviour
         switch (DeckViewerScript.Instance.ViewerState)
         {
             case CardState.UpgradeMenu:
+            case CardState.FreeUpgradeMenu:
                 return _upgradeCardPrefabParent;
             case CardState.CardRemoval:
+            case CardState.FreeCardRemoval:
                 return _removalCardPrefabParent;
             case CardState.CardSwap:
                 return _swapCardPrefabParent;
@@ -49,8 +51,10 @@ public class DeckEditingController : MonoBehaviour
         switch (DeckViewerScript.Instance.ViewerState)
         {
             case CardState.UpgradeMenu:
+            case CardState.FreeUpgradeMenu:
                 return _upgradePreviewPanel;
             case CardState.CardRemoval:
+            case CardState.FreeCardRemoval:
                 return _removalPreviewPanel;
             case CardState.CardSwap:
                 return _swapPreviewPanel;
@@ -90,7 +94,8 @@ public class DeckEditingController : MonoBehaviour
         if (NodeMapManager.Instance == null || !NodeMapManager.Instance.gameObject.activeInHierarchy)
             _numEditsRemaining = 1;
         else
-            _numEditsRemaining = state == CardState.UpgradeMenu ? CampNodeController.RemainingUpgrades : CampNodeController.RemainingRemovals;
+            _numEditsRemaining = state == CardState.UpgradeMenu || state == CardState.FreeUpgradeMenu ? CampNodeController.RemainingUpgrades : CampNodeController.RemainingRemovals;
+
         IsAbleToEdit = true;
         _canGoBack = true;
         _selectedCard = null;
@@ -114,7 +119,7 @@ public class DeckEditingController : MonoBehaviour
 
         var state = DeckViewerScript.Instance.ViewerState;
 
-        if (state == CardState.UpgradeMenu && selectedCard.GetCardRarity == CardRarity.Epic)
+        if ((state == CardState.UpgradeMenu || state == CardState.FreeUpgradeMenu) && selectedCard.GetCardRarity == CardRarity.Epic)
         {
             Debug.LogWarning($"{selectedCard.GetCardName} is max rarity (epic). Upgrade preview failed.)");
             CloseEditPreview();
@@ -130,8 +135,14 @@ public class DeckEditingController : MonoBehaviour
                 case CardState.UpgradeMenu:
                     previewTitle.text = $"Upgrade {selectedCard.GetCardName} for {selectedCard.GetShopCost} Chips?";
                     break;
+                case CardState.FreeUpgradeMenu:
+                    previewTitle.text = $"Upgrade {selectedCard.GetCardName}?";
+                    break;
                 case CardState.CardRemoval:
                     previewTitle.text = $"Remove {selectedCard.GetCardName} for {GetRemovalCost} Chips?";
+                    break;
+                case CardState.FreeCardRemoval:
+                    previewTitle.text = $"Remove {selectedCard.GetCardName}?";
                     break;
                 case CardState.CardSwap:
                     previewTitle.text = $"Swap {selectedCard.GetCardName} for {_cardToSwapIn.GetCardName}?";
@@ -151,7 +162,7 @@ public class DeckEditingController : MonoBehaviour
             CardPrefabSetterUpper.SetCostTextGO(tempCard, false);
         }
 
-        if (state == CardState.UpgradeMenu)
+        if (state == CardState.UpgradeMenu || state == CardState.FreeUpgradeMenu)
         {
             CardRarity upgradedRarity = selectedCard.GetNextCardRarity;
 
@@ -184,6 +195,9 @@ public class DeckEditingController : MonoBehaviour
         MakeEdit();
 
         var editCost = DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu ? _selectedCard.GetShopCost : _baseRemovalCost;
+        if (DeckViewerScript.Instance.ViewerState == CardState.FreeUpgradeMenu || DeckViewerScript.Instance.ViewerState == CardState.FreeCardRemoval)
+            editCost = 0;
+
         if (!CurrencyManager.Instance.TrySpend(editCost))
         {
             Debug.LogWarning($"Not enough chips to edit.");
@@ -211,15 +225,11 @@ public class DeckEditingController : MonoBehaviour
 
     private void MakeEdit()
     {
-        if (DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu)
+        var state = DeckViewerScript.Instance.ViewerState;
+        if (state == CardState.UpgradeMenu || state == CardState.FreeUpgradeMenu)
             _selectedCard.UpgradeCard();
-        else if (DeckViewerScript.Instance.ViewerState == CardState.CardRemoval)
+        else if (state == CardState.CardRemoval || state == CardState.FreeCardRemoval || state == CardState.CardSwap)
             PlayerDataManager.Instance.UpdateCardData(_selectedCard, false);
-        else if (DeckViewerScript.Instance.ViewerState == CardState.CardSwap)
-        {
-            PlayerDataManager.Instance.UpdateCardData(_selectedCard, false);
-            OnCompleteEdits();
-        }
     }
 
     private void UpdateUI()

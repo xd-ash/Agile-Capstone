@@ -18,8 +18,6 @@ public class CampNodeController : MonoBehaviour
     [SerializeField] private Button _removeButton;
     [SerializeField, Space(5)] private int _numUpgradesAllowed = 3;
     [SerializeField] private int _numRemovalsAllowed = 1;
-    //private int _remainingUpgrades;
-    //private int _remainingRemovals;
 
     [Header("Rest Option")]
     [SerializeField] private GameObject _restOptionsPanel;
@@ -37,15 +35,42 @@ public class CampNodeController : MonoBehaviour
         _onComplete = onComplete;
         _deckViewPanel = FindFirstObjectByType<DeckViewerScript>(FindObjectsInactive.Include);
 
-        if (_remainingUpgradesText != null)
-            _remainingUpgradesText.text = _numUpgradesAllowed.ToString();
-        if (_remainingRemovalsText != null)
-            _remainingRemovalsText.text = _numRemovalsAllowed.ToString();
-
         RemainingUpgrades = _numUpgradesAllowed;
         RemainingRemovals = _numRemovalsAllowed;
-    }
 
+        if (_remainingUpgradesText != null)
+            _remainingUpgradesText.text = RemainingUpgrades.ToString();
+        if (_remainingRemovalsText != null)
+            _remainingRemovalsText.text = RemainingRemovals.ToString();
+    }
+    private bool CheckForRequiredChips(CardState state)
+    {
+        int balance = PlayerDataManager.Instance.GetBalance;
+
+        switch (state)
+        {
+            case CardState.UpgradeMenu:
+            case CardState.FreeUpgradeMenu:
+                if (PlayerDataManager.Instance == null) return false;
+                int minUpgradeCost = int.MaxValue;
+
+                for (int i = 0; i < PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck.Count; i++)
+                {
+                    var card = PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck[i];
+                    if (card == null) continue;
+                    if (card.GetShopCost >= minUpgradeCost) continue;
+                    minUpgradeCost = card.GetShopCost;
+                }
+                return minUpgradeCost <= balance;
+            case CardState.CardRemoval:
+            case CardState.FreeCardRemoval:
+            case CardState.CardSwap:
+                var deckEditController = FindFirstObjectByType<DeckEditingController>(FindObjectsInactive.Include);
+                return deckEditController?.GetRemovalCost <= balance;
+            default:
+                return true;
+        }
+    }
     public void OnStartRest()
     {
         _restOptionsPanel?.SetActive(true);
@@ -64,8 +89,8 @@ public class CampNodeController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void OnStartUpgrading() => StartEditing(CardState.UpgradeMenu);
-    public void OnStartRemoving() => StartEditing(CardState.CardRemoval);
+    public void OnStartUpgrading() => StartEditing(CardState.FreeUpgradeMenu);
+    public void OnStartRemoving() => StartEditing(CardState.FreeCardRemoval);
     private void StartEditing(CardState state)
     {
         if (_deckViewPanel == null)
@@ -76,26 +101,31 @@ public class CampNodeController : MonoBehaviour
 
         Action<int> onComplete = (i) =>
         {
-            var allowedEdits = state == CardState.UpgradeMenu ? _numUpgradesAllowed : _numRemovalsAllowed;
-            var button = state == CardState.UpgradeMenu ? _upgradeButton : _removeButton;
-            var remainingText = state == CardState.UpgradeMenu ? _remainingUpgradesText : _remainingRemovalsText;
+            var allowedEdits = state == CardState.UpgradeMenu || state == CardState.FreeUpgradeMenu ? _numUpgradesAllowed : _numRemovalsAllowed;
+            var remainingText = state == CardState.UpgradeMenu || state == CardState.FreeUpgradeMenu ? _remainingUpgradesText : _remainingRemovalsText;
+            bool hasRequiredChips = CheckForRequiredChips(state);
 
             _editPanelBackButton?.SetActive(i == allowedEdits);
-            if (button != null)
-                button.interactable = i > 0;
-            if (remainingText != null)
-                remainingText.text = i.ToString();
+            ToggleButtonInteractable(state, i > 0 && hasRequiredChips);
 
-            if (state == CardState.UpgradeMenu)
-                RemainingUpgrades = i;
-            else if (state == CardState.CardRemoval)
-                RemainingRemovals = i;
+            if (remainingText != null)
+                remainingText.text = hasRequiredChips ? i.ToString() : "0";
+
+            if (state == CardState.FreeUpgradeMenu)
+                RemainingUpgrades = hasRequiredChips ? i : 0;
+            else if (state == CardState.FreeCardRemoval)
+                RemainingRemovals = hasRequiredChips ? i : 0;
         };
 
         _deckViewPanel?.gameObject?.SetActive(true);
         _deckViewPanel?.InitDeckViewer(onComplete, state);
     }
-
+    private void ToggleButtonInteractable(CardState state, bool isActive)
+    {
+        var button = state == CardState.UpgradeMenu || state == CardState.FreeUpgradeMenu ? _upgradeButton : _removeButton;
+        if (button == null) return;
+        button.interactable = isActive;
+    }
     public void OnRestOptionChosen(int restOption)
     {
         if (restOption >= Enum.GetNames(typeof(RestOptions)).Length)

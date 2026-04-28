@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CardState { CardRemoval, DeckViewer, Shop, Rewards, Combat, UpgradeMenu, Inactive, CardSwap }
+public enum CardState { CardRemoval, FreeCardRemoval, DeckViewer, Shop, Rewards, Combat, FreeUpgradeMenu, UpgradeMenu, Inactive, CardSwap }
 
 public static class CardPrefabSetterUpper
 {
@@ -23,8 +23,9 @@ public static class CardPrefabSetterUpper
 
         switch (cardState)
         {
+            case CardState.FreeCardRemoval:
             case CardState.CardRemoval:
-                return SetupCardRemovalCard(card, onClick);
+                return SetupCardRemovalCard(card, onClick, cardState == CardState.FreeCardRemoval);
             case CardState.CardSwap:
                 return SetupCardSwapCard(card, onClick);
             case CardState.DeckViewer:
@@ -33,16 +34,16 @@ public static class CardPrefabSetterUpper
                 return SetupShopCard(card, onClick);
             case CardState.Rewards:
                 return SetupRewardsCard(card, onClick);
+            case CardState.FreeUpgradeMenu:
             case CardState.UpgradeMenu:
-                return SetupUpgradeMenuCard(card, onClick);
+                return SetupUpgradeMenuCard(card, onClick, cardState == CardState.FreeUpgradeMenu);
             default:
                 return SetupCombatCard(card, onClick);
         }
     }
-    private static bool SetupCardRemovalCard(Card card, Action onClick = null)
+    private static bool SetupCardRemovalCard(Card card, Action onClick = null, bool isFree = false)
     {
-        //SetCardState(card, CardState.CardRemoval, onClick);
-        bool canRemove = PlayerDataManager.Instance.GetBalance >= DeckEditingController.Instance.GetRemovalCost && DeckEditingController.IsAbleToEdit;
+        bool canRemove = isFree || PlayerDataManager.Instance.GetBalance >= DeckEditingController.Instance.GetRemovalCost && DeckEditingController.IsAbleToEdit;
         SetCardState(card, canRemove ? CardState.CardRemoval : CardState.Inactive, onClick);
         if (!canRemove)
             SetInactiveVisuals(card.GetCardTransform);
@@ -70,11 +71,15 @@ public static class CardPrefabSetterUpper
         SetCardState(card, CardState.Rewards, onClick);
         return true;
     }
-    private static bool SetupUpgradeMenuCard(Card card, Action onClick = null)
+    private static bool SetupUpgradeMenuCard(Card card, Action onClick = null, bool isFree = false)
     {
-        SetCostTextGO(card);
-        SetCostText(card);
-        bool canUpgrade = card.GetCardRarity != CardRarity.Epic && card.GetShopCost <= PlayerDataManager.Instance.GetBalance && DeckEditingController.IsAbleToEdit;
+        if (!isFree)
+        {
+            SetCostTextGO(card);
+            SetCostText(card);
+        }
+
+        bool canUpgrade = isFree || card.GetCardRarity != CardRarity.Epic && card.GetShopCost <= PlayerDataManager.Instance.GetBalance && DeckEditingController.IsAbleToEdit;
         SetCardState(card, canUpgrade ? CardState.UpgradeMenu : CardState.Inactive, onClick);
         if (!canUpgrade)
             SetInactiveVisuals(card.GetCardTransform);

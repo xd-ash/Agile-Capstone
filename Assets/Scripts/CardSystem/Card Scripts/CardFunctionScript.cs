@@ -74,10 +74,6 @@ public class CardFunctionScript : MonoBehaviour
         {
             switch (_state)
             {
-                case CardState.CardRemoval:
-                    break;
-                case CardState.DeckViewer:
-                    break;
                 case CardState.Shop:
                     onclick = () =>
                     {
@@ -118,10 +114,6 @@ public class CardFunctionScript : MonoBehaviour
                         return;
                     };
                     break;
-                case CardState.Rewards:
-                    break;
-                case CardState.UpgradeMenu:
-                    break;
                 case CardState.Combat:
                     onclick = () =>
                     {
@@ -141,6 +133,10 @@ public class CardFunctionScript : MonoBehaviour
                         IsDragging = true;
                     };
                     break;
+                case CardState.CardRemoval:
+                case CardState.DeckViewer:
+                case CardState.Rewards:
+                case CardState.UpgradeMenu:
                 case CardState.Inactive:
                     break;
             }

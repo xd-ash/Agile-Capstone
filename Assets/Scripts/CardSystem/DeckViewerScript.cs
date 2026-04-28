@@ -49,7 +49,8 @@ public class DeckViewerScript : MonoBehaviour
         bool isCardRemoveReward = NodeMapManager.Instance == null || !NodeMapManager.Instance.gameObject.activeInHierarchy;
         ToggleBackButton(cardState == CardState.DeckViewer || cardState == CardState.CardSwap || isCardRemoveReward);
 
-        if (cardState == CardState.UpgradeMenu || cardState == CardState.CardRemoval || cardState == CardState.CardSwap)
+        if (cardState == CardState.UpgradeMenu || cardState == CardState.FreeUpgradeMenu || 
+            cardState == CardState.CardRemoval || cardState == CardState.FreeCardRemoval || cardState == CardState.CardSwap)
             DeckEditingController.Instance.InitEditingController(onComplete);
 
         BuildDeckScrollViewContent();
@@ -72,7 +73,8 @@ public class DeckViewerScript : MonoBehaviour
         SetWindowVisualsUp(ViewerState);
 
         Action<Transform, Card> cardSelectAction = null;
-        if (ViewerState == CardState.UpgradeMenu || ViewerState == CardState.CardRemoval || ViewerState == CardState.CardSwap)
+        if (ViewerState == CardState.UpgradeMenu || ViewerState == CardState.CardRemoval || 
+            ViewerState == CardState.FreeUpgradeMenu || ViewerState == CardState.FreeCardRemoval || ViewerState == CardState.CardSwap)
             cardSelectAction = (t, c) =>
             {
                 DeckEditingController.Instance.ShowPreview(c);
@@ -89,10 +91,12 @@ public class DeckViewerScript : MonoBehaviour
             case CardState.DeckViewer:
                 break;
             case CardState.UpgradeMenu:
+            case CardState.FreeUpgradeMenu:
                 titleText = "Select Card to Upgrade";
                 ToggleEditUIElements(true);
                 break;
             case CardState.CardRemoval:
+            case CardState.FreeCardRemoval:
                 titleText = "Select Card to Remove";
                 ToggleEditUIElements(true);
                 break;
@@ -111,7 +115,7 @@ public class DeckViewerScript : MonoBehaviour
     public void UpdateEditAmountRemaining(int numRemaining)
     {
         if (_allowedEditsText == null) return;
-        _allowedEditsText.text = ViewerState == CardState.UpgradeMenu ? $"Remaining Upgrades: {numRemaining}" : $"Remaining Removals: {numRemaining}";
+        _allowedEditsText.text = ViewerState == CardState.UpgradeMenu || ViewerState == CardState.FreeUpgradeMenu ? $"Remaining Upgrades: {numRemaining}" : $"Remaining Removals: {numRemaining}";
     }
     public void ToggleBackButton(bool isBackButtonActive)
     {

@@ -43,14 +43,13 @@ public class RewardsDisplayScript : MonoBehaviour
                 gameObject.SetActive(false);
             };
 
-            if (_pendingChoices > 0)
-            {
-                _pendingRewardsPopup.gameObject.SetActive(true);
-                _pendingRewardsPopup.SetContinueButtonOnClick(temp);
-            }
-            else
-                temp?.Invoke();
+            temp?.Invoke();
         });
+        _continueButton.interactable = false;
+    }
+    private void ToggleContinueButtonInteractable()
+    {
+        _continueButton.interactable = _pendingChoices == 0;
     }
     private void OnEnable()
     {
@@ -62,6 +61,7 @@ public class RewardsDisplayScript : MonoBehaviour
         _pendingRewardsPopup.gameObject.SetActive(false);
 
         ShowRewards();
+        ToggleContinueButtonInteractable();
     }
     private void OnDisable()
     {
@@ -123,7 +123,7 @@ public class RewardsDisplayScript : MonoBehaviour
             deckViewer.InitDeckViewer((x) =>
             {
                 OnConfirmRewardChoice();
-            }, CardState.CardRemoval);
+            }, CardState.FreeCardRemoval);
         });
 
         _pendingChoices++;
@@ -147,6 +147,7 @@ public class RewardsDisplayScript : MonoBehaviour
 
         _pendingChoices--;
         _pendingChoiceContent = null;
+        ToggleContinueButtonInteractable();
     }
     public void OnSkipRewardChoice()
     {

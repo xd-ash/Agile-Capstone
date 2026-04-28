@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static GameObjectPool;
 
 public class RewardSelectScript : MonoBehaviour
 {
@@ -61,7 +60,7 @@ public class RewardSelectScript : MonoBehaviour
         {
             if (card == null || card.GetCardAbility == null) continue;
 
-            GameObject content = Spawn(_cardOptionContent, _optionsContentParent);
+            GameObject content = Instantiate(_cardOptionContent, _optionsContentParent);
 
             Image optionHighlight = content.GetComponentInChildren<Image>(true);
             optionHighlight.gameObject.SetActive(false);
@@ -134,7 +133,7 @@ public class RewardSelectScript : MonoBehaviour
     private void ClearContent()
     {
         for (int i = _optionsContentParent.childCount - 1; i >= 0; i--)
-            Remove(_optionsContentParent.GetChild(i).gameObject);
+            Destroy(_optionsContentParent.GetChild(i).gameObject);
 
         _contentHighlights = new GameObject[0];
     }

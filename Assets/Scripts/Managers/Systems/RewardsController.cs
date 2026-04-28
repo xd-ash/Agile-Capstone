@@ -8,10 +8,11 @@ public enum RewardType
     NewCard,
     SwapCard,
 }
+
 public static class RewardsController
 {
     private static int _maxCurrencyReward = 150;
-    private static int _maxCardRewardPool = 5;
+    private static int _maxCardRewardPool = 3;
     private static int _maxBadgeReward = 3;
     private static int _minCurrencyReward = 10;
     private static int _minCardRewardPool = 2;

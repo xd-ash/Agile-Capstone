@@ -408,8 +408,10 @@ namespace CardSystem
                     break;
                 case CardState.DeckViewer:
                 case CardState.CardRemoval:
+                case CardState.FreeCardRemoval:
                 case CardState.CardSwap:
                 case CardState.UpgradeMenu:
+                case CardState.FreeUpgradeMenu:
                     tmp = () =>
                     {
                         if (DeckEditingController.IsPreviewingEdit) return;
@@ -425,6 +427,7 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (DeckViewerScript.Instance != null && DeckViewerScript.Instance.gameObject.activeInHierarchy) return;
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected  && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(true);
@@ -463,8 +466,10 @@ namespace CardSystem
                     break;
                 case CardState.DeckViewer:
                 case CardState.CardRemoval:
+                case CardState.FreeCardRemoval:
                 case CardState.CardSwap:
                 case CardState.UpgradeMenu:
+                case CardState.FreeUpgradeMenu:
                     tmp = () =>
                     {
                         if (DeckEditingController.IsPreviewingEdit) return;
@@ -480,6 +485,7 @@ namespace CardSystem
                     tmp = () =>
                     {
                         if (DeckViewerScript.Instance != null && DeckViewerScript.Instance.gameObject.activeInHierarchy) return;
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
                             ToggleHighlightAndScale(false);

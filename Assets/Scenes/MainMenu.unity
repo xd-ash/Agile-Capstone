@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 26586216}
   - component: {fileID: 26586215}
   m_Layer: 5
-  m_Name: Skip
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -492,7 +492,7 @@ MonoBehaviour:
   _upgradeCardPrefabParent: {fileID: 793952192}
   _removalPreviewPanel: {fileID: 169211815}
   _removalCardPrefabParent: {fileID: 1312123730}
-  _removalCost: 15
+  _baseRemovalCost: 15
   _swapPreviewPanel: {fileID: 154609831}
   _swapCardPrefabParent: {fileID: 1559229340}
   _cardToSwapIn:
@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Skip
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
   m_sharedMaterial: {fileID: 3911338962612051114, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
@@ -7700,7 +7700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.093, y: -20.5}
+  m_AnchoredPosition: {x: -3.093, y: -12.3}
   m_SizeDelta: {x: 63.464, y: 63.46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &793952193
@@ -13022,7 +13022,7 @@ RectTransform:
   m_GameObject: {fileID: 1312123729}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.21, y: 1.21, z: 1.21}
+  m_LocalScale: {x: 1.72, y: 1.72, z: 1.72}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 169211816}
@@ -19318,7 +19318,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2116186125}
   m_OnClick:
     m_PersistentCalls:
@@ -19336,7 +19336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
+  m_Color: {r: 0.77254903, g: 0.73333335, b: 0.73333335, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
