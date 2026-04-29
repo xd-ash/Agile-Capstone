@@ -414,7 +414,7 @@ namespace CardSystem
                 case CardState.FreeUpgradeMenu:
                     tmp = () =>
                     {
-                        if (DeckEditingController.IsPreviewingEdit) return;
+                        if (DeckEditingController.IsPreviewingEdit || CampNodeController.IsPreviewingUpgrade) return;
                         if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)
@@ -472,7 +472,7 @@ namespace CardSystem
                 case CardState.FreeUpgradeMenu:
                     tmp = () =>
                     {
-                        if (DeckEditingController.IsPreviewingEdit) return;
+                        if (DeckEditingController.IsPreviewingEdit || CampNodeController.IsPreviewingUpgrade) return;
                         if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         if (!_cfs.IsSelected && !_cfs.IsDragging && !PauseMenu.isPaused)

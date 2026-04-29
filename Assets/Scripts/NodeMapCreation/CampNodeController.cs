@@ -36,10 +36,11 @@ public class CampNodeController : MonoBehaviour
                                  _maxHealthIncrease = 5,
                                  _startingHandSizeIncrease = 1;
 
+    private Action _onComplete;
+
     public static int RemainingUpgrades { get; private set; }
     public static int RemainingRemovals { get; private set; }
-
-    private Action _onComplete;
+    public static bool IsPreviewingUpgrade { get; private set; }
 
     public void InitCampNode(Action onComplete)
     {
@@ -82,6 +83,7 @@ public class CampNodeController : MonoBehaviour
         _selectedCard = selectedCard;
 
         _upgradePreviewPanel?.SetActive(true);
+        IsPreviewingUpgrade = true;
 
         GameObject cardPrefab = Resources.Load<GameObject>("NewCardPrefab");
 
@@ -111,6 +113,7 @@ public class CampNodeController : MonoBehaviour
                 Destroy(_upgradePreviewCardParent.GetChild(i).gameObject);
         }
         _upgradePreviewPanel?.SetActive(false);
+        IsPreviewingUpgrade = false;
     }
     private void ClearSelection(Transform cardTransform)
     {
@@ -123,7 +126,7 @@ public class CampNodeController : MonoBehaviour
     public void OnConfirmUpgrade()
     {
         _selectedCard.UpgradeCard();
-        _upgradePreviewPanel.SetActive(false);
+        HideUpgradePreview();
         _chooseCardScript.gameObject.SetActive(false);
         RemainingUpgrades--;
 
@@ -142,12 +145,15 @@ public class CampNodeController : MonoBehaviour
         {
             Card selectedCard = null;
             int failCounter = 0;
+
+
             do
             {
-                int.TryParse($"{PlayerDataManager.Instance.GetGeneralSeed / 1000}{RemainingRemovals}{i + failCounter}", out int adjustedSeed);
+                if (!int.TryParse($"{PlayerDataManager.Instance.GetGeneralSeed / 1000}{PlayerDataManager.Instance.GetCurrentNodeIndex.x}{RemainingUpgrades}{failCounter}", out int adjustedSeed))
+                    Debug.LogWarning($"try parse failed on adjusted seed");
                 UnityEngine.Random.InitState(adjustedSeed);
+
                 int rng = UnityEngine.Random.Range(0, deckCards.Count);
-                Debug.Log($"adjSeed: {adjustedSeed}");
                 selectedCard = deckCards[rng];
                 failCounter++;
             } while ((selectedCard == null || temp.Contains(selectedCard)) && failCounter < 50);

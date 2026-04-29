@@ -110,10 +110,10 @@ public class CardChoiceSelectScript : MonoBehaviour
 
         return () =>
         {
-            ClearHighlights(optionHighlight?.transform);
-            optionHighlight?.gameObject.SetActive(true);
+            //optionHighlight?.gameObject.SetActive(true);
 
             campNodeScript.ShowUpgradePreview(card);
+            ClearHighlights(optionHighlight?.transform, true);
 
             _onConfirm = null;
             _onConfirm = () =>
@@ -169,12 +169,12 @@ public class CardChoiceSelectScript : MonoBehaviour
                 return null;
         }
     }
-    private void ClearHighlights(Transform thisCard)
+    private void ClearHighlights(Transform thisCard, bool forceClearAll = false)
     {
         if (_contentHighlights == null || thisCard == null) return;
         foreach (var highlight in _contentHighlights)
         {
-            if (thisCard.gameObject == highlight) continue;
+            if (!forceClearAll && thisCard.gameObject == highlight) continue;
             highlight.SetActive(false);
             var cfs = highlight.GetComponentInParent<CardFunctionScript>();
             var cs = highlight.GetComponentInParent<CardSelect>();
