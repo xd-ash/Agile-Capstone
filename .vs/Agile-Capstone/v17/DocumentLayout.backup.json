@@ -1,30 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\",
+  "WorkspaceRootPath": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\units\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\units\\unit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\lab folders\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\drawcardbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\drawcardbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\ui\\gameuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\ui\\gameuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\systems\\winlossmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\lab folders\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\systems\\winlossmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\systems\\winlossmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\ui\\nodemaphealthbarscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\ui\\nodemaphealthbarscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\units\\playerdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\units\\playerdatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\systems\\saveloadscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\systems\\saveloadscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\lab folders\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,83 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GameUIManager.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\UI\\GameUIManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\UI\\GameUIManager.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\UI\\GameUIManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\UI\\GameUIManager.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAYwGMAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T04:43:17.264Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NodemapHealthBarScript.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\UI\\NodemapHealthBarScript.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\UI\\NodemapHealthBarScript.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\UI\\NodemapHealthBarScript.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\UI\\NodemapHealthBarScript.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "DrawCardButton.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DrawCardButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\DrawCardButton.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DrawCardButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\DrawCardButton.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwB4AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T04:36:36.354Z",
+              "WhenOpened": "2026-04-29T18:06:54.766Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "DeckAndHandManager.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAADwv5IAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T18:03:23.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "WinLossManager.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAlwCAAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAcwA0AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T04:30:01.278Z",
+              "WhenOpened": "2026-04-29T18:03:16.178Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Unit.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Units\\Unit.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Units\\Unit.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Units\\Unit.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\Units\\Unit.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAkwE4AAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T04:28:46.895Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SaveLoadScript.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\SaveLoadScript.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Systems\\SaveLoadScript.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\SaveLoadScript.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\Systems\\SaveLoadScript.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T04:23:59.443Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PlayerDataManager.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Units\\PlayerDataManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Units\\PlayerDataManager.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Units\\PlayerDataManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\Units\\PlayerDataManager.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAA0wHYAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T01:03:25.888Z"
             }
           ]
         }
