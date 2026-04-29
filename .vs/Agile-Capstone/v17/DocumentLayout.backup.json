@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\lab folders\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\drawcardbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\drawcardbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DrawCardButton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\CardSystem\\DrawCardButton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\lab folders\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\systems\\winlossmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\systems\\winlossmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\lab folders\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,14 +36,14 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\DrawCardButton.cs",
               "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DrawCardButton.cs",
               "RelativeToolTip": "Assets\\Scripts\\CardSystem\\DrawCardButton.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAxwB4AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB4AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-29T18:06:54.766Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "DeckAndHandManager.cs",
               "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
@@ -51,12 +51,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
               "ViewState": "AgIAAHcAAAAAAAAAAADwv5IAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T18:03:23.924Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T18:03:23.924Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "WinLossManager.cs",
               "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Systems\\WinLossManager.cs",
               "ViewState": "AgIAACwAAAAAAAAAAAAcwA0AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T18:03:16.178Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-29T18:03:16.178Z"
             }
           ]
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NodeMapCreator : MonoBehaviour
 {
-    public enum NodeTypes { Combat, BountyBoard, Boss, Shop, Camp }
+    public enum NodeTypes { Combat, BountyBoard, Shop, Camp, EliteCombat, Boss }
 
     private GameObject _nodePrefab;
     private CustomTileMapSOLibrary _tilemapSOLibrary;
@@ -101,7 +101,7 @@ public class NodeMapCreator : MonoBehaviour
                 var node = _nodeTiers[i][j];
                 ChooseNodeType(ref node);
 
-                GameObject nodeGO = Instantiate(_nodePrefab, transform); ;
+                GameObject nodeGO = Instantiate(_nodePrefab, transform);
                 NodeMapNode nodeMono = GetNodeStrategy(node, ref nodeGO);
 
                 if (nodeGO == null)
@@ -124,6 +124,7 @@ public class NodeMapCreator : MonoBehaviour
             for (int j = 0; j < _nodeTiers[i].Count; j++)
                 SetNextAndPrevLists(new(i, j), ref trueNodeMap);
 
+        CheckNodeMapPaths();
         return trueNodeMap;
     }
     private NodeMapNode GetNodeStrategy(NodePlaceholder node, ref GameObject nodeGO)
@@ -138,6 +139,8 @@ public class NodeMapCreator : MonoBehaviour
                 return nodeGO.AddComponent<BossNode>();
             case NodeTypes.Shop:
                 return nodeGO.AddComponent<ShopNode>();
+            case NodeTypes.EliteCombat:
+                return nodeGO.AddComponent<EliteNode>();
             default:
                 return nodeGO.AddComponent<CampNode>();
         }
@@ -180,7 +183,7 @@ public class NodeMapCreator : MonoBehaviour
         int c = -1;
         do
         {
-            rngType = (NodeTypes)UnityEngine.Random.Range(0, Mathf.Max(1, enumCount));
+            rngType = (NodeTypes)UnityEngine.Random.Range(0, Mathf.Max(1, enumCount - 1)); // -1 from enum count to avoid bosses
             c++;
         } while (!CheckNodeNeighbourContents(node, rngType) && c < 100);
         if (c >= 100)
@@ -378,7 +381,51 @@ public class NodeMapCreator : MonoBehaviour
         // Otherwise, the lines do not intersect within their segments
         return false;
     }
+    private void CheckNodeMapPaths()
+    {
+        var startNode = _nodeTiers[0][0];
+        if (startNode == null) return;
 
+        Dictionary<int, List<NodePlaceholder>> paths = new();
+
+        paths.Add(0, new() { startNode });
+
+        WalkPath(startNode, 0, ref paths);
+
+        //check dict?
+
+        foreach (var path in paths.Values)
+        {
+            string message = $"Path - ";
+            foreach (var node in path)
+                message += $"{node.nodeType}, ";
+            Debug.Log(message); 
+        }
+    }
+    private void WalkPath(NodePlaceholder currNode, int pathIndex, ref Dictionary<int, List<NodePlaceholder>> paths)
+    {
+        paths[pathIndex].Add(currNode);
+
+        if (currNode.next.Count == 0) return;
+
+        for (int i = 0; i < currNode.next.Count; i++)
+        {
+            var nextNode = currNode.next[i];
+
+            if (i == 0)
+            {
+                paths[pathIndex].Add(currNode);
+                WalkPath(nextNode, pathIndex, ref paths);
+                continue;
+            }
+
+            int newPathIndex = paths.Count + 1;
+            paths.Add(newPathIndex, new(paths[pathIndex]));
+            paths[newPathIndex].Add(currNode);
+
+            WalkPath(nextNode, newPathIndex, ref paths);
+        }
+    }
     public class NodePlaceholder
     {
         public Vector2 nodePos;

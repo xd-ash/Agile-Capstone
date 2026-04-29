@@ -95,6 +95,8 @@ public abstract class NodeMapNode : MonoBehaviour
                 return "Combat";
             case ShopNode:
                 return "Shop";
+            case EliteNode:
+                return "Combat";
             case CampNode:
             default:
                 return string.Empty;
@@ -114,6 +116,9 @@ public abstract class NodeMapNode : MonoBehaviour
                 break;
             case ShopNode:
                 _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/ShopIcon");
+                break;
+            case EliteNode:
+                _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/EliteBounty");
                 break;
             case CampNode:
                 _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/CampfireNodeIcon");
