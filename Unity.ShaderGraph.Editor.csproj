@@ -493,8 +493,8 @@
     <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Data\Interfaces\IMayRequirePosition.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Data\Nodes\Math\Advanced\ReciprocalSquareRootNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Serialization\FakeJsonObject.cs" />
-    <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Drawing\Controls\ButtonControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Data\Nodes\Math\Round\CeilingNode.cs" />
+    <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Drawing\Controls\ButtonControl.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Util\ValueUtilities.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Data\Nodes\Input\Texture\SampleCubemapNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@bb4ad9d6ddac\Editor\Generation\Enumerations\ZWrite.cs" />

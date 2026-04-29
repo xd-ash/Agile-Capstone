@@ -32,7 +32,8 @@ public class CampNodeController : MonoBehaviour
 
     [Header("Rest Option")]
     [SerializeField] private GameObject _restOptionsPanel;
-    [SerializeField] private int _apIncrease = 1,
+    [SerializeField] private int _healthToRecoverOnRest = 50;
+     private int _apIncrease = 1,
                                  _maxHealthIncrease = 5,
                                  _startingHandSizeIncrease = 1;
 
@@ -206,7 +207,18 @@ public class CampNodeController : MonoBehaviour
     }
     public void OnRestOptionChosen(int restOption)
     {
-        if (restOption >= Enum.GetNames(typeof(RestOptions)).Length)
+        int currHealth = PlayerDataManager.Instance.GetCurrentHealth;
+        PlayerDataManager.Instance.UpdateHealthForRun(currHealth + _healthToRecoverOnRest);
+        var nodemapHeathSlider = FindAnyObjectByType<NodemapHealthBarScript>(FindObjectsInactive.Include);
+        nodemapHeathSlider?.UpdateNodeMapHealthBar();
+
+        _restOptionsPanel.SetActive(false);
+        gameObject?.SetActive(false);
+        _onComplete?.Invoke();
+
+        Debug.LogWarning($"Rest health regain method needs revisit");
+
+        /*if (restOption >= Enum.GetNames(typeof(RestOptions)).Length)
             return;
 
         RestOptions option = (RestOptions)restOption;
@@ -215,7 +227,7 @@ public class CampNodeController : MonoBehaviour
 
         _restOptionsPanel.SetActive(false);
         gameObject?.SetActive(false);
-        _onComplete?.Invoke();
+        _onComplete?.Invoke();*/
     }
 
     private int GetRestOptionVal(RestOptions option)

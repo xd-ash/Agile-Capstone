@@ -121,7 +121,7 @@ public class PlayerDataManager : MonoBehaviour
             return;
         }
 
-        _healthThisRun = currHealth;
+        _healthThisRun = Math.Clamp(currHealth, 0, GetMaxHealth);
     }
 
     public void UpdateCurrencyData(int currentBalance)
