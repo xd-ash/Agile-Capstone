@@ -93,9 +93,12 @@ public abstract class NodeMapNode : MonoBehaviour
                 return "Combat";
             case BossNode:
                 return "Combat";
+            case EliteNode:
+                return "Combat";
             case ShopNode:
                 return "Shop";
             case CampNode:
+
             default:
                 return string.Empty;
         }
@@ -104,7 +107,7 @@ public abstract class NodeMapNode : MonoBehaviour
     {
         switch (this)
         {
-            case CombatNode: //comabt node sets icons based on combat data loaded later in script
+            case CombatNode: //combat node sets icons based on combat data loaded later in script
                 break;
             case BountyBoardNode:
                 _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/BountyBoard");
@@ -117,6 +120,9 @@ public abstract class NodeMapNode : MonoBehaviour
                 break;
             case CampNode:
                 _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/CampfireNodeIcon");
+                break;
+            case EliteNode:
+                _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/EliteNodeIcon");
                 break;
             default:
                 break;

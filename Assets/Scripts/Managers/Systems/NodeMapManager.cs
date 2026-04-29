@@ -15,6 +15,8 @@ public class NodeMapManager : MonoBehaviour
 
     private bool _isNodeMapComplete = false;
 
+    [SerializeField] private int _numberOfTiers = 10;
+    public int GetNumberOfTiers => _numberOfTiers;
     public Color GetCompletedNodeColor => _completedNodeColor;
     public Color GetLockedNodeColor => _lockedNodeColor;
     public bool GetIsNodeMapComplete => _isNodeMapComplete;
