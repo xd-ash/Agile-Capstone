@@ -195,7 +195,8 @@ public class DeckEditingController : MonoBehaviour
         MakeEdit();
 
         var editCost = DeckViewerScript.Instance.ViewerState == CardState.UpgradeMenu ? _selectedCard.GetShopCost : _baseRemovalCost;
-        if (DeckViewerScript.Instance.ViewerState == CardState.FreeUpgradeMenu || DeckViewerScript.Instance.ViewerState == CardState.FreeCardRemoval)
+        if (DeckViewerScript.Instance.ViewerState == CardState.FreeUpgradeMenu || DeckViewerScript.Instance.ViewerState == CardState.FreeCardRemoval ||
+            DeckViewerScript.Instance.ViewerState == CardState.CardSwap)
             editCost = 0;
 
         if (!CurrencyManager.Instance.TrySpend(editCost))

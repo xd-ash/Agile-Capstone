@@ -40,12 +40,11 @@ public static class RewardsController
         Random.InitState(randomSeed);
         int result = Random.Range(0, 100);
 
-        Debug.Log($"Reward weights are mainly swaps");
         switch (result)
         {
-            case < 5:
+            case < 40:
                 return RewardType.NewCard;
-            case < 90:
+            case < 80:
                 return RewardType.SwapCard;
             default:
                 return RewardType.Currency;

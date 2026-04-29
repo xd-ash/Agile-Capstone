@@ -145,8 +145,6 @@ public class CampNodeController : MonoBehaviour
         {
             Card selectedCard = null;
             int failCounter = 0;
-
-
             do
             {
                 if (!int.TryParse($"{PlayerDataManager.Instance.GetGeneralSeed / 1000}{PlayerDataManager.Instance.GetCurrentNodeIndex.x}{RemainingUpgrades}{failCounter}", out int adjustedSeed))
