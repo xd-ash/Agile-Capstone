@@ -7,7 +7,7 @@ using static GameObjectPool;
 
 public class RewardsDisplayScript : MonoBehaviour
 {
-    private RewardSelectScript _rewardSelectPanel;
+    private CardChoiceSelectScript _rewardSelectPanel;
     private PendingRewardsPopup _pendingRewardsPopup;
 
     private Reward _curReward;
@@ -25,7 +25,7 @@ public class RewardsDisplayScript : MonoBehaviour
 
     private void Awake()
     {
-        _rewardSelectPanel = FindAnyObjectByType<RewardSelectScript>(FindObjectsInactive.Include);
+        _rewardSelectPanel = FindAnyObjectByType<CardChoiceSelectScript>(FindObjectsInactive.Include);
         _pendingRewardsPopup = FindAnyObjectByType<PendingRewardsPopup>(FindObjectsInactive.Include);
 
         _singleRewardPrefab = Resources.Load<GameObject>("Rewards/SingleRewardContent");
@@ -77,7 +77,7 @@ public class RewardsDisplayScript : MonoBehaviour
 
         var cardPool = _curReward.GetCardReward;
         if (cardPool != null && cardPool.Length > 0)
-            CreateChoiceRewardContent(_cardImage, () => _rewardSelectPanel.ShowRewardOptions(cardPool, _curReward.GetRewardType));
+            CreateChoiceRewardContent(_cardImage, () => _rewardSelectPanel.ShowOptions(cardPool, _curReward.GetRewardType));
     }
     private GameObject CreateSingleRewardContent(Sprite sprite, string name, int amount)
     {

@@ -78,7 +78,7 @@ public class PlayerDataManager : MonoBehaviour
     {
         WinLossManager.GameReset -= ClearRunCoinFlips;
     }
-    public int GenerateRandomSeed(ref int seed)
+    private int GenerateRandomSeed(ref int seed)
     {
         int temp = seed;
         do

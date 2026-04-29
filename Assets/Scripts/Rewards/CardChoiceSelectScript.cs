@@ -5,53 +5,58 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardSelectScript : MonoBehaviour
+public class CardChoiceSelectScript : MonoBehaviour
 {
-    private RewardsDisplayScript _displayScript;
-    private TextMeshProUGUI _titleText;
-
     [SerializeField] private Transform _optionsContentParent;
-    [SerializeField] private Button _confirmButton, _skipButton;
+    [SerializeField] private Button _confirmButton, _backButton;
 
-    private GameObject _cardOptionContent, _badgeOptionContent;
+    private GameObject _cardOptionContent;
     private GameObject[] _contentHighlights;
 
     private Action _onConfirm;
 
-    public static bool IsRewarding { get; private set; }
-
     private void Awake()
     {
-        _displayScript = GetComponentInParent<RewardsDisplayScript>();
-        _titleText = GetComponentInChildren<TextMeshProUGUI>();
-
         _cardOptionContent = Resources.Load<GameObject>("NewCardPrefab");
-        _badgeOptionContent = Resources.Load<GameObject>("Rewards/BadgeOptionContent");
 
         _confirmButton?.onClick.RemoveAllListeners();
-        _confirmButton.onClick.AddListener(() =>
+        _confirmButton?.onClick.AddListener(() =>
         {
             _onConfirm?.Invoke();
             gameObject.SetActive(false);
         });
-
-        _skipButton?.onClick.RemoveAllListeners();
-        _skipButton.onClick.AddListener(() =>
-        {
-            _displayScript.OnSkipRewardChoice();
-            gameObject.SetActive(false);
-        });
-
-        IsRewarding = true;
     }
-    private void OnEnable()
+
+    private void InitRewardChoiceSelect()
     {
         _confirmButton.interactable = false;
-        _skipButton.interactable = true;
+
+        var displayScript = GetComponentInParent<RewardsDisplayScript>();
+        if (displayScript == null) return;
+
+        _backButton?.onClick.RemoveAllListeners();
+        _backButton?.onClick.AddListener(() =>
+        {
+            displayScript?.OnSkipRewardChoice();
+            gameObject.SetActive(false);
+        });
+    }
+    private void InitUpgradeChoiceSelect()
+    {
+        var campNodeScript = FindAnyObjectByType<CampNodeController>(FindObjectsInactive.Include);
+        if (campNodeScript == null) return;
+
+        _backButton?.onClick.RemoveAllListeners();
+        _backButton?.onClick.AddListener(() =>
+        {
+            campNodeScript.HideUpgradePreview();
+        });
     }
 
-    public void ShowRewardOptions(Card[] cardOptions, RewardType rewardType)
+    public void ShowOptions(Card[] cardOptions, RewardType rewardType)
     {
+        InitRewardChoiceSelect();
+
         ClearContent();
 
         List<GameObject> contentHighlights = new();
@@ -73,8 +78,55 @@ public class RewardSelectScript : MonoBehaviour
 
         _contentHighlights = contentHighlights.ToArray();
     }
+    public void ShowOptions(Card[] cardOptions)
+    {
+        InitUpgradeChoiceSelect();
+
+        ClearContent();
+
+        List<GameObject> contentHighlights = new();
+
+        foreach (var card in cardOptions)
+        {
+            if (card == null || card.GetCardAbility == null) continue;
+
+            GameObject content = Instantiate(_cardOptionContent, _optionsContentParent);
+
+            Image optionHighlight = content.GetComponentInChildren<Image>(true);
+            optionHighlight.gameObject.SetActive(false);
+            contentHighlights.Add(optionHighlight.gameObject);
+
+            var tmpCard = new Card(card, content.transform);
+
+            CardPrefabSetterUpper.SetupCardPrefab(tmpCard, CardState.FreeUpgradeMenu, OnSelectCard(card, optionHighlight));
+        }
+
+        _contentHighlights = contentHighlights.ToArray();
+    }
+    private Action OnSelectCard(Card card, Image optionHighlight)
+    {
+        var campNodeScript = FindAnyObjectByType<CampNodeController>(FindObjectsInactive.Include);
+        if (campNodeScript == null) return null;
+
+        return () =>
+        {
+            ClearHighlights(optionHighlight?.transform);
+            optionHighlight?.gameObject.SetActive(true);
+
+            campNodeScript.ShowUpgradePreview(card);
+
+            _onConfirm = null;
+            _onConfirm = () =>
+            {
+                campNodeScript.OnConfirmUpgrade();
+            };
+        };
+    }
     private Action OnSelectCard(RewardType rewardType, Card card, Image optionHighlight)
     {
+        var displayScript = GetComponentInParent<RewardsDisplayScript>();
+        if (displayScript == null) return null;
+
         switch (rewardType)
         {
             case RewardType.NewCard:
@@ -88,7 +140,7 @@ public class RewardSelectScript : MonoBehaviour
                     _onConfirm = () =>
                     {
                         RewardsController.RewardCard(card);
-                        _displayScript.OnConfirmRewardChoice(card);
+                        displayScript.OnConfirmRewardChoice(card);
                     };
                 };
             case RewardType.SwapCard:
@@ -108,7 +160,7 @@ public class RewardSelectScript : MonoBehaviour
                         deckViewer?.InitDeckViewer((x) =>
                         {
                             RewardsController.RewardCard(card);
-                            _displayScript.OnConfirmRewardChoice(card);
+                            displayScript.OnConfirmRewardChoice(card);
                         }, CardState.CardSwap);
                         deckEditingController?.SetCardSwap(card);
                     };

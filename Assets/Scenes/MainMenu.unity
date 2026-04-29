@@ -12121,7 +12121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RewardSelectScript
   _optionsContentParent: {fileID: 803525906}
   _confirmButton: {fileID: 258642289}
-  _skipButton: {fileID: 26586215}
+  _backButton: {fileID: 26586215}
 --- !u!222 &1225586578
 CanvasRenderer:
   m_ObjectHideFlags: 0
