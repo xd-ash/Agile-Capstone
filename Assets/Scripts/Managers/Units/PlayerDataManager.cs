@@ -10,10 +10,13 @@ public class PlayerDataManager : MonoBehaviour
 
     Dictionary<RestOptions, int> _buffsThisRun = new();
 
+    [SerializeField] private UnitSO _playerUnitSO;
+    private int _healthThisRun = 0;
+
     private int _balance = 0;
 
     private Vector2Int[] _completedNodes;
-    [SerializeField] private Vector2Int _curNodeIndex = new(0,0);
+    private Vector2Int _curNodeIndex = new(0,0);
     private int _generalSeed = -1;
     private int _nodeMapSeed = -1;
     private CombatMapData _currCombatNodeData;
@@ -21,8 +24,8 @@ public class PlayerDataManager : MonoBehaviour
 
     [SerializeField] private Deck _deck;
 
-    [SerializeField] private List<bool> _coinFlipsThisRun = new();
-    [SerializeField] private List<int> _dieRollsThisRun = new();
+    private List<bool> _coinFlipsThisRun = new();
+    private List<int> _dieRollsThisRun = new();
 
     public Dictionary<RestOptions, int> GetBuffsThisRun => _buffsThisRun;
     public int GetMaxAPBuff => _buffsThisRun.ContainsKey(RestOptions.AP) ? _buffsThisRun[RestOptions.AP] : 0;
@@ -30,6 +33,8 @@ public class PlayerDataManager : MonoBehaviour
     public int GetStartingHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.StartingHandSize) ? _buffsThisRun[RestOptions.StartingHandSize] : 0;
     public int[] GetAllBuffs => new int[3] { GetMaxAPBuff, GetMaxHealthBuff, GetStartingHandSizeBuff };
 
+    public int GetCurrentHealth => _healthThisRun;
+    public int GetMaxHealth => _playerUnitSO == null ? 0 : _playerUnitSO.GetMaxHealth;
     public int GetBalance => _balance;
 
     public Vector2Int[] GetCompletedNodes => _completedNodes;
@@ -106,6 +111,17 @@ public class PlayerDataManager : MonoBehaviour
     public void ClearBuffsOnRunEnd()
     {
         _buffsThisRun.Clear();
+    }
+
+    public void UpdateHealthForRun(int currHealth)
+    {
+        if (currHealth <= 0)
+        {
+            Debug.LogWarning($"Currrent run health attempt set fail in playerdata. (Invalid Value: {currHealth})");
+            return;
+        }
+
+        _healthThisRun = currHealth;
     }
 
     public void UpdateCurrencyData(int currentBalance)
@@ -190,6 +206,9 @@ public class PlayerDataManager : MonoBehaviour
     // reinitialize node data for proper node enabling on node map
     public void OnGameLoad(GameData data)
     {
+        int playerHealth = data.GetPlayerHealth;
+        UpdateHealthForRun(playerHealth);
+
         var currencyData = data.GetCurrencyData; 
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;

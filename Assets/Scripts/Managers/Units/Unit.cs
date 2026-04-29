@@ -82,9 +82,14 @@ public class Unit : MonoBehaviour, IDamagable
 
         GrabRunBuffs();
 
-        _health = _maxHealth;
+        _health = _team == Team.Friendly ? PlayerDataManager.Instance.GetCurrentHealth : _maxHealth;
         _shield = 0;
         _ap = _maxAP;
+    }
+    private void UpdatePlayerHealth(bool didWin)
+    {
+        if (!didWin || _health <= 0) return;
+        PlayerDataManager.Instance.UpdateHealthForRun(_health);
     }
     private void GrabRunBuffs()
     {
@@ -108,12 +113,14 @@ public class Unit : MonoBehaviour, IDamagable
         if (_team != Team.Friendly) return;
         DeckAndHandManager.Instance.OnCardAblityCancel += () => StopTargetingCoro(this);
         TurnManager.Instance.OnTurnEnd += StopTargetingCoro;
+        GameOverEvents.OnGameOver += UpdatePlayerHealth;
     }
     private void OnDestroy()
     {
         if (_team != Team.Friendly) return;
         DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopTargetingCoro(this);
         TurnManager.Instance.OnTurnEnd -= StopTargetingCoro;
+        GameOverEvents.OnGameOver -= UpdatePlayerHealth;
     }
     private void StopTargetingCoro(Unit unit)
     {

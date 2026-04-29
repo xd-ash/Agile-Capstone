@@ -66,11 +66,13 @@ public static class SaveLoadScript
 [System.Serializable]
 public class GameData
 {
+    [SerializeField] private int _playerHealth;
     [SerializeField] private MapNodeDataToken _mapNodeData;
     [SerializeField] private CurrencyManagerDataToken _currencyData;
     [SerializeField] private CardDataToken _cardData;
     [SerializeField] private SpecialMechanicsData _specialMechanicData;
 
+    public int GetPlayerHealth => _playerHealth;
     public MapNodeDataToken GetMapNodeData => _mapNodeData;
     public CurrencyManagerDataToken GetCurrencyData => _currencyData;
     public CardDataToken GetCardData => _cardData;
@@ -82,6 +84,7 @@ public class GameData
 
         if (newGameData)
         {
+            _playerHealth = pdm.GetMaxHealth;
             _mapNodeData = new(null, new(0, 0), -1, -1);
             _currencyData = new(100);
             _cardData = new(null);
@@ -89,6 +92,7 @@ public class GameData
         }
         else
         {
+            _playerHealth = pdm.GetCurrentHealth;
             _mapNodeData = new(pdm.GetCompletedNodes, pdm.GetCurrentNodeIndex, pdm.GetGeneralSeed, pdm.GetNodeMapSeed);
             _currencyData = new(pdm.GetBalance);
             _cardData = new(pdm.GetPlayerDeck.GetCardsInDeck);

@@ -20,7 +20,7 @@ public class CanvasCameraSetter : MonoBehaviour
     //connector for setting cam. Ran into issues trying to just add a listener with a lambda experssion
     private void SetConnector(string unused)
     {
-        Invoke(nameof(SetCam), 1f);
+        Invoke(nameof(SetCam), 0.1f);
     }
     private void SetCam()
     {

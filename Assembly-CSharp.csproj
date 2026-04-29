@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\NodeMapCreation\ShopNode.cs" />
     <Compile Include="Assets\Scripts\WFC\TileModuleGenerator.cs" />
     <Compile Include="Assets\Scripts\CardSystem\PackBuilderScript.cs" />
+    <Compile Include="Assets\Scripts\Managers\UI\NodemapHealthBarScript.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\DebugEffect.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\MoveInRangeAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\OnLastCoinFlipEffect.cs" />
