@@ -3224,7 +3224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.35532856, y: 0.18084332}
   m_AnchorMax: {x: 0.65367144, y: 0.29684335}
-  m_AnchoredPosition: {x: -87.39996, y: 0.19696045}
+  m_AnchoredPosition: {x: -87.39998, y: 0.19696045}
   m_SizeDelta: {x: 55.5365, y: 30.841}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &419294048
@@ -9742,24 +9742,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: _sceneMusic.Array.data[0].volume
+      value: 0.188
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[1].volume
       value: 0.188
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[2].volume
-      value: 0.414
+      value: 0.415
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[3].volume
-      value: 0.414
+      value: 0.188
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[4].volume
       value: 0.414
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
-      propertyPath: _sceneMusic.Array.data[1].sceneName
+      propertyPath: _sceneMusic.Array.data[0].sceneName
       value: Combat
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: _sceneMusic.Array.data[1].sceneName
+      value: Shop
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[2].sceneName
@@ -9775,11 +9783,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[0].clips.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[1].clips.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: _sceneMusic.Array.data[2].clips.Array.size
@@ -9792,11 +9800,19 @@ PrefabInstance:
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: '_sceneMusic.Array.data[0].clips.Array.data[0]'
       value: 
-      objectReference: {fileID: 8300000, guid: 7316a6b6d52c04051ba16afb48cdd35d, type: 3}
+      objectReference: {fileID: 8300000, guid: 0ff31a31f71fd4ee4a0d0adf334dee54, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: '_sceneMusic.Array.data[0].clips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2c36323f8c057b54abe12aaad28f4831, type: 3}
+    - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
+      propertyPath: '_sceneMusic.Array.data[0].clips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2eea2b2f8ed3bf34195421985d8d1df3, type: 3}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: '_sceneMusic.Array.data[1].clips.Array.data[0]'
       value: 
-      objectReference: {fileID: 8300000, guid: 0ff31a31f71fd4ee4a0d0adf334dee54, type: 3}
+      objectReference: {fileID: 8300000, guid: 7316a6b6d52c04051ba16afb48cdd35d, type: 3}
     - target: {fileID: 9222878652497355620, guid: 6d9cf9be693b9244baac2ff96e44e7d2, type: 3}
       propertyPath: '_sceneMusic.Array.data[1].clips.Array.data[1]'
       value: 
