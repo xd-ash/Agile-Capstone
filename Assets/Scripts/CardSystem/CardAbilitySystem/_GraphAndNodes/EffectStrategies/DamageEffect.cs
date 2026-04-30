@@ -28,12 +28,30 @@ namespace CardSystem
                 if (!hit) continue;
 
                 var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
-                
+
+                int shieldBefore = targetUnit.GetShield;
+                int healthBefore = targetUnit.GetHealth;
+
                 targetUnit.ChangeHealth(adjustedEffectVal, false);
                 targetUnit.GetFloatingText?.SpawnFloatingText($"-{adjustedEffectVal}", TextPresetType.DamagePreset);
 
+                var vfx = targetUnit.GetHitVFXSpawner;
+                if (vfx != null)
+                {
+                    if (targetUnit.GetHealth < healthBefore || targetUnit.IsDead)
+                    {
+                        vfx.SpawnBlood();
+                    }
+                    else if (targetUnit.GetShield < shieldBefore)
+                    {
+                        vfx.SpawnSpark();
+                    }
+                }
+
                 if (playAnimation && !targetUnit.IsDead)
+                {
                     targetUnit.PlayFlinchAnim(abilityPos);
+                }
             }
 
             _onFinished?.Invoke();

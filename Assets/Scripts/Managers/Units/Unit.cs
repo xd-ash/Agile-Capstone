@@ -33,6 +33,7 @@ public class Unit : MonoBehaviour, IDamagable
     [SerializeField] private bool _canMove = true;
 
     private FloatingTextController _floatingText;
+    private HitVFXSpawner _hitVFXSpawner;    
     private Coroutine _targetingCoroutine;
     private Guid _unitGuid = new();
 
@@ -47,9 +48,12 @@ public class Unit : MonoBehaviour, IDamagable
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
+    public HitVFXSpawner GetHitVFXSpawner => _hitVFXSpawner;
+
     public bool GetCanMove => _canMove;
     public bool GetIsMoving => TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving;
     public Guid GetGuid => _unitGuid;
+
     
     public bool IsDead { get; private set; }
 
@@ -58,6 +62,7 @@ public class Unit : MonoBehaviour, IDamagable
     private void Awake()
     {
         _floatingText = GetComponentInChildren<FloatingTextController>();
+        _hitVFXSpawner = GetComponent<HitVFXSpawner>(); 
 
         GrabSOData();
 

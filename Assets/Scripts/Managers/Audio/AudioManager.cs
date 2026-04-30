@@ -35,6 +35,7 @@ public class AudioManager : MonoBehaviour
     private List<AudioClip> _combatShuffleBag = new();
     private AudioClip _lastCombatClip;
 
+    private float _currentMusicTargetVolume = 1f;
     private bool _isDucked = false;
     private Coroutine _duckCoroutine;
     private Coroutine _crossfadeCoroutine;
@@ -98,6 +99,14 @@ public class AudioManager : MonoBehaviour
         {
             TurnManager.Instance.OnTurnEnd -= PlayEndTurnSFX;
         }
+        
+        if (_duckCoroutine != null)
+        {
+            StopCoroutine(_duckCoroutine);
+            _duckCoroutine = null;
+        }
+        
+        _isDucked = false;
 
         if (_activeClip != null && ActiveMusic.isPlaying)
         {
@@ -141,6 +150,9 @@ public class AudioManager : MonoBehaviour
         if (_crossfadeCoroutine != null)
         {
             StopCoroutine(_crossfadeCoroutine);
+            ActiveMusic.Stop();
+            ActiveMusic.volume = 0f;
+            _usingSourceA = !_usingSourceA;
         }
 
         _crossfadeCoroutine = StartCoroutine(CrossfadeRoutine(clip, loop, targetVolume, startTime));
@@ -151,9 +163,14 @@ public class AudioManager : MonoBehaviour
         AudioSource outgoing = ActiveMusic;
         AudioSource incoming = InactiveMusic;
 
+        incoming.Stop();
+        incoming.clip = null;
+        incoming.volume = 0f;
+        
         float outStartVol = outgoing.volume;
         float targetVol = _masterVolume * _musicVolume * targetVolume;
-
+        _currentMusicTargetVolume = targetVolume;
+        
         //set up incoming source before fade begins
         if (clip != null)
         {
@@ -168,6 +185,11 @@ public class AudioManager : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < _crossfadeDuration)
         {
+            if (ActiveMusic != outgoing)
+            {
+                yield break;
+            }
+            
             elapsed += Time.unscaledDeltaTime; //unscaled so it works while paused
             float t = Mathf.Clamp01(elapsed / _crossfadeDuration);
 
@@ -175,7 +197,7 @@ public class AudioManager : MonoBehaviour
 
             if (clip != null)
             {
-                incoming.volume = Mathf.Lerp(0f, _isDucked ? targetVol * _duckMultiplier : targetVol, t);
+                incoming.volume = Mathf.Lerp(0f, targetVol, t);
             }
 
             yield return null;
@@ -200,7 +222,7 @@ public class AudioManager : MonoBehaviour
     {
         _isDucked = false;
         if (_duckCoroutine != null) StopCoroutine(_duckCoroutine);
-        _duckCoroutine = StartCoroutine(DuckRoutine(_masterVolume * _musicVolume));
+        _duckCoroutine = StartCoroutine(DuckRoutine(_masterVolume * _musicVolume * _currentMusicTargetVolume));
     }
 
     private IEnumerator DuckRoutine(float targetVolume)
@@ -300,9 +322,11 @@ public class AudioManager : MonoBehaviour
             _sfxSource.volume = _masterVolume * _sfxVolume;
         }
 
-        float musicTarget = _masterVolume * _musicVolume;
+        float musicTarget = _masterVolume * _musicVolume * _currentMusicTargetVolume;
         if (ActiveMusic != null)
+        {
             ActiveMusic.volume = _isDucked ? musicTarget * _duckMultiplier : musicTarget;
+        }
 
         SaveLoadScript.SaveSettings?.Invoke();
     }
