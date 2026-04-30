@@ -1,49 +1,73 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\",
+  "WorkspaceRootPath": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\a-starpathfinding\\mapcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\lab folders\\documents\\github\\agile-capstone\\assets\\librarytabbuttonconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\librarytabbuttonconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\cardlibraryviewerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardlibraryviewerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\so bases\\cardanddecklibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\so bases\\cardanddecklibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\deckviewerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\deckviewerscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\systems\\rewardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\systems\\rewardscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\cardabilitydefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\cardabilitydefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\deckeditingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\deckeditingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\cardsystem\\cardvisual\\cardvisualconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardvisual\\cardvisualconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\rewards\\cardprefabsetterupper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rewards\\cardprefabsetterupper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\a-starpathfinding\\mapcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\a-starpathfinding\\mapcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\scenemanagement\\transitionscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\scenemanagement\\transitionscene.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\wfc\\proceduraltilelibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\wfc\\proceduraltilelibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\nodemapnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\nodemapnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\combatnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\combatnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\nodemapcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\nodemapcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\nodemapcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\systems\\nodemapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\systems\\nodemapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\nodemapnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\nodemapnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\bountyboardnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\rewards\\reward.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rewards\\reward.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\combatnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\combatnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\bountyboardnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\bountyboardnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\unitlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\unitlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\elitenode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\elitenode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\elitenode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\bossnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\nodemapcreation\\bossnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\nodemapcreation\\bossnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -54,100 +78,172 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UnitLibrary.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\UnitLibrary.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\UnitLibrary.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\UnitLibrary.cs",
-              "RelativeToolTip": "Assets\\Scripts\\NodeMapCreation\\UnitLibrary.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAswHAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T02:39:04.274Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MapCreator.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
-              "RelativeToolTip": "Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
-              "ViewState": "AgIAAKIAAAAAAAAAAAAWwLcAAAA3AAAAAAAAAA==",
+              "Title": "LibraryTabButtonConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\LibraryTabButtonConfig.cs",
+              "RelativeDocumentMoniker": "Assets\\LibraryTabButtonConfig.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\LibraryTabButtonConfig.cs",
+              "RelativeToolTip": "Assets\\LibraryTabButtonConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T01:36:32.424Z",
+              "WhenOpened": "2026-04-30T20:29:07.793Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ProceduralTileLibrary.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\WFC\\ProceduralTileLibrary.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\WFC\\ProceduralTileLibrary.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\WFC\\ProceduralTileLibrary.cs",
-              "RelativeToolTip": "Assets\\Scripts\\WFC\\ProceduralTileLibrary.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAlwDMAAAANAAAAAAAAAA==",
+              "Title": "CardAndDeckLibrary.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T01:48:01.412Z"
+              "WhenOpened": "2026-04-30T19:42:14.279Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TransitionScene.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\SceneManagement\\TransitionScene.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\SceneManagement\\TransitionScene.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\SceneManagement\\TransitionScene.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\SceneManagement\\TransitionScene.cs",
-              "ViewState": "AgIAAGUAAAAAAAAAAAAWwHsAAAAfAAAAAAAAAA==",
+              "Title": "CardLibraryViewerScript.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardLibraryViewerScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardLibraryViewerScript.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardLibraryViewerScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardLibraryViewerScript.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAwC4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T01:46:30.571Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "NodeMapManager.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\NodeMapManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Systems\\NodeMapManager.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\NodeMapManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\Systems\\NodeMapManager.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAvwB8AAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T20:35:10.816Z"
+              "WhenOpened": "2026-04-30T19:39:51.187Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "DeckViewerScript.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DeckViewerScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\DeckViewerScript.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DeckViewerScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\DeckViewerScript.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAmwAwAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T18:34:35.533Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CardVisualConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualConfig.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualConfig.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualConfig.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardVisual\\CardVisualConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T19:27:32.095Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CardPrefabSetterUpper.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACQAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T19:26:13.505Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CardAbilityDefinition.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T19:11:28.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DeckEditingController.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DeckEditingController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\DeckEditingController.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\DeckEditingController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\DeckEditingController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T18:34:37.122Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MapCreator.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
+              "RelativeToolTip": "Assets\\Scripts\\A-StarPathfinding\\MapCreator.cs",
+              "ViewState": "AgIAAK8AAAAAAAAAAAAqwMEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T18:19:39.792Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RewardsController.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\RewardsController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Systems\\RewardsController.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Systems\\RewardsController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\Systems\\RewardsController.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAADgv1MAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T17:54:24.682Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Reward.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Rewards\\Reward.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Rewards\\Reward.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Rewards\\Reward.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Rewards\\Reward.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-30T17:53:55.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "NodeMapNode.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapNode.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapNode.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\NodeMapNode.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapNode.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapNode.cs",
               "RelativeToolTip": "Assets\\Scripts\\NodeMapCreation\\NodeMapNode.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAkwIkAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAmwC0AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-29T20:23:56.641Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "NodeMapCreator.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapCreator.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapCreator.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\NodeMapCreator.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapCreator.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\NodeMapCreator.cs",
               "RelativeToolTip": "Assets\\Scripts\\NodeMapCreation\\NodeMapCreator.cs",
-              "ViewState": "AgIAAOABAAAAAAAAAAAlwPUBAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAuwBIAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-29T20:12:03.781Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 14,
               "Title": "BountyBoardNode.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BountyBoardNode.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BountyBoardNode.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\BountyBoardNode.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BountyBoardNode.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BountyBoardNode.cs",
               "RelativeToolTip": "Assets\\Scripts\\NodeMapCreation\\BountyBoardNode.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAawCoAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -155,11 +251,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "BossNode.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BossNode.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BossNode.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\BossNode.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BossNode.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\BossNode.cs",
               "RelativeToolTip": "Assets\\Scripts\\NodeMapCreation\\BossNode.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -167,11 +263,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "CombatNode.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\CombatNode.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\CombatNode.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\CombatNode.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\CombatNode.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\CombatNode.cs",
               "RelativeToolTip": "Assets\\Scripts\\NodeMapCreation\\CombatNode.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAA1wBIAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -179,11 +275,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "EliteNode.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\EliteNode.cs",
+              "DocumentMoniker": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\EliteNode.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\EliteNode.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\EliteNode.cs",
+              "ToolTip": "C:\\Users\\Lab Folders\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\EliteNode.cs",
               "RelativeToolTip": "Assets\\Scripts\\NodeMapCreation\\EliteNode.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

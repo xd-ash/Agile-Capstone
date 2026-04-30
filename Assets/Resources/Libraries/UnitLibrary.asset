@@ -14,28 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLibrary
   _playerUnit:
     unitName: Player
-    unitPrefab: {fileID: 8440825415147360739, guid: e70a16e0772849541a1929058aba2280, type: 3}
+    unitPrefab: {fileID: 8440825415147360739, guid: 5ba5ca17b317ffa44946fae4721ee84c, type: 3}
     unitSO: {fileID: 11400000, guid: 737f348fd4d0492408a87cee9da571bd, type: 2}
   _normalEnemies:
   - unitName: MedicEnemy
-    unitPrefab: {fileID: 5893557019395072273, guid: e3587813b70f1c741bdf4e328b0e5825, type: 3}
+    unitPrefab: {fileID: 5893557019395072273, guid: 7adea12d040ea514ca620db9eca35a75, type: 3}
     unitSO: {fileID: 11400000, guid: fb03d6800e6f7df4097b45c445348943, type: 2}
   - unitName: MeleeEnemy
-    unitPrefab: {fileID: 5893557019395072273, guid: ba9b9e724db56c34f9419f9a234029d6, type: 3}
+    unitPrefab: {fileID: 5893557019395072273, guid: 59f561cf432cb0c48af08a3ea77b417f, type: 3}
     unitSO: {fileID: 11400000, guid: 2e06b5bbdef10ea419119ae3d83e1731, type: 2}
   - unitName: PyroEnemy
-    unitPrefab: {fileID: 5893557019395072273, guid: aa297b81f882ab24db816441e1105f62, type: 3}
+    unitPrefab: {fileID: 5893557019395072273, guid: b5a77b77d73b32646a97cf923cc25186, type: 3}
     unitSO: {fileID: 11400000, guid: 2fbbc6a0888bae44eb36691570b056f4, type: 2}
   - unitName: RangeEnemy
-    unitPrefab: {fileID: 1552371556891506583, guid: 5c9ba7225fc0ad54dbd2e4e46ddd52c1, type: 3}
+    unitPrefab: {fileID: 1552371556891506583, guid: 6e6a3e17fec8fcc44aab33fd91faff4a, type: 3}
     unitSO: {fileID: 11400000, guid: dbd201f4dcb775844b1454a354cebbf5, type: 2}
   - unitName: TankEnemy
-    unitPrefab: {fileID: 5893557019395072273, guid: dc34917306d4cd44faabf434c629c44f, type: 3}
+    unitPrefab: {fileID: 5893557019395072273, guid: c377810dd22d19f42bdff9b2d6cd43e6, type: 3}
     unitSO: {fileID: 11400000, guid: 5b58bb56d144d4643a7186199e47b0b5, type: 2}
   _bossEnemies:
   - unitName: MeleeBossEnemy
-    unitPrefab: {fileID: 5893557019395072273, guid: ba7b249d44c0c12419e79cb7de662808, type: 3}
+    unitPrefab: {fileID: 5893557019395072273, guid: 2f22a60370868934895de5f0e363563b, type: 3}
     unitSO: {fileID: 11400000, guid: a001207f657f7b74081b8d248fe36f08, type: 2}
   - unitName: RangeBossEnemy
-    unitPrefab: {fileID: 1552371556891506583, guid: cc6926078687f894c91dc18c73fb4d99, type: 3}
+    unitPrefab: {fileID: 1552371556891506583, guid: 925c78f6672993f47ba10a41907a9b8f, type: 3}
     unitSO: {fileID: 11400000, guid: 79fd08d783b10334c8e23e1ade9d015e, type: 2}

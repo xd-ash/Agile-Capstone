@@ -44,9 +44,12 @@ public partial class UnitLibrary : ScriptableObject
         return null;
     }
 
-    public void SetEnemyData()
+    public bool SetEnemyData()
     {
-        _playerUnit?.SetDataFromPrefab();
+        bool changesMade = false;
+
+        if (_playerUnit != null && _playerUnit.SetDataFromPrefab())
+            changesMade = true;
 
         List<UnitDataContainer> temp = null;
         if (_normalEnemies != null)
@@ -54,10 +57,12 @@ public partial class UnitLibrary : ScriptableObject
         if (_bossEnemies != null)
             temp.AddRange(_bossEnemies);
 
-        if (temp == null) return;
+        if (temp == null) return changesMade;
 
         for (int i = 0; i < temp.Count; i++)
-            temp[i]?.SetDataFromPrefab();
+            if (temp[i] != null && temp[i].SetDataFromPrefab())
+                changesMade = true;
+        return changesMade;
     }
 
     public static GameObject GetPlayerUnitPrefab()
@@ -150,19 +155,25 @@ public partial class UnitLibrary : ScriptableObject
             SetDataFromPrefab();
         }
 
-        public void SetDataFromPrefab()
+        public bool SetDataFromPrefab()
         {
             if (unitPrefab == null && (unitName != string.Empty || unitSO != null))
             {
                 unitName = string.Empty;
                 unitSO = null;
+                return true;
             }
             else if (unitPrefab != null)
             {
-                unitName = unitPrefab.name;
                 var enemyUnit = unitPrefab?.GetComponent<Unit>();
-                unitSO = enemyUnit?.GetUnitSO;
+                if (unitName != unitPrefab.name || unitSO != enemyUnit?.GetUnitSO)
+                {
+                    unitName = unitPrefab.name;
+                    unitSO = enemyUnit?.GetUnitSO;
+                    return true;
+                }
             }
+            return false;
         }
     }
 }

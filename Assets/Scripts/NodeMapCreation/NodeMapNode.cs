@@ -54,7 +54,9 @@ public abstract class NodeMapNode : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private void SetNodeRewards()
     {
-        if (this is ShopNode || this is CampNode) return;
+        if (this is ShopNode || this is CampNode || 
+            NodeMapCreator.Instance != null && _nodeIndex.x == NodeMapCreator.Instance.GetNumberOfTiers - 1) 
+            return;
 
         _nodeRewards = RewardsController.DetermineRewards(_nodeIndex);
     }

@@ -197,11 +197,11 @@ public class MapCreator : MonoBehaviour
             return;
         }
 
-        GameObject newObj = Instantiate(unitPrefab, Vector3.zero, Quaternion.identity, transform);
-        newObj.transform.localPosition = truePos;
-        newObj.name = $"{newObj.name.Split('(')[0]} {nameAddition}";
+        GameObject newUnit = Instantiate(unitPrefab, Vector3.zero, Quaternion.identity, transform);
+        newUnit.transform.localPosition = truePos;
+        newUnit.name = $"{newUnit.name.Split('(')[0]} {nameAddition}";
 
-        if (newObj.TryGetComponent(out Unit unit))
+        if (newUnit.TryGetComponent(out Unit unit))
             ByteMapController.Instance.InitUnitPosition(unit, mapPos);
     }
 

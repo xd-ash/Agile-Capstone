@@ -15,7 +15,7 @@ public class NodeMapCreator : MonoBehaviour
     [SerializeField] private ParticleSystem.MinMaxCurve _possibleNodesPerTier = new ParticleSystem.MinMaxCurve(1, new AnimationCurve(), new AnimationCurve());
     [SerializeField] private int _numberOfTiers = 10;
 
-    [SerializeField,Space(5)] private int _maxShopsInPath = 1;
+    [SerializeField, Space(5)] private int _maxShopsInPath = 1;
     [SerializeField] private Vector2Int _minMaxTotalShops = new(2, 3);
     private int _totalShops = 0;
 
@@ -105,7 +105,7 @@ public class NodeMapCreator : MonoBehaviour
         for (int i = 0; i < _numberOfTiers; i++)
         {
             var nodeKVP = _nodeTiers.ElementAt(i);
-            
+
             int c = -1; // fail counter
             do
             {
@@ -191,7 +191,7 @@ public class NodeMapCreator : MonoBehaviour
         if (nodePlaceholder.prev != null && nodePlaceholder.prev.Count > 0)
             foreach (var prevNode in nodePlaceholder.prev)
                 tempPrev.Add(trueNodeDict[prevNode.dictIndex.x][prevNode.dictIndex.y]);
-        
+
         if (nodePlaceholder.next != null && nodePlaceholder.next.Count > 0)
             foreach (var nextNode in nodePlaceholder.next)
                 tempNext.Add(trueNodeDict[nextNode.dictIndex.x][nextNode.dictIndex.y]);
@@ -269,19 +269,6 @@ public class NodeMapCreator : MonoBehaviour
     }
     private bool CheckNodeNeighbourContents(NodePlaceholder node, NodeTypes type)
     {
-        if (type == NodeTypes.Combat)
-            return true;
-
-        if (node.next != null)
-            foreach (var nextNode in node.next)
-                if (nextNode.nodeType == type)
-                    return false;
-
-        if (node.prev != null)
-            foreach (var prevNode in node.prev)
-                if (prevNode.nodeType == type)
-                    return false;
-
         // check nodes directly above and below from same node type
         NodePlaceholder nodeAbove = null;
         NodePlaceholder nodeBelow = null;
@@ -291,10 +278,25 @@ public class NodeMapCreator : MonoBehaviour
         if (node.dictIndex.y > 0)
             nodeAbove = _nodeTiers[node.dictIndex.x][node.dictIndex.y - 1];
 
+        if (type == NodeTypes.Combat)
+            return true;
+
         if (nodeBelow != null && nodeBelow.nodeType == type ||
             nodeAbove != null && nodeAbove.nodeType == type)
             return false;
-        
+
+        if (node.next != null)
+            foreach (var nextNode in node.next)
+                if (nextNode.nodeType == type)
+                    return false;
+
+        if (node.prev != null)
+            foreach (var prevNode in node.prev)
+                if (prevNode.nodeType == type ||
+                    type == NodeTypes.Camp && prevNode.nodeType == NodeTypes.Shop ||
+                    type == NodeTypes.Shop && prevNode.nodeType == NodeTypes.Camp)
+                    return false;
+
         return true;
     }
 
@@ -480,7 +482,7 @@ public class NodeMapCreator : MonoBehaviour
             {
                 switch (node.nodeType)
                 {
-                    case NodeTypes.Shop: 
+                    case NodeTypes.Shop:
                         pathShopCounter++;
                         break;
                     case NodeTypes.Camp:

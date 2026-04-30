@@ -13,13 +13,11 @@ public static class RewardsController
 {
     private static int _maxCurrencyReward = 150;
     private static int _maxCardRewardPool = 3;
-    private static int _maxBadgeReward = 3;
     private static int _minCurrencyReward = 10;
     private static int _minCardRewardPool = 2;
 
     public static int GetMaxCurrencyReward => _maxCurrencyReward;
     public static int GetMaxCardRewardPool => _maxCardRewardPool;
-    public static int GetMaxBadgeReward => _maxBadgeReward;
 
     public static void RewardChips(int amount)
     {
@@ -88,7 +86,7 @@ public static class RewardsController
         int rewardPoolSize = (int)(_maxCardRewardPool * mapCompleteRatio);
         rewardPoolSize = Mathf.Clamp(rewardPoolSize, _minCardRewardPool, _maxCardRewardPool);
 
-        List<CardAbilityDefinition> temp = new();
+        List<CardAbilityDefinition> temp = new(); //used for easy card ability conatins checks
         List<Card> cards = new();
         for (int i = 0; i < rewardPoolSize; i++)
         {
@@ -96,15 +94,17 @@ public static class RewardsController
             int c = 0;
             do
             {
-                Random.InitState(randomSeed + i + c);
+                Random.InitState(randomSeed - int.Parse($"{i}{c}"));
                 int randIndex = Random.Range(0, cardLibrary.GetCardsInProject.Count);
                 randCard = cardLibrary.GetCardsInProject[randIndex];
                 c++;
             } while (randCard == null || temp.Contains(randCard));
 
-            var rarity = RollRarity(randomSeed + i + c);
+            // if random rolled rarity is less than base rarity, use base rarity, otherwise use random rolled rarity
+            var rarity = Mathf.Max((int)randCard.GetBaseCardRarity, (int)RollRarity(randomSeed - int.Parse($"{i}")));
+
             temp.Add(randCard);
-            cards.Add(new(randCard, rarity));
+            cards.Add(new(randCard, (CardRarity)rarity));
         }
 
         return cards.ToArray();

@@ -50,4 +50,13 @@ public class CardAndPackLibrary : ScriptableObject
                 temp.Add(card);
         return temp.ToArray();
     }
+    public CardAbilityDefinition[] GetCardsOfCategory(CardCategory category)
+    {
+        List<CardAbilityDefinition> temp = new();
+
+        foreach (var card in _cardsInProject)
+            if (card != null && card.GetCardCategory == category)
+                temp.Add(card);
+        return temp.ToArray();
+    }
 }

@@ -6,7 +6,13 @@ public class UnitLibraryEditor : Editor
     public override void OnInspectorGUI()
     {
         var t = (UnitLibrary)target;
-        t.SetEnemyData();
+
+        if (t.SetEnemyData())
+        {
+            EditorUtility.SetDirty(t);
+            AssetDatabase.SaveAssetIfDirty(t);
+        }
+
         base.OnInspectorGUI();
     }
 }
