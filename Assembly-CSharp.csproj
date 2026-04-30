@@ -163,6 +163,7 @@
     <Compile Include="Assets\Scripts\GOAP System\Systems\WorldStates.cs" />
     <Compile Include="Assets\Scripts\Badges\BadgeLibrary.cs" />
     <Compile Include="Assets\Scripts\Managers\Cards\ToggleHandPosButton.cs" />
+    <Compile Include="Assets\Scripts\Rewards\RewardOnHoverDisplay.cs" />
     <Compile Include="Assets\Scripts\WFC\TileSet.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\FilteringStrategies\TagFilter.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\Abstracts\Strategies\EffectStrategy.cs" />

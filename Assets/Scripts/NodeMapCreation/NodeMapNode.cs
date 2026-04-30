@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class NodeMapNode : MonoBehaviour
+public abstract class NodeMapNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     protected LineRenderer _lineRenderer;
     protected Button _button;
@@ -162,5 +163,16 @@ public abstract class NodeMapNode : MonoBehaviour
     public virtual void OnClick()
     {
         PlayerDataManager.Instance.SetCurrNodeReward(_nodeRewards);
+        RewardOnHoverDisplay.OnClearRewardDisplay?.Invoke();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (this is CombatNode || this is EliteNode /*|| this is CombatNode ||*/ )
+            RewardOnHoverDisplay.OnRewardNodeHover?.Invoke(this);
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        RewardOnHoverDisplay.OnClearRewardDisplay?.Invoke();
     }
 }

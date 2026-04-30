@@ -161,7 +161,7 @@ public class MapCreator : MonoBehaviour
     {
         if (byteIndicator == 2 || byteIndicator == 5 || byteIndicator == 0) return; // quick fix for WFC removal. 2 & 5 are obstacle tiles (2 is full cover,
                                                                                     // 5 is half-cover which isn't really implemented yet)
-
+        
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
         GameObject unitPrefab = null;
         string nameAddition = string.Empty;
@@ -176,7 +176,7 @@ public class MapCreator : MonoBehaviour
             var selectedEnemies = PlayerDataManager.Instance.GetCurrCombatNodeData.selectedEnemies;
             if (selectedEnemies == null)
                 Debug.LogError($"Selected Enemies is null");
-            var enemy = selectedEnemies[_enemiesSpawned.Values.Sum()];
+            var enemy = selectedEnemies[_enemiesSpawned.Count == 0 ? 0 : _enemiesSpawned.Values.Sum()];
             unitPrefab = UnitLibrary.GetUnitPrefab(enemy);
 
             if (unitPrefab != null)
@@ -213,11 +213,14 @@ public class MapCreator : MonoBehaviour
         {
             int index = -1;
             Vector2Int pos;
+
+            int failCount = 0;
             do
             {
-                UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
+                UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed - failCount);
                 index = UnityEngine.Random.Range(0, unitSpawnPoints.Count);
                 pos = unitSpawnPoints[index];
+                failCount++;
             } while (selectedUnitSpawns.Contains(pos));
             selectedUnitSpawns.Add(pos);
         }
