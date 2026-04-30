@@ -20,8 +20,9 @@ public class EliteNode : NodeMapNode, IUseCombatMapData
 
     public void SetCombatData(CustomTileMapSO[] mapPool)
     {
-        //filter map pool by type?
-        Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
+        var adjustedSeed = PlayerDataManager.Instance.GetGeneralSeed - int.Parse($"{_nodeIndex.x}{_nodeIndex.y}");// adding variation in seed based on node position
+        Random.InitState(adjustedSeed);
+
         int rngMap = Random.Range(0, mapPool.Length);
         var so = mapPool[rngMap];
         if (so == null)
@@ -30,6 +31,8 @@ public class EliteNode : NodeMapNode, IUseCombatMapData
             return;
         }
 
-        _combatData = new CombatMapData() { maxEnemiesAllowed = 3, maxPlayersAllowed = 1, selectedMap = so };
+        var rngEnemies = UnitLibrary.GetRandomEnemies(3, adjustedSeed, true);
+
+        _combatData = new CombatMapData() { maxEnemiesAllowed = 3, selectedEnemies = rngEnemies, selectedMap = so };
     }
 }

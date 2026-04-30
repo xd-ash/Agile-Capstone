@@ -148,8 +148,11 @@ public class CampNodeController : MonoBehaviour
             int failCounter = 0;
             do
             {
-                if (!int.TryParse($"{PlayerDataManager.Instance.GetGeneralSeed / 1000}{PlayerDataManager.Instance.GetCurrentNodeIndex.x}{RemainingUpgrades}{failCounter}", out int adjustedSeed))
-                    Debug.LogWarning($"try parse failed on adjusted seed");
+                //if (!int.TryParse($"{PlayerDataManager.Instance.GetGeneralSeed / 1000}{PlayerDataManager.Instance.GetCurrentNodeIndex.x}{RemainingUpgrades}{failCounter}", out int adjustedSeed))
+                    //Debug.LogWarning($"try parse failed on adjusted seed");
+                var curNodeIndex = PlayerDataManager.Instance.GetCurrentNodeIndex;
+                var adjustedSeed = PlayerDataManager.Instance.GetGeneralSeed - int.Parse($"{curNodeIndex.x}{curNodeIndex.y}");
+
                 UnityEngine.Random.InitState(adjustedSeed);
 
                 int rng = UnityEngine.Random.Range(0, deckCards.Count);

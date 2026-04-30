@@ -1,6 +1,6 @@
 using UnityEditor;
 
-[CustomEditor(typeof(ProceduralTileLibrary))]
+/*[CustomEditor(typeof(ProceduralTileLibrary))]
 public class TileDataLbraryEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -14,4 +14,4 @@ public class TileDataLbraryEditor : Editor
 
         base.OnInspectorGUI();
     }
-}
+}*/

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 
 public class TransitionScene : MonoBehaviour
@@ -79,10 +78,12 @@ public class TransitionScene : MonoBehaviour
         else
             Debug.LogError("TransitionScene: TutorialDeckConfig not found or empty.");
 
+        var rngEnemies = UnitLibrary.GetRandomEnemies(1, DateTime.Now.Millisecond, true, new UnitType[] {UnitType.TankEnemy, UnitType.MedicEnemy});
+
         PlayerDataManager.Instance.SetCurrMapNodeData(new CombatMapData
         {
-            maxPlayersAllowed = 1,
             maxEnemiesAllowed = 1,
+            selectedEnemies = rngEnemies,
             selectedMap = tutorialMap
         });
 

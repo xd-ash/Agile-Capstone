@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RangeBossUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   _team: 1
+  _unitType: 2
   _maxHealth: 25
   _maxShield: 15
   _maxAP: 10

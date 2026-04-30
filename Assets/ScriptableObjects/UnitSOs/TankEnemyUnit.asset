@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TankEnemyUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   _team: 1
+  _unitType: 4
   _maxHealth: 20
   _maxShield: 15
   _maxAP: 10

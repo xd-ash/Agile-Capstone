@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MedicEnemyUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   _team: 1
+  _unitType: 5
   _maxHealth: 10
   _maxShield: 10
   _maxAP: 10

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   _team: 0
+  _unitType: 0
   _maxHealth: 100
   _maxShield: 15
   _maxAP: 10

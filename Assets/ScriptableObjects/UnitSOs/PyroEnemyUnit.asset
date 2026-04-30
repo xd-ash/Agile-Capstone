@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PyroEnemyUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   _team: 1
+  _unitType: 3
   _maxHealth: 12
   _maxShield: 10
   _maxAP: 10

@@ -429,7 +429,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03175, y: 0.8634443}
   m_AnchorMax: {x: 0.33025002, y: 0.9405557}
-  m_AnchoredPosition: {x: 510.99997, y: -360.42}
+  m_AnchoredPosition: {x: 511, y: -360.42}
   m_SizeDelta: {x: -28.523407, y: -3.3345985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &98574729
@@ -6212,6 +6212,13 @@ MonoBehaviour:
     m_ConstantMin: 0
     m_ConstantMax: 0
   _numberOfTiers: 8
+  _maxShopsInPath: 1
+  _minMaxTotalShops: {x: 1, y: 3}
+  _maxCampsInPath: 2
+  _minMaxTotalCamps: {x: 2, y: 4}
+  _maxElitesInPath: 2
+  _minMaxTotalElites: {x: 0, y: 4}
+  _maxBountyBoardInPath: 3
 --- !u!1 &1420266175
 GameObject:
   m_ObjectHideFlags: 0
