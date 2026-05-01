@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79
+    y: 24
     width: 262
     height: 374
   m_SerializedDataModeController:
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 479
+    y: 424
     width: 262
     height: 173
   m_SerializedDataModeController:
@@ -556,8 +556,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 263
-    y: 79
+    x: 264
+    y: 24
     width: 1219
     height: 573
   m_SerializedDataModeController:
@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 678
+    y: 623
     width: 1483
     height: 308
   m_SerializedDataModeController:
@@ -1296,21 +1296,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 199}
     m_SelectedIDs: f6d30000
     m_LastClickedID: 54262
-    m_ExpandedIDs: 0000000004d1000006d1000008d100000ad100000cd100000ed1000010d1000012d1000014d1000016d1000018d100001ad100001cd100001ed1000020d1000022d1000024d1000026d100002ad1000078d4000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000026d1000028d100002ad100002cd100002ed1000030d1000032d1000034d1000036d1000038d100003ad100003cd100003ed1000040d1000042d1000044d1000046d1000048d100004ad100004cd10000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: MiscScripts
-      m_OriginalName: MiscScripts
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 54340
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 12}
@@ -1325,7 +1325,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000004d1000006d1000008d100000ad100000cd100000ed1000010d1000012d1000014d1000016d1000018d100001ad100001cd100001ed1000020d1000022d1000024d1000026d1000028d100002ad100002cd1000078d4000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000026d1000028d100002ad100002cd100002ed1000030d1000032d1000034d1000036d1000038d100003ad100003cd100003ed1000040d1000042d1000044d1000046d1000048d100004ad100004cd10000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1440,8 +1440,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1484
-    y: 79
+    x: 1485
+    y: 24
     width: 435
     height: 907
   m_SerializedDataModeController:
