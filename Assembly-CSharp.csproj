@@ -106,7 +106,6 @@
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\OnLastCoinFlipEffect.cs" />
     <Compile Include="Assets\Scripts\CardSystem\DeckEditingController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardVisual\CardVisualController.cs" />
-    <Compile Include="Assets\Scripts\CardSystem\CardBoxColliderSizeContorller.cs" />
     <Compile Include="Assets\ScriptableObjects\NewMapCreationSOs\Scripts\CustomTileMapSO.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\AbilityData\AbilityData.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\OLDDeckViewer.cs" />
@@ -119,6 +118,7 @@
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\CommentedOut\AbilityController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\HideAction.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\RollDieDirectEffect.cs" />
+    <Compile Include="Assets\Scripts\CardSystem\CardBoxColliderSizeController.cs" />
     <Compile Include="Assets\Scripts\NodeMapCreation\CampNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />

@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\cardboxcollidersizecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardboxcollidersizecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\rewards\\cardprefabsetterupper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rewards\\cardprefabsetterupper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\cardboxcollidersizecontorller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardboxcollidersizecontorller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\managers\\cards\\handpositioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,11 +35,7 @@
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\goap system\\actions\\moveinrangeaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\cards\\deckandhandmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\goap system\\agents\\goapagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\assets\\scripts\\goap system\\agents\\goapagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\goap system\\agents\\goapagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -102,11 +102,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "DeckAndHandManager.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
@@ -114,38 +114,37 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
               "ViewState": "AgIAAOkAAAAAAAAAAAAgwIYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-01T07:25:32.134Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-01T07:25:32.134Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CardBoxColliderSizeContorller.cs",
-              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardBoxColliderSizeContorller.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardBoxColliderSizeContorller.cs",
-              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardBoxColliderSizeContorller.cs",
-              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardBoxColliderSizeContorller.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAA9wDEAAABCAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "CardBoxColliderSizeController.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardBoxColliderSizeController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardBoxColliderSizeController.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardBoxColliderSizeController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardBoxColliderSizeController.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwA0AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-01T07:00:20.356Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CardPrefabSetterUpper.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
               "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
               "RelativeToolTip": "Assets\\Scripts\\Rewards\\CardPrefabSetterUpper.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAtwGEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAtwFwAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-01T06:11:39.464Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "HandPositionController.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\HandPositionController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cards\\HandPositionController.cs",
@@ -153,12 +152,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Cards\\HandPositionController.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAlwC8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-01T06:05:03.879Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-01T06:05:03.879Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "CardSelect.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\Card Scripts\\CardSelect.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\Card Scripts\\CardSelect.cs",
@@ -166,12 +164,11 @@
               "RelativeToolTip": "Assets\\Scripts\\CardSystem\\Card Scripts\\CardSelect.cs",
               "ViewState": "AgIAALoBAAAAAAAAAAAwwM0BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-01T05:58:00.842Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-01T05:58:00.842Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CardSplineManager.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\CardSplineManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cards\\CardSplineManager.cs",
@@ -179,8 +176,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Cards\\CardSplineManager.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAAAWwEEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-01T05:47:58.453Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-01T05:47:58.453Z"
             },
             {
               "$type": "Document",
@@ -292,7 +288,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "MoveInRangeAction.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\GOAP System\\Actions\\MoveInRangeAction.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GOAP System\\Actions\\MoveInRangeAction.cs",
@@ -300,12 +296,11 @@
               "RelativeToolTip": "Assets\\Scripts\\GOAP System\\Actions\\MoveInRangeAction.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAQwBMAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-01T02:49:32.324Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-01T02:49:32.324Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "MoveIntoLOSAction.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\GOAP System\\Actions\\MoveIntoLOSAction.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GOAP System\\Actions\\MoveIntoLOSAction.cs",
@@ -313,8 +308,7 @@
               "RelativeToolTip": "Assets\\Scripts\\GOAP System\\Actions\\MoveIntoLOSAction.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-01T02:49:31.149Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-01T02:49:31.149Z"
             },
             {
               "$type": "Document",
@@ -350,8 +344,7 @@
               "RelativeToolTip": "Assets\\Scripts\\GOAP System\\Agents\\GoapAgent.cs",
               "ViewState": "AgIAAE8BAAAAAAAAAAA6wF4BAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-01T02:45:27.982Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-01T02:45:27.982Z"
             },
             {
               "$type": "Document",

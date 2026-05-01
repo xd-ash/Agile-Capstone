@@ -94,11 +94,11 @@ public static class CardPrefabSetterUpper
     }
     private static void ToggleExtendedBoxCollider(Transform cardTrans, bool enable)
     {
-        var boxColliders = cardTrans.GetComponents<BoxCollider2D>();
+        var bcController = cardTrans.GetComponent<CardBoxColliderSizeController>();
 
-        if (boxColliders.Length <= 1) return;
+        if (bcController == null) return;
 
-        boxColliders[1].enabled = enable;
+        bcController.ExtendBCForCombat();
     }
     private static bool FillTextFields(Card card)
     {
