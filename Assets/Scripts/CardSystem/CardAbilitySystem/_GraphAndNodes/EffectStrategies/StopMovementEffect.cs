@@ -24,6 +24,11 @@ public class StopMovementEffect : EffectStrategy
                 if (!hit) continue;
                 
                 targetUnit.ToggleCanMove(false);
+                if (targetUnit.TryGetComponent(out GoapAgent agent))
+                {
+                    agent.ClearPlanner();
+                    agent.CompleteAction();
+                }
             }
         }
 

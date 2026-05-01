@@ -37,6 +37,7 @@ namespace CardSystem
         public bool CanDrawCard => _cardsInHand.Count < _maxCards;
 
         public Action OnCardAblityCancel;
+        public static Action<Transform> OnUpdateCardColliders;
 
         private void Start()
         {
@@ -82,6 +83,8 @@ namespace CardSystem
                     ShuffleDeck();
                     _topCardOfDeck = 0;
                 }
+
+                OnUpdateCardColliders?.Invoke(null);
             }
 
             HandPositionController.Instance?.AdjustSplineKnotsOnHandSize();

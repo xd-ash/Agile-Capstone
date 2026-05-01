@@ -37,7 +37,9 @@ public enum GoapStates
     NoTarget = 8192,
     AtRange = 16384,
     AtMelee = 32768,
-    HasAttacked = 65536
+    HasAttacked = 65536,
+    CanMove = 131072,
+    IsCornered = 262144
 }
 [Flags]
 public enum GoapGoals

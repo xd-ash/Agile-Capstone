@@ -198,7 +198,6 @@ MonoBehaviour:
   _cardImage: {fileID: 21300000, guid: a4038d48f48434020ac3c300cb6448a9, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 4
-  _cardTags: 04000000
   _effectValue: 0
   _apCost: 3
   _range: 0
@@ -229,7 +228,7 @@ MonoBehaviour:
     effectToUpgrade: {fileID: -726088336008812783}
   - cardDef: {fileID: 11400000}
     effectName: Deck Effect
-    valueToAdd: 2
+    valueToAdd: 1
     effectToUpgrade: {fileID: 4468958634529343221}
 --- !u!114 &4468958634529343221
 MonoBehaviour:

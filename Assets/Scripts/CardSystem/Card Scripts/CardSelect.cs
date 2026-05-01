@@ -401,6 +401,7 @@ namespace CardSystem
                         {
                             ToggleHighlightAndScale(true);
                             DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, true);
+                            DeckAndHandManager.OnUpdateCardColliders?.Invoke(transform);
                         }
                         int cost = _cfs.Card?.GetCardAbility?.GetApCost ?? 0;
                         APDisplay.Instance?.ShowPreview(cost);
@@ -457,6 +458,7 @@ namespace CardSystem
                         {
                             ToggleHighlightAndScale(false);
                             DeckAndHandManager.Instance.ToggleCollidersOnHover(transform, false);
+                            DeckAndHandManager.OnUpdateCardColliders?.Invoke(null);
 
                             if (DeckAndHandManager.Instance != null && DeckAndHandManager.Instance.GetSelectedCard != null) return;
 

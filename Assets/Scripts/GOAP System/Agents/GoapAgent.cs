@@ -1,8 +1,6 @@
 using CardSystem;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using static GOAPDeterminationMethods;
 
@@ -234,8 +232,11 @@ public class GoapAgent : MonoBehaviour
     }
     public void CompleteAction()
     {
-        _currentAction.IsRunning = false;
-        _currentAction.PostPerform(ref _beliefs);
+        if (_currentAction != null)
+        {
+            _currentAction.IsRunning = false;
+            _currentAction.PostPerform(ref _beliefs);
+        }
         GameUIManager.instance.UpdateApText();
         PostActionChecks();
 
@@ -258,6 +259,7 @@ public class GoapAgent : MonoBehaviour
 
         CheckForAP(_unit, ref _beliefs);
         CheckIfHealthy(_unit, ref _beliefs);
+        CheckIfRooted(_unit, ref _beliefs);
 
         if (GetCurrentTarget != null)
         {
@@ -290,6 +292,7 @@ public class GoapAgent : MonoBehaviour
 
         CheckForAP(_unit, ref _beliefs);
         CheckIfHealthy(_unit, ref _beliefs);
+        CheckIfRooted(_unit, ref _beliefs);
 
         _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
 
@@ -320,7 +323,7 @@ public class GoapAgent : MonoBehaviour
         _goalsDict = new();
         foreach (var g in _goals)
             _goalsDict.Add(g, null);
-
+         
         for (int i = 0; i < _goalsDict.Count; i++)
         {
             var e = _goalsDict.ElementAt(i);
@@ -332,9 +335,37 @@ public class GoapAgent : MonoBehaviour
     }
     public void SetBuildFailBeliefs()
     {
+        bool isCornered = _beliefs.GetStates.ContainsKey(GoapStates.IsCornered.ToString());
+        bool isHealthy = _beliefs.GetStates.ContainsKey(GoapStates.IsHealthy.ToString());
+        bool canAttack = CheckCanDoAction(_unit, _abilityController.GetHarmfulAbility == null ? int.MaxValue : _abilityController.GetHarmfulAbility.GetApCost) && CheckCanUseAttack;
+        bool canHeal = CheckCanDoAction(_unit, _abilityController.GetHelpfulAbility == null ? int.MaxValue : _abilityController.GetHelpfulAbility.GetApCost) && CheckCanUseHeal;
+
         _beliefs = new();
-        _beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
-        Debug.LogWarning($"Excessive build failures. Defaulting to End Turn beliefs.");
+         
+        // set is cornered state before outofap to try to force an attack if cornered or trapped
+        if (isCornered || !canAttack && (!canHeal || isHealthy))
+            _beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+        else
+        {
+            ResetStates();
+
+            _beliefs.ModifyState(GoapStates.IsCornered.ToString(), 1);
+
+            // force both "at range" and "at melee" to attempt to force an attack
+            _beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
+            _beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
+
+            //mini state reset
+            CheckForAP(_unit, ref _beliefs);
+            CheckIfHealthy(_unit, ref _beliefs);
+            CheckIfRooted(_unit, ref _beliefs);
+            if (canAttack)
+                _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
+            if (canHeal)
+                _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
+        }
+
+        //Debug.LogWarning($"Excessive build failures. Defaulting to End Turn beliefs.");
         _buildFailCounter = 0;
     }
     public WorldStates GetTempBeliefsGivenGoal(string tempGoal, Unit tempTarget, WorldStates referenceBeliefs)

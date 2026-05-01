@@ -61,7 +61,9 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.2.15f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\UnitEditor.cs" />
     <Compile Include="Assets\Editor\TileDataLbraryEditor.cs" />
+    <Compile Include="Assets\Editor\GOAPAgentSOEditor.cs" />
     <Compile Include="Assets\Editor\BadgeSOEditor.cs" />
     <Compile Include="Assets\Editor\CustomTileMapSOEditor.cs" />
     <Compile Include="Assets\Editor\TileModuleGenerator_Editor.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Assets\Editor\CardDefEditor.cs" />
     <Compile Include="Assets\Editor\SceneSwapWindowTool.cs" />
     <Compile Include="Assets\Editor\ItemSetEditor.cs" />
+    <Compile Include="Assets\Editor\UnitLibraryEditor.cs" />
     <Compile Include="Assets\Editor\CustomTileMapSOLibraryEditor.cs" />
     <Compile Include="Assets\Editor\GOAPAgentEditor.cs" />
     <Compile Include="Assets\Editor\EffectStrategyEditor.cs" />

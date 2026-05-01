@@ -43,6 +43,8 @@ namespace CardSystem
                     return "AP Value";
                 case MultiplyEffect:
                     return "Number of Times";
+                case HealthPercentEffect:
+                    return "Health Threshold";
                 default:
                     return "Effect Value";
             }

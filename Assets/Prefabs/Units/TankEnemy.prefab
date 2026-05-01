@@ -738,10 +738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HitVFXSpawner
   _bloodPrefab: {fileID: 5337052302987215349, guid: b4f94ab2aa36af34cb247f898b46c8ff, type: 3}
   _sparkPrefab: {fileID: 5337052302987215349, guid: c6710bc5c3005b946a33e0ae657f2d49, type: 3}
-  _firePrefab: {fileID: 54337841193677971, guid: 006b6d2e160ceb54396143083d226ce9, type: 3}
-  _bleedPrefab: {fileID: 5337052302987215349, guid: daf28349b03fda2498cea450a6a5d2eb, type: 3}
   _destroyDelay: 2
-  _spawnHeightOffset: 0.5
 --- !u!1 &6721888437333699417
 GameObject:
   m_ObjectHideFlags: 0

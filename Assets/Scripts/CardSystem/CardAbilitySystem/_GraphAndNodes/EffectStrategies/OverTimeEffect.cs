@@ -11,8 +11,6 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
 
     [SerializeField] private bool _doEffectOnApply = true;
     [SerializeField] private bool _tickOnStart = true;
-    [SerializeField] private bool _hasLoopingVFX = false;              // [LOOP_VFX] toggle for DoTs with visual effects
-    [SerializeField] private LoopingVFXType _loopingVFXType; 
 
     public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
     {
@@ -46,19 +44,11 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
                     
                     if (_doEffectOnApply)
                         strat.StartEffect(tmp, onFinished, 0, false);//initial effect trigger before store
-                    
-                    ParticleSystem loopingVFXInstance = null;
-                    if (_hasLoopingVFX && targetUnit.TryGetComponent(out HitVFXSpawner vfx))
-                    {
-                        loopingVFXInstance = vfx.SpawnLoopingEffect(_loopingVFXType);
-                    }
-
                     eTracker.AddEffect(() => 
                     {
                         tmp.AbilityTriggerPos = ByteMapController.Instance.GetPositionOfUnit(targetUnit); //set ability trigger pos to target's pos before effect start
                         strat.StartEffect(tmp, onFinished, 0, false);
-                    }, adjustedEffectVal, Guid.NewGuid(), _tickOnStart, strat.name,loopingVFXInstance != null ? () => HitVFXSpawner.StopLoopingEffect(loopingVFXInstance) : null);
-
+                    }, adjustedEffectVal, Guid.NewGuid(), _tickOnStart, strat.name);
                 }
             }
             else
