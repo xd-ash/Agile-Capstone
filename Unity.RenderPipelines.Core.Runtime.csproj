@@ -196,8 +196,8 @@
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\Common\ListBuffer.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\RenderPipeline\RenderPipelineGlobalSettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\Debugging\Prefabs\Scripts\DebugUIHandlerGroup.cs" />
-    <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\Stripping\IStripper.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\Lighting\ProbeVolume\ProbeVolumeAsset.cs" />
+    <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\Stripping\IStripper.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\Utilities\BitArray.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\Common\DynamicResolutionHandler.cs" />
     <Compile Include="Library\PackageCache\com.unity.render-pipelines.core@205f2b8ecf0f\Runtime\PostProcessing\LensFlareOcclusionPermutation.cs" />

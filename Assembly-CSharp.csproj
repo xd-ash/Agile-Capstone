@@ -178,6 +178,7 @@
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\EndEffect.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\FilteringStrategies\LayerFilter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\HealthPercentEffect.cs" />
     <Compile Include="Assets\Scripts\Managers\Systems\WinLossManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Movement\TileHighlighter.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\TargetingStrategies\TargetingEmptyIdentifier.cs" />

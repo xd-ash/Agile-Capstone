@@ -340,7 +340,6 @@ public class GoapAgent : MonoBehaviour
         bool canAttack = CheckCanDoAction(_unit, _abilityController.GetHarmfulAbility == null ? int.MaxValue : _abilityController.GetHarmfulAbility.GetApCost) && CheckCanUseAttack;
         bool canHeal = CheckCanDoAction(_unit, _abilityController.GetHelpfulAbility == null ? int.MaxValue : _abilityController.GetHelpfulAbility.GetApCost) && CheckCanUseHeal;
 
-        Debug.Log($"BuildFail - cornered: {isCornered}, canAttack: {CheckCanUseAttack}, canHeal: {CheckCanUseHeal}, isHealthy: {isHealthy}");
         _beliefs = new();
          
         // set is cornered state before outofap to try to force an attack if cornered or trapped
@@ -366,7 +365,7 @@ public class GoapAgent : MonoBehaviour
                 _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
         }
 
-        Debug.LogWarning($"Excessive build failures. Defaulting to End Turn beliefs.");
+        //Debug.LogWarning($"Excessive build failures. Defaulting to End Turn beliefs.");
         _buildFailCounter = 0;
     }
     public WorldStates GetTempBeliefsGivenGoal(string tempGoal, Unit tempTarget, WorldStates referenceBeliefs)
