@@ -124,7 +124,7 @@ public class DevCheatMenu : MonoBehaviour
         {
             Unit unit = units[i];
             if (unit != null && unit.GetTeam == Team.Friendly)
-                unit.AddAP(delta);
+                unit.RestoreAP(delta);
         }
 
         // Force the AP text to refresh

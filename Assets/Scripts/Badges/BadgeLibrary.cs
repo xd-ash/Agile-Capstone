@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BadgeLibrary", menuName = "Rewards/New Badge Library")]
+/*[CreateAssetMenu(fileName = "BadgeLibrary", menuName = "Rewards/New Badge Library")]
 public class BadgeLibrary : ScriptableObject
 {
     [SerializeField] private List<BadgeSO> _badgesInProject = new();
@@ -39,4 +39,4 @@ public class BadgeLibrary : ScriptableObject
         Debug.LogWarning($"No matching badge found in library for \"{badgeName}\"");
         return null;
     }
-}
+}*/

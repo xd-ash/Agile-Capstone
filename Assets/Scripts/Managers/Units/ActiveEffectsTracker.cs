@@ -25,12 +25,24 @@ public class ActiveEffectsTracker : MonoBehaviour
         TurnManager.Instance.OnTurnEnd -= (x) => OnThisUnitEffectsTick(x, false);
     }
 
-    public void AddEffect(Action effect, int totalDuration, Guid guid, bool tickOnStart, string effectName = "")
+    public void AddEffect(Action effect, int totalDuration, Guid guid, bool tickOnStart, string effectName = "", Action onRemoved = null)
     {
-        Effect newEffect = new(ref effect, totalDuration, guid, tickOnStart, effectName);
+        Effect newEffect = new(ref effect, totalDuration, guid, tickOnStart, effectName, onRemoved);
 
-        if (!_effects.Contains(newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
-            _effects.Add(newEffect);
+        if (!_effects.Contains(
+                newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
+        {
+            //replace same effects to avoid stacking dots/hots
+            for (int i = _effects.Count - 1; i >= 0; i--)
+            {
+                if (_effects[i].effectName == newEffect.effectName)
+                {
+                    _effects[i].onRemoved?.Invoke();
+                    _effects.RemoveAt(i);
+                }
+            }
+        _effects.Add(newEffect);
+        }
     }
 
     private void OnThisUnitEffectsTick(Unit unit, bool isStartOfTurn)
@@ -50,6 +62,7 @@ public class ActiveEffectsTracker : MonoBehaviour
                 unit.ToggleCanMove(true);
                 //Debug.Log($"Stop movement effect manual unit bool flip occured. Fix me sometime :)");
             }
+            e.onRemoved?.Invoke();  
             _effects.Remove(e);
         }
     }
@@ -60,16 +73,18 @@ public class ActiveEffectsTracker : MonoBehaviour
         [HideInInspector] public string effectName;
         public Guid guid;
         public Action storedEffect;
+        public Action onRemoved;
         public int turnsRemaining;
         public bool tickOnStart;
 
-        public Effect(ref Action effect, int totalDuration, Guid guid, bool tickOnStart, string name = "")
+        public Effect(ref Action effect, int totalDuration, Guid guid, bool tickOnStart, string name = "", Action onRemoved = null)
         {
             storedEffect = effect;
             turnsRemaining = totalDuration;
             this.guid = guid;
             this.tickOnStart = tickOnStart;
             effectName = name == string.Empty ? guid.ToString() : name;
+            this.onRemoved = onRemoved;
         }
     }
 }

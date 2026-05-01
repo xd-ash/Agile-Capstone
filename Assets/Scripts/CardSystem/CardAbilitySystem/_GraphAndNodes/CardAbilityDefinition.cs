@@ -7,8 +7,24 @@ using XNode;
 namespace CardSystem
 {
     public enum CardRarity { Common, Rare, Epic }
-    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Throwable, Gambling }
-    public enum CardTag { Damage, Heal, Shield, Gambling, Draw, SelfDamage, Trap, Ranged, Melee, AOE }
+    public enum CardCategory { Melee, Ranged, Heal, Shield, Draw, Throwable, Gambling, Trap, None }
+
+    /*[Flags]
+    public enum CardTag 
+    { 
+        None = 0,
+        Damage = 2,
+        Heal = 4,
+        Shield = 8,
+        Gambling = 16,
+        Draw = 32,
+        SelfDamage = 64,
+        Trap = 128,
+        Ranged = 256,
+        Melee = 512,
+        AOE = 1024,
+        All = 2048,
+    }*/
 
     [CreateAssetMenu(fileName = "NewCardAbility", menuName = "Card System/New Card Ability")]
     public class CardAbilityDefinition : NodeGraph
@@ -19,7 +35,7 @@ namespace CardSystem
         [SerializeField] private Sprite _cardImage;
         [SerializeField] private AudioClip _abilitySFX;
         [SerializeField] private CardCategory _cardCategory;
-        [SerializeField] private CardTag[] _cardTags;
+        //[SerializeField] private CardTag _cardTags;
         [SerializeField] private int _effectValue;
 
         [Header("Card Data")]

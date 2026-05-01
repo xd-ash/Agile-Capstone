@@ -34,7 +34,7 @@ public class MouseFunctionManager : MonoBehaviour
     private void InitializeTileHighlight()
     {
         var highlightObjectParent = FindAnyObjectByType<Grid>().transform.Find("HighlightObjParent");
-        _highlightTile = Instantiate(Resources.Load<GameObject>("HighlightTile"), highlightObjectParent);
+        _highlightTile = Instantiate(Resources.Load<GameObject>("HighlightTileFilled"), highlightObjectParent);
         _highlightTile.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         _highlightTile.transform.localScale = Vector3.one;
         var sr = _highlightTile.GetComponentInChildren<SpriteRenderer>();
@@ -66,13 +66,14 @@ public class MouseFunctionManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && _shouldMove)
             {
+                // Block movement if tutorial is active and not in move step
                 if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
                     TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveOnly &&
                     TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
                     return;
-                
-                var unitAStar = TurnManager.GetCurrentUnit.GetComponent<FindPathAStar>();
-                unitAStar?.OnStartUnitMove();
+
+                var unitmover = TurnManager.GetCurrentUnit.GetComponent<UnitMovementController>();
+                unitmover?.OnStartUnitMove();
             }
         }
     }
@@ -80,6 +81,11 @@ public class MouseFunctionManager : MonoBehaviour
     // return true if mouse is over valid tile
     private bool TrackMouse()
     {
+        //rough check for any disabled card boxcolliders in hand, indicating a card is being hovered over. This stops movement when selecting cards that overlap tilemap
+        foreach (var card in DeckAndHandManager.Instance.CardsInHand)
+            if (card != null && card.GetCardTransform != null && card.GetCardTransform.TryGetComponent(out BoxCollider2D bc))
+                if (!bc.enabled) return false;
+
         if (_tilemap == null)
             _tilemap = FindAnyObjectByType<Tilemap>();
 

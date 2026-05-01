@@ -1,39 +1,52 @@
 using AStarPathfinding;
-using Unity.VisualScripting;
-using UnityEngine;
 using static IsoMetricConversions;
 
 public class OtherMoveAction : GoapAction
 {
-    private FindPathAStar aStar;
+    private UnitMovementController _unitMover;
 
+    public OtherMoveAction(string overrideName = "") : base(overrideName)
+    {
+
+    }
+    public OtherMoveAction(GoapAction refAction) : base(refAction)
+    {
+
+    }
     public override bool PrePerform(ref WorldStates beliefs)
     {
-        aStar = agent.GetComponent<FindPathAStar>();
+        _unitMover = _agent.GetComponent<UnitMovementController>();
 
-        if (agent.damageAbility.GetRange > 1)
+        if (_agent.GetHarmfulAbility.GetRange > 1)
         {
             beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
             return false;
         }
 
-        var tarPos = ConvertToGridFromIsometric(agent.curtarget.transform.localPosition);
-        var tempPath = aStar.CalculatePath(tarPos);
-        aStar.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
+        var tarPos = ConvertToGridFromIsometric(_agent.GetCurrentTarget.transform.localPosition);
+        var tempPath = _unitMover.CalculatePath(tarPos);
+        _unitMover.CalculatePath(tempPath[^1].location.ToVector());// this is sloppy
 
         return true;
     }
     public override void Perform()
     {
-        aStar.OnStartUnitMove(() =>
+        _unitMover.OnStartUnitMove(() =>
         {
             //Debug.Log("test");
-            agent.CompleteAction();
+            _agent.CompleteAction();
         });
     }
 
     public override void PostPerform(ref WorldStates beliefs)
     {
         beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
+    }
+
+    public override float EvaluateCost(string tempGoal, Unit tempTarget)
+    {
+        if (_agent == null || tempTarget == null) return _cost;
+
+        return _cost;
     }
 }

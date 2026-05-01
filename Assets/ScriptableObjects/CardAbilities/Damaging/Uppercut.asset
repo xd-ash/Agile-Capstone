@@ -147,7 +147,7 @@ MonoBehaviour:
   _cardTags: 0000000004000000
   _effectValue: 0
   _apCost: 4
-  _range: 3
+  _range: 1
   _shopCost: 20
   _shopWeight: 35
   _baseHitChance: 100
@@ -157,8 +157,8 @@ MonoBehaviour:
   _hitPenaltyPerTile: 100
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 2
-  _baseCardRarity: 1
+  _attackAnimKey: 9
+  _baseCardRarity: 0
   _onRareUpgradeEffects:
   - cardDef: {fileID: 11400000}
     effectName: Damage Effect

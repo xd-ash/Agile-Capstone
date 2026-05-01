@@ -30,7 +30,7 @@ namespace CardSystem
                 _categoryIcon.sprite = visual.icon;
                 _categoryIcon.gameObject.SetActive(visual.icon != null);
             }
-            
+
             if (_cardImage != null)
             {
                 _cardImage.sprite = def.GetCardImage;

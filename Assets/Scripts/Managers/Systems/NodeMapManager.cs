@@ -6,7 +6,6 @@ using UnityEngine;
 public class NodeMapManager : MonoBehaviour
 {
     private NodeMapCreator _nodeMapCreator;
-    //[SerializeField] private BountySelectPanelScript _bountySelectPanel;
 
     [SerializeField] private Color _completedNodeColor, _lockedNodeColor;
 
@@ -103,6 +102,8 @@ public class NodeMapManager : MonoBehaviour
         RefreshNodeVisuals?.Invoke();
 
         _isNodeMapComplete = curNodeIndex.x == _nodeMapCreator.GetNumberOfTiers - 1;
+
+        SaveLoadScript.SaveGame?.Invoke();
     }
 
     public void ReturnToMap()

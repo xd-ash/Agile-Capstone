@@ -1,7 +1,7 @@
 using CardSystem;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BadgeSO", menuName = "Rewards/New Badge")]
+/*[CreateAssetMenu(fileName = "BadgeSO", menuName = "Rewards/New Badge")]
 public class BadgeSO : ScriptableObject
 {
     [SerializeField] private string _description;
@@ -11,4 +11,4 @@ public class BadgeSO : ScriptableObject
 
     public string GetDescription => _description;
     public CardAbilityDefinition GetBadgeAbility => _badgeAbility;
-}
+}*/

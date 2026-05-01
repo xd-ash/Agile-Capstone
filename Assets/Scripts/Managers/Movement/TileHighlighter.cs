@@ -9,10 +9,10 @@ public static class TileHighlighter
     //private static List<GameObject> _lastHighlightedTiles = new List<GameObject>();
     private static Dictionary<Guid, List<GameObject>> _highlightedTilesDict = new();
 
-    public static void ApplyHighlights(HashSet<Vector2Int> cells, Guid guid, Color highlightColor, int sortingBoost = 0)
+    public static void ApplyHighlights(HashSet<Vector2Int> cells, Guid guid, Color highlightColor, bool useFilledTile, int sortingBoost = 0)
     {
         var highlightObjectParent = MapCreator.Instance.transform.Find("HighlightObjParent");
-        var highlightTilePrefab = Resources.Load<GameObject>("HighlightTile");
+        var highlightTilePrefab = useFilledTile ? Resources.Load<GameObject>("HighlightTileFilled") : Resources.Load<GameObject>("HighlightTile");
 
         ClearHighlights(guid);
 

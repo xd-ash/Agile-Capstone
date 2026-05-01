@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NodeMapCreator : MonoBehaviour
 {
-    public enum NodeTypes { Combat, BountyBoard, Boss, Shop, Camp }
+    public enum NodeTypes { Combat, BountyBoard, Camp, EliteCombat, Shop, Boss }
 
     private GameObject _nodePrefab;
     private CustomTileMapSOLibrary _tilemapSOLibrary;
@@ -14,9 +14,21 @@ public class NodeMapCreator : MonoBehaviour
 
     [SerializeField] private ParticleSystem.MinMaxCurve _possibleNodesPerTier = new ParticleSystem.MinMaxCurve(1, new AnimationCurve(), new AnimationCurve());
     [SerializeField] private int _numberOfTiers = 10;
-    //[SerializeField] private int _maxShopsInMap = 4;
-    //[SerializeField] private int _maxBossNodesInMap = 3;
-    //[SerializeField] private int _maxOtherNodesInMap = 3;
+
+    [SerializeField, Space(5)] private int _maxShopsInPath = 1;
+    [SerializeField] private Vector2Int _minMaxTotalShops = new(2, 3);
+    private int _totalShops = 0;
+
+    [SerializeField, Space(5)] private int _maxCampsInPath = 2;
+    [SerializeField] private Vector2Int _minMaxTotalCamps = new(2, 5);
+    private int _totalCamps = 0;
+
+    [SerializeField, Space(5)] private int _maxElitesInPath = 2;
+    [SerializeField] private Vector2Int _minMaxTotalElites = new(0, 3);
+    private int _totalEliteNodes = 0;
+
+    [SerializeField, Space(5)] private int _maxBountyBoardInPath = 3;
+    //[SerializeField] private Vector2Int _minMaxTotalBountyBoard = new(0, 8);
 
     private int _curSeed;
 
@@ -40,7 +52,20 @@ public class NodeMapCreator : MonoBehaviour
     {
         _curSeed = seed;
 
-        GeneratePlaceholderNodeMap();
+        Dictionary<int, List<NodeMapNode>> finalNodemap = new();
+
+        int failCounter = 0;
+        do
+        {
+            if (failCounter > 0)
+                _curSeed = PlayerDataManager.Instance.GenerateNodeMapSeed();
+
+            GeneratePlaceholderNodeMap();
+            failCounter++;
+        } while (!CheckNodeMapPaths() && failCounter < 10000);
+        if (failCounter >= 10000)
+            Debug.LogWarning($"Excessive nodemap regen fails");
+
         return PopulateNodeMap();
     }
 
@@ -49,6 +74,9 @@ public class NodeMapCreator : MonoBehaviour
         UnityEngine.Random.InitState(_curSeed);
 
         _nodeTiers.Clear();
+        _totalShops = 0;
+        _totalEliteNodes = 0;
+        _totalCamps = 0;
 
         for (int i = 0; i < _numberOfTiers; i++)
         {
@@ -77,7 +105,7 @@ public class NodeMapCreator : MonoBehaviour
         for (int i = 0; i < _numberOfTiers; i++)
         {
             var nodeKVP = _nodeTiers.ElementAt(i);
-            
+
             int c = -1; // fail counter
             do
             {
@@ -86,6 +114,16 @@ public class NodeMapCreator : MonoBehaviour
             } while (!CheckNodesForConnections(nodeKVP) && c < 100); // arbitrary fail count to avoid engine crashing
             if (c >= 100)
                 Debug.Log($"Tier:{nodeKVP.Key} while loop fail exit.");
+        }
+
+        //set node types after all connections are complete
+        for (int i = 0; i < _nodeTiers.Count; i++)
+        {
+            for (int j = 0; j < _nodeTiers[i].Count; j++)
+            {
+                var node = _nodeTiers[i][j];
+                ChooseNodeType(ref node);
+            }
         }
     }
     private Dictionary<int, List<NodeMapNode>> PopulateNodeMap()
@@ -99,9 +137,9 @@ public class NodeMapCreator : MonoBehaviour
             for (int j = 0; j < _nodeTiers[i].Count; j++)
             {
                 var node = _nodeTiers[i][j];
-                ChooseNodeType(ref node);
+                //ChooseNodeType(ref node);
 
-                GameObject nodeGO = Instantiate(_nodePrefab, transform); ;
+                GameObject nodeGO = Instantiate(_nodePrefab, transform);
                 NodeMapNode nodeMono = GetNodeStrategy(node, ref nodeGO);
 
                 if (nodeGO == null)
@@ -138,6 +176,8 @@ public class NodeMapCreator : MonoBehaviour
                 return nodeGO.AddComponent<BossNode>();
             case NodeTypes.Shop:
                 return nodeGO.AddComponent<ShopNode>();
+            case NodeTypes.EliteCombat:
+                return nodeGO.AddComponent<EliteNode>();
             default:
                 return nodeGO.AddComponent<CampNode>();
         }
@@ -151,7 +191,7 @@ public class NodeMapCreator : MonoBehaviour
         if (nodePlaceholder.prev != null && nodePlaceholder.prev.Count > 0)
             foreach (var prevNode in nodePlaceholder.prev)
                 tempPrev.Add(trueNodeDict[prevNode.dictIndex.x][prevNode.dictIndex.y]);
-        
+
         if (nodePlaceholder.next != null && nodePlaceholder.next.Count > 0)
             foreach (var nextNode in nodePlaceholder.next)
                 tempNext.Add(trueNodeDict[nextNode.dictIndex.x][nextNode.dictIndex.y]);
@@ -162,16 +202,15 @@ public class NodeMapCreator : MonoBehaviour
     }
     private void ChooseNodeType(ref NodePlaceholder node)
     {
-        int enumCount = Enum.GetNames(typeof(NodeTypes)).Count();
         NodeTypes rngType = NodeTypes.Combat;
 
         //temp setup for initial node to be an easier combat
-        if (node.dictIndex == Vector2Int.zero)
+        if (node.dictIndex.x == 0)
         {
             node.nodeType = NodeTypes.Combat;
             return;
         }
-        else if (node.dictIndex == new Vector2Int(_numberOfTiers - 1, 0)) // final node
+        else if (node.dictIndex.x == _numberOfTiers - 1) // final node
         {
             node.nodeType = NodeTypes.Boss;
             return;
@@ -180,34 +219,56 @@ public class NodeMapCreator : MonoBehaviour
         int c = -1;
         do
         {
-            rngType = (NodeTypes)UnityEngine.Random.Range(0, Mathf.Max(1, enumCount));
+            rngType = GetWeightedNodeTypeFromVal();
             c++;
-        } while (!CheckNodeNeighbourContents(node, rngType) && c < 100);
+        } while ((!CheckNodeNeighbourContents(node, rngType) || !CheckNodeByPosition(node, rngType)) && c < 100);
         if (c >= 100)
             Debug.Log($"Node type choose while loop failure. ({node.nodePos})");
 
         node.nodeType = rngType;
+
+        switch (rngType)
+        {
+            case NodeTypes.Shop:
+                _totalShops++;
+                break;
+            case NodeTypes.EliteCombat:
+                _totalEliteNodes++;
+                break;
+            case NodeTypes.Camp:
+                _totalCamps++;
+                break;
+            case NodeTypes.BountyBoard:
+                break;
+        }
+    }
+    private NodeTypes GetWeightedNodeTypeFromVal()
+    {
+        int rngVal = UnityEngine.Random.Range(0, 100);
+
+        switch (rngVal)
+        {
+            case >= 90: return NodeTypes.Shop;
+            case >= 80: return NodeTypes.EliteCombat;
+            case >= 65: return NodeTypes.Camp;
+            case >= 40: return NodeTypes.BountyBoard;
+            default: return NodeTypes.Combat;
+        }
+    }
+    private bool CheckNodeByPosition(NodePlaceholder node, NodeTypes type)
+    {
+        switch (type)
+        {
+            case NodeTypes.Shop:
+                return node.dictIndex.x > (_numberOfTiers - 1) / 2; // no shops int 1st half of nodemap
+            case NodeTypes.Camp:
+                return node.dictIndex.x > 1; // no camps directly after first combat
+            default:
+                return true;
+        }
     }
     private bool CheckNodeNeighbourContents(NodePlaceholder node, NodeTypes type)
     {
-        if (type != NodeTypes.Shop && type != NodeTypes.Camp && type != NodeTypes.Boss)
-            return true;
-
-        //Don't allow for initial nodes to be shop, other, or boss nodes
-        if ((node.dictIndex.x == 0 || node.dictIndex.x == _nodeTiers.Count - 1) && 
-            (type == NodeTypes.Shop || type == NodeTypes.Camp || type == NodeTypes.Boss))
-            return false;
-
-        if (node.next != null)
-            foreach (var nextNode in node.next)
-                if (nextNode.nodeType == type)
-                    return false;
-
-        if (node.prev != null)
-            foreach (var prevNode in node.prev)
-                if (prevNode.nodeType == type)
-                    return false;
-
         // check nodes directly above and below from same node type
         NodePlaceholder nodeAbove = null;
         NodePlaceholder nodeBelow = null;
@@ -217,9 +278,24 @@ public class NodeMapCreator : MonoBehaviour
         if (node.dictIndex.y > 0)
             nodeAbove = _nodeTiers[node.dictIndex.x][node.dictIndex.y - 1];
 
+        if (type == NodeTypes.Combat)
+            return true;
+
         if (nodeBelow != null && nodeBelow.nodeType == type ||
             nodeAbove != null && nodeAbove.nodeType == type)
             return false;
+
+        if (node.next != null)
+            foreach (var nextNode in node.next)
+                if (nextNode.nodeType == type)
+                    return false;
+
+        if (node.prev != null)
+            foreach (var prevNode in node.prev)
+                if (prevNode.nodeType == type ||
+                    type == NodeTypes.Camp && prevNode.nodeType == NodeTypes.Shop ||
+                    type == NodeTypes.Shop && prevNode.nodeType == NodeTypes.Camp)
+                    return false;
 
         return true;
     }
@@ -378,7 +454,100 @@ public class NodeMapCreator : MonoBehaviour
         // Otherwise, the lines do not intersect within their segments
         return false;
     }
+    private bool CheckNodeMapPaths()
+    {
+        var startNode = _nodeTiers[0][0];
+        if (startNode == null)
+        {
+            Debug.Log($"Start node null in nodemap creation?");
+            return true;
+        }
 
+        Dictionary<int, List<NodePlaceholder>> paths = new();
+
+        WalkPath(startNode, 0, ref paths);
+
+        bool isSuccess = true;
+
+        foreach (var path in paths.Values)
+        {
+            if (!isSuccess) break;
+
+            int pathShopCounter = 0;
+            int pathCampCounter = 0;
+            int pathEliteCounter = 0;
+            int pathBountyBoardCounter = 0;
+
+            foreach (var node in path)
+            {
+                switch (node.nodeType)
+                {
+                    case NodeTypes.Shop:
+                        pathShopCounter++;
+                        break;
+                    case NodeTypes.Camp:
+                        pathCampCounter++;
+                        break;
+                    case NodeTypes.EliteCombat:
+                        pathEliteCounter++;
+                        break;
+                    case NodeTypes.BountyBoard:
+                        pathBountyBoardCounter++;
+                        break;
+                }
+
+                if (pathShopCounter > _maxShopsInPath || pathCampCounter > _maxCampsInPath || pathEliteCounter > _maxElitesInPath || pathBountyBoardCounter > _maxBountyBoardInPath)
+                {
+                    isSuccess = false;
+                    //Debug.Log($"path max failure");
+                    break;
+                }
+            }
+        }
+
+        if (isSuccess && (_totalShops < _minMaxTotalShops.x || _totalCamps < _minMaxTotalCamps.x || _totalEliteNodes < _minMaxTotalElites.x ||
+                          _totalShops > _minMaxTotalShops.y || _totalCamps > _minMaxTotalCamps.y || _totalEliteNodes > _minMaxTotalElites.y))
+        {
+            isSuccess = false;
+            //Debug.Log($"total minmax failure");
+        }
+
+        if (isSuccess)
+            foreach (var path in paths.Values)
+            {
+                string message = $"Path count: {path.Count} - ";
+                foreach (var node in path)
+                    message += $"{node.nodeType}, ";
+                //Debug.Log(message);
+            }
+
+        return isSuccess;
+    }
+    private void WalkPath(NodePlaceholder currNode, int pathIndex, ref Dictionary<int, List<NodePlaceholder>> paths)
+    {
+        if (!paths.ContainsKey(pathIndex))
+            paths.Add(pathIndex, new() { currNode });
+        else
+            paths[pathIndex].Add(currNode);
+
+        List<NodePlaceholder> curPath = new(paths[pathIndex]);
+
+        for (int i = 0; i < currNode.next.Count; i++)
+        {
+            var nextNode = currNode.next[i];
+
+            if (i == 0)
+            {
+                WalkPath(nextNode, pathIndex, ref paths);
+                continue;
+            }
+
+            int newPathIndex = paths.Count + 1;
+            paths.Add(newPathIndex, new(curPath));
+
+            WalkPath(nextNode, newPathIndex, ref paths);
+        }
+    }
     public class NodePlaceholder
     {
         public Vector2 nodePos;

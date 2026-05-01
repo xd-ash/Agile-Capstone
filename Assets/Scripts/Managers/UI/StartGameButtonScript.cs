@@ -39,7 +39,7 @@ public class StartGameButtonScript : MonoBehaviour
         if (_isNewGame)
         {
             SaveLoadScript.CreateNewGame?.Invoke();
-            PlayerDataManager.Instance.CreatePlayerDeckFromPacks(); //inital deck creation
+            DeckInitializer.Instance?.GetNewPlayerDeck();
         }
         else
             SaveLoadScript.LoadGame?.Invoke();

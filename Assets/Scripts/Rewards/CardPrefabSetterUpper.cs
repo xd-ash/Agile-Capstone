@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum CardState { PackViewer, DeckViewer, Shop, Rewards, Combat, UpgradeMenu }
+public enum CardState { CardRemoval, FreeCardRemoval, DeckViewer, Shop, Rewards, Combat, FreeUpgradeMenu, UpgradeMenu, Inactive, CardSwap }
 
 public static class CardPrefabSetterUpper
 {
@@ -23,58 +23,83 @@ public static class CardPrefabSetterUpper
 
         switch (cardState)
         {
-            case CardState.PackViewer:
-                return SetupPackViewerCard(card, onClick);
+            case CardState.FreeCardRemoval:
+            case CardState.CardRemoval:
+                return SetupCardRemovalCard(card, onClick, cardState == CardState.FreeCardRemoval);
+            case CardState.CardSwap:
+                return SetupCardSwapCard(card, onClick);
             case CardState.DeckViewer:
                 return SetupDeckViewerCard(card, onClick);
             case CardState.Shop:
                 return SetupShopCard(card, onClick);
             case CardState.Rewards:
                 return SetupRewardsCard(card, onClick);
+            case CardState.FreeUpgradeMenu:
             case CardState.UpgradeMenu:
-                return SetupUpgradeMenuCard(card, onClick);
+                return SetupUpgradeMenuCard(card, onClick, cardState == CardState.FreeUpgradeMenu);
             default:
                 return SetupCombatCard(card, onClick);
         }
     }
-    private static bool SetupPackViewerCard(Card card, Action onClick = null)
+    private static bool SetupCardRemovalCard(Card card, Action onClick = null, bool isFree = false)
     {
-        DisableBoxCollider(card.GetCardTransform);
-        SetCardState(card, CardState.PackViewer, onClick);
+        bool canRemove = isFree || PlayerDataManager.Instance.GetBalance >= DeckEditingController.Instance.GetRemovalCost && DeckEditingController.IsAbleToEdit;
+        SetCardState(card, canRemove ? CardState.CardRemoval : CardState.Inactive, onClick);
+        if (!canRemove)
+            SetInactiveVisuals(card.GetCardTransform);
+        return true;
+    }
+    private static bool SetupCardSwapCard(Card card, Action onClick = null)
+    {
+        SetCardState(card, CardState.CardSwap, onClick);
         return true;
     }
     private static bool SetupDeckViewerCard(Card card, Action onClick = null)
     {
-        RemoveButton(card.GetCardTransform);
         SetCardState(card, CardState.DeckViewer, onClick);
         return true;
     }
     private static bool SetupShopCard(Card card, Action onClick = null)
     {
-        RemoveButton(card.GetCardTransform);
+        SetCostTextGO(card);
+        SetCostText(card);
         SetCardState(card, CardState.Shop, onClick);
         return true;
     }
     private static bool SetupRewardsCard(Card card, Action onClick = null)
     {
-        RemoveButton(card.GetCardTransform);
         SetCardState(card, CardState.Rewards, onClick);
         return true;
     }
-    private static bool SetupUpgradeMenuCard(Card card, Action onClick = null)
+    private static bool SetupUpgradeMenuCard(Card card, Action onClick = null, bool isFree = false)
     {
-        RemoveButton(card.GetCardTransform);
-        SetCardState(card, CardState.UpgradeMenu, onClick);
+        if (!isFree)
+        {
+            SetCostTextGO(card);
+            SetCostText(card);
+        }
+
+        bool canUpgrade = isFree || card.GetCardRarity != CardRarity.Epic && card.GetShopCost <= PlayerDataManager.Instance.GetBalance && DeckEditingController.IsAbleToEdit;
+        SetCardState(card, canUpgrade ? CardState.UpgradeMenu : CardState.Inactive, onClick);
+        if (!canUpgrade)
+            SetInactiveVisuals(card.GetCardTransform);
         return true;
     }
     private static bool SetupCombatCard(Card card, Action onClick = null)
     {
         card.GetCardTransform.localScale = Vector3.one * _combatScale;
-        RemoveButton(card.GetCardTransform);
+        ToggleExtendedBoxCollider(card.GetCardTransform, true);
         SetCardState(card, CardState.Combat, onClick);
         return true;
     }
+    private static void ToggleExtendedBoxCollider(Transform cardTrans, bool enable)
+    {
+        var boxColliders = cardTrans.GetComponents<BoxCollider2D>();
 
+        if (boxColliders.Length <= 1) return;
+
+        boxColliders[1].enabled = enable;
+    }
     private static bool FillTextFields(Card card)
     {
         // Get all TextMeshPro components (non-UI version)
@@ -102,38 +127,53 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetRarityVisuals(Card card)
     {
-        var rarityDiamond = card.GetCardTransform.Find("RarityDiamond")?.GetComponent<Image>();
-        if (rarityDiamond == null)
-            return FailPrefabSetup($"Rarity diamond null.");
+        var rarityContainer = card.GetCardTransform.Find("RarityContainer");
+        if (rarityContainer == null)
+            return FailPrefabSetup("RarityContainer not found.");
 
+        // Determine gem count: Common = 1, Rare = 2, Epic = 3
+        int gemCount = 1;
         Color rarityColor = Color.gray7;
+
         switch (card.GetCardRarity)
         {
-            case CardRarity.Epic:
-                rarityColor = Color.mediumPurple;
-                break;
             case CardRarity.Rare:
-                rarityColor = Color.mediumBlue;
+                gemCount = 2;
+                rarityColor = new Color(0.2f, 0.7f, 0.3f, 1f);  // muted green
                 break;
-            default:
+            case CardRarity.Epic:
+                gemCount = 3;
+                rarityColor = new Color(0.2f, 0.4f, 0.9f, 1f);   // medium blue
                 break;
         }
-        rarityDiamond.color = rarityColor;
+
+        // Enable/disable and color each gem child
+        for (int i = 0; i < rarityContainer.childCount; i++)
+        {
+            var gemImage = rarityContainer.GetChild(i).GetComponent<Image>();
+            if (gemImage == null) continue;
+
+            bool active = i < gemCount;
+            gemImage.gameObject.SetActive(active);
+
+            if (active)
+                gemImage.color = rarityColor;
+        }
+
         return true;
     }
-    private static bool RemoveButton(Transform cardTrans)
+    private static bool SetCostText(Card card)
     {
-        var button = cardTrans.GetComponentInChildren<Button>();
-        if (button == null) return false;
-        button.gameObject.SetActive(false);
+        var costText = card.GetCardTransform?.Find("CostTextBG")?.GetComponentInChildren<TextMeshProUGUI>();
+        if (costText == null) return false;
+        costText.text = $"{card.GetShopCost} Chips";
         return true;
     }
-    private static bool SetButtonFunc(Transform cardTrans, Action buttonFunc)
+    public static bool SetCostTextGO(Card card, bool enable = true)
     {
-        var button = cardTrans.GetComponentInChildren<Button>();
-        if (button == null) return false;
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => buttonFunc?.Invoke());
+        var costText = card.GetCardTransform?.Find("CostTextBG");
+        if (costText == null) return false;
+        costText.gameObject.SetActive(enable);
         return true;
     }
     private static bool DisableBoxCollider(Transform cardTrans)
@@ -142,6 +182,13 @@ public static class CardPrefabSetterUpper
             return false;
         bc.enabled = false;
         return true;
+    }
+
+    public static void SetInactiveVisuals(Transform cardTrans, bool enable = true)
+    {
+        var inactiveOverlay = cardTrans.Find("InactiveOverlay")?.gameObject;
+        if (inactiveOverlay == null) return;
+        inactiveOverlay?.SetActive(enable);
     }
     private static void SetCardState(Card card, CardState state, Action onClick = null)
     {

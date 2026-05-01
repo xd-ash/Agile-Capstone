@@ -5,15 +5,15 @@ using XNode;
 namespace CardSystem
 {
     [CreateNodeMenu("Gambling Effects/Multiple Coin Flips")]
-    public class MultipleCoinFlip : EffectStrategy, IUseEffectValue
+    public class MultipleCoinFlip : EffectStrategy, IUseEffectValue, IFlipCoins
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 
         [SerializeField] private bool _desiredCoinSide;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             var adjustedEffectVal = GetRarityAdjustedEffectValue(abilityData.GetCardRarity);
 

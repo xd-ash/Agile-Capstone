@@ -66,11 +66,13 @@ public static class SaveLoadScript
 [System.Serializable]
 public class GameData
 {
+    [SerializeField] private int _playerHealth;
     [SerializeField] private MapNodeDataToken _mapNodeData;
     [SerializeField] private CurrencyManagerDataToken _currencyData;
     [SerializeField] private CardDataToken _cardData;
     [SerializeField] private SpecialMechanicsData _specialMechanicData;
 
+    public int GetPlayerHealth => _playerHealth;
     public MapNodeDataToken GetMapNodeData => _mapNodeData;
     public CurrencyManagerDataToken GetCurrencyData => _currencyData;
     public CardDataToken GetCardData => _cardData;
@@ -82,17 +84,19 @@ public class GameData
 
         if (newGameData)
         {
-            _mapNodeData = new(null, new(0,0), -1, -1);
+            _playerHealth = pdm.GetMaxHealth;
+            _mapNodeData = new(null, new(0, 0), -1, -1);
             _currencyData = new(100);
-            _cardData = new(null, pdm.GetInitialCardPacks, pdm.GetAllPlayerPacks);
-            _specialMechanicData = new(new bool[0], new int[0]);
+            _cardData = new(null);
+            _specialMechanicData = new(new int[3], new bool[0], new int[0]);
         }
         else
         {
+            _playerHealth = pdm.GetCurrentHealth;
             _mapNodeData = new(pdm.GetCompletedNodes, pdm.GetCurrentNodeIndex, pdm.GetGeneralSeed, pdm.GetNodeMapSeed);
             _currencyData = new(pdm.GetBalance);
-            _cardData = new(pdm.GetPlayerDeck.GetCardsInDeck, pdm.GetInitialCardPacks, pdm.GetAllPlayerPacks);
-            _specialMechanicData = new(pdm.GetAllCoinFlipsThisRun, pdm.GetAllDiceRollsThisRun);
+            _cardData = new(pdm.GetPlayerDeck.GetCardsInDeck);
+            _specialMechanicData = new(pdm.GetAllBuffs, pdm.GetAllCoinFlipsThisRun, pdm.GetAllDiceRollsThisRun);
         }
     }
 
@@ -129,7 +133,7 @@ public class GameData
         [SerializeField] private int _x;
         [SerializeField] private int _y;
 
-        public Vector2Int GetVector2Int => new(_x,_y);
+        public Vector2Int GetVector2Int => new(_x, _y);
 
         public Vector2IntToken(int x, int y)
         {
@@ -156,14 +160,10 @@ public class GameData
     public class CardDataToken
     {
         [SerializeField] private string[] _deck;
-        [SerializeField] private PackToken[] _initialPacksThisRun;
-        [SerializeField] PackToken[] _playerPacks;
 
         public string[] GetDeck => _deck;
-        public PackToken[] GetInitialPacksThisRun => _initialPacksThisRun;
-        public PackToken[] GetPlayerPacks => _playerPacks;
 
-        public CardDataToken(List<Card> cardsInDeck, List<CardPack> initialPacks, List<CardPack> createdPacks)
+        public CardDataToken(List<Card> cardsInDeck)
         {
             if (cardsInDeck != null)
             {
@@ -173,28 +173,6 @@ public class GameData
             }
             else
                 _deck = new string[0];
-
-            _initialPacksThisRun = CreatePackTokens(initialPacks);
-            _playerPacks = CreatePackTokens(createdPacks);
-        }
-        private PackToken[] CreatePackTokens(List<CardPack> packs)
-        {
-            if (packs == null || packs.Count == 0) return new PackToken[0];
-
-            List<PackToken> temp = new();
-            foreach (var pack in packs)
-            {
-                List<string> tempCardNames = new();
-                foreach (var card in pack.GetCardsInPack)
-                    tempCardNames.Add(card.GetCardName);
-
-                temp.Add(new PackToken()
-                {
-                    packName = pack.GetPackName,
-                    cardNames = tempCardNames.ToArray()
-                });
-            }
-            return temp.ToArray();
         }
     }
 
@@ -208,13 +186,17 @@ public class GameData
     [System.Serializable]
     public class SpecialMechanicsData
     {
+        [SerializeField] private int[] _buffsCurrentRun;
         [SerializeField] private bool[] _coinFlipsCurrentRun;
         [SerializeField] private int[] _diceRollsCurrentRun;
+
+        public int[] GetBuffsCurrentRun => _buffsCurrentRun;
         public bool[] GetCoinFlipsCurrentRun => _coinFlipsCurrentRun ?? new bool[0];
         public int[] GetDiceRollsCurrentRun => _diceRollsCurrentRun ?? new int[0];
 
-        public SpecialMechanicsData(bool[] coinflips, int[] diceRolls)
+        public SpecialMechanicsData(int[] buffs, bool[] coinflips, int[] diceRolls)
         {
+            _buffsCurrentRun = buffs;
             _coinFlipsCurrentRun = coinflips;
             _diceRollsCurrentRun = diceRolls;
         }
@@ -226,6 +208,12 @@ public class SettingsData
 {
     [SerializeField] private AudioSettingsToken _audioSettings;
     [SerializeField] private OptionsSettingsToken _optionsSettings;
+
+    public SettingsData()
+    {
+        _audioSettings = new();
+        _optionsSettings = new();
+    }
 
     public AudioSettingsToken GetAudioSettings => _audioSettings;
     public OptionsSettingsToken GetOptionsSettings => _optionsSettings;

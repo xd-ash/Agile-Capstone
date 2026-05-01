@@ -6,7 +6,7 @@ public class MeleeEffectVisual : EffectVisualsStrategy
 {
     [SerializeField] private GameObject _meleeEffect;
 
-    public override void CreateVisualEffect(AbilityData abilityData, Unit target)
+    public override void CreateVisualEffect(AbilityData abilityData, GameObject target)
     {
         if (target == null) return;
         Unit unit = abilityData.GetUnit;
@@ -25,3 +25,4 @@ public class MeleeEffectVisual : EffectVisualsStrategy
         }
     }
 }
+

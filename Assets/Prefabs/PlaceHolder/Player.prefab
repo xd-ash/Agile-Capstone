@@ -155,8 +155,8 @@ GameObject:
   - component: {fileID: 6557971832698807318}
   - component: {fileID: 5904661369477725204}
   - component: {fileID: 2355032549085744803}
-  - component: {fileID: 8664155183730273575}
   - component: {fileID: 7073425138271325837}
+  - component: {fileID: 8203402467600379750}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -195,14 +195,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2afb597f7551f4c81009e6bbed1c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _unitSO: {fileID: 11400000, guid: 737f348fd4d0492408a87cee9da571bd, type: 2}
   _team: 0
-  _maxHealth: 15
+  _maxHealth: 0
   _health: 0
-  _maxShield: 25
+  _maxShield: 0
   _shield: 0
-  _maxAP: 10
+  _maxAP: 0
   _ap: 0
   _enemyHPBar: {fileID: 0}
+  _enemyShieldBar: {fileID: 0}
   _hitChanceText: {fileID: 0}
   _canMove: 1
 --- !u!114 &2355032549085744803
@@ -218,22 +220,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActiveEffectsTracker
   _effects: []
---- !u!114 &8664155183730273575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8440825415147360739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76141f66d52b2042b78495f56fcb851, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitMoveSpeed: 0.3
-  _moveCostPerTile: 1
-  _placePathDebugMarkers: 0
-  _isKnockback: 0
 --- !u!114 &7073425138271325837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,24 +243,6 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 2fd63fc0dc2e2b841a40b60a3e85005c, type: 2}
   - {fileID: 7400000, guid: 093505aa767859641a2c0e3bff1cef4d, type: 2}
   _attackAnimSets:
-  - key: 13
-    dirClips:
-    - {fileID: 7400000, guid: 258d9ef356d83854588dba05c59ef49a, type: 2}
-    - {fileID: 7400000, guid: a3e9cb93ec13f364e96340291329aea9, type: 2}
-    - {fileID: 7400000, guid: 624f10a5563d51145a34ef216ca465a3, type: 2}
-    - {fileID: 7400000, guid: e84e93843dc78a344b2bd9934f500d2a, type: 2}
-  - key: 10
-    dirClips:
-    - {fileID: 7400000, guid: 838f019c585ee9a4ab7639d6b1f44f3f, type: 2}
-    - {fileID: 7400000, guid: 95df7490569ae854494ae372b36d33a3, type: 2}
-    - {fileID: 7400000, guid: 332eb41ff71c7144ca2e1cee448709ee, type: 2}
-    - {fileID: 7400000, guid: eddef37145abec64f983014c5188636d, type: 2}
-  - key: 9
-    dirClips:
-    - {fileID: 7400000, guid: 16ab2c1b909b440adbad902993090a27, type: 2}
-    - {fileID: 7400000, guid: 4922fa86f1be34f45bbfd6c60729c6bc, type: 2}
-    - {fileID: 7400000, guid: 53b62b8a123804de0b952832f12fbd3e, type: 2}
-    - {fileID: 7400000, guid: c0bd63306db934784a2c2c5fb01a4aff, type: 2}
   - key: 1
     dirClips:
     - {fileID: 7400000, guid: ecb500cd2e63b3949ae6286badfbef54, type: 2}
@@ -305,7 +273,7 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 077a1538ae440bc48a976e9f28619db4, type: 2}
     - {fileID: 7400000, guid: 15cf756bde22efa48a48f73bdce088a3, type: 2}
     - {fileID: 7400000, guid: 5f51f984090a078499d23216e57ec310, type: 2}
-  - key: 4
+  - key: 6
     dirClips:
     - {fileID: 7400000, guid: a9c0c62a5c28d1d4b8922767bbd37459, type: 2}
     - {fileID: 7400000, guid: 18aeada3a90093743acdf7b43ccea523, type: 2}
@@ -323,6 +291,18 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 0d70ad9540199704aa485b3724cdb675, type: 2}
     - {fileID: 7400000, guid: 6419a76677521ba4cad586d5a2a10503, type: 2}
     - {fileID: 7400000, guid: bd2d5df9187081047ada05a76bc954ff, type: 2}
+  - key: 9
+    dirClips:
+    - {fileID: 7400000, guid: 16ab2c1b909b440adbad902993090a27, type: 2}
+    - {fileID: 7400000, guid: 4922fa86f1be34f45bbfd6c60729c6bc, type: 2}
+    - {fileID: 7400000, guid: 53b62b8a123804de0b952832f12fbd3e, type: 2}
+    - {fileID: 7400000, guid: c0bd63306db934784a2c2c5fb01a4aff, type: 2}
+  - key: 10
+    dirClips:
+    - {fileID: 7400000, guid: 838f019c585ee9a4ab7639d6b1f44f3f, type: 2}
+    - {fileID: 7400000, guid: 95df7490569ae854494ae372b36d33a3, type: 2}
+    - {fileID: 7400000, guid: 332eb41ff71c7144ca2e1cee448709ee, type: 2}
+    - {fileID: 7400000, guid: eddef37145abec64f983014c5188636d, type: 2}
   - key: 11
     dirClips:
     - {fileID: 7400000, guid: aa9c0fb399f94f8409de04ed2c8e3aef, type: 2}
@@ -335,6 +315,12 @@ MonoBehaviour:
     - {fileID: 7400000, guid: 51ffe3750acbc504dae19e6e115f83bc, type: 2}
     - {fileID: 7400000, guid: 9b6e1a3a816c49649a4589717c9344be, type: 2}
     - {fileID: 7400000, guid: 5cfdc06af33a28a4fadb1c9923d6170f, type: 2}
+  - key: 13
+    dirClips:
+    - {fileID: 7400000, guid: 258d9ef356d83854588dba05c59ef49a, type: 2}
+    - {fileID: 7400000, guid: a3e9cb93ec13f364e96340291329aea9, type: 2}
+    - {fileID: 7400000, guid: 624f10a5563d51145a34ef216ca465a3, type: 2}
+    - {fileID: 7400000, guid: e84e93843dc78a344b2bd9934f500d2a, type: 2}
   - key: 14
     dirClips:
     - {fileID: 7400000, guid: 9fc54e8cd64bdd34ca8286b16a598957, type: 2}
@@ -360,6 +346,20 @@ MonoBehaviour:
     - {fileID: 7400000, guid: cc5b14978c7c06241a6ae85a4bc10a90, type: 2}
     - {fileID: 7400000, guid: 6c15a3f823eb5f64f85a5b153c5be343, type: 2}
   _fade: 0.05
+--- !u!114 &8203402467600379750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440825415147360739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ed6d83b007cd74fbfe2e7577d218bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitMovementController
+  _unitMoveSpeed: 0.2
+  _moveCostPerTile: 1
 --- !u!1001 &4730709836683485280
 PrefabInstance:
   m_ObjectHideFlags: 0

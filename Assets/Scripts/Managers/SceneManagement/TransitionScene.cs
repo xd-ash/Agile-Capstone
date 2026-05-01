@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TransitionScene : MonoBehaviour
 {
-    private GameObject mainMenu, pauseMenu, rewardsMenu;
+    private GameObject mainMenu;//, pauseMenu, rewardsMenu, deckViewMenu;
     private string _currScene = "MainMenu";
 
     public static Action<string> SceneSwap;
@@ -27,10 +27,16 @@ public class TransitionScene : MonoBehaviour
             mainMenu = mainMenuTransform.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'MainMenu' child not found under " + name);
-
+        /*
         var pauseMenuTransform = transform.Find("PauseMenu");
         if (pauseMenuTransform != null)
             pauseMenu = pauseMenuTransform?.gameObject;
+        else
+            Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
+
+        var deckViewMenuTransform = transform.Find("DeckViewMenu");
+        if (deckViewMenuTransform != null)
+            deckViewMenu = deckViewMenuTransform?.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
 
@@ -39,8 +45,17 @@ public class TransitionScene : MonoBehaviour
             rewardsMenu = rewardsMenuTransform?.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'RewardsMenu' child not found under " + name);
+        */
     }
-    
+    private void ResetMenusOnMainMenu()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i)?.gameObject;
+            if (child == null || child.name == "MainMenu") continue;
+            child.SetActive(false);
+        }
+    }
     public void StartTutorial()
     {
         // Load tutorial map
@@ -63,23 +78,31 @@ public class TransitionScene : MonoBehaviour
         else
             Debug.LogError("TransitionScene: TutorialDeckConfig not found or empty.");
 
-        PlayerDataManager.Instance.SetCurrMapNodeData(new CombatMapData 
-        { 
-            maxPlayersAllowed = 1, 
+        var rngEnemies = UnitLibrary.GetRandomEnemies(1, DateTime.Now.Millisecond, true, new UnitType[] {UnitType.TankEnemy, UnitType.MedicEnemy});
+
+        PlayerDataManager.Instance.SetCurrMapNodeData(new CombatMapData
+        {
             maxEnemiesAllowed = 1,
+            selectedEnemies = rngEnemies,
             selectedMap = tutorialMap
         });
-    
+
         IsTutorial = true;
-        StartTransition("Tutorial");
-    }
-    public static void ResetTutorialFlag()
-    {
-        IsTutorial = false;
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Combat");
+        _currScene = "Combat";
+
+        mainMenu?.SetActive(false);
+        SceneSwap?.Invoke("Combat");
+        SaveLoadScript.SaveGame?.Invoke();
+
+        //StartTransition("Combat");
     }
 
     public void StartTransition(string targetScene = "MainMenu")
     {
+        IsTutorial = false;
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(targetScene);
         _currScene = targetScene;
         
@@ -88,8 +111,11 @@ public class TransitionScene : MonoBehaviour
 
         if (targetScene == "MainMenu")
         {
-            pauseMenu?.SetActive(false);
-            rewardsMenu?.SetActive(false);
+            ResetMenusOnMainMenu();
+            SaveLoadScript.LoadGame?.Invoke();
+
+            //pauseMenu?.SetActive(false);
+            //rewardsMenu?.SetActive(false);
         }
 
         mainMenu?.SetActive(targetScene == "MainMenu");

@@ -37,8 +37,8 @@ public class MovementLine : MonoBehaviour
             return false;
 
         Unit unit = TurnManager.GetCurrentUnit;
-        var unitAStar = unit.GetComponent<FindPathAStar>();
-        List<PathMarker> path = unitAStar.CalculatePath((Vector2Int)tilePos);
+        var unitMover = unit.GetComponent<UnitMovementController>();
+        List<PathMarker> path = unitMover.CalculatePath((Vector2Int)tilePos);
         if (path == null || path.Count == 0)
             return false;
 
@@ -54,6 +54,8 @@ public class MovementLine : MonoBehaviour
         {
             // In range � show only the AP number
             APHoverIndicator.Instance?.ShowCost(indicatorPos, steps);
+            APDisplay.Instance.ClearPreview();
+            APDisplay.Instance.ShowPreview(steps);
             _line.gameObject.SetActive(true);
             shouldMove = true;
         }
@@ -61,6 +63,7 @@ public class MovementLine : MonoBehaviour
         {
             // Out of range � show AP number plus red X
             APHoverIndicator.Instance?.ShowOutOfRange(indicatorPos, steps);
+            APDisplay.Instance.ClearPreview();
             _line.gameObject.SetActive(false);
         }
 
@@ -89,8 +92,10 @@ public class MovementLine : MonoBehaviour
     }
     public void ClearLine()
     {
+        if (_line.positionCount == 0) return;
         _line.positionCount = 0;
         APHoverIndicator.Instance?.Hide();
+        APDisplay.Instance.ClearPreview();
     }
     public static Vector3 GridToWorld(Vector2Int cell)
     {

@@ -7,11 +7,12 @@ namespace CardSystem
 {
     public class CardSplineManager : MonoBehaviour
     {
-        private SplineContainer _splineContainer;
+        [SerializeField] private SplineContainer _splineContainer;
 
         private Dictionary<Transform, Sequence> _activeSequences = new Dictionary<Transform, Sequence>();
         [SerializeField] private float _tweenDuration = 0.25f;
         [SerializeField] private int _cardSortingOrderBaseValue = 5;
+        [SerializeField] private float _cardHoverHeight = 3f;
 
         public int GetCardSortingOrderBaseValue => _cardSortingOrderBaseValue;
 
@@ -23,39 +24,30 @@ namespace CardSystem
             else
                 Destroy(this.gameObject);
 
-            _splineContainer = FindFirstObjectByType<SplineContainer>();
+            //_splineContainer = FindFirstObjectByType<SplineContainer>();
         }
 
         public void ArrangeCardGOs()
         {
             var cardsInHand = DeckAndHandManager.Instance.CardsInHand;
+            var cardCount = cardsInHand.Count;
 
-            // Remove any cards whose GameObjects have been destroyed
-            for (int i = cardsInHand.Count - 1; i >= 0; i--)
-                if (cardsInHand[i] == null || cardsInHand[i].GetCardTransform == null)
-                    cardsInHand.RemoveAt(i);
-
-            int handSize = DeckAndHandManager.Instance.GetCurrentHandSize;
-
-            if (handSize == 0) return;
+            if (cardCount == 0) return;
             if (_splineContainer.Spline == null)
             {
                 Debug.LogWarning("CardManager: SplineContainer or Spline is not assigned.");
                 return;
             }
 
-            // ... rest of the method stays the same from "int count = ..." onward
-
-            int count = Mathf.Min(handSize, cardsInHand.Count);
-            int slots = Mathf.Max(1, count);
+            int slots = Mathf.Max(1, cardCount);
 
             float cardSpacing = 1f / slots;
 
             // Center the group along the spline range [0,1]
-            float firstCardPos = 0.5f - (count - 1) * (cardSpacing / 2f);
+            float firstCardPos = 0.5f - (cardCount - 1) * (cardSpacing / 2f);
             firstCardPos = Mathf.Clamp01(firstCardPos);
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < cardCount; i++)
             {
                 float t = firstCardPos + i * cardSpacing;
                 t = Mathf.Clamp01(t);
@@ -87,8 +79,8 @@ namespace CardSystem
             float duration = isHovered ? _tweenDuration * 0.4f : _tweenDuration;
             Ease easeType = isHovered ? Ease.OutQuad : Ease.InOutQuad;
 
-            sequence.Join(transform.DOMove(targetPosition, duration).SetEase(easeType));
-            sequence.Join(transform.DORotateQuaternion(targetRotation, duration).SetEase(easeType));
+            sequence.Join(transform.DOLocalMove(targetPosition, duration).SetEase(easeType));
+            sequence.Join(transform.DOLocalRotateQuaternion(targetRotation, duration).SetEase(easeType));
 
             _activeSequences[transform] = sequence;
         }
@@ -120,7 +112,7 @@ namespace CardSystem
             Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
             if (isHovered)
-                splinePosition += Vector3.up * 0.5f;
+                splinePosition += Vector3.up * (HandPositionController.Instance.IsHandUp ? _cardHoverHeight : _cardHoverHeight * 4);
 
             var tr = card.GetCardTransform;
             if (tr != null)

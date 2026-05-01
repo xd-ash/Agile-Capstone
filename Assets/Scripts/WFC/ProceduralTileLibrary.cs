@@ -17,7 +17,8 @@ public class ProceduralTileLibrary : ScriptableObject
 
         return tile.GetByteIndicator;
     }
-    public GameObject[] GetGOFromIndicator(int indicator)
+
+    /*public GameObject[] GetGOFromIndicator(int indicator)
     {
         TileData tile = GetTileFromLibrary(indicator);
         if (tile == null)
@@ -27,7 +28,7 @@ public class ProceduralTileLibrary : ScriptableObject
         }
 
         return tile.GetTileContentPrefab;
-    }
+    }*/
     public TileBase GetTileBaseFromName(string tileName)
     {
         TileData tile = GetTileFromLibrary(tileName);
@@ -114,22 +115,17 @@ public class ProceduralTileLibrary : ScriptableObject
         [SerializeField, HideInInspector] private string _tileName;
         [SerializeField] private TileBase _tileBase;
         [SerializeField] private int _byteIndicator;
-        [SerializeField] private GameObject[] _tileContentPrefabs;
+        //[SerializeField] private GameObject[] _tileContentPrefabs;
 
         public TileBase GetTileBase => _tileBase;
         public int GetByteIndicator => _byteIndicator;
-        public GameObject[] GetTileContentPrefab => _tileContentPrefabs;
-        //public GameObject GetTileContentPrefab => _tileContentPrefabs.Length == 0 ? _tileContentPrefabs[0] : GrabRandomPrefab();
+        //public GameObject[] GetTileContentPrefab => _tileContentPrefabs;
+        //public UnitSO GetUnitSO => _tileContentPrefabs == null || _tileContentPrefabs.Length == 0 ? null : _tileContentPrefabs[0]?.GetComponent<Unit>()?.GetUnitSO;
+
         public string GetTileName => _tileName;
         public void SetTileName(string fallBackName = "")
         {
             _tileName = fallBackName == string.Empty ? _tileBase.name : fallBackName;
-        }
-        private GameObject GrabRandomPrefab()
-        {
-            //Random.InitState(PlayerDataManager.Instance.GetGeneralSeed);
-            int rng = Random.Range(0, _tileContentPrefabs.Length);
-            return _tileContentPrefabs[rng];
         }
     }
 }

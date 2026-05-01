@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class NodeMapNode : MonoBehaviour
+public abstract class NodeMapNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     protected LineRenderer _lineRenderer;
     protected Button _button;
@@ -53,7 +54,9 @@ public abstract class NodeMapNode : MonoBehaviour
 
     private void SetNodeRewards()
     {
-        if (this is ShopNode || this is CampNode) return;
+        if (this is ShopNode || this is CampNode || 
+            NodeMapCreator.Instance != null && _nodeIndex.x == NodeMapCreator.Instance.GetNumberOfTiers - 1) 
+            return;
 
         _nodeRewards = RewardsController.DetermineRewards(_nodeIndex);
     }
@@ -95,6 +98,8 @@ public abstract class NodeMapNode : MonoBehaviour
                 return "Combat";
             case ShopNode:
                 return "Shop";
+            case EliteNode:
+                return "Combat";
             case CampNode:
             default:
                 return string.Empty;
@@ -114,6 +119,9 @@ public abstract class NodeMapNode : MonoBehaviour
                 break;
             case ShopNode:
                 _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/ShopIcon");
+                break;
+            case EliteNode:
+                _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/EliteBounty");
                 break;
             case CampNode:
                 _background.sprite = Resources.Load<Sprite>("TempNodeMap/Nodeicons/CampfireNodeIcon");
@@ -157,5 +165,16 @@ public abstract class NodeMapNode : MonoBehaviour
     public virtual void OnClick()
     {
         PlayerDataManager.Instance.SetCurrNodeReward(_nodeRewards);
+        RewardOnHoverDisplay.OnClearRewardDisplay?.Invoke();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (this is CombatNode || this is EliteNode /*|| this is CombatNode ||*/ )
+            RewardOnHoverDisplay.OnRewardNodeHover?.Invoke(this);
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        RewardOnHoverDisplay.OnClearRewardDisplay?.Invoke();
     }
 }

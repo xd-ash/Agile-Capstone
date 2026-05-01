@@ -1,9 +1,7 @@
 using CardSystem;
-using DG.Tweening;
 using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CardFunctionScript : MonoBehaviour
 {
@@ -16,7 +14,8 @@ public class CardFunctionScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (CardUpgradeController.IsPreviewingUpgrade) return;
+        if (PauseMenu.isPaused || IsSelected) return;
+        if (DeckEditingController.IsPreviewingEdit || CampNodeController.IsPreviewingUpgrade) return;
 
         _onMouseDown?.Invoke();
     }
@@ -54,6 +53,7 @@ public class CardFunctionScript : MonoBehaviour
         _state = state;
         Card = card;
 
+        if (_state == CardState.Inactive) return;
         SetOnMouseDown(prefabButtonOnClick);
     }
 
@@ -74,14 +74,12 @@ public class CardFunctionScript : MonoBehaviour
         {
             switch (_state)
             {
-                case CardState.PackViewer:
-                    break;
-                case CardState.DeckViewer:
-                    break;
                 case CardState.Shop:
                     onclick = () =>
                     {
-                        if (PauseMenu.isPaused || IsSelected) return;
+                        if (PauseMenu.isPaused || IsSelected || DeckViewerScript.Instance != null && DeckViewerScript.Instance.gameObject.activeInHierarchy) return;
+
+                        if (ShopConfirmPopup.Instance != null && ShopConfirmPopup.Instance.gameObject.activeInHierarchy) return;
 
                         int price = Card.GetShopCost;
                         string cardName = Card?.GetCardName ?? "Card";
@@ -98,10 +96,15 @@ public class CardFunctionScript : MonoBehaviour
                                 OutOfApPopup.Instance?.Show();
                         };
 
+                        var cs = GetComponent<CardSelect>();
+
                         Action cancelAction = () =>
                         {
+                            cs?.ToggleHighlightAndScale(false);
+
                             // no-op; popup will just close
-                            Debug.LogWarning("Shop confirm popup is null. Fallback confirm action called.");
+                            if (ShopConfirmPopup.Instance == null)
+                                Debug.LogWarning("Shop confirm popup is null. Fallback confirm action called.");
                         };
 
                         ShopConfirmPopup.Instance?.Show(price, cardName, confirmAction, cancelAction);
@@ -111,10 +114,6 @@ public class CardFunctionScript : MonoBehaviour
                         return;
                     };
                     break;
-                case CardState.Rewards:
-                    break;
-                case CardState.UpgradeMenu:
-                    break;
                 case CardState.Combat:
                     onclick = () =>
                     {
@@ -123,9 +122,24 @@ public class CardFunctionScript : MonoBehaviour
                         if (TurnManager.Instance != null && TurnManager.GetCurrentUnit.GetIsMoving) return;
                         if (DeckAndHandManager.Instance.CardsInHand.IndexOf(Card) == -1) return;
                         if (OptionsSettings.IsCardSelectOnClick) return;
+                        // Block card interaction if tutorial is active and not on card step
+                        if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                            TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                            return;
+                        if (TransitionScene.IsTutorial && Card.GetCardAbility?.GetCardCategory != TutorialManager.Instance.GetExpectedCatagory && TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None) return;
+                        if (ToggleHandPosButton.Instance != null && ToggleHandPosButton.Instance.IsHovered) return;
 
                         IsDragging = true;
                     };
+                    break;
+                case CardState.CardRemoval:
+                case CardState.FreeCardRemoval:
+                case CardState.DeckViewer:
+                case CardState.Rewards:
+                case CardState.UpgradeMenu:
+                case CardState.FreeUpgradeMenu:
+                case CardState.Inactive:
                     break;
             }
         }

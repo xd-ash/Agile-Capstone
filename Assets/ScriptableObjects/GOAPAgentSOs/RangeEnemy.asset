@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f099c5cd919206e4c8d46b19a4158e88, type: 3}
+  m_Name: RangeEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::GoapAgentSO
+  _harmfulAbilities:
+  - abilityName: Hip Fire
+    ability: {fileID: 11400000, guid: 3806d31e083fc7b4ebfc88e021e474fe, type: 2}
+    cooldownInTurns: 0
+    maxUses: -1
+  - abilityName: Feelin' Lucky
+    ability: {fileID: 11400000, guid: e3005e35529b7dd43b6af43d957fa4a7, type: 2}
+    cooldownInTurns: 2
+    maxUses: -1
+  _helpfulAbilities:
+  - abilityName: Heal
+    ability: {fileID: 11400000, guid: e12ae64479673e1479ffcf6a2800ce81, type: 2}
+    cooldownInTurns: 0
+    maxUses: 3
+  _goalsEnum: 46
+  _goals:
+  - rid: 6877345560813109319
+  - rid: 3457071735035396167
+  - rid: 3457071735035396171
+  - rid: 97860308277657685
+  _goapActionsEnum: 942
+  _actions:
+  - rid: 6877345560813109323
+  - rid: 6877345560813109324
+  - rid: 6877345560813109325
+  - rid: 6877345560813109322
+  - rid: 6877345560813109327
+  - rid: 6877345702617808967
+  - rid: 6877345702617808990
+  references:
+    version: 2
+    RefIds:
+    - rid: 97860308277657685
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: EndTurn
+        value: 0
+        removeOnComplete: 0
+    - rid: 3457071735035396167
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAliveEnemyFocus
+        value: 0
+        removeOnComplete: 1
+    - rid: 3457071735035396171
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: StayAliveSelfFocus
+        value: 0
+        removeOnComplete: 1
+    - rid: 6877345560813109319
+      type: {class: Goal, ns: , asm: Assembly-CSharp}
+      data:
+        key: KillPlayer
+        value: 1
+        removeOnComplete: 1
+    - rid: 6877345560813109322
+      type: {class: MoveInRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveInRangeAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 4226
+        _postConditionsFlags: 1088
+        _goalsFlags: 0
+    - rid: 6877345560813109323
+      type: {class: AttackAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: AttackAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 21826
+        _postConditionsFlags: 65540
+        _goalsFlags: 2
+    - rid: 6877345560813109324
+      type: {class: HealAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HealAction
+        _cost: 1
+        _costMultiplier: 1.5
+        _preConditionsFlags: 2578
+        _postConditionsFlags: 12
+        _goalsFlags: 8
+    - rid: 6877345560813109325
+      type: {class: HideAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: HideAction
+        _cost: 3
+        _costMultiplier: 2
+        _preConditionsFlags: 6144
+        _postConditionsFlags: 0
+        _goalsFlags: 4
+    - rid: 6877345560813109327
+      type: {class: EndTurnAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: EndTurnAction
+        _cost: 15
+        _costMultiplier: 1
+        _preConditionsFlags: 4
+        _postConditionsFlags: 0
+        _goalsFlags: 32
+    - rid: 6877345702617808967
+      type: {class: MoveOutOfLOSAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveOutOfLOSAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 5138
+        _postConditionsFlags: 2048
+        _goalsFlags: 0
+    - rid: 6877345702617808990
+      type: {class: MoveToRangeAction, ns: , asm: Assembly-CSharp}
+      data:
+        _actionName: MoveToRangeAction
+        _cost: 1
+        _costMultiplier: 1
+        _preConditionsFlags: 5442
+        _postConditionsFlags: 16384
+        _goalsFlags: 0

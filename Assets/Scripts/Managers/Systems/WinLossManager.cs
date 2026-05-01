@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using TMPro;
+using CardSystem;
 
 //Temp Class for easy Win/Loss condition and cyclical gameplay for build
 public class WinLossManager : MonoBehaviour
@@ -68,12 +69,13 @@ public class WinLossManager : MonoBehaviour
         _didWin = didWin;
         CombatNodeCompleted?.Invoke();
         GameUIManager.instance.ToggleWinLossText(_didWin);
+        DeckAndHandManager.Instance?.ToggleCollidersOnHover(null, true);
         Invoke(nameof(TriggerSceneTrans), textDuration);
     }
 
     public void TriggerSceneTrans()
     {
-        if (_didWin)
+        if (_didWin && PlayerDataManager.Instance.GetCurrNodeReward != null)
         {
             _rewardsPanel.gameObject.SetActive(true);
             return;

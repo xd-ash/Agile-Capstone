@@ -18,25 +18,23 @@ namespace CardSystem
                 Destroy(this.gameObject);
         }
 
+        [SerializeField] private Transform _cardHandParent;
+
         private int _topCardOfDeck = 0;
-        //private int _nextCardInHandIndex = 0; //Removed since it was unused, kept in comments in case its needed later
-        [SerializeField] private int _maxCards = 100;
+        [SerializeField] private int _maxCards = 10;
         [SerializeField] public int _startingHandSize = 5; // draw this many cards at start of player turn
 
-        //[SerializeField] private Deck _deck;
         [SerializeField] private List<Card> _cardsInHand = new();
         private Card _selectedCard = null;
 
-        // runtime deck support
-        //private List<CardAbilityDefinition> _runtimeDeckList = new List<CardAbilityDefinition>();
         public bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
-        //public Deck GetDeck => _deck;
         public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
-        //public CardAbilityDefinition[] GetRuntimeDeck => _runtimeDeckList.ToArray();
+        public int GetMaxHandSize => _maxCards;
+        public bool CanDrawCard => _cardsInHand.Count < _maxCards;
 
         public Action OnCardAblityCancel;
 
@@ -86,18 +84,23 @@ namespace CardSystem
                 }
             }
 
+            HandPositionController.Instance?.AdjustSplineKnotsOnHandSize();
             CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
         public void DrawStartingHand(bool force = false)
         {
+            _startingHandDrawn = true;
+
             if (!force && _startingHandDrawn) return;
             _startingHandDrawn = true;
-    
+            
             if (_startingHandSize <= 0) return;
 
             DiscardAll();
+
+            _startingHandSize += PlayerDataManager.Instance.GetStartingHandSizeBuff;
 
             int toDraw = Mathf.Min(_startingHandSize, _maxCards);
             DrawCard(toDraw);
@@ -122,6 +125,17 @@ namespace CardSystem
             CardSplineManager.Instance?.ArrangeCardGOs();
         }
 
+        //disable non hovered card cox colliders to avoid overlap issues
+        public void ToggleCollidersOnHover(Transform triggeredCard, bool disableOtherCards)
+        {
+            for (int i = 0; i < _cardsInHand.Count; i++)
+            {
+                var cardTrans = _cardsInHand[i]?.GetCardTransform;
+                var bc = cardTrans?.GetComponent<BoxCollider2D>();
+                if (cardTrans == triggeredCard || cardTrans == null || bc == null) continue;
+                bc.enabled = !disableOtherCards;
+            }
+        }
         public void SelectCard(Card card)
         {
             if (PauseMenu.isPaused || card == null) return;
@@ -227,11 +241,19 @@ namespace CardSystem
             if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return null;
             var cardsInDeck = deck.GetCardsInDeck;
 
-            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), transform);
+            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), _cardHandParent);
 
             if (_topCardOfDeck >= cardsInDeck.Count) return null;
 
-            Card newCard = new Card(cardsInDeck[_topCardOfDeck], cardGO.transform);
+            Card newCard = cardsInDeck[_topCardOfDeck];
+
+            while (_cardsInHand.Contains(newCard))
+            {
+                _topCardOfDeck++;
+                newCard = cardsInDeck[_topCardOfDeck];
+            }
+
+            newCard.OnPrefabCreation(cardGO.transform);
             CardPrefabSetterUpper.SetupCardPrefab(newCard, CardState.Combat);
 
             return newCard;

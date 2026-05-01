@@ -242,12 +242,12 @@ MonoBehaviour:
   - {fileID: -2483818144313059888}
   - {fileID: -2381621893422565370}
   _description: Place a trap that deals %1% damage and roots for %0% turns
+  _cardImage: {fileID: 21300000, guid: fb4c036423b780248937fcd6d034eb2d, type: 3}
   _abilitySFX: {fileID: 0}
-  _cardCategory: 5
-  _cardTags: 0600000000000000
+  _cardCategory: 7
   _effectValue: 0
   _apCost: 3
-  _range: 4
+  _range: 2
   _shopCost: 25
   _shopWeight: 15
   _baseHitChance: 100

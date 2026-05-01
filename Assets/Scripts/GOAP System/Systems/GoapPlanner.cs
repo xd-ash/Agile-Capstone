@@ -1,77 +1,93 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GOAPNode
 {
     public GOAPNode parent;
     public float cost;
-    public Dictionary<string, int> state;
+    public Dictionary<string, float> state;
     public GoapAction action;
 
-    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, int> allStates, GoapAction action)
+    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, float> allStates, GoapAction action)
     {
         this.parent = parent;
         this.cost = cost;
-        this.state = new Dictionary<string, int>(allStates);
+        this.state = new Dictionary<string, float>(allStates);
         this.action = action;
     }
-    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, int> allStates, Dictionary<string, int> beliefStates, GoapAction action)
+    public GOAPNode(GOAPNode parent, float cost, Dictionary<string, float> allStates, Dictionary<string, float> beliefStates, GoapAction action)
     {
         this.parent = parent;
         this.cost = cost;
-        this.state = new Dictionary<string, int>(allStates);
-        foreach(KeyValuePair<string, int> b in beliefStates)
+        this.state = new Dictionary<string, float>(allStates);
+        foreach(KeyValuePair<string, float> b in beliefStates)
             if(!this.state.ContainsKey(b.Key))
                 this.state.Add(b.Key, b.Value);
         this.action = action;
     }
 }
 
+public class Plan
+{
+    public float cheapestCost;
+    public Queue<GoapAction> actionQueue;
+    public Unit[] targets;
+}
+
 public class GoapPlanner
 {
-    // temp solution for grabbing a debug bool
     public GoapPlanner(GoapAgent agent)
     {
         _agent = agent;
     }
     private GoapAgent _agent;
-    //
+    private Dictionary<GoapAction, float> _actionCosts = new();
 
-    public Queue<GoapAction> Plan(List<GoapAction> actions, Dictionary<string,int> goal, WorldStates beliefStates)
+    public Plan Plan(List<GoapAction> actions, Dictionary<string, float> goal, WorldStates beliefStates)
     {
         List<GoapAction> usableActions = new List<GoapAction>();
         foreach (GoapAction a in actions)
             if (a.IsAchievable())
                 usableActions.Add(a);
 
-        List<GOAPNode> leaves = new List<GOAPNode>();
-        GOAPNode start = new GOAPNode(null, 0/*, GoapWorld.Instance.GetWorld().GetStates()*/, beliefStates.GetStates(), null); //null parent, no cost, & null action b/c it is start node
+        //setup temp beliefs for planning
+        Unit tempTarget = null;
+        string curGoal = goal.ElementAt(0).Key;
+        int i = curGoal == GoapGoals.KeepAlliesAlive.ToString() ? 1 : 0;
+        var targets = ChooseTargetAction.GetCurrentTargets(curGoal, _agent);
+        tempTarget = curGoal == GoapGoals.StayAliveSelfFocus.ToString() ? _agent.GetUnit : targets[i];
+
+        var tempBeliefs = _agent.GetTempBeliefsGivenGoal(curGoal, tempTarget, beliefStates);
+
+        List<GOAPNode> leaves = new();
+        GOAPNode start = new GOAPNode(null, 0, tempBeliefs.GetStates, null); //null parent, no cost, & null action b/c it is start node
+
+        EvaluateActionCosts(usableActions, curGoal, tempTarget);
+        bool success = BuildGraph(start, leaves, usableActions, goal);
 
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr = "Goal: ";
+            string tempStr = $"Agent: {_agent.name} (Target: {(tempTarget == null ? "null" : tempTarget.name)}) - Goal: ";
             foreach (var g in goal)
                 tempStr += g.Key + ", ";
-            tempStr += "\nBeliefs: ";
-            foreach (var b in beliefStates.GetStates())
+            tempStr += $"\ntempBeliefs: ";
+            foreach (var b in tempBeliefs.GetStates)
                 tempStr += b.Key + ", ";
             Debug.Log(tempStr);
         }
         //
 
-        bool success = BuildGraph(start, leaves, usableActions, goal);
-
         if (!success)
-        { 
+        {
             if(_agent.showDebugMessages)
-                Debug.Log("NO PLAN");
+                Debug.Log("Graph Build Fail - No Plan");
             return null;
         }
 
+        // find cheapest path 
         GOAPNode cheapest = null;
         foreach (GOAPNode leaf in leaves)
         {
@@ -82,15 +98,17 @@ public class GoapPlanner
                     cheapest = leaf;
         }
 
+        // cycle through each parent in order to add all actions
         List<GoapAction> result = new List<GoapAction>();
         GOAPNode n = cheapest;
         while (n != null)
         {
             if(n.action != null)
-                result.Insert(0,n.action);
+                result.Insert(0, n.action);
             n = n.parent;
         }
 
+        // create action queue from cheapest list of actions
         Queue<GoapAction> queue = new Queue<GoapAction>();
         foreach (GoapAction a in result)
             queue.Enqueue(a);
@@ -98,58 +116,65 @@ public class GoapPlanner
         //
         if (_agent.showDebugMessages)
         {
-            string tempStr2 = "The Plan is: ";
+            string tempStr2 = $"{_agent.name} - Possible Plan: ";
             foreach (GoapAction a in queue)
-                tempStr2 += $"{a.ToString()} > ";
-            Debug.Log(tempStr2);
+                tempStr2 += $"{a.GetActionName} > ";
+            //string target = _agent.GetCurrentTarget == null ? "null" : _agent.GetCurrentTarget.name;
+            Debug.Log(tempStr2 + $"(Cost: {cheapest.cost}, Target:{tempTarget?.name}, Goal: {goal?.ElementAt(0).Key})");
         }
         //
 
-        return queue;
+        var plan = new Plan() { cheapestCost = cheapest.cost, actionQueue = queue, targets = targets };
+        return plan;
     }
-
-    //recursive method for node graph building
-    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, int> goal)
+    private void EvaluateActionCosts(List<GoapAction> usableActions, string curGoal, Unit tempTarget)
     {
+        Dictionary<GoapAction, float> actionCosts = new();
+
+        foreach (GoapAction action in usableActions)
+        {
+            float cost = action.EvaluateCost(curGoal, tempTarget);
+            actionCosts.Add(action, cost);
+        }
+
+        _actionCosts = actionCosts;
+    }
+    //recursive method for node graph building 
+    private bool BuildGraph(GOAPNode parent, List<GOAPNode> leaves, List<GoapAction> usableActions, Dictionary<string, float> goal)
+    {
+        string curGoal = goal.ElementAt(0).Key;
         bool foundPath = false;
         foreach (GoapAction action in usableActions)
         {
-            if (action.IsAchievableGiven(parent.state))
+            if (!action.IsAchievableGiven(parent.state)) continue;
+
+            float actionCost = _actionCosts[action];
+
+            Dictionary<string, float> currentState = new Dictionary<string, float>(parent.state);
+
+            foreach (KeyValuePair<string, float> eff in action.GetPostConditions)
+                if (!currentState.ContainsKey(eff.Key))
+                    currentState.Add(eff.Key, eff.Value);
+
+            // No belief param needed as worldstates are concatenated in
+            GOAPNode node = new GOAPNode(parent, parent.cost + actionCost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
+            if(GoalAchieved(goal, currentState))
             {
-                Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
-
-                //Debug.Log($"Action (post count): {action.ToString()}({action.postConditions.Count})");
-
-                foreach (KeyValuePair<string, int> eff in action.postConditions)
-                    if (!currentState.ContainsKey(eff.Key))
-                    {
-                        //Debug.Log("test curstate contains key");
-                        currentState.Add(eff.Key, eff.Value);
-                    }
-
-                // No belief param needed as worldstates are concatenated in
-                GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action); //parent cost + action cost for accumulating costs as plan is created
-                if(GoalAchieved(goal, currentState))
-                {
-                    leaves.Add(node);
-                    foundPath = true;
-                }
-                else
-                {
-                    //Debug.Log("starting new recurs");
-                    List<GoapAction> subset = ActionSubset(usableActions, action);
-                    bool found = BuildGraph(node, leaves, subset, goal);
-                    if (found)
-                        foundPath = true;
-                }
+                leaves.Add(node);
+                foundPath = true;
+            }
+            else
+            {
+                List<GoapAction> subset = ActionSubset(usableActions, action);
+                foundPath = BuildGraph(node, leaves, subset, goal); // at this point build graph from subset. On success, bool follows stack back to first call
             }
         }
 
         return foundPath;
     }
-    private bool GoalAchieved(Dictionary<string, int> goal, Dictionary<string, int> state)
+    private bool GoalAchieved(Dictionary<string, float> goal, Dictionary<string, float> state)
     {
-        foreach (KeyValuePair<string, int> g in goal)
+        foreach (KeyValuePair<string, float> g in goal)
             if (!state.ContainsKey(g.Key))
                 return false;
 

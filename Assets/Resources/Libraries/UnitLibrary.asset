@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63562f738ff0c6644ac094c7a9af0091, type: 3}
+  m_Name: UnitLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLibrary
+  _playerUnit:
+    unitName: Player
+    unitPrefab: {fileID: 8440825415147360739, guid: 862fc390dcd9a02448337b5bd796c110, type: 3}
+    unitSO: {fileID: 11400000, guid: 737f348fd4d0492408a87cee9da571bd, type: 2}
+  _normalEnemies:
+  - unitName: MedicEnemy
+    unitPrefab: {fileID: 5893557019395072273, guid: ef7b17cbfa19864479bcab4a9d84df68, type: 3}
+    unitSO: {fileID: 11400000, guid: fb03d6800e6f7df4097b45c445348943, type: 2}
+  - unitName: MeleeEnemy
+    unitPrefab: {fileID: 5893557019395072273, guid: 3b694441e598e734499cd3d9c77b70f9, type: 3}
+    unitSO: {fileID: 11400000, guid: 2e06b5bbdef10ea419119ae3d83e1731, type: 2}
+  - unitName: PyroEnemy
+    unitPrefab: {fileID: 5893557019395072273, guid: 45b9e97dc37b02042aacef44b83ed4e3, type: 3}
+    unitSO: {fileID: 11400000, guid: 2fbbc6a0888bae44eb36691570b056f4, type: 2}
+  - unitName: RangeEnemy
+    unitPrefab: {fileID: 1552371556891506583, guid: 15cf3083205379a408a1f4ee14866ebf, type: 3}
+    unitSO: {fileID: 11400000, guid: dbd201f4dcb775844b1454a354cebbf5, type: 2}
+  - unitName: TankEnemy
+    unitPrefab: {fileID: 5893557019395072273, guid: 215e3e8b1e982bd45bde9d92cf0c9711, type: 3}
+    unitSO: {fileID: 11400000, guid: 5b58bb56d144d4643a7186199e47b0b5, type: 2}
+  _bossEnemies:
+  - unitName: MeleeBossEnemy
+    unitPrefab: {fileID: 5893557019395072273, guid: ad72d11e721333a47845b762790bcd80, type: 3}
+    unitSO: {fileID: 11400000, guid: a001207f657f7b74081b8d248fe36f08, type: 2}
+  - unitName: RangeBossEnemy
+    unitPrefab: {fileID: 1552371556891506583, guid: 707e344fbe8875b4da6019b0b835f982, type: 3}
+    unitSO: {fileID: 11400000, guid: 79fd08d783b10334c8e23e1ade9d015e, type: 2}

@@ -6,64 +6,111 @@ using UnityEngine.UI;
 using CardSystem;
 using AStarPathfinding;
 
-public enum Team {Friendly, Enemy}
+public enum Team {Friendly, Enemy, None, All}
 public class Unit : MonoBehaviour, IDamagable
 {
+    [SerializeField, HideInInspector] private UnitSO _unitSO;
+
     [Header("Team and stats")] 
-    [SerializeField] private Team _team;
-    [SerializeField] private int _maxHealth;
-    [SerializeField] private int _health;
+    [Space(10), SerializeField, HideInInspector] private Team _team;
+    [SerializeField, HideInInspector] private int _maxHealth = 0;
+    [SerializeField, HideInInspector] private int _health = 0;
 
     [Header("Shield")]
-    [SerializeField] private int _maxShield = 25;
-    [SerializeField] private int _shield = 0; // current shield amount (absorb damage before health)
+    [SerializeField, HideInInspector] private int _maxShield = 0;
+    [SerializeField, HideInInspector] private int _shield = 0;
 
     [Header("Action Points")]
-    [SerializeField] private int _maxAP;
-    [SerializeField] private int _ap;
+    [SerializeField, HideInInspector] private int _maxAP = 0;
+    [SerializeField, HideInInspector] private int _ap;
 
     [Header("Placeholder Stuff")]
     [SerializeField] private Slider _enemyHPBar;
+    [SerializeField] private Slider _enemyShieldBar;
     [SerializeField] private TextMeshProUGUI _hitChanceText;
 
     [Header("Misc")]
     [SerializeField] private bool _canMove = true;
 
     private FloatingTextController _floatingText;
+    private HitVFXSpawner _hitVFXSpawner;    
     private Coroutine _targetingCoroutine;
     private Guid _unitGuid = new();
 
+    public UnitSO GetUnitSO => _unitSO;
     public Team GetTeam => _team;
     public int GetMaxHealth => _maxHealth;
     public int GetHealth => _health;
+    public int GetMaxShield => _maxShield;
+    public int GetShield => _shield;
+    public int GetEffectiveHealth => _health + _shield;
+    public int GetMaxEffectiveHealth => _maxHealth + _maxShield;
     public int GetMaxAP => _maxAP;
     public int GetAP => _ap;
     public FloatingTextController GetFloatingText => _floatingText;
+    public HitVFXSpawner GetHitVFXSpawner => _hitVFXSpawner;
+
     public bool GetCanMove => _canMove;
-    public bool GetIsMoving => TryGetComponent(out FindPathAStar astar) && astar.GetIsMoving;
+    public bool GetIsMoving => TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving;
     public Guid GetGuid => _unitGuid;
 
-    public event Action<Unit> OnApChanged;
     
-    public void RaiseApChanged() => OnApChanged?.Invoke(this);
+    public bool IsDead { get; private set; }
+
+    public event Action<Unit> OnApChanged;
 
     private void Awake()
     {
         _floatingText = GetComponentInChildren<FloatingTextController>();
+        _hitVFXSpawner = GetComponent<HitVFXSpawner>(); 
 
-        _health = _maxHealth;
-        _ap = _maxAP;
+        GrabSOData();
+
         RaiseHealthEvent();
         HideHitChance();
 
-        // Ensure UI gets initial shield state
         if (_team == Team.Friendly)
             ShieldEvents.RaisePlayerShieldChanged(_shield);
         else
         {
-            _enemyHPBar = GetComponentInChildren<Slider>();
-            //_enemyHPBar.gameObject.SetActive(false); // commented this out so enemy HP bar show from start
+            _enemyShieldBar.gameObject.SetActive(false);
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
+        }
+    }
+
+    private void GrabSOData()
+    {
+        _maxHealth = _unitSO.GetMaxHealth;
+        _maxShield = _unitSO.GetMaxShield;
+        _maxAP = _unitSO.GetMaxAP;
+        _team = _unitSO.GetTeam;
+
+        GrabRunBuffs();
+
+        _health = _team == Team.Friendly ? PlayerDataManager.Instance.GetCurrentHealth : _maxHealth;
+        _shield = 0;
+        _ap = _maxAP;
+    }
+    private void UpdatePlayerHealth(bool didWin)
+    {
+        if (!didWin || _health <= 0) return;
+        PlayerDataManager.Instance.UpdateHealthForRun(_health);
+    }
+    private void GrabRunBuffs()
+    {
+        var pdm = PlayerDataManager.Instance;
+        if (pdm == null) return;
+        _maxHealth += pdm.GetMaxHealthBuff;
+        _maxAP += pdm.GetMaxAPBuff;
+    }
+    public void IncreaseStat(RestOptions stat)
+    {
+        switch (stat)
+        {
+            case RestOptions.AP:
+                break;
+            case RestOptions.MaxHealth:
+                break;
         }
     }
     private void Start()
@@ -71,12 +118,14 @@ public class Unit : MonoBehaviour, IDamagable
         if (_team != Team.Friendly) return;
         DeckAndHandManager.Instance.OnCardAblityCancel += () => StopTargetingCoro(this);
         TurnManager.Instance.OnTurnEnd += StopTargetingCoro;
+        GameOverEvents.OnGameOver += UpdatePlayerHealth;
     }
     private void OnDestroy()
     {
         if (_team != Team.Friendly) return;
         DeckAndHandManager.Instance.OnCardAblityCancel -= () => StopTargetingCoro(this);
         TurnManager.Instance.OnTurnEnd -= StopTargetingCoro;
+        GameOverEvents.OnGameOver -= UpdatePlayerHealth;
     }
     private void StopTargetingCoro(Unit unit)
     {
@@ -84,17 +133,27 @@ public class Unit : MonoBehaviour, IDamagable
 
         StopCoroutine(_targetingCoroutine);
     }
-    /// <summary>
-    /// ChangeHealth handles both healing (isGain = true) and damage (isGain = false).
-    /// When taking damage, shield is consumed first (if >0).
-    /// </summary>
+    
+    public void PlayFlinchAnim(Vector2Int attackerGridPos)
+    {
+        if (IsDead) return;
+
+        var dirAnimator = GetComponent<DirectionAnimator>();
+        if (dirAnimator == null) return;
+
+        Vector2Int myPos = IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition);
+        Vector2Int delta = attackerGridPos - myPos;
+        int dir = DirectionAnimator.GetDirIndexFromDelta(delta);
+
+        dirAnimator.PlayAttack(AttackAnimKey.TakeDamage, dir, null);
+    }
+    
     public void ChangeHealth(int amount, bool isGain)
     {
         int uAmount = Math.Abs(amount);
 
         if (!isGain)
         {
-            // Apply damage: shield absorbs first
             int remainingDamage = uAmount;
 
             if (_shield > 0)
@@ -104,9 +163,7 @@ public class Unit : MonoBehaviour, IDamagable
                 int absorbed = Mathf.Min(_shield, remainingDamage);
                 _shield -= absorbed;
                 remainingDamage -= absorbed;
-                //Debug.Log($"[{team}] '{name}' shield absorbed {absorbed} damage (shield remaining: {shield}).");
 
-                // Notify UI about shield change
                 if (_team == Team.Friendly)
                     ShieldEvents.RaisePlayerShieldChanged(_shield);
                 else
@@ -117,29 +174,19 @@ public class Unit : MonoBehaviour, IDamagable
             {
                 _health -= remainingDamage;
                 AudioManager.Instance?.PlayDamageTakeSFX(this);
-                //Debug.Log($"[{team}] '{name}' took {remainingDamage} damage (post-shield). Health now {health}/{maxHealth}.");
-            }
-            else
-            {
-                //Debug.Log($"[{team}] '{name}' took no health damage thanks to shield.");
             }
         }
         else
         {
-            // Healing path
             _health += uAmount;
-            //Debug.Log($"[{team}] '{name}' healed {uAmount}. Health now {health}/{maxHealth}.");
         }
 
-        // Clamp and death handling
         if (_health >= _maxHealth)
             _health = _maxHealth;
         else if (_health <= 0)
         {
             _health = 0;
 
-            //Temp Win/Loss condition stuff
-            //
             if (_team == Team.Friendly)
                 GameOverEvents.OnGameWinOrLoss(false);
             else
@@ -150,84 +197,76 @@ public class Unit : MonoBehaviour, IDamagable
                 if (WinLossManager.Instance.GetEnemyUnits.Count == 0)
                     GameOverEvents.OnGameWinOrLoss(true);
             }
-            //
 
             ByteMapController.Instance.UpdateUnitPositionByteMap(this, IsoMetricConversions.ConvertToGridFromIsometric(transform.localPosition));
-            Destroy(gameObject);
-            //Debug.Log($"[{team}] '{name}' unit died");
+
+            //mark dead, disable collider, play death anim before destroying
+            IsDead = true;
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+
+            PlayDeathAndDestroy();
         }
 
-        //Placeholder enemy healthbar updating
         if (_team == Team.Enemy)
-            UpdateHealthBar();
+            UpdateEnemyUIBars();
 
         RaiseHealthEvent();
     }
+    private void PlayDeathAndDestroy()
+    {
+        var dirAnimator = GetComponent<DirectionAnimator>();
+        if (dirAnimator == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-    /// <summary>
-    /// Add shield amount. If duration > 0, shield amount will be removed after duration seconds.
-    /// </summary>
-    public void AddShield(int amount, float duration = 0f)
+        dirAnimator.PlayAttack(AttackAnimKey.Die, dirAnimator.GetLastDir, () =>
+        {
+            Destroy(gameObject);
+        });
+    }
+
+    public void AddShield(int amount)
     {
         if (amount <= 0) return;
         _shield += amount;
         if (_shield >= _maxShield)
             _shield = _maxShield;
-        //Debug.Log($"[{team}] '{name}' gained {amount} shield (total shield: {shield}).");
 
-        // Raise shield event for UI
         if (_team == Team.Friendly)
             ShieldEvents.RaisePlayerShieldChanged(_shield);
         else
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
 
-        if (duration > 0f)
-        {
-            StartCoroutine(RemoveShieldAfter(duration, amount));
-        }
+        if (_team == Team.Enemy)
+            UpdateEnemyUIBars();
     }
 
-    /// <summary>
-    /// Remove up to `amount` from shield immediately.
-    /// </summary>
     public void RemoveShield(int amount)
     {
         if (amount <= 0) return;
         int removed = Mathf.Min(_shield, amount);
         _shield -= removed;
-        //Debug.Log($"[{team}] '{name}' lost {removed} shield (remaining shield: {shield}).");
 
-        // Raise shield event for UI
         if (_team == Team.Friendly)
             ShieldEvents.RaisePlayerShieldChanged(_shield);
         else
             ShieldEvents.RaiseEnemyShieldChanged(_shield);
     }
 
-    private IEnumerator RemoveShieldAfter(float seconds, int amount)
+    public void UpdateEnemyUIBars()
     {
-        yield return new WaitForSeconds(seconds);
-        RemoveShield(amount);
-    }
+        if (_enemyHPBar == null || _enemyShieldBar == null) return;
 
-    // Optional accessor if needed by UI
-    public int GetShield() => _shield;
-
-    //placeholder enemy damage dealing
-    public void DealDamage(Unit target, int damage = 2)
-    {
-        if (_team == Team.Enemy && target != null)
-            target.ChangeHealth(damage, false);
-    }
-    //placeholder enemy healthbar stuff
-    public void UpdateHealthBar()
-    {
-        if (_enemyHPBar == null) return;
         if (_enemyHPBar.maxValue != _maxHealth) _enemyHPBar.maxValue = _maxHealth;
-        _enemyHPBar.value = Mathf.Clamp(_health, 0, _maxHealth);
+        if (_enemyShieldBar.maxValue != _maxShield) _enemyShieldBar.maxValue = _maxShield;
 
-        if (_enemyHPBar.value != _enemyHPBar.maxValue && !_enemyHPBar.gameObject.activeInHierarchy)
-            _enemyHPBar.gameObject.SetActive(true); // Adam added 10-5, enemy bar hidden by default, show once dmg taken
+        _enemyHPBar.value = Mathf.Clamp(_health, 0, _maxHealth);
+        _enemyShieldBar.value = Mathf.Clamp(_shield, 0, _maxShield);
+
+        _enemyShieldBar.gameObject.SetActive(_enemyShieldBar.value > 0);
     }
     private void RaiseHealthEvent()
     {
@@ -244,9 +283,9 @@ public class Unit : MonoBehaviour, IDamagable
     }
     public void RestoreAP(int amount)
     {
-        _ap += amount;
-        if (_ap >= _maxAP)
-            _ap = _maxAP;
+        if (amount == 0) return;
+
+        _ap = Mathf.Clamp(_ap + amount, 0, _maxAP);
         OnApChanged?.Invoke(this);
     }
 
@@ -266,7 +305,7 @@ public class Unit : MonoBehaviour, IDamagable
 
     public void ToggleCanMove(bool canMove, bool sendText = true)
     {
-        if (_canMove == canMove) return; //avoid any extra texts 
+        if (_canMove == canMove) return;
 
         _canMove = canMove;
 
@@ -298,19 +337,10 @@ public class Unit : MonoBehaviour, IDamagable
     {
         _targetingCoroutine = StartCoroutine(targetingCoro);
     }
-    public void AddAP(int amount)
-    {
-        if (amount == 0) return;
 
-        _ap = Mathf.Clamp(_ap + amount, 0, _maxAP);
-        OnApChanged?.Invoke(this);
-    }
-
-    
     public void AddHealthDelta(int delta)
     {
         if (delta == 0) return;
         ChangeHealth(Mathf.Abs(delta), isGain: delta > 0);
     }
-
 }

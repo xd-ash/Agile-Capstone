@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static IsoMetricConversions;
@@ -106,7 +107,7 @@ public class MapCreator : MonoBehaviour
             }
         }
 
-        int players = PlayerDataManager.Instance.GetCurrCombatNodeData.maxPlayersAllowed;
+        int players = 1; // PlayerDataManager.Instance.GetCurrCombatNodeData.maxPlayersAllowed;
         int enemies = PlayerDataManager.Instance.GetCurrCombatNodeData.maxEnemiesAllowed;
 
         //check if tilemap prefab had enough spawners for the number of units and sidestep tilebase system if failed
@@ -117,14 +118,16 @@ public class MapCreator : MonoBehaviour
 
         GenerateUnitPositions(ref map, players, playerSpawnPositions);
         GenerateUnitPositions(ref map, enemies, enemySpawnPositions);
-        
+
+        _enemiesSpawned.Clear();
+
         for (int x = 0; x < map.GetLength(0); x++)
         {
             for (int y = 0; y < map.GetLength(1); y++)
             {
                 Vector2Int gridPos = new Vector2Int(x, y);
 
-                SpawnTileContents(map, map[x, y], gridPos);
+                SpawnUnits(map, map[x, y], gridPos);
                 tilemap.SetTileFlags((Vector3Int)gridPos, TileFlags.None);
             }
         }
@@ -152,38 +155,56 @@ public class MapCreator : MonoBehaviour
 
         return tilemap;
     }
-    private void SpawnTileContents(byte[,] map, int byteIndicator, Vector2Int mapPos)
+
+    private Dictionary<UnitSO, int> _enemiesSpawned = new();
+    private void SpawnUnits(byte[,] map, int byteIndicator, Vector2Int mapPos)
     {
         if (byteIndicator == 2 || byteIndicator == 5 || byteIndicator == 0) return; // quick fix for WFC removal. 2 & 5 are obstacle tiles (2 is full cover,
                                                                                     // 5 is half-cover which isn't really implemented yet)
-
+        
         Vector3 truePos = ConvertToIsometricFromGrid(mapPos);
-        GameObject[] objs = _tileLibrary.GetGOFromIndicator(byteIndicator);
-        GameObject objToSpawn = objs[0];
+        GameObject unitPrefab = null;
+        string nameAddition = string.Empty;
 
-        //grab random prefab from array if length > 1 (replace with proper enemy determination system)
-        if (objs.Length > 1)
+        if (byteIndicator == 1)
+            unitPrefab = UnitLibrary.GetPlayerUnitPrefab();
+        else
         {
-            UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed - int.Parse($"{mapPos.x}{mapPos.y}"));
-            int rng = UnityEngine.Random.Range(0, objs.Length);
-            objToSpawn = objs[rng];
+            if (byteIndicator != 3)
+                map[mapPos.x, mapPos.y] = 3; //reset any possible accidental "specific" enemy spawn tiles to the generic enemy indicator
+
+            var selectedEnemies = PlayerDataManager.Instance.GetCurrCombatNodeData.selectedEnemies;
+            if (selectedEnemies == null)
+                Debug.LogError($"Selected Enemies is null");
+            var enemy = selectedEnemies[_enemiesSpawned.Count == 0 ? 0 : _enemiesSpawned.Values.Sum()];
+            unitPrefab = UnitLibrary.GetUnitPrefab(enemy);
+
+            if (unitPrefab != null)
+            {
+                if (_enemiesSpawned.ContainsKey(enemy))
+                    _enemiesSpawned[enemy] = _enemiesSpawned[enemy] + 1;
+                else
+                    _enemiesSpawned.Add(enemy, 1);
+
+                nameAddition = _enemiesSpawned[enemy].ToString();
+            }
         }
 
-        if (objToSpawn == null)
+        if (unitPrefab == null)
         {
             if (byteIndicator != 0)
                 Debug.LogError($"No Prefab found for byte indicator: {byteIndicator}");
             return;
         }
-        if (byteIndicator == 6 || byteIndicator == 7)// range or melee specific spawn tiles
-            map[mapPos.x, mapPos.y] = 3; //swap byte indicator back to a general enemy for map control purposes
 
-        GameObject newObj = Instantiate(objToSpawn, Vector3.zero, Quaternion.identity, transform);
-        newObj.transform.localPosition = truePos;
+        GameObject newUnit = Instantiate(unitPrefab, Vector3.zero, Quaternion.identity, transform);
+        newUnit.transform.localPosition = truePos;
+        newUnit.name = $"{newUnit.name.Split('(')[0]} {nameAddition}";
 
-        if (newObj.TryGetComponent(out Unit unit))
+        if (newUnit.TryGetComponent(out Unit unit))
             ByteMapController.Instance.InitUnitPosition(unit, mapPos);
     }
+
     private void GenerateUnitPositions(ref byte[,] map, int numUnits, List<Vector2Int> unitSpawnPoints)
     {
         List<Vector2Int> selectedUnitSpawns = new();
@@ -192,10 +213,14 @@ public class MapCreator : MonoBehaviour
         {
             int index = -1;
             Vector2Int pos;
+
+            int failCount = 0;
             do
             {
+                UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed - failCount);
                 index = UnityEngine.Random.Range(0, unitSpawnPoints.Count);
                 pos = unitSpawnPoints[index];
+                failCount++;
             } while (selectedUnitSpawns.Contains(pos));
             selectedUnitSpawns.Add(pos);
         }

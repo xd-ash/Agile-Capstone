@@ -4,7 +4,6 @@ using UnityEngine;
 public class CampNode : NodeMapNode
 {
     [SerializeField] private CampNodeController _campNodeController;
-    [SerializeField] private CardUpgradeController _cardUpgradeController;
 
     public override void InitNode(Vector2Int index, List<NodeMapNode> prev, List<NodeMapNode> next)
     {

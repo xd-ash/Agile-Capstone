@@ -13,6 +13,8 @@ public class TutorialManager : MonoBehaviour
     private bool _stepWaiting = false;
     private CardCategory _expectedCategory;
 
+    public CardCategory GetExpectedCatagory => _expectedCategory;
+
     public enum TutorialInputMode
     {
         None,
@@ -34,6 +36,7 @@ public class TutorialManager : MonoBehaviour
 
         if (!TransitionScene.IsTutorial)
         {
+            CurrentInputMode = TutorialInputMode.None;
             gameObject.SetActive(false);
             return;
         }
@@ -50,7 +53,7 @@ public class TutorialManager : MonoBehaviour
 
     private void AdvanceStep()
     {
-        CleanUpCardState();
+        //CleanUpCardState();
         _stepWaiting = false;
         _currentStep++;
 
@@ -153,7 +156,7 @@ public class TutorialManager : MonoBehaviour
             case 15:
                 CurrentInputMode = TutorialInputMode.None;
                 _tutorialUI.Show("Tutorial complete!");
-                TransitionScene.ResetTutorialFlag();
+                //TransitionScene.ResetTutorialFlag();
                 Invoke(nameof(ReturnToMainMenu), 3f);
                 break;
 
@@ -228,7 +231,7 @@ public class TutorialManager : MonoBehaviour
             TurnManager.Instance.OnTurnEnd -= OnEnemyTurnEnd;
         }
     }
-    
+
     private void CleanUpCardState()
     {
         if (DeckAndHandManager.Instance == null) return;

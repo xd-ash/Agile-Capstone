@@ -5,16 +5,16 @@ using XNode;
 namespace CardSystem 
 {
     [CreateNodeMenu("Gambling Effects/On Total Coin Flips")]
-    public class EffectOnTotalCoinFlip : EffectStrategy
+    public class EffectOnTotalCoinFlip : EffectStrategy, IFlipCoins
     {
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 
         [Tooltip("Heads - True, Tails - False")]
         [SerializeField] private bool desiredCoinOutSide = false;
 
-        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+        public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
-            base.StartEffect(abilityData, onFinished, effectValueChange);
+            base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             //check each effect connected to node
             foreach (NodePort port in Outputs)

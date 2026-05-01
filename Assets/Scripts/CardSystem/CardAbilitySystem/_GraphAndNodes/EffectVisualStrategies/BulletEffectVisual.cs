@@ -9,7 +9,7 @@ public class BulletEffectVisual : EffectVisualsStrategy
     [SerializeField] private GameObject _bullet;
     [SerializeField] private float _bulletTravelDur = 1f;
 
-    public override void CreateVisualEffect(AbilityData abilityData, Unit target)
+    public override void CreateVisualEffect(AbilityData abilityData, GameObject target)
     {
         if (target == null) return;
         Unit unit = abilityData.GetUnit;

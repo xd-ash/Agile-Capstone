@@ -14,9 +14,9 @@ public class SpawnObjectEffect : EffectStrategy, IStoppable, IPassSpawnedObjs
 
     [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public float objEffects;
 
-    public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0)
+    public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
     {
-        base.StartEffect(abilityData, onFinished, effectValueChange);
+        base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
         foreach (var target in abilityData.Targets)
         {

@@ -141,12 +141,12 @@ MonoBehaviour:
   - {fileID: -2866850248734041623}
   _description: Deal %0% AOE damage
   _cardImage: {fileID: 21300000, guid: 0ca5c8cbe4fa6e0478b142088d28e2ed, type: 3}
-  _abilitySFX: {fileID: 0}
+  _abilitySFX: {fileID: 8300000, guid: ed78fafc53b754105a9f1ae8302115c9, type: 3}
   _cardCategory: 0
-  _cardTags: 0000000008000000
+  _cardTags: 000000000800000009000000
   _effectValue: 0
   _apCost: 2
-  _range: 5
+  _range: 3
   _shopCost: 10
   _shopWeight: 15
   _baseHitChance: 100

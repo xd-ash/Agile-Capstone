@@ -43,7 +43,7 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 1
+  _effectValue: 2
   input: 0
   effectVisuals: 0
 --- !u!114 &-8061206405491420036
@@ -196,7 +196,7 @@ MonoBehaviour:
   _cardTags: 0000000004000000
   _effectValue: 0
   _apCost: 2
-  _range: 3
+  _range: 1
   _shopCost: 15
   _shopWeight: 25
   _baseHitChance: 100

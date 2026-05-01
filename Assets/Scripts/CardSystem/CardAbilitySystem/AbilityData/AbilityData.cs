@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CardSystem
@@ -10,24 +11,23 @@ namespace CardSystem
     public class AbilityData
     {
         private Unit _unit;
-        private IEnumerable<GameObject> _targets;
+        //private IEnumerable<GameObject> _targets;
         private Guid _guid;
-        private Vector2Int _abilityTriggerPos;
+        //private Vector2Int _abilityTriggerPos;
         private CardRarity _rarity;
 
         public Unit GetUnit { get { return _unit; } }
-        public IEnumerable<GameObject> Targets { get { return _targets; } set { _targets = value; } }
+        public IEnumerable<GameObject> Targets { get; set; }
         public Guid GetGUID => _guid;
-        public Vector2Int AbilityTriggerPos { get { return _abilityTriggerPos; } set { _abilityTriggerPos = value; } }
+        public Vector2Int AbilityTriggerPos { get; set; } = -Vector2Int.one;
         public CardRarity GetCardRarity => _rarity;
-
         public int GetTargetCount
         {
             get
             {
                 int targetCount = 0;
-                if (_targets != null)
-                    foreach (GameObject target in _targets)
+                if (Targets != null)
+                    foreach (GameObject target in Targets)
                         if (target != null)
                             targetCount++;
                 return targetCount;
@@ -38,14 +38,14 @@ namespace CardSystem
         {
             _unit = unit;
             _guid = guid;
-            _abilityTriggerPos = abilityTriggerPos;
+            AbilityTriggerPos = abilityTriggerPos;
             _rarity = rarity;
         }
         public AbilityData(AbilityData refAbilityData)
         {
             _unit = refAbilityData.GetUnit;
             _guid = refAbilityData.GetGUID;
-            _abilityTriggerPos = refAbilityData.AbilityTriggerPos;
+            AbilityTriggerPos = refAbilityData.AbilityTriggerPos;
             _rarity = refAbilityData.GetCardRarity;
         }
 

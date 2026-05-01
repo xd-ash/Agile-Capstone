@@ -39,14 +39,14 @@ namespace CardSystem
                 _categoryIcon.sprite = visual.icon;
                 _categoryIcon.gameObject.SetActive(visual.icon != null);
             }
-            
+
             if (_cardImage != null)
             {
                 _cardImage.sprite = def.GetCardImage;
                 _cardImage.gameObject.SetActive(def.GetCardImage != null);
             }
         }
-        
+
         public void UpdateSortingOrder(int sortingOrder)
         {
             if (_categoryBorder != null)
@@ -57,7 +57,7 @@ namespace CardSystem
 
             if (_categoryIcon != null)
                 _categoryIcon.sortingOrder = sortingOrder + 3; // above card body and text
-            
+
             if (_cardImage != null)
                 _cardImage.sortingOrder = sortingOrder + 1;
         }

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Linq;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
@@ -21,17 +20,17 @@ namespace CardSystem
 		// based on connected targeting strategy port
         public void UseAbility(Unit user, CardRarity rarity = CardRarity.Common)
 		{
-			if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
-			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
-			    TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
-				return;
-			
+            if (TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.None &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.CardsOnly &&
+                TutorialManager.CurrentInputMode != TutorialManager.TutorialInputMode.MoveAndCards)
+                return;
+
             if (_targetingStrategy == null)
                 _targetingStrategy = GetPort("targeting").Connection.node as TargetingStrategy;
 
 			if (!user.SpendAP(_cardDefinition.GetApCost, false)) return; // simply check if ap can be spent
 
-            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), ByteMapController.Instance.GetPositionOfUnit(user), rarity);
+            AbilityData abilityData = new AbilityData(user, Guid.NewGuid(), -Vector2Int.one, rarity);
             Action onFinished = () =>
             {
                 // Method sent through to be called after targeting strategy finishes
@@ -72,7 +71,7 @@ namespace CardSystem
 					continue;
 
 				EffectStrategy curEffect = port.Connection.node as EffectStrategy;
-				curEffect.StartEffect(abilityData, () => OnEffectFinished());
+				curEffect.StartEffect(abilityData, () => OnEffectFinished(abilityData));
 			}
 
             abilityData.GetUnit.SpendAP(_cardDefinition.GetApCost);//actually use the ap
@@ -80,10 +79,16 @@ namespace CardSystem
         }
 
         // Unused method for now, kept just for reminder of tutorial system setup
-        private void OnEffectFinished()
+        private void OnEffectFinished(AbilityData abilityData)
 		{
-            
-		}
+            /*List<GameObject> emptyTargets = new();
+            foreach(var target in abilityData.Targets)
+                if (target.GetComponent<TargetingEmptyIdentifier>() != null)
+                    emptyTargets.Add(target);
+
+            for (int i = emptyTargets.Count - 1; i >= 0; i--)
+                Destroy(emptyTargets[i]);*/
+        }
 
         /*/ Not sure what this is and why it's required (or if I even set it up correctly) ¯\_(ツ)_/¯
 		// I think this is just grabbing each port's data identifier type

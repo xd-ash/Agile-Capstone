@@ -1,7 +1,7 @@
 using CardSystem;
 using System;
 using UnityEngine;
-using static GameObjectPool;
+//using static GameObjectPool;
 
 public static class CardScrollviewFiller
 {
@@ -15,31 +15,13 @@ public static class CardScrollviewFiller
         {
             if (card == null) continue;
 
-            GameObject content = Spawn(contentPrefab, Vector3.zero, Quaternion.identity, contentPrefab.transform.localScale, contentParent);
+            GameObject content = GameObject.Instantiate(contentPrefab, Vector3.zero, Quaternion.identity, contentParent);
+            content.transform.localScale = contentPrefab.transform.localScale;
             onCreationAction?.Invoke(content.transform, card);
 
             if (!isFullCard) continue;
 
             var tempCard = new Card(card, card.GetBaseCardRarity, content.transform);
-            CardPrefabSetterUpper.SetupCardPrefab(tempCard, cardState);
-        }
-    }
-    public static void BuildScrollViewContent(Transform contentParent, GameObject contentPrefab, Card[] cardCollection, CardState cardState, Action<Transform, Card> onCreationAction = null)
-    {
-        bool isFullCard = contentPrefab.TryGetComponent(out CardSelect cs);
-
-        ClearScrollViewContent(contentParent);
-
-        foreach (var card in cardCollection)
-        {
-            if (card == null) continue;
-
-            GameObject content = Spawn(contentPrefab, Vector3.zero, Quaternion.identity, contentPrefab.transform.localScale, contentParent);
-            onCreationAction?.Invoke(content.transform, card);
-
-            if (!isFullCard) continue;
-
-            var tempCard = new Card(card, content.transform);
             CardPrefabSetterUpper.SetupCardPrefab(tempCard, cardState);
         }
     }
@@ -53,7 +35,8 @@ public static class CardScrollviewFiller
         {
             if (card == null) continue;
 
-            GameObject content = Spawn(contentPrefab, Vector3.zero, Quaternion.identity, contentPrefab.transform.localScale, contentParent);
+            GameObject content = GameObject.Instantiate(contentPrefab, Vector3.zero, Quaternion.identity, contentParent);
+            content.transform.localScale = contentPrefab.transform.localScale;
             onCreationAction?.Invoke(content.transform, card);
 
             if (!isFullCard) continue;

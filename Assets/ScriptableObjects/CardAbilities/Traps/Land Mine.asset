@@ -154,12 +154,12 @@ MonoBehaviour:
   - {fileID: 215215104908119812}
   - {fileID: 5961324338003623009}
   _description: Place a trap that deals %0% damage
+  _cardImage: {fileID: 21300000, guid: fb4c036423b780248937fcd6d034eb2d, type: 3}
   _abilitySFX: {fileID: 0}
-  _cardCategory: 5
-  _cardTags: 0000000006000000
+  _cardCategory: 7
   _effectValue: 0
   _apCost: 3
-  _range: 4
+  _range: 2
   _shopCost: 15
   _shopWeight: 25
   _baseHitChance: 100

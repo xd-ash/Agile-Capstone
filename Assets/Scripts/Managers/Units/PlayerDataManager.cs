@@ -8,22 +8,33 @@ public class PlayerDataManager : MonoBehaviour
 {
     private CardAndPackLibrary _cardAndPackLibrary;
 
+    Dictionary<RestOptions, int> _buffsThisRun = new();
+
+    [SerializeField] private UnitSO _playerUnitSO;
+    private int _healthThisRun = 0;
+
     private int _balance = 0;
 
     private Vector2Int[] _completedNodes;
-    [SerializeField] private Vector2Int _curNodeIndex = new(0,0);
+    private Vector2Int _curNodeIndex = new(0,0);
     private int _generalSeed = -1;
     private int _nodeMapSeed = -1;
     private CombatMapData _currCombatNodeData;
     private Reward _currNodeReward;
 
-    [SerializeField] private List<CardPack> _createdPacks = new();
-    [SerializeField] private List<CardPack> _initialCardPacksThisRun = new();
     [SerializeField] private Deck _deck;
 
-    [SerializeField] private List<bool> _coinFlipsThisRun = new();
-    [SerializeField] private List<int> _dieRollsThisRun = new();
+    private List<bool> _coinFlipsThisRun = new();
+    private List<int> _dieRollsThisRun = new();
 
+    public Dictionary<RestOptions, int> GetBuffsThisRun => _buffsThisRun;
+    public int GetMaxAPBuff => _buffsThisRun.ContainsKey(RestOptions.AP) ? _buffsThisRun[RestOptions.AP] : 0;
+    public int GetMaxHealthBuff => _buffsThisRun.ContainsKey(RestOptions.MaxHealth) ? _buffsThisRun[RestOptions.MaxHealth] : 0;
+    public int GetStartingHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.StartingHandSize) ? _buffsThisRun[RestOptions.StartingHandSize] : 0;
+    public int[] GetAllBuffs => new int[3] { GetMaxAPBuff, GetMaxHealthBuff, GetStartingHandSizeBuff };
+
+    public int GetCurrentHealth => _healthThisRun;
+    public int GetMaxHealth => _playerUnitSO == null ? 0 : _playerUnitSO.GetMaxHealth;
     public int GetBalance => _balance;
 
     public Vector2Int[] GetCompletedNodes => _completedNodes;
@@ -36,8 +47,6 @@ public class PlayerDataManager : MonoBehaviour
     public Reward GetCurrNodeReward => _currNodeReward;
 
     public Deck GetPlayerDeck => _deck;
-    public List<CardPack> GetInitialCardPacks => _initialCardPacksThisRun;
-    public List<CardPack> GetAllPlayerPacks => _createdPacks;
 
     public bool[] GetAllCoinFlipsThisRun => _coinFlipsThisRun.ToArray();
     public int GetNumHeadsThisRun => _coinFlipsThisRun.FindAll(x => true).Count;
@@ -61,7 +70,6 @@ public class PlayerDataManager : MonoBehaviour
 
     #if UNITY_EDITOR
         CardAndPackLibrary.GrabAssets?.Invoke();
-        BadgeLibrary.GrabAssets?.Invoke();
     #endif
 
         if (SaveLoadScript.CheckForSaveGame)
@@ -75,7 +83,7 @@ public class PlayerDataManager : MonoBehaviour
     {
         WinLossManager.GameReset -= ClearRunCoinFlips;
     }
-    public int GenerateRandomSeed(ref int seed)
+    private int GenerateRandomSeed(ref int seed)
     {
         int temp = seed;
         do
@@ -88,6 +96,34 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // Data update methods for setting values
+    public void UpdateBuff(RestOptions option, int buffAmount)
+    {
+        if (_buffsThisRun.ContainsKey(option))
+            _buffsThisRun[option] += buffAmount;
+        else
+            _buffsThisRun.Add(option, buffAmount);
+    }
+    public void ClearOptionBuffFromDict(RestOptions option)
+    {
+        if (!_buffsThisRun.ContainsKey(option)) return;
+        _buffsThisRun.Remove(option);
+    }
+    public void ClearBuffsOnRunEnd()
+    {
+        _buffsThisRun.Clear();
+    }
+
+    public void UpdateHealthForRun(int currHealth)
+    {
+        if (currHealth <= 0)
+        {
+            Debug.LogWarning($"Currrent run health attempt set fail in playerdata. (Invalid Value: {currHealth})");
+            return;
+        }
+
+        _healthThisRun = Math.Clamp(currHealth, 0, GetMaxHealth);
+    }
+
     public void UpdateCurrencyData(int currentBalance)
     {
         _balance = currentBalance;
@@ -115,17 +151,6 @@ public class PlayerDataManager : MonoBehaviour
     {
         _deck = deck;
     }
-    public void UpdateCardData(Deck deck, List<CardPack> createdPacks)
-    {
-        _deck = deck;
-        _createdPacks = createdPacks;
-    }
-    public void UpdateCardData(Deck deck, List<CardPack> initialPacks, List<CardPack> createdPacks)
-    {
-        _deck = deck;
-        _initialCardPacksThisRun = initialPacks;
-        _createdPacks = createdPacks;
-    }
     public void UpdateCardData(Card card, bool isAddition = true)
     {
         if (card == null) return;
@@ -135,38 +160,6 @@ public class PlayerDataManager : MonoBehaviour
         else
             if (_deck.Contains(card))
                 _deck.RemoveCard(card);
-    }
-    public void SetInitialPacks(CardPack[] packs)
-    {
-        if (packs == null || packs.Length == 0) return;
-        _initialCardPacksThisRun.Clear();
-        _initialCardPacksThisRun.AddRange(packs);
-    }
-    public void CreatePlayerDeckFromPacks()
-    {
-        var tempCards = new List<CardAbilityDefinition>();
-
-        foreach (var pack in _initialCardPacksThisRun)
-            tempCards.AddRange(pack.GetCardsInPack);
-        
-        _deck = new Deck(tempCards);
-    }
-    public void CreateOrAdjustPack(CardPack pack)
-    {
-        if (pack == null) return;
-        for (int i = _createdPacks.Count - 1; i >= 0; i--)
-            if (_createdPacks[i].GetPackName == pack.GetPackName)
-                _createdPacks.RemoveAt(i);
-        _createdPacks.Add(pack);
-        SaveLoadScript.SaveGame?.Invoke();
-    }
-    public void DeletePack(CardPack pack)
-    {
-        if (pack == null) return;
-        for (int i = _createdPacks.Count - 1; i >= 0; i--)
-            if (_createdPacks[i].GetPackName == pack.GetPackName)
-                _createdPacks.RemoveAt(i);
-        SaveLoadScript.SaveGame?.Invoke();
     }
 
     public void SetCurrMapNodeData(CombatMapData currMapNodeData)
@@ -213,13 +206,13 @@ public class PlayerDataManager : MonoBehaviour
     // reinitialize node data for proper node enabling on node map
     public void OnGameLoad(GameData data)
     {
+        int playerHealth = data.GetPlayerHealth;
+        UpdateHealthForRun(playerHealth);
+
         var currencyData = data.GetCurrencyData; 
         var nodeData = data.GetMapNodeData;
         var cardData = data.GetCardData;
         var specialMechanicData = data.GetSpecialMechanicData;
-
-        List<CardPack> initialPacksThisRun = CreatePacksFromNames(cardData.GetInitialPacksThisRun);
-        List<CardPack> createdPacks = CreatePacksFromNames(cardData.GetPlayerPacks);
 
         List<Card> runCards = new();
         foreach (var name in cardData.GetDeck)
@@ -230,9 +223,13 @@ public class PlayerDataManager : MonoBehaviour
         }
         var runDeck = new Deck(runCards);
 
+        _buffsThisRun.Clear();
+        for (var i = 0; i < specialMechanicData.GetBuffsCurrentRun.Length; i++)
+            UpdateBuff((RestOptions)i, specialMechanicData.GetBuffsCurrentRun[i]);
+
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetCompletedNodes, nodeData.GetCurrentNodeIndex, nodeData.GetGeneralSeed, nodeData.GetNodeMapSeed);
-        UpdateCardData(runDeck, initialPacksThisRun, createdPacks);
+        UpdateCardData(runDeck);
 
         _coinFlipsThisRun = new();
         AddCoinFlip(specialMechanicData.GetCoinFlipsCurrentRun);

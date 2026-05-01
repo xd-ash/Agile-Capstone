@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(BadgeSO)), CanEditMultipleObjects]
+/*[CustomEditor(typeof(BadgeSO)), CanEditMultipleObjects]
 public class BadgeSOEditor : Editor
 {
     BadgeLibrary _library;
@@ -28,3 +28,4 @@ public class BadgeSOEditor : Editor
             Debug.Log("library null");
     }
 }
+*/
