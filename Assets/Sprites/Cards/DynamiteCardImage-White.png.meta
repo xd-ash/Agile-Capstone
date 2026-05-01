@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 0cd7aacbe053bf54ba03d022fe8be25b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4550021977073139411
+    second: DynamiteCardImage-White_0
+  - first:
+      213: 3705592818939199386
+    second: DynamiteCardImage-White_1
+  - first:
+      213: 51353637103887262
+    second: DynamiteCardImage-White_2
+  - first:
+      213: 1346324701652189330
+    second: DynamiteCardImage-White_3
+  - first:
+      213: -6771083025423606670
+    second: DynamiteCardImage-White_4
+  - first:
+      213: 5619746021947255799
+    second: DynamiteCardImage-White_5
+  - first:
+      213: 6270108540652794761
+    second: DynamiteCardImage-White_6
+  - first:
+      213: 5860572625469783969
+    second: DynamiteCardImage-White_7
+  - first:
+      213: 6051751009629312640
+    second: DynamiteCardImage-White_8
+  - first:
+      213: -6809503547343298094
+    second: DynamiteCardImage-White_9
+  - first:
+      213: 2259097788490612105
+    second: DynamiteCardImage-White_10
+  - first:
+      213: -6583813302854892661
+    second: DynamiteCardImage-White_11
+  - first:
+      213: -1183189453123139584
+    second: DynamiteCardImage-White_12
+  - first:
+      213: -6409896370392682459
+    second: DynamiteCardImage-White_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_0
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 2604
+        width: 1222
+        height: 995
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d21c5507e131bd0c0800000000000000
+      internalID: -4550021977073139411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_1
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 2456
+        width: 630
+        height: 1114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9ffb172909ec6330800000000000000
+      internalID: 3705592818939199386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_2
+      rect:
+        serializedVersion: 2
+        x: 1406
+        y: 3175
+        width: 1224
+        height: 1051
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9360816cd176b000800000000000000
+      internalID: 51353637103887262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_3
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 2790
+        width: 159
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 290005ade2b1fa210800000000000000
+      internalID: 1346324701652189330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_4
+      rect:
+        serializedVersion: 2
+        x: 1295
+        y: 2562
+        width: 695
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27cd2f4fcd74802a0800000000000000
+      internalID: -6771083025423606670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_5
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 2495
+        width: 943
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fba4167b395dfd40800000000000000
+      internalID: 5619746021947255799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_6
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 1672
+        width: 655
+        height: 871
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 983b0cc4f76e30750800000000000000
+      internalID: 6270108540652794761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_7
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 2338
+        width: 943
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1af318190cfe45150800000000000000
+      internalID: 5860572625469783969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_8
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 1683
+        width: 302
+        height: 924
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 086111eca732cf350800000000000000
+      internalID: 6051751009629312640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 889
+        width: 2016
+        height: 841
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d127db1a98cf71a0800000000000000
+      internalID: -6809503547343298094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_10
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 1645
+        width: 943
+        height: 742
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98d7adb287de95f10800000000000000
+      internalID: 2259097788490612105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_11
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 155
+        width: 655
+        height: 852
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83c7dffea891a4a0800000000000000
+      internalID: -6583813302854892661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_12
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 0
+        width: 943
+        height: 885
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0084b901677749fe0800000000000000
+      internalID: -1183189453123139584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DynamiteCardImage-White_13
+      rect:
+        serializedVersion: 2
+        x: 1708
+        y: 230
+        width: 282
+        height: 763
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 520bda356397b07a0800000000000000
+      internalID: -6409896370392682459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DynamiteCardImage-White_0: -4550021977073139411
+      DynamiteCardImage-White_1: 3705592818939199386
+      DynamiteCardImage-White_10: 2259097788490612105
+      DynamiteCardImage-White_11: -6583813302854892661
+      DynamiteCardImage-White_12: -1183189453123139584
+      DynamiteCardImage-White_13: -6409896370392682459
+      DynamiteCardImage-White_2: 51353637103887262
+      DynamiteCardImage-White_3: 1346324701652189330
+      DynamiteCardImage-White_4: -6771083025423606670
+      DynamiteCardImage-White_5: 5619746021947255799
+      DynamiteCardImage-White_6: 6270108540652794761
+      DynamiteCardImage-White_7: 5860572625469783969
+      DynamiteCardImage-White_8: 6051751009629312640
+      DynamiteCardImage-White_9: -6809503547343298094
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
