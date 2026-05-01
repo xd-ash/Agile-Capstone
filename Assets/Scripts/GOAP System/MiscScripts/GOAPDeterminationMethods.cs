@@ -43,19 +43,22 @@ public static class GOAPDeterminationMethods
         var validTiles = TargetingStrategy.ComputeCellsInAbilityRange(tarPos, abilityRange);
         var pathToTar = CalculatePath(agentPos, tarPos, true);
         int distanceToTar = pathToTar == null ? int.MaxValue : pathToTar.Count;
-        
-        //if (distanceToTar >= _atRangeThreshold)
-        if (distanceToTar >= _atRangeThreshold)
-        {
-            beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
-            beliefs.RemoveState(GoapStates.AtMelee.ToString());
-        }
-        else
-        {
-            beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
-            beliefs.RemoveState(GoapStates.AtRange.ToString());
-        }
 
+        // only worry about "at range" or "at melee" if agent can move
+        if (beliefs.GetStates.ContainsKey(GoapStates.CanMove.ToString()) &&
+            !beliefs.GetStates.ContainsKey(GoapStates.IsCornered.ToString()))
+        {
+            if (distanceToTar >= _atRangeThreshold)
+            {
+                beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
+                beliefs.RemoveState(GoapStates.AtMelee.ToString());
+            }
+            else
+            {
+                beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
+                beliefs.RemoveState(GoapStates.AtRange.ToString());
+            }
+        }
         //if (distanceToTar > abilityRange)
         if (!validTiles.Contains(agentPos))
         {
@@ -70,6 +73,7 @@ public static class GOAPDeterminationMethods
     }
     public static bool CheckRange(GoapAgent agent, Unit target, int abilityRange, ref WorldStates beliefs)
     {
+        // if target is agent unit (self)
         if (agent.GetUnit == target)
         {
             beliefs.ModifyState(GoapStates.InRange.ToString(), 1);
@@ -80,7 +84,7 @@ public static class GOAPDeterminationMethods
             return true;
         }
         var unitMover = agent.GetComponent<UnitMovementController>();
-        
+
         var tarPos = ByteMapController.Instance.GetPositionOfUnit(target);
         var agentPos = ByteMapController.Instance.GetPositionOfUnit(agent.GetUnit);
 
@@ -88,15 +92,20 @@ public static class GOAPDeterminationMethods
         var pathToTar = CalculatePath(agentPos, tarPos);
         int distanceToTar = pathToTar == null ? int.MaxValue : pathToTar.Count;
 
-        if (distanceToTar >= _atRangeThreshold)
+        // only worry about "at range" or "at melee" if agent can move
+        if (beliefs.GetStates.ContainsKey(GoapStates.CanMove.ToString()) &&
+            !beliefs.GetStates.ContainsKey(GoapStates.IsCornered.ToString()))
         {
-            beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
-            beliefs.RemoveState(GoapStates.AtMelee.ToString());
-        }
-        else
-        {
-            beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
-            beliefs.RemoveState(GoapStates.AtRange.ToString());
+            if (distanceToTar >= _atRangeThreshold)
+            {
+                beliefs.ModifyState(GoapStates.AtRange.ToString(), 1);
+                beliefs.RemoveState(GoapStates.AtMelee.ToString());
+            }
+            else
+            {
+                beliefs.ModifyState(GoapStates.AtMelee.ToString(), 1);
+                beliefs.RemoveState(GoapStates.AtRange.ToString());
+            }
         }
 
         if (!validTiles.Contains(agentPos))
@@ -115,7 +124,7 @@ public static class GOAPDeterminationMethods
         if (unit == null) return false;
 
         float healthPercent = (float)unit.GetHealth / (float)unit.GetMaxHealth;
-        
+
         if (healthPercent > 0.65f)
         {
             beliefs.ModifyState(GoapStates.IsHealthy.ToString(), 1);
@@ -186,5 +195,14 @@ public static class GOAPDeterminationMethods
         int maxAP = unit.GetAP;
         float distRatio = distToTar / (float)maxAP;
         return distRatio;//Mathf.Clamp(distRatio, 0, 1);
+    }
+    public static bool CheckIfRooted(Unit agentUnit, ref WorldStates beliefs)
+    {
+        if (agentUnit.GetCanMove)
+            beliefs.ModifyState(GoapStates.CanMove.ToString(), 1);
+        else
+            beliefs.RemoveState(GoapStates.CanMove.ToString());
+
+        return agentUnit.GetCanMove;
     }
 }

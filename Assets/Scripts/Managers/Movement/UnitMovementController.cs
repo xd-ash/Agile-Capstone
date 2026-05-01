@@ -50,7 +50,15 @@ public class UnitMovementController : MonoBehaviour
             return;
         }
 
-        OnStartUnitMove(() => _isKnockback = false);
+        OnStartUnitMove(() => 
+        {
+            _isKnockback = false;
+            if (TryGetComponent(out GoapAgent agent))
+            {
+                agent.ClearPlanner();
+                agent.CompleteAction();
+            }
+        });
     }
 
     //if unit can move, check for reachable tiles within path and flip bool (isReachable) true and return full path.
