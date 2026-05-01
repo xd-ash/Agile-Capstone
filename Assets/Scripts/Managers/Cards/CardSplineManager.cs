@@ -64,6 +64,8 @@ namespace CardSystem
                 //cs?.UpdateSortingOrders();
                 CardPrefabSetterUpper.SetCombatCardGOOrder();
             }
+
+            DeckAndHandManager.OnUpdateCardColliders?.Invoke(null);
         }
 
         private void UpdateTransformWithTween(Transform transform, Vector3 targetPosition, Quaternion targetRotation, bool isHovered)
@@ -112,8 +114,10 @@ namespace CardSystem
             Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
 
             if (isHovered)
-                splinePosition += Vector3.up * (HandPositionController.Instance.IsHandUp ? _cardHoverHeight : _cardHoverHeight * 4);
-
+            {
+                Vector3 right = Vector3.Cross(up, forward).normalized;
+                splinePosition += right * (HandPositionController.Instance.IsHandUp ? _cardHoverHeight : _cardHoverHeight * 4);
+            }
             var tr = card.GetCardTransform;
             if (tr != null)
                 UpdateTransformWithTween(tr, splinePosition, rotation, isHovered);

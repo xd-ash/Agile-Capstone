@@ -336,11 +336,15 @@ public class GoapAgent : MonoBehaviour
     public void SetBuildFailBeliefs()
     {
         bool isCornered = _beliefs.GetStates.ContainsKey(GoapStates.IsCornered.ToString());
+        bool isHealthy = _beliefs.GetStates.ContainsKey(GoapStates.IsHealthy.ToString());
+        bool canAttack = CheckCanDoAction(_unit, _abilityController.GetHarmfulAbility == null ? int.MaxValue : _abilityController.GetHarmfulAbility.GetApCost) && CheckCanUseAttack;
+        bool canHeal = CheckCanDoAction(_unit, _abilityController.GetHelpfulAbility == null ? int.MaxValue : _abilityController.GetHelpfulAbility.GetApCost) && CheckCanUseHeal;
 
+        Debug.Log($"BuildFail - cornered: {isCornered}, canAttack: {CheckCanUseAttack}, canHeal: {CheckCanUseHeal}, isHealthy: {isHealthy}");
         _beliefs = new();
-
+         
         // set is cornered state before outofap to try to force an attack if cornered or trapped
-        if (isCornered)
+        if (isCornered || !canAttack && (!canHeal || isHealthy))
             _beliefs.ModifyState(GoapStates.OutOfAP.ToString(), 1);
         else
         {
@@ -356,9 +360,9 @@ public class GoapAgent : MonoBehaviour
             CheckForAP(_unit, ref _beliefs);
             CheckIfHealthy(_unit, ref _beliefs);
             CheckIfRooted(_unit, ref _beliefs);
-            if (CheckCanUseAttack)
+            if (canAttack)
                 _beliefs.ModifyState(GoapStates.CanAttack.ToString(), 1);
-            if(CheckCanUseHeal)
+            if (canHeal)
                 _beliefs.ModifyState(GoapStates.CanHeal.ToString(), 1);
         }
 

@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\OnLastCoinFlipEffect.cs" />
     <Compile Include="Assets\Scripts\CardSystem\DeckEditingController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardVisual\CardVisualController.cs" />
+    <Compile Include="Assets\Scripts\CardSystem\CardBoxColliderSizeContorller.cs" />
     <Compile Include="Assets\ScriptableObjects\NewMapCreationSOs\Scripts\CustomTileMapSO.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\AbilityData\AbilityData.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\OLDDeckViewer.cs" />

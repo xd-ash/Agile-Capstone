@@ -208,6 +208,9 @@ public static class CardPrefabSetterUpper
 
             //curHand[i].GetCardTransform.SetParent(cardGoParent);
             curHand[i].GetCardTransform.SetSiblingIndex(i);
+
+            if (curHand[i].GetCardTransform.TryGetComponent(out BoxCollider2D bc))
+                bc.layerOverridePriority = curHand.Count - 1 - i;
         }
 
         if (bringThisForward == null) return;
