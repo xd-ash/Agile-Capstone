@@ -135,6 +135,9 @@ MonoBehaviour:
   effects: 0
   _doEffectOnApply: 1
   _tickOnStart: 1
+  _hasLoopingVFX: 0
+  _loopingVFXType: 0
+  _statusIcon: {fileID: 21300000, guid: 2fd1f27231e9b61499c98109be56c08e, type: 3}
 --- !u!114 &-380372070312746705
 MonoBehaviour:
   m_ObjectHideFlags: 0

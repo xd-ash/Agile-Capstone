@@ -21,7 +21,6 @@ MonoBehaviour:
   _cardImage: {fileID: 21300000, guid: e622a5da1355846558309df44e7b4617, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 3
-  _cardTags: 02000000
   _effectValue: 0
   _apCost: 3
   _range: 0
@@ -274,3 +273,6 @@ MonoBehaviour:
   effects: 0
   _doEffectOnApply: 1
   _tickOnStart: 1
+  _hasLoopingVFX: 0
+  _loopingVFXType: 0
+  _statusIcon: {fileID: 21300000, guid: 4d18bc374957fa5479ed22aad0252972, type: 3}

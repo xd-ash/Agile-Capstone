@@ -69,6 +69,9 @@ MonoBehaviour:
   effects: 0
   _doEffectOnApply: 1
   _tickOnStart: 1
+  _hasLoopingVFX: 1
+  _loopingVFXType: 1
+  _statusIcon: {fileID: 21300000, guid: ef831288d53abd54592fdeda7083ba4b, type: 3}
 --- !u!114 &-919353082669517679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +262,6 @@ MonoBehaviour:
   _cardImage: {fileID: 21300000, guid: 0ca5c8cbe4fa6e0478b142088d28e2ed, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
-  _cardTags: 00000000
   _effectValue: 0
   _apCost: 3
   _range: 1

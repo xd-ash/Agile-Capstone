@@ -9,6 +9,9 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _playerHealthText;
     [SerializeField] private TextMeshProUGUI _playerShieldText;
     [SerializeField] private Slider _playerShieldSlider; // optional visual bar overlay (set max to player's maxHealth by default)
+    [SerializeField] private Transform _playerStatusIconContainer;  // [STATUS_UI] parent for player status icons
+
+    public Transform GetStatusIconContainer => _playerStatusIconContainer;  
 
     //[Header("Unit")]
     //[SerializeField] private Unit _player;

@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 7073425138271325837}
   - component: {fileID: 8203402467600379750}
   - component: {fileID: 6919373832828011296}
+  - component: {fileID: 8741453873433456545}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -375,7 +376,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HitVFXSpawner
   _bloodPrefab: {fileID: 5337052302987215349, guid: b4f94ab2aa36af34cb247f898b46c8ff, type: 3}
   _sparkPrefab: {fileID: 5337052302987215349, guid: c6710bc5c3005b946a33e0ae657f2d49, type: 3}
+  _firePrefab: {fileID: 54337841193677971, guid: 006b6d2e160ceb54396143083d226ce9, type: 3}
+  _bleedPrefab: {fileID: 5337052302987215349, guid: daf28349b03fda2498cea450a6a5d2eb, type: 3}
   _destroyDelay: 2
+  _spawnHeightOffset: 0.5
+--- !u!114 &8741453873433456545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440825415147360739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce44091b0c9ae794c85930b1c0f741e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectDisplay
+  _iconContainer: {fileID: 2369745494577755338}
+  _iconPrefab: {fileID: 3077830054940452295, guid: 4295fa650e56cb043a7877e938cd5fcb, type: 3}
+  _usePlayerUI: 1
 --- !u!1001 &4730709836683485280
 PrefabInstance:
   m_ObjectHideFlags: 0
