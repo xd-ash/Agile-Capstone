@@ -36,7 +36,7 @@ namespace CardSystem
         [SerializeField] private AudioClip _abilitySFX;
         [SerializeField] private CardCategory _cardCategory;
         //[SerializeField] private CardTag _cardTags;
-        [SerializeField] private int _effectValue;
+        //[SerializeField] private int _effectValue;
 
         [Header("Card Data")]
         [SerializeField] private int _apCost;
@@ -79,7 +79,7 @@ namespace CardSystem
         public int GetShopWeight => _shopWeight;
         public AudioClip GetAbilitySFX => _abilitySFX;
         public CardCategory GetCardCategory => _cardCategory;
-        public int GetEffectValue => _effectValue;
+        //public int GetEffectValue => _effectValue;
 
         public int GetBaseHitChance => _baseHitChance;
         public int GetMinHitChance => _minHitChance;

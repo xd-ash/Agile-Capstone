@@ -12,7 +12,7 @@ namespace CardSystem
     [CreateNodeMenu("Targeting/Other")]
     public class OtherTarget : TargetingStrategy
     {
-        [SerializeField] private bool _targetTilesNotUnits = false;
+        [SerializeField, HideInInspector] private bool _targetTilesNotUnits = false;
 
         public override void StartTargeting(AbilityData abilityData, ref Action onFinished)
         {

@@ -1,3 +1,4 @@
+using CardSystem;
 using UnityEditor;
 using UnityEngine;
 using XNodeEditor;
@@ -13,10 +14,16 @@ namespace CardSystem
 
             EffectStrategy node = target as EffectStrategy;
 
-            
-            if (node is IUseEffectValue)
-                NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_effectValue"), new GUIContent($"{DetermineStratType(node)}:"));
 
+            if (node is IUseEffectValue)
+            {
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    GUILayout.Label(new GUIContent($"{DetermineStratType(node)}:"));
+                    GUILayout.FlexibleSpace();
+                    NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_effectValue"), new GUIContent(""));
+                }
+            }
             serializedObject.ApplyModifiedProperties();
             base.OnBodyGUI();
             serializedObject.ApplyModifiedProperties();
@@ -49,5 +56,78 @@ namespace CardSystem
                     return "Effect Value";
             }
         }
+    }
+}
+[CustomNodeEditor(typeof(OtherTarget)), CanEditMultipleObjects]
+public class TargetingsTratEditor : NodeEditor
+{
+    public override void OnBodyGUI()
+    {
+        serializedObject.Update();
+
+        base.OnBodyGUI();
+        serializedObject.ApplyModifiedProperties();
+
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            GUILayout.Label(new GUIContent($"Targets Tiles:"));
+            GUILayout.FlexibleSpace();
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_targetTilesNotUnits"), new GUIContent(""));
+        }
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+[CustomNodeEditor(typeof(OverTimeEffect)), CanEditMultipleObjects]
+public class OverTimeEffectEditor : NodeEditor
+{
+    public override void OnBodyGUI()
+    {
+        serializedObject.Update();
+
+        base.OnBodyGUI();
+        serializedObject.ApplyModifiedProperties();
+
+        GUILayout.Label(new GUIContent($"Ticks:"));
+
+        EditorGUI.indentLevel++;
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            GUILayout.Label(new GUIContent($"   On Application:"));
+            GUILayout.FlexibleSpace();
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_doEffectOnApply"), new GUIContent(""));
+            GUILayout.FlexibleSpace();
+        }
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            GUILayout.Label(new GUIContent($"   On Turn Start:  "));
+            GUILayout.FlexibleSpace();
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_tickOnStart"), new GUIContent(""));
+            GUILayout.FlexibleSpace();
+        }
+        EditorGUI.indentLevel--;
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}
+[CustomNodeEditor(typeof(RollDieOverUnderEffect)), CanEditMultipleObjects]
+public class RollDieOverUnderEffectEditor : NodeEditor
+{
+    public override void OnBodyGUI()
+    {
+        serializedObject.Update();
+
+        base.OnBodyGUI();
+        serializedObject.ApplyModifiedProperties();
+
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            GUILayout.Label(new GUIContent($"Roll Threshold:"));
+            GUILayout.FlexibleSpace();
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_desiredMinRoll"), new GUIContent(""));
+            GUILayout.FlexibleSpace();
+        }
+
+        serializedObject.ApplyModifiedProperties();
     }
 }

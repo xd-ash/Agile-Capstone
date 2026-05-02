@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: Layer Filter
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.LayerFilter
   graph: {fileID: 11400000}
-  position: {x: -168, y: -72}
+  position: {x: -168, y: -56}
   ports:
     keys:
     - input
@@ -170,7 +170,6 @@ MonoBehaviour:
   _cardImage: {fileID: 21300000, guid: fb4c036423b780248937fcd6d034eb2d, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 6
-  _cardTags: 0000000003000000
   _effectValue: 0
   _apCost: 4
   _range: 1
@@ -224,7 +223,7 @@ MonoBehaviour:
   m_Name: Other Target
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.OtherTarget
   graph: {fileID: 11400000}
-  position: {x: -168, y: -184}
+  position: {x: -168, y: -168}
   ports:
     keys:
     - abilityRoot
@@ -334,7 +333,7 @@ MonoBehaviour:
   m_Name: Ability Root
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.AbilityRootNode
   graph: {fileID: 11400000}
-  position: {x: -488, y: -72}
+  position: {x: -456, y: -8}
   ports:
     keys:
     - targeting

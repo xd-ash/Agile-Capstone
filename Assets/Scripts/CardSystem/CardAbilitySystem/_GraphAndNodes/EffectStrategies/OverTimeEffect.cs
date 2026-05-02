@@ -1,5 +1,4 @@
 using CardSystem;
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 using XNode;
@@ -9,8 +8,8 @@ public class OverTimeEffect : EffectStrategy, IUseEffectValue
 {
     [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte effects;
 
-    [SerializeField] private bool _doEffectOnApply = true;
-    [SerializeField] private bool _tickOnStart = true;
+    [SerializeField, HideInInspector] private bool _doEffectOnApply = true;
+    [SerializeField, HideInInspector] private bool _tickOnStart = true;
 
     public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
     {

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static GameObjectPool;
 
 public class FloatingTextController : MonoBehaviour
 {
@@ -74,12 +73,5 @@ public class FloatingTextController : MonoBehaviour
         }
 
         Destroy(text.gameObject);
-        //Remove(text.gameObject);
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, _textFloatDistance, 0));
-        Gizmos.DrawSphere(transform.position + new Vector3(0f, _textFloatDistance, 0f), 0.03f);
     }
 }

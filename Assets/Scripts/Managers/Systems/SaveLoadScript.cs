@@ -70,13 +70,13 @@ public class GameData
     [SerializeField] private MapNodeDataToken _mapNodeData;
     [SerializeField] private CurrencyManagerDataToken _currencyData;
     [SerializeField] private CardDataToken _cardData;
-    [SerializeField] private SpecialMechanicsData _specialMechanicData;
+    [SerializeField] private SpecialMechanicsDataToken _specialMechanicData;
 
     public int GetPlayerHealth => _playerHealth;
     public MapNodeDataToken GetMapNodeData => _mapNodeData;
     public CurrencyManagerDataToken GetCurrencyData => _currencyData;
     public CardDataToken GetCardData => _cardData;
-    public SpecialMechanicsData GetSpecialMechanicData => _specialMechanicData;
+    public SpecialMechanicsDataToken GetSpecialMechanicData => _specialMechanicData;
 
     public GameData(bool newGameData = false)
     {
@@ -184,7 +184,7 @@ public class GameData
     }
 
     [System.Serializable]
-    public class SpecialMechanicsData
+    public class SpecialMechanicsDataToken
     {
         [SerializeField] private int[] _buffsCurrentRun;
         [SerializeField] private bool[] _coinFlipsCurrentRun;
@@ -194,7 +194,7 @@ public class GameData
         public bool[] GetCoinFlipsCurrentRun => _coinFlipsCurrentRun ?? new bool[0];
         public int[] GetDiceRollsCurrentRun => _diceRollsCurrentRun ?? new int[0];
 
-        public SpecialMechanicsData(int[] buffs, bool[] coinflips, int[] diceRolls)
+        public SpecialMechanicsDataToken(int[] buffs, bool[] coinflips, int[] diceRolls)
         {
             _buffsCurrentRun = buffs;
             _coinFlipsCurrentRun = coinflips;

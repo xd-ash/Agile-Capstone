@@ -11,7 +11,7 @@ namespace CardSystem
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onOver;
         [Output(dynamicPortList = true, connectionType = ConnectionType.Override, typeConstraint = TypeConstraint.Strict)] public byte onUnder;
 
-        [SerializeField] private int _desiredMinRoll;
+        [SerializeField, HideInInspector] private int _desiredMinRoll;
 
         public override void StartEffect(AbilityData abilityData, Action onFinished, int effectValueChange = 0, bool playAnimation = true)
         {
