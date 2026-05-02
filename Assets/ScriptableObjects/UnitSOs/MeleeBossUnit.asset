@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MeleeBossUnit
   m_EditorClassIdentifier: Assembly-CSharp::UnitSO
   _team: 1
+  _unitType: 1
   _maxHealth: 30
   _maxShield: 15
   _maxAP: 10
