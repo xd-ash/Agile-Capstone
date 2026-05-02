@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5996304546315106641
+--- !u!114 &-2298784316639591973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,63 +9,82 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2255d4c9131e3e8479e1f6c1b21aae3b, type: 3}
-  m_Name: Layer Filter
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: ae5b2b3ff173d174db191a65eea079e3, type: 3}
+  m_Name: Self Target
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.SelfTarget
   graph: {fileID: 11400000}
-  position: {x: -168, y: -88}
+  position: {x: -209.337, y: -84.50096}
+  ports:
+    keys:
+    - abilityRoot
+    - aoeStrat
+    values:
+    - _fieldName: abilityRoot
+      _node: {fileID: -2298784316639591973}
+      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: targeting
+        node: {fileID: 1292600420627394817}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: aoeStrat
+      _node: {fileID: -2298784316639591973}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  abilityRoot: 0
+  aoeStrat: 0
+--- !u!114 &-2013791675215522915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200feab1eed3a4d468b1e9a30dbef64b, type: 3}
+  m_Name: Damage Effect
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.DamageEffect
+  graph: {fileID: 11400000}
+  position: {x: -200, y: 8}
   ports:
     keys:
     - input
+    - effectVisuals
     values:
     - _fieldName: input
-      _node: {fileID: -5996304546315106641}
-      _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
+      _node: {fileID: -2013791675215522915}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: filtering 0
-        node: {fileID: 3424977469569822914}
+      - fieldName: effects 0
+        node: {fileID: 1292600420627394817}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  input: 0
-  _targetLayers: 2
---- !u!114 &-3038007230889526110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf8779fbcc229c449a445de63c80edc, type: 3}
-  m_Name: Bullet Effect Visual
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: 200, y: -8}
-  ports:
-    keys:
-    - input
-    values:
-    - _fieldName: input
-      _node: {fileID: -3038007230889526110}
+    - _fieldName: effectVisuals
+      _node: {fileID: -2013791675215522915}
       _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: effectVisuals
-        node: {fileID: 8984668475923810513}
-        reroutePoints: []
-      _direction: 0
+      connections: []
+      _direction: 1
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
+  _effectValue: 2
   input: 0
-  _smokeEffect: {fileID: 3117545971288206347, guid: a521cfe55bb3949438fb36b042c57252, type: 3}
-  _bullet: {fileID: 717576382310150537, guid: 3bc94e6fa9f37884799112e5c1a77b77, type: 3}
-  _bulletTravelDur: 0.2
+  effectVisuals: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,43 +95,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a8b8bcad35aee4ebc5572a59b407eb, type: 3}
-  m_Name: Repeater
-  m_EditorClassIdentifier: 
+  m_Name: Quick Fix
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.CardAbilityDefinition
   nodes:
-  - {fileID: 7206340533012667911}
-  - {fileID: -5996304546315106641}
-  - {fileID: 8984668475923810513}
-  - {fileID: -3038007230889526110}
-  - {fileID: 3424977469569822914}
-  _description: Deal %0% ranged damage
-  _cardImage: {fileID: 21300000, guid: 15c38954c25adaf4692abe0d885c81f1, type: 3}
-  _abilitySFX: {fileID: 8300000, guid: 84c67573b0258427d902d64a38ad13ef, type: 3}
-  _cardCategory: 1
+  - {fileID: 1292600420627394817}
+  - {fileID: -2298784316639591973}
+  - {fileID: -2013791675215522915}
+  - {fileID: 9047738811740752089}
+  _description: Deal %0% damage to yourself and gain %1% shield
+  _cardImage: {fileID: 21300000, guid: e622a5da1355846558309df44e7b4617, type: 3}
+  _abilitySFX: {fileID: 8300000, guid: d9b4b2149cd9459458292b65c4a4d216, type: 3}
+  _cardCategory: 3
   _effectValue: 0
-  _apCost: 3
-  _range: 5
-  _shopCost: 10
-  _shopWeight: 30
+  _apCost: 2
+  _range: 0
+  _shopCost: 15
+  _shopWeight: 20
   _baseHitChance: 100
-  _minHitChance: 30
+  _minHitChance: 0
   _maxHitChance: 100
   _ignoreLOS: 0
-  _hitPenaltyPerTile: 15
+  _hitPenaltyPerTile: 5
   _accuracyMultiplier: 1
   _accuracyFlatBonus: 0
-  _attackAnimKey: 11
+  _attackAnimKey: 17
   _baseCardRarity: 0
   _onRareUpgradeEffects:
   - cardDef: {fileID: 11400000}
     effectName: Damage Effect
     valueToAdd: 2
-    effectToUpgrade: {fileID: 8984668475923810513}
+    effectToUpgrade: {fileID: -2013791675215522915}
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 2
+    effectToUpgrade: {fileID: 9047738811740752089}
   _onEpicUpgradeEffects:
   - cardDef: {fileID: 11400000}
     effectName: Damage Effect
-    valueToAdd: 4
-    effectToUpgrade: {fileID: 8984668475923810513}
---- !u!114 &3424977469569822914
+    valueToAdd: 3
+    effectToUpgrade: {fileID: -2013791675215522915}
+  - cardDef: {fileID: 11400000}
+    effectName: Buff Effect
+    valueToAdd: 3
+    effectToUpgrade: {fileID: 9047738811740752089}
+--- !u!114 &1292600420627394817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +151,7 @@ MonoBehaviour:
   m_Name: Ability Root
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.AbilityRootNode
   graph: {fileID: 11400000}
-  position: {x: -552, y: -40}
+  position: {x: -488, y: -72}
   ports:
     keys:
     - targeting
@@ -133,21 +159,22 @@ MonoBehaviour:
     - effects
     - filtering 0
     - effects 0
+    - effects 1
     values:
     - _fieldName: targeting
-      _node: {fileID: 3424977469569822914}
+      _node: {fileID: 1292600420627394817}
       _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: abilityRoot
-        node: {fileID: 7206340533012667911}
+        node: {fileID: -2298784316639591973}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: filtering
-      _node: {fileID: 3424977469569822914}
+      _node: {fileID: 1292600420627394817}
       _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -156,7 +183,7 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: effects
-      _node: {fileID: 3424977469569822914}
+      _node: {fileID: 1292600420627394817}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections: []
@@ -165,24 +192,33 @@ MonoBehaviour:
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: filtering 0
-      _node: {fileID: 3424977469569822914}
+      _node: {fileID: 1292600420627394817}
       _typeQualifiedName: System.Double, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -5996304546315106641}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 1
     - _fieldName: effects 0
-      _node: {fileID: 3424977469569822914}
+      _node: {fileID: 1292600420627394817}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: input
-        node: {fileID: 8984668475923810513}
+        node: {fileID: -2013791675215522915}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 2
+      _dynamic: 1
+    - _fieldName: effects 1
+      _node: {fileID: 1292600420627394817}
+      _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: 9047738811740752089}
         reroutePoints: []
       _direction: 1
       _connectionType: 1
@@ -191,7 +227,7 @@ MonoBehaviour:
   targeting: 0
   filtering: 0
   effects: 0
---- !u!114 &7206340533012667911
+--- !u!114 &9047738811740752089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,79 +236,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a7cef4b5ecc5c4288e116924b1a99b, type: 3}
-  m_Name: Other Target
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: ceb53b83c3d38b44cad7a4aeebb74423, type: 3}
+  m_Name: Buff Effect
+  m_EditorClassIdentifier: Assembly-CSharp::CardSystem.BuffEffect
   graph: {fileID: 11400000}
-  position: {x: -168, y: -248}
-  ports:
-    keys:
-    - abilityRoot
-    - aoeStrat
-    values:
-    - _fieldName: abilityRoot
-      _node: {fileID: 7206340533012667911}
-      _typeQualifiedName: System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: targeting
-        node: {fileID: 3424977469569822914}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: aoeStrat
-      _node: {fileID: 7206340533012667911}
-      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  abilityRoot: 0
-  aoeStrat: 0
-  _targetTilesNotUnits: 0
---- !u!114 &8984668475923810513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 200feab1eed3a4d468b1e9a30dbef64b, type: 3}
-  m_Name: Damage Effect
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -168, y: 72}
+  position: {x: -184, y: 120}
   ports:
     keys:
     - input
     - effectVisuals
     values:
     - _fieldName: input
-      _node: {fileID: 8984668475923810513}
+      _node: {fileID: 9047738811740752089}
       _typeQualifiedName: System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
       connections:
-      - fieldName: effects 0
-        node: {fileID: 3424977469569822914}
+      - fieldName: effects 1
+        node: {fileID: 1292600420627394817}
         reroutePoints: []
       _direction: 0
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
     - _fieldName: effectVisuals
-      _node: {fileID: 8984668475923810513}
+      _node: {fileID: 9047738811740752089}
       _typeQualifiedName: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: -3038007230889526110}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 1
       _typeConstraint: 2
