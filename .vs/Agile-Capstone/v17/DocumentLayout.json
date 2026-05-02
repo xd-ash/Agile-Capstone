@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A4DA1400-5B69-5045-841B-C08FD4231DAD}|Assembly-CSharp-Editor.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\editor\\carddefeditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4DA1400-5B69-5045-841B-C08FD4231DAD}|Assembly-CSharp-Editor.csproj|solutionrelative:assets\\editor\\carddefeditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A4DA1400-5B69-5045-841B-C08FD4231DAD}|Assembly-CSharp-Editor.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\editor\\cardandpacklibraryeditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4DA1400-5B69-5045-841B-C08FD4231DAD}|Assembly-CSharp-Editor.csproj|solutionrelative:assets\\editor\\cardandpacklibraryeditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\cardabilitydefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\cardabilitysystem\\_graphandnodes\\cardabilitydefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\so bases\\cardanddecklibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\so bases\\cardanddecklibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|c:\\users\\aleas\\onedrive\\documents\\github\\agile-capstone\\assets\\scripts\\cardsystem\\card scripts\\cardselect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F477050A-E908-9249-B195-DCDCB50AC5CC}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cardsystem\\card scripts\\cardselect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -34,19 +50,71 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CardDefEditor.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Editor\\CardDefEditor.cs",
+              "RelativeDocumentMoniker": "Assets\\Editor\\CardDefEditor.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Editor\\CardDefEditor.cs",
+              "RelativeToolTip": "Assets\\Editor\\CardDefEditor.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwCEAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-02T22:25:34.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CardAbilityDefinition.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\CardAbilitySystem\\_GraphAndNodes\\CardAbilityDefinition.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwB0AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-02T22:25:16.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CardAndPackLibraryEditor.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Editor\\CardAndPackLibraryEditor.cs",
+              "RelativeDocumentMoniker": "Assets\\Editor\\CardAndPackLibraryEditor.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Editor\\CardAndPackLibraryEditor.cs",
+              "RelativeToolTip": "Assets\\Editor\\CardAndPackLibraryEditor.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowC8AAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-02T22:22:13.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CardAndDeckLibrary.cs",
+              "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CardSystem\\SO Bases\\CardAndDeckLibrary.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-02T22:21:36.137Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "CardSelect.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\Card Scripts\\CardSelect.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\Card Scripts\\CardSelect.cs",
               "ToolTip": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\Card Scripts\\CardSelect.cs",
               "RelativeToolTip": "Assets\\Scripts\\CardSystem\\Card Scripts\\CardSelect.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABkAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAIBJwBkAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-02T09:56:47.019Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "DealersChoice-GameSave.json",
               "DocumentMoniker": "C:\\Users\\ALeas\\AppData\\LocalLow\\DefaultCompany\\DealersChoice-GameSave.json",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\LocalLow\\DefaultCompany\\DealersChoice-GameSave.json",
@@ -54,12 +122,11 @@
               "RelativeToolTip": "..\\..\\..\\..\\AppData\\LocalLow\\DefaultCompany\\DealersChoice-GameSave.json",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-05-02T08:45:38.029Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-02T08:45:38.029Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "CardBoxColliderSizeController.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\CardSystem\\CardBoxColliderSizeController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\CardSystem\\CardBoxColliderSizeController.cs",
@@ -71,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "DeckAndHandManager.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
@@ -79,12 +146,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Managers\\Cards\\DeckAndHandManager.cs",
               "ViewState": "AgIAAEMAAAAAAAAAAAAMwFYAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-02T08:42:01.977Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-02T08:42:01.977Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "CampNodeController.cs",
               "DocumentMoniker": "C:\\Users\\ALeas\\OneDrive\\Documents\\GitHub\\Agile-Capstone\\Assets\\Scripts\\NodeMapCreation\\CampNodeController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\NodeMapCreation\\CampNodeController.cs",

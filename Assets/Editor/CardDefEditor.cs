@@ -29,6 +29,10 @@ public class CardDefEditor : Editor
     private void AddToLibrary()
     {
         CardAbilityDefinition card = (CardAbilityDefinition)target;
+
+        var path = AssetDatabase.GetAssetPath(card);
+        if (path.Split('/')[2] != "CardAbilities") return;
+
         if (_library == null)
             _library = Resources.Load<CardAndPackLibrary>("Libraries/CardAndPackLibrary");
         if (_library != null && !_library.GetCardsInProject.Contains(card))

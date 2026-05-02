@@ -44,7 +44,9 @@ public class CardAndPackLibraryEditor : Editor
             _library.ClearCardLibrary();
             foreach (var guid in cardGUIDS)
             {
-                _library.AddCardToLibrary(AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(AssetDatabase.GUIDToAssetPath(guid)));
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                if (path.Split('/')[2] != "CardAbilities") continue;
+                _library.AddCardToLibrary(AssetDatabase.LoadAssetAtPath<CardAbilityDefinition>(path));
                 tmp = true;
             }
         }
