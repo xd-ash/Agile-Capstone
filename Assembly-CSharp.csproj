@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\Managers\SceneManagement\TransitionScene.cs" />
     <Compile Include="Assets\Scripts\Managers\Units\ActiveEffectsTracker.cs" />
     <Compile Include="Assets\Scripts\Managers\UI\TutorialUI.cs" />
+    <Compile Include="Assets\Scripts\Managers\UI\StatusEffectDisplay.cs" />
     <Compile Include="Assets\Scripts\NodeMapCreation\ShopNode.cs" />
     <Compile Include="Assets\Scripts\WFC\TileModuleGenerator.cs" />
     <Compile Include="Assets\Scripts\CardSystem\PackBuilderScript.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Assets\Scripts\NodeMapCreation\NodeMapNode.cs" />
     <Compile Include="Assets\ScriptableObjects\NewMapCreationSOs\Scripts\CustomTileMapSOLibrary.cs" />
     <Compile Include="Assets\Scripts\Shop\CurrencyManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\UI\StatusIconEntry.cs" />
     <Compile Include="Assets\Scripts\Managers\Systems\SaveLoadScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Systems\GoapPlanner.cs" />
