@@ -17623,6 +17623,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 78719088872119898, guid: fac424a52361c1144936021bf5be4bdb, type: 3}
+      propertyPath: _healthToRegenIfBuffed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 200754008888731454, guid: fac424a52361c1144936021bf5be4bdb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
