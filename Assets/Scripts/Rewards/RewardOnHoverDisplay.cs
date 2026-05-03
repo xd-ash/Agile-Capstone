@@ -33,6 +33,7 @@ public class RewardOnHoverDisplay : MonoBehaviour
     }
     private void ShowRewardDisplay(NodeMapNode rewardNode)
     {        
+        transform.parent.SetAsLastSibling();
         transform.localPosition = rewardNode.transform.localPosition;
         _uiParent.position = transform.localPosition.y > 0 ? _bottomPos.position : _topPos.position;
 
