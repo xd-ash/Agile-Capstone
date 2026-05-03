@@ -7,6 +7,8 @@ public class ActiveEffectsTracker : MonoBehaviour
     private Unit _unit;
     [SerializeField] private List<Effect> _effects = new();
 
+    public event Action OnEffectsChanged;
+
     private void Awake()
     {
         if (!TryGetComponent(out _unit))
@@ -25,9 +27,9 @@ public class ActiveEffectsTracker : MonoBehaviour
         TurnManager.Instance.OnTurnEnd -= (x) => OnThisUnitEffectsTick(x, false);
     }
 
-    public void AddEffect(Action effect, int totalDuration, Guid guid, bool tickOnStart, string effectName = "", Action onRemoved = null)
+    public void AddEffect(Action effect, int totalDuration, Guid guid, bool tickOnStart, string effectName = "", Action onRemoved = null, Sprite icon = null)
     {
-        Effect newEffect = new(ref effect, totalDuration, guid, tickOnStart, effectName, onRemoved);
+        Effect newEffect = new(ref effect, totalDuration, guid, tickOnStart, effectName, onRemoved, icon);
 
         if (!_effects.Contains(
                 newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
@@ -43,11 +45,29 @@ public class ActiveEffectsTracker : MonoBehaviour
             }
         _effects.Add(newEffect);
         }
+        OnEffectsChanged?.Invoke();
+    }
+    
+    public List<EffectInfo> GetActiveEffectInfos()
+    {
+        List<EffectInfo> infos = new();
+        foreach (var e in _effects)
+        {
+            if (e.icon == null)
+            {
+                continue;
+            }
+            infos.Add(new EffectInfo(e.effectName, e.turnsRemaining, e.icon));            
+        }
+
+        return infos;
     }
 
     private void OnThisUnitEffectsTick(Unit unit, bool isStartOfTurn)
     {
         if (unit != _unit) return;
+        
+        bool changed = false;
 
         for (int i = _effects.Count - 1; i >= 0; i--)
         {
@@ -56,6 +76,7 @@ public class ActiveEffectsTracker : MonoBehaviour
             
             e.storedEffect?.Invoke();
             e.turnsRemaining--;
+            changed = true; 
             if (e.turnsRemaining > 0) continue;
             if (e.effectName == "Stop Movement Effect")
             {
@@ -64,6 +85,11 @@ public class ActiveEffectsTracker : MonoBehaviour
             }
             e.onRemoved?.Invoke();  
             _effects.Remove(e);
+        }
+        
+        if (changed)
+        {
+            OnEffectsChanged?.Invoke();
         }
     }
 
@@ -76,8 +102,9 @@ public class ActiveEffectsTracker : MonoBehaviour
         public Action onRemoved;
         public int turnsRemaining;
         public bool tickOnStart;
+        public Sprite icon;
 
-        public Effect(ref Action effect, int totalDuration, Guid guid, bool tickOnStart, string name = "", Action onRemoved = null)
+        public Effect(ref Action effect, int totalDuration, Guid guid, bool tickOnStart, string name = "", Action onRemoved = null, Sprite icon = null)
         {
             storedEffect = effect;
             turnsRemaining = totalDuration;
@@ -85,6 +112,22 @@ public class ActiveEffectsTracker : MonoBehaviour
             this.tickOnStart = tickOnStart;
             effectName = name == string.Empty ? guid.ToString() : name;
             this.onRemoved = onRemoved;
+            this.icon = icon;
         }
+    }
+}
+
+// [STATUS_UI] Lightweight read-only data for UI to display
+public struct EffectInfo
+{
+    public string name;
+    public int turnsRemaining;
+    public Sprite icon;
+
+    public EffectInfo(string name, int turnsRemaining, Sprite icon)
+    {
+        this.name = name;
+        this.turnsRemaining = turnsRemaining;
+        this.icon = icon;
     }
 }

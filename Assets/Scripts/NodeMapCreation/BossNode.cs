@@ -34,5 +34,9 @@ public class BossNode : NodeMapNode, IUseCombatMapData
         var rngBoss = UnitLibrary.GetRandomEnemies(1, adjustedSeed, false);
 
         _combatData = new CombatMapData() { maxEnemiesAllowed = 1, selectedEnemies = rngBoss, selectedMap = so };
+
+        _combatData.enemyNames = OutlawNameGenerator.GenerateNames(1, adjustedSeed);
+        PopulateCombatPoster(_combatData.selectedEnemies, "DEAD OR ALIVE", _combatData.enemyNames, true);
+        SetNodeTypeBadge("TempNodeMap/Nodeicons/BossBadge", new Color(0.8f, 0.15f, 0.15f)); // red
     }
 }

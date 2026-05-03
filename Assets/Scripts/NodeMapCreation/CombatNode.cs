@@ -45,7 +45,9 @@ public class CombatNode : NodeMapNode, IUseCombatMapData
             _combatData = new CombatMapData() { maxEnemiesAllowed = maxEnemies, selectedEnemies = rngEnemies, selectedMap = so };
         }
 
-        _background.sprite = Resources.Load<Sprite>($"TempNodeMap/Nodeicons/Bounty{_combatData.maxEnemiesAllowed}");
+        // [POSTER] generate names and populate poster visual
+        _combatData.enemyNames = OutlawNameGenerator.GenerateNames(_combatData.selectedEnemies.Length, adjustedSeed);
+        PopulateCombatPoster(_combatData.selectedEnemies, "WANTED", _combatData.enemyNames, false);
     }
 }
 
@@ -57,4 +59,5 @@ public struct CombatMapData
     public int maxEnemiesAllowed;
     public UnitSO[] selectedEnemies;
     public CustomTileMapSO selectedMap;
+    public string[] enemyNames;
 }

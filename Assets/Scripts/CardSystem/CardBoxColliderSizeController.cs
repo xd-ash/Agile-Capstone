@@ -17,13 +17,11 @@ public class CardBoxColliderSizeController : MonoBehaviour
     {
         _bc = GetComponent<BoxCollider2D>();
 
-        if (DeckAndHandManager.Instance == null) return;
         DeckAndHandManager.OnUpdateCardColliders += LerpBCSizeAndOffset;
     }
 
     private void OnDestroy()
     {
-        if (DeckAndHandManager.Instance == null) return;
         DeckAndHandManager.OnUpdateCardColliders -= LerpBCSizeAndOffset;
     }
 

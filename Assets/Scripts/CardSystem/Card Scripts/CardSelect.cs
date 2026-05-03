@@ -8,7 +8,7 @@ namespace CardSystem
 {
     public class CardSelect : MonoBehaviour
     {
-        private Image _cardImage;
+        private Image _cardHighlightImage;
         private GameObject _cardHighlight;
         private SpriteRenderer _highlightRenderer;
         private CardFunctionScript _cfs;
@@ -56,7 +56,7 @@ namespace CardSystem
             SetupVisuals();
 
             _originalScale = transform.localScale;
-            _originalColor = _cardImage.color;
+            _originalColor = _cardHighlightImage.color;
 
             SetOnMouseDown();
             SetOnMouseUp();
@@ -165,7 +165,7 @@ namespace CardSystem
 
             // Kill any active tweens
             transform.DOKill();
-            _cardImage.DOKill();
+            _cardHighlightImage.DOKill();
 
             ToggleHighlightAndScale(false);
             DeckAndHandManager.Instance?.ClearSelection();
@@ -177,7 +177,7 @@ namespace CardSystem
             if (TurnManager.Instance.CurrTurn == TurnManager.Turn.Enemy) return;
 
             _cfs.ClearSelection(_tweenDuration);
-            _cardImage.color = Color.white;
+            _cardHighlightImage.color = Color.white;
             _cardHighlight?.SetActive(false);
         }
 
@@ -199,9 +199,9 @@ namespace CardSystem
         private void SetupVisuals()
         {
             _cardHighlight = transform.Find("CardHighlight")?.gameObject;
-            _cardHighlight?.SetActive(false);
+            _cardHighlightImage = _cardHighlight?.GetComponent<Image>();
 
-            _cardImage = GetComponentInChildren<Image>();
+            _cardHighlight?.SetActive(false);
 
             if (_state != CardState.Combat) return;
 
@@ -371,7 +371,7 @@ namespace CardSystem
 
                         // Only trigger changes when crossing the threshold
                         if (wasAboveHand != _isAboveHandArea)
-                            _cardImage.DOColor(spriteColor, _tweenDuration).SetUpdate(true);
+                            _cardHighlightImage.DOColor(spriteColor, _tweenDuration).SetUpdate(true);
 
                         // Only update order when in hand area
                         if (!_isAboveHandArea)

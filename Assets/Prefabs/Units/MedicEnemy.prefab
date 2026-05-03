@@ -106,6 +106,92 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8938415523739032751}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1239899670900483004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6298452177641617704}
+  - component: {fileID: 7159159128368097358}
+  - component: {fileID: 8881465054344891781}
+  m_Layer: 0
+  m_Name: StatusIcons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6298452177641617704
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239899670900483004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.035, y: 0.035, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2490088853422200842}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.232, y: -0.000000024214}
+  m_SizeDelta: {x: 40, y: 4.3659}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7159159128368097358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239899670900483004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 2
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!223 &8881465054344891781
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239899670900483004}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 5
+  m_TargetDisplay: 0
 --- !u!1 &1657465338173008855
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +391,7 @@ RectTransform:
   - {fileID: 6607696191638432949}
   - {fileID: 2670609430091919832}
   - {fileID: 8240233607815002607}
+  - {fileID: 6298452177641617704}
   m_Father: {fileID: 8938415523739032751}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -663,6 +750,7 @@ GameObject:
   - component: {fileID: 7494359053805583142}
   - component: {fileID: 355945360564793161}
   - component: {fileID: -1450357030137867805}
+  - component: {fileID: -7501810721781794279}
   m_Layer: 6
   m_Name: MedicEnemy
   m_TagString: Untagged
@@ -882,7 +970,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HitVFXSpawner
   _bloodPrefab: {fileID: 5337052302987215349, guid: b4f94ab2aa36af34cb247f898b46c8ff, type: 3}
   _sparkPrefab: {fileID: 5337052302987215349, guid: c6710bc5c3005b946a33e0ae657f2d49, type: 3}
+  _firePrefab: {fileID: 54337841193677971, guid: 006b6d2e160ceb54396143083d226ce9, type: 3}
+  _bleedPrefab: {fileID: 5337052302987215349, guid: daf28349b03fda2498cea450a6a5d2eb, type: 3}
   _destroyDelay: 2
+  _spawnHeightOffset: 0.5
+--- !u!114 &-7501810721781794279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5893557019395072273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce44091b0c9ae794c85930b1c0f741e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectDisplay
+  _iconContainer: {fileID: 6298452177641617704}
+  _iconPrefab: {fileID: 3077830054940452295, guid: 4295fa650e56cb043a7877e938cd5fcb, type: 3}
+  _usePlayerUI: 0
 --- !u!1 &6721888437333699417
 GameObject:
   m_ObjectHideFlags: 0

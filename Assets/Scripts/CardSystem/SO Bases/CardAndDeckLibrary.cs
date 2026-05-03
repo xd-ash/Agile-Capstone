@@ -35,8 +35,11 @@ public class CardAndPackLibrary : ScriptableObject
     public CardAbilityDefinition GetCardFromName(string cardName)
     {
         foreach (var card in _cardsInProject)
+        {
+            if (card == null) continue;
             if (card.name == cardName)
                 return card;
+        }
 
         Debug.LogWarning($"No matching card definition found in library for \"{cardName}\"");
         return null;

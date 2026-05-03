@@ -199,11 +199,11 @@ MonoBehaviour:
   - {fileID: -1169349790197337830}
   _description: 'Place a trap: when an enemy steps on it draw %0% card and restore
     %1% AP'
-  _cardImage: {fileID: 21300000, guid: fb4c036423b780248937fcd6d034eb2d, type: 3}
+  _cardImage: {fileID: 21300000, guid: d6744c8639f4c494488757103de54edf, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 7
   _effectValue: 0
-  _apCost: 5
+  _apCost: 2
   _range: 2
   _shopCost: 15
   _shopWeight: 15
