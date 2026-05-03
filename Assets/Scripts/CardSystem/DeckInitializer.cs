@@ -7,8 +7,11 @@ using System.Linq;
 public class DeckInitializer : MonoBehaviour
 {
     private CardAndPackLibrary _cardAndPackLibrary;
+
+    private Dictionary<CardRarity, List<CardAbilityDefinition>> _currentCardsByRarity = new();
+
     [SerializeField] private int _numberRandomPacks = 3;
-    [SerializeField] private int _numCardsInPack = 8;
+    [SerializeField] private int _numCardsInPack = 5;
     [SerializeField] private int _maxRareCardsInPack = 2;
     [SerializeField] private int _maxEpicCardsInPack = 1;
 
@@ -34,42 +37,73 @@ public class DeckInitializer : MonoBehaviour
     }
     private Deck CreateNewDeck()
     {
-        List<CardAbilityDefinition> tempDeckCards = new();
+        InitRarityDict();
 
         for (int i = 0; i < _numberRandomPacks; i++)
         {
-            var rngRareCards = GetRandomCardsOfRarity(_maxRareCardsInPack, CardRarity.Rare);
+            List<CardAbilityDefinition> currentPack = new();
+
+            var rngRareCards = GetRandomCardsOfRarity(_maxRareCardsInPack, currentPack);
             if (rngRareCards != null)
-                tempDeckCards.AddRange(rngRareCards);
-            var rngEpicCards = GetRandomCardsOfRarity(_maxEpicCardsInPack, CardRarity.Epic);
+                currentPack.AddRange(rngRareCards);
+            var rngEpicCards = GetRandomCardsOfRarity(_maxEpicCardsInPack, currentPack);
             if (rngEpicCards != null)
-                tempDeckCards.AddRange(rngEpicCards);
+                currentPack.AddRange(rngEpicCards);
 
             //fill remaining "pack" cards with common fewer than max epic/rare cards
-            int remaining = _numCardsInPack - (tempDeckCards.Count - i * _numCardsInPack);
-            var rngCommonCards = GetRandomCardsOfRarity(remaining, CardRarity.Common);
+            int remaining = _numCardsInPack - (_numCardsInPack - currentPack.Count);
+            var rngCommonCards = GetRandomCardsOfRarity(remaining, currentPack);
             if (rngCommonCards != null)
-                tempDeckCards.AddRange(rngCommonCards);
+                currentPack.AddRange(rngCommonCards);
+
+            AddCardsToDict(CardRarity.Common, rngCommonCards);
+            AddCardsToDict(CardRarity.Rare, rngRareCards);
+            AddCardsToDict(CardRarity.Epic, rngEpicCards);
         }
 
-        return new(tempDeckCards);
+        return CreateDeckFromRarityDict();
     }
-    private CardAbilityDefinition[] GetRandomCardsOfRarity(int num, CardRarity rarity)
+    private Deck CreateDeckFromRarityDict()
     {
-        var cardsOfRarity = _cardAndPackLibrary?.GetCardsOfRarity(rarity);
-        if (cardsOfRarity == null || cardsOfRarity.Length == 0) return null;
+        List<Card> tempCards = new();
+        foreach (var kvp in _currentCardsByRarity)
+            foreach (var def in kvp.Value)
+                tempCards.Add(new(def, kvp.Key));
+        return new(tempCards);
+    }
+    private void InitRarityDict()
+    {
+        _currentCardsByRarity.Clear();
+        _currentCardsByRarity = new()
+        {
+            [CardRarity.Common] = new(),
+            [CardRarity.Rare] = new (),
+            [CardRarity.Epic] = new (),
+        };
+    }
+    private void AddCardsToDict(CardRarity rarity, CardAbilityDefinition[] cards)
+    {
+        if (_currentCardsByRarity.ContainsKey(rarity))
+            _currentCardsByRarity[rarity].AddRange(cards);
+        else
+            _currentCardsByRarity.Add(rarity, new(cards));
+    }
+    private CardAbilityDefinition[] GetRandomCardsOfRarity(int num, List<CardAbilityDefinition> currentPack)
+    {
+        var cards = _cardAndPackLibrary?.GetCardsInProject.ToArray();
+        if (cards == null || cards.Length == 0) return null;
 
         List<CardAbilityDefinition> tempList = new();
         for (int i = 0; i < num; i++)
         {
             CardAbilityDefinition tempCard = null;
 
-            //no duplicates
+            //no duplicates withtin same pack
             do
             {
-                int rng = Random.Range(0, cardsOfRarity.Length);
-                tempCard = cardsOfRarity[rng];
-            } while (tempList.Contains(tempCard));
+                int rng = Random.Range(0, cards.Length);
+                tempCard = cards[rng];
+            } while (tempList.Contains(tempCard) || currentPack.Contains(tempCard));
             tempList.Add(tempCard);
         }
         return tempList.ToArray();

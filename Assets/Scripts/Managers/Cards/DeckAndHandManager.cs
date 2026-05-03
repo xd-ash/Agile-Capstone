@@ -219,6 +219,9 @@ namespace CardSystem
                 cardsInDeck[randomIndex] = temp;
             }
 
+            //update player deck with suffled version;
+            PlayerDataManager.Instance.UpdateCardData(deck);
+
             _topCardOfDeck = 0;
         }
 
