@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static AbilityEvents;
@@ -10,6 +11,7 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject _pauseMenuPanel;
     public static bool isPaused = false;
+    public static event Action<bool> OnMenuOverlayChanged;
 
     [SerializeField] private GameObject _settingsPanel;
 
@@ -137,7 +139,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (TransitionScene.Instance.GetCurrentScene == "MainMenu")
             {
-                _settingsPanel.SetActive(false);
+                CloseSettings();
                 return;
             }
 
@@ -171,6 +173,7 @@ public class PauseMenu : MonoBehaviour
 
         _pauseMenuPanel?.SetActive(isPaused);
         _settingsPanel?.SetActive(false);
+        BroadcastOverlayState();
     }
 
     private void OnDestroy()
@@ -188,6 +191,7 @@ public class PauseMenu : MonoBehaviour
         if (_settingsPanel != null)
             _settingsPanel.SetActive(true);
         _pauseMenuPanel.SetActive(false);
+        BroadcastOverlayState();
     }
 
     public void CloseSettings()
@@ -197,6 +201,13 @@ public class PauseMenu : MonoBehaviour
 
         if (TransitionScene.Instance.GetCurrentScene != "MainMenu")
             _pauseMenuPanel.SetActive(true);
+        BroadcastOverlayState();
+    }
+    
+    private void BroadcastOverlayState()
+    {
+        bool anyOpen = (_pauseMenuPanel != null && _pauseMenuPanel.activeSelf) || (_settingsPanel != null && _settingsPanel.activeSelf);
+        OnMenuOverlayChanged?.Invoke(anyOpen);
     }
 
     private void OnMasterChanged(float value) => AudioManager.Instance?.SetMasterVolume(value);
