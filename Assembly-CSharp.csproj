@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\DebugEffect.cs" />
     <Compile Include="Assets\Scripts\GOAP System\Actions\MoveInRangeAction.cs" />
     <Compile Include="Assets\Scripts\AnimScripts\HitVFXSpawner.cs" />
+    <Compile Include="Assets\Scripts\NodeMapCreation\OutlawNameGenerator.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\OnLastCoinFlipEffect.cs" />
     <Compile Include="Assets\Scripts\CardSystem\DeckEditingController.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardVisual\CardVisualController.cs" />
@@ -268,6 +269,7 @@
     <Compile Include="Assets\Scripts\Managers\UI\StartGameButtonScript.cs" />
     <Compile Include="Assets\Scripts\WFC\TileElement.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardAbilitySystem\_GraphAndNodes\EffectStrategies\MultiplyEffect.cs" />
+    <Compile Include="Assets\Scripts\NodeMapCreation\CombatNodeTooltip.cs" />
     <Compile Include="Assets\Scripts\CardSystem\CardVisual\DeckViewerCardVisuals.cs" />
     <Compile Include="Assets\Scripts\Managers\Cards\CardSplineManager.cs" />
     <Compile Include="Assets\Scripts\CardSystem\DiceRoll.cs" />
