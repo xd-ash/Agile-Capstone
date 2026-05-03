@@ -16,6 +16,8 @@ namespace CardSystem
                 Instance = this;
             else
                 Destroy(this.gameObject);
+
+            ShuffleDeck(); // Add shuffle before any cards are drawn
         }
 
         [SerializeField] private Transform _cardHandParent;
@@ -43,7 +45,6 @@ namespace CardSystem
         {
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
 
-            ShuffleDeck(); // Add shuffle before any cards are drawn
             CardActivePos = transform.Find("CardActivePos");
         }
 
@@ -206,10 +207,11 @@ namespace CardSystem
         {
             if (PlayerDataManager.Instance == null) return;
 
-            var deck = new Deck(PlayerDataManager.Instance.GetPlayerDeck);
-            if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count <= 1) return;
-            var cardsInDeck = deck.GetCardsInDeck;
+            if (PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck == null || PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck.Count <= 1) return;
+            var cardsInDeck = new List<Card>(PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck);
 
+            UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed - int.Parse($"{PlayerDataManager.Instance.GetCurrentNodeIndex.x}{PlayerDataManager.Instance.GetCurrentNodeIndex.y}"));
+           
             // Fisher-Yates shuffle algorithm on runtime list
             for (int i = cardsInDeck.Count - 1; i > 0; i--)
             {
@@ -220,7 +222,7 @@ namespace CardSystem
             }
 
             //update player deck with suffled version;
-            PlayerDataManager.Instance.UpdateCardData(deck);
+            PlayerDataManager.Instance.UpdateCardData(new(cardsInDeck));
 
             _topCardOfDeck = 0;
         }
