@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class SpecialMechanicsManager : MonoBehaviour
 {
-    //Dictionary<RestOptions, int> _buffsThisRun = new();
+    [SerializeField] private int _healthToRegenIfBuffed = 15;
 
     Dictionary<Unit, List<bool>> _coinFlipsByUnitThisCombat = new();
     Dictionary<Unit, List<int>> _dieRollsByUnitThisCombat = new();
+
+    public int GetHealthRegenVal => _healthToRegenIfBuffed;
 
     public static SpecialMechanicsManager Instance { get; private set; }
     private void Awake()
@@ -30,8 +32,12 @@ public class SpecialMechanicsManager : MonoBehaviour
         WinLossManager.CombatNodeCompleted -= ClearCombatCoinFlips;
         WinLossManager.CombatNodeCompleted -= ClearCombatDieRolls;
     }
-    public bool GetLastCoinFlipOutcome(Unit unit) => !_coinFlipsByUnitThisCombat.ContainsKey(unit) ||
-                                                        _coinFlipsByUnitThisCombat[unit].Count == 0 ? false : _coinFlipsByUnitThisCombat[unit][^1];
+    public bool GetLastCoinFlipOutcome(Unit unit) => !_coinFlipsByUnitThisCombat.ContainsKey(unit) || 
+        _coinFlipsByUnitThisCombat[unit].Count == 0 ? false : _coinFlipsByUnitThisCombat[unit][^1];
+    public int GetLastDieOutcome(Unit unit) => !_dieRollsByUnitThisCombat.ContainsKey(unit) ||
+    _dieRollsByUnitThisCombat[unit].Count == 0 ? -1 : _dieRollsByUnitThisCombat[unit][^1];
+
+    // coin flip management
     public int GetNumHeadsThisCombat(Unit unit) => GrabNumOfCoinSides(unit, true);
     public int GetNumTailsThisCombat(Unit unit) => GrabNumOfCoinSides(unit, false);
     private int GrabNumOfCoinSides(Unit unit, bool coinSide)
@@ -44,8 +50,6 @@ public class SpecialMechanicsManager : MonoBehaviour
                 temp++;
         return temp;
     }
-    public int GetLastDieOutcome(Unit unit) => !_dieRollsByUnitThisCombat.ContainsKey(unit) || _dieRollsByUnitThisCombat[unit].Count == 0 ? -1 : _dieRollsByUnitThisCombat[unit][^1];
-
     private void AddCoinFlip(Unit unit, bool result)
     {
         if (_coinFlipsByUnitThisCombat.ContainsKey(unit))

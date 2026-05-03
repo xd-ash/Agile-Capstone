@@ -88,7 +88,7 @@ public class GameData
             _mapNodeData = new(null, new(0, 0), -1, -1);
             _currencyData = new(100);
             _cardData = new(null);
-            _specialMechanicData = new(new int[3], new bool[0], new int[0]);
+            _specialMechanicData = new(false, new bool[0], new int[0]);
         }
         else
         {
@@ -96,7 +96,7 @@ public class GameData
             _mapNodeData = new(pdm.GetCompletedNodes, pdm.GetCurrentNodeIndex, pdm.GetGeneralSeed, pdm.GetNodeMapSeed);
             _currencyData = new(pdm.GetBalance);
             _cardData = new(pdm.GetPlayerDeck.GetCardsInDeck);
-            _specialMechanicData = new(pdm.GetAllBuffs, pdm.GetAllCoinFlipsThisRun, pdm.GetAllDiceRollsThisRun);
+            _specialMechanicData = new(pdm.GetHasRegenBuff, pdm.GetAllCoinFlipsThisRun, pdm.GetAllDiceRollsThisRun);
         }
     }
 
@@ -186,17 +186,17 @@ public class GameData
     [System.Serializable]
     public class SpecialMechanicsData
     {
-        [SerializeField] private int[] _buffsCurrentRun;
+        [SerializeField] private bool _hasHealthRegenOnCombatBuff;
         [SerializeField] private bool[] _coinFlipsCurrentRun;
         [SerializeField] private int[] _diceRollsCurrentRun;
 
-        public int[] GetBuffsCurrentRun => _buffsCurrentRun;
+        public bool GetHasRegenBuff => _hasHealthRegenOnCombatBuff;
         public bool[] GetCoinFlipsCurrentRun => _coinFlipsCurrentRun ?? new bool[0];
         public int[] GetDiceRollsCurrentRun => _diceRollsCurrentRun ?? new int[0];
 
-        public SpecialMechanicsData(int[] buffs, bool[] coinflips, int[] diceRolls)
+        public SpecialMechanicsData(bool hasRegenBuff, bool[] coinflips, int[] diceRolls)
         {
-            _buffsCurrentRun = buffs;
+            _hasHealthRegenOnCombatBuff = hasRegenBuff;
             _coinFlipsCurrentRun = coinflips;
             _diceRollsCurrentRun = diceRolls;
         }

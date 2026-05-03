@@ -54,7 +54,6 @@ public class Unit : MonoBehaviour, IDamagable
     public bool GetIsMoving => TryGetComponent(out UnitMovementController unitMover) && unitMover.GetIsMoving;
     public Guid GetGuid => _unitGuid;
 
-    
     public bool IsDead { get; private set; }
 
     public event Action<Unit> OnApChanged;
@@ -70,7 +69,9 @@ public class Unit : MonoBehaviour, IDamagable
         HideHitChance();
 
         if (_team == Team.Friendly)
+        {
             ShieldEvents.RaisePlayerShieldChanged(_shield);
+        }
         else
         {
             _enemyShieldBar.gameObject.SetActive(false);
@@ -85,7 +86,7 @@ public class Unit : MonoBehaviour, IDamagable
         _maxAP = _unitSO.GetMaxAP;
         _team = _unitSO.GetTeam;
 
-        GrabRunBuffs();
+        //GrabRunBuffs();
 
         _health = _team == Team.Friendly ? PlayerDataManager.Instance.GetCurrentHealth : _maxHealth;
         _shield = 0;
@@ -96,7 +97,7 @@ public class Unit : MonoBehaviour, IDamagable
         if (!didWin || _health <= 0) return;
         PlayerDataManager.Instance.UpdateHealthForRun(_health);
     }
-    private void GrabRunBuffs()
+    /*private void GrabRunBuffs()
     {
         var pdm = PlayerDataManager.Instance;
         if (pdm == null) return;
@@ -112,13 +113,19 @@ public class Unit : MonoBehaviour, IDamagable
             case RestOptions.MaxHealth:
                 break;
         }
-    }
+    }*/
     private void Start()
     {
         if (_team != Team.Friendly) return;
         DeckAndHandManager.Instance.OnCardAblityCancel += () => StopTargetingCoro(this);
         TurnManager.Instance.OnTurnEnd += StopTargetingCoro;
         GameOverEvents.OnGameOver += UpdatePlayerHealth;
+
+        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.GetHasRegenBuff && SpecialMechanicsManager.Instance != null)
+        {
+            ChangeHealth(SpecialMechanicsManager.Instance.GetHealthRegenVal, true);
+            _floatingText?.SpawnFloatingText($"{SpecialMechanicsManager.Instance.GetHealthRegenVal}", TextPresetType.HealPreset);
+        }
     }
     private void OnDestroy()
     {

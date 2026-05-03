@@ -49,4 +49,9 @@ public class CardBoxColliderSizeController : MonoBehaviour
         _bc.offset = new Vector2(_bc.offset.x, _offsetAndSizeMaxY.x);
         _bc.size = new Vector2(_bc.size.x, _offsetAndSizeMaxY.y);
     }
+
+    public void ToggleBC(bool enable)
+    {
+        _bc.enabled = enable;
+    }
 }

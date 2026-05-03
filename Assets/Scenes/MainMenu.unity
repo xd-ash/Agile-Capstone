@@ -6665,7 +6665,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1104719764}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: PlayButtonSFX
         m_Mode: 1

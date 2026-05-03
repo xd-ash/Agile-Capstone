@@ -8,7 +8,7 @@ public class PlayerDataManager : MonoBehaviour
 {
     private CardAndPackLibrary _cardAndPackLibrary;
 
-    Dictionary<RestOptions, int> _buffsThisRun = new();
+    //Dictionary<RestOptions, int> _buffsThisRun = new();
 
     [SerializeField] private UnitSO _playerUnitSO;
     private int _healthThisRun = 0;
@@ -27,11 +27,13 @@ public class PlayerDataManager : MonoBehaviour
     private List<bool> _coinFlipsThisRun = new();
     private List<int> _dieRollsThisRun = new();
 
-    public Dictionary<RestOptions, int> GetBuffsThisRun => _buffsThisRun;
-    public int GetMaxAPBuff => _buffsThisRun.ContainsKey(RestOptions.AP) ? _buffsThisRun[RestOptions.AP] : 0;
-    public int GetMaxHealthBuff => _buffsThisRun.ContainsKey(RestOptions.MaxHealth) ? _buffsThisRun[RestOptions.MaxHealth] : 0;
-    public int GetStartingHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.StartingHandSize) ? _buffsThisRun[RestOptions.StartingHandSize] : 0;
-    public int[] GetAllBuffs => new int[3] { GetMaxAPBuff, GetMaxHealthBuff, GetStartingHandSizeBuff };
+    [SerializeField] private bool _regenHealthOnCombat = false;
+
+    //public Dictionary<RestOptions, int> GetBuffsThisRun => _buffsThisRun;
+    //public int GetMaxAPBuff => _buffsThisRun.ContainsKey(RestOptions.AP) ? _buffsThisRun[RestOptions.AP] : 0;
+    //public int GetMaxHealthBuff => _buffsThisRun.ContainsKey(RestOptions.MaxHealth) ? _buffsThisRun[RestOptions.MaxHealth] : 0;
+    //public int GetStartingHandSizeBuff => _buffsThisRun.ContainsKey(RestOptions.StartingHandSize) ? _buffsThisRun[RestOptions.StartingHandSize] : 0;
+    //public int[] GetAllBuffs => new int[3] { GetMaxAPBuff, GetMaxHealthBuff, GetStartingHandSizeBuff };
 
     public int GetCurrentHealth => _healthThisRun;
     public int GetMaxHealth => _playerUnitSO == null ? 0 : _playerUnitSO.GetMaxHealth;
@@ -52,6 +54,8 @@ public class PlayerDataManager : MonoBehaviour
     public int GetNumHeadsThisRun => _coinFlipsThisRun.FindAll(x => true).Count;
     public int GetNumTailsThisRun => _coinFlipsThisRun.FindAll(x => false).Count;
     public int[] GetAllDiceRollsThisRun => _dieRollsThisRun.ToArray();
+
+    public bool GetHasRegenBuff => _regenHealthOnCombat;
 
     public static PlayerDataManager Instance { get; private set; }
     private void Awake()
@@ -96,7 +100,12 @@ public class PlayerDataManager : MonoBehaviour
     }
 
     // Data update methods for setting values
-    public void UpdateBuff(RestOptions option, int buffAmount)
+    public void ToggleHealthRegenBuff(bool enable)
+    {
+        _regenHealthOnCombat = enable;
+    }
+
+    /*public void UpdateBuff(RestOptions option, int buffAmount)
     {
         if (_buffsThisRun.ContainsKey(option))
             _buffsThisRun[option] += buffAmount;
@@ -111,7 +120,7 @@ public class PlayerDataManager : MonoBehaviour
     public void ClearBuffsOnRunEnd()
     {
         _buffsThisRun.Clear();
-    }
+    }*/
 
     public void UpdateHealthForRun(int currHealth)
     {
@@ -225,9 +234,11 @@ public class PlayerDataManager : MonoBehaviour
         }
         var runDeck = new Deck(runCards);
 
-        _buffsThisRun.Clear();
+        ToggleHealthRegenBuff(specialMechanicData.GetHasRegenBuff);
+
+        /*_buffsThisRun.Clear();
         for (var i = 0; i < specialMechanicData.GetBuffsCurrentRun.Length; i++)
-            UpdateBuff((RestOptions)i, specialMechanicData.GetBuffsCurrentRun[i]);
+            UpdateBuff((RestOptions)i, specialMechanicData.GetBuffsCurrentRun[i]);*/
 
         UpdateCurrencyData(currencyData.GetBalance);
         UpdateNodeData(nodeData.GetCompletedNodes, nodeData.GetCurrentNodeIndex, nodeData.GetGeneralSeed, nodeData.GetNodeMapSeed);

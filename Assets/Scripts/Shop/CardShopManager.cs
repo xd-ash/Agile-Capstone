@@ -61,6 +61,18 @@ public class CardShopManager : MonoBehaviour
             SpawnMultiple(_initialSpawnCount);
     }
 
+    public void ToggleShopCardBC(bool enable)
+    {
+        for (int i = 0; i < _spawnParent.childCount; i++)
+        {
+            var c = _spawnParent.GetChild(i);
+            if (c == null) return;
+            if (!c.TryGetComponent(out CardBoxColliderSizeController bcsc))
+                continue;
+            bcsc.ToggleBC(enable);
+        }
+    }
+
     // Convenience: spawn `count` cards (call this multiple times to populate shop)
     public void SpawnMultiple(int count)
     {

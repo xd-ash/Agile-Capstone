@@ -103,7 +103,7 @@ namespace CardSystem
 
             DiscardAll();
 
-            _startingHandSize += PlayerDataManager.Instance.GetStartingHandSizeBuff;
+            //_startingHandSize += PlayerDataManager.Instance.GetStartingHandSizeBuff;
 
             int toDraw = Mathf.Min(_startingHandSize, _maxCards);
             DrawCard(toDraw);

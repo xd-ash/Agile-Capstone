@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using CardSystem;
 using System.Collections.Generic;
 
-public enum RestOptions { AP = 0, MaxHealth = 1, StartingHandSize = 2 }
+public enum RestOptions { Instant = 0, CombatRegen = 1 }
 
 public class CampNodeController : MonoBehaviour
 {
@@ -33,9 +33,9 @@ public class CampNodeController : MonoBehaviour
     [Header("Rest Option")]
     [SerializeField] private GameObject _restOptionsPanel;
     [SerializeField] private int _healthToRecoverOnRest = 50;
-     private int _apIncrease = 1,
+     /*private int _apIncrease = 1,
                                  _maxHealthIncrease = 5,
-                                 _startingHandSizeIncrease = 1;
+                                 _startingHandSizeIncrease = 1;*/
 
     private Action _onComplete;
 
@@ -84,6 +84,10 @@ public class CampNodeController : MonoBehaviour
         _selectedCard = selectedCard;
 
         _upgradePreviewPanel?.SetActive(true);
+        var title = _upgradePreviewPanel?.GetComponentInChildren<TextMeshProUGUI>();
+        if (title != null)
+            title.text = $"Upgrade {_selectedCard.GetCardName} to {_selectedCard.GetNextCardRarity}?";
+
         IsPreviewingUpgrade = true;
 
         GameObject cardPrefab = Resources.Load<GameObject>("NewCardPrefab");
@@ -210,16 +214,23 @@ public class CampNodeController : MonoBehaviour
     }
     public void OnRestOptionChosen(int restOption)
     {
-        int currHealth = PlayerDataManager.Instance.GetCurrentHealth;
-        PlayerDataManager.Instance.UpdateHealthForRun(currHealth + _healthToRecoverOnRest);
-        var nodemapHeathSlider = FindAnyObjectByType<NodemapHealthBarScript>(FindObjectsInactive.Include);
-        nodemapHeathSlider?.UpdateNodeMapHealthBar();
+        switch ((RestOptions)restOption)
+        {
+            case RestOptions.Instant:
+                int currHealth = PlayerDataManager.Instance.GetCurrentHealth;
+                PlayerDataManager.Instance?.UpdateHealthForRun(currHealth + _healthToRecoverOnRest);
+                var nodemapHeathSlider = FindAnyObjectByType<NodemapHealthBarScript>(FindObjectsInactive.Include);
+                nodemapHeathSlider?.UpdateNodeMapHealthBar();
+                break;
+            case RestOptions.CombatRegen:
+                PlayerDataManager.Instance?.ToggleHealthRegenBuff(true);
+                break;
+        }
 
         _restOptionsPanel.SetActive(false);
         gameObject?.SetActive(false);
         _onComplete?.Invoke();
 
-        Debug.LogWarning($"Rest health regain method needs revisit");
 
         /*if (restOption >= Enum.GetNames(typeof(RestOptions)).Length)
             return;
@@ -233,19 +244,6 @@ public class CampNodeController : MonoBehaviour
         _onComplete?.Invoke();*/
     }
 
-    private int GetRestOptionVal(RestOptions option)
-    {
-        switch (option)
-        {
-            case RestOptions.AP:
-                return _apIncrease;
-            case RestOptions.MaxHealth:
-                return _maxHealthIncrease;
-            case RestOptions.StartingHandSize:
-                return _startingHandSizeIncrease;
-        }
-        return 0;
-    }
     private bool CheckForRequiredChips(CardState state)
     {
         int balance = PlayerDataManager.Instance.GetBalance;

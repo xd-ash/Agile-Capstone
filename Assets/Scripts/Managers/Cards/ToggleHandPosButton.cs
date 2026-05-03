@@ -17,7 +17,7 @@ public class ToggleHandPosButton : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (RewardsDisplayScript.IsRewarding) return;
+        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
         IsHovered = true;
 
@@ -41,7 +41,7 @@ public class ToggleHandPosButton : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (RewardsDisplayScript.IsRewarding) return;
+        if (RewardsDisplayScript.IsRewarding || WinLossManager.Instance != null && WinLossManager.Instance.IsGameComplete) return;
 
         IsHovered = false;
     }

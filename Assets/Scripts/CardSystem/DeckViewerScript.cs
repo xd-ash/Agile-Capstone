@@ -33,6 +33,9 @@ public class DeckViewerScript : MonoBehaviour
             Instance = this;
         else
             Destroy(this.gameObject);
+
+        if (_backButton.TryGetComponent(out Button bb))
+            bb.onClick.AddListener(() => CardShopManager.Instance?.ToggleShopCardBC(true));
     }
 
     private void Update()
@@ -124,7 +127,7 @@ public class DeckViewerScript : MonoBehaviour
     }
     public void ToggleEditUIElements(bool isEditing)
     {
-        _allowedEditsGO?.SetActive(isEditing);
+        _allowedEditsGO?.SetActive(isEditing && CardShopManager.Instance == null);
         _chipsBalanceGO?.SetActive(isEditing);
     }
 }
