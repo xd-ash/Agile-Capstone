@@ -84,7 +84,7 @@ namespace CardSystem
                     return _description;
                 }
                 var effectAtIndex = effects[index];
-                splitDescription[i] = effectAtIndex.GetRarityAdjustedEffectValue(_rarity).ToString();
+                splitDescription[i] = Mathf.Abs(effectAtIndex.GetRarityAdjustedEffectValue(_rarity)).ToString();
             }
             return string.Join("", splitDescription);
         }

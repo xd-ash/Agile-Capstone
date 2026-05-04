@@ -63,6 +63,7 @@ public class CardShopManager : MonoBehaviour
 
     public void ToggleShopCardBC(bool enable)
     {
+        if (_spawnParent == null) return;
         for (int i = 0; i < _spawnParent.childCount; i++)
         {
             var c = _spawnParent.GetChild(i);
@@ -228,7 +229,9 @@ public class CardShopManager : MonoBehaviour
         if (_pool == null || _pool.Count == 0) return null;
 
         float total = 0f;
-        foreach (var e in _pool) total += Mathf.Max(0f, e.GetShopWeight);
+        foreach (var e in _pool) 
+            if (e != null)
+            total += Mathf.Max(0f, e.GetShopWeight);
 
         if (total <= 0f) return _pool[0];
 
@@ -236,6 +239,7 @@ public class CardShopManager : MonoBehaviour
         float acc = 0f;
         foreach (var e in _pool)
         {
+            if (e == null) continue;
             acc += Mathf.Max(0f, e.GetShopWeight);
             if (r <= acc) return e;
         }

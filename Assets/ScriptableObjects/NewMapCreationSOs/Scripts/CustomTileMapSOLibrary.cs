@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CustomTileMapSOLibrary", menuName = "Libraries/CustomTileMapSOLibrary")]
@@ -36,7 +37,7 @@ public class CustomTileMapSOLibrary : ScriptableObject
     {
         List<CustomTileMapSO> temp = new();
         foreach (var so in _customTileMapSOsInProject)
-            if (so.GetCombatMapType == type)
+            if (so != null && so.GetCombatMapType == type)
                 temp.Add(so);
         return temp.ToArray();
     }

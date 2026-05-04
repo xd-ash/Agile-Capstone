@@ -19,6 +19,6 @@ public class PauseOverlayHider : MonoBehaviour
     private void OnOverlayChanged(bool overlayActive)
     {
         if (_hudGroup != null)
-            _hudGroup.SetActive(!overlayActive);
+            _hudGroup?.SetActive(!overlayActive);
     }
 }

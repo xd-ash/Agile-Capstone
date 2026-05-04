@@ -71,9 +71,9 @@ public static class RewardsController
         Card[] cardRewardPool2 = null;
 
         if (rewardTypes == RewardType.NewCard || rewardTypes == RewardType.All)
-            cardRewardPool = GetRewardPoolCards(mapCompleteRatio, randomSeed);
+            cardRewardPool = GetRewardPoolCards(mapCompleteRatio, randomSeed + 1);
         if (rewardTypes == RewardType.SwapCard || rewardTypes == RewardType.All)
-            cardRewardPool2 = GetRewardPoolCards(mapCompleteRatio, randomSeed);
+            cardRewardPool2 = GetRewardPoolCards(mapCompleteRatio, randomSeed + 2);
 
         return new Reward(rewardTypes, currencyReward, cardRewardPool, cardRewardPool2);
     }

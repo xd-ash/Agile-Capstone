@@ -13,8 +13,8 @@ public class WinLossManager : MonoBehaviour
     private bool _didWin;
     public bool IsGameComplete { get; private set; }
 
-    [SerializeField] private List<Unit> _enemyUnits;
-    public List<Unit> GetEnemyUnits => _enemyUnits;
+    //[SerializeField] private List<Unit> _enemyUnits;
+    public List<Unit> EnemyUnits { get; set; }
 
     public static Action CombatNodeCompleted;
     public static Action GameReset;
@@ -50,15 +50,15 @@ public class WinLossManager : MonoBehaviour
         foreach (Unit unit in TurnManager.GetUnitTurnOrder)
             if (unit != null && unit.GetTeam == Team.Enemy)
                 enemies.Add(unit);
-        _enemyUnits = enemies;
+        EnemyUnits = enemies;
     }
     public void RemoveEnemyFromPlay(Unit unit)
     {
         if (unit.GetTeam == Team.Friendly) return;
 
-        if (!_enemyUnits.Contains(unit)) return;
+        if (!EnemyUnits.Contains(unit)) return;
 
-        _enemyUnits.Remove(unit);
+        EnemyUnits.Remove(unit);
         SpecialMechanicsManager.Instance.RemoveUnitCoinFlips(unit);
         SpecialMechanicsManager.Instance.RemoveUnitDieRolls(unit);
     }
@@ -75,7 +75,6 @@ public class WinLossManager : MonoBehaviour
 
     public void TriggerSceneTrans()
     {
-        Debug.Log($"tet;");
         if (_didWin && PlayerDataManager.Instance.GetCurrNodeReward != null)
         {
             _rewardsPanel.gameObject.SetActive(true);

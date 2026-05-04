@@ -80,7 +80,7 @@ public class RewardsDisplayScript : MonoBehaviour
             CreateChoiceRewardContent(RewardType.NewCard, _cardImage, () => _rewardSelectPanel.ShowOptions(cardPool1, RewardType.NewCard /*_curReward.GetRewardType*/));
         var cardPool2 = _curReward.GetCardReward2;
         if (cardPool2 != null && cardPool2.Length > 0)
-            CreateChoiceRewardContent(RewardType.NewCard, _cardImage, () => _rewardSelectPanel.ShowOptions(cardPool2, RewardType.SwapCard /*_curReward.GetRewardType*/));
+            CreateChoiceRewardContent(RewardType.SwapCard, _cardImage, () => _rewardSelectPanel.ShowOptions(cardPool2, RewardType.SwapCard /*_curReward.GetRewardType*/));
     }
     private GameObject CreateSingleRewardContent(Sprite sprite, string name, int amount)
     {
