@@ -33,7 +33,7 @@ public class EliteNode : NodeMapNode, IUseCombatMapData
 
         var rngEnemies = UnitLibrary.GetRandomEnemies(3, adjustedSeed, true);
 
-        _combatData = new CombatMapData() { maxEnemiesAllowed = 3, selectedEnemies = rngEnemies, selectedMap = so };
+        _combatData = new CombatMapData() { maxEnemiesAllowed = 3, selectedEnemies = rngEnemies, selectedMap = so, isElite = true };
 
         _combatData.enemyNames = OutlawNameGenerator.GenerateNames(3, adjustedSeed);
         PopulateCombatPoster(_combatData.selectedEnemies, "HIGH PRIORITY", _combatData.enemyNames, false);

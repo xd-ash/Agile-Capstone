@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.165, y: 0.046348643}
   m_AnchorMax: {x: 0.27750143, y: 0.1661521}
-  m_AnchoredPosition: {x: -124.45534, y: -6.9527607}
+  m_AnchoredPosition: {x: -124.45532, y: -6.952759}
   m_SizeDelta: {x: 4.0234985, y: 13.149879}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &29458809
@@ -738,7 +738,7 @@ MonoBehaviour:
   _fanWidth: 450
   _arcHeight: 0
   _maxTilt: 0
-  _refreshCost: 10
+  _refreshCost: 20
   _removalCost: 50
   _cardRemoveButton: {fileID: 775103985}
 --- !u!4 &238584680
@@ -1011,7 +1011,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.6845703, y: -25.80178}
+  m_AnchoredPosition: {x: -7.6845703, y: -25.801788}
   m_SizeDelta: {x: -193.69846, y: -77.71652}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &513064779
@@ -1199,6 +1199,7 @@ MonoBehaviour:
   _startingHandSize: 5
   _cardsInHand: []
   _startingHandDrawn: 0
+  _cardDrawDelay: 0.3
 --- !u!1 &775103983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,7 +2719,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Refresh Shop: 5 chips'
+  m_text: 'Refresh Shop: 20 chips'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dbfce4568897c67468b3467da17b7a73, type: 2}
   m_sharedMaterial: {fileID: 3911338962612051114, guid: dbfce4568897c67468b3467da17b7a73, type: 2}

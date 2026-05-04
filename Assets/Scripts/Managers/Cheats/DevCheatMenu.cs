@@ -74,14 +74,17 @@ public class DevCheatMenu : MonoBehaviour
 
     private void KillAllEnemies()
     {
-        var units = FindObjectsByType<Unit>(FindObjectsSortMode.None);
-        for (int i = 0; i < units.Length; i++)
+        var units = TurnManager.GetUnitTurnOrder; //FindObjectsByType<Unit>(FindObjectsSortMode.None);
+
+        WinLossManager.Instance?.EnemyUnits.Clear();
+
+        if (units == null) return;
+
+        for (int i = units.Count - 1; i >= 0; i--)
         {
             Unit unit = units[i];
             if (unit != null && unit.GetTeam == Team.Enemy)
-            {
                 unit.ChangeHealth(unit.GetMaxHealth + 9999, false);
-            }
         }
     }
 

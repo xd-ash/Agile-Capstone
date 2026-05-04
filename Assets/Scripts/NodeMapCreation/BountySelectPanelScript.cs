@@ -16,7 +16,7 @@ public class BountySelectPanelScript : MonoBehaviour
         _bountyOptions = new(bountyOptions);
         _rewardOptions = new();
         for (int i = 0; i < _bountyOptions.Count; i++)
-            _rewardOptions.Add(RewardsController.DetermineRewards(nodeIndex + new Vector2Int(i,i)));
+            _rewardOptions.Add(RewardsController.DetermineRewards(nodeIndex + new Vector2Int(i,i), false));
 
         _bountyButtons = new Button[bountyOptions.Length];
         SpawnBountyButtons();

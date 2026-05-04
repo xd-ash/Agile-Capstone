@@ -162,7 +162,7 @@ public class CampNodeController : MonoBehaviour
                 int rng = UnityEngine.Random.Range(0, deckCards.Count);
                 selectedCard = deckCards[rng];
                 failCounter++;
-            } while ((selectedCard == null || temp.Contains(selectedCard)) && failCounter < 50);
+            } while ((selectedCard == null || selectedCard.GetCardRarity == CardRarity.Epic || temp.Contains(selectedCard)) && failCounter < 50);
             
             if (selectedCard == null) continue;
             if (failCounter >= 50)

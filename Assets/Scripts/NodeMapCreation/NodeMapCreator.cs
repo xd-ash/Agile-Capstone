@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NodeMapCreator : MonoBehaviour
 {
-    public enum NodeTypes { Combat, BountyBoard, Camp, EliteCombat, Shop, Boss }
+    public enum NodeTypes { Combat,/* BountyBoard,*/ Camp, EliteCombat, Shop, Boss }
 
     private GameObject _nodePrefab;
     private CustomTileMapSOLibrary _tilemapSOLibrary;
@@ -27,7 +27,7 @@ public class NodeMapCreator : MonoBehaviour
     [SerializeField] private Vector2Int _minMaxTotalElites = new(0, 3);
     private int _totalEliteNodes = 0;
 
-    [SerializeField, Space(5)] private int _maxBountyBoardInPath = 3;
+    //[SerializeField, Space(5)] private int _maxBountyBoardInPath = 3;
     //[SerializeField] private Vector2Int _minMaxTotalBountyBoard = new(0, 8);
 
     private int _curSeed;
@@ -170,8 +170,8 @@ public class NodeMapCreator : MonoBehaviour
         {
             case NodeTypes.Combat:
                 return nodeGO.AddComponent<CombatNode>();
-            case NodeTypes.BountyBoard:
-                return nodeGO.AddComponent<BountyBoardNode>();
+            //case NodeTypes.BountyBoard:
+                //return nodeGO.AddComponent<BountyBoardNode>();
             case NodeTypes.Boss:
                 return nodeGO.AddComponent<BossNode>();
             case NodeTypes.Shop:
@@ -238,8 +238,8 @@ public class NodeMapCreator : MonoBehaviour
             case NodeTypes.Camp:
                 _totalCamps++;
                 break;
-            case NodeTypes.BountyBoard:
-                break;
+            //case NodeTypes.BountyBoard:
+                //break;
         }
     }
     private NodeTypes GetWeightedNodeTypeFromVal()
@@ -249,9 +249,9 @@ public class NodeMapCreator : MonoBehaviour
         switch (rngVal)
         {
             case >= 90: return NodeTypes.Shop;
-            case >= 80: return NodeTypes.EliteCombat;
             case >= 65: return NodeTypes.Camp;
-            case >= 40: return NodeTypes.BountyBoard;
+            case >= 55: return NodeTypes.EliteCombat;
+            //case >= 40: return NodeTypes.BountyBoard;
             default: return NodeTypes.Combat;
         }
     }
@@ -476,7 +476,7 @@ public class NodeMapCreator : MonoBehaviour
             int pathShopCounter = 0;
             int pathCampCounter = 0;
             int pathEliteCounter = 0;
-            int pathBountyBoardCounter = 0;
+            //int pathBountyBoardCounter = 0;
 
             foreach (var node in path)
             {
@@ -491,12 +491,12 @@ public class NodeMapCreator : MonoBehaviour
                     case NodeTypes.EliteCombat:
                         pathEliteCounter++;
                         break;
-                    case NodeTypes.BountyBoard:
-                        pathBountyBoardCounter++;
-                        break;
+                    //case NodeTypes.BountyBoard:
+                        //pathBountyBoardCounter++;
+                        //break;
                 }
 
-                if (pathShopCounter > _maxShopsInPath || pathCampCounter > _maxCampsInPath || pathEliteCounter > _maxElitesInPath || pathBountyBoardCounter > _maxBountyBoardInPath)
+                if (pathShopCounter > _maxShopsInPath || pathCampCounter > _maxCampsInPath || pathEliteCounter > _maxElitesInPath /*|| pathBountyBoardCounter > _maxBountyBoardInPath*/)
                 {
                     isSuccess = false;
                     //Debug.Log($"path max failure");

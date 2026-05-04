@@ -68,6 +68,7 @@ public class DeckInitializer : MonoBehaviour
         List<Card> tempCards = new();
         foreach (var kvp in _currentCardsByRarity)
             foreach (var def in kvp.Value)
+                if (def != null)
                 tempCards.Add(new(def, kvp.Key));
         return new(tempCards);
     }

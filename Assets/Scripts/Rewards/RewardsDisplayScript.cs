@@ -75,9 +75,12 @@ public class RewardsDisplayScript : MonoBehaviour
         if (currency > 0)
             CreateSingleRewardContent(_currencyImage, "Chips", currency);
 
-        var cardPool = _curReward.GetCardReward;
-        if (cardPool != null && cardPool.Length > 0)
-            CreateChoiceRewardContent(_cardImage, () => _rewardSelectPanel.ShowOptions(cardPool, _curReward.GetRewardType));
+        var cardPool1 = _curReward.GetCardReward1;
+        if (cardPool1 != null && cardPool1.Length > 0)
+            CreateChoiceRewardContent(RewardType.NewCard, _cardImage, () => _rewardSelectPanel.ShowOptions(cardPool1, RewardType.NewCard /*_curReward.GetRewardType*/));
+        var cardPool2 = _curReward.GetCardReward2;
+        if (cardPool2 != null && cardPool2.Length > 0)
+            CreateChoiceRewardContent(RewardType.SwapCard, _cardImage, () => _rewardSelectPanel.ShowOptions(cardPool2, RewardType.SwapCard /*_curReward.GetRewardType*/));
     }
     private GameObject CreateSingleRewardContent(Sprite sprite, string name, int amount)
     {
@@ -93,9 +96,9 @@ public class RewardsDisplayScript : MonoBehaviour
 
         return content;
     }
-    private GameObject CreateChoiceRewardContent(Sprite sprite, Action onClick)
+    private GameObject CreateChoiceRewardContent(RewardType type, Sprite sprite, Action onClick)
     {
-        string name = _curReward.GetRewardType == RewardType.NewCard ? "New Card" : "Swap Card";
+        string name = type == RewardType.NewCard ? "New Card" : "Swap Card";
 
         GameObject content = Spawn(_choiceRewardPrefab, _rewardsContentParent.transform);
         content.name = name;

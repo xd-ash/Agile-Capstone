@@ -165,7 +165,6 @@ MonoBehaviour:
   _cardImage: {fileID: 21300000, guid: 23c1f3afbcab2e84c8e1913a0fd389eb, type: 3}
   _abilitySFX: {fileID: 8300000, guid: cdb5e7bc4efbc4bcc87e896a7756b261, type: 3}
   _cardCategory: 6
-  _cardTags: 0100000003000000
   _effectValue: 0
   _apCost: 4
   _range: 0
@@ -183,12 +182,12 @@ MonoBehaviour:
   _onRareUpgradeEffects:
   - cardDef: {fileID: 11400000}
     effectName: Restore AP Effect
-    valueToAdd: 5
+    valueToAdd: 2
     effectToUpgrade: {fileID: 6522712238214303282}
   _onEpicUpgradeEffects:
   - cardDef: {fileID: 11400000}
     effectName: Restore AP Effect
-    valueToAdd: 10
+    valueToAdd: 4
     effectToUpgrade: {fileID: 6522712238214303282}
 --- !u!114 &142935633900439981
 MonoBehaviour:
@@ -272,6 +271,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 2
       _dynamic: 0
-  _effectValue: 10
+  _effectValue: 6
   input: 0
   effectVisuals: 0

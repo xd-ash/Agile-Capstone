@@ -198,10 +198,10 @@ public class Unit : MonoBehaviour, IDamagable
                 GameOverEvents.OnGameWinOrLoss(false);
             else
             {
-                WinLossManager.Instance.GetEnemyUnits.Remove(this);
+                WinLossManager.Instance.EnemyUnits.Remove(this);
                 if (TurnManager.GetCurrentUnit == this)
                     TurnManager.Instance.EndEnemyTurn();
-                if (WinLossManager.Instance.GetEnemyUnits.Count == 0)
+                if (WinLossManager.Instance.EnemyUnits.Count <= 0 && !WinLossManager.Instance.IsGameComplete)
                     GameOverEvents.OnGameWinOrLoss(true);
             }
 

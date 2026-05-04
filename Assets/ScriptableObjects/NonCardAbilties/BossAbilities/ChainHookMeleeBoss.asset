@@ -23,9 +23,8 @@ MonoBehaviour:
   _cardImage: {fileID: 0}
   _abilitySFX: {fileID: 0}
   _cardCategory: 0
-  _cardTags: 
   _effectValue: 0
-  _apCost: 2
+  _apCost: 3
   _range: 5
   _shopCost: 0
   _shopWeight: 0
@@ -53,7 +52,7 @@ MonoBehaviour:
   m_Name: Knock Back Effect
   m_EditorClassIdentifier: Assembly-CSharp::CardSystem.KnockBackEffect
   graph: {fileID: 11400000}
-  position: {x: 8, y: 456}
+  position: {x: 8, y: 520}
   ports:
     keys:
     - input
@@ -330,6 +329,9 @@ MonoBehaviour:
   effects: 0
   _doEffectOnApply: 1
   _tickOnStart: 1
+  _hasLoopingVFX: 0
+  _loopingVFXType: 0
+  _statusIcon: {fileID: 0}
 --- !u!114 &6645303243707994403
 MonoBehaviour:
   m_ObjectHideFlags: 0

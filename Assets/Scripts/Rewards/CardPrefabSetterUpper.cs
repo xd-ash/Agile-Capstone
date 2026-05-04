@@ -43,7 +43,8 @@ public static class CardPrefabSetterUpper
     }
     private static bool SetupCardRemovalCard(Card card, Action onClick = null, bool isFree = false)
     {
-        bool canRemove = isFree || PlayerDataManager.Instance.GetBalance >= DeckEditingController.Instance.GetRemovalCost && DeckEditingController.IsAbleToEdit;
+        bool canRemove = PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck.Count > 10 && (isFree || PlayerDataManager.Instance.GetBalance >= DeckEditingController.Instance.GetRemovalCost && DeckEditingController.IsAbleToEdit);
+        
         SetCardState(card, canRemove ? CardState.CardRemoval : CardState.Inactive, onClick);
         if (!canRemove)
             SetInactiveVisuals(card.GetCardTransform);

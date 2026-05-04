@@ -149,7 +149,7 @@ public class PauseMenu : MonoBehaviour
 
     private void TogglePause()
     {
-        isPaused = !isPaused;
+        isPaused = !isPaused; 
 
         if (IsTargeting && !isPaused)
         {
@@ -204,7 +204,7 @@ public class PauseMenu : MonoBehaviour
         BroadcastOverlayState();
     }
     
-    private void BroadcastOverlayState()
+    public void BroadcastOverlayState()
     {
         bool anyOpen = (_pauseMenuPanel != null && _pauseMenuPanel.activeSelf) || (_settingsPanel != null && _settingsPanel.activeSelf);
         OnMenuOverlayChanged?.Invoke(anyOpen);
