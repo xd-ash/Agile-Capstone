@@ -7,6 +7,7 @@ public enum RewardType
     Currency,
     NewCard,
     SwapCard,
+    All
 }
 
 public static class RewardsController
@@ -48,7 +49,7 @@ public static class RewardsController
                 return RewardType.Currency;
         }
     }
-    public static Reward DetermineRewards(Vector2Int nodeIndex)
+    public static Reward DetermineRewards(Vector2Int nodeIndex, bool isEliteNode)
     {
         var pdm = PlayerDataManager.Instance;
         if (pdm == null) return null;
@@ -56,18 +57,25 @@ public static class RewardsController
         int randomSeed = pdm.GetNodeMapSeed + int.Parse($"{nodeIndex.x}{nodeIndex.y}");
 
         int totalNodeTiers = NodeMapCreator.Instance.GetNumberOfTiers;
-        float mapCompleteRatio = (float)nodeIndex.x / (float)totalNodeTiers;
+        float mapCompleteRatio = (float)nodeIndex.x / (float)totalNodeTiers; 
+
+        if (isEliteNode)
+            mapCompleteRatio = Mathf.Max(mapCompleteRatio, Random.Range(0.8f, 1f));//force higher rewards on elite nodes
+
         mapCompleteRatio =  Mathf.Clamp(mapCompleteRatio, 0f, 1f);
 
-        var rewardTypes = DetermineRewardTypes(randomSeed);
+        var rewardTypes = isEliteNode ?  RewardType.All : DetermineRewardTypes(randomSeed);
 
         int currencyReward = GetCurrencyReward(mapCompleteRatio, randomSeed);
         Card[] cardRewardPool = null;
+        Card[] cardRewardPool2 = null;
 
-        if (rewardTypes != RewardType.Currency)
+        if (rewardTypes == RewardType.NewCard || rewardTypes == RewardType.All)
             cardRewardPool = GetRewardPoolCards(mapCompleteRatio, randomSeed);
+        if (rewardTypes == RewardType.SwapCard || rewardTypes == RewardType.All)
+            cardRewardPool2 = GetRewardPoolCards(mapCompleteRatio, randomSeed);
 
-        return new Reward(rewardTypes, currencyReward, cardRewardPool);
+        return new Reward(rewardTypes, currencyReward, cardRewardPool, cardRewardPool2);
     }
     private static int GetCurrencyReward(float mapCompleteRatio, int randomSeed)
     {

@@ -75,6 +75,7 @@ public class WinLossManager : MonoBehaviour
 
     public void TriggerSceneTrans()
     {
+        Debug.Log($"tet;");
         if (_didWin && PlayerDataManager.Instance.GetCurrNodeReward != null)
         {
             _rewardsPanel.gameObject.SetActive(true);

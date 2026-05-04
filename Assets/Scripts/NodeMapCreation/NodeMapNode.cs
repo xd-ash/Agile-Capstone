@@ -87,7 +87,7 @@ public abstract class NodeMapNode : MonoBehaviour, IPointerEnterHandler, IPointe
             NodeMapCreator.Instance != null && _nodeIndex.x == NodeMapCreator.Instance.GetNumberOfTiers - 1) 
             return;
 
-        _nodeRewards = RewardsController.DetermineRewards(_nodeIndex);
+        _nodeRewards = RewardsController.DetermineRewards(_nodeIndex, this is EliteNode);
     }
 
     protected void OnDestroy()

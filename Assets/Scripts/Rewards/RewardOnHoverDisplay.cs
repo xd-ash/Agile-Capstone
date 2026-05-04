@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class RewardOnHoverDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject _chipsIcon, _cardAddIcon, _cardSwapIcon;
-    [SerializeField] Transform _topPos, _bottomPos, _uiParent;
+    //[SerializeField] Transform _topPos, _bottomPos, _uiParent;
 
     public static Action<NodeMapNode> OnRewardNodeHover;
     public static Action OnClearRewardDisplay;
@@ -15,7 +15,7 @@ public class RewardOnHoverDisplay : MonoBehaviour
         OnRewardNodeHover += ShowRewardDisplay;
         OnClearRewardDisplay += HideRewardHoverDisplay;
 
-        _uiParent.position = _bottomPos.position;
+        //_uiParent.position = _bottomPos.position;
         HideRewardHoverDisplay();
     }
     private void OnDestroy()
@@ -33,9 +33,14 @@ public class RewardOnHoverDisplay : MonoBehaviour
     }
     private void ShowRewardDisplay(NodeMapNode rewardNode)
     {        
-        transform.parent.SetAsLastSibling();
+        //transform.parent.SetAsLastSibling();
         transform.localPosition = rewardNode.transform.localPosition;
-        _uiParent.position = transform.localPosition.y > 0 ? _bottomPos.position : _topPos.position;
+        if (transform.localPosition.y < -230)
+            transform.localPosition = new(transform.localPosition.x, -230);
+        else if (transform.localPosition.y > 267)
+            transform.localPosition = new(transform.localPosition.x, 267);
+
+        //_uiParent.position = transform.localPosition.y > 0 ? _bottomPos.position : _topPos.position;
 
         _chipsIcon?.SetActive(true);
 
@@ -45,6 +50,10 @@ public class RewardOnHoverDisplay : MonoBehaviour
                 _cardAddIcon?.SetActive(true);
                 break;
             case RewardType.SwapCard:
+                _cardSwapIcon?.SetActive(true);
+                break;
+            case RewardType.All:
+                _cardAddIcon?.SetActive(true);
                 _cardSwapIcon?.SetActive(true);
                 break;
         }

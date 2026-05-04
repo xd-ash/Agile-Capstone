@@ -60,4 +60,5 @@ public struct CombatMapData
     public UnitSO[] selectedEnemies;
     public CustomTileMapSO selectedMap;
     public string[] enemyNames;
+    public bool isElite;
 }
