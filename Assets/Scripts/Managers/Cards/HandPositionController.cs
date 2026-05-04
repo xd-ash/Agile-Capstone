@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 using UnityEngine.UI;
+using System;
 
 public class HandPositionController : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class HandPositionController : MonoBehaviour
     public bool IsHandUp => _isHandUp;
     public float GetCardActivePosYAdjustment => -(transform.localPosition.y + (_isHandUp ? _handUpPos.position.y : _handDownPos.position.y));
 
+    public static Action ToggleHandHeight;
+
     public static HandPositionController Instance { get; private set; }
     private void Awake()
     {
@@ -33,7 +36,13 @@ public class HandPositionController : MonoBehaviour
         _arrowDown = _toggleButton.transform.GetChild(0).gameObject;
         _arrowUp = _toggleButton.transform.GetChild(1).gameObject;
 
+        ToggleHandHeight += ToggleHandPosition;
+
         //_splineContainer = FindFirstObjectByType<SplineContainer>();
+    }
+    private void OnDestroy()
+    {
+        ToggleHandHeight -= ToggleHandPosition;
     }
     private void Start()
     {
@@ -43,6 +52,8 @@ public class HandPositionController : MonoBehaviour
 
     private IEnumerator DelayedStartHandLower()
     {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => DeckAndHandManager.Instance.CardsToDraw <= 0);
         yield return new WaitForSeconds(_onStartHandLowerDelay);
         ToggleHandPosition();
     }

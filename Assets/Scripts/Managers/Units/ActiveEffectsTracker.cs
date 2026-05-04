@@ -88,9 +88,7 @@ public class ActiveEffectsTracker : MonoBehaviour
         }
         
         if (changed)
-        {
             OnEffectsChanged?.Invoke();
-        }
     }
 
     [System.Serializable]

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,21 +52,18 @@ namespace CardSystem
         //draws cards based on count param, which is default 1
         public void DrawCard(int count = 1)
         {
-            AudioManager.Instance?.PlayDrawCardSfx();
-            var deck = PlayerDataManager.Instance.GetPlayerDeck;
+            CardsToDraw += count;
+            if (_carDrawCoro == null)
+                _carDrawCoro = StartCoroutine(DrawCardCoro());
 
-            if (count <= 0) return;
+            //AudioManager.Instance?.PlayDrawCardSfx();
+            //var deck = PlayerDataManager.Instance.GetPlayerDeck;
+
+            /*if (count <= 0) return;
             for (int i = 0; i < count; i++)
             {
                 if (_cardsInHand.Count >= _maxCards) return;
                 if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
-
-                /*if (_runtimeDeckList == null || _runtimeDeckList.Count == 0)
-                {
-                    // build fallback minimal runtime list from _deck if necessary
-                    if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
-                    _runtimeDeckList = new List<CardAbilityDefinition>(deck.GetCardsInDeck);
-                }*/
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
                 if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
@@ -90,6 +88,52 @@ namespace CardSystem
 
             HandPositionController.Instance?.AdjustSplineKnotsOnHandSize();
             CardSplineManager.Instance?.ArrangeCardGOs();
+            */
+        }
+
+        public int CardsToDraw { get; private set; } = 0;
+        private Coroutine _carDrawCoro;
+        [SerializeField] private float _cardDrawDelay = 0.3f;
+
+        private IEnumerator DrawCardCoro()
+        {
+            while (CardsToDraw > 0)
+            {
+                AudioManager.Instance?.PlayDrawCardSfx();
+                var deck = PlayerDataManager.Instance.GetPlayerDeck;
+
+                if (_cardsInHand.Count >= _maxCards) yield break;
+                if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) yield break;
+
+                // If we've exhausted the deck, reshuffle it and reset the top index
+                if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
+                {
+                    ShuffleDeck();
+                    _topCardOfDeck = 0;
+                }
+
+                _cardsInHand.Add(CreateCardAndPrefab());
+
+                _topCardOfDeck++;
+
+                // If we've exhausted the deck, reshuffle it and reset the top index
+                if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
+                {
+                    ShuffleDeck();
+                    _topCardOfDeck = 0;
+                }
+
+                OnUpdateCardColliders?.Invoke(null);
+
+                HandPositionController.Instance?.AdjustSplineKnotsOnHandSize();
+                CardSplineManager.Instance?.ArrangeCardGOs();
+
+                CardsToDraw--;
+                yield return new WaitForSeconds(_cardDrawDelay);
+            }
+
+            CardsToDraw = 0;
+            _carDrawCoro = null;
         }
 
         // Modified: optional force parameter, and guard to avoid drawing multiple times per load
@@ -99,7 +143,7 @@ namespace CardSystem
 
             if (!force && _startingHandDrawn) return;
             _startingHandDrawn = true;
-            
+
             if (_startingHandSize <= 0) return;
 
             DiscardAll();
@@ -186,7 +230,7 @@ namespace CardSystem
         public void ReorderCard(Card card, int newIndex)
         {
             if (card == null || _cardsInHand == null) return;
-            
+
             int currentIndex = _cardsInHand.IndexOf(card);
             if (currentIndex == newIndex || currentIndex == -1) return;
             _cardsInHand.RemoveAt(currentIndex);
@@ -211,7 +255,7 @@ namespace CardSystem
             var cardsInDeck = new List<Card>(PlayerDataManager.Instance.GetPlayerDeck.GetCardsInDeck);
 
             UnityEngine.Random.InitState(PlayerDataManager.Instance.GetGeneralSeed - int.Parse($"{PlayerDataManager.Instance.GetCurrentNodeIndex.x}{PlayerDataManager.Instance.GetCurrentNodeIndex.y}"));
-           
+
             // Fisher-Yates shuffle algorithm on runtime list
             for (int i = cardsInDeck.Count - 1; i > 0; i--)
             {
