@@ -27,25 +27,6 @@ public class TransitionScene : MonoBehaviour
             mainMenu = mainMenuTransform.gameObject;
         else
             Debug.LogWarning("TransitionScene: 'MainMenu' child not found under " + name);
-        /*
-        var pauseMenuTransform = transform.Find("PauseMenu");
-        if (pauseMenuTransform != null)
-            pauseMenu = pauseMenuTransform?.gameObject;
-        else
-            Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
-
-        var deckViewMenuTransform = transform.Find("DeckViewMenu");
-        if (deckViewMenuTransform != null)
-            deckViewMenu = deckViewMenuTransform?.gameObject;
-        else
-            Debug.LogWarning("TransitionScene: 'PauseMenu' child not found under " + name);
-
-        var rewardsMenuTransform = transform.Find("RewardsMenu");
-        if (rewardsMenuTransform != null)
-            rewardsMenu = rewardsMenuTransform?.gameObject;
-        else
-            Debug.LogWarning("TransitionScene: 'RewardsMenu' child not found under " + name);
-        */
     }
     private void ResetMenusOnMainMenu()
     {
@@ -78,7 +59,7 @@ public class TransitionScene : MonoBehaviour
         else
             Debug.LogError("TransitionScene: TutorialDeckConfig not found or empty.");
 
-        var rngEnemies = UnitLibrary.GetRandomEnemies(1, DateTime.Now.Millisecond, true, new UnitType[] {UnitType.TankEnemy, UnitType.MedicEnemy});
+        var rngEnemies = UnitLibrary.GetRandomEnemies(1, DateTime.Now.Millisecond, true, new UnitType[] {UnitType.TankEnemy, UnitType.MedicEnemy, UnitType.RangeEnemy});
 
         PlayerDataManager.Instance.SetCurrMapNodeData(new CombatMapData
         {

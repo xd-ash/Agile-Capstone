@@ -105,34 +105,39 @@ public class TutorialManager : MonoBehaviour
                 TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
                 break;
 
-            // --- Round 3: Heal ---
+            // --- Round 3: Heal & Shield ---
             case 8:
                 CurrentInputMode = TutorialInputMode.MoveAndCards;
                 _tutorialUI.Show("Heal yourself with a heal card.");
                 _expectedCategory = CardCategory.Heal;
                 AbilityEvents.OnAbilityUsedDetailed += OnAbilityUsedExpecting;
                 break;
-
             case 9:
-                CurrentInputMode = TutorialInputMode.EndTurnOnly;
-                _tutorialUI.Show("End your turn.");
-                TurnManager.Instance.OnTurnEnd += OnFriendlyTurnEnd;
-                break;
-
-            case 10:
-                CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("The enemy takes their turn.");
-                TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
-                break;
-
-            // --- Round 4: Shield ---
-            case 11:
                 CurrentInputMode = TutorialInputMode.MoveAndCards;
                 _tutorialUI.Show("Use a shield card to protect yourself.");
                 _expectedCategory = CardCategory.Shield;
                 AbilityEvents.OnAbilityUsedDetailed += OnAbilityUsedExpecting;
                 break;
 
+            case 10:
+                CurrentInputMode = TutorialInputMode.EndTurnOnly;
+                _tutorialUI.Show("End your turn.");
+                TurnManager.Instance.OnTurnEnd += OnFriendlyTurnEnd;
+                break;
+
+            case 11:
+                CurrentInputMode = TutorialInputMode.None;
+                _tutorialUI.Show("The enemy takes their turn.");
+                TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
+                break;
+
+            /*/ --- Round 4: Shield ---
+            case 11:
+                CurrentInputMode = TutorialInputMode.MoveAndCards;
+                _tutorialUI.Show("Use a shield card to protect yourself.");
+                _expectedCategory = CardCategory.Shield;
+                AbilityEvents.OnAbilityUsedDetailed += OnAbilityUsedExpecting;
+                break;
             case 12:
                 CurrentInputMode = TutorialInputMode.EndTurnOnly;
                 _tutorialUI.Show("End your turn.");
@@ -144,20 +149,21 @@ public class TutorialManager : MonoBehaviour
                 _tutorialUI.Show("The enemy takes their turn.");
                 TurnManager.Instance.OnTurnEnd += OnEnemyTurnEnd;
                 break;
+                        */
 
             // --- Free play: finish the enemy ---
-            case 14:
+            case 12:
                 CurrentInputMode = TutorialInputMode.None;
                 _tutorialUI.Show("Now finish off the enemy!");
                 GameOverEvents.OnGameOver += OnGameOver;
                 break;
 
             // --- Done ---
-            case 15:
+            case 13:
                 CurrentInputMode = TutorialInputMode.None;
                 _tutorialUI.Show("Tutorial complete!");
                 //TransitionScene.ResetTutorialFlag();
-                Invoke(nameof(ReturnToMainMenu), 3f);
+                Invoke(nameof(ReturnToMainMenu), 1.5f);
                 break;
 
             default:

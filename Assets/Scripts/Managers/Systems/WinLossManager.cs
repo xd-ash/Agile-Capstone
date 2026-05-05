@@ -77,7 +77,8 @@ public class WinLossManager : MonoBehaviour
     {
         if (_didWin && PlayerDataManager.Instance.GetCurrNodeReward != null)
         {
-            _rewardsPanel.gameObject.SetActive(true);
+            _rewardsPanel?.transform?.parent?.gameObject?.SetActive(true);
+            _rewardsPanel?.gameObject?.SetActive(true);
             return;
         }
 

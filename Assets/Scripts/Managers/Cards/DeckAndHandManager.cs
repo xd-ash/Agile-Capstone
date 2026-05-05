@@ -32,12 +32,17 @@ namespace CardSystem
 
         public bool _startingHandDrawn = false;// internal guard to avoid drawing twice for the same scene load
 
+        public int CardsToDraw { get; private set; } = 0;
+        private Coroutine _carDrawCoro;
+        [SerializeField] private float _cardDrawDelay = 0.3f;
+
         public Transform CardActivePos { get; private set; } // temp card position to move card to when activated (avoid cards blocking grid)
         public Card GetSelectedCard => _selectedCard;
         public List<Card> CardsInHand => _cardsInHand;
         public int GetCurrentHandSize => _cardsInHand.Count;
         public int GetMaxHandSize => _maxCards;
-        public bool CanDrawCard => _cardsInHand.Count < _maxCards;
+        public bool CanDrawCard => _cardsInHand.Count < _maxCards && 
+            _cardsInHand.Count < PlayerDataManager.Instance?.GetPlayerDeck?.GetCardsInDeck?.Count;
 
         public Action OnCardAblityCancel;
         public static Action<Transform> OnUpdateCardColliders;
@@ -45,7 +50,6 @@ namespace CardSystem
         private void Start()
         {
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
-
             CardActivePos = transform.Find("CardActivePos");
         }
 
@@ -55,45 +59,7 @@ namespace CardSystem
             CardsToDraw += count;
             if (_carDrawCoro == null)
                 _carDrawCoro = StartCoroutine(DrawCardCoro());
-
-            //AudioManager.Instance?.PlayDrawCardSfx();
-            //var deck = PlayerDataManager.Instance.GetPlayerDeck;
-
-            /*if (count <= 0) return;
-            for (int i = 0; i < count; i++)
-            {
-                if (_cardsInHand.Count >= _maxCards) return;
-                if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return;
-
-                // If we've exhausted the deck, reshuffle it and reset the top index
-                if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
-                {
-                    ShuffleDeck();
-                    _topCardOfDeck = 0;
-                }
-
-                _cardsInHand.Add(CreateCardAndPrefab());
-
-                _topCardOfDeck++;
-
-                // If we've exhausted the deck, reshuffle it and reset the top index
-                if (_topCardOfDeck >= deck.GetCardsInDeck.Count)
-                {
-                    ShuffleDeck();
-                    _topCardOfDeck = 0;
-                }
-
-                OnUpdateCardColliders?.Invoke(null);
-            }
-
-            HandPositionController.Instance?.AdjustSplineKnotsOnHandSize();
-            CardSplineManager.Instance?.ArrangeCardGOs();
-            */
         }
-
-        public int CardsToDraw { get; private set; } = 0;
-        private Coroutine _carDrawCoro;
-        [SerializeField] private float _cardDrawDelay = 0.3f;
 
         private IEnumerator DrawCardCoro()
         {
@@ -112,7 +78,14 @@ namespace CardSystem
                     _topCardOfDeck = 0;
                 }
 
-                _cardsInHand.Add(CreateCardAndPrefab());
+                var newCard = CreateCardAndPrefab();
+                if (newCard == null || newCard.GetCardAbility == null)
+                {
+                    CardsToDraw--;
+                    continue;
+                }
+
+                _cardsInHand.Add(newCard);
 
                 _topCardOfDeck++;
 
@@ -293,17 +266,17 @@ namespace CardSystem
             if (deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) return null;
             var cardsInDeck = deck.GetCardsInDeck;
 
-            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), _cardHandParent);
-
             if (_topCardOfDeck >= cardsInDeck.Count) return null;
-
             Card newCard = cardsInDeck[_topCardOfDeck];
 
             while (_cardsInHand.Contains(newCard))
             {
                 _topCardOfDeck++;
+                if (_topCardOfDeck >= cardsInDeck.Count) return null;
                 newCard = cardsInDeck[_topCardOfDeck];
             }
+
+            GameObject cardGO = Instantiate(Resources.Load<GameObject>("NewCardPrefab"), _cardHandParent);
 
             newCard.OnPrefabCreation(cardGO.transform);
             CardPrefabSetterUpper.SetupCardPrefab(newCard, CardState.Combat);
