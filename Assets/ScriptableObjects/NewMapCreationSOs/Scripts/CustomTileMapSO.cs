@@ -30,7 +30,7 @@ public class CustomTileMapSO : ScriptableObject
 
     private Tilemap _byteTileMap;
 
-    private bool _didInit = false;
+    [SerializeField, HideInInspector] private bool _didInit = false;
     public bool DidInit => _didInit;
     public CombatMapType GetCombatMapType => _combatType;
 
