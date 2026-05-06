@@ -5,7 +5,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class AttackAnimSet
-{ 
+{
     public AttackAnimKey key;
    //"4 directional animation clips: [0]=NE, [1]=NW, [2]=SE, [3]=SW
     public AnimationClip[] dirClips = new AnimationClip[4];
