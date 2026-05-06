@@ -24,11 +24,13 @@ public class FloatingTextPreset
     [SerializeField] private float _textDuration;
     [SerializeField] private float _fontSize;
     [SerializeField] private Color _fontColor;
+    [SerializeField] private TMP_FontAsset _font;
     [SerializeField] private TextAlignmentOptions _textAlignment;
 
     public TextPresetType GetPresetType => _presetType;
     public float GetTextDuration => _textDuration;
     public float GetFontSize => _fontSize;
     public Color GetFontColor => _fontColor;
+    public TMP_FontAsset GetFont => _font;
     public TextAlignmentOptions GetTextAlignment => _textAlignment;
 }

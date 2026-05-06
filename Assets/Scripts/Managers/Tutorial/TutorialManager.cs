@@ -44,7 +44,8 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        TurnManager.OnGameStart += LateStart;
+        if (TransitionScene.IsTutorial)
+            TurnManager.OnGameStart += LateStart;
         PauseMenu.isPaused = false;
         var pauseMenu = GameObject.Find("PauseMenu");
         if (pauseMenu != null) pauseMenu.SetActive(false);

@@ -45,6 +45,7 @@ public class FloatingTextController : MonoBehaviour
     {
         text.fontSize = preset.GetFontSize;
         text.color = preset.GetFontColor;
+        text.font = preset.GetFont;
         text.alignment = preset.GetTextAlignment;
     }
 
