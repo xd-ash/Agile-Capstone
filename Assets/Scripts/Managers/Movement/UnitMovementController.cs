@@ -22,6 +22,7 @@ public class UnitMovementController : MonoBehaviour
     public Vector2Int PrevPosOnMove { get; private set; }
 
     private Action _onMoveFinish;
+    public Action onComplete;
 
     private void Awake()
     {
@@ -173,6 +174,7 @@ public class UnitMovementController : MonoBehaviour
 
         // do onfinished action/method call after movement finishes (used in GOAP unit movement & action completion)
         onFinished?.Invoke();
+        onComplete?.Invoke();
 
         // rebuild highlights for player right after movement is fully done
         //if (_unit.GetTeam == Team.Friendly)

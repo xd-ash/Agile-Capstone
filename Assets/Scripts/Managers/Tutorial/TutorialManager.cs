@@ -15,6 +15,9 @@ public class TutorialManager : MonoBehaviour
 
     public CardCategory GetExpectedCatagory => _expectedCategory;
 
+    [SerializeField] private Unit[] _tutorialUnits;
+    [SerializeField] private UnitMovementController _playerMoveController;
+
     public enum TutorialInputMode
     {
         None,
@@ -41,6 +44,7 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
+        TurnManager.OnGameStart += LateStart;
         PauseMenu.isPaused = false;
         var pauseMenu = GameObject.Find("PauseMenu");
         if (pauseMenu != null) pauseMenu.SetActive(false);
@@ -49,6 +53,54 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         AdvanceStep();
+
+        _tutorialUnits = TurnManager.GetUnitTurnOrder.ToArray() ?? new Unit[0];
+        foreach (var unit in _tutorialUnits)
+        {
+            if (unit == null || unit.GetTeam == Team.Enemy) continue;
+            _playerMoveController = unit.GetComponent<UnitMovementController>();
+        }
+
+    }
+
+    private void LateStart()
+    {
+        _tutorialUnits = TurnManager.GetUnitTurnOrder.ToArray() ?? new Unit[0];
+        foreach (var unit in _tutorialUnits)
+        {
+            if (unit == null || unit.GetTeam == Team.Enemy) continue;
+            _playerMoveController = unit.GetComponent<UnitMovementController>();
+        }
+
+        if (_playerMoveController != null)
+            _playerMoveController.onComplete += RestorePlayerAP;
+    }
+
+    private void RestorePlayerAP() => RestoreAP(Team.Friendly);
+    private void RestorePlayerHP() => RestoreHP(Team.Friendly);
+    private void RestoreEnemytAP() => RestoreAP(Team.Enemy);
+    private void RestoreEnemyAP() => RestoreAP(Team.Enemy);
+
+    private void RestoreAP(Team unitTeam)
+    {
+        foreach (var unit in _tutorialUnits)
+        {
+            if (unit == null || unit.GetTeam != unitTeam) continue;
+            int diff = unit.GetMaxAP - unit.GetAP;
+            unit.RestoreAP(diff);
+            unit.GetFloatingText.SpawnFloatingText($"+{diff} AP", TextPresetType.RestoreAP);
+        }
+    }
+
+    private void RestoreHP(Team unitTeam)
+    {
+        foreach (var unit in _tutorialUnits)
+        {
+            if (unit == null || unit.GetTeam != unitTeam) continue;
+            int diff = unit.GetMaxHealth - unit.GetHealth;
+            unit.ChangeHealth(diff, true);
+            unit.GetFloatingText.SpawnFloatingText($"+{diff} HP", TextPresetType.HealPreset);
+        }
     }
 
     private void AdvanceStep()
@@ -156,6 +208,9 @@ public class TutorialManager : MonoBehaviour
                 CurrentInputMode = TutorialInputMode.None;
                 _tutorialUI.Show("Now finish off the enemy!");
                 GameOverEvents.OnGameOver += OnGameOver;
+
+                if (_playerMoveController != null)
+                    _playerMoveController.onComplete -= RestorePlayerAP;
                 break;
 
             // --- Done ---

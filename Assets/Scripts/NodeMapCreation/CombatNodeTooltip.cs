@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatNodeTooltip : MonoBehaviour
@@ -49,6 +50,14 @@ public class CombatNodeTooltip : MonoBehaviour
         //_uiParent.localPosition = new Vector3(0f, offset, 0f);
 
         bool isBoss = node.GetIsBossNode;
+
+        _name1.text = string.Empty;
+        _tooltip1.text = string.Empty;
+        _name2.text = string.Empty;
+        _tooltip2.text = string.Empty;
+        _name3.text = string.Empty;
+        _tooltip3.text = string.Empty;
+
         //string tooltip = "";
         for (int i = 0; i < names.Length && i < enemies.Length; i++)
         {

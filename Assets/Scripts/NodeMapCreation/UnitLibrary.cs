@@ -95,10 +95,14 @@ public partial class UnitLibrary : ScriptableObject
         var unitLibrary = Resources.Load<UnitLibrary>("Libraries/UnitLibrary");
         if (unitLibrary == null) return null;
 
-        var enemies = useNormalEnemyPool ? unitLibrary.GetAllNormalEnemySOs : unitLibrary.GetAllBossEnemySOs;
-        if (enemies.Length == 0) return null;
+        List<UnitSO> enemies = useNormalEnemyPool ? new(unitLibrary.GetAllNormalEnemySOs) : new(unitLibrary.GetAllBossEnemySOs);
+        if (enemies.Count == 0) return null;
 
         var tmp = new UnitSO[count];
+
+        for (int i = enemies.Count - 1; i >= 0; i--)
+            if (enemies[i] != null && excludedEnemyTypes.Contains(enemies[i].GetUnitType))
+                enemies.RemoveAt(i);
 
         int miscCounter = 0;
         for (int i = 0; i < count; i++)
@@ -108,11 +112,11 @@ public partial class UnitLibrary : ScriptableObject
             do
             {
                 UnityEngine.Random.InitState(seed - int.Parse($"{i}{miscCounter}"));
-                int rng = UnityEngine.Random.Range(0, enemies.Length);
+                int rng = UnityEngine.Random.Range(0, enemies.Count);
                 rngEnemy = enemies[rng];
                 miscCounter++;
                 failCount++;
-            } while ((CheckForExcludedEnemyTypes(rngEnemy, excludedEnemyTypes) || !CheckArrayForDuplicates(tmp, rngEnemy)) && failCount < 20);
+            } while (/*(CheckForExcludedEnemyTypes(rngEnemy, excludedEnemyTypes, ref enemies) ||*/ tmp.Length < enemies.Count && !CheckArrayForDuplicates(tmp, rngEnemy) && failCount < 20);
             if (failCount >= 20)
                 Debug.LogWarning($"Enemy rng while loop excessive failures.");
 
@@ -120,15 +124,19 @@ public partial class UnitLibrary : ScriptableObject
         }
         return tmp;
     }
-    private static bool CheckForExcludedEnemyTypes(UnitSO rngUnitSO, UnitType[] excludedEnemyTypes)
+    private static bool CheckForExcludedEnemyTypes(UnitSO rngUnitSO, UnitType[] excludedEnemyTypes, ref List<UnitSO> collection)
     {
         if (excludedEnemyTypes.Length == Enum.GetValues(typeof(UnitType)).Length)
         {
             Debug.LogWarning($"All unit types were excluded from random enemies grab. Filter not applied.");
             return false;
         }
-
-        return excludedEnemyTypes.Contains(rngUnitSO.GetUnitType);
+        if (excludedEnemyTypes.Contains(rngUnitSO.GetUnitType))
+        {
+            collection.Remove(rngUnitSO);
+            return false;
+        }
+        return true;
     }
     private static bool CheckArrayForDuplicates(UnitSO[] eArray, UnitSO rngUnitSO)
     {

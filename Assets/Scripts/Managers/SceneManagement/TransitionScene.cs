@@ -59,7 +59,7 @@ public class TransitionScene : MonoBehaviour
         else
             Debug.LogError("TransitionScene: TutorialDeckConfig not found or empty.");
 
-        var rngEnemies = UnitLibrary.GetRandomEnemies(1, DateTime.Now.Millisecond, true, new UnitType[] {UnitType.TankEnemy, UnitType.MedicEnemy, UnitType.RangeEnemy});
+        var rngEnemies = UnitLibrary.GetRandomEnemies(1, DateTime.Now.Millisecond, true, new UnitType[] {UnitType.TankEnemy, UnitType.MedicEnemy, UnitType.RangeEnemy, UnitType.PyroEnemy});
 
         PlayerDataManager.Instance.SetCurrMapNodeData(new CombatMapData
         {
