@@ -34,8 +34,18 @@ public class DeckViewerScript : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        if (_backButton.TryGetComponent(out Button bb))
-            bb.onClick.AddListener(() => CardShopManager.Instance?.ToggleShopCardBC(true));
+        /*if (_backButton.TryGetComponent(out Button bb))
+            bb.onClick.AddListener(() => CardShopManager.Instance?.ToggleShopCardBC(true));*/
+    }
+
+    //quick fix for card shop bc toggling
+    private void OnEnable()
+    {
+        CardShopManager.Instance?.ToggleShopCardBC(false);
+    }
+    private void OnDisable()
+    {
+        CardShopManager.Instance?.ToggleShopCardBC(true);
     }
 
     private void Update()

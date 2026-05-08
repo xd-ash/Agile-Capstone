@@ -37,20 +37,19 @@ public class TutorialManager : MonoBehaviour
             return;
         }
 
-        if (!TransitionScene.IsTutorial)
+        if (TransitionScene.IsTutorial)
+            TurnManager.OnGameStart += LateStart;
+        else
         {
             CurrentInputMode = TutorialInputMode.None;
             gameObject.SetActive(false);
             return;
         }
 
-        if (TransitionScene.IsTutorial)
-            TurnManager.OnGameStart += LateStart;
         PauseMenu.isPaused = false;
         var pauseMenu = GameObject.Find("PauseMenu");
         if (pauseMenu != null) pauseMenu.SetActive(false);
     }
-
     private void Start()
     {
         AdvanceStep();
@@ -66,6 +65,12 @@ public class TutorialManager : MonoBehaviour
 
     private void LateStart()
     {
+        if (!TransitionScene.IsTutorial)
+        {
+            TurnManager.OnGameStart -= LateStart;
+            return;
+        }
+
         _tutorialUnits = TurnManager.GetUnitTurnOrder.ToArray() ?? new Unit[0];
         foreach (var unit in _tutorialUnits)
         {

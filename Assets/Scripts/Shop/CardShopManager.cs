@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CardSystem;
+using UnityEngine.UI;
 
 public class CardShopManager : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class CardShopManager : MonoBehaviour
     [Header("Refresh Settings")]
     [Tooltip("Cost to refresh the shop (0 = free)")]
     [SerializeField] private int _refreshCost = 10;
+    [SerializeField] private Button _refreshButton;
 
     [Header("Removal Settings")]
     [SerializeField] private int _removalCost = 50;
@@ -73,7 +75,6 @@ public class CardShopManager : MonoBehaviour
             bcsc.ToggleBC(enable);
         }
     }
-
     // Convenience: spawn `count` cards (call this multiple times to populate shop)
     public void SpawnMultiple(int count)
     {
@@ -205,7 +206,8 @@ public class CardShopManager : MonoBehaviour
 
         PlayerDataManager.Instance.GenerateGeneralSeed();
         _cardRemoveButton.ToggleInteractable();
-
+        _refreshButton.interactable = PlayerDataManager.Instance.GetBalance >= _refreshCost;
+        
         // destroy existing cards
         for (int i = activeSpawnedCards.Count - 1; i >= 0; i--)
         {
