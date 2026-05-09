@@ -104,11 +104,10 @@ MonoBehaviour:
   - {fileID: -2652688260289560249}
   - {fileID: -714015060107290056}
   - {fileID: 1102946486807168034}
-  _description: 'Add %0% shield. Flip a coin. If heads, gain %1% more '
+  _description: 'Add ~0~ shield. Flip a coin. If heads, gain ~1~ more '
   _cardImage: {fileID: 21300000, guid: e622a5da1355846558309df44e7b4617, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 6
-  _cardTags: 0200000003000000
   _effectValue: 0
   _apCost: 1
   _range: 0

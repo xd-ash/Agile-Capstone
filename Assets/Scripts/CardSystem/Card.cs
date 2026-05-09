@@ -73,7 +73,7 @@ namespace CardSystem
 
             var effects = _cardAbility.GetEffectOptions();
 
-            var splitDescription = _description.Split('%');
+            var splitDescription = _description.Split('~');
 
             for (int i = 0; i < splitDescription.Length; i++)
             {

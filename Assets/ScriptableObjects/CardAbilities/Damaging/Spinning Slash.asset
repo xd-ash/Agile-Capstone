@@ -75,7 +75,7 @@ MonoBehaviour:
       _dynamic: 0
   input: 0
   _aoeHighlightColor: {r: 0.6981132, g: 0.18591593, b: 0.08232466, a: 1}
-  _range: 2
+  _range: 3
 --- !u!114 &-945476345244973691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,11 +139,10 @@ MonoBehaviour:
   - {fileID: -2607912168574071115}
   - {fileID: 6895538949277949010}
   - {fileID: -2866850248734041623}
-  _description: Deal %0% AOE damage
+  _description: Deal ~0~ AOE damage
   _cardImage: {fileID: 21300000, guid: 0ca5c8cbe4fa6e0478b142088d28e2ed, type: 3}
   _abilitySFX: {fileID: 8300000, guid: ed78fafc53b754105a9f1ae8302115c9, type: 3}
   _cardCategory: 0
-  _cardTags: 000000000800000009000000
   _effectValue: 0
   _apCost: 2
   _range: 3

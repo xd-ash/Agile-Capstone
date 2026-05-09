@@ -167,12 +167,11 @@ MonoBehaviour:
   - {fileID: 3166738386793783274}
   - {fileID: 3761187369929906445}
   - {fileID: 7030038920973159512}
-  _description: Deal %3% damage and roll a pair of dice %0% times. If a double is
+  _description: Deal ~3~ damage and roll a pair of dice ~0~ times. If a double is
     rolled, 2x the damage. If snake eyes is rolled, 4x.
   _cardImage: {fileID: 21300000, guid: 42dda08fa86ac914ba82cb492a18f6e5, type: 3}
   _abilitySFX: {fileID: 0}
   _cardCategory: 6
-  _cardTags: 0000000003000000
   _effectValue: 0
   _apCost: 2
   _range: 1

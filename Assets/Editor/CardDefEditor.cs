@@ -49,7 +49,7 @@ public class CardDefEditor : Editor
         _optionFoldout = EditorGUILayout.Foldout(_optionFoldout, "Effect Options & Indices:");
         if (_optionFoldout)
         {
-            GUILayout.Label("(Use the index displayed with the desired effect & value)\nDynamic Effect Values entered as \"%index%\" within description");
+            GUILayout.Label("(Use the index displayed with the desired effect & value)\nDynamic Effect Values entered as \"~index~\" within description");
             //EditorGUI.indentLevel++;
             foreach (var option in optionsStrings)
                 GUILayout.Label(option);
