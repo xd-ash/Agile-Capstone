@@ -96,7 +96,7 @@ public class UnitMovementController : MonoBehaviour
     //Start unit's movement towards determined goal
     public void OnStartUnitMove(Action onFinished = null)
     {
-        if (!_isMoving && PauseMenu.isPaused != true)
+        if (!_isMoving && PauseMenu.isPaused != true && _unit.GetCanMove)
             StartCoroutine(MoveCoro(onFinished));
     }
 

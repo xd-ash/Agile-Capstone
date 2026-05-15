@@ -31,8 +31,7 @@ public class ActiveEffectsTracker : MonoBehaviour
     {
         Effect newEffect = new(ref effect, totalDuration, guid, tickOnStart, effectName, onRemoved, icon);
 
-        if (!_effects.Contains(
-                newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
+        if (!_effects.Contains(newEffect)) //list will probably never contain a duplicate since new GUID is created for each effect
         {
             //replace same effects to avoid stacking dots/hots
             for (int i = _effects.Count - 1; i >= 0; i--)
@@ -43,8 +42,10 @@ public class ActiveEffectsTracker : MonoBehaviour
                     _effects.RemoveAt(i);
                 }
             }
-        _effects.Add(newEffect);
+            _effects.Add(newEffect);
         }
+        else Debug.Log("test eeffect contatin");
+
         OnEffectsChanged?.Invoke();
     }
     

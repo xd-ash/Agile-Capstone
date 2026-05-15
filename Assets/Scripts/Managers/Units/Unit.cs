@@ -88,7 +88,7 @@ public class Unit : MonoBehaviour, IDamagable
 
         //GrabRunBuffs();
 
-        _health = _team == Team.Friendly ? PlayerDataManager.Instance.GetCurrentHealth : _maxHealth;
+        _health = (_team == Team.Friendly && !TransitionScene.IsTutorial) ? PlayerDataManager.Instance.GetCurrentHealth : _maxHealth;
         _shield = 0;
         _ap = _maxAP;
     }
@@ -315,6 +315,7 @@ public class Unit : MonoBehaviour, IDamagable
         if (_canMove == canMove) return;
 
         _canMove = canMove;
+        MovementRangeCalculator.Instance.RebuildForCurrentUnit();
 
         if (!sendText) return;
         _floatingText.SpawnFloatingText(_canMove ? "Freed" : "Rooted", TextPresetType.MissTextPreset);

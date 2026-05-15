@@ -12,6 +12,7 @@ public class CardLibraryViewerScript : MonoBehaviour
     [SerializeField] private Vector2 _selectedButtonDimensions;
     [SerializeField] private Vector2 _normalButtonDimensions;
 
+    //called by button event
     public void FillAllTabCards() => BuildScrollViewContent();
     public void FillRangedTabCards() => BuildScrollViewContent(CardCategory.Ranged);
     public void FillMeleeTabCards() => BuildScrollViewContent(CardCategory.Melee);
@@ -26,7 +27,11 @@ public class CardLibraryViewerScript : MonoBehaviour
     {
         FillAllTabCards();
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            gameObject.SetActive(false);
+    }
     private void BuildScrollViewContent(CardCategory cardsToShow = CardCategory.None)
     {
         ClearScrollviewContent();

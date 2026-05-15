@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviour
 
         _turnTracker++;
         if (_turnTracker >= _unitTurnOrder.Count) _turnTracker = 0; //reset turn tracker for looping turn order
-        if (_unitTurnOrder[_turnTracker] == null)
+        if (_unitTurnOrder[_turnTracker] == null || _unitTurnOrder[_turnTracker].IsDead)
         {
             SetTurn();
             return;

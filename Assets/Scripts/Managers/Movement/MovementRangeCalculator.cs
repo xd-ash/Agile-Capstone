@@ -105,11 +105,10 @@ public class MovementRangeCalculator : MonoBehaviour
 
     public void RebuildForCurrentUnit()
     {
-        if (_currentUnit == null ||
+        if (_currentUnit == null || !_currentUnit.GetCanMove ||
             TurnManager.Instance == null ||
             TurnManager.Instance.CurrTurn != TurnManager.Turn.Player ||
-            AbilityEvents.IsTargeting ||
-            PauseMenu.isPaused)
+            AbilityEvents.IsTargeting || PauseMenu.isPaused)
         {
             if (_currentUnit != null)
                 TileHighlighter.ClearHighlights(_currentUnit.GetGuid);

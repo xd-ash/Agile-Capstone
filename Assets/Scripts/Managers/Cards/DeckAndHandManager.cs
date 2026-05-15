@@ -52,7 +52,10 @@ namespace CardSystem
             AbilityEvents.OnAbilityUsed += RemoveSelectedCard;
             CardActivePos = transform.Find("CardActivePos");
         }
-
+        private void OnDestroy()
+        {
+            AbilityEvents.OnAbilityUsed -= RemoveSelectedCard;
+        }
         //draws cards based on count param, which is default 1
         public void DrawCard(int count = 1)
         {
@@ -68,7 +71,12 @@ namespace CardSystem
                 AudioManager.Instance?.PlayDrawCardSfx();
                 var deck = PlayerDataManager.Instance.GetPlayerDeck;
 
-                if (_cardsInHand.Count >= _maxCards) yield break;
+                if (_cardsInHand.Count >= _maxCards)
+                {
+                    CardsToDraw = 0;
+                    _carDrawCoro = null;
+                    yield break;
+                }
                 if (deck == null || deck.GetCardsInDeck == null || deck.GetCardsInDeck.Count == 0) yield break;
 
                 // If we've exhausted the deck, reshuffle it and reset the top index
@@ -76,6 +84,7 @@ namespace CardSystem
                 {
                     ShuffleDeck();
                     _topCardOfDeck = 0;
+                    continue;
                 }
 
                 var newCard = CreateCardAndPrefab();
@@ -238,7 +247,7 @@ namespace CardSystem
                 cardsInDeck[randomIndex] = temp;
             }
 
-            //update player deck with suffled version;
+            //update player deck with shuffled version;
             PlayerDataManager.Instance.UpdateCardData(new(cardsInDeck));
 
             _topCardOfDeck = 0;

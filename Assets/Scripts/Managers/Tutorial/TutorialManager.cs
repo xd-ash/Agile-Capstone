@@ -60,7 +60,6 @@ public class TutorialManager : MonoBehaviour
             if (unit == null || unit.GetTeam == Team.Enemy) continue;
             _playerMoveController = unit.GetComponent<UnitMovementController>();
         }
-
     }
 
     private void LateStart()
@@ -212,7 +211,7 @@ public class TutorialManager : MonoBehaviour
             // --- Free play: finish the enemy ---
             case 12:
                 CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("Now finish off the enemy!");
+                _tutorialUI.Show("Now finish off the enemy!", false);
                 GameOverEvents.OnGameOver += OnGameOver;
 
                 if (_playerMoveController != null)
@@ -222,7 +221,7 @@ public class TutorialManager : MonoBehaviour
             // --- Done ---
             case 13:
                 CurrentInputMode = TutorialInputMode.None;
-                _tutorialUI.Show("Tutorial complete!");
+                _tutorialUI.Show("Tutorial complete!", false);
                 //TransitionScene.ResetTutorialFlag();
                 Invoke(nameof(ReturnToMainMenu), 1.5f);
                 break;
@@ -294,9 +293,14 @@ public class TutorialManager : MonoBehaviour
 
         if (TurnManager.Instance != null)
         {
+            TurnManager.OnGameStart -= LateStart;
+
             TurnManager.Instance.OnTurnEnd -= OnFriendlyTurnEnd;
             TurnManager.Instance.OnTurnEnd -= OnEnemyTurnEnd;
         }
+
+        if (_playerMoveController != null)
+            _playerMoveController.onComplete -= RestorePlayerAP;
     }
 
     private void CleanUpCardState()

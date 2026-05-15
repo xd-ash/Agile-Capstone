@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using XNode;
 
 namespace CardSystem
@@ -14,6 +15,7 @@ namespace CardSystem
             base.StartEffect(abilityData, onFinished, effectValueChange, playAnimation);
 
             bool coinflip = CoinFlip.FlipCoin(abilityData.GetUnit)[0];
+
             abilityData.GetUnit.GetFloatingText?.SpawnFloatingText($"{(coinflip ? "Heads" : "Tails")}", TextPresetType.CoinFlipPreset);
 
             //check each effect connected to node
