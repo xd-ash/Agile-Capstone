@@ -64,6 +64,18 @@ namespace CardSystem
                 _carDrawCoro = StartCoroutine(DrawCardCoro());
         }
 
+        public void RestartDrawIfMissingCards()
+        {
+            if (CardsToDraw <= 0)
+            {
+                CardsToDraw = 0;
+                return;
+            }
+
+            if (_carDrawCoro != null)
+                StopCoroutine(_carDrawCoro);
+            _carDrawCoro = StartCoroutine(DrawCardCoro());
+        }
         private IEnumerator DrawCardCoro()
         {
             while (CardsToDraw > 0)

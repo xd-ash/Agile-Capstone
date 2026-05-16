@@ -13,10 +13,10 @@ public class DevCheatMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.BackQuote))
+        /*if (Input.GetKeyDown(KeyCode.BackQuote))
         {
             _open = !_open;
-        }
+        }*/
     }
 
     private void OnGUI()

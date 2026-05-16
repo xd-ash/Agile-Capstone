@@ -174,6 +174,8 @@ public class PauseMenu : MonoBehaviour
         _pauseMenuPanel?.SetActive(isPaused);
         _settingsPanel?.SetActive(false);
         BroadcastOverlayState();
+        if (!isPaused)
+            DeckAndHandManager.Instance?.RestartDrawIfMissingCards();
     }
 
     private void OnDestroy()
